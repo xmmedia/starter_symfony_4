@@ -1,0 +1,29 @@
+@tailwind preflight;
+
+@tailwind components;
+
+@import "common/common";
+
+// global styles on the most common elements
+html {
+    @apply font-sans leading-normal text-black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply leading-tight;
+}
+
+// common styles
+@import "common/alerts",
+    "common/content_alignment",
+    "common/forms",
+    "common/modal";
+
+// public only styles
+@import "public/buttons",
+    "public/header";
+
+// page specific
+//@import ;
+
+@tailwind utilities;

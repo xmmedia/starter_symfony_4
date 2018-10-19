@@ -1,0 +1,45 @@
+.record_view-item_wrap {
+    @apply max-w-lg mt-4 mx-auto p-2 border-4 border-grey-light rounded;
+    &:first-child {
+        @apply mt-0;
+    }
+}
+.record_view-item_group_wrap {
+    @apply mt-4 border-t-2 border-grey;
+}
+.record_view-item {
+    @apply flex flex-wrap p-2;
+    transition: background 0.15s ease-in-out;
+    &:hover {
+        @apply bg-blue-lightest;
+    }
+}
+
+.record_view-header_wrap {
+    @apply flex justify-between px-2;
+}
+.record_view-header_actions {
+    @apply ml-auto opacity-75 text-sm text-right;
+    &:hover {
+        @apply opacity-100;
+    }
+}
+
+.record_view-item_label {
+    @apply text-grey-dark;
+    min-width: 5em;
+}
+@screen md {
+    .record_view-item_label {
+        @apply w-1/5;
+    }
+}
+@screen md {
+    .record_view-item_value {
+        @apply w-4/5 pl-4;
+    }
+}
+
+.record_view-icon {
+    @apply w-5 h-5 align-text-top fill-current;
+}

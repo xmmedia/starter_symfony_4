@@ -1,0 +1,107 @@
+.header-wrap {
+    @apply flex justify-between items-center bg-grey-lighter border-b border-grey;
+    min-height: $header-height + 3.5;
+}
+@screen xs {
+    .header-wrap {
+        min-height: $header-height;
+    }
+}
+
+.header-page_title {
+    @apply flex-grow flex-no-shrink w-40 max-w-1/2 px-4 text-xl text-blue-dark truncate;
+}
+@screen sm {
+    .header-page_title {
+        @apply w-auto max-w-xs;
+    }
+}
+@screen md {
+    .header-page_title {
+        @apply text-3xl max-w-3/5;
+    }
+}
+@screen xl {
+    .header-page_title {
+        @apply max-w-sm;
+    }
+}
+
+// the order of the HTML elements should match how the elements
+// appear on mobile (mobile first)
+.header-actions {
+    @apply flex flex-wrap justify-end items-start pt-3 px-4 pb-2 text-right;
+}
+@screen md {
+    .header-actions {
+        @apply pb-0;
+    }
+}
+
+// for actions that should show as buttons
+// this styling is similar to buttons
+.header-action {
+    @apply block mb-3 ml-4 py-2 px-5 text-xs border border-blue-dark border-solid rounded;
+    transition: background-color 0.15s ease-in-out;
+
+    @media (min-width: 880px) {
+        order: 2;
+    }
+
+    &:hover {
+        @apply no-underline bg-white;
+    }
+}
+
+// for the main action(s)
+.header-action-main {
+    @apply text-center text-white bg-blue border-blue;
+
+    @media (min-width: 880px) {
+        order: 3;
+    }
+
+    &:hover {
+        @apply bg-blue-dark border-blue-dark;
+    }
+}
+
+.header-secondary_actions {
+    @apply text-xs leading-loose;
+
+    @media (min-width: 560px) {
+        @apply mt-0 leading-none;
+    }
+    @media (min-width: 784px) {
+        @apply mb-2;
+    }
+    @media (min-width: 880px) {
+        @apply mt-3;
+        order: 1;
+    }
+
+    a {
+        @apply inline-block ml-4;
+    }
+}
+
+.header-button_pair {
+    @apply mb-3 ml-4;
+    @media (min-width: 880px) {
+        order: 4;
+    }
+}
+
+.header-wrap-small {
+    @apply flex justify-between relative z-10 pt-4 text-white bg-black border-b border-grey;
+    height: $header-height;
+
+    a {
+        @apply text-white;
+    }
+}
+@screen md {
+    .header-wrap-small {
+        @apply hidden;
+    }
+}

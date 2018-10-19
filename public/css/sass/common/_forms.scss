@@ -1,0 +1,101 @@
+// style all form controls/inputs
+[type=text],
+[type=password],
+[type=date],
+[type=datetime],
+[type=datetime-local],
+[type=month],
+[type=week],
+[type=email],
+[type=number],
+[type=search],
+[type=tel],
+[type=time],
+[type=url],
+[type=color],
+textarea {
+    @apply w-full p-2 border border-grey rounded-sm bg-grey-lightest;
+}
+textarea {
+    // fixes space below textareas, making it consistent across browsers
+    @apply align-top;
+}
+select {
+    @apply w-full p-2 border border-grey rounded-sm bg-grey-lightest;
+    height: 2.3rem;
+}
+[type=radio], [type=checkbox] {
+    @apply mr-1;
+}
+// make sure everything shows a pointer on hover
+[type=submit], [type=image], label[for], select {
+    @apply cursor-pointer;
+}
+[type=file] { width: 100%; }
+
+.form-wrap {
+    @apply w-9/10 max-w-sm mx-auto my-4 p-4 rounded-sm shadow-md;
+}
+
+.field-wrap {
+    @apply mb-4;
+    label {
+        @apply block mb-1;
+    }
+}
+.field-wrap-checkbox {
+    @apply mb-4;
+    label {
+        @apply inline-block mr-4 mb-0;
+    }
+}
+.field-wrap-radios, .field-wrap-checkboxes {
+    @apply mb-4;
+    > label:first-of-type {
+        @apply block mb-1;
+    }
+    label {
+        @apply inline-block mr-4 mb-0;
+    }
+}
+
+.field-errors {
+    @apply list-reset mb-1 pl-0;
+    li {
+        @apply mb-1 p-2 bg-grey-lighter border-l-10 border-red;
+    }
+}
+
+.field-wrap-readonly {
+    @apply relative;
+
+    input {
+        @apply opacity-50;
+    }
+
+    &:after {
+        @apply absolute pin-r text-xs opacity-50;
+        top: 0.5em;
+        content: "read-only";
+    }
+}
+
+.field-help {
+    @apply text-sm italic text-grey-dark;
+    // the padding helps it align better with field above
+    padding-left: 0.1em;
+}
+
+.form-action {
+    @apply text-sm ml-4 opacity-75;
+    &:hover {
+        @apply opacity-100;
+    }
+}
+
+// for the labels within the vich file uploader widget
+.vich-file, .vich-image {
+    label {
+        @apply mb-1;
+    }
+}

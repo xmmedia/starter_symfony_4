@@ -1,0 +1,48 @@
+@tailwind preflight;
+
+@tailwind components;
+
+@import "admin/vars",
+    "common/common";
+
+// global styles on the most common elements
+html {
+    @apply font-sans font-light leading-normal text-black;
+}
+
+// needed to ensure positioning works
+body {
+    @apply relative z-0;
+    overflow-x: hidden;
+}
+
+a {
+    @apply text-blue-dark no-underline;
+    &:hover {
+        @apply underline;
+    }
+}
+
+b, strong {
+    @apply font-bold;
+}
+
+// load common styles
+@import "common/forms",
+    "common/alerts",
+    "common/modal",
+    "common/button_pair";
+
+// admin only styles
+@import "admin/content",
+    "admin/forms",
+    "admin/buttons",
+    "admin/header",
+    "admin/record_list",
+    "admin/record_view",
+    "admin/sidebar_nav",
+    "admin/sidebar_nav_submenu",
+    "admin/dashboard",
+    "admin/user_list";
+
+@tailwind utilities;

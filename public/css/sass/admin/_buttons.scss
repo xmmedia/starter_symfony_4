@@ -1,0 +1,29 @@
+button,
+[type=submit],
+[type="button"],
+[type="reset"],
+.button {
+    @apply py-2 px-4 text-white font-thin bg-blue-dark shadow-none border-2 border-blue-dark rounded tracking-wide;
+    transition: all 0.35s ease-in-out;
+    &:hover {
+        @apply bg-blue-darker border-blue-darker;
+        transition: all 0.25s ease;
+    }
+    &:disabled {
+        @apply opacity-75;
+    }
+}
+
+.button {
+    &:hover {
+        @apply no-underline;
+    }
+}
+
+.button-as_link {
+    @apply p-0 text-blue-dark bg-transparent border-0 tracking-normal;
+    transition: none;
+    &:hover {
+        @apply underline bg-transparent;
+    }
+}

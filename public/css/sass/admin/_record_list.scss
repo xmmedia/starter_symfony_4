@@ -1,0 +1,92 @@
+.record_list-wrap {
+    @apply table list-reset min-w-full mt-4;
+    border-collapse: collapse;
+}
+
+.record_list-item {
+    @apply flex flex-col flex-wrap p-2 border-b border-grey-light;
+    transition: background 0.15s ease-in-out;
+
+    &:hover {
+        @apply bg-blue-lightest;
+    }
+    &:nth-of-type(2) {
+        @apply border-t;
+    }
+}
+
+@screen md {
+    .record_list-item {
+        @apply table-row border-b border-grey-light;
+
+        &:first-of-type {
+            @apply table-row border-none;
+        }
+        &:nth-of-type(2) {
+            border-top: none;
+        }
+    }
+}
+
+.record_list-headers {
+    @apply hidden;
+}
+@screen md {
+    .record_list-headers {
+        @apply font-bold border-none bg-grey-light;
+        display: table-header-group;
+    }
+}
+
+.record_view-item_wrap > .record_list-wrap {
+    @apply mt-0;
+    .record_list-headers {
+        @apply hidden;
+    }
+}
+@screen md {
+    .record_view-item_wrap > .record_list-wrap .record_list-headers {
+        @apply text-grey-dark font-light border-b border-solid border-grey-dark bg-transparent;
+        display: table-header-group;
+    }
+}
+
+.record_list-mobile_heading {
+    @apply text-grey;
+}
+@screen md {
+    .record_list-mobile_heading {
+        @apply hidden;
+    }
+}
+
+.record_list-col {
+    @apply table-cell py-1 px-2;
+    transition: opacity 0.25s ease-in-out;
+}
+.record_list-item-inactive > .record_list-col {
+    @apply opacity-50;
+}
+.record_list-item-inactive:hover > .record_list-col {
+    @apply opacity-100;
+}
+
+.record_list-col-actions {
+    @apply text-right;
+
+    a {
+        @apply ml-4;
+    }
+    // the first <a> that's a direct child of the actions col
+    > a:first-child {
+        @apply ml-0;
+    }
+}
+
+.record_list-record_count {
+    @apply text-xs mb-6 text-center text-grey-darker;
+}
+
+.record_list-icon {
+    @apply w-5 h-5 align-text-top fill-current;
+}

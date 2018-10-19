@@ -1,0 +1,13 @@
+.user_list-instructions {
+    @apply mt-4 text-xs text-grey;
+}
+
+.header_admin-actions {
+    @extend .header-actions;
+}
+.header_admin-action {
+    @extend .header-action;
+}
+.header_admin-action-main {
+    @extend .header-action-main;
+}

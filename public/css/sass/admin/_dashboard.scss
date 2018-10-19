@@ -1,0 +1,11 @@
+.dashboard-link {
+    @apply block w-40 h-40 mr-4 mb-4 p-2 text-center border border-grey-light;
+    transition: background-color 0.15s ease-in-out;
+    &:hover {
+        @apply bg-grey-lighter;
+    }
+
+    svg {
+        @apply block w-24 h-24 mt-2 mx-auto mb-2 text-black fill-current;
+    }
+}

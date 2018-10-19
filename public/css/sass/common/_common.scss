@@ -1,0 +1,52 @@
+/* this file is for public and private/admin pages */
+
+a {
+    transition: color 0.25s ease;
+    &:hover { }
+}
+
+// reset margins on headings as tailwind removes them
+h1 {
+    margin: 0.67rem 0;
+}
+h2 {
+    margin: 0.83rem 0;
+}
+h3 {
+    margin: 1rem 0;
+}
+h4 {
+    margin: 1.33rem 0;
+}
+h5 {
+    margin: 1.67rem 0;
+}
+h6 {
+    margin: 2.33rem 0;
+}
+
+// make anchors that are inside headers look like the header, but underline when hovered
+h1, h2, h3, h4 {
+    a {
+        @apply no-underline text-inherit;
+        &:hover, &:active {
+            @apply underline text-inherit;
+        }
+    }
+}
+
+// re-add margin to p as it's reset in tailwind's normalize
+p {
+    @apply my-4;
+}
+
+address {
+    @apply roman;
+}
+
+td {
+    @apply align-top;
+}
+
+// @todo needed?
+//img { height: auto; }
