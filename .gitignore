@@ -7,7 +7,7 @@ coverage
 sftp-config.json
 .remote-sync.json
 .sass-cache
-node_modules
+/node_modules/
 /composer.phar
 
 
@@ -46,6 +46,13 @@ node_modules
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
+###> symfony/webpack-encore-pack ###
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-pack ###
+
+###> phpstorm ###
 # PhpStorm
 # User-specific stuff:
 .idea/**/workspace.xml
@@ -65,3 +72,4 @@ node_modules
 .idea/**/dbnavigator.xml
 # @todo-symfony remove when setting up project
 .idea/webServers.xml
+###< phpstorm ###
