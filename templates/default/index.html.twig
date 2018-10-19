@@ -1,0 +1,28 @@
+{% extends 'public.html.twig' %}
+
+{% block page_title_wrap %}{{ 'app.parameter.name'|trans }}{% endblock %}
+
+{% block head %}
+    {# @todo-symfony #}
+    <meta name="description" content="">
+
+    <meta property="og:title" content="{{ 'app.parameter.name'|trans }}">
+    <meta property="og:type"  content="website">
+    <meta property="og:url"   content="{{ url('index') }}">
+    <meta property="og:site_name" content="{{ 'app.parameter.name'|trans }}">
+    <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() }}/images/logo-og.png">
+    <meta property="og:description" content="">
+
+    <meta name="twitter:card"  content="summary_large_image">
+    <meta name="twitter:site"  content="@">
+    <meta name="twitter:title" content="{{ 'app.parameter.name'|trans }}">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="{{ app.request.getSchemeAndHttpHost() }}/images/logo-og.png">
+    <meta name="twitter:url"   content="{{ url('index') }}">
+{% endblock head %}
+
+{% block content %}
+    <h1>Symfony Starter</h1>
+
+    {% include 'flash_messages.html.twig' %}
+{% endblock content %}

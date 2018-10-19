@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('build/admin.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/admin.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+    <svg-icons src="{{ asset('build/images/icons-admin.svg') }}"></svg-icons>
+
+    {{ parent() }}
+{% endblock body %}
+
+{% block header %}
+    <nav class="fixed pin-l z-10 w-24 h-full text-center text-white bg-black fill-current sidebar_nav-wrap">
+        <a href="{{ path('admin_dashboard') }}" class="flex items-center justify-center w-24 border-b border-grey-darker" style="height: 3.75rem; padding: 0.65rem 0;">
+            <img src="/images/logo.svg" width="80" class="block my-0 mx-auto" style="max-width: 5rem; max-height: 2.3rem;" alt="{{ 'app.parameter.name'|trans }}">
+        </a>
+        <ul class="w-24 h-full overflow-y-scroll list-reset sidebar_nav-nav">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li>
+                    <a href="{{ path('admin_dashboard') }}" class="sidebar_nav-link sidebar_nav-nav_item">
+                        <svg><use xlink:href="#gear"></use></svg>
+                        {{ 'app.admin.menu.admin'|trans }}
+                    </a>
+
+                    {%
+                        set items = {
+                            'Users': path('xm_user_admin_user_list') ~ '?' ~ user_filter.query(),
+                            'Login History': path('xm_user_admin_login_history'),
+                        }
+                    %}
+                    <menu-subnav name="{{ 'app.admin.menu.admin'|trans }}"
+                        :items="{{ items|json_encode }}">
+                    </menu-subnav>
+                </li>
+            {% endif %}
+        </ul>
+
+        <div class="absolute pin-b w-24 pt-2 bg-black text-grey text-center font-thin sidebar_nav-bottom_wrap">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div class="text-sm">
+                    <a href="{{ path('fos_user_profile_edit') }}" class="text-inherit">
+                        {% if app.user.name %}
+                            <div>{{ app.user.name }}</div>
+                        {% else %}
+                            <div>Profile</div>
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="p-1 text-xs">
+                    <a href="{{ logout_path() }}" class="text-inherit">Logout</a>
+                </div>
+            {% endif %}
+            <div class="py-2 text-xs text-grey-darker border-t border-grey-darker">
+                <a href="{{ path('index') }}" class="text-inherit">©{{ 'now'|date('Y') }} {{ 'app.parameter.name'|trans }}</a>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content_wrap %}
+    <header class="header-wrap-small">
+        <menu-small></menu-small>
+        <a href="{{ path('admin_dashboard') }}" class="mr-4">
+            <img src="/images/logo.svg" width="80" alt="{{ 'app.parameter.name'|trans }}">
+        </a>
+    </header>
+    <div class="content-wrap js-content-wrap">
+        <header class="header-wrap">
+            <div class="header-page_title">{% block header_page_title %}{% endblock header_page_title %}</div>
+            <div class="header-actions">{% block header_actions %}{% endblock header_actions %}</div>
+        </header>
+
+        {% block content_wrap_inside %}
+            <main class="p-4">
+                {% block content %}
+                    {% include 'flash_messages.html.twig' %}
+                {% endblock content %}
+            </main>
+        {% endblock content_wrap_inside %}
+    </div>
+{% endblock content_wrap %}
+
+{# no footer atm #}
+{% block footer %}{% endblock %}

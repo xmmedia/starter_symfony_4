@@ -1,0 +1,34 @@
+{#
+Usage:
+{% block head %}
+    {% include 'meta.html.twig' with {
+        'description' : 'Meta/OG/Twitter Description',
+        'title' : 'Page Title',
+        'url' : <relative/url>,
+        'image' : '/images/logo-og.png',
+        'has_twitter' : true,
+        'twitter_username' : '@xmmedia',
+    } only %}
+{% endblock head %}
+#}
+<meta name="description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+
+<meta property="og:title" content="{{ title }}">
+<meta property="og:type"  content="website">
+<meta property="og:url"   content="{{ absolute_url(url) }}">
+<meta property="og:site_name" content="{{ 'app.parameter.name'|trans }}">
+{% if image %}
+    <meta property="og:image" content="{{ image }}">
+{% endif %}
+<meta property="og:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+
+{% if has_twitter %}
+    <meta name="twitter:card"  content="summary_large_image">
+    <meta name="twitter:site"  content="{{ twitter_username }}">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+    {% if image %}
+        <meta name="twitter:image" content="{{ image }}">
+    {% endif %}
+    <meta name="twitter:url"   content="{{ absolute_url(url) }}">
+{% endif %}

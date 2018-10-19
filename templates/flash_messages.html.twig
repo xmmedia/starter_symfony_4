@@ -1,0 +1,24 @@
+{% for flashType,flashMessages in app.session.flashbag.all() %}
+    {% for flashMessage in flashMessages %}
+        <div class="alert alert-{{ flashType }}" role="alert">
+            {% if flashMessage is iterable %}
+                <span>
+                    {% if flashMessage.escape_msg is defined and false == flashMessage.escape_msg %}
+                        {{ flashMessage.msg|trans|raw }}
+                    {% else %}
+                        {{ flashMessage.msg|trans }}
+                    {% endif %}
+                </span>
+
+                {% if flashMessage.action is defined %}
+                    <span>{{ flashMessage.action|raw }}</span>
+                {% elseif flashMessage.dismiss is defined and flashMessage.dismiss %}
+                    <span><a href="" class="alert-action">Dismiss</a></span>
+                {% endif %}
+
+            {% else %}
+                {{ flashMessage|trans }}
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endfor %}
