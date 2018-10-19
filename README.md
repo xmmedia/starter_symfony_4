@@ -29,8 +29,8 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
 
 ## System Requirements
 
-  - PHP 7.1+
-  - MySQL 5.6+
+  - PHP 7.2+
+  - MySQL 5.7+
   - [Yarn](https://yarnpkg.com/en/docs/install)
 
 ## Commands
