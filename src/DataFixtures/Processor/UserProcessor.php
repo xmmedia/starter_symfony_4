@@ -4,29 +4,22 @@ namespace App\DataFixtures\Processor;
 
 use App\Entity\User;
 use Fidry\AliceDataFixtures\ProcessorInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserProcessor implements ProcessorInterface
 {
-    /**
-     * @var UserPasswordEncoder
-     */
+    /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
-    /**
-     * @param UserPasswordEncoder $passwordEncoder
-     */
-    public function __construct(UserPasswordEncoder $passwordEncoder)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param User $object
      */
-    public function preProcess(string $id, $object)
+    public function preProcess(string $id, $object): void
     {
         if (false === $object instanceof User) {
             return;
@@ -41,7 +34,7 @@ class UserProcessor implements ProcessorInterface
     /**
      * {@inheritdoc}
      */
-    public function postProcess(string $id, $object)
+    public function postProcess(string $id, $object): void
     {
         // do nothing
     }

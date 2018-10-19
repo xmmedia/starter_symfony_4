@@ -1,3 +1,4 @@
 nelmio_alice:
+    locale: 'en'
     functions_blacklist:
         - 'current'
