@@ -1,25 +1,50 @@
 monolog:
     handlers:
+        # main/logging: all errors
         main:
             type: fingers_crossed
             action_level: error
-            handler: nested
-            excluded_404s:
-                # regex: exclude all 404 errors from the logs
-                - ^/
-        nested:
+            handler: streamed
+#            excluded_404s:
+#                # regex: exclude all 404 errors from the logs
+#                - ^/
+        streamed:
             type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            path: '%kernel.logs_dir%/%kernel.environment%.log'
             level: debug
+
+        # main/mailing: only critical
+        main_mail:
+            type: fingers_crossed
+            action_level: critical
+            handler: deduplicated
+        # remove duplicates that occur within 60s
+        deduplicated:
+            type: deduplication
+            handler: buffered
+        buffered:
+            type: buffer
+            handler: swift
+        swift:
+            type: swift_mailer
+            from_email: '%from_email%'
+            to_email: '%error_email%'
+            # @todo-symfony
+            subject: 'Symfony Starter Error: %%message%%'
+            level: debug
+            formatter: monolog.formatter.html
+            content_type: text/html
+
         console:
             type: console
             process_psr_3_messages: false
-            channels: ["!event", "!doctrine"]
+            channels: ['!event', '!doctrine']
+
         deprecation:
             type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.deprecations.log"
+            path: '%kernel.logs_dir%/%kernel.environment%.deprecations.log'
         deprecation_filter:
             type: filter
             handler: deprecation
             max_level: info
-            channels: ["php"]
+            channels: ['php']
