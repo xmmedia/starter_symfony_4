@@ -18,7 +18,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <!-- @todo-symfony -->
+        <testsuite name="XM Symfony Starter Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
