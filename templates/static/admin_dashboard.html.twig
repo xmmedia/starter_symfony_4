@@ -1,0 +1,17 @@
+{% extends 'admin.html.twig' %}
+
+{% block page_title %}Admin | {% endblock %}
+{% block header_page_title %}Admin{% endblock %}
+
+{% block content %}
+    {% include 'flash_messages.html.twig' %}
+
+    <ul class="flex flex-wrap list-reset">
+        <li>
+            <a href="{{ path('xm_user_admin_user_list') ~ '?' ~ user_filter.query() }}" class="dashboard-link">
+                <svg><use xlink:href="#users"></use></svg>
+                {{ 'app.admin.menu.users'|trans }}
+            </a>
+        </li>
+    </ul>
+{% endblock content %}
