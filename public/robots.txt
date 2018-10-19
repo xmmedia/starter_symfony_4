@@ -1,0 +1,5 @@
+# robotstxt.org/
+User-agent: *
+
+# @todo-symfony
+Sitemap: https://www.example.com/sitemap.xml
