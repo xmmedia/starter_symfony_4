@@ -1,0 +1,31 @@
+{%- block form_row -%}
+    {% if block_prefixes[1] == 'checkbox' %}
+        <div class="field-wrap field-wrap-checkbox">
+            {{- form_errors(form) -}}
+            {{- form_widget(form) -}}
+            {{- form_label(form) -}}
+        </div>
+    {% else %}
+        <div class="field-wrap">
+            {{- form_label(form) -}}
+            {{- form_errors(form) -}}
+            {{- form_widget(form) -}}
+        </div>
+    {% endif %}
+{%- endblock form_row -%}
+
+{%- block button_row -%}
+    <div>
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock button_row -%}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+    <ul class="field-errors">
+        {%- for error in errors -%}
+            <li>{{ error.message }}</li>
+        {%- endfor -%}
+    </ul>
+    {%- endif -%}
+{%- endblock form_errors -%}

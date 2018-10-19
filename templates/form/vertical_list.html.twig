@@ -1,0 +1,14 @@
+{% block form_row %}
+    <div class="field-wrap-checkboxes">
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+        <div>
+            {% for item in form.children %}
+                <div{% if loop.last == false %} class="mb-1"{% endif %}>
+                    {{- form_widget(item) -}}
+                    {{- form_label(item) -}}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
