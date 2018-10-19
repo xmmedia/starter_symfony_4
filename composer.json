@@ -4,7 +4,7 @@
     "type": "project",
     "description": "Starter for creating Symfony sites at XM Media",
     "require": {
-        "php": "^7.2.10",
+        "php": "7.2.*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "knplabs/knp-paginator-bundle": "^2.8",
