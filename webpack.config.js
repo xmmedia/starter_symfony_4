@@ -2,14 +2,11 @@
 // This is for dev, watch and build (production)
 const Encore = require('@symfony/webpack-encore');
 const encoreConfigure = require('./webpack.base.config');
-const webpackCustomize = require('./webpack.customize');
+const merge = require('webpack-merge');
 
 encoreConfigure(Encore);
 
-// export the final configuration
-let config = Encore.getWebpackConfig();
-
-webpackCustomize(config);
+let config = merge(Encore.getWebpackConfig(), require('./webpack.customize'));
 
 if (Encore.isProduction()) {
     config.devtool = 'source-map';

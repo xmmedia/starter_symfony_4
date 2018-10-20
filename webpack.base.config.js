@@ -3,6 +3,10 @@ const path = require('path');
 const glob = require('glob-all');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 
+function resolve (dir) {
+    return path.join(__dirname, '.', dir);
+}
+
 // Base configuration of Encore/Webpack
 module.exports = function (Encore) {
     Encore
@@ -50,7 +54,13 @@ module.exports = function (Encore) {
                     },
                 },
             ],
-        });
+        })
+
+        .addAliases({
+            '@': resolve('public/js/src'),
+            'vue$': 'vue/dist/vue.common.js',
+        })
+    ;
 
     if (Encore.isProduction()) {
         // Custom PurgeCSS extractor for Tailwind that allows special characters in class names
