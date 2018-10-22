@@ -17,5 +17,5 @@ window.App = new Vue({
     el: '#app',
     components: {
         'svg-icons': svgIcons,
-    }
+    },
 });
