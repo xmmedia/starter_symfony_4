@@ -15,7 +15,7 @@
     "test-watch": "karma start --auto-watch --browsers ChromeHeadless karma.config.js",
     "watch": "./node_modules/.bin/encore dev --watch",
     "build": "./node_modules/.bin/encore production",
-    "stats":  "./node_modules/.bin/encore production --profile --json > webpack-status.json"
+    "stats": "./node_modules/.bin/encore production --profile --json > webpack-status.json"
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
