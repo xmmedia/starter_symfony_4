@@ -20,10 +20,11 @@ export default {
     },
 
     mounted () {
-        axios.get(this.src)
+        axios
+            .get(this.src)
             .then((response) => {
                 this.svg = response.data;
             });
     },
-}
+};
 </script>

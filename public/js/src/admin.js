@@ -38,7 +38,10 @@ window.App = new Vue({
 
     mounted () {
         if (this.$el.dataset && this.$el.dataset.serverData) {
-            this.$store.commit('updateServerData', JSON.parse(this.$el.dataset.serverData));
+            this.$store.commit(
+                'updateServerData',
+                JSON.parse(this.$el.dataset.serverData)
+            );
         }
     },
 });

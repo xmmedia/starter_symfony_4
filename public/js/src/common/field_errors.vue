@@ -1,6 +1,6 @@
 <template>
     <ul v-if="hasErrors" class="field-errors" role="alert">
-        <li v-for="error in flatErrors">{{ error }}</li>
+        <li v-for="(error, i) in flatErrors" :key="i">{{ error }}</li>
     </ul>
 </template>
 
@@ -16,6 +16,7 @@ export default {
             },
         },
     },
+
     computed: {
         hasErrors () {
             return this.flatErrors.length > 0;
@@ -26,7 +27,7 @@ export default {
             } else {
                 return this.errors;
             }
-        }
-    }
-}
+        },
+    },
+};
 </script>

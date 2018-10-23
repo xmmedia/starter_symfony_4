@@ -7,7 +7,7 @@ export default {
     props: {
         datetime: {
             type: String,
-            required: true
+            required: true,
         },
         locale: {
             type: String,
@@ -17,11 +17,10 @@ export default {
 
     computed: {
         displayTime () {
-            const str = new Date(this.datetime)
-                .toLocaleString('en-CA', { hour12: false });
+            const str = new Date(this.datetime).toLocaleString('en-CA', { hour12: false });
 
-            return str.substring(0, 10)+' '+str.substring(12, 17);
+            return str.substring(0, 10) + ' ' + str.substring(12, 17);
         },
     },
-}
+};
 </script>

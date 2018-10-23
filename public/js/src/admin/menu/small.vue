@@ -1,5 +1,5 @@
 <template>
-    <a href="" @click.stop.prevent="toggleMenu" class="ml-4">Menu</a>
+    <a href="" class="ml-4" @click.stop.prevent="toggleMenu">Menu</a>
 </template>
 
 <script>
@@ -33,8 +33,7 @@ export default {
             this.setContentHeight();
         },
         setContentHeight() {
-            document.querySelectorAll('.js-content-wrap')[0]
-                .style.minHeight = this.getWindowHeight() + 'px';
+            document.querySelectorAll('.js-content-wrap')[0].style.minHeight = this.getWindowHeight() + 'px';
         },
         getWindowHeight() {
             let d = document,
@@ -42,7 +41,7 @@ export default {
                 g = d.body;
 
             return window.innerHeight || e.clientHeight || g.clientHeight;
-        }
-    }
-}
+        },
+    },
+};
 </script>

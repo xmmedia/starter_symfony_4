@@ -5,11 +5,10 @@ const state = {
     classes: {
         mobileOpen: 'sidebar_nav-visible',
         sideBarOpen: 'sidebar_nav-submenu-open',
-    }
+    },
 };
 
-const getters = {
-};
+const getters = {};
 
 const actions = {
     openMobileMenu ({ commit, state }) {
@@ -30,11 +29,8 @@ const actions = {
     closeAllMenus ({ commit }) {
         commit('setAdminMobileMenuStatus', false);
         commit('setAdminSubMenuOpen', null);
-        document.body.classList.remove(
-            state.classes.mobileOpen,
-            state.classes.sideBarOpen
-        );
-    }
+        document.body.classList.remove(state.classes.mobileOpen, state.classes.sideBarOpen);
+    },
 };
 
 const mutations = {
@@ -51,5 +47,5 @@ export default {
     state,
     getters,
     actions,
-    mutations
-}
+    mutations,
+};

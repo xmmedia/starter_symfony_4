@@ -6,10 +6,10 @@ import escape from 'escape-html';
 describe('common/fieldErrors', () => {
     it('can mount', (done) => {
         const vm = new Vue({
-            template: '<div><fieldErrors></fieldErrors></div>',
             components: {
-                fieldErrors
-            }
+                fieldErrors,
+            },
+            template: '<div><fieldErrors></fieldErrors></div>',
         }).$mount();
 
         Vue.nextTick()
@@ -24,10 +24,10 @@ describe('common/fieldErrors', () => {
         const errors = JSON.stringify(["Message 1", "Message 2"]);
 
         const vm = new Vue({
-            template: '<div><fieldErrors :errors="'+escape(errors)+'"></fieldErrors></div>',
             components: {
-                fieldErrors
-            }
+                fieldErrors,
+            },
+            template: '<div><fieldErrors :errors="'+escape(errors)+'"></fieldErrors></div>',
         }).$mount();
 
         Vue.nextTick()
@@ -43,10 +43,10 @@ describe('common/fieldErrors', () => {
         const errors = JSON.stringify({key1: "Message 1", key2: "Message 2"});
 
         const vm = new Vue({
-            template: '<div><fieldErrors :errors="'+escape(errors)+'"></fieldErrors></div>',
             components: {
-                fieldErrors
-            }
+                fieldErrors,
+            },
+            template: '<div><fieldErrors :errors="'+escape(errors)+'"></fieldErrors></div>',
         }).$mount();
 
         Vue.nextTick()

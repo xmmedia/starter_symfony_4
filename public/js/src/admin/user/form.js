@@ -1,12 +1,13 @@
 export default {
-    data() {
+    data () {
         return {
             setPassword: false,
         };
     },
+
     watch: {
-        setPassword() {
+        setPassword () {
             this.$refs.password.focus();
-        }
-    }
-}
+        },
+    },
+};

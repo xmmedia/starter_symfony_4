@@ -30,16 +30,17 @@ export default {
         };
     },
 
-    mounted () {
-        this.load();
+    watch: {
+        reload (val) {
+            if (val) {
+                this.load();
+                this.$emit('reloaded');
+            }
+        },
     },
 
-    render () {
-        return this.$scopedSlots.default({
-            data: this.data,
-            loading: this.loading,
-            error: this.error,
-        });
+    mounted () {
+        this.load();
     },
 
     methods: {
@@ -51,29 +52,27 @@ export default {
                 const response = await axios.get(this.url, {
                     params: {
                         _csrf_token: this.csrfToken,
-                    }
+                    },
                 });
 
                 this.data = response.data[this.responseKey];
 
                 this.loading = false;
                 this.error = false;
-
             } catch (e) {
                 logError(e);
                 this.error = true;
                 this.loading = false;
             }
-        }
-    },
-
-    watch: {
-        reload (val) {
-            if (val) {
-                this.load();
-                this.$emit('reloaded');
-            }
         },
     },
-}
+
+    render () {
+        return this.$scopedSlots.default({
+            data: this.data,
+            loading: this.loading,
+            error: this.error,
+        });
+    },
+};
 </script>
