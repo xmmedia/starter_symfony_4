@@ -13,6 +13,7 @@
     "dev-server": "./node_modules/.bin/encore dev-server --config webpack.dev-server.config.js --hot --port 9001 --public dev.example.com:443",
     "test": "karma start --single-run --browsers ChromeHeadless karma.config.js",
     "test-watch": "karma start --auto-watch --browsers ChromeHeadless karma.config.js",
+    "test:e2e": "cypress open",
     "watch": "./node_modules/.bin/encore dev --watch",
     "build": "./node_modules/.bin/encore production",
     "stats": "./node_modules/.bin/encore production --profile --json > webpack-status.json"
@@ -40,6 +41,7 @@
     "vuex": "^3.0.0"
   },
   "devDependencies": {
+    "cypress": "^3.1.0",
     "faker": "^4.1.0",
     "inject-loader": "^4.0.1",
     "moxios": "^0.4.0",
