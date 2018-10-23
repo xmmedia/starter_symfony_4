@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "egulias/email-validator": "^2.1",
+        "friendsofsymfony/rest-bundle": "^2.4",
         "knplabs/knp-paginator-bundle": "^2.8",
         "nesbot/carbon": "^2.4",
         "ramsey/uuid": "^3.8",
