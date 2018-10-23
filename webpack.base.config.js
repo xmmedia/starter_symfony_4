@@ -74,6 +74,12 @@ module.exports = function (Encore) {
             images: 'images/[name].[hash:8].[ext]',
             fonts: 'fonts/[name].[hash:8].[ext]'
         })
+
+        .configureDefinePlugin(function () {
+            return {
+                'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+            }
+        })
     ;
 
     if (Encore.isProduction()) {
