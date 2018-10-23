@@ -60,6 +60,20 @@ module.exports = function (Encore) {
             '@': resolve('public/js/src'),
             'vue$': 'vue/dist/vue.common.js',
         })
+
+        // this is because the main chunk doesn't get a different hash even though a referenced chunk has a different hash
+        // JS chunks will use a global hash
+        // see: https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
+        // & https://github.com/webpack/webpack/issues/4253
+        // & https://github.com/erm0l0v/webpack-md5-hash/issues/9
+        // & https://github.com/ctrlplusb/react-async-component/issues/57
+        // & many others
+        .configureFilenames({
+            js: '[name].[hash:8].js',
+            css: '[name].[contenthash:8].css',
+            images: 'images/[name].[hash:8].[ext]',
+            fonts: 'fonts/[name].[hash:8].[ext]'
+        })
     ;
 
     if (Encore.isProduction()) {
