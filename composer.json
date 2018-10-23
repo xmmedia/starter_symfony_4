@@ -42,6 +42,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "friendsofphp/php-cs-fixer": "^2.13",
         "mockery/mockery": "^1.2",
         "prolic/fpp": "dev-master",
         "symfony/debug-pack": "*",
