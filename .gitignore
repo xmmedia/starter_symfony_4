@@ -10,7 +10,7 @@ sftp-config.json
 /node_modules/
 /composer.phar
 webpack-status.json
-
+public/service-worker.js
 
 ###> symfony/framework-bundle ###
 /.env
