@@ -14,8 +14,6 @@ final class MessageDataAssertion
 {
     /**
      * @param mixed $messageData
-     *
-     * @return void
      */
     public static function assert($messageData): void
     {
@@ -71,7 +69,7 @@ final class MessageDataAssertion
 
         foreach ($metadata as $key => $value) {
             Assert::minLength($key, 1, 'A metadata key must be non empty string');
-            Assert::scalar($value, 'A metadata value must have a scalar type. Got ' . \gettype($value) . ' for ' . $key);
+            Assert::scalar($value, 'A metadata value must have a scalar type. Got '.\gettype($value).' for '.$key);
         }
     }
 

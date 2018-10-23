@@ -16,7 +16,7 @@ interface Message extends HasMessageName
     public const TYPE_EVENT = 'event';
 
     /**
-     * Should be one of Message::TYPE_COMMAND, Message::TYPE_EVENT or Message::TYPE_QUERY
+     * Should be one of Message::TYPE_COMMAND, Message::TYPE_EVENT or Message::TYPE_QUERY.
      */
     public function messageType(): string;
 
@@ -31,7 +31,7 @@ interface Message extends HasMessageName
     public function withMetadata(array $metadata): Message;
 
     /**
-     * Returns new instance of message with $key => $value added to metadata
+     * Returns new instance of message with $key => $value added to metadata.
      *
      * Given value must have a scalar or array type.
      */

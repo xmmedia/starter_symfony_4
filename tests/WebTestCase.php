@@ -11,6 +11,7 @@ class WebTestCase extends BaseWebTestCase
 {
     /**
      * List of fixtures to load.
+     *
      * @var array
      */
     protected $fixtureList = [

@@ -113,7 +113,7 @@ abstract class DomainMessage implements Message
     }
 
     /**
-     * Returns new instance of message with $key => $value added to metadata
+     * Returns new instance of message with $key => $value added to metadata.
      *
      * Given value must have a scalar type.
      */
