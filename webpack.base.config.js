@@ -32,7 +32,7 @@ module.exports = function (Encore) {
         // allow sass/scss files to be processed
         .enableSassLoader(function(sassOptions) {}, {
             // see: http://symfony.com/doc/current/frontend/encore/bootstrap.html#importing-bootstrap-sass
-            resolveUrlLoader: false
+            resolveUrlLoader: false,
         })
         .enablePostCssLoader()
         // allow .vue files to be processed
@@ -72,7 +72,7 @@ module.exports = function (Encore) {
             js: '[name].[hash:8].js',
             css: '[name].[contenthash:8].css',
             images: 'images/[name].[hash:8].[ext]',
-            fonts: 'fonts/[name].[hash:8].[ext]'
+            fonts: 'fonts/[name].[hash:8].[ext]',
         })
 
         .configureDefinePlugin(function () {
