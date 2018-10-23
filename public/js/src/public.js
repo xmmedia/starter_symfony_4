@@ -7,9 +7,6 @@ import svgIcons from './common/svg_icons';
 // SASS/CSS
 import '../../css/sass/public.scss';
 
-// images
-// import '../../images/icons-public.svg';
-
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
 

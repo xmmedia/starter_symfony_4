@@ -1,6 +1,7 @@
 'use strict';
 const path = require('path');
 const glob = require('glob-all');
+const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 
 function resolve (dir) {
@@ -40,21 +41,19 @@ module.exports = function (Encore) {
 
         .enableSourceMaps(true)
 
-        .addLoader({
-            test: /\.svg$/,
-            use: [
-                {
-                    loader: 'svgo-loader',
-                    options: {
-                        plugins: [
-                            // config targeted at icon files, but should work for others
-                            { removeUselessDefs: false },
-                            { cleanupIDs: false },
-                        ],
-                    },
-                },
-            ],
-        })
+        .addPlugin(new SVGSpritemapPlugin({
+            src: 'public/images/icons-public/*.svg',
+            filename: 'images/icons-public.[contenthash:8].svg',
+            prefix: '',
+            generateUse: false,
+        }))
+
+        .addPlugin(new SVGSpritemapPlugin({
+            src: 'public/images/icons-admin/*.svg',
+            filename: 'images/icons-admin.[contenthash].svg',
+            prefix: '',
+            generateUse: false,
+        }))
 
         .addAliases({
             '@': resolve('public/js/src'),

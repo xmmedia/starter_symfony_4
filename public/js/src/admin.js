@@ -13,9 +13,6 @@ import listCheck from './admin/list_check';
 // SASS/CSS
 import '../../css/sass/admin.scss';
 
-// images
-import '../../images/icons-admin.svg';
-
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
 
