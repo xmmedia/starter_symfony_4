@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 
 import Vue from 'vue';
+import PortalVue from 'portal-vue';
 import VueModal from 'vue-js-modal';
 
 import store from './admin/store';
@@ -16,6 +17,7 @@ import '../../css/sass/admin.scss';
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
 
+Vue.use(PortalVue);
 Vue.use(VueModal);
 
 // global components
