@@ -59,15 +59,15 @@ abstract class DomainMessage implements Message
 
     protected function init(): void
     {
-        if ($this->uuid === null) {
+        if (null === $this->uuid) {
             $this->uuid = Uuid::uuid4();
         }
 
-        if ($this->messageName === null) {
+        if (null === $this->messageName) {
             $this->messageName = \get_class($this);
         }
 
-        if ($this->createdAt === null) {
+        if (null === $this->createdAt) {
             $this->createdAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
         }
     }
