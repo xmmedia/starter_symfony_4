@@ -125,6 +125,12 @@
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
+    "giggsey/libphonenumber-for-php": {
+        "version": "8.9.16"
+    },
+    "giggsey/locale": {
+        "version": "1.6"
+    },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
     },
@@ -148,6 +154,15 @@
     },
     "marc-mabe/php-enum": {
         "version": "v3.0.2"
+    },
+    "misd/phone-number-bundle": {
+        "version": "1.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.3",
+            "ref": "c676a7a10b34c97b1cae30ccac2d8a715a3a96dc"
+        }
     },
     "mockery/mockery": {
         "version": "1.2.0"
