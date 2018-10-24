@@ -9,7 +9,7 @@ sftp-config.json
 .sass-cache
 /node_modules/
 /composer.phar
-webpack-status.json
+webpack-stats.json
 public/service-worker.js
 
 ###> symfony/framework-bundle ###

@@ -18,7 +18,7 @@
     "lint:fix": "eslint --ext .js,.vue public/js --fix",
     "watch": "encore dev --watch",
     "build": "encore production",
-    "stats": "encore production --profile --json > webpack-status.json"
+    "stats": "encore production --profile --json > webpack-stats.json"
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
