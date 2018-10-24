@@ -19,7 +19,7 @@
                     <div>
                         <form :action="action" name="form" method="post">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button class="bg-red-dark border-red-dark hover:bg-red hover:border-red">Delete</button>
+                            <button class="button bg-red-dark border-red-dark hover:bg-red hover:border-red">Delete</button>
                             <input id="form__token" :value="csrfToken" type="hidden" name="form[_token]">
                         </form>
                     </div>

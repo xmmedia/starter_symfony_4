@@ -56,7 +56,7 @@ The form view:
         {{ form_row(form.name) }}
 
         <div class="form-button_wrap">
-            <button>Save</button>
+            <button class="button">Save</button>
             <a href="{{ path('admin_category_list') }}" class="form-action">Back to list</a>
         </div>
     {{ form_end(form) }}
