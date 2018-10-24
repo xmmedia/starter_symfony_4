@@ -65,8 +65,8 @@ deploy:
     # link shared folders
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -rf $RELEASE/var; ln -s $SHARED/var $RELEASE/var; rm -rf $RELEASE/public/uploads; ln -s $SHARED/public/uploads $RELEASE/public/uploads; rm -rf $RELEASE/public/media/cache; ln -s $SHARED/public/media/cache $RELEASE/public/media/cache"
     # switch to new version; run composer on server; db migrations
-    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -f $REMOTE_BASE/current; ln -s $RELEASE $REMOTE_BASE/current; cd $REMOTE_BASE/current; export SYMFONY_ENV=prod; php composer.phar run-script post-update-cmd; php bin/console doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration"
+    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -f $REMOTE_BASE/current; ln -s $RELEASE $REMOTE_BASE/current; cd $REMOTE_BASE/current; export SYMFONY_ENV=prod; php composer.phar run-script post-update-cmd; bin/console doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration"
     # clear opcache
-    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; export SYMFONY_ENV=prod; php bin/console cache:accelerator:clear --opcode" || echo -e "\033[0;31mFAILURE unable to reset OPcache"
+    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; export SYMFONY_ENV=prod; bin/console cache:accelerator:clear --opcode" || echo -e "\033[0;31mFAILURE unable to reset OPcache"
     # remove >3 releases
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ls -1d $RELEASES/* | sort -rg | tail -n +4 | xargs /bin/rm -rf"
