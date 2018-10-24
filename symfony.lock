@@ -146,6 +146,9 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v2.8.0"
     },
+    "marc-mabe/php-enum": {
+        "version": "v3.0.2"
+    },
     "mockery/mockery": {
         "version": "1.2.0"
     },
