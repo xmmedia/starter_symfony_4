@@ -9,16 +9,16 @@
   "license": "MIT",
   "//private": true,
   "scripts": {
-    "dev": "./node_modules/.bin/encore dev",
+    "dev": "encore dev",
     "dev-server": "./node_modules/.bin/encore dev-server --config webpack.dev-server.config.js --hot --port 9001 --public dev.example.com:443",
     "test": "karma start --single-run --browsers ChromeHeadless karma.config.js",
     "test-watch": "karma start --auto-watch --browsers ChromeHeadless karma.config.js",
     "test:e2e": "cypress open",
     "lint": "eslint --ext .js,.vue public/js",
     "lint:fix": "eslint --ext .js,.vue public/js --fix",
-    "watch": "./node_modules/.bin/encore dev --watch",
-    "build": "./node_modules/.bin/encore production",
-    "stats": "./node_modules/.bin/encore production --profile --json > webpack-status.json"
+    "watch": "encore dev --watch",
+    "build": "encore production",
+    "stats": "encore production --profile --json > webpack-status.json"
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
