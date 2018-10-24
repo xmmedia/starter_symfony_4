@@ -1,60 +1,33 @@
 'use strict';
-import Vue from 'vue';
+import { shallowMount } from '@vue/test-utils';
 import fieldErrors from '@/common/field_errors.vue';
-import escape from 'escape-html';
 
-describe('common/fieldErrors', () => {
-    it('can mount', (done) => {
-        const vm = new Vue({
-            components: {
-                'field-errors': fieldErrors,
-            },
-            template: '<div><field-errors /></div>',
-        }).$mount();
+describe('common/field_errors.vue', () => {
+    it('can mount', () => {
+        const wrapper = shallowMount(fieldErrors);
 
-        Vue.nextTick()
-            .then(() => {
-                assert.equal(vm.$el.querySelectorAll('.field-errors').length, 0);
-                done();
-            })
-            .catch(done);
+        expect(wrapper.find('.field-errors').exists()).toBe(false);
     });
 
-    it('can mount with error array', (done) => {
-        const errors = JSON.stringify(["Message 1", "Message 2"]);
-
-        const vm = new Vue({
-            components: {
-                'field-errors': fieldErrors,
+    it('can mount with error array', () => {
+        const wrapper = shallowMount(fieldErrors, {
+            propsData: {
+                errors: ["Message 1", "Message 2"],
             },
-            template: '<div><field-errors :errors="'+escape(errors)+'" /></div>',
-        }).$mount();
+        });
 
-        Vue.nextTick()
-            .then(() => {
-                assert.equal(vm.$el.querySelectorAll('.field-errors').length, 1);
-                assert.equal(vm.$el.querySelectorAll('.field-errors li').length, 2);
-                done();
-            })
-            .catch(done);
+        expect(wrapper.findAll('.field-errors').length).toBe(1);
+        expect(wrapper.findAll('.field-errors li').length).toBe(2);
     });
 
-    it('can mount with error object', (done) => {
-        const errors = JSON.stringify({key1: "Message 1", key2: "Message 2"});
-
-        const vm = new Vue({
-            components: {
-                'field-errors': fieldErrors,
+    it('can mount with error object', () => {
+        const wrapper = shallowMount(fieldErrors, {
+            propsData: {
+                errors: {key1: "Message 1", key2: "Message 2"},
             },
-            template: '<div><field-errors :errors="'+escape(errors)+'" /></div>',
-        }).$mount();
+        });
 
-        Vue.nextTick()
-            .then(() => {
-                assert.equal(vm.$el.querySelectorAll('.field-errors').length, 1);
-                assert.equal(vm.$el.querySelectorAll('.field-errors li').length, 2);
-                done();
-            })
-            .catch(done);
+        expect(wrapper.findAll('.field-errors').length).toBe(1);
+        expect(wrapper.findAll('.field-errors li').length).toBe(2);
     });
 });
