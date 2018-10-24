@@ -155,6 +155,9 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v2.8.0"
     },
+    "liip/functional-test-bundle": {
+        "version": "2.0.0-alpha8"
+    },
     "marc-mabe/php-enum": {
         "version": "v3.0.2"
     },
