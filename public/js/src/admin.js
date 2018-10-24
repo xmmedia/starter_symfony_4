@@ -1,5 +1,3 @@
-import '@babel/polyfill';
-
 import Vue from 'vue';
 import PortalVue from 'portal-vue';
 import VueModal from 'vue-js-modal';
