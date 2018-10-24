@@ -51,11 +51,20 @@ select {
 }
 .field-wrap-radios, .field-wrap-checkboxes {
     @apply mb-4;
-    > label:first-of-type {
-        @apply block mb-1;
-    }
     label {
         @apply inline-block mr-4 mb-0;
+    }
+}
+// for the labels within the vich file uploader widget
+.vich-file, .vich-image {
+    label {
+        @apply mb-1;
+    }
+}
+/* stylelint-disable-next-line no-duplicate-selectors */
+.field-wrap-radios, .field-wrap-checkboxes {
+    > label:first-of-type {
+        @apply block mb-1;
     }
 }
 
@@ -93,9 +102,3 @@ select {
     }
 }
 
-// for the labels within the vich file uploader widget
-.vich-file, .vich-image {
-    label {
-        @apply mb-1;
-    }
-}
