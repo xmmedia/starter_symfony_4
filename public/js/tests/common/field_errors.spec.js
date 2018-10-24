@@ -1,15 +1,15 @@
 'use strict';
 import Vue from 'vue';
-import fieldErrors from '../../src/common/field_errors.vue';
+import fieldErrors from '@/common/field_errors.vue';
 import escape from 'escape-html';
 
 describe('common/fieldErrors', () => {
     it('can mount', (done) => {
         const vm = new Vue({
             components: {
-                fieldErrors,
+                'field-errors': fieldErrors,
             },
-            template: '<div><fieldErrors></fieldErrors></div>',
+            template: '<div><field-errors /></div>',
         }).$mount();
 
         Vue.nextTick()
@@ -25,9 +25,9 @@ describe('common/fieldErrors', () => {
 
         const vm = new Vue({
             components: {
-                fieldErrors,
+                'field-errors': fieldErrors,
             },
-            template: '<div><fieldErrors :errors="'+escape(errors)+'"></fieldErrors></div>',
+            template: '<div><field-errors :errors="'+escape(errors)+'" /></div>',
         }).$mount();
 
         Vue.nextTick()
@@ -44,9 +44,9 @@ describe('common/fieldErrors', () => {
 
         const vm = new Vue({
             components: {
-                fieldErrors,
+                'field-errors': fieldErrors,
             },
-            template: '<div><fieldErrors :errors="'+escape(errors)+'"></fieldErrors></div>',
+            template: '<div><field-errors :errors="'+escape(errors)+'" /></div>',
         }).$mount();
 
         Vue.nextTick()
