@@ -1,9 +1,9 @@
 module.exports = {
     root: true,
     env: {
-        browser: true
+        browser: true,
     },
-    extends: ["plugin:vue/recommended", ],
+    'extends': ['plugin:vue/recommended'],
     rules: {
         "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
@@ -24,8 +24,8 @@ module.exports = {
             "singleline": 3,
             "multiline": {
                 "max": 1,
-                "allowFirstLine": true
-            }
+                "allowFirstLine": true,
+            },
         }],
         "vue/html-indent": ["error", 4],
         "vue/html-self-closing": ["error", {
@@ -39,6 +39,6 @@ module.exports = {
         }],
     },
     parserOptions: {
-        parser: "babel-eslint"
+        parser: "babel-eslint",
     },
 };
