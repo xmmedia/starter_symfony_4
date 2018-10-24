@@ -11,8 +11,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
 1. Download a copy of this repo (probably as a ZIP).
 2. Remove or update the `LICENSE` file.
 3. [Install Composer](https://getcomposer.org/download/) locally.
-4. `composer.json` changes:
-  - update the `name`, `license` and `description`
+4. `composer.json` changes: update the `name`, `license` and `description`
 5. Update `package.json`
 6. Composer install & update (locally, no autoloader or scripts): `composer install && php -d memory_limit=-1 /usr/local/bin/composer update`
 7. Run `yarn && yarn upgrade` locally.
