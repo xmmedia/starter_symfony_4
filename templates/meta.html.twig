@@ -1,3 +1,4 @@
+{# @todo-symfony update twitter username #}
 {#
 Usage:
 {% block head %}
@@ -6,8 +7,7 @@ Usage:
         'title' : 'Page Title',
         'url' : <relative/url>,
         'image' : '/images/logo-og.png',
-        'has_twitter' : true,
-        'twitter_username' : '@xmmedia',
+        'image_alt': 'Image Alt',
     } only %}
 {% endblock head %}
 #}
@@ -17,18 +17,19 @@ Usage:
 <meta property="og:type"  content="website">
 <meta property="og:url"   content="{{ absolute_url(url) }}">
 <meta property="og:site_name" content="{{ 'app.parameter.name'|trans }}">
-{% if image %}
-    <meta property="og:image" content="{{ image }}">
+{% if image is defined %}
+    <meta property="og:image" content="{{ absolute_url(image) }}">
+    <meta property="og:image:alt" content="{{ image_alt }}">
 {% endif %}
+<meta property="og:image" content="{{ absolute_url('/images/logo-og.png') }}">
+<meta property="og:image:alt" content="{{ 'app.parameter.name'|trans }} Logo">
 <meta property="og:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
 
-{% if has_twitter %}
-    <meta name="twitter:card"  content="summary_large_image">
-    <meta name="twitter:site"  content="{{ twitter_username }}">
-    <meta name="twitter:title" content="{{ title }}">
-    <meta name="twitter:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
-    {% if image %}
-        <meta name="twitter:image" content="{{ image }}">
-    {% endif %}
-    <meta name="twitter:url"   content="{{ absolute_url(url) }}">
+<meta name="twitter:card"  content="summary_large_image">
+<meta name="twitter:site"  content="<twitter-username>">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+{% if image is defined %}
+    <meta name="twitter:image" content="{{ absolute_url(image) }}">
 {% endif %}
+<meta name="twitter:url"   content="{{ absolute_url(url) }}">
