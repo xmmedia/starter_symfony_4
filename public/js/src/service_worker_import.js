@@ -1,3 +1,5 @@
+/* global workbox */
+
 let files = [
     '/favicon.ico',
 ];
