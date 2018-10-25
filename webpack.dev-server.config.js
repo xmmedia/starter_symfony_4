@@ -10,6 +10,7 @@ encoreConfigure(Encore);
 
 // Tweak the default webpack config a bit for the dev-server
 Encore
+    // @todo-symfony
     .setPublicPath('https://dev.example.com/dev-server')
     .setManifestKeyPrefix('build/')
     .enableVersioning(false);
