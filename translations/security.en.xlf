@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>An authentication exception occurred.</source>
+                <target>There was a problem while checking your login. Please try again.</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Authentication credentials could not be found.</source>
+                <target>Your email and password combination could not be found.</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Authentication request could not be processed due to a system problem.</source>
+                <target>Your authentication request could not be processed due to a system problem.</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Invalid credentials.</source>
+                <target>Your email and password combination are incorrect.</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Invalid CSRF token.</source>
+                <target>There was a problem with the form. Please try again.</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Username could not be found.</source>
+                <target>Your account could not be found.</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Account has expired.</source>
+                <target>Your account has expired.</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Credentials have expired.</source>
+                <target>Your account have expired.</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Account is disabled.</source>
+                <target>Your account is disabled.</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Account is locked.</source>
+                <target>Your account is locked.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
