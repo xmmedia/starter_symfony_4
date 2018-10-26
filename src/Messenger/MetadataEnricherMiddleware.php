@@ -4,25 +4,17 @@ declare(strict_types=1);
 
 namespace App\Messenger;
 
-use App\Commanding\Message;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class MetadataEnricherMiddleware implements MiddlewareInterface
 {
-    /** @var AuthorizationCheckerInterface */
-    private $authChecker;
+    /** @var Security */
+    private $security;
 
-    /** @var TokenStorageInterface */
-    private $tokenStorage;
-
-    public function __construct(
-        AuthorizationCheckerInterface $authChecker,
-        TokenStorageInterface $tokenStorage
-    ) {
-        $this->authChecker = $authChecker;
-        $this->tokenStorage = $tokenStorage;
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
     }
 
     /**
@@ -37,14 +29,16 @@ class MetadataEnricherMiddleware implements MiddlewareInterface
 
     private function getIssuer(): string
     {
-        if (null === $token = $this->tokenStorage->getToken()) {
+        if (null === $token = $this->security->getToken()) {
             return 'cli';
         }
 
-        if (!$this->authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        $user = $this->security->getUser();
+
+        if (!$user) {
             return 'anonymous';
         }
-
-        return $this->tokenStorage->getToken()->getUser()->getUuid()->toString();
+        
+        return $user->getUuid()->toString();
     }
 }
