@@ -8,6 +8,11 @@ $finder = PhpCsFixer\Finder::create()
 return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
+        '@PSR2' => true,
+        '@DoctrineAnnotation' => true,
+        'binary_operator_spaces' => [
+            'align_double_arrow' => true,
+        ],
     ])
     ->setFinder($finder)
 ;
