@@ -6,13 +6,17 @@ $finder = PhpCsFixer\Finder::create()
 ;
 
 return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
         '@PSR2' => true,
         '@DoctrineAnnotation' => true,
+        '@PHP71Migration' => true,
+        '@PHPUnit60Migration:risky' => true,
         'binary_operator_spaces' => [
             'align_double_arrow' => true,
         ],
+        'declare_strict_types' => true,
     ])
     ->setFinder($finder)
 ;
