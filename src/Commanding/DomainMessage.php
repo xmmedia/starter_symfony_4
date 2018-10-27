@@ -91,10 +91,10 @@ abstract class DomainMessage implements Message
     {
         return [
             'message_name' => $this->messageName,
-            'uuid' => $this->uuid->toString(),
-            'payload' => $this->payload(),
-            'metadata' => $this->metadata,
-            'created_at' => $this->createdAt(),
+            'uuid'         => $this->uuid->toString(),
+            'payload'      => $this->payload(),
+            'metadata'     => $this->metadata,
+            'created_at'   => $this->createdAt(),
         ];
     }
 

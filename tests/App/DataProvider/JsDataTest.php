@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\DataProvider;
 
 use App\DataProvider\JsData;
-use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;

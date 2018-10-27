@@ -38,7 +38,7 @@ class MetadataEnricherMiddleware implements MiddlewareInterface
         if (!$user) {
             return 'anonymous';
         }
-        
+
         return $user->getUuid()->toString();
     }
 }
