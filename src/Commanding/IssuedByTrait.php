@@ -6,7 +6,7 @@ namespace App\Commanding;
 
 trait IssuedByTrait
 {
-    public function withIssuedBy($issuer): DomainMessage
+    public function withIssuedBy(string $issuer): DomainMessage
     {
         $messageData = $this->toArray();
 
