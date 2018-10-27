@@ -45,8 +45,13 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
   - Linting:
     - JS: `yarn lint:js` or `yarn lint:js:fix`
     - CSS: `yarn lint:css` or `yarn lint:css:fix`
-  - Run PHP unit tests: `bin/simple-phpunit` or no memory limit `php -d memory_limit=-1 bin/simple-phpunit`
-  - PHP CS Fixer: `php php-cs-fixer`
+  - PHPUnit: 
+    - `bin/simple-phpunit`
+    - no memory limit `php -d memory_limit=-1 bin/simple-phpunit`
+    - with coverage (HTML) `bin/simple-phpunit --coverage-html coverage`
+  - PHP CS Fixer: (must be installed first)
+    - `php-cs-fixer fix --config=php_cs.dist`
+    - Dry run: `php-cs-fixer fix --dry-run --config=php_cs.dist`
   - PHPStan: `vendor/bin/phpstan analyse src tests`
 
 ### Apache Config
