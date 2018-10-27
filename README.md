@@ -45,7 +45,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
   - Linting:
     - JS: `yarn lint:js` or `yarn lint:js:fix`
     - CSS: `yarn lint:css` or `yarn lint:css:fix`
-  - Run PHP unit tests: `bin/phpunit` or no memory limit `php -d memory_limit=-1 bin/phpunit`
+  - Run PHP unit tests: `bin/simple-phpunit` or no memory limit `php -d memory_limit=-1 bin/simple-phpunit`
   - PHP CS Fixer: `php php-cs-fixer`
   - PHPStan: `vendor/bin/phpstan analyse src tests`
 
