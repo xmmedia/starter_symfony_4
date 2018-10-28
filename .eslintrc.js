@@ -2,6 +2,7 @@ module.exports = {
     root: true,
     env: {
         browser: true,
+        "cypress/globals": true,
     },
     'extends': ['plugin:vue/recommended', 'eslint:recommended'],
     rules: {
@@ -41,4 +42,7 @@ module.exports = {
     parserOptions: {
         parser: "babel-eslint",
     },
+    plugins: [
+        "cypress",
+    ],
 };
