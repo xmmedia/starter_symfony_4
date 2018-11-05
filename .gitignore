@@ -85,3 +85,7 @@ cypress/integration/examples
 # @todo-symfony remove when setting up project
 .idea/webServers.xml
 ###< phpstorm ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+###< phpunit/phpunit ###
