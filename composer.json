@@ -101,7 +101,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "test": "bin/simple-phpunit",
+        "test:coverage": "bin/simple-phpunit --coverage-html coverage",
+        "cs": "php-cs-fixer fix -v --dry-run --config=php_cs.dist",
+        "cs:fix": "php-cs-fixer fix -v --config=php_cs.dist",
+        "static": "vendor/bin/phpstan analyse"
     },
     "conflict": {
         "symfony/symfony": "*"

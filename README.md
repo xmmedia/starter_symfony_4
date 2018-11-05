@@ -46,13 +46,13 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
     - JS: `yarn lint:js` or `yarn lint:js:fix`
     - CSS: `yarn lint:css` or `yarn lint:css:fix`
   - PHPUnit: 
-    - `bin/simple-phpunit`
+    - `composer test`
     - no memory limit `php -d memory_limit=-1 bin/simple-phpunit`
-    - with coverage (HTML) `bin/simple-phpunit --coverage-html coverage`
+    - with coverage (HTML) `composer test:coverage`
   - PHP CS Fixer: (must be installed first)
-    - `php-cs-fixer fix --config=php_cs.dist`
-    - Dry run: `php-cs-fixer fix --dry-run --config=php_cs.dist`
-  - PHPStan: `vendor/bin/phpstan analyse src tests`
+    - Dry run: `composer cs`
+    - Fix: `composer cs:fix`
+  - PHP Static Analysis (PHPStan): `composer static`
 
 ### Apache Config
 
