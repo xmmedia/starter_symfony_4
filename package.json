@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^3.0.0",
-    "@symfony/webpack-encore": "git://github.com/symfony/webpack-encore.git#master",
+    "@symfony/webpack-encore": "^0.21.0",
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-plugin-e2e-cypress": "^3.0.5",
     "@vue/cli-plugin-eslint": "^3.0.5",
@@ -57,7 +57,7 @@
     "stylelint-scss": "^3.3.2",
     "svgo": "^1.1.1",
     "svgo-loader": "^2.2.0",
-    "tailwindcss": "^0.6.6",
+    "tailwindcss": "^0.7.2",
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",
     "workbox-webpack-plugin": "^3.6.3"
