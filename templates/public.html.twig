@@ -2,12 +2,12 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('build/public.css') }}" rel="stylesheet">
+    {{ encore_entry_link_tags('public') }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('build/public.js') }}" defer></script>
+    {{ encore_entry_script_tags('public') }}
 {% endblock %}
 
 {% block body %}
