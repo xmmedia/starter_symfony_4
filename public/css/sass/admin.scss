@@ -18,7 +18,7 @@ body {
 
 a {
     @apply text-blue-dark no-underline;
-    &:hover {
+    &:hover, &:active {
         @apply underline;
     }
 }
