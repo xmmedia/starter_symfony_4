@@ -1,7 +1,9 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 import PortalVue from 'portal-vue';
 import VueModal from 'vue-js-modal';
 
+import router from './admin/router';
 import store from './admin/store';
 
 import svgIcons from './common/svg_icons';
@@ -19,6 +21,7 @@ import '../../images/icons-admin.svg';
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
 
+Vue.use(VueRouter);
 Vue.use(PortalVue);
 Vue.use(VueModal);
 
@@ -30,6 +33,7 @@ Vue.component('local-time', () => import('./common/local_time'));
 
 window.App = new Vue({
     el: '#app',
+    router,
     store,
 
     components: {
