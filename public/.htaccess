@@ -691,3 +691,19 @@ FileETag None
     ExpiresByType text/x-cross-domain-policy            "access plus 1 week"
 
 </IfModule>
+
+# ----------------------------------------------------------------------
+# | Service Worker & Imports                                           |
+# ----------------------------------------------------------------------
+
+# Disable all caching on the Service Worker (service-worker.js)
+# and importScripts files (ie, service_worker_import.js).
+# This is very forceful.
+
+<FilesMatch "(service-worker|service_worker_import)\.js$">
+  <IfModule mod_headers.c>
+     Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+     Header set Pragma "no-cache"
+     Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+  </IfModule>
+</FilesMatch>
