@@ -1,5 +1,5 @@
 import Vue from 'vue';
-// import PortalVue from 'portal-vue';
+import PortalVue from 'portal-vue';
 
 import svgIcons from './common/svg_icons';
 
@@ -12,10 +12,11 @@ import '../../css/sass/public.scss';
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
 
-// Vue.use(PortalVue);
+Vue.use(PortalVue);
 
 window.App = new Vue({
     el: '#app',
+
     components: {
         'svg-icons': svgIcons,
     },
