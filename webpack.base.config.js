@@ -62,7 +62,8 @@ module.exports = function (Encore) {
         })
 
         // this is because the main chunk doesn't get a different hash even though a referenced chunk has a different hash
-        // JS chunks will use a global hash
+        // JS chunks, images and fonts will use a global hash
+        // CSS will use their content hash
         // see: https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
         // & https://github.com/webpack/webpack/issues/4253
         // & https://github.com/erm0l0v/webpack-md5-hash/issues/9
