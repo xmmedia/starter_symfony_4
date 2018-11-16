@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -28,9 +29,7 @@ class JsonRequestTransformerListener implements EventSubscriberInterface
             return;
         }
 
-        $content = $request->getContent();
-
-        if (empty($content)) {
+        if (empty($request->getContent())) {
             return;
         }
 
@@ -52,7 +51,7 @@ class JsonRequestTransformerListener implements EventSubscriberInterface
             return true;
         }
 
-        $request->request->replace($data);
+        $request->request = new ParameterBag($data);
 
         return true;
     }
