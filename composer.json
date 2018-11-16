@@ -37,7 +37,7 @@
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
-        "symfony/webpack-encore-pack": "^1.0",
+        "symfony/webpack-encore-bundle": "^1.0",
         "symfony/yaml": "*",
         "twig/extensions": "^1.5",
         "webmozart/assert": "^1.3",
