@@ -23,6 +23,7 @@ Vue.use(PortalVue);
 Vue.use(VueModal);
 
 // global components
+Vue.component('field-errors', fieldErrors);
 Vue.component('admin-delete', () => import('./admin/admin_delete'));
 Vue.component('list-check', listCheck);
 Vue.component('local-time', () => import('./common/local_time'));
@@ -33,7 +34,6 @@ window.App = new Vue({
 
     components: {
         'svg-icons': svgIcons,
-        'field-errors': fieldErrors,
         'menu-subnav': menuSubnav,
         'menu-small': menuSmall,
         'admin-user': () => import('./admin/user/form'),
