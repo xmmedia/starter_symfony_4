@@ -5,8 +5,9 @@ import VueModal from 'vue-js-modal';
 import store from './admin/store';
 
 import svgIcons from './common/svg_icons';
-import adminMenuSubnav from './admin/menu/subnav';
-import adminMenuSmall from './admin/menu/small';
+import fieldErrors from './common/field_errors';
+import menuSubnav from './admin/menu/subnav';
+import menuSmall from './admin/menu/small';
 import listCheck from './admin/list_check';
 
 // SASS/CSS
@@ -32,8 +33,9 @@ window.App = new Vue({
 
     components: {
         'svg-icons': svgIcons,
-        'menu-subnav': adminMenuSubnav,
-        'menu-small': adminMenuSmall,
+        'field-errors': fieldErrors,
+        'menu-subnav': menuSubnav,
+        'menu-small': menuSmall,
         'admin-user': () => import('./admin/user/form'),
     },
 
