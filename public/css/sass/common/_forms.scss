@@ -96,9 +96,5 @@ select {
 }
 
 .form-action {
-    @apply text-sm ml-4 opacity-75;
-    &:hover {
-        @apply opacity-100;
-    }
+    @apply text-sm ml-4;
 }
-
