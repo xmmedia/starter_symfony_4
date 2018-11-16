@@ -26,7 +26,7 @@ before_script:
   - chmod 644 ~/.ssh/known_hosts
   # Install packages
   - apt-get install gnupg2 build-essential libssl-dev -yqq
-  - curl -sL https://deb.nodesource.com/setup_8.x | bash -
+  - curl -sL https://deb.nodesource.com/setup_10.x | bash -
   # Install git, the php image doesn't have installed
   - apt-get install git zip unzip gcc g++ make nodejs -yqq
   - alias nodejs=node
