@@ -20,8 +20,8 @@ class EnquiryType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Name',
-                'attr' => ['maxlength' => 50],
+                'label'       => 'Name',
+                'attr'        => ['maxlength' => 50],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
@@ -31,8 +31,8 @@ class EnquiryType extends AbstractType
                 ],
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
-                'attr' => ['maxlength' => 150],
+                'label'       => 'Email',
+                'attr'        => ['maxlength' => 150],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Email([
@@ -42,8 +42,8 @@ class EnquiryType extends AbstractType
                 ],
             ])
             ->add('message', TextareaType::class, [
-                'label' => 'Message',
-                'attr' => ['maxlength' => 5000],
+                'label'       => 'Message',
+                'attr'        => ['maxlength' => 5000],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([

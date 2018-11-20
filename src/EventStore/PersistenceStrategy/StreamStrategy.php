@@ -13,7 +13,7 @@ use Prooph\EventStore\StreamName;
 
 /**
  * THIS IS A COPY of \Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy
- * EXCEPT for generateTableName()
+ * EXCEPT for generateTableName().
  */
 final class StreamStrategy implements PersistenceStrategy, HasQueryHint
 {
@@ -29,6 +29,7 @@ final class StreamStrategy implements PersistenceStrategy, HasQueryHint
 
     /**
      * @param string $tableName
+     *
      * @return string[]
      */
     public function createSchema(string $tableName): array

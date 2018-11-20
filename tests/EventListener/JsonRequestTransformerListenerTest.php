@@ -39,9 +39,9 @@ class JsonRequestTransformerListenerTest extends TestCase
      */
     public function testItTransformsRequestsWithJsonContentType($contentType): void
     {
-        $data    = ['foo' => 'bar'];
+        $data = ['foo' => 'bar'];
         $request = $this->createRequest($contentType, true, \GuzzleHttp\json_encode($data));
-        $event   = $this->createGetResponseEventMock($request);
+        $event = $this->createGetResponseEventMock($request);
 
         $this->listener->onKernelRequest($event);
 
@@ -63,7 +63,7 @@ class JsonRequestTransformerListenerTest extends TestCase
     public function testItReturnsBadRequestResponseIfJsonInvalid(): void
     {
         $request = $this->createRequest('application/json', true, '{meh}');
-        $event   = $this->createGetResponseEventMock($request);
+        $event = $this->createGetResponseEventMock($request);
 
         $event->shouldReceive('setResponse')
             ->with(Mockery::on(function ($argument) {
@@ -88,7 +88,7 @@ class JsonRequestTransformerListenerTest extends TestCase
     public function testItDoesNotTransformOtherContentTypes($contentType): void
     {
         $request = $this->createRequest($contentType, true, 'some=body');
-        $event   = $this->createGetResponseEventMock($request);
+        $event = $this->createGetResponseEventMock($request);
 
         $this->listener->onKernelRequest($event);
 
@@ -98,7 +98,7 @@ class JsonRequestTransformerListenerTest extends TestCase
     public function testItDoesNotReplaceRequestDataIfThereIsNone(): void
     {
         $request = $this->createRequest('application/json', true, '');
-        $event   = $this->createGetResponseEventMock($request);
+        $event = $this->createGetResponseEventMock($request);
 
         $this->listener->onKernelRequest($event);
 
@@ -108,7 +108,7 @@ class JsonRequestTransformerListenerTest extends TestCase
     public function testItDoesNotReplaceRequestDataIfContentIsJsonNull(): void
     {
         $request = $this->createRequest('application/json', true, 'null');
-        $event   = $this->createGetResponseEventMock($request);
+        $event = $this->createGetResponseEventMock($request);
 
         $this->listener->onKernelRequest($event);
 
@@ -118,7 +118,7 @@ class JsonRequestTransformerListenerTest extends TestCase
     public function testItDoesNotReplaceRequestDataIfNotXmlHttp(): void
     {
         $request = $this->createRequest('application/json', false, \GuzzleHttp\json_encode([]));
-        $event   = $this->createGetResponseEventMock($request);
+        $event = $this->createGetResponseEventMock($request);
 
         $this->listener->onKernelRequest($event);
 
