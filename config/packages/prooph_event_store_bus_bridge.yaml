@@ -1,6 +1,0 @@
-services:
-    Prooph\EventStoreBusBridge\EventPublisher:
-        arguments:
-            - '@prooph_service_bus.default_event_bus'
-        tags:
-            - { name: 'prooph_event_store.default.plugin' }

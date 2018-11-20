@@ -24,5 +24,4 @@ return [
     Liip\FunctionalTestBundle\LiipFunctionalTestBundle::class => ['dev' => true, 'test' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     Prooph\Bundle\EventStore\ProophEventStoreBundle::class => ['all' => true],
-    Prooph\Bundle\ServiceBus\ProophServiceBusBundle::class => ['all' => true],
 ];

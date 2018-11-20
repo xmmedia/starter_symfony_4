@@ -89,7 +89,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/event-store-symfony-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/pdo-event-store" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/service-bus" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/service-bus-symfony-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />

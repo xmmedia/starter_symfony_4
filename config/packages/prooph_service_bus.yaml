@@ -1,3 +1,0 @@
-prooph_service_bus:
-    event_buses:
-        default_event_bus: ~
