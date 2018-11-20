@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Commanding;
+namespace App\Messaging;
 
 /**
  * This is the base class for commands used to trigger actions in a domain model.

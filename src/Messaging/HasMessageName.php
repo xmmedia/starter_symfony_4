@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Commanding;
+namespace App\Messaging;
 
 /**
  * A message implementing this interface is aware of its name.

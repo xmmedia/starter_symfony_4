@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Commanding;
+namespace App\Messaging;
 
 use DateTimeImmutable;
 use Webmozart\Assert\Assert;
