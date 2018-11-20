@@ -15,7 +15,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function indexAction(Request $request): Response
+    public function index(Request $request): Response
     {
         return $this->render('default/index.html.twig');
     }
@@ -23,7 +23,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/pattern-library-public", name="pattern_library_public")
      */
-    public function patternLibraryPublicAction(PaginatorInterface $paginator): Response
+    public function patternLibraryPublic(PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
             range(1, 10), /* some random data */
@@ -39,7 +39,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/pattern-library-admin", name="pattern_library_admin")
      */
-    public function patternLibraryAdminAction(PaginatorInterface $paginator): Response
+    public function patternLibraryAdmin(PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
             range(1, 10), /* some random data */
