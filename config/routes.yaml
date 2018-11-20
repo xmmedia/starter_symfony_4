@@ -1,7 +1,7 @@
 admin_dashboard:
     path: /admin
     defaults:
-        _controller: FrameworkBundle:Template:template
+        _controller: TemplateController:template
         template:    static/admin_dashboard.html.twig
         # this is very short because the page has link that may change
         maxAge:      60
