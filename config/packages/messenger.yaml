@@ -7,7 +7,7 @@ framework:
         buses:
             messenger.bus.commands:
                 middleware:
-                    - App\Messenger\MetadataEnricherMiddleware
+                    - App\Messenger\CommandEnricherMiddleware
             messenger.bus.events: ~
 
         transports:

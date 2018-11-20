@@ -7,7 +7,7 @@ namespace App\Messenger;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Security\Core\Security;
 
-class MetadataEnricherMiddleware implements MiddlewareInterface
+class CommandEnricherMiddleware implements MiddlewareInterface
 {
     /** @var Security */
     private $security;
