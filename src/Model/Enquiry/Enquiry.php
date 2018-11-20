@@ -17,9 +17,12 @@ class Enquiry extends AggregateRoot implements Entity
     /** @var EnquiryId */
     private $enquiryId;
 
-    public static function submit(string $name, Email $email, string $message): self {
-        $enquiryId = EnquiryId::generate();
-
+    public static function submit(
+        EnquiryId $enquiryId,
+        string $name,
+        Email $email,
+        string $message
+    ): self {
         $self = new self();
         $self->recordThat(
             EnquiryWasSubmitted::now($enquiryId, $name, $email, $message)

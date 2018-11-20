@@ -21,6 +21,7 @@ class SubmitEnquiryFormHandler
     public function __invoke(SubmitEnquiryForm $command): void
     {
         $enquiry = Enquiry::submit(
+            $command->enquiryId(),
             $command->name(),
             $command->email(),
             $command->message()
