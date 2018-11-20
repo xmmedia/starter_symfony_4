@@ -2,9 +2,20 @@ prooph_event_store:
     stores:
         default:
             event_store: 'app.event_store.default'
+            repositories:
+                enquiry_list:
+                    repository_class: App\Infrastructure\Repository\EnquiryRepository
+                    aggregate_type: App\Model\Enquiry\Enquiry
+                    aggregate_translator: '@Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator'
+                    stream_name: 'enquiry_event'
 
 services:
     _defaults:
         public: false
 
+    App\EventStore\PersistenceStrategy\StreamStrategy: ~
+
     Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator: ~
+
+    App\Infrastructure\Repository\EnquiryRepository: ~
+    App\Model\Enquiry\EnquiryList: '@App\Infrastructure\Repository\EnquiryRepository'

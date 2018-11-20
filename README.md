@@ -22,6 +22,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
    7. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
    8. Create the database: `bin/console doctrine:schema:create`
    9. Create event streams & projections tables from: https://github.com/prooph/pdo-event-store/tree/master/scripts/mysql
+   10. Create one or more event streams with the command `bin/console event-store:event-stream:create enquiry_event`
    10. Create a user `bin/console fos:user:create` and then promote them (add the role `ROLE_SUPER_ADMIN`) `bin/console fos:user:promote`
    11. Setup mail spool: add cron task similar to: `* * * * * cd <path> && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1`
 10. Delete starter files: `README.md` (or update), `TEMPLATES.md`.

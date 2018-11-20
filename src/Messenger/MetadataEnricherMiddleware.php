@@ -18,7 +18,7 @@ class MetadataEnricherMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @param \App\Commanding\Command $message
+     * @param \App\Messaging\Command $message
      */
     public function handle($message, callable $next)
     {
