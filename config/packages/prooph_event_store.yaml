@@ -3,5 +3,23 @@ prooph_event_store:
         default:
             event_store: 'Prooph\EventStore\EventStore'
 
+    projection_managers:
+        enquiry_projection_manager:
+            event_store: '@Prooph\EventStore\EventStore'
+            connection: '@app.event_store.pdo_connection.mysql'
+            projections:
+                enquiry_projection:
+                    read_model: App\Projection\Enquiry\EnquiryReadModel
+                    projection: App\Projection\Enquiry\EnquiryProjection
+
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
     App\EventSourcing\Aggregate\AggregateTranslator: ~
+
+    # projections & read models
+    #    App\Projection\Enquiry\EnquiryProjection: ~
+    App\Projection\Enquiry\EnquiryReadModel: ~

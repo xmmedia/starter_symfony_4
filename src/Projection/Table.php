@@ -6,4 +6,5 @@ namespace App\Projection;
 
 class Table
 {
+    public const ENQUIRY = 'enquiry';
 }

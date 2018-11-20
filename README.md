@@ -55,6 +55,9 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
     - Dry run: `composer cs`
     - Fix: `composer cs:fix`
   - PHP Static Analysis (PHPStan): `composer static`
+  - Projections:
+    - All commands: `bin/console event-store:projection`
+    - Run once: `bin/console event-store:projection:run enquiry_projection -o`
 
 ### Apache Config
 
