@@ -19,6 +19,7 @@ services:
 
         bind:
             $commandBus: '@messenger.bus.commands'
+            $eventBus: '@messenger.bus.events'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -44,3 +45,7 @@ services:
     App\EventStore\MetadataIssuedByEnricher:
         tags:
             - { name: 'prooph_event_store.metadata_enricher' }
+
+    App\EventStore\EventStoreMessengerPlugin:
+        tags:
+            - { name: 'prooph_event_store.plugin' }

@@ -8,7 +8,9 @@ framework:
             messenger.bus.commands:
                 middleware:
                     - App\Messenger\CommandEnricherMiddleware
-            messenger.bus.events: ~
+            messenger.bus.events:
+                middleware:
+                    - 'messenger.middleware.allow_no_handler'
 
         transports:
             # Uncomment the following line to enable a transport named "amqp"
