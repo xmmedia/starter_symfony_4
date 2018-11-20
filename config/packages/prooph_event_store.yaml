@@ -7,5 +7,3 @@ services:
     App\EventStore\PersistenceStrategy\StreamStrategy: ~
 
     App\EventSourcing\Aggregate\AggregateTranslator: ~
-
-    App\Model\Enquiry\EnquiryList: '@App\Infrastructure\Repository\EnquiryRepository'
