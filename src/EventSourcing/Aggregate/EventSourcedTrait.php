@@ -9,7 +9,7 @@ use App\EventSourcing\AggregateChanged;
 trait EventSourcedTrait
 {
     /**
-     * Current version
+     * Current version.
      *
      * @var int
      */
@@ -24,12 +24,12 @@ trait EventSourcedTrait
     }
 
     /**
-     * Replay past events
+     * Replay past events.
      */
     protected function replay(\Iterator $historyEvents): void
     {
         foreach ($historyEvents as $pastEvent) {
-            /** @var AggregateChanged $pastEvent */
+            /* @var AggregateChanged $pastEvent */
             $this->version = $pastEvent->version();
 
             $this->apply($pastEvent);
@@ -39,7 +39,7 @@ trait EventSourcedTrait
     abstract protected function aggregateId(): string;
 
     /**
-     * Apply given event
+     * Apply given event.
      */
     abstract protected function apply(AggregateChanged $event): void;
 }

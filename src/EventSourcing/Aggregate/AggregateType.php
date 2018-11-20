@@ -13,7 +13,7 @@ class AggregateType
     protected $mapping = [];
 
     /**
-     * Use this factory when aggregate type should be detected based on given aggregate root
+     * Use this factory when aggregate type should be detected based on given aggregate root.
      *
      * @param object $eventSourcedAggregateRoot
      *
@@ -21,7 +21,7 @@ class AggregateType
      */
     public static function fromAggregateRoot($eventSourcedAggregateRoot): AggregateType
     {
-        if (! \is_object($eventSourcedAggregateRoot)) {
+        if (!\is_object($eventSourcedAggregateRoot)) {
             throw new Exception\AggregateTypeException(
                 \sprintf('Aggregate root must be an object but type of %s given', \gettype($eventSourcedAggregateRoot))
             );
@@ -45,7 +45,7 @@ class AggregateType
      */
     public static function fromAggregateRootClass(string $aggregateRootClass): AggregateType
     {
-        if (! \class_exists($aggregateRootClass)) {
+        if (!\class_exists($aggregateRootClass)) {
             throw new Exception\InvalidArgumentException(\sprintf('Aggregate root class %s can not be found', $aggregateRootClass));
         }
 
@@ -56,7 +56,7 @@ class AggregateType
     }
 
     /**
-     * Use this factory when the aggregate type is not equal to the aggregate root class
+     * Use this factory when the aggregate type is not equal to the aggregate root class.
      *
      * @throws Exception\InvalidArgumentException
      */
@@ -108,7 +108,7 @@ class AggregateType
     {
         $otherAggregateType = self::fromAggregateRoot($aggregateRoot);
 
-        if (! $this->equals($otherAggregateType)) {
+        if (!$this->equals($otherAggregateType)) {
             throw new Exception\AggregateTypeException(
                 \sprintf('Aggregate types must be equal. %s != %s', $this->toString(), $otherAggregateType->toString())
             );
@@ -117,7 +117,7 @@ class AggregateType
 
     public function equals(AggregateType $other): bool
     {
-        if (! $aggregateTypeString = $this->mappedClass()) {
+        if (!$aggregateTypeString = $this->mappedClass()) {
             $aggregateTypeString = $this->toString();
         }
 

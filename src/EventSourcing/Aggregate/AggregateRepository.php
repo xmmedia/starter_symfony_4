@@ -69,7 +69,7 @@ class AggregateRepository
     }
 
     /**
-     * Returns null if no stream events can be found for aggregate root otherwise the reconstituted aggregate root
+     * Returns null if no stream events can be found for aggregate root otherwise the reconstituted aggregate root.
      *
      * @return null|object
      */
@@ -137,7 +137,7 @@ class AggregateRepository
 
     /**
      * Default stream name generation.
-     * Override this method in an extending repository to provide a custom name
+     * Override this method in an extending repository to provide a custom name.
      */
     protected function determineStreamName(string $aggregateId): StreamName
     {

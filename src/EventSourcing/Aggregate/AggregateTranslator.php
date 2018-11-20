@@ -10,7 +10,7 @@ use App\EventSourcing\Aggregate\AggregateTranslatorInterface as EventStoreAggreg
 final class AggregateTranslator implements EventStoreAggregateTranslator
 {
     /** @var AggregateRootDecorator */
-    protected $aggregateRootDecorator;
+    private $aggregateRootDecorator;
 
     /**
      * @param object $eventSourcedAggregateRoot
@@ -33,7 +33,7 @@ final class AggregateTranslator implements EventStoreAggregateTranslator
      */
     public function reconstituteAggregateFromHistory(AggregateType $aggregateType, \Iterator $historyEvents)
     {
-        if (! $aggregateRootClass = $aggregateType->mappedClass()) {
+        if (!$aggregateRootClass = $aggregateType->mappedClass()) {
             $aggregateRootClass = $aggregateType->toString();
         }
 

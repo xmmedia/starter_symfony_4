@@ -7,7 +7,6 @@ namespace App;
 use App\EventSourcing\Aggregate\AggregateRepository;
 use App\EventSourcing\Aggregate\AggregateTranslator;
 use App\Infrastructure\Repository;
-use App\Model;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -96,7 +95,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
                         new Reference(AggregateTranslator::class),
                         // "_event_stream" will be appended to this
                         // see \App\EventStore\PersistenceStrategy\StreamStrategy::generateTableName()
-                        $repository['stream_name']
+                        $repository['stream_name'],
                     ]
                 )
             ;

@@ -31,7 +31,7 @@ interface AggregateTranslatorInterface
     public function extractPendingStreamEvents($eventSourcedAggregateRoot): array;
 
     /**
-     * @param object $eventSourcedAggregateRoot
+     * @param object    $eventSourcedAggregateRoot
      * @param \Iterator $events
      */
     public function replayStreamEvents($eventSourcedAggregateRoot, \Iterator $events): void;

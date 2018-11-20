@@ -36,7 +36,7 @@ class AggregateChanged extends DomainEvent
     }
 
     /**
-     * Return message payload as array
+     * Return message payload as array.
      *
      * The payload should only contain scalar types and sub arrays.
      * The payload is normally passed to json_encode to persist the message or
@@ -73,7 +73,7 @@ class AggregateChanged extends DomainEvent
     }
 
     /**
-     * This method is called when message is instantiated named constructor fromArray
+     * This method is called when message is instantiated named constructor fromArray.
      */
     protected function setPayload(array $payload): void
     {

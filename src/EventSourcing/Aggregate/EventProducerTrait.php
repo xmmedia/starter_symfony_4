@@ -9,21 +9,21 @@ use App\EventSourcing\AggregateChanged;
 trait EventProducerTrait
 {
     /**
-     * Current version
+     * Current version.
      *
      * @var int
      */
     protected $version = 0;
 
     /**
-     * List of events that are not committed to the EventStore
+     * List of events that are not committed to the EventStore.
      *
      * @var AggregateChanged[]
      */
     protected $recordedEvents = [];
 
     /**
-     * Get pending events and reset stack
+     * Get pending events and reset stack.
      *
      * @return AggregateChanged[]
      */
@@ -37,11 +37,11 @@ trait EventProducerTrait
     }
 
     /**
-     * Record an aggregate changed event
+     * Record an aggregate changed event.
      */
     protected function recordThat(AggregateChanged $event): void
     {
-        $this->version += 1;
+        ++$this->version;
 
         $this->recordedEvents[] = $event->withVersion($this->version);
 
@@ -51,7 +51,7 @@ trait EventProducerTrait
     abstract protected function aggregateId(): string;
 
     /**
-     * Apply given event
+     * Apply given event.
      */
     abstract protected function apply(AggregateChanged $event): void;
 }
