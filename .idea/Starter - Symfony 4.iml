@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="App\Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="App\" />
       <excludeFolder url="file://$MODULE_DIR$/var" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/beberlei/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bin/.phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
@@ -81,6 +82,14 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-token-stream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/prolic/fpp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/event-sourcing" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/event-store" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/event-store-bus-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/event-store-symfony-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/pdo-event-store" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/service-bus" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/service-bus-symfony-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
