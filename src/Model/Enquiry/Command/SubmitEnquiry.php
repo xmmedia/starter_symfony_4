@@ -9,7 +9,7 @@ use App\Model\Email;
 use App\Model\Enquiry\EnquiryId;
 use Webmozart\Assert\Assert;
 
-final class SubmitEnquiryForm extends Command
+final class SubmitEnquiry extends Command
 {
     public const NAME_MIN_LENGTH = 5;
     public const NAME_MAX_LENGTH = 50;

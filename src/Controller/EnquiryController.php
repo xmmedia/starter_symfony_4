@@ -6,7 +6,7 @@ namespace App\Controller;
 
 use App\Exception\InvalidForm;
 use App\Form\EnquiryType;
-use App\Model\Enquiry\Command\SubmitEnquiryForm;
+use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\EnquiryId;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -48,7 +48,7 @@ class EnquiryController extends AbstractController
             throw InvalidForm::fromForm($form);
         }
 
-        $commandBus->dispatch(SubmitEnquiryForm::withData(
+        $commandBus->dispatch(SubmitEnquiry::withData(
             EnquiryId::generate(),
             $form->getData()['name'],
             $form->getData()['email'],

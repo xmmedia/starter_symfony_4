@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Form\DataTransformer\EmailTransformer;
-use App\Model\Enquiry\Command\SubmitEnquiryForm;
+use App\Model\Enquiry\Command\SubmitEnquiry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,8 +25,8 @@ class EnquiryType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
-                        'min' => SubmitEnquiryForm::NAME_MIN_LENGTH,
-                        'max' => SubmitEnquiryForm::NAME_MAX_LENGTH,
+                        'min' => SubmitEnquiry::NAME_MIN_LENGTH,
+                        'max' => SubmitEnquiry::NAME_MAX_LENGTH,
                     ]),
                 ],
             ])
@@ -47,8 +47,8 @@ class EnquiryType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
-                        'min' => SubmitEnquiryForm::MESSAGE_MIN_LENGTH,
-                        'max' => SubmitEnquiryForm::MESSAGE_MAX_LENGTH,
+                        'min' => SubmitEnquiry::MESSAGE_MIN_LENGTH,
+                        'max' => SubmitEnquiry::MESSAGE_MAX_LENGTH,
                     ]),
                 ],
             ])

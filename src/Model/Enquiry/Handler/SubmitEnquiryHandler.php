@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model\Enquiry\Handler;
 
-use App\Model\Enquiry\Command\SubmitEnquiryForm;
+use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\EnquiryList;
 
-class SubmitEnquiryFormHandler
+class SubmitEnquiryHandler
 {
     /** @var EnquiryList */
     private $enquiryRepo;
@@ -18,7 +18,7 @@ class SubmitEnquiryFormHandler
         $this->enquiryRepo = $enquiryRepo;
     }
 
-    public function __invoke(SubmitEnquiryForm $command): void
+    public function __invoke(SubmitEnquiry $command): void
     {
         $enquiry = Enquiry::submit(
             $command->enquiryId(),
