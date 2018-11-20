@@ -40,3 +40,7 @@ services:
         resource: '../src/Model/Enquiry/Handler/*Handler.php'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+
+    App\EventStore\EventMetadataIssuedByEnricher:
+        tags:
+            - { name: 'prooph_event_store.default.plugin' }
