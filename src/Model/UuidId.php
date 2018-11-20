@@ -45,7 +45,7 @@ trait UuidId
     /**
      * @param UuidId|ValueObject $other
      */
-    public function sameValueAs(ValueObject $other): bool
+    public function sameAs(ValueObject $other): bool
     {
         return get_class($this) === get_class($other) && $this->uuid->equals($other->uuid);
     }
