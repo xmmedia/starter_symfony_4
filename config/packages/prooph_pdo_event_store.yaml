@@ -11,7 +11,11 @@ services:
             $connection: '@app.event_store.pdo_connection.mysql'
             $persistenceStrategy: '@app.event_store.mysql.persistence_strategy'
 
-    app.event_store.pdo_connection.mysql: '@doctrine.dbal.default_connection'
+    app.event_store.pdo_connection.mysql: '@app.doctrine.pdo.connection'
+
+    app.doctrine.pdo.connection:
+        class: PDO
+        factory: ['@database_connection', getWrappedConnection]
 
     app.event_store.mysql.persistence_strategy:
         class: App\EventStore\PersistenceStrategy\StreamStrategy
