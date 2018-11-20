@@ -1,18 +1,15 @@
 services:
     Prooph\EventStore\EventStore: '@app.event_store.default'
 
+    App\EventStore\PersistenceStrategy\StreamStrategy: ~
+
     app.event_store.default:
         class: Prooph\EventStore\Pdo\MySqlEventStore
         arguments:
             $messageFactory: '@prooph_event_store.message_factory'
             $connection: '@app.event_store.pdo_connection.mysql'
-            $persistenceStrategy: '@app.event_store.mysql.persistence_strategy'
+            $persistenceStrategy: '@App\EventStore\PersistenceStrategy\StreamStrategy'
 
-    app.event_store.pdo_connection.mysql: '@app.doctrine.pdo.connection'
-
-    app.doctrine.pdo.connection:
+    app.event_store.pdo_connection.mysql:
         class: PDO
         factory: ['@database_connection', getWrappedConnection]
-
-    app.event_store.mysql.persistence_strategy:
-        class: App\EventStore\PersistenceStrategy\StreamStrategy
