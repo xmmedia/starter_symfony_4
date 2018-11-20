@@ -41,6 +41,6 @@ services:
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
-    App\EventStore\EventMetadataIssuedByEnricher:
+    App\EventStore\MetadataIssuedByEnricher:
         tags:
-            - { name: 'prooph_event_store.default.plugin' }
+            - { name: 'prooph_event_store.metadata_enricher' }
