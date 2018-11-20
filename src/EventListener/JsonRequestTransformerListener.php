@@ -47,7 +47,7 @@ class JsonRequestTransformerListener implements EventSubscriberInterface
             return false;
         }
 
-        if ($data === null) {
+        if (null === $data) {
             return true;
         }
 
