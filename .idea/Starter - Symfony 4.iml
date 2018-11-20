@@ -83,7 +83,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/prolic/fpp" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/common" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/event-sourcing" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/event-store" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/event-store-bus-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/event-store-symfony-bundle" />
