@@ -1,0 +1,9 @@
+services:
+    App\EventSourcing\Aggregate\RepositoryFactory:
+        autowire: true
+
+    App\EventSourcing\Aggregate\AggregateRepository:
+        abstract: true
+        factory: 'App\EventSourcing\Aggregate\RepositoryFactory:create'
+
+    App\Model\Enquiry\EnquiryList: '@App\Infrastructure\Repository\EnquiryRepository'

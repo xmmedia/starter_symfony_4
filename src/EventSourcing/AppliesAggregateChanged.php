@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\EventSourcing;
 
-use Prooph\EventSourcing\AggregateChanged;
-
 trait AppliesAggregateChanged
 {
     protected function apply(AggregateChanged $e): void

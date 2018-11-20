@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\EventSourcing\Aggregate\AggregateRepository;
+use App\EventSourcing\Aggregate\AggregateTranslator;
+use App\Infrastructure\Repository;
+use App\Model;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\ChildDefinition;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
-class Kernel extends BaseKernel
+class Kernel extends BaseKernel implements CompilerPassInterface
 {
     use MicroKernelTrait;
 
@@ -59,5 +66,40 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}/'.$this->environment.'/**/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
+    }
+
+    public function process(ContainerBuilder $container)
+    {
+        $this->loadEventSourceRepositories($container);
+    }
+
+    private function loadEventSourceRepositories(ContainerBuilder $container): void
+    {
+        $repositories = [
+            [
+                'repository_class' => Repository\EnquiryRepository::class,
+                'aggregate_type'   => Model\Enquiry\Enquiry::class,
+                'stream_name'      => 'enquiry',
+            ],
+        ];
+
+        foreach ($repositories as $repository) {
+            $container->setDefinition(
+                    $repository['repository_class'],
+                    new ChildDefinition(AggregateRepository::class)
+                )
+                ->setArguments(
+                    [
+                        $repository['repository_class'],
+                        new Reference('prooph_event_store.default'),
+                        $repository['aggregate_type'],
+                        new Reference(AggregateTranslator::class),
+                        // "_event_stream" will be appended to this
+                        // see \App\EventStore\PersistenceStrategy\StreamStrategy::generateTableName()
+                        $repository['stream_name']
+                    ]
+                )
+            ;
+        }
     }
 }

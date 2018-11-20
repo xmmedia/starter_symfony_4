@@ -6,8 +6,6 @@ namespace App\Messaging;
 
 /**
  * This is the base class for commands used to trigger actions in a domain model.
- *
- * @see https://github.com/prooph/common
  */
 abstract class Command extends DomainMessage
 {

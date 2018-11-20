@@ -6,14 +6,14 @@ namespace App\Messaging;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Prooph\Common\Messaging\Message as BaseMessage;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;
 
 /**
- * Base class for commands, domain events and queries. All are messages but differ in their intention.
- *
- * @see https://github.com/prooph/common
+ * Base class for commands and domain events.
+ * All are messages but differ in their intention.
  */
 abstract class DomainMessage implements Message
 {
@@ -103,7 +103,7 @@ abstract class DomainMessage implements Message
         return $this->messageName;
     }
 
-    public function withMetadata(array $metadata): Message
+    public function withMetadata(array $metadata): BaseMessage
     {
         $message = clone $this;
 
@@ -117,7 +117,7 @@ abstract class DomainMessage implements Message
      *
      * Given value must have a scalar type.
      */
-    public function withAddedMetadata(string $key, $value): Message
+    public function withAddedMetadata(string $key, $value): BaseMessage
     {
         Assert::notEmpty($key, 'Invalid key');
 

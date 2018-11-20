@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Repository;
 
+use App\EventSourcing\Aggregate\AggregateRepository;
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\EnquiryId;
 use App\Model\Enquiry\EnquiryList;
-use Prooph\EventSourcing\Aggregate\AggregateRepository;
 
 final class EnquiryRepository extends AggregateRepository implements EnquiryList
 {

@@ -7,9 +7,6 @@ namespace App\Messaging;
 use DateTimeImmutable;
 use Webmozart\Assert\Assert;
 
-/**
- * @see https://github.com/prooph/common
- */
 final class MessageDataAssertion
 {
     /**

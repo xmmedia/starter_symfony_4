@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model\Enquiry;
 
+use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\Model\Entity;
-use Prooph\EventSourcing\AggregateRoot;
 
 class Enquiry extends AggregateRoot implements Entity
 {

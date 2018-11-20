@@ -6,8 +6,6 @@ namespace App\Messaging;
 
 /**
  * A message implementing this interface is aware of its name.
- *
- * @see https://github.com/prooph/common
  */
 interface HasMessageName
 {

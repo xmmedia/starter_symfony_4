@@ -17,9 +17,7 @@ use Prooph\EventStore\StreamName;
  */
 final class StreamStrategy implements PersistenceStrategy, HasQueryHint
 {
-    /**
-     * @var MessageConverter
-     */
+    /** @var MessageConverter */
     private $messageConverter;
 
     public function __construct(?MessageConverter $messageConverter = null)
@@ -85,7 +83,7 @@ EOT;
 
     public function generateTableName(StreamName $streamName): string
     {
-        return $streamName->toString().'_stream';
+        return $streamName->toString().'_event_stream';
     }
 
     public function indexName(): string

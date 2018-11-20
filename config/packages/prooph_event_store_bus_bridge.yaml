@@ -1,7 +1,4 @@
 services:
-    _defaults:
-        public: false
-
     Prooph\EventStoreBusBridge\EventPublisher:
         arguments:
             - '@prooph_service_bus.default_event_bus'
@@ -10,6 +7,6 @@ services:
 
     Prooph\EventStoreBusBridge\TransactionManager:
         arguments:
-            - '@app.event_store.default'
+            - '@Prooph\EventStore\EventStore'
         tags:
             - { name: 'prooph_service_bus.default_command_bus.plugin' }

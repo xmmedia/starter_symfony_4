@@ -24,7 +24,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Infrastructure/Repository,Projection,Kernel.php}'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,EventSourcing/Aggregate,Infrastructure/Repository,Projection,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -38,7 +38,5 @@ services:
     # only needed to tell it which bus to use
     App\Model\Enquiry\Handler\:
         resource: '../src/Model/Enquiry/Handler/*Handler.php'
-        arguments:
-            $enquiryRepo: '@enquiry_list'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }

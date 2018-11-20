@@ -8,8 +8,6 @@ namespace App\Messaging;
  * Use this trait together with the PayloadConstructable interface
  * to use simple message instantiation and default implementations
  * for DomainMessage::payload() and DomainMessage::setPayload().
- *
- * @see https://github.com/prooph/common
  */
 trait PayloadTrait
 {

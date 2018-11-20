@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Model\Enquiry\Event;
 
+use App\EventSourcing\AggregateChanged;
 use App\Model\Email;
 use App\Model\Enquiry\EnquiryId;
-use Prooph\EventSourcing\AggregateChanged;
 
 class EnquiryWasSubmitted extends AggregateChanged
 {
