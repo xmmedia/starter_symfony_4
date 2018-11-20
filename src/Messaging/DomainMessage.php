@@ -7,6 +7,7 @@ namespace App\Messaging;
 use DateTimeImmutable;
 use DateTimeZone;
 use Prooph\Common\Messaging\Message as BaseMessage;
+use Prooph\Common\Messaging\DomainMessage as BaseDomainMessage;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;
@@ -15,7 +16,7 @@ use Webmozart\Assert\Assert;
  * Base class for commands and domain events.
  * All are messages but differ in their intention.
  */
-abstract class DomainMessage implements Message
+abstract class DomainMessage extends BaseDomainMessage implements Message
 {
     /**
      * @var string
@@ -39,7 +40,7 @@ abstract class DomainMessage implements Message
 
     abstract protected function setPayload(array $payload): void;
 
-    public static function fromArray(array $messageData): DomainMessage
+    public static function fromArray(array $messageData): BaseDomainMessage
     {
         MessageDataAssertion::assert($messageData);
 
