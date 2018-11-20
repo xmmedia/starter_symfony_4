@@ -6,14 +6,10 @@ namespace App\Tests\Model;
 
 use App\Model\Email;
 use Faker;
-use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 class EmailTest extends TestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testFromString(): void
     {
         $faker = Faker\Factory::create();
