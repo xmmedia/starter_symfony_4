@@ -57,7 +57,7 @@ class EmailTest extends TestCase
         $vo1 = Email::fromString('email@email.com');
         $vo2 = Email::fromString('email@email.com');
 
-        $this->assertTrue($vo1->sameAs($vo2));
+        $this->assertTrue($vo1->sameValueAs($vo2));
     }
 
     public function testSameAsCapitals(): void
@@ -65,6 +65,6 @@ class EmailTest extends TestCase
         $vo1 = Email::fromString('eMail@email.com');
         $vo2 = Email::fromString('email@eMail.com');
 
-        $this->assertTrue($vo1->sameAs($vo2));
+        $this->assertTrue($vo1->sameValueAs($vo2));
     }
 }

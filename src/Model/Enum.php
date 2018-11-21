@@ -12,7 +12,7 @@ abstract class Enum extends MabeEnum implements Serializable, ValueObject
 {
     use EnumSerializableTrait;
 
-    public function sameAs(ValueObject $object): bool
+    public function sameValueAs(ValueObject $object): bool
     {
         return $this->is($object);
     }

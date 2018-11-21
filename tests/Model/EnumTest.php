@@ -15,6 +15,6 @@ class EnumTest extends TestCase
         $enum1 = $this->getMockForAbstractClass(Enum::class, [], '', false);
         $enum2 = $this->getMockForAbstractClass(Enum::class, [], '', false);
 
-        $this->assertTrue($enum1->sameAs($enum2));
+        $this->assertTrue($enum1->sameValueAs($enum2));
     }
 }

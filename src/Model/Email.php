@@ -55,7 +55,7 @@ final class Email implements ValueObject
     /**
      * @param Email|ValueObject $other
      */
-    public function sameAs(ValueObject $other): bool
+    public function sameValueAs(ValueObject $other): bool
     {
         return get_class($this) === get_class($other) && strtolower($this->email) === strtolower($other->email);
     }

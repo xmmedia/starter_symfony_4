@@ -69,7 +69,7 @@ class Date implements ValueObject, \JsonSerializable
     /**
      * @param Date|ValueObject $other
      */
-    public function sameAs(ValueObject $other): bool
+    public function sameValueAs(ValueObject $other): bool
     {
         return get_class($this) === get_class($other) && $this->date->equalTo($other->date);
     }

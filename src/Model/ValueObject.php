@@ -6,5 +6,5 @@ namespace App\Model;
 
 interface ValueObject
 {
-    public function sameAs(ValueObject $other): bool;
+    public function sameValueAs(ValueObject $other): bool;
 }
