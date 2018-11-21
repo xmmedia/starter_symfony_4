@@ -1,5 +1,5 @@
 admin_dashboard:
-    path: /admin
-    controller:   Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    path:       /admin
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
-        template:    static/admin_dashboard.html.twig
+        template: static/admin_dashboard.html.twig
