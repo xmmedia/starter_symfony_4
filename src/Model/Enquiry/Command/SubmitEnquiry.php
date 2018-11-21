@@ -6,16 +6,12 @@ namespace App\Model\Enquiry\Command;
 
 use App\Messaging\Command;
 use App\Model\Email;
+use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\EnquiryId;
 use Webmozart\Assert\Assert;
 
 final class SubmitEnquiry extends Command
 {
-    public const NAME_MIN_LENGTH = 5;
-    public const NAME_MAX_LENGTH = 50;
-    public const MESSAGE_MIN_LENGTH = 10;
-    public const MESSAGE_MAX_LENGTH = 5000;
-
     public static function withData(
         EnquiryId $enquiryId,
         string $name,
@@ -58,16 +54,16 @@ final class SubmitEnquiry extends Command
         Assert::keyExists($payload, 'name');
         Assert::notEmpty($payload['name']);
         Assert::string($payload['name']);
-        Assert::minLength($payload['name'], self::NAME_MIN_LENGTH);
-        Assert::maxLength($payload['name'], self::NAME_MAX_LENGTH);
+        Assert::minLength($payload['name'], Enquiry::NAME_MIN_LENGTH);
+        Assert::maxLength($payload['name'], Enquiry::NAME_MAX_LENGTH);
 
         Assert::keyExists($payload, 'email');
 
         Assert::keyExists($payload, 'message');
         Assert::notEmpty($payload['message']);
         Assert::string($payload['message']);
-        Assert::minLength($payload['message'], self::MESSAGE_MIN_LENGTH);
-        Assert::maxLength($payload['message'], self::MESSAGE_MAX_LENGTH);
+        Assert::minLength($payload['message'], Enquiry::MESSAGE_MIN_LENGTH);
+        Assert::maxLength($payload['message'], Enquiry::MESSAGE_MAX_LENGTH);
 
         parent::setPayload($payload);
     }
