@@ -38,11 +38,9 @@ class EnquiryController extends AbstractController
     ): JsonResponse {
         $this->checkCsrf($request, 'enquiry');
 
-        $enquiry = $request->request->get('enquiry');
-
         $form = $formFactory
             ->create(EnquiryType::class)
-            ->submit($enquiry);
+            ->submit($request->request->get('enquiry'));
 
         if (!$form->isValid()) {
             throw InvalidForm::fromForm($form);
