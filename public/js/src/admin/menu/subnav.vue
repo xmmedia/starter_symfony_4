@@ -47,11 +47,11 @@ export default {
         }),
 
         buttonClasses () {
-            let str = 'button absolute pin-r z-100 rounded-none bg-transparent'
+            let str = 'button absolute pin-r z-100 rounded-none bg-transparent '
                 +'hover:bg-blue-dark sidebar_nav-link sidebar_nav-submenu_arrow';
 
             if (this.open) {
-                str += 'opacity-100 bg-grey-darkest sidebar_nav-submenu_arrow-open';
+                str += ' opacity-100 bg-grey-darkest sidebar_nav-submenu_arrow-open';
             }
 
             return str;
