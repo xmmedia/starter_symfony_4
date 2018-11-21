@@ -16,7 +16,7 @@ class User implements AdvancedUserInterface
 {
     /**
      * @var \Ramsey\Uuid\Uuid
-     * @ORM\Id()
+     * @ORM\Id
      * @ORM\Column(type="uuid")
      */
     private $id;
