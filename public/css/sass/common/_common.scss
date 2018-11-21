@@ -1,6 +1,6 @@
 /* this file is for public and private/admin pages */
 
-a {
+a, .button-link {
     transition: color 0.25s ease;
     //&:hover, &:active { }
 }

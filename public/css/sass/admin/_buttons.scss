@@ -9,11 +9,3 @@
         @apply opacity-75;
     }
 }
-
-.button-as_link {
-    @apply p-0 text-blue-dark bg-transparent border-0 tracking-normal;
-    transition: none;
-    &:hover {
-        @apply underline bg-transparent;
-    }
-}
