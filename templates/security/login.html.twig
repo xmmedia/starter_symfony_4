@@ -1,0 +1,59 @@
+{% extends 'admin.html.twig' %}
+
+{% block page_title %}Login | {% endblock %}
+{% block header_page_title %}Admin{% endblock %}
+
+{% block content %}
+    {% include 'flash_messages.html.twig' %}
+
+    {% if error %}
+        <div class="alert alert-warning alert-type-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <div class="form-wrap form-form_wrap">
+        <h1 class="mt-0 leading-none">Login</h1>
+
+        <form method="post">
+            <input type="hidden"
+                   name="_csrf_token"
+                   value="{{ csrf_token(constant('App\\Model\\User\\Credentials::CSRF_TOKEN_ID')) }}">
+            {% if target_path is defined %}
+                <input type="hidden" name="_target_path" value="{{ target_path }}">
+            {% endif %}
+
+            <div class="field-wrap form-field_wrap">
+                <label for="inputEmail">Email Address</label>
+                <input type="email"
+                       id="inputEmail"
+                       name="email"
+                       value="{{ last_username }}"
+                       required
+                       autofocus
+                       autocomplete="username">
+            </div>
+
+            <div class="field-wrap form-field_wrap">
+                <label for="inputPassword">Password</label>
+                <input type="password"
+                       id="inputPassword"
+                       name="password"
+                       required
+                       autocomplete="current-password">
+            </div>
+
+            <div class="field-wrap-checkbox form-field_wrap form-field_wrap-checkbox">
+                <input type="checkbox"
+                       id="remember_me"
+                       name="_remember_me"
+                       value="on"><label
+                        for="remember_me">Remember Me</label>
+            </div>
+
+            <div class="form-button_wrap">
+                <button class="button">Login</button>
+                {# @todo url #}
+                <a href="" class="form-action form-action_link">Forgot Password?</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

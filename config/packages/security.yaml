@@ -1,32 +1,46 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        app_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    encoders:
+        App\Entity\User:
+            algorithm: 'argon2i'
+            # maximum memory (in KiB) that may be used to compute the Argon2 hash
+            memory_cost: 1024
+            #  number of times the Argon2 hash algorithm will be run
+            time_cost: 2
+            # number of threads to use for computing the Argon2 hash
+            threads: 2
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\AppAuthenticator
+            logout:
+                path: app_logout
 
-            # activate different ways to authenticate
-
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: true
-            # https://symfony.com/doc/current/security/form_login_setup.html
-
-# @todo-symfony enable
-#            remember_me:
-#                secret:   '%kernel.secret%'
-#                name:     'remember-me'
-#                lifetime: 2592000 # 30 days
-#                path:     /
-#                secure:   true
+            remember_me:
+                secret:   '%kernel.secret%'
+                name:     'remember-me'
+                lifetime: 2592000 # 30 days
+                path:     /
+                secure:   true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
