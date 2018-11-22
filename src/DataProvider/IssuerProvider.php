@@ -22,12 +22,13 @@ class IssuerProvider
             return 'cli';
         }
 
+        /** @var \App\Entity\User $user */
         $user = $this->security->getUser();
 
         if (!$user) {
             return 'anonymous';
         }
 
-        return $user->getUuid()->toString();
+        return $user->id()->toString();
     }
 }
