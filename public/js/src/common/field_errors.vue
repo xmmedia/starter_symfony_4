@@ -5,28 +5,40 @@
 </template>
 
 <script>
-import { flatMap } from 'lodash';
+import { get } from 'lodash';
 
 export default {
     props: {
         errors: {
-            type: [Array, Object],
+            type: Object,
             default: function () {
-                return [];
+                return {};
             },
+        },
+
+        // the name of the field in the form
+        // will used to find the errors using lodash.get()
+        field: {
+            type: String,
+            required: true,
         },
     },
 
     computed: {
         hasErrors () {
+            if (this.flatErrors === undefined) {
+                return false;
+            }
+
             return this.flatErrors.length > 0;
         },
+
         flatErrors () {
-            if (typeof this.errors === 'object') {
-                return flatMap(this.errors);
-            } else {
-                return this.errors;
-            }
+            return get(this.errors, this.errorPath);
+        },
+
+        errorPath () {
+            return ['children', this.field, 'errors'];
         },
     },
 };
