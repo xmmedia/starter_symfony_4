@@ -38,7 +38,7 @@ The edit view:
                             }
                         })
                     }}
-                        <button class="form-action button-as_link">Delete</button>
+                        <button class="form-action button-link">Delete</button>
                     {{ form_end(delete_form) }}
                 </li>
             </ul>
