@@ -104,6 +104,10 @@ export default {
 
                 this.$store.dispatch('updateUser', data);
 
+                setTimeout(() => {
+                    this.status = statuses.LOADED;
+                }, 5000);
+
             } catch (e) {
                 if (e.response && e.response.status === 400) {
                     this.validationErrors = e.response.data.errors;
