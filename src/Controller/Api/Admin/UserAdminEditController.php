@@ -22,7 +22,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @IsGranted("ROLE_ADMIN")
- * @todo test if this & below are both needed
  * @Route(defaults={"_format": "json"})
  * @codeCoverageIgnore
  */
@@ -34,8 +33,7 @@ class UserAdminController extends AbstractController
      * @Route(
      *     "/api/admin/user/create",
      *     name="api_admin_user_create",
-     *     methods={"POST"},
-     *     defaults={"_format": "json"}
+     *     methods={"POST"}
      * )
      *
      * @param UserInterface|\App\Entity\User $user

@@ -27,8 +27,7 @@ class EnquiryController extends AbstractController
      * @Route(
      *     "/enquiry/submit",
      *     name="enquiry_submit",
-     *     methods={"POST"},
-     *     defaults={"_format": "json"}
+     *     methods={"POST"}
      * )
      */
     public function createOrder(

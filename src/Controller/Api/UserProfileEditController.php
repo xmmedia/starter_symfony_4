@@ -19,7 +19,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
- * @todo test if this & below are both needed
  * @Route(defaults={"_format": "json"})
  * @codeCoverageIgnore
  */
@@ -31,8 +30,7 @@ class UserProfileEditController extends AbstractController
      * @Route(
      *     "/api/user/profile/save",
      *     name="api_user_profile",
-     *     methods={"POST"},
-     *     defaults={"_format": "json"}
+     *     methods={"POST"}
      * )
      *
      * @param UserInterface|\App\Entity\User $user
