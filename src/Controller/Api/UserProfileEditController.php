@@ -23,7 +23,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @Route(defaults={"_format": "json"})
  * @codeCoverageIgnore
  */
-class UserProfileController extends AbstractController
+class UserProfileEditController extends AbstractController
 {
     use RequestCsrfCheck;
 
@@ -56,12 +56,14 @@ class UserProfileController extends AbstractController
             throw InvalidForm::fromForm($form);
         }
 
-        $commandBus->dispatch(UpdateUserProfile::withData(
-            $user->id(),
-            $form->getData()['email'],
-            $form->getData()['firstName'],
-            $form->getData()['lastName']
-        ));
+        $commandBus->dispatch(
+            UpdateUserProfile::withData(
+                $user->id(),
+                $form->getData()['email'],
+                $form->getData()['firstName'],
+                $form->getData()['lastName']
+            )
+        );
 
         return $this->json(['success' => true]);
     }

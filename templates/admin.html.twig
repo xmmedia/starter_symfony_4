@@ -48,7 +48,7 @@
         <div class="absolute pin-b w-24 pt-2 bg-black text-grey text-center font-thin sidebar_nav-bottom_wrap">
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class="text-sm">
-                    <a href="{{ path('user_profile') }}" class="text-inherit">
+                    <a href="{{ path('user_profile_edit') }}" class="text-inherit">
                         {% if app.user.name %}
                             <div>{{ app.user.name }}</div>
                         {% else %}

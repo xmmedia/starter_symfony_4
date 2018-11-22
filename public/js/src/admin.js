@@ -41,7 +41,7 @@ window.App = new Vue({
         'menu-subnav': menuSubnav,
         'menu-small': menuSmall,
         'admin-user': () => import('./admin/user/index'),
-        'user-profile': () => import('./admin/user_profile/index'),
+        'user-profile': () => import('./admin/user_profile_edit/index'),
     },
 
     mounted () {

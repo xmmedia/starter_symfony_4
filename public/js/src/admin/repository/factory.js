@@ -1,9 +1,9 @@
 import adminUser from './admin_user_repository';
-import userProfile from './user_profile_repository';
+import userProfileEdit from './user_profile_edit_repository';
 
 const repositories = {
     adminUser,
-    userProfile,
+    userProfileEdit,
 };
 
 export const repositoryFactory = {

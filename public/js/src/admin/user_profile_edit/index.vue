@@ -50,7 +50,7 @@
 import { repositoryFactory } from '../repository/factory';
 import { logError } from '@/common/lib';
 
-const userProfileRepo = repositoryFactory.get('userProfile');
+const userProfileEditRepo = repositoryFactory.get('userProfileEdit');
 
 const statuses = {
     LOADED: 'loaded',
@@ -97,7 +97,7 @@ export default {
                     lastName: this.lastName,
                 };
 
-                await userProfileRepo.save(data);
+                await userProfileEditRepo.save(data);
 
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
