@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% set js_base = 'admin' %}
+
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('admin') }}
@@ -31,10 +33,11 @@
 
                     {%
                         set items = {
-                            'Users': path('xm_user_admin_user_list') ~ '?' ~ user_filter.query(),
-                            'Login History': path('xm_user_admin_login_history'),
+                            'Users': path('admin_user'),
                         }
                     %}
+                    {# @todo:  ~ '?' ~ user_filter.query() #}
+                    {# 'Login History': path('xm_user_admin_login_history'), #}
                     <menu-subnav name="{{ 'app.admin.menu.admin'|trans }}"
                         :items="{{ items|json_encode }}">
                     </menu-subnav>
@@ -45,7 +48,7 @@
         <div class="absolute pin-b w-24 pt-2 bg-black text-grey text-center font-thin sidebar_nav-bottom_wrap">
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class="text-sm">
-                    <a href="{{ path('fos_user_profile_edit') }}" class="text-inherit">
+                    <a href="{{ path('user_profile') }}" class="text-inherit">
                         {% if app.user.name %}
                             <div>{{ app.user.name }}</div>
                         {% else %}
