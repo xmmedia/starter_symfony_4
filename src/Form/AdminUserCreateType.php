@@ -111,7 +111,7 @@ class AdminUserCreateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'csrf_protection' => false,
+            'csrf_protection'   => false,
             'validation_groups' => function (FormInterface $form) {
                 $groups = ['Default'];
                 $data = $form->getData();

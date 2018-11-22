@@ -41,7 +41,8 @@ class UserProjection implements ReadModelProjection
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
-                    $readModel->stack('update',
+                    $readModel->stack(
+                        'update',
                         $event->userId()->toString(),
                         [
                             'email'      => $event->email()->toString(),
