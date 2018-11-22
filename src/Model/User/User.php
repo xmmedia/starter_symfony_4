@@ -8,6 +8,7 @@ use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
 use App\Model\Entity;
+use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\Event\UserWasCreatedByAdmin;
 use Symfony\Component\Security\Core\Role\Role;
 
@@ -50,7 +51,14 @@ class User extends AggregateRoot implements Entity
         Name $firstName,
         Name $lastName
     ): void {
-
+        $this->recordThat(
+            UserUpdatedProfile::now(
+                $this->userId,
+                $email,
+                $firstName,
+                $lastName
+            )
+        );
     }
 
     protected function aggregateId(): string
@@ -61,6 +69,11 @@ class User extends AggregateRoot implements Entity
     protected function whenUserWasCreatedByAdmin(UserWasCreatedByAdmin $event): void
     {
         $this->userId = $event->userId();
+    }
+
+    protected function whenUserUpdatedProfile(UserUpdatedProfile $event): void
+    {
+        // nothing atm
     }
 
     /**

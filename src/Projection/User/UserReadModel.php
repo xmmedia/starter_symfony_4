@@ -66,4 +66,14 @@ EOT;
     {
         $this->connection->insert(self::TABLE, $data, $types);
     }
+
+    protected function update(string $userId, array $data, array $types = []): void
+    {
+        $this->connection->update(
+            self::TABLE,
+            $data,
+            ['id' => $userId],
+            $types
+        );
+    }
 }

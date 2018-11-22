@@ -46,6 +46,7 @@ class UserProfileController extends AbstractController
         $this->checkAdminCsrf($request);
 
         // @todo check what else FOS User does
+        // @todo check for duplicate email/username
 
         $form = $formFactory
             ->create(UserProfileType::class)
@@ -59,7 +60,7 @@ class UserProfileController extends AbstractController
             $user->id(),
             $form->getData()['email'],
             $form->getData()['firstName'],
-            $form->getData()['firstName']
+            $form->getData()['lastName']
         ));
 
         return $this->json(['success' => true]);

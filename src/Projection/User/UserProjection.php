@@ -33,6 +33,23 @@ class UserProjection implements ReadModelProjection
                         'roles' => 'array',
                     ]);
                 },
+
+                Event\UserUpdatedProfile::class => function (
+                    array $state,
+                    Event\UserUpdatedProfile $event
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack('update',
+                        $event->userId()->toString(),
+                        [
+                            'email'      => $event->email()->toString(),
+                            'first_name' => $event->firstName()->toString(),
+                            'last_name'  => $event->lastName()->toString(),
+                        ]
+                    );
+                },
             ]);
 
         return $projector;
