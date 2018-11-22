@@ -9,7 +9,7 @@ trait IsInitializableReadModel
     public function isInitialized(): bool
     {
         $statement = $this->connection->prepare(
-            sprintf("SHOW TABLES LIKE '%s';", Table::ENQUIRY)
+            sprintf("SHOW TABLES LIKE '%s';", self::TABLE)
         );
         $statement->execute();
 

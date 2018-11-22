@@ -17,6 +17,8 @@ final class EnquiryReadModel extends AbstractReadModel
     use IsResetableReadModel;
     use IsDeletableReadModel;
 
+    protected const TABLE = Table::ENQUIRY;
+
     /** @var Connection */
     private $connection;
 
@@ -27,7 +29,7 @@ final class EnquiryReadModel extends AbstractReadModel
 
     public function init(): void
     {
-        $tableName = Table::ENQUIRY;
+        $tableName = self::TABLE;
 
         $sql = <<<EOT
 CREATE TABLE `$tableName` (
@@ -45,6 +47,6 @@ EOT;
 
     protected function insert(array $data, array $types = []): void
     {
-        $this->connection->insert(Table::ENQUIRY, $data, $types);
+        $this->connection->insert(self::TABLE, $data, $types);
     }
 }

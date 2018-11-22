@@ -29,7 +29,7 @@ final class UserReadModel extends AbstractReadModel
 
     public function init(): void
     {
-        $tableName = Table::USER;
+        $tableName = self::TABLE;
 
         $sql = <<<EOT
 CREATE TABLE `$tableName` (
@@ -64,6 +64,6 @@ EOT;
 
     protected function insert(array $data, array $types = []): void
     {
-        $this->connection->insert(Table::USER, $data, $types);
+        $this->connection->insert(self::TABLE, $data, $types);
     }
 }

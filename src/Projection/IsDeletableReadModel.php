@@ -9,7 +9,7 @@ trait IsDeletableReadModel
     public function delete(): void
     {
         $statement = $this->connection->prepare(
-            sprintf('DROP TABLE `%s`;', Table::ENQUIRY)
+            sprintf('DROP TABLE `%s`;', self::TABLE)
         );
         $statement->execute();
     }

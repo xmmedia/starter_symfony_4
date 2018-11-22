@@ -9,7 +9,7 @@ trait IsResetableReadModel
     public function reset(): void
     {
         $statement = $this->connection->prepare(
-            sprintf('TRUNCATE TABLE `%s`;', Table::ENQUIRY)
+            sprintf('TRUNCATE TABLE `%s`;', self::TABLE)
         );
         $statement->execute();
     }
