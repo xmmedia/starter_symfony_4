@@ -4,6 +4,14 @@ prooph_event_store:
             event_store: 'Prooph\EventStore\EventStore'
 
     projection_managers:
+        user_projection_manager:
+            event_store: '@Prooph\EventStore\EventStore'
+            connection: '@app.event_store.pdo_connection.mysql'
+            projections:
+                user_projection:
+                    read_model: App\Projection\User\UserReadModel
+                    projection: App\Projection\User\UserProjection
+
         enquiry_projection_manager:
             event_store: '@Prooph\EventStore\EventStore'
             connection: '@app.event_store.pdo_connection.mysql'
@@ -21,5 +29,7 @@ services:
     App\EventSourcing\Aggregate\AggregateTranslator: ~
 
     # projections & read models
+    #    App\Projection\User\UserProjection: ~
+    App\Projection\User\UserReadModel: ~
     #    App\Projection\Enquiry\EnquiryProjection: ~
     App\Projection\Enquiry\EnquiryReadModel: ~

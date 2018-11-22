@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block page_title %}User Admin | {% endblock %}
+{% block header_page_title %}User Admin{% endblock %}
+{% block header_actions %}
+    <router-link :to="{ name: 'admin-user-create' }" class="header-action header-action-main">Add User</router-link>
+{% endblock header_actions %}
+
+{% block content %}
+    {% include 'flash_messages.html.twig' %}
+
+    <router-view></router-view>
+{% endblock content %}

@@ -4,16 +4,14 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            name: 'admin-user',
-            path: '/admin/user',
-            component: () => import('./user/index'),
-            children: [
-                {
-                    name: 'admin-user-create',
-                    path: 'create',
-                    component: () => import('./user/create'),
-                },
-            ],
+            name: 'admin-user-create',
+            path: '/admin/user/create',
+            component: null,
+        },
+        {
+            name: 'admin-user-create',
+            path: '/admin/user/create',
+            component: null,
         },
     ],
 

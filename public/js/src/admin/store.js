@@ -12,10 +12,17 @@ export default new Vuex.Store({
         serverData: {},
     },
     getters: {},
-    actions: {},
+    actions: {
+        updateUser ({ commit }, user) {
+            commit('setUser', user);
+        },
+    },
     mutations: {
         updateServerData (state, serverData) {
             state.serverData = serverData;
+        },
+        setUser (state, user) {
+            state.serverData.user = { ...state.serverData.user, ...user };
         },
     },
 

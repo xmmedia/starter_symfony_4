@@ -16,4 +16,9 @@ trait RequestCsrfCheck
             throw $this->createAccessDeniedException('The CSRF token is invalid.');
         }
     }
+
+    private function checkAdminCsrf(Request $request): void
+    {
+        $this->checkCsrf($request, 'admin');
+    }
 }

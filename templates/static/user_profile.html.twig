@@ -1,0 +1,10 @@
+{% extends 'admin.html.twig' %}
+
+{% block page_title %}Profile | {% endblock %}
+{% block header_page_title %}My Profile{% endblock %}
+
+{% block content %}
+    {% include 'flash_messages.html.twig' %}
+
+    <user-profile></user-profile>
+{% endblock content %}

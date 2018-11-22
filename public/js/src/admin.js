@@ -40,7 +40,8 @@ window.App = new Vue({
         'svg-icons': svgIcons,
         'menu-subnav': menuSubnav,
         'menu-small': menuSmall,
-        'admin-user': () => import('./admin/user/form'),
+        'admin-user': () => import('./admin/user/index'),
+        'user-profile': () => import('./admin/user_profile/index'),
     },
 
     mounted () {

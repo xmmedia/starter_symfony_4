@@ -6,7 +6,7 @@ namespace App;
 
 use App\EventSourcing\Aggregate\AggregateRepository;
 use App\EventSourcing\Aggregate\AggregateTranslator;
-use App\Infrastructure\Repository;
+use App\Infrastructure\Repository as EventSourceRepository;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -76,7 +76,12 @@ class Kernel extends BaseKernel implements CompilerPassInterface
     {
         $repositories = [
             [
-                'repository_class' => Repository\EnquiryRepository::class,
+                'repository_class' => EventSourceRepository\UserRepository::class,
+                'aggregate_type'   => Model\User\User::class,
+                'stream_name'      => 'user',
+            ],
+            [
+                'repository_class' => EventSourceRepository\EnquiryRepository::class,
                 'aggregate_type'   => Model\Enquiry\Enquiry::class,
                 'stream_name'      => 'enquiry',
             ],

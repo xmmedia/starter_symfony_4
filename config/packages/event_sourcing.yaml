@@ -6,4 +6,5 @@ services:
         abstract: true
         factory: 'App\EventSourcing\Aggregate\RepositoryFactory:create'
 
+    App\Model\User\UserList: '@App\Infrastructure\Repository\UserRepository'
     App\Model\Enquiry\EnquiryList: '@App\Infrastructure\Repository\EnquiryRepository'
