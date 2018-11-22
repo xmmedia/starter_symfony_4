@@ -1,5 +1,5 @@
 <script>
-import axios from './axios';
+import api from './api';
 import { logError } from './lib';
 
 export default {
@@ -49,7 +49,7 @@ export default {
                 this.loading = true;
                 this.error = false;
 
-                const response = await axios.get(this.url, {
+                const response = await api.get(this.url, {
                     params: {
                         _csrf_token: this.csrfToken,
                     },

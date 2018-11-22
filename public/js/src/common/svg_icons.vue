@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import axios from '@/common/axios';
+import api from '@/common/api';
 
 export default {
     props: {
@@ -20,7 +20,7 @@ export default {
     },
 
     mounted () {
-        axios
+        api
             .get(this.src)
             .then((response) => {
                 this.svg = response.data;

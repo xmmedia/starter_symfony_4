@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import axios from '../common/axios';
+import api from '../common/api';
 
 export default {
     props: {
@@ -29,7 +29,7 @@ export default {
 
             this.isChecked = !this.isChecked;
 
-            axios
+            api
                 .post(this.href)
                 .then((response) => {
                     self.isChecked = response.data.is_checked;
