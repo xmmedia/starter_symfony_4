@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Model\Email;
 use App\Model\User\UserId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Ramsey\Uuid\UuidInterface;
@@ -17,6 +18,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method User|null findOneByUuid(UuidInterface|UserId $uuid, array $orderBy = null)
  * @method User[]    findByUuid(UuidInterface|UserId $uuid, array $orderBy = null)
+ * @method User|null findOneByEmail(Email $email, array $orderBy = null)
  */
 class UserRepository extends ServiceEntityRepository
 {

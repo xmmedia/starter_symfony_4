@@ -9,10 +9,10 @@ use App\Form\DataTransformer\NameTransformer;
 use App\Form\DataTransformer\SecurityRoleTransformer;
 use App\Model\User\Name;
 use App\Model\User\User;
+use App\Validator\Constraints\UniqueNewUserEmail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -41,7 +41,6 @@ class AdminUserCreateType extends AbstractType
         }, $this->roleHierarchy->getReachableRoles([new Role('ROLE_SUPER_ADMIN')]));
 
         $builder
-            // @todo check for duplicates
             ->add('email', EmailType::class, [
                 'label'       => 'Email',
                 'attr'        => ['maxlength' => 150],
@@ -51,6 +50,7 @@ class AdminUserCreateType extends AbstractType
                         'strict'  => true,
                         'checkMX' => true,
                     ]),
+                    new UniqueNewUserEmail(),
                 ],
             ])
             ->add('setPassword', CheckboxType::class, [

@@ -58,3 +58,5 @@ services:
     App\EventStore\EventStoreMessengerPlugin:
         tags:
             - { name: 'prooph_event_store.plugin' }
+
+    App\Model\User\Service\ChecksUniqueUsersEmail: '@App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel'

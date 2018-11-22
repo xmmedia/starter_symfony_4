@@ -7,6 +7,7 @@ namespace App\Form;
 use App\Form\DataTransformer\EmailTransformer;
 use App\Form\DataTransformer\NameTransformer;
 use App\Model\User\Name;
+use App\Validator\Constraints\UniqueCurrentUsersEmail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,6 +29,7 @@ class UserProfileType extends AbstractType
                         'strict'  => true,
                         'checkMX' => true,
                     ]),
+                    new UniqueCurrentUsersEmail(),
                 ],
             ])
             ->add('firstName', TextType::class, [
