@@ -15,9 +15,6 @@ class User extends AggregateRoot implements Entity
 {
     use AppliesAggregateChanged;
 
-    public const NAME_MIN_LENGTH = 5;
-    public const NAME_MAX_LENGTH = 50;
-
     public const PASSWORD_MIN_LENGTH = 12;
 
     /** @var UserId */
@@ -29,8 +26,8 @@ class User extends AggregateRoot implements Entity
         string $encodedPassword,
         Role $role,
         bool $enabled,
-        string $firstName,
-        string $lastName
+        Name $firstName,
+        Name $lastName
     ): self {
         $self = new self();
         $self->recordThat(
@@ -46,6 +43,14 @@ class User extends AggregateRoot implements Entity
         );
 
         return $self;
+    }
+
+    public function updateFromProfile(
+        Email $email,
+        Name $firstName,
+        Name $lastName
+    ): void {
+
     }
 
     protected function aggregateId(): string

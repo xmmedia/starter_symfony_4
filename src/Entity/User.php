@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Model\Email;
+use App\Model\User\Name;
 use App\Model\User\UserId;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -192,14 +193,22 @@ class User implements AdvancedUserInterface
         return $this->loginCount;
     }
 
-    public function firstName(): ?string
+    public function firstName(): ?Name
     {
-        return $this->firstName;
+        if (null === $this->firstName) {
+            return null;
+        }
+
+        return Name::fromString($this->firstName);
     }
 
-    public function lastName(): ?string
+    public function lastName(): ?Name
     {
-        return $this->lastName;
+        if (null === $this->lastName) {
+            return null;
+        }
+
+        return Name::fromString($this->lastName);
     }
 
     public function name(): string

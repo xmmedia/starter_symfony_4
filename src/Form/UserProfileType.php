@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Form\DataTransformer\EmailTransformer;
-use App\Model\User\User;
+use App\Form\DataTransformer\NameTransformer;
+use App\Model\User\Name;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,23 +32,23 @@ class UserProfileType extends AbstractType
             ])
             ->add('firstName', TextType::class, [
                 'label'       => 'First Name',
-                'attr'        => ['maxlength' => User::NAME_MAX_LENGTH],
+                'attr'        => ['maxlength' => Name::NAME_MAX_LENGTH],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
-                        'min' => User::NAME_MIN_LENGTH,
-                        'max' => User::NAME_MAX_LENGTH,
+                        'min' => Name::NAME_MIN_LENGTH,
+                        'max' => Name::NAME_MAX_LENGTH,
                     ]),
                 ],
             ])
             ->add('lastName', TextType::class, [
                 'label'       => 'Last Name',
-                'attr'        => ['maxlength' => User::NAME_MAX_LENGTH],
+                'attr'        => ['maxlength' => Name::NAME_MAX_LENGTH],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
-                        'min' => User::NAME_MIN_LENGTH,
-                        'max' => User::NAME_MAX_LENGTH,
+                        'min' => Name::NAME_MIN_LENGTH,
+                        'max' => Name::NAME_MAX_LENGTH,
                     ]),
                 ],
             ])
@@ -55,6 +56,10 @@ class UserProfileType extends AbstractType
 
         $builder->get('email')
             ->addModelTransformer(new EmailTransformer());
+        $builder->get('firstName')
+            ->addModelTransformer(new NameTransformer());
+        $builder->get('lastName')
+            ->addModelTransformer(new NameTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver): void

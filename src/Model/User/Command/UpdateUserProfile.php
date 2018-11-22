@@ -6,7 +6,7 @@ namespace App\Model\User\Command;
 
 use App\Messaging\Command;
 use App\Model\Email;
-use App\Model\User\User;
+use App\Model\User\Name;
 use App\Model\User\UserId;
 use Webmozart\Assert\Assert;
 
@@ -15,14 +15,14 @@ final class UpdateUserProfile extends Command
     public static function withData(
         UserId $userId,
         Email $email,
-        string $firstName,
-        string $lastName
+        Name $firstName,
+        Name $lastName
     ): self {
         return new self([
             'userId'    => $userId->toString(),
             'email'     => $email->toString(),
-            'firstName' => $firstName,
-            'lastName'  => $lastName,
+            'firstName' => $firstName->toString(),
+            'lastName'  => $lastName->toString(),
         ]);
     }
 
@@ -36,14 +36,14 @@ final class UpdateUserProfile extends Command
         return Email::fromString($this->payload()['email']);
     }
 
-    public function firstName(): string
+    public function firstName(): Name
     {
-        return $this->payload()['firstName'];
+        return Name::fromString($this->payload()['firstName']);
     }
 
-    public function lastName(): string
+    public function lastName(): Name
     {
-        return $this->payload()['lastName'];
+        return Name::fromString($this->payload()['lastName']);
     }
 
     protected function setPayload(array $payload): void
@@ -54,16 +54,8 @@ final class UpdateUserProfile extends Command
         Assert::keyExists($payload, 'email');
 
         Assert::keyExists($payload, 'firstName');
-        Assert::notEmpty($payload['firstName']);
-        Assert::string($payload['firstName']);
-        Assert::minLength($payload['firstName'], User::NAME_MIN_LENGTH);
-        Assert::maxLength($payload['firstName'], User::NAME_MAX_LENGTH);
 
         Assert::keyExists($payload, 'lastName');
-        Assert::notEmpty($payload['lastName']);
-        Assert::string($payload['lastName']);
-        Assert::minLength($payload['lastName'], User::NAME_MIN_LENGTH);
-        Assert::maxLength($payload['lastName'], User::NAME_MAX_LENGTH);
 
         parent::setPayload($payload);
     }

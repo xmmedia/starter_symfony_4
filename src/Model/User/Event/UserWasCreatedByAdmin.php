@@ -6,6 +6,7 @@ namespace App\Model\User\Event;
 
 use App\EventSourcing\AggregateChanged;
 use App\Model\Email;
+use App\Model\User\Name;
 use App\Model\User\UserId;
 use Symfony\Component\Security\Core\Role\Role;
 
@@ -23,10 +24,10 @@ class UserWasCreatedByAdmin extends AggregateChanged
     /** @var bool */
     private $enabled;
 
-    /** @var string */
+    /** @var Name */
     private $firstName;
 
-    /** @var string */
+    /** @var Name */
     private $lastName;
 
     public static function now(
@@ -35,16 +36,16 @@ class UserWasCreatedByAdmin extends AggregateChanged
         string $encodedPassword,
         Role $role,
         bool $enabled,
-        string $firstName,
-        string $lastName
+        Name $firstName,
+        Name $lastName
     ): self {
         $event = self::occur($userId->toString(), [
             'email'           => $email->toString(),
             'encodedPassword' => $encodedPassword,
             'role'            => $role->getRole(),
             'enabled'         => $enabled,
-            'firstName'       => $firstName,
-            'lastName'        => $lastName,
+            'firstName'       => $firstName->toString(),
+            'lastName'        => $lastName->toString(),
         ]);
 
         $event->email = $email;
@@ -98,19 +99,19 @@ class UserWasCreatedByAdmin extends AggregateChanged
         return $this->enabled;
     }
 
-    public function firstName(): string
+    public function firstName(): Name
     {
         if (null === $this->firstName) {
-            $this->firstName = $this->payload()['firstName'];
+            $this->firstName = Name::fromString($this->payload()['firstName']);
         }
 
         return $this->firstName;
     }
 
-    public function lastName(): string
+    public function lastName(): Name
     {
         if (null === $this->lastName) {
-            $this->lastName = $this->payload()['lastName'];
+            $this->lastName = Name::fromString($this->payload()['lastName']);
         }
 
         return $this->lastName;

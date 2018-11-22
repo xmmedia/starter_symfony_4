@@ -27,8 +27,8 @@ class UserProjection implements ReadModelProjection
                         'password'   => $event->encodedPassword(),
                         'enabled'    => $event->enabled(),
                         'roles'      => [$event->role()->getRole()],
-                        'first_name' => $event->firstName(),
-                        'last_name'  => $event->lastName(),
+                        'first_name' => $event->firstName()->toString(),
+                        'last_name'  => $event->lastName()->toString(),
                     ], [
                         'roles' => 'array',
                     ]);
