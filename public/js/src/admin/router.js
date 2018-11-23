@@ -4,6 +4,22 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
+            path: '/profile/edit',
+            component: () => import('./user_profile_edit/index'),
+            children: [
+                {
+                    name: 'user-profile-edit',
+                    path: '',
+                    component: () => import('./user_profile_edit/profile'),
+                },
+                {
+                    name: 'user-profile-edit-password',
+                    path: 'password',
+                    component: () => import('./user_profile_edit/password'),
+                },
+            ],
+        },
+        {
             path: '/admin/user',
             component: () => import('./user/index'),
             children: [

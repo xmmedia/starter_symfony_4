@@ -10,6 +10,7 @@ use App\Model\Email;
 use App\Model\Entity;
 use App\Model\User\Event\AdminChangedPassword;
 use App\Model\User\Event\AdminUpdatedUser;
+use App\Model\User\Event\ChangedPassword;
 use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
 use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\Event\UserWasCreatedByAdmin;
@@ -107,6 +108,11 @@ class User extends AggregateRoot implements Entity
         );
     }
 
+    public function changePassword(string $encodedPassword): void
+    {
+        $this->recordThat(ChangedPassword::now($this->userId, $encodedPassword));
+    }
+
     protected function aggregateId(): string
     {
         return $this->userId->toString();
@@ -133,6 +139,11 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenUserUpdatedProfile(UserUpdatedProfile $event): void
+    {
+        // nothing atm
+    }
+
+    protected function whenChangedPassword(ChangedPassword $event): void
     {
         // nothing atm
     }

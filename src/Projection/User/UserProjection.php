@@ -109,6 +109,22 @@ class UserProjection implements ReadModelProjection
                         ]
                     );
                 },
+
+                Event\ChangedPassword::class => function (
+                    array $state,
+                    Event\ChangedPassword $event
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->userId()->toString(),
+                        [
+                            'password' => $event->encodedPassword(),
+                        ]
+                    );
+                },
             ]);
 
         return $projector;
