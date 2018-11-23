@@ -41,8 +41,8 @@ class UserNormalizer implements NormalizerInterface, SerializerAwareInterface
             $data['id'] = $user->id()->toString();
             $data['email'] = $user->email()->toString();
             $data['name'] = $user->name();
-            $data['firstName'] = $user->firstName()->toString();
-            $data['lastName'] = $user->lastName()->toString();
+            $data['firstName'] = $user->firstName() ? $user->firstName()->toString() : null;
+            $data['lastName'] = $user->lastName() ? $user->lastName()->toString() : null;
             $data['verified'] = $user->verified();
             $data['active'] = $user->active();
             $data['roles'] = $user->roles();
