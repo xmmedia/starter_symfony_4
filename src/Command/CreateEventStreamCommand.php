@@ -14,6 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CreateEventStreamCommand extends ContainerAwareCommand
 {
+    /** @var EventStore */
     private $eventStore;
 
     public function __construct(EventStore $eventStore)
