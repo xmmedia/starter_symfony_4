@@ -192,7 +192,7 @@ class User implements UserInterface, EncoderAwareInterface
 
     public function name(): string
     {
-        return sprintf('%s %s', $this->firstName, $this->lastName);
+        return trim(sprintf('%s %s', $this->firstName, $this->lastName));
     }
 
     public function getEncoderName()
