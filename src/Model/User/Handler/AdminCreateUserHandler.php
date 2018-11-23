@@ -37,7 +37,7 @@ class AdminCreateUserHandler
             $command->email(),
             $command->encodedPassword(),
             $command->role(),
-            $command->enabled(),
+            $command->active(),
             $command->firstName(),
             $command->lastName()
         );

@@ -8,12 +8,12 @@ use App\Model\Email;
 use App\Model\User\Name;
 use App\Model\User\UserId;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements AdvancedUserInterface
+class User implements UserInterface
 {
     /**
      * @var \Ramsey\Uuid\Uuid
@@ -38,13 +38,13 @@ class User implements AdvancedUserInterface
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $enabled;
+    private $verified;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $locked;
+    private $active;
 
     /**
      * @var array
@@ -120,39 +120,17 @@ class User implements AdvancedUserInterface
 
     public function eraseCredentials(): void
     {
-        // nothing atm
+        // nothing atm, object never stored un-encoded password
     }
 
-    public function enabled(): bool
+    public function verified(): bool
     {
-        return $this->enabled;
+        return $this->verified;
     }
 
-    public function isEnabled(): bool
+    public function active(): bool
     {
-        return $this->enabled();
-    }
-
-    public function locked(): bool
-    {
-        return $this->locked;
-    }
-
-    public function isAccountNonLocked(): bool
-    {
-        return !$this->locked();
-    }
-
-    public function isAccountNonExpired(): bool
-    {
-        // we don't have a flag, so always return true
-        return true;
-    }
-
-    public function isCredentialsNonExpired(): bool
-    {
-        // we don't have a flag, so always return true
-        return true;
+        return $this->active;
     }
 
     public function roles(): array

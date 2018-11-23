@@ -73,9 +73,9 @@ class UserAdminEditController extends AbstractController
             $form->getData()['email'],
             $encodedPassword,
             $form->getData()['role'],
-            $form->getData()['enabled'],
+            $form->getData()['active'],
             $form->getData()['firstName'],
-            $form->getData()['firstName']
+            $form->getData()['lastName']
         ));
 
         return $this->json(['userId' => $userId->toString()]);
@@ -111,7 +111,7 @@ class UserAdminEditController extends AbstractController
             $form->getData()['email'],
             $form->getData()['role'],
             $form->getData()['firstName'],
-            $form->getData()['firstName']
+            $form->getData()['lastName']
         ));
 
         if ($form->getData()['changePassword']) {

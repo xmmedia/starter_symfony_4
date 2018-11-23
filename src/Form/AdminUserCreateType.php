@@ -93,8 +93,8 @@ class AdminUserCreateType extends AbstractType
             ->add('role', ChoiceType::class, [
                 'choices' => $roles,
             ])
-            ->add('enabled', CheckboxType::class, [
-                'label' => 'Enabled',
+            ->add('active', CheckboxType::class, [
+                'label' => 'Active',
             ])
         ;
 

@@ -59,10 +59,10 @@ export default {
 
     filters: {
         accountStatus (user) {
-            if (user.locked) {
-                return 'Locked';
-            } else if (!user.enabled) {
-                return 'Disabled';
+            if (!user.active) {
+                return 'Inactive';
+            } else if (!user.verified) {
+                return 'Not Verified';
             }
 
             return 'Active';

@@ -43,8 +43,8 @@ class UserNormalizer implements NormalizerInterface, SerializerAwareInterface
             $data['name'] = $user->name();
             $data['firstName'] = $user->firstName()->toString();
             $data['lastName'] = $user->lastName()->toString();
-            $data['enabled'] = $user->enabled();
-            $data['locked'] = $user->locked();
+            $data['verified'] = $user->verified();
+            $data['active'] = $user->active();
             $data['roles'] = $user->roles();
         }
 

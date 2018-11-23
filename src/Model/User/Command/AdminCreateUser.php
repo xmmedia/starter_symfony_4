@@ -18,7 +18,7 @@ final class AdminCreateUser extends Command
         Email $email,
         string $encodedPassword,
         Role $role,
-        bool $enabled,
+        bool $active,
         Name $firstName,
         Name $lastName
     ): self {
@@ -27,7 +27,7 @@ final class AdminCreateUser extends Command
             'email'           => $email->toString(),
             'encodedPassword' => $encodedPassword,
             'role'            => $role->getRole(),
-            'enabled'         => $enabled,
+            'active'          => $active,
             'firstName'       => $firstName->toString(),
             'lastName'        => $lastName->toString(),
         ]);
@@ -53,9 +53,9 @@ final class AdminCreateUser extends Command
         return new Role($this->payload()['role']);
     }
 
-    public function enabled(): bool
+    public function active(): bool
     {
-        return $this->payload()['enabled'];
+        return $this->payload()['active'];
     }
 
     public function firstName(): Name
@@ -81,8 +81,8 @@ final class AdminCreateUser extends Command
 
         Assert::keyExists($payload, 'role');
 
-        Assert::keyExists($payload, 'enabled');
-        Assert::boolean($payload['enabled']);
+        Assert::keyExists($payload, 'active');
+        Assert::boolean($payload['active']);
 
         Assert::keyExists($payload, 'firstName');
 

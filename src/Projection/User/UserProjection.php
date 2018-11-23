@@ -25,10 +25,30 @@ class UserProjection implements ReadModelProjection
                         'id'         => $event->aggregateId(),
                         'email'      => $event->email()->toString(),
                         'password'   => $event->encodedPassword(),
-                        'enabled'    => $event->enabled(),
+                        'verified'   => true,
+                        'active'     => $event->active(),
                         'roles'      => [$event->role()->getRole()],
                         'first_name' => $event->firstName()->toString(),
                         'last_name'  => $event->lastName()->toString(),
+                    ], [
+                        'roles' => 'array',
+                    ]);
+                },
+
+                Event\MinimalUserWasCreatedByAdmin::class => function (
+                    array $state,
+                    Event\MinimalUserWasCreatedByAdmin $event
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack('insert', [
+                        'id'         => $event->aggregateId(),
+                        'email'      => $event->email()->toString(),
+                        'password'   => $event->encodedPassword(),
+                        'verified'   => true,
+                        'active'     => true,
+                        'roles'      => [$event->role()->getRole()],
                     ], [
                         'roles' => 'array',
                     ]);

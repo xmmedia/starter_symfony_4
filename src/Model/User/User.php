@@ -10,6 +10,7 @@ use App\Model\Email;
 use App\Model\Entity;
 use App\Model\User\Event\AdminChangedPassword;
 use App\Model\User\Event\AdminUpdatedUser;
+use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
 use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\Event\UserWasCreatedByAdmin;
 use Symfony\Component\Security\Core\Role\Role;
@@ -28,7 +29,7 @@ class User extends AggregateRoot implements Entity
         Email $email,
         string $encodedPassword,
         Role $role,
-        bool $enabled,
+        bool $active,
         Name $firstName,
         Name $lastName
     ): self {
@@ -39,9 +40,28 @@ class User extends AggregateRoot implements Entity
                 $email,
                 $encodedPassword,
                 $role,
-                $enabled,
+                $active,
                 $firstName,
                 $lastName
+            )
+        );
+
+        return $self;
+    }
+
+    public static function createByAdminMinimum(
+        UserId $userId,
+        Email $email,
+        string $encodedPassword,
+        Role $role
+    ): self {
+        $self = new self();
+        $self->recordThat(
+            MinimalUserWasCreatedByAdmin::now(
+                $userId,
+                $email,
+                $encodedPassword,
+                $role
             )
         );
 
@@ -93,6 +113,11 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenUserWasCreatedByAdmin(UserWasCreatedByAdmin $event): void
+    {
+        $this->userId = $event->userId();
+    }
+
+    protected function whenMinimalUserWasCreatedByAdmin(MinimalUserWasCreatedByAdmin $event): void
     {
         $this->userId = $event->userId();
     }

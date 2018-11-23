@@ -22,7 +22,7 @@ class UserWasCreatedByAdmin extends AggregateChanged
     private $role;
 
     /** @var bool */
-    private $enabled;
+    private $active;
 
     /** @var Name */
     private $firstName;
@@ -35,7 +35,7 @@ class UserWasCreatedByAdmin extends AggregateChanged
         Email $email,
         string $encodedPassword,
         Role $role,
-        bool $enabled,
+        bool $active,
         Name $firstName,
         Name $lastName
     ): self {
@@ -43,7 +43,7 @@ class UserWasCreatedByAdmin extends AggregateChanged
             'email'           => $email->toString(),
             'encodedPassword' => $encodedPassword,
             'role'            => $role->getRole(),
-            'enabled'         => $enabled,
+            'active'          => $active,
             'firstName'       => $firstName->toString(),
             'lastName'        => $lastName->toString(),
         ]);
@@ -51,7 +51,7 @@ class UserWasCreatedByAdmin extends AggregateChanged
         $event->email = $email;
         $event->encodedPassword = $encodedPassword;
         $event->role = $role;
-        $event->enabled = $enabled;
+        $event->active = $active;
         $event->firstName = $firstName;
         $event->lastName = $lastName;
 
@@ -90,13 +90,13 @@ class UserWasCreatedByAdmin extends AggregateChanged
         return $this->role;
     }
 
-    public function enabled(): bool
+    public function active(): bool
     {
-        if (null === $this->enabled) {
-            $this->enabled = $this->payload()['enabled'];
+        if (null === $this->active) {
+            $this->active = $this->payload()['active'];
         }
 
-        return $this->enabled;
+        return $this->active;
     }
 
     public function firstName(): Name

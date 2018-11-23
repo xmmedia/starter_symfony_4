@@ -14,9 +14,9 @@
                             @set-password="setPassword = $event" />
 
             <div class="field-wrap field-wrap-checkbox">
-                <field-errors :errors="validationErrors" field="inputEnabled" />
-                <input id="inputEnabled" v-model="enabled" type="checkbox">
-                <label for="inputEnabled">Enabled</label>
+                <field-errors :errors="validationErrors" field="active" />
+                <input id="inputActive" v-model="active" type="checkbox">
+                <label for="inputActive">Active</label>
             </div>
 
             <field-name v-model="firstName"
@@ -30,7 +30,7 @@
 
             <field-role v-model="role" :validation-errors="validationErrors" />
 
-            <!-- @todo send invite -->
+            <!-- @todo send invite & not verified -->
 
             <div>
                 <button type="submit"
@@ -81,7 +81,7 @@ export default {
             setPassword: false,
             password: null,
             role: 'ROLE_USER',
-            enabled: true,
+            active: true,
             firstName: null,
             lastName: null,
         };
@@ -109,7 +109,7 @@ export default {
                     setPassword: this.setPassword,
                     password: this.password,
                     role: this.role,
-                    enabled: this.enabled,
+                    active: this.active,
                     firstName: this.firstName,
                     lastName: this.lastName,
                 };
