@@ -34,8 +34,7 @@
 
             <div>
                 <button type="submit"
-                        class="button"
-                        @click.prevent="submit">Add User</button>
+                        class="button">Add User</button>
                 <router-link :to="{ name: 'admin-user' }"
                              class="form-action">Cancel</router-link>
 

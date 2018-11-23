@@ -29,8 +29,7 @@
 
             <div>
                 <button type="submit"
-                        class="button"
-                        @click.prevent="submit">Update User</button>
+                        class="button">Update User</button>
                 <router-link :to="{ name: 'admin-user' }"
                              class="form-action">Cancel</router-link>
 
