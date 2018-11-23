@@ -71,7 +71,10 @@ final class PasswordEncoderTestCommand extends ContainerAwareCommand
             sprintf('Max time: %d ms', max($times))
         );
         $io->writeln(
-            sprintf('Average memory: %d MB', array_sum($memories)/count($memories)/1024/1024)
+            sprintf(
+                'Average memory: %d MB',
+                array_sum($memories) / count($memories) / 1024 / 1024
+            )
         );
     }
 }
