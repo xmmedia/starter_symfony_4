@@ -13,12 +13,15 @@ security:
     encoders:
         App\Entity\User:
             algorithm: 'argon2i'
+            # values below are meant to take ~2 seconds on 4 core machine
+            # use the app:security:password-encode-test to determine what this should be
             # maximum memory (in KiB) that may be used to compute the Argon2 hash
-            memory_cost: 1024
+            memory_cost: 128000
             #  number of times the Argon2 hash algorithm will be run
-            time_cost: 2
+            time_cost: 37
             # number of threads to use for computing the Argon2 hash
-            threads: 2
+            # ~2x number of cores
+            threads: 8
 
     firewalls:
         dev:
