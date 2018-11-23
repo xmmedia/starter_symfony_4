@@ -8,12 +8,13 @@ use App\Model\Email;
 use App\Model\User\Name;
 use App\Model\User\UserId;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface, EncoderAwareInterface
 {
     /**
      * @var \Ramsey\Uuid\Uuid
@@ -192,5 +193,16 @@ class User implements UserInterface
     public function name(): string
     {
         return sprintf('%s %s', $this->firstName, $this->lastName);
+    }
+
+    public function getEncoderName()
+    {
+        foreach (['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'] as $role) {
+            if (in_array($role, $this->roles, true)) {
+                return 'harsh';
+            }
+        }
+
+        return null;
     }
 }

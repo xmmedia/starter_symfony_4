@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 final class PasswordEncoderTestCommand extends ContainerAwareCommand
 {
-    /** @var UserPasswordEncoderInterface */
+    /** @var PasswordEncoder */
     private $passwordEncoder;
 
     public function __construct(
-        UserPasswordEncoderInterface $passwordEncoder
+        PasswordEncoder $passwordEncoder
     ) {
         parent::__construct();
 
@@ -35,13 +36,26 @@ final class PasswordEncoderTestCommand extends ContainerAwareCommand
                 InputArgument::REQUIRED,
                 'The number of times to run the test.'
             )
+            ->addArgument(
+                'role',
+                InputArgument::OPTIONAL,
+                'The number of times to run the test.',
+                'ROLE_USER'
+            )
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $io->title('Password Encode Test');
+        $io->title('Password Encode Speed/Memory Test');
+        $io->writeln(
+            sprintf(
+                'Running %d times for role %s',
+                $input->getArgument('count'),
+                $input->getArgument('role')
+            )
+        );
 
         $stopwatch = new Stopwatch();
 
@@ -50,8 +64,8 @@ final class PasswordEncoderTestCommand extends ContainerAwareCommand
         for ($i = 0; $i <= $input->getArgument('count'); $i ++) {
             $stopwatch->start('encode-'.$i);
 
-            $this->passwordEncoder->encodePassword(
-                new \App\Entity\User(),
+            ($this->passwordEncoder)(
+                new Role($input->getArgument('role')),
                 (new TokenGenerator())()
             );
 

@@ -9,6 +9,7 @@ use App\Model\Email;
 use App\Model\User\Command\AdminCreateUserMinimum;
 use App\Model\User\User;
 use App\Model\User\UserId;
+use App\Security\PasswordEncoder;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -17,7 +18,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Role\Role;
 use Webmozart\Assert\Assert;
 
@@ -29,13 +29,13 @@ final class CreateUserCommand extends ContainerAwareCommand
     /** @var RoleProvider */
     private $roleProvider;
 
-    /** @var UserPasswordEncoderInterface */
+    /** @var PasswordEncoder */
     private $passwordEncoder;
 
     public function __construct(
         MessageBusInterface $commandBus,
         RoleProvider $roleProvider,
-        UserPasswordEncoderInterface $passwordEncoder
+        PasswordEncoder $passwordEncoder
     ) {
         parent::__construct();
 
@@ -60,11 +60,7 @@ final class CreateUserCommand extends ContainerAwareCommand
         $password = $this->askForPassword($io);
         $role = new Role($this->askForRole($io));
 
-        // use the entity user because it's the one authentication is based on
-        $encodedPassword = $this->passwordEncoder->encodePassword(
-            new \App\Entity\User(),
-            $password
-        );
+        $encodedPassword = ($this->passwordEncoder)($role, $password);
 
         $userId = UserId::generate();
 

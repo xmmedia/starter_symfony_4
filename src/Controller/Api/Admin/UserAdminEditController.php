@@ -12,6 +12,7 @@ use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminCreateUser;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\UserId;
+use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -43,7 +43,7 @@ class UserAdminEditController extends AbstractController
         MessageBusInterface $commandBus,
         FormFactoryInterface $formFactory,
         TokenGenerator $tokenGenerator,
-        UserPasswordEncoderInterface $passwordEncoder
+        PasswordEncoder $passwordEncoder
     ): JsonResponse {
         $this->checkAdminCsrf($request);
 
@@ -62,11 +62,7 @@ class UserAdminEditController extends AbstractController
             $password = $form->getData()['password'];
         }
 
-        // use the entity user because it's the one authentication is based on
-        $encodedPassword = $passwordEncoder->encodePassword(
-            new \App\Entity\User(),
-            $password
-        );
+        $encodedPassword = ($passwordEncoder)($form->getData()['role'], $password);
 
         $commandBus->dispatch(AdminCreateUser::withData(
             $userId,
@@ -92,7 +88,7 @@ class UserAdminEditController extends AbstractController
         Request $request,
         MessageBusInterface $commandBus,
         FormFactoryInterface $formFactory,
-        UserPasswordEncoderInterface $passwordEncoder
+        PasswordEncoder $passwordEncoder
     ): JsonResponse {
         $this->checkAdminCsrf($request);
 
@@ -115,8 +111,8 @@ class UserAdminEditController extends AbstractController
         ));
 
         if ($form->getData()['changePassword']) {
-            $encodedPassword = $passwordEncoder->encodePassword(
-                new \App\Entity\User(),
+            $encodedPassword = ($passwordEncoder)(
+                $form->getData()['role'],
                 $form->getData()['password']
             );
 
