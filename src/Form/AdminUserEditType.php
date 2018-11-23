@@ -62,6 +62,7 @@ class AdminUserEditType extends AbstractType
                 'label'       => 'Password',
                 'attr'        => ['maxlength' => BasePasswordEncoder::MAX_PASSWORD_LENGTH],
                 'constraints' => [
+                    new Assert\NotBlank(['groups' => ['password']]),
                     new Assert\Length([
                         'min'    => User::PASSWORD_MIN_LENGTH,
                         'max'    => BasePasswordEncoder::MAX_PASSWORD_LENGTH,
