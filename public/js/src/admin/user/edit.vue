@@ -1,7 +1,10 @@
 <template>
     <div class="form-wrap">
-        <h2 class="mt-0">Add User</h2>
-        <form @submit.prevent="submit">
+        <h2 class="mt-0">Edit User</h2>
+        <div v-if="status === 'loading'" class="italic">Loading users...</div>
+        <div v-else-if="status === 'error'">There was a problem loading the user list. Please try again later.</div>
+
+        <form v-else-if="showForm" @submit.prevent="submit">
             <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
                 <li>Please fix the errors below and try again.</li>
             </ul>
@@ -10,14 +13,8 @@
 
             <field-password v-model="password"
                             :validation-errors="validationErrors"
-                            checkbox-label="Set Password"
-                            @set-password="setPassword = $event" />
-
-            <div class="field-wrap field-wrap-checkbox">
-                <field-errors :errors="validationErrors" field="inputEnabled" />
-                <input id="inputEnabled" v-model="enabled" type="checkbox">
-                <label for="inputEnabled">Enabled</label>
-            </div>
+                            checkbox-label="Change Password"
+                            @set-password="changePassword = $event" />
 
             <field-name v-model="firstName"
                         :validation-errors="validationErrors"
@@ -30,12 +27,10 @@
 
             <field-role v-model="role" :validation-errors="validationErrors" />
 
-            <!-- @todo send invite -->
-
             <div>
                 <button type="submit"
                         class="button"
-                        @click.prevent="submit">Add User</button>
+                        @click.prevent="submit">Update User</button>
                 <router-link :to="{ name: 'admin-user' }"
                              class="form-action">Cancel</router-link>
 
@@ -57,6 +52,8 @@ import fieldRole from './component/role';
 const adminUserRepo = repositoryFactory.get('adminUser');
 
 const statuses = {
+    LOADING: 'loading',
+    ERROR: 'error',
     LOADED: 'loaded',
     SAVING: 'saving',
     SAVED: 'saved',
@@ -74,20 +71,23 @@ export default {
 
     data () {
         return {
-            status: statuses.LOADED,
+            status: statuses.LOADING,
             validationErrors: {},
 
+            userId: this.$route.params.userId,
             email: null,
-            setPassword: false,
+            changePassword: false,
             password: null,
             role: 'ROLE_USER',
-            enabled: true,
             firstName: null,
             lastName: null,
         };
     },
 
     computed: {
+        showForm () {
+            return [statuses.LOADED, statuses.SAVING, statuses.SAVED].includes(this.status);
+        },
         hasValidationErrors () {
             return Object.keys(this.validationErrors).length > 0;
         },
@@ -97,29 +97,51 @@ export default {
 
     beforeMount () {},
 
-    mounted () {},
+    mounted () {
+        this.load();
+    },
 
     methods: {
+        async load () {
+            try {
+                const response = await adminUserRepo.get(this.userId);
+
+                this.email = response.data.user.email;
+                this.role = response.data.user.roles[0];
+                this.firstName = response.data.user.firstName;
+                this.lastName = response.data.user.lastName;
+
+                this.status = statuses.LOADED;
+
+            } catch (e) {
+                logError(e);
+
+                this.status = statuses.ERROR;
+            }
+        },
+
         async submit () {
             this.status = statuses.SAVING;
 
             try {
                 const data = {
+                    id: this.userId,
                     email: this.email,
-                    setPassword: this.setPassword,
+                    changePassword: this.changePassword,
                     password: this.password,
                     role: this.role,
-                    enabled: this.enabled,
                     firstName: this.firstName,
                     lastName: this.lastName,
                 };
 
-                await adminUserRepo.create(data);
+                await adminUserRepo.update(data);
 
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
 
-                this.$router.push({ name: 'admin-user' });
+                setTimeout(() => {
+                    this.$router.push({ name: 'admin-user' });
+                }, 1500);
 
             } catch (e) {
                 if (e.response && e.response.status === 400) {

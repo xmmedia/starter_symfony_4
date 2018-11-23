@@ -34,6 +34,43 @@ class UserProjection implements ReadModelProjection
                     ]);
                 },
 
+                Event\AdminUpdatedUser::class => function (
+                    array $state,
+                    Event\AdminUpdatedUser $event
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->userId()->toString(),
+                        [
+                            'email'      => $event->email()->toString(),
+                            'roles'      => [$event->role()->getRole()],
+                            'first_name' => $event->firstName()->toString(),
+                            'last_name'  => $event->lastName()->toString(),
+                        ], [
+                            'roles' => 'array',
+                        ]
+                    );
+                },
+
+                Event\AdminChangedPassword::class => function (
+                    array $state,
+                    Event\AdminChangedPassword $event
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->userId()->toString(),
+                        [
+                            'password' => $event->encodedPassword(),
+                        ]
+                    );
+                },
+
                 Event\UserUpdatedProfile::class => function (
                     array $state,
                     Event\UserUpdatedProfile $event

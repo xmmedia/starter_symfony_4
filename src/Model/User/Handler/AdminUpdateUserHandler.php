@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Model\User\Handler;
 
-use App\Model\User\Command\UpdateUserProfile;
+use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Exception\DuplicateEmailAddress;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserList;
 
-class UpdateUserProfileHandler
+class AdminUpdateUserHandler
 {
     /** @var UserList */
     private $userRepo;
@@ -26,7 +26,7 @@ class UpdateUserProfileHandler
         $this->checksUniqueUsersEmailAddress = $checksUniqueUsersEmailAddress;
     }
 
-    public function __invoke(UpdateUserProfile $command): void
+    public function __invoke(AdminUpdateUser $command): void
     {
         $user = $this->userRepo->get($command->userId());
 
@@ -40,8 +40,9 @@ class UpdateUserProfileHandler
             }
         }
 
-        $user->updateFromProfile(
+        $user->updateByAdmin(
             $command->email(),
+            $command->role(),
             $command->firstName(),
             $command->lastName()
         );

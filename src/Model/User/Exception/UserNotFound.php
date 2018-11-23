@@ -8,7 +8,7 @@ use App\Model\User\UserId;
 
 final class UserNotFound extends \InvalidArgumentException
 {
-    public static function withJobId(UserId $userId): self
+    public static function withUserId(UserId $userId): self
     {
         return new self(
             sprintf(

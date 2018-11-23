@@ -8,6 +8,8 @@ use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
 use App\Model\Entity;
+use App\Model\User\Event\AdminChangedPassword;
+use App\Model\User\Event\AdminUpdatedUser;
 use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\Event\UserWasCreatedByAdmin;
 use Symfony\Component\Security\Core\Role\Role;
@@ -46,6 +48,30 @@ class User extends AggregateRoot implements Entity
         return $self;
     }
 
+    public function updateByAdmin(
+        Email $email,
+        Role $role,
+        Name $firstName,
+        Name $lastName
+    ): void {
+        $this->recordThat(
+            AdminUpdatedUser::now(
+                $this->userId,
+                $email,
+                $role,
+                $firstName,
+                $lastName
+            )
+        );
+    }
+
+    public function changePasswordByAdmin(string $encodedPassword): void
+    {
+        $this->recordThat(
+            AdminChangedPassword::now($this->userId, $encodedPassword)
+        );
+    }
+
     public function updateFromProfile(
         Email $email,
         Name $firstName,
@@ -69,6 +95,16 @@ class User extends AggregateRoot implements Entity
     protected function whenUserWasCreatedByAdmin(UserWasCreatedByAdmin $event): void
     {
         $this->userId = $event->userId();
+    }
+
+    protected function whenAdminUpdatedUser(AdminUpdatedUser $event): void
+    {
+        // nothing atm
+    }
+
+    protected function whenAdminChangedPassword(AdminChangedPassword $event): void
+    {
+        // nothing atm
     }
 
     protected function whenUserUpdatedProfile(UserUpdatedProfile $event): void

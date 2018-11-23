@@ -21,6 +21,10 @@ class UserAdminController extends AbstractController
      *     name="admin_user",
      *     methods={"GET"}
      * )
+     * @Route(
+     *     "/admin/user/{userId}/{action}",
+     *     methods={"GET"}
+     * )
      */
     public function index(): Response
     {

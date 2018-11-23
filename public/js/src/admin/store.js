@@ -10,6 +10,12 @@ export default new Vuex.Store({
     strict: true,
     state: {
         serverData: {},
+
+        availableRoles: {
+            ROLE_USER: 'User',
+            ROLE_ADMIN: 'Admin',
+            ROLE_SUPER_ADMIN: 'Super Admin',
+        },
     },
     getters: {},
     actions: {
