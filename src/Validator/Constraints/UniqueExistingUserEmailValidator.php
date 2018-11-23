@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
-use App\Model\Email;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

@@ -69,7 +69,8 @@ class UserProjection implements ReadModelProjection
                             'roles'      => [$event->role()->getRole()],
                             'first_name' => $event->firstName()->toString(),
                             'last_name'  => $event->lastName()->toString(),
-                        ], [
+                        ],
+                        [
                             'roles' => 'array',
                         ]
                     );
