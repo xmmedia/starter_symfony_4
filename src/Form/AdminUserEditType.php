@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\DataProvider\RoleProvider;
 use App\Form\DataTransformer\EmailTransformer;
 use App\Form\DataTransformer\NameTransformer;
 use App\Form\DataTransformer\SecurityRoleTransformer;
@@ -22,27 +23,21 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
-use Symfony\Component\Security\Core\Role\Role;
-use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminUserEditType extends AbstractType
 {
-    /** @var RoleHierarchyInterface */
-    private $roleHierarchy;
+    /** @var RoleProvider */
+    private $roleProvider;
 
-    public function __construct(RoleHierarchyInterface $roleHierarchy)
+    public function __construct(RoleProvider $roleProvider)
     {
-        $this->roleHierarchy = $roleHierarchy;
+        $this->roleProvider = $roleProvider;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $roles = array_map(function (Role $role) {
-            return $role->getRole();
-        }, $this->roleHierarchy->getReachableRoles([new Role('ROLE_SUPER_ADMIN')]));
-
         $builder
             ->add('id', HiddenType::class, [
                 'label' => 'User ID',
@@ -97,7 +92,8 @@ class AdminUserEditType extends AbstractType
                 ],
             ])
             ->add('role', ChoiceType::class, [
-                'choices' => $roles,
+                'label'   => 'Role',
+                'choices' => ($this->roleProvider)(),
             ])
         ;
 
