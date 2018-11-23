@@ -13,8 +13,10 @@
                 <div class="record_list-col"></div>
             </li>
 
-            <!-- {% if user.locked or user.enabled == false %} record_list-item-inactive{% endif %} -->
-            <li v-for="user in users" class="record_list-item">
+            <li v-for="user in users"
+                :key="user.id"
+                :class="{ 'record_list-item-inactive' : (!user.active || !user.verified) }"
+                class="record_list-item">
                 <div class="record_list-col">{{ user.email }}</div>
                 <div class="record_list-col">{{ user.name }}</div>
                 <div class="record_list-col">{{ user|accountStatus }}</div>
