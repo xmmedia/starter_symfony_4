@@ -6,7 +6,7 @@ namespace App\Security;
 
 class TokenGenerator
 {
-    public function generateToken()
+    public function __invoke()
     {
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }

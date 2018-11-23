@@ -57,7 +57,7 @@ class UserAdminEditController extends AbstractController
 
         $userId = UserId::generate();
         if (!$form->getData()['setPassword']) {
-            $password = $tokenGenerator->generateToken();
+            $password = ($tokenGenerator)();
         } else {
             $password = $form->getData()['password'];
         }
