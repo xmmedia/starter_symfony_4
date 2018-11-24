@@ -61,7 +61,7 @@ final class PasswordEncoderTestCommand extends ContainerAwareCommand
 
         $times = $memories = [];
 
-        for ($i = 0; $i <= $input->getArgument('count'); $i ++) {
+        for ($i = 0; $i <= $input->getArgument('count'); ++$i ) {
             $stopwatch->start('encode-'.$i);
 
             ($this->passwordEncoder)(
@@ -76,7 +76,7 @@ final class PasswordEncoderTestCommand extends ContainerAwareCommand
         }
 
         $io->writeln(
-            sprintf('Average time: %d ms', array_sum($times)/count($times))
+            sprintf('Average time: %d ms', array_sum($times) / count($times))
         );
         $io->writeln(
             sprintf('Low time: %d ms', min($times))
