@@ -26,6 +26,10 @@ class UniqueNewUserEmailValidator extends ConstraintValidator
      */
     public function validate($email, Constraint $constraint): void
     {
+        if (empty($email)) {
+            return;
+        }
+
         if (($this->checksUniqueUsersEmailAddress)($email)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
