@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Exception\InvalidForm;
+use App\Exception\FormValidationException;
 use App\Form\EnquiryType;
 use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\EnquiryId;
@@ -42,7 +42,7 @@ class EnquiryController extends AbstractController
             ->submit($request->request->get('enquiry'));
 
         if (!$form->isValid()) {
-            throw InvalidForm::fromForm($form);
+            throw FormValidationException::fromForm($form);
         }
 
         $commandBus->dispatch(SubmitEnquiry::withData(

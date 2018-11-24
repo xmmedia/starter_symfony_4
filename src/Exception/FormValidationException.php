@@ -6,7 +6,7 @@ namespace App\Exception;
 
 use Symfony\Component\Form\FormInterface;
 
-final class InvalidForm extends \InvalidArgumentException
+final class FormValidationException extends \InvalidArgumentException
 {
     /** @var FormInterface */
     private $form;

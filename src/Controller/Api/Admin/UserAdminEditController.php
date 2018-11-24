@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Api\Admin;
 
 use App\Controller\RequestCsrfCheck;
-use App\Exception\InvalidForm;
+use App\Exception\FormValidationException;
 use App\Form\AdminUserCreateType;
 use App\Form\AdminUserEditType;
 use App\Model\User\Command\AdminChangePassword;
@@ -52,7 +52,7 @@ class UserAdminEditController extends AbstractController
             ->submit($request->request->get('user'));
 
         if (!$form->isValid()) {
-            throw InvalidForm::fromForm($form);
+            throw FormValidationException::fromForm($form);
         }
 
         $userId = UserId::generate();
@@ -97,7 +97,7 @@ class UserAdminEditController extends AbstractController
             ->submit($request->request->get('user'));
 
         if (!$form->isValid()) {
-            throw InvalidForm::fromForm($form);
+            throw FormValidationException::fromForm($form);
         }
 
         $userId = UserId::fromString($request->attributes->get('id'));

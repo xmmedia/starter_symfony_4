@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use App\Exception\InvalidForm;
+use App\Exception\FormValidationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class InvalidFormExceptionSubscriber implements EventSubscriberInterface
+class FormValidationExceptionSubscriber implements EventSubscriberInterface
 {
     /** @var SerializerInterface */
     private $serializer;
@@ -31,13 +31,15 @@ class InvalidFormExceptionSubscriber implements EventSubscriberInterface
     /**
      * If the exception if of customer doesn't exist,
      * change the exception to an HTTP 404.
+     *
+     * @see \FOS\RestBundle\Serializer\Normalizer\FormErrorNormalizer
      */
     public function onKernelException(GetResponseForExceptionEvent $event): void
     {
-        /** @var InvalidForm $exception */
+        /** @var FormValidationException $exception */
         $exception = $event->getException();
 
-        if ($exception instanceof InvalidForm) {
+        if ($exception instanceof FormValidationException) {
             $json = $this->serializer
                 ->serialize($exception->getForm(), 'json', array_merge([
                     'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,

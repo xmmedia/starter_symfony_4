@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Controller\RequestCsrfCheck;
-use App\Exception\InvalidForm;
+use App\Exception\FormValidationException;
 use App\Form\UserChangePasswordType;
 use App\Form\UserProfileType;
 use App\Model\User\Command\ChangeUserPassword;
@@ -54,7 +54,7 @@ class UserProfileEditController extends AbstractController
             ->submit($request->request->get('user'));
 
         if (!$form->isValid()) {
-            throw InvalidForm::fromForm($form);
+            throw FormValidationException::fromForm($form);
         }
 
         $commandBus->dispatch(
@@ -94,7 +94,7 @@ class UserProfileEditController extends AbstractController
             ->submit($request->request->get('user'));
 
         if (!$form->isValid()) {
-            throw InvalidForm::fromForm($form);
+            throw FormValidationException::fromForm($form);
         }
 
         $encodedPassword = ($passwordEncoder)(
