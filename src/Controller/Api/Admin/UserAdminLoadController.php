@@ -36,7 +36,7 @@ class UserAdminLoadController extends AbstractController
     ): JsonResponse {
         $this->checkAdminCsrf($request);
 
-        $users = $userRepo->findAll();
+        $users = $userRepo->findBy([], ['email' => 'ASC']);
 
         return $this->json(
             ['users' => $users],
