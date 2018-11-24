@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\EventListener;
+namespace App\EventSubscriber;
 
 use App\Exception\InvalidForm;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class InvalidFormExceptionListener implements EventSubscriberInterface
+class InvalidFormExceptionSubscriber implements EventSubscriberInterface
 {
     /** @var SerializerInterface */
     private $serializer;

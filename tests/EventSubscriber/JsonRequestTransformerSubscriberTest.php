@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\EventListener;
+namespace App\Tests\EventSubscriber;
 
-use App\EventListener\JsonRequestTransformerListener;
+use App\EventSubscriber\JsonRequestTransformerSubscriber;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -12,21 +12,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
-class JsonRequestTransformerListenerTest extends TestCase
+class JsonRequestTransformerSubscriberTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
-    /** @var JsonRequestTransformerListener */
+    /** @var JsonRequestTransformerSubscriber */
     private $listener;
 
     public function setUp()
     {
-        $this->listener = new JsonRequestTransformerListener();
+        $this->listener = new JsonRequestTransformerSubscriber();
     }
 
     public function testSubscribedEvents(): void
     {
-        $subscribed = JsonRequestTransformerListener::getSubscribedEvents();
+        $subscribed = JsonRequestTransformerSubscriber::getSubscribedEvents();
 
         $this->assertEquals(
             10,
