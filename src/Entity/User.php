@@ -160,7 +160,7 @@ class User implements UserInterface, EncoderAwareInterface
 
     public function lastLogin(): ?\DateTimeImmutable
     {
-        if (null === $this->passwordRequestedAt) {
+        if (null === $this->lastLogin) {
             return null;
         }
 
