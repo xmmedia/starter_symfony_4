@@ -27,8 +27,8 @@ monolog:
             handler: swift
         swift:
             type: swift_mailer
-            from_email: '%from_email%'
-            to_email: '%error_email%'
+            from_email: '%env(FROM_EMAIL)%'
+            to_email: '%env(ERROR_EMAIL)%'
             # @todo-symfony
             subject: 'Symfony Starter Error: %%message%%'
             level: debug
