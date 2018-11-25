@@ -7,6 +7,7 @@ namespace App\Model\User;
 use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
+use App\Model\EmailGatewayMessageId;
 use App\Model\Entity;
 use App\Model\User\Event;
 use Symfony\Component\Security\Core\Role\Role;
@@ -33,8 +34,14 @@ class User extends AggregateRoot implements Entity
         Role $role,
         bool $active,
         Name $firstName,
-        Name $lastName
+        Name $lastName,
+        bool $sendInvite
     ): self {
+        // if they're not active, don't allow sending an invite
+        if (!$active) {
+            $sendInvite = false;
+        }
+
         $self = new self();
         $self->recordThat(
             Event\UserWasCreatedByAdmin::now(
@@ -44,7 +51,8 @@ class User extends AggregateRoot implements Entity
                 $role,
                 $active,
                 $firstName,
-                $lastName
+                $lastName,
+                $sendInvite
             )
         );
 
@@ -131,6 +139,13 @@ class User extends AggregateRoot implements Entity
         );
     }
 
+    public function inviteSent(EmailGatewayMessageId $messageId): void
+    {
+        $this->recordThat(
+            Event\InviteSent::now($this->userId, $messageId)
+        );
+    }
+
     public function updateFromProfile(
         Email $email,
         Name $firstName,
@@ -154,6 +169,21 @@ class User extends AggregateRoot implements Entity
     public function changePassword(string $encodedPassword): void
     {
         $this->recordThat(Event\ChangedPassword::now($this->userId, $encodedPassword));
+    }
+
+    public function userId(): UserId
+    {
+        return $this->userId;
+    }
+
+    public function verified(): bool
+    {
+        return $this->verified;
+    }
+
+    public function active(): bool
+    {
+        return $this->active;
     }
 
     protected function aggregateId(): string
@@ -198,6 +228,11 @@ class User extends AggregateRoot implements Entity
     protected function whenUserDeactivatedByAdmin(Event\UserDeactivatedByAdmin $event): void
     {
         $this->active = false;
+    }
+
+    protected function whenInviteSent(Event\InviteSent $event): void
+    {
+        // nothing atm
     }
 
     protected function whenUserUpdatedProfile(Event\UserUpdatedProfile $event): void

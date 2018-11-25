@@ -49,7 +49,8 @@ class AdminUserCreateType extends AbstractType
                 ],
             ])
             ->add('setPassword', CheckboxType::class, [
-                'label' => 'Set Password',
+                'label'    => 'Set Password',
+                'required' => false,
             ])
             // @todo additional validation: check common passwords
             ->add('password', PasswordType::class, [
@@ -91,7 +92,12 @@ class AdminUserCreateType extends AbstractType
                 'choices' => ($this->roleProvider)(),
             ])
             ->add('active', CheckboxType::class, [
-                'label' => 'Active',
+                'label'    => 'Active',
+                'required' => false,
+            ])
+            ->add('sendInvite', CheckboxType::class, [
+                'label'    => 'Send Invite',
+                'required' => false,
             ])
         ;
 

@@ -71,7 +71,8 @@ class UserAdminEditController extends AbstractController
             $form->getData()['role'],
             $form->getData()['active'],
             $form->getData()['firstName'],
-            $form->getData()['lastName']
+            $form->getData()['lastName'],
+            $form->getData()['sendInvite']
         ));
 
         return $this->json(['userId' => $userId->toString()]);

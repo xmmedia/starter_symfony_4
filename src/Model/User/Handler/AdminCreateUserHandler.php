@@ -39,7 +39,8 @@ class AdminCreateUserHandler
             $command->role(),
             $command->active(),
             $command->firstName(),
-            $command->lastName()
+            $command->lastName(),
+            $command->sendInvite()
         );
 
         $this->userRepo->save($user);

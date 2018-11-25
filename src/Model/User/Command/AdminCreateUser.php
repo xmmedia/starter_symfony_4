@@ -20,7 +20,8 @@ final class AdminCreateUser extends Command
         Role $role,
         bool $active,
         Name $firstName,
-        Name $lastName
+        Name $lastName,
+        bool $sendInvite
     ): self {
         return new self([
             'userId'          => $userId->toString(),
@@ -30,6 +31,7 @@ final class AdminCreateUser extends Command
             'active'          => $active,
             'firstName'       => $firstName->toString(),
             'lastName'        => $lastName->toString(),
+            'sendInvite'      => $sendInvite,
         ]);
     }
 
@@ -66,6 +68,11 @@ final class AdminCreateUser extends Command
     public function lastName(): Name
     {
         return Name::fromString($this->payload()['lastName']);
+    }
+
+    public function sendInvite(): bool
+    {
+        return $this->payload()['sendInvite'];
     }
 
     protected function setPayload(array $payload): void

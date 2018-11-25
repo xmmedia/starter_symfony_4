@@ -30,7 +30,15 @@
 
             <field-role v-model="role" :validation-errors="validationErrors" />
 
-            <!-- @todo send invite & not verified -->
+            <div v-if="!setPassword && active" class="field-wrap field-wrap-checkbox">
+                <field-errors :errors="validationErrors" field="sendInvite" />
+                <input id="inputSendInvite" v-model="sendInvite" type="checkbox">
+                <label for="inputSendInvite">Send Invite</label>
+                <div class="field-help">
+                    The user will need to follow the link in the invite email
+                    before their account will be fully activated.
+                </div>
+            </div>
 
             <div>
                 <button type="submit"
@@ -83,6 +91,7 @@ export default {
             active: true,
             firstName: null,
             lastName: null,
+            sendInvite: true,
         };
     },
 
@@ -111,6 +120,7 @@ export default {
                     active: this.active,
                     firstName: this.firstName,
                     lastName: this.lastName,
+                    sendInvite: this.sendInvite,
                 };
 
                 await adminUserRepo.create(data);

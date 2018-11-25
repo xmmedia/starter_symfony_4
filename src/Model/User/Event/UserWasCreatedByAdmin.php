@@ -30,6 +30,9 @@ class UserWasCreatedByAdmin extends AggregateChanged
     /** @var Name */
     private $lastName;
 
+    /** @var bool */
+    private $sendInvite;
+
     public static function now(
         UserId $userId,
         Email $email,
@@ -37,7 +40,8 @@ class UserWasCreatedByAdmin extends AggregateChanged
         Role $role,
         bool $active,
         Name $firstName,
-        Name $lastName
+        Name $lastName,
+        bool $sendInvite
     ): self {
         $event = self::occur($userId->toString(), [
             'email'           => $email->toString(),
@@ -46,6 +50,7 @@ class UserWasCreatedByAdmin extends AggregateChanged
             'active'          => $active,
             'firstName'       => $firstName->toString(),
             'lastName'        => $lastName->toString(),
+            'sendInvite'      => $sendInvite,
         ]);
 
         $event->email = $email;
@@ -54,6 +59,7 @@ class UserWasCreatedByAdmin extends AggregateChanged
         $event->active = $active;
         $event->firstName = $firstName;
         $event->lastName = $lastName;
+        $event->sendInvite = $sendInvite;
 
         return $event;
     }
@@ -115,5 +121,14 @@ class UserWasCreatedByAdmin extends AggregateChanged
         }
 
         return $this->lastName;
+    }
+
+    public function sendInvite(): bool
+    {
+        if (null === $this->sendInvite) {
+            $this->sendInvite = $this->payload()['sendInvite'];
+        }
+
+        return $this->sendInvite;
     }
 }
