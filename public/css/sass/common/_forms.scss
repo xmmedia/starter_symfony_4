@@ -90,7 +90,7 @@ select {
 }
 
 .field-help {
-    @apply text-sm italic text-grey-dark;
+    @apply text-xs italic text-grey-dark leading-tight;
     // the padding helps it align better with field above
     padding-left: 0.1em;
 }
