@@ -11,8 +11,8 @@
             <input id="inputPassword"
                    ref="password"
                    :value="value"
+                   :required="setPassword"
                    type="password"
-                   required
                    maxlength="4096"
                    autocomplete="new-password"
                    @input="$emit('input', $event.target.value)">
