@@ -25,9 +25,9 @@ security:
         harsh:
             algorithm: 'argon2i'
             # see above
-            # values are targeted at ~4-5s
+            # values are targeted at ~4s
             memory_cost: 128000
-            time_cost: 100
+            time_cost: 60
             threads: 8
 
     firewalls:
