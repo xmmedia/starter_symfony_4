@@ -128,7 +128,9 @@ export default {
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
 
-                this.$router.push({ name: 'admin-user' });
+                setTimeout(() => {
+                    this.$router.push({ name: 'admin-user' });
+                }, 1500);
 
             } catch (e) {
                 if (e.response && e.response.status === 400) {
