@@ -7,7 +7,7 @@ namespace App\Model\Enquiry;
 use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
-use App\Model\Enquiry\Event\EnquiryWasSubmitted;
+use App\Model\Enquiry\Event;
 use App\Model\Entity;
 
 class Enquiry extends AggregateRoot implements Entity
@@ -30,7 +30,7 @@ class Enquiry extends AggregateRoot implements Entity
     ): self {
         $self = new self();
         $self->recordThat(
-            EnquiryWasSubmitted::now($enquiryId, $name, $email, $message)
+            Event\EnquiryWasSubmitted::now($enquiryId, $name, $email, $message)
         );
 
         return $self;
@@ -41,7 +41,7 @@ class Enquiry extends AggregateRoot implements Entity
         return $this->enquiryId->toString();
     }
 
-    protected function whenEnquiryWasSubmitted(EnquiryWasSubmitted $event): void
+    protected function whenEnquiryWasSubmitted(Event\EnquiryWasSubmitted $event): void
     {
         $this->enquiryId = $event->enquiryId();
     }

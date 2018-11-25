@@ -8,16 +8,7 @@ use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
 use App\Model\Entity;
-use App\Model\User\Event\UserActivatedByAdmin;
-use App\Model\User\Event\AdminChangedPassword;
-use App\Model\User\Event\AdminUpdatedUser;
-use App\Model\User\Event\ChangedPassword;
-use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
-use App\Model\User\Event\UserDeactivatedByAdmin;
-use App\Model\User\Event\UserLoggedIn;
-use App\Model\User\Event\UserUpdatedProfile;
-use App\Model\User\Event\UserVerifiedByAdmin;
-use App\Model\User\Event\UserWasCreatedByAdmin;
+use App\Model\User\Event;
 use Symfony\Component\Security\Core\Role\Role;
 
 class User extends AggregateRoot implements Entity
@@ -46,7 +37,7 @@ class User extends AggregateRoot implements Entity
     ): self {
         $self = new self();
         $self->recordThat(
-            UserWasCreatedByAdmin::now(
+            Event\UserWasCreatedByAdmin::now(
                 $userId,
                 $email,
                 $encodedPassword,
@@ -68,7 +59,7 @@ class User extends AggregateRoot implements Entity
     ): self {
         $self = new self();
         $self->recordThat(
-            MinimalUserWasCreatedByAdmin::now(
+            Event\MinimalUserWasCreatedByAdmin::now(
                 $userId,
                 $email,
                 $encodedPassword,
@@ -86,7 +77,7 @@ class User extends AggregateRoot implements Entity
         Name $lastName
     ): void {
         $this->recordThat(
-            AdminUpdatedUser::now(
+            Event\AdminUpdatedUser::now(
                 $this->userId,
                 $email,
                 $role,
@@ -99,7 +90,7 @@ class User extends AggregateRoot implements Entity
     public function changePasswordByAdmin(string $encodedPassword): void
     {
         $this->recordThat(
-            AdminChangedPassword::now($this->userId, $encodedPassword)
+            Event\AdminChangedPassword::now($this->userId, $encodedPassword)
         );
     }
 
@@ -110,7 +101,7 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            UserVerifiedByAdmin::now($this->userId)
+            Event\UserVerifiedByAdmin::now($this->userId)
         );
     }
 
@@ -123,7 +114,7 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            UserActivatedByAdmin::now($this->userId)
+            Event\UserActivatedByAdmin::now($this->userId)
         );
     }
 
@@ -136,7 +127,7 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            UserDeactivatedByAdmin::now($this->userId)
+            Event\UserDeactivatedByAdmin::now($this->userId)
         );
     }
 
@@ -146,7 +137,7 @@ class User extends AggregateRoot implements Entity
         Name $lastName
     ): void {
         $this->recordThat(
-            UserUpdatedProfile::now(
+            Event\UserUpdatedProfile::now(
                 $this->userId,
                 $email,
                 $firstName,
@@ -157,12 +148,12 @@ class User extends AggregateRoot implements Entity
 
     public function loggedIn(): void
     {
-        $this->recordThat(UserLoggedIn::now($this->userId));
+        $this->recordThat(Event\UserLoggedIn::now($this->userId));
     }
 
     public function changePassword(string $encodedPassword): void
     {
-        $this->recordThat(ChangedPassword::now($this->userId, $encodedPassword));
+        $this->recordThat(Event\ChangedPassword::now($this->userId, $encodedPassword));
     }
 
     protected function aggregateId(): string
@@ -170,56 +161,56 @@ class User extends AggregateRoot implements Entity
         return $this->userId->toString();
     }
 
-    protected function whenUserWasCreatedByAdmin(UserWasCreatedByAdmin $event): void
+    protected function whenUserWasCreatedByAdmin(Event\UserWasCreatedByAdmin $event): void
     {
         $this->userId = $event->userId();
         $this->verified = true;
         $this->active = true;
     }
 
-    protected function whenMinimalUserWasCreatedByAdmin(MinimalUserWasCreatedByAdmin $event): void
+    protected function whenMinimalUserWasCreatedByAdmin(Event\MinimalUserWasCreatedByAdmin $event): void
     {
         $this->userId = $event->userId();
         $this->verified = true;
         $this->active = true;
     }
 
-    protected function whenAdminUpdatedUser(AdminUpdatedUser $event): void
+    protected function whenAdminUpdatedUser(Event\AdminUpdatedUser $event): void
     {
         // nothing atm
     }
 
-    protected function whenAdminChangedPassword(AdminChangedPassword $event): void
+    protected function whenAdminChangedPassword(Event\AdminChangedPassword $event): void
     {
         // nothing atm
     }
 
-    protected function whenUserVerifiedByAdmin(UserVerifiedByAdmin $event): void
+    protected function whenUserVerifiedByAdmin(Event\UserVerifiedByAdmin $event): void
     {
         $this->verified = true;
     }
 
-    protected function whenUserActivatedByAdmin(UserActivatedByAdmin $event): void
+    protected function whenUserActivatedByAdmin(Event\UserActivatedByAdmin $event): void
     {
         $this->active = true;
     }
 
-    protected function whenUserDeactivatedByAdmin(UserDeactivatedByAdmin $event): void
+    protected function whenUserDeactivatedByAdmin(Event\UserDeactivatedByAdmin $event): void
     {
         $this->active = false;
     }
 
-    protected function whenUserUpdatedProfile(UserUpdatedProfile $event): void
+    protected function whenUserUpdatedProfile(Event\UserUpdatedProfile $event): void
     {
         // nothing atm
     }
 
-    protected function whenChangedPassword(ChangedPassword $event): void
+    protected function whenChangedPassword(Event\ChangedPassword $event): void
     {
         // nothing atm
     }
 
-    protected function whenUserLoggedIn(UserLoggedIn $event): void
+    protected function whenUserLoggedIn(Event\UserLoggedIn $event): void
     {
         // nothing atm
     }

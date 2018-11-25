@@ -6,8 +6,7 @@ namespace App\Model\Auth;
 
 use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
-use App\Model\Auth\Event\UserFailedToLogin;
-use App\Model\Auth\Event\UserLoggedIn;
+use App\Model\Auth\Event;
 use App\Model\Email;
 use App\Model\Entity;
 use App\Model\User\UserId;
@@ -28,7 +27,7 @@ class Auth extends AggregateRoot implements Entity
     ): self {
         $self = new self();
         $self->recordThat(
-            UserLoggedIn::now(
+            Event\UserLoggedIn::now(
                 $authId,
                 $userId,
                 $email,
@@ -49,7 +48,7 @@ class Auth extends AggregateRoot implements Entity
     ): self {
         $self = new self();
         $self->recordThat(
-            UserFailedToLogin::now(
+            Event\UserFailedToLogin::now(
                 $authId,
                 $email,
                 $userAgent,
@@ -66,12 +65,12 @@ class Auth extends AggregateRoot implements Entity
         return $this->authId->toString();
     }
 
-    protected function whenUserLoggedIn(UserLoggedIn $event): void
+    protected function whenUserLoggedIn(Event\UserLoggedIn $event): void
     {
         $this->authId = $event->authId();
     }
 
-    protected function whenUserFailedToLogin(UserFailedToLogin $event): void
+    protected function whenUserFailedToLogin(Event\UserFailedToLogin $event): void
     {
         $this->authId = $event->authId();
     }
