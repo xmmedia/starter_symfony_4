@@ -7,13 +7,13 @@ namespace App\Serializer\Normalizer;
 use App\Entity\User;
 use App\Serializer\SerializerGroupTrait;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
-use Symfony\Component\Serializer\SerializerAwareTrait;
 
-class UserNormalizer implements NormalizerInterface, SerializerAwareInterface
+class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
-    use SerializerAwareTrait;
+    use NormalizerAwareTrait;
     use SerializerGroupTrait;
 
     /**
@@ -44,11 +44,11 @@ class UserNormalizer implements NormalizerInterface, SerializerAwareInterface
             $data['active'] = $user->active();
             $data['roles'] = $user->roles();
             if (null !== $user->lastLogin()) {
-                $data['lastLogin'] = trim($this->serializer->serialize(
+                $data['lastLogin'] = $this->normalizer->normalize(
                     $user->lastLogin(),
                     $format,
                     $context
-                ), '"');
+                );
             } else {
                 $data['lastLogin'] = null;
             }
