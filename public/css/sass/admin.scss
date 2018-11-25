@@ -17,7 +17,7 @@ body {
 }
 
 a, .button-link {
-    @apply text-blue-dark no-underline;
+    @apply text-blue-dark font-light no-underline;
     &:hover, &:active {
         @apply underline;
     }
