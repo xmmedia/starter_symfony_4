@@ -92,6 +92,22 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
+                Event\UserVerifiedByAdmin::class => function (
+                    array $state,
+                    Event\UserVerifiedByAdmin $event
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->userId()->toString(),
+                        [
+                            'verified' => true,
+                        ]
+                    );
+                },
+
                 Event\UserActivatedByAdmin::class => function (
                     array $state,
                     Event\UserActivatedByAdmin $event

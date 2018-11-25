@@ -16,6 +16,7 @@ use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
 use App\Model\User\Event\UserDeactivatedByAdmin;
 use App\Model\User\Event\UserLoggedIn;
 use App\Model\User\Event\UserUpdatedProfile;
+use App\Model\User\Event\UserVerifiedByAdmin;
 use App\Model\User\Event\UserWasCreatedByAdmin;
 use Symfony\Component\Security\Core\Role\Role;
 
@@ -102,6 +103,17 @@ class User extends AggregateRoot implements Entity
         );
     }
 
+    public function verifyByAdmin(): void
+    {
+        if ($this->verified) {
+            throw Exception\UserAlreadyVerified::triedToVerify($this->userId);
+        }
+
+        $this->recordThat(
+            UserVerifiedByAdmin::now($this->userId)
+        );
+    }
+
     public function activateByAdmin(): void
     {
         if ($this->active) {
@@ -180,6 +192,11 @@ class User extends AggregateRoot implements Entity
     protected function whenAdminChangedPassword(AdminChangedPassword $event): void
     {
         // nothing atm
+    }
+
+    protected function whenUserVerifiedByAdmin(UserVerifiedByAdmin $event): void
+    {
+        $this->verified = true;
     }
 
     protected function whenUserActivatedByAdmin(UserActivatedByAdmin $event): void

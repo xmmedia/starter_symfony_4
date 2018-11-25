@@ -39,9 +39,13 @@
 
             <ul class="form-extra_actions">
                 <li>
-                    <button class="button-link form-action"
+                    <button v-if="verified"
+                            class="button-link form-action"
                             @click.prevent="toggleActive"
                             v-html="activeButtonText"></button>
+                    <button v-else
+                            class="button-link form-action"
+                            @click.prevent="verify">Manually Verify User</button>
                 </li>
             </ul>
         </form>
@@ -195,6 +199,33 @@ export default {
 
                 this.active = !this.active;
 
+                this.status = statuses.SAVED;
+
+                setTimeout(() => {
+                    this.status = statuses.LOADED;
+                }, 3000);
+
+            } catch (e) {
+                logError(e);
+                alert('There was a problem saving. Please try again later.');
+
+                window.scrollTo(0, 0);
+
+                this.status = statuses.LOADED;
+            }
+        },
+
+        async verify () {
+            if (!this.allowSave) {
+                return;
+            }
+
+            this.status = statuses.SAVING;
+
+            try {
+                await adminUserRepo.verify(this.userId);
+
+                this.verify = true;
                 this.status = statuses.SAVED;
 
                 setTimeout(() => {

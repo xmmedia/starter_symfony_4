@@ -21,4 +21,7 @@ export default {
     deactivate (userId) {
         return api.post('/api/admin/user/'+userId+'/deactivate');
     },
+    verify (userId) {
+        return api.post('/api/admin/user/'+userId+'/verify');
+    },
 };
