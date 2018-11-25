@@ -111,6 +111,10 @@ export default {
 
                 await userProfileEditRepo.password(data);
 
+                this.currentPassword = null;
+                this.newPassword = null;
+                this.repeatPassword = null;
+
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
 
