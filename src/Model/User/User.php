@@ -8,10 +8,12 @@ use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
 use App\Model\Entity;
+use App\Model\User\Event\UserActivatedByAdmin;
 use App\Model\User\Event\AdminChangedPassword;
 use App\Model\User\Event\AdminUpdatedUser;
 use App\Model\User\Event\ChangedPassword;
 use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
+use App\Model\User\Event\UserDeactivatedByAdmin;
 use App\Model\User\Event\UserLoggedIn;
 use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\Event\UserWasCreatedByAdmin;
@@ -25,6 +27,12 @@ class User extends AggregateRoot implements Entity
 
     /** @var UserId */
     private $userId;
+
+    /** @var bool */
+    private $verified;
+
+    /** @var bool */
+    private $active;
 
     public static function createByAdmin(
         UserId $userId,
@@ -94,6 +102,32 @@ class User extends AggregateRoot implements Entity
         );
     }
 
+    public function activateByAdmin(): void
+    {
+        if ($this->active) {
+            throw Exception\InvalidUserActiveStatus::triedToActivateWhenAlreadyActive(
+                $this->userId
+            );
+        }
+
+        $this->recordThat(
+            UserActivatedByAdmin::now($this->userId)
+        );
+    }
+
+    public function deactivateByAdmin(): void
+    {
+        if (!$this->active) {
+            throw Exception\InvalidUserActiveStatus::triedToDeactivateWhenAlreadyInactive(
+                $this->userId
+            );
+        }
+
+        $this->recordThat(
+            UserDeactivatedByAdmin::now($this->userId)
+        );
+    }
+
     public function updateFromProfile(
         Email $email,
         Name $firstName,
@@ -127,11 +161,15 @@ class User extends AggregateRoot implements Entity
     protected function whenUserWasCreatedByAdmin(UserWasCreatedByAdmin $event): void
     {
         $this->userId = $event->userId();
+        $this->verified = true;
+        $this->active = true;
     }
 
     protected function whenMinimalUserWasCreatedByAdmin(MinimalUserWasCreatedByAdmin $event): void
     {
         $this->userId = $event->userId();
+        $this->verified = true;
+        $this->active = true;
     }
 
     protected function whenAdminUpdatedUser(AdminUpdatedUser $event): void
@@ -142,6 +180,16 @@ class User extends AggregateRoot implements Entity
     protected function whenAdminChangedPassword(AdminChangedPassword $event): void
     {
         // nothing atm
+    }
+
+    protected function whenUserActivatedByAdmin(UserActivatedByAdmin $event): void
+    {
+        $this->active = true;
+    }
+
+    protected function whenUserDeactivatedByAdmin(UserDeactivatedByAdmin $event): void
+    {
+        $this->active = false;
     }
 
     protected function whenUserUpdatedProfile(UserUpdatedProfile $event): void

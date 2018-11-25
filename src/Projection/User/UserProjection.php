@@ -92,6 +92,38 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
+                Event\UserActivatedByAdmin::class => function (
+                    array $state,
+                    Event\UserActivatedByAdmin $event
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->userId()->toString(),
+                        [
+                            'active' => true,
+                        ]
+                    );
+                },
+
+                Event\UserDeactivatedByAdmin::class => function (
+                    array $state,
+                    Event\UserDeactivatedByAdmin $event
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->userId()->toString(),
+                        [
+                            'active' => false,
+                        ]
+                    );
+                },
+
                 Event\UserUpdatedProfile::class => function (
                     array $state,
                     Event\UserUpdatedProfile $event

@@ -1,7 +1,7 @@
 <template>
     <div class="form-wrap">
         <h2 class="mt-0">Edit User</h2>
-        <div v-if="status === 'loading'" class="italic">Loading users...</div>
+        <div v-if="status === 'loading'" class="italic">Loading user...</div>
         <div v-else-if="status === 'error'">There was a problem loading the user list. Please try again later.</div>
 
         <form v-else-if="showForm" @submit.prevent="submit">
@@ -36,6 +36,14 @@
                 <span v-if="status === 'saving'" class="ml-4 text-sm italic">Saving...</span>
                 <span v-else-if="status === 'saved'" class="ml-4 text-sm italic">Saved</span>
             </div>
+
+            <ul class="form-extra_actions">
+                <li>
+                    <button class="button-link form-action"
+                            @click.prevent="toggleActive"
+                            v-html="activeButtonText"></button>
+                </li>
+            </ul>
         </form>
     </div>
 </template>
@@ -80,6 +88,8 @@ export default {
             role: 'ROLE_USER',
             firstName: null,
             lastName: null,
+            verified: false,
+            active: false,
         };
     },
 
@@ -87,8 +97,15 @@ export default {
         showForm () {
             return [statuses.LOADED, statuses.SAVING, statuses.SAVED].includes(this.status);
         },
+        allowSave () {
+            return [statuses.LOADED, statuses.SAVED].includes(this.status);
+        },
         hasValidationErrors () {
             return Object.keys(this.validationErrors).length > 0;
+        },
+
+        activeButtonText () {
+            return this.active ? 'Deactivate User' : 'Activate User';
         },
     },
 
@@ -109,6 +126,8 @@ export default {
                 this.role = response.data.user.roles[0];
                 this.firstName = response.data.user.firstName;
                 this.lastName = response.data.user.lastName;
+                this.verified = response.data.user.verified;
+                this.active = response.data.user.active;
 
                 this.status = statuses.LOADED;
 
@@ -120,6 +139,10 @@ export default {
         },
 
         async submit () {
+            if (!this.allowSave) {
+                return;
+            }
+
             this.status = statuses.SAVING;
 
             try {
@@ -149,6 +172,38 @@ export default {
                     logError(e);
                     alert('There was a problem saving. Please try again later.');
                 }
+
+                window.scrollTo(0, 0);
+
+                this.status = statuses.LOADED;
+            }
+        },
+
+        async toggleActive () {
+            if (!this.allowSave) {
+                return;
+            }
+
+            this.status = statuses.SAVING;
+
+            try {
+                if (!this.active) {
+                    await adminUserRepo.activate(this.userId);
+                } else {
+                    await adminUserRepo.deactivate(this.userId);
+                }
+
+                this.active = !this.active;
+
+                this.status = statuses.SAVED;
+
+                setTimeout(() => {
+                    this.status = statuses.LOADED;
+                }, 3000);
+
+            } catch (e) {
+                logError(e);
+                alert('There was a problem saving. Please try again later.');
 
                 window.scrollTo(0, 0);
 
