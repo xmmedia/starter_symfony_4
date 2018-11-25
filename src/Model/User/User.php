@@ -12,6 +12,7 @@ use App\Model\User\Event\AdminChangedPassword;
 use App\Model\User\Event\AdminUpdatedUser;
 use App\Model\User\Event\ChangedPassword;
 use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
+use App\Model\User\Event\UserLoggedIn;
 use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\Event\UserWasCreatedByAdmin;
 use Symfony\Component\Security\Core\Role\Role;
@@ -108,6 +109,11 @@ class User extends AggregateRoot implements Entity
         );
     }
 
+    public function loggedIn(): void
+    {
+        $this->recordThat(UserLoggedIn::now($this->userId));
+    }
+
     public function changePassword(string $encodedPassword): void
     {
         $this->recordThat(ChangedPassword::now($this->userId, $encodedPassword));
@@ -144,6 +150,11 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenChangedPassword(ChangedPassword $event): void
+    {
+        // nothing atm
+    }
+
+    protected function whenUserLoggedIn(UserLoggedIn $event): void
     {
         // nothing atm
     }

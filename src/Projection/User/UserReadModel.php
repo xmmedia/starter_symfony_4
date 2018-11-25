@@ -76,4 +76,20 @@ EOT;
             $types
         );
     }
+
+    protected function loggedIn(string $userId, \DateTimeImmutable $lastLogin): void
+    {
+        $tableName = self::TABLE;
+
+        $sql = <<<EOT
+UPDATE `$tableName` SET login_count = login_count + 1, last_login = :last_login WHERE id = :user_id;
+EOT;
+
+        $stmt = $this->connection->prepare($sql);
+
+        $stmt->bindValue('last_login', $lastLogin, 'datetime');
+        $stmt->bindValue('user_id', $userId);
+
+        $stmt->execute();
+    }
 }

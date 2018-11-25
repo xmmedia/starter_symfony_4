@@ -81,6 +81,11 @@ class Kernel extends BaseKernel implements CompilerPassInterface
                 'stream_name'      => 'user',
             ],
             [
+                'repository_class' => EventSourceRepository\AuthRepository::class,
+                'aggregate_type'   => Model\Auth\Auth::class,
+                'stream_name'      => 'auth',
+            ],
+            [
                 'repository_class' => EventSourceRepository\EnquiryRepository::class,
                 'aggregate_type'   => Model\Enquiry\Enquiry::class,
                 'stream_name'      => 'enquiry',

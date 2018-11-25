@@ -42,12 +42,16 @@ services:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.events' }
 
     # only needed to tell it which bus to use
-    App\Model\Enquiry\Handler\:
-        resource: '../src/Model/Enquiry/Handler/*Handler.php'
-        tags:
-            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
     App\Model\User\Handler\:
         resource: '../src/Model/User/Handler/*Handler.php'
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+    App\Model\Auth\Handler\:
+        resource: '../src/Model/Auth/Handler/*Handler.php'
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+    App\Model\Enquiry\Handler\:
+        resource: '../src/Model/Enquiry/Handler/*Handler.php'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 

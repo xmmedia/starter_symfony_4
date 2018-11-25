@@ -6,8 +6,8 @@ namespace App\Serializer\Normalizer;
 
 use App\Entity\User;
 use App\Serializer\SerializerGroupTrait;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
 
@@ -26,10 +26,7 @@ class UserNormalizer implements NormalizerInterface, SerializerAwareInterface
     ): array {
         if (!$user instanceof User) {
             throw new InvalidArgumentException(
-                sprintf(
-                    'The object must be an instance of "%s".',
-                    User::class
-                )
+                sprintf('The object must be an instance of "%s".', User::class)
             );
         }
 
@@ -46,6 +43,16 @@ class UserNormalizer implements NormalizerInterface, SerializerAwareInterface
             $data['verified'] = $user->verified();
             $data['active'] = $user->active();
             $data['roles'] = $user->roles();
+            if (null !== $user->lastLogin()) {
+                $data['lastLogin'] = trim($this->serializer->serialize(
+                    $user->lastLogin(),
+                    $format,
+                    $context
+                ), '"');
+            } else {
+                $data['lastLogin'] = null;
+            }
+            $data['loginCount'] = $user->loginCount();
         }
 
         return $data;

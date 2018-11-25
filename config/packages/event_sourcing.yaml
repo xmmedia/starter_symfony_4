@@ -7,4 +7,5 @@ services:
         factory: 'App\EventSourcing\Aggregate\RepositoryFactory:create'
 
     App\Model\User\UserList: '@App\Infrastructure\Repository\UserRepository'
+    App\Model\Auth\AuthList: '@App\Infrastructure\Repository\AuthRepository'
     App\Model\Enquiry\EnquiryList: '@App\Infrastructure\Repository\EnquiryRepository'

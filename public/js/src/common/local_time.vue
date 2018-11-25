@@ -6,7 +6,7 @@
 export default {
     props: {
         datetime: {
-            type: String,
+            type: [String, Date],
             required: true,
         },
         locale: {

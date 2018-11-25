@@ -8,7 +8,7 @@
                 <div class="record_list-col">Username</div>
                 <div class="record_list-col">Name</div>
                 <div class="record_list-col">Account Status</div>
-                <!--<div class="record_list-col">Last Login (Count)</div>-->
+                <div class="record_list-col">Last Login (Count)</div>
                 <div class="record_list-col">Role</div>
                 <div class="record_list-col"></div>
             </li>
@@ -20,18 +20,13 @@
                 <div class="record_list-col">{{ user.email }}</div>
                 <div class="record_list-col">{{ user.name }}</div>
                 <div class="record_list-col">{{ user|accountStatus }}</div>
-                <!--<div class="record_list-col"></div>-->
+                <div class="record_list-col user_list-last_login">
+                    <template v-if="user.loginCount > 0">
+                        <local-time :datetime="user.lastLogin" /> ({{ user.loginCount }})
+                    </template>
+                    <i v-else>Never logged in</i>
+                </div>
                 <div class="record_list-col">{{ availableRoles[user.roles[0]] }}</div>
-
-                <!--<div class="record_list-col user_list-last_login">
-                    {% if user.loginCount %}
-                    <a href="{{ path('xm_user_admin_login_history', { 'id' : user.id }) }}">
-                        <local-time datetime="{{ user.lastLogin|date('c') }}">{{ user.lastLogin|date('Y-m-d H:i') }}</local-time> ({{ user.loginCount }})
-                    </a>
-                    {% else %}
-                    <i>Never logged in</i>
-                    {% endif %}
-                </div>-->
 
                 <div class="record_list-col record_list-col-actions">
                     <router-link :to="{ name: 'admin-user-edit', params: { userId: user.id } }">
@@ -99,7 +94,13 @@ export default {
             try {
                 const response = await adminUserRepo.list();
 
-                this.users = response.data.users;
+                this.users = response.data.users.map((user) => {
+                    if (user.lastLogin) {
+                        user.lastLogin = new Date(user.lastLogin);
+                    }
+
+                    return user;
+                });
                 this.status = statuses.LOADED;
 
             } catch (e) {
