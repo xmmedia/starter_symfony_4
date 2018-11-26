@@ -163,6 +163,21 @@ class User extends AggregateRoot implements Entity
         );
     }
 
+    public function passwordRecoverySent(
+        Token $token,
+        EmailGatewayMessageId $messageId
+    ): void {
+        if (!$this->active) {
+            throw Exception\InvalidUserActiveStatus::triedToRequestPasswordReset(
+                $this->userId
+            );
+        }
+
+        $this->recordThat(
+            Event\PasswordRecoverySent::now($this->userId, $token, $messageId)
+        );
+    }
+
     public function updateFromProfile(
         Email $email,
         Name $firstName,
@@ -255,6 +270,11 @@ class User extends AggregateRoot implements Entity
     protected function whenUserVerified(Event\UserVerified $event): void
     {
         $this->verified = true;
+    }
+
+    protected function whenPasswordRecoverySent(Event\PasswordRecoverySent $event): void
+    {
+        // nothing atm
     }
 
     protected function whenUserUpdatedProfile(Event\UserUpdatedProfile $event): void

@@ -6,11 +6,14 @@ namespace App\Controller\Api;
 
 use App\Controller\RequestCsrfCheck;
 use App\Exception\FormValidationException;
-use App\Form\UserVerifyType;
+use App\Form\UserRecoverInitiateType;
+use App\Form\UserRecoverResetType;
 use App\Model\User\Command\ChangeUserPassword;
+use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
 use App\Model\User\Exception\TokenHasExpired;
+use App\Repository\UserRepository;
 use App\Security\PasswordEncoder;
 use App\Security\TokenValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,18 +29,56 @@ use Symfony\Component\Security\Core\Role\Role;
  * @Route(defaults={"_format": "json"})
  * @codeCoverageIgnore
  */
-class UserVerifyController extends AbstractController
+class UserRecoverController extends AbstractController
 {
     use RequestCsrfCheck;
 
     /**
      * @Route(
-     *     "/api/user/activate",
-     *     name="api_user_activate",
+     *     "/api/user/recover/initiate",
+     *     name="api_user_recover_initiate",
      *     methods={"POST"}
      * )
      */
-    public function activate(
+    public function initiate(
+        Request $request,
+        MessageBusInterface $commandBus,
+        UserRepository $userRepo,
+        FormFactoryInterface $formFactory
+    ): JsonResponse {
+        $this->checkAdminCsrf($request);
+
+        $form = $formFactory
+            ->create(UserRecoverInitiateType::class)
+            ->submit($request->request->get('data'));
+
+        if (!$form->isValid()) {
+            throw FormValidationException::fromForm($form);
+        }
+
+        $user = $userRepo->findOneByEmail($form->getData()['email']);
+
+        if (!$user || !$user->active()) {
+            throw $this->createNotFoundException(
+                'An account with that email cannot be found.'
+            );
+        }
+
+        $commandBus->dispatch(
+            InitiatePasswordRecovery::now($user->id(), $user->email())
+        );
+
+        return $this->json(['success' => true]);
+    }
+
+    /**
+     * @Route(
+     *     "/api/user/recover/reset",
+     *     name="api_user_recover_reset",
+     *     methods={"POST"}
+     * )
+     */
+    public function reset(
         Request $request,
         MessageBusInterface $commandBus,
         TokenValidator $tokenValidator,
@@ -47,7 +88,7 @@ class UserVerifyController extends AbstractController
         $this->checkAdminCsrf($request);
 
         $form = $formFactory
-            ->create(UserVerifyType::class)
+            ->create(UserRecoverResetType::class)
             ->submit($request->request->get('data'));
 
         if (!$form->isValid()) {
@@ -65,19 +106,21 @@ class UserVerifyController extends AbstractController
             );
         }
 
-        if ($user->verified()) {
+        if (!$user || !$user->active()) {
             throw $this->createNotFoundException(
-                'Your account has already been activated.'
+                'An account with that email cannot be found.'
             );
         }
 
-        $commandBus->dispatch(
-            VerifyUser::now($user->id())
-        );
+        if (!$user->verified()) {
+            $commandBus->dispatch(
+                VerifyUser::now($user->id())
+            );
+        }
 
         $encodedPassword = ($passwordEncoder)(
             new Role($user->roles()[0]),
-            $form->getData()['password']
+            $form->getData()['newPassword']
         );
         $commandBus->dispatch(
             ChangeUserPassword::forUser($user->id(), $encodedPassword)

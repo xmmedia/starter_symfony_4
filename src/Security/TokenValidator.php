@@ -22,7 +22,8 @@ class TokenValidator
 
     public function validate(Token $token): User
     {
-        $tokenEntity = $this->tokenRepo->find($token);
+        // the token is the ID (a unique key)
+        $tokenEntity = $this->tokenRepo->find($token->toString());
 
         if (!$tokenEntity) {
             throw InvalidToken::tokenDoesntExist($token);
@@ -34,10 +35,6 @@ class TokenValidator
 
         if (!$user->active()) {
             throw InvalidToken::userInactive($token);
-        }
-
-        if ($user->verified()) {
-            throw InvalidToken::userVerified($token);
         }
 
         if ($tokenEntity->generatedAt() < new \DateTimeImmutable('-24 hours')) {

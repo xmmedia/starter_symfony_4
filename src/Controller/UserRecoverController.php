@@ -8,24 +8,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RecoverController extends AbstractController
+/**
+ * @codeCoverageIgnore
+ */
+class UserRecoverController extends AbstractController
 {
     /**
-     * @Route("/recover/initiate", name="1")
-     */
-    public function initiate(): Response
-    {
-        return $this->render('recover/initiate.html.twig', [
-        ]);
-    }
-
-    /**
-     * @Route("/recover/reset", name="2")
+     * @Route(
+     *     "/recover/{action}/{token?}",
+     *     name="forgot_password",
+     *     methods={"GET"},
+     *     defaults={"action": "initiate"},
+     *     requirements={"action": "initiate|reset"}
+     * )
      */
     public function reset(): Response
     {
-        return $this->render('recover/reset.html.twig', [
-        ]);
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('recover/reset.html.twig');
     }
 
     /**

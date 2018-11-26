@@ -31,4 +31,12 @@ final class InvalidUserActiveStatus extends \RuntimeException
             $userId->toString()
         ));
     }
+
+    public static function triedToRequestPasswordReset(UserId $userId): self
+    {
+        return new self(sprintf(
+            'Tried to request a password reset for user "%s" that\'s currently inactive.',
+            $userId->toString()
+        ));
+    }
 }

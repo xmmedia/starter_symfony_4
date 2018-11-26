@@ -29,7 +29,7 @@ class UserAdminActivateController extends AbstractController
      *     "/api/admin/user/{id}/{action}",
      *     name="api_admin_user_activate",
      *     methods={"POST"},
-     *     requirements={"action"="activate|deactivate"}
+     *     requirements={"action": "activate|deactivate"}
      * )
      */
     public function toggle(

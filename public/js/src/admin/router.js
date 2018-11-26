@@ -4,6 +4,23 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
+            path: '/recover',
+            component: () => import('./user_recover/index'),
+            children: [
+                { path: '', redirect: '/recover/initiate' },
+                {
+                    name: 'user-recover-initiate',
+                    path: 'initiate',
+                    component: () => import('./user_recover/initiate'),
+                },
+                {
+                    name: 'user-recover-reset',
+                    path: 'reset/:token',
+                    component: () => import('./user_recover/reset'),
+                },
+            ],
+        },
+        {
             name: 'user-verify',
             path: '/activate/:token',
             component: () => import('./user_verify/index'),
