@@ -29,7 +29,7 @@ class RecoverController extends AbstractController
     }
 
     /**
-     * @Route("/activate/{token}", name="user_verify")
+     * @Route("/activate/{token}", name="user_verify", methods={"GET"})
      */
     public function verify(): Response
     {
