@@ -39,8 +39,6 @@ CREATE TABLE `$tableName` (
   `verified` tinyint(1) NOT NULL,
   `active` tinyint(1) NOT NULL,
   `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
-  `confirmation_token` varchar(180) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password_requested_at` datetime DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `login_count` int(11) NOT NULL,
   `first_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -55,7 +53,6 @@ EOT;
 ALTER TABLE `$tableName`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`) USING BTREE;
-COMMIT;
 EOT;
 
         $statement = $this->connection->prepare($sql);

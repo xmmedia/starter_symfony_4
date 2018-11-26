@@ -23,4 +23,12 @@ final class InvalidUserActiveStatus extends \RuntimeException
             $userId->toString()
         ));
     }
+
+    public static function triedToVerifyAnInactiveUser(UserId $userId): self
+    {
+        return new self(sprintf(
+            'Tried to verify the user "%s" that\'s currently inactive.',
+            $userId->toString()
+        ));
+    }
 }

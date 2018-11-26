@@ -7,5 +7,6 @@ namespace App\Projection;
 class Table
 {
     public const USER = 'user';
+    public const USER_TOKEN = 'user_token';
     public const ENQUIRY = 'enquiry';
 }

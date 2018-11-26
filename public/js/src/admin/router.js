@@ -4,6 +4,11 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
+            name: 'user-verify',
+            path: '/activate/:token',
+            component: () => import('./user_verify/index'),
+        },
+        {
             path: '/profile/edit',
             component: () => import('./user_profile_edit/index'),
             children: [

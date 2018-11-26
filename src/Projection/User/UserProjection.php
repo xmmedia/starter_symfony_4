@@ -25,7 +25,10 @@ class UserProjection implements ReadModelProjection
                         'id'         => $event->aggregateId(),
                         'email'      => $event->email()->toString(),
                         'password'   => $event->encodedPassword(),
-                        'verified'   => true,
+                        // if sent an invite, then account is not verified
+                        // if they didn't send an invite, then account is verified
+                        // because there's no way for them to verify the account
+                        'verified'   => !$event->sendInvite(),
                         'active'     => $event->active(),
                         'roles'      => [$event->role()->getRole()],
                         'first_name' => $event->firstName()->toString(),
@@ -170,6 +173,22 @@ class UserProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         [
                             'password' => $event->encodedPassword(),
+                        ]
+                    );
+                },
+
+                Event\UserVerified::class => function (
+                    array $state,
+                    Event\UserVerified $event
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->userId()->toString(),
+                        [
+                            'verified'              => true,
                         ]
                     );
                 },

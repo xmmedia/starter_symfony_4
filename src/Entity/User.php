@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Model\Email;
 use App\Model\User\Name;
 use App\Model\User\UserId;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -54,18 +55,6 @@ class User implements UserInterface, EncoderAwareInterface
     private $roles = [];
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=180, nullable=true)
-     */
-    private $confirmationToken;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $passwordRequestedAt;
-
-    /**
      * @var \DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -88,6 +77,17 @@ class User implements UserInterface, EncoderAwareInterface
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $lastName;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\UserToken", mappedBy="user")
+     */
+    private $tokens;
+
+    public function __construct()
+    {
+        $this->tokens = new ArrayCollection();
+    }
 
     public function id(): UserId
     {
@@ -142,20 +142,6 @@ class User implements UserInterface, EncoderAwareInterface
     public function getRoles(): array
     {
         return $this->roles();
-    }
-
-    public function confirmationToken(): ?string
-    {
-        return $this->confirmationToken;
-    }
-
-    public function passwordRequestedAt(): ?\DateTimeImmutable
-    {
-        if (null === $this->passwordRequestedAt) {
-            return null;
-        }
-
-        return \DateTimeImmutable::createFromMutable($this->passwordRequestedAt);
     }
 
     public function lastLogin(): ?\DateTimeImmutable

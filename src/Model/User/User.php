@@ -139,10 +139,27 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function inviteSent(EmailGatewayMessageId $messageId): void
+    public function inviteSent(Token $token, EmailGatewayMessageId $messageId): void
     {
         $this->recordThat(
-            Event\InviteSent::now($this->userId, $messageId)
+            Event\InviteSent::now($this->userId, $token, $messageId)
+        );
+    }
+
+    public function verify(): void
+    {
+        if ($this->verified) {
+            throw Exception\UserAlreadyVerified::triedToVerify($this->userId);
+        }
+
+        if (!$this->active) {
+            throw Exception\InvalidUserActiveStatus::triedToVerifyAnInactiveUser(
+                $this->userId
+            );
+        }
+
+        $this->recordThat(
+            Event\UserVerified::now($this->userId)
         );
     }
 
@@ -194,7 +211,7 @@ class User extends AggregateRoot implements Entity
     protected function whenUserWasCreatedByAdmin(Event\UserWasCreatedByAdmin $event): void
     {
         $this->userId = $event->userId();
-        $this->verified = true;
+        $this->verified = !$event->sendInvite();
         $this->active = true;
     }
 
@@ -233,6 +250,11 @@ class User extends AggregateRoot implements Entity
     protected function whenInviteSent(Event\InviteSent $event): void
     {
         // nothing atm
+    }
+
+    protected function whenUserVerified(Event\UserVerified $event): void
+    {
+        $this->verified = true;
     }
 
     protected function whenUserUpdatedProfile(Event\UserUpdatedProfile $event): void

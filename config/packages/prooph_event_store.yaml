@@ -11,6 +11,9 @@ prooph_event_store:
                 user_projection:
                     read_model: App\Projection\User\UserReadModel
                     projection: App\Projection\User\UserProjection
+                user_token_projection:
+                    read_model: App\Projection\User\UserTokenReadModel
+                    projection: App\Projection\User\UserTokenProjection
 
         enquiry_projection_manager:
             event_store: '@Prooph\EventStore\EventStore'
@@ -31,5 +34,7 @@ services:
     # projections & read models
     #    App\Projection\User\UserProjection: ~
     App\Projection\User\UserReadModel: ~
+    #    App\Projection\User\UserTokenProjection: ~
+    App\Projection\User\UserTokenReadModel: ~
     #    App\Projection\Enquiry\EnquiryProjection: ~
     App\Projection\Enquiry\EnquiryReadModel: ~

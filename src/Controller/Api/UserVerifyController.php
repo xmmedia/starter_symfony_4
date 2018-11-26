@@ -1,0 +1,84 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Controller\Api;
+
+use App\Controller\RequestCsrfCheck;
+use App\Exception\FormValidationException;
+use App\Form\UserVerifyType;
+use App\Model\User\Command\ChangeUserPassword;
+use App\Model\User\Command\VerifyUser;
+use App\Model\User\Exception\InvalidToken;
+use App\Model\User\Exception\TokenHasExpired;
+use App\Security\PasswordEncoder;
+use App\Security\TokenValidator;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Role\Role;
+
+/**
+ * @Route(defaults={"_format": "json"})
+ * @codeCoverageIgnore
+ */
+class UserVerifyController extends AbstractController
+{
+    use RequestCsrfCheck;
+
+    /**
+     * @Route(
+     *     "/api/user/activate",
+     *     name="api_user_activate",
+     *     methods={"POST"}
+     * )
+     */
+    public function activate(
+        Request $request,
+        MessageBusInterface $commandBus,
+        TokenValidator $tokenValidator,
+        FormFactoryInterface $formFactory,
+        PasswordEncoder $passwordEncoder
+    ): JsonResponse {
+        $this->checkAdminCsrf($request);
+
+        $form = $formFactory
+            ->create(UserVerifyType::class)
+            ->submit($request->request->get('data'));
+
+        if (!$form->isValid()) {
+            throw FormValidationException::fromForm($form);
+        }
+
+        try {
+            $user = $tokenValidator->validate($form->getData()['token']);
+        } catch (InvalidToken $e) {
+            throw $this->createNotFoundException(
+                'The token is invalid.'
+            );
+        } catch (TokenHasExpired $e) {
+            return $this->json(
+                ['error' => 'The link has expired.'],
+                Response::HTTP_METHOD_NOT_ALLOWED
+            );
+        }
+
+        $commandBus->dispatch(
+            VerifyUser::now($user->id())
+        );
+
+        $encodedPassword = ($passwordEncoder)(
+            new Role($user->roles()[0]),
+            $form->getData()['password']
+        );
+        $commandBus->dispatch(
+            ChangeUserPassword::forUser($user->id(), $encodedPassword)
+        );
+
+        return $this->json(['success' => true]);
+    }
+}
