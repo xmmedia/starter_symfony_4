@@ -11,6 +11,7 @@ use App\Model\User\Command\ChangeUserPassword;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
 use App\Model\User\Exception\TokenHasExpired;
+use App\Security\AppAuthenticator;
 use App\Security\PasswordEncoder;
 use App\Security\TokenValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
  * @Route(defaults={"_format": "json"})
@@ -42,7 +44,9 @@ class UserVerifyController extends AbstractController
         MessageBusInterface $commandBus,
         TokenValidator $tokenValidator,
         FormFactoryInterface $formFactory,
-        PasswordEncoder $passwordEncoder
+        PasswordEncoder $passwordEncoder,
+        GuardAuthenticatorHandler $authHandler,
+        AppAuthenticator $appAuthenticator
     ): JsonResponse {
         $this->checkAdminCsrf($request);
 
@@ -81,6 +85,13 @@ class UserVerifyController extends AbstractController
         );
         $commandBus->dispatch(
             ChangeUserPassword::forUser($user->id(), $encodedPassword)
+        );
+
+        $authHandler->authenticateUserAndHandleSuccess(
+            $user,
+            $request,
+            $appAuthenticator,
+            'main'
         );
 
         return $this->json(['success' => true]);
