@@ -111,6 +111,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        // @todo-symfony
         return new RedirectResponse($this->router->generate('admin_dashboard'));
     }
 
