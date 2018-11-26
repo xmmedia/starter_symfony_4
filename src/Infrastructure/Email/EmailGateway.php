@@ -98,7 +98,7 @@ class EmailGateway
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
-        // @todo use param
+        // @todo-symfony
         $default['productName'] = 'Symfony Starter';
         $default['copyrightYear'] = date('Y');
         // @todo-symfony

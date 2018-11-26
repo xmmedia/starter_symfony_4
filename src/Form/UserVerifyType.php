@@ -26,11 +26,9 @@ class UserVerifyType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type'            => PasswordType::class,
                 'label'           => 'New Password',
-                // @todo remove all of these that are for api?
                 'attr'            => ['maxlength' => BasePasswordEncoder::MAX_PASSWORD_LENGTH],
                 'invalid_message' => 'The passwords must match.',
                 'constraints'     => [
-                    // @todo create constraint for less repetition
                     new Assert\NotBlank(),
                     new Assert\Length([
                         'min' => User::PASSWORD_MIN_LENGTH,

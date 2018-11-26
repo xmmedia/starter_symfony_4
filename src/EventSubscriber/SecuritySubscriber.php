@@ -48,7 +48,6 @@ class SecuritySubscriber implements EventSubscriberInterface
         $user = $event->getAuthenticationToken()->getUser();
         $request = $event->getRequest();
 
-        // @todo update login count on user
         $this->commandBus->dispatch(
             UserLoggedInSuccessfully::now(
                 $authId,
