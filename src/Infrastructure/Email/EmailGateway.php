@@ -88,6 +88,7 @@ class EmailGateway
 
     private function setGlobalTemplateData(array $data): array
     {
+        // @todo-symfony
         $default['supportEmail'] = $this->from->email();
         $default['rootUrl'] = $this->router->generate(
             'index',
@@ -98,10 +99,8 @@ class EmailGateway
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
-        // @todo-symfony
         $default['productName'] = 'Symfony Starter';
         $default['copyrightYear'] = date('Y');
-        // @todo-symfony
         $default['companyName'] = 'XM Media Inc.';
         $default['companyAddress'] = '123 Street, Big City';
 
