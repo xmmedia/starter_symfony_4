@@ -26,7 +26,7 @@ class ChangeUserPasswordHandler
             throw UserNotFound::withUserId($command->userId());
         }
 
-        $user->changePasswordByAdmin($command->encodedPassword());
+        $user->changePassword($command->encodedPassword());
 
         $this->userRepo->save($user);
     }
