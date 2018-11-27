@@ -10,12 +10,13 @@ use App\Model\User\UserId;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface, EncoderAwareInterface
+class User implements UserInterface, EncoderAwareInterface, EquatableInterface
 {
     /**
      * @var \Ramsey\Uuid\Uuid
@@ -190,5 +191,32 @@ class User implements UserInterface, EncoderAwareInterface
         }
 
         return null;
+    }
+
+    /**
+     * User will be logged out if their email (username) or password changes,
+     * or if they've become inactive or unverified.
+     *
+     * @param User|UserInterface $user The user just loaded from the db.
+     */
+    public function isEqualTo(UserInterface $user): bool
+    {
+        if ($this->password !== $user->password()) {
+            return false;
+        }
+
+        if (!$this->email()->sameValueAs($user->email())) {
+            return false;
+        }
+
+        if (!$user->active) {
+            return false;
+        }
+
+        if (!$user->verified) {
+            return false;
+        }
+
+        return true;
     }
 }
