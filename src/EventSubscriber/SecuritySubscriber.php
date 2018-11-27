@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\EventSubscriber;
 
 use App\Model\Auth\AuthId;
-use App\Model\Auth\Command\UserFailedToLogin;
+use App\Model\Auth\Command\UserLoginFailed;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -69,7 +69,7 @@ class SecuritySubscriber implements EventSubscriberInterface
         $request = $this->requestStack->getCurrentRequest();
 
         $this->commandBus->dispatch(
-            UserFailedToLogin::now(
+            UserLoginFailed::now(
                 $authId,
                 $token->getCredentials()->email(),
                 $request->headers->get('User-Agent'),

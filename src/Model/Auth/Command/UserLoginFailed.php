@@ -8,11 +8,13 @@ use App\Messaging\Command;
 use App\Model\Auth\AuthId;
 use Webmozart\Assert\Assert;
 
-final class UserFailedToLogin extends Command
+final class UserLoginFailed extends Command
 {
     public static function now(
         AuthId $authId,
+        // @todo support null?
         string $email,
+        // @todo support null? (and all following)
         string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage
