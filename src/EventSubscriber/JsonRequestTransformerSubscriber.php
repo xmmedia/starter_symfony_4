@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use App\Exception\JsonException;
+use App\Util\Json;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,8 +44,8 @@ class JsonRequestTransformerSubscriber implements EventSubscriberInterface
     private function transformJsonBody(Request $request): bool
     {
         try {
-            $data = \GuzzleHttp\json_decode($request->getContent(), true);
-        } catch (\InvalidArgumentException $e) {
+            $data = Json::decode($request->getContent());
+        } catch (JsonException $e) {
             return false;
         }
 

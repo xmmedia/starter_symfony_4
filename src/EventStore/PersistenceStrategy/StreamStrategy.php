@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\EventStore\PersistenceStrategy;
 
+use App\Util\Json;
 use Iterator;
 use Prooph\Common\Messaging\MessageConverter;
 use Prooph\EventStore\Pdo\DefaultMessageConverter;
@@ -73,8 +74,8 @@ EOT;
 
             $data[] = $eventData['uuid'];
             $data[] = $eventData['message_name'];
-            $data[] = \json_encode($eventData['payload']);
-            $data[] = \json_encode($eventData['metadata']);
+            $data[] = Json::encode($eventData['payload']);
+            $data[] = Json::encode($eventData['metadata']);
             $data[] = $eventData['created_at']->format('Y-m-d\TH:i:s.u');
         }
 
