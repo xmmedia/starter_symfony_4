@@ -40,8 +40,8 @@ class Auth extends AggregateRoot implements Entity
 
     public static function failure(
         AuthId $authId,
-        string $email,
-        string $userAgent,
+        ?string $email,
+        ?string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage
     ): self {

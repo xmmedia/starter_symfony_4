@@ -36,6 +36,26 @@ class UserFailedToLoginTest extends TestCase
         $this->assertEquals($message, $event->exceptionMessage());
     }
 
+    public function testOccurNullValues(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $authId = AuthId::generate();
+        $ipAddress = $faker->ipv4;
+        $message = $faker->asciify(str_repeat('*', 100));
+
+        $event = UserFailedToLogin::now(
+            $authId,
+            null,
+            null,
+            $ipAddress,
+            $message
+        );
+
+        $this->assertNull($event->email());
+        $this->assertNull($event->userAgent());
+    }
+
     public function testFromArray(): void
     {
         $faker = Faker\Factory::create();
@@ -68,5 +88,34 @@ class UserFailedToLoginTest extends TestCase
         $this->assertEquals($userAgent, $event->userAgent());
         $this->assertEquals($ipAddress, $event->ipAddress());
         $this->assertEquals($message, $event->exceptionMessage());
+    }
+
+    public function testFromArrayNullValues(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $authId = AuthId::generate();
+        $ipAddress = $faker->ipv4;
+        $message = $faker->asciify(str_repeat('*', 100));
+
+        $event = UserFailedToLogin::fromArray([
+            'message_name' => UserFailedToLogin::class,
+            'uuid'         => $faker->uuid,
+            'payload'      => [
+                'email'            => null,
+                'userAgent'        => null,
+                'ipAddress'        => $ipAddress,
+                'exceptionMessage' => $message,
+            ],
+            'metadata' => [
+                '_aggregate_id' => $authId->toString(),
+            ],
+            'created_at' => new \DateTimeImmutable(),
+        ]);
+
+        $this->assertInstanceOf(UserFailedToLogin::class, $event);
+
+        $this->assertNull($event->email());
+        $this->assertNull($event->userAgent());
     }
 }

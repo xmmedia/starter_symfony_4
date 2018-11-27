@@ -36,18 +36,20 @@ class UserLoginFailedTest extends TestCase
         $this->assertEquals($message, $command->exceptionMessage());
     }
 
-    public function testNowMessageNull(): void
+    public function testNowNullValues(): void
     {
         $faker = Faker\Factory::create();
 
         $command = UserLoginFailed::now(
             AuthId::generate(),
-            $faker->email,
-            $faker->userAgent,
+            null,
+            null,
             $faker->ipv4,
             null
         );
 
+        $this->assertNull($command->email());
+        $this->assertNull($command->userAgent());
         $this->assertNull($command->exceptionMessage());
     }
 }

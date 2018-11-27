@@ -12,10 +12,8 @@ final class UserLoginFailed extends Command
 {
     public static function now(
         AuthId $authId,
-        // @todo support null?
-        string $email,
-        // @todo support null? (and all following)
-        string $userAgent,
+        ?string $email,
+        ?string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage
     ): self {
@@ -33,12 +31,12 @@ final class UserLoginFailed extends Command
         return AuthId::fromString($this->payload()['authId']);
     }
 
-    public function email(): string
+    public function email(): ?string
     {
         return $this->payload()['email'];
     }
 
-    public function userAgent(): string
+    public function userAgent(): ?string
     {
         return $this->payload()['userAgent'];
     }
@@ -61,8 +59,6 @@ final class UserLoginFailed extends Command
         Assert::keyExists($payload, 'email');
 
         Assert::keyExists($payload, 'userAgent');
-        Assert::notEmpty($payload['userAgent']);
-        Assert::string($payload['userAgent']);
 
         Assert::keyExists($payload, 'ipAddress');
         Assert::notEmpty($payload['ipAddress']);

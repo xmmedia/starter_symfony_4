@@ -71,6 +71,30 @@ class AuthTest extends BaseTestCase
         $this->assertEquals($authId, $auth->authId());
     }
 
+    public function testFailureNullValues(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $authId = AuthId::generate();
+        $ipAddress = $faker->ipv4;
+        $message = $faker->asciify(str_repeat('*', 100));
+
+        $auth = Auth::failure($authId, null, null, $ipAddress, $message);
+
+        $this->assertInstanceOf(Auth::class, $auth);
+
+        $events = $this->popRecordedEvent($auth);
+
+        $this->assertRecordedEvent(UserFailedToLogin::class, [
+            'email'            => null,
+            'userAgent'        => null,
+            'ipAddress'        => $ipAddress,
+            'exceptionMessage' => $message,
+        ], $events);
+
+        $this->assertCount(1, $events);
+    }
+
     public function testSameIdentityAs(): void
     {
         $faker = Faker\Factory::create();

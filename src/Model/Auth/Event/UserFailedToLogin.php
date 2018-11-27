@@ -24,7 +24,7 @@ class UserFailedToLogin extends AggregateChanged
     public static function now(
         AuthId $authId,
         ?string $email,
-        string $userAgent,
+        ?string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage
     ): self {
@@ -57,7 +57,7 @@ class UserFailedToLogin extends AggregateChanged
         return $this->email;
     }
 
-    public function userAgent(): string
+    public function userAgent(): ?string
     {
         if (null === $this->userAgent) {
             $this->userAgent = $this->payload()['userAgent'];
