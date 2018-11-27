@@ -40,7 +40,7 @@ class UpdateUserProfileHandler
             }
         }
 
-        $user->updateFromProfile(
+        $user->update(
             $command->email(),
             $command->firstName(),
             $command->lastName()

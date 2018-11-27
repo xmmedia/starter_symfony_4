@@ -15,4 +15,12 @@ final class UserAlreadyVerified extends \RuntimeException
             $userId->toString()
         ));
     }
+
+    public static function triedToSendVerification(UserId $userId): self
+    {
+        return new self(sprintf(
+            'Tried to send verification to user "%s" but they\'re already verified.',
+            $userId->toString()
+        ));
+    }
 }

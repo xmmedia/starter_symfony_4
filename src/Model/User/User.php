@@ -7,8 +7,8 @@ namespace App\Model\User;
 use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
-use App\Model\EmailGatewayMessageId;
 use App\Model\Entity;
+use App\Model\NotificationGatewayId;
 use Symfony\Component\Security\Core\Role\Role;
 
 class User extends AggregateRoot implements Entity
@@ -138,8 +138,14 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function inviteSent(Token $token, EmailGatewayMessageId $messageId): void
+    public function inviteSent(Token $token, NotificationGatewayId $messageId): void
     {
+        if ($this->verified) {
+            throw Exception\UserAlreadyVerified::triedToSendVerification(
+                $this->userId
+            );
+        }
+
         $this->recordThat(
             Event\InviteSent::now($this->userId, $token, $messageId)
         );
@@ -164,7 +170,7 @@ class User extends AggregateRoot implements Entity
 
     public function passwordRecoverySent(
         Token $token,
-        EmailGatewayMessageId $messageId
+        NotificationGatewayId $messageId
     ): void {
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToRequestPasswordReset(
@@ -177,11 +183,17 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function updateFromProfile(
+    public function update(
         Email $email,
         Name $firstName,
         Name $lastName
     ): void {
+        if (!$this->active) {
+            throw Exception\InvalidUserActiveStatus::triedToUpdateProfile(
+                $this->userId
+            );
+        }
+
         $this->recordThat(
             Event\UserUpdatedProfile::now(
                 $this->userId,
@@ -194,11 +206,25 @@ class User extends AggregateRoot implements Entity
 
     public function loggedIn(): void
     {
+        if (!$this->verified) {
+            throw Exception\UserNotVerified::triedToLogin($this->userId);
+        }
+
+        if (!$this->active) {
+            throw Exception\InvalidUserActiveStatus::triedToLogin($this->userId);
+        }
+
         $this->recordThat(Event\UserLoggedIn::now($this->userId));
     }
 
     public function changePassword(string $encodedPassword): void
     {
+        if (!$this->active) {
+            throw Exception\InvalidUserActiveStatus::triedToChangePassword(
+                $this->userId
+            );
+        }
+
         $this->recordThat(Event\ChangedPassword::now($this->userId, $encodedPassword));
     }
 
@@ -226,7 +252,7 @@ class User extends AggregateRoot implements Entity
     {
         $this->userId = $event->userId();
         $this->verified = !$event->sendInvite();
-        $this->active = true;
+        $this->active = $event->active();
     }
 
     protected function whenMinimalUserWasCreatedByAdmin(Event\MinimalUserWasCreatedByAdmin $event): void

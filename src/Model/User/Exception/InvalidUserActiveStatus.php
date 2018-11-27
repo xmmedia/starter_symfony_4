@@ -39,4 +39,28 @@ final class InvalidUserActiveStatus extends \RuntimeException
             $userId->toString()
         ));
     }
+
+    public static function triedToUpdateProfile(UserId $userId): self
+    {
+        return new self(sprintf(
+            'User "%s" tried to update their profile but their currently inactive.',
+            $userId->toString()
+        ));
+    }
+
+    public static function triedToChangePassword(UserId $userId): self
+    {
+        return new self(sprintf(
+            'User "%s" tried to change their password but their currently inactive.',
+            $userId->toString()
+        ));
+    }
+
+    public static function triedToLogin(UserId $userId): self
+    {
+        return new self(sprintf(
+            'User "%s" tried to login but their currently inactive.',
+            $userId->toString()
+        ));
+    }
 }
