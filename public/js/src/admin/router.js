@@ -64,16 +64,13 @@ const router = new VueRouter({
         },
     ],
 
-    // scrollBehavior (to, from, savedPosition) {
-    //     if (savedPosition) {
-    //         return savedPosition;
-    //     } else {
-    //         return {
-    //             selector: '.class',
-    //             offset: { x: 0, y: -10 },
-    //         };
-    //     }
-    // }
+    scrollBehavior (to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    },
 });
 
 export default router;
