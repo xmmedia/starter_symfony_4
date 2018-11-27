@@ -6,8 +6,6 @@ namespace App\Tests\DataProvider;
 
 use App\DataProvider\IssuerProvider;
 use App\Entity\User;
-use App\Model\User\UserId;
-use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -60,7 +58,7 @@ class IssuerProviderTest extends TestCase
     }
 
     /**
-     * $user: false = no token storage within container, null = no user
+     * $user: false = no token storage within container, null = no user.
      *
      * @param UserInterface|bool|null $user
      */

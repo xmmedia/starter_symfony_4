@@ -6,7 +6,6 @@ namespace App\Tests\Entity;
 
 use App\Entity\User;
 use Faker;
-use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 

@@ -116,7 +116,7 @@ class JsDataTest extends TestCase
     }
 
     /**
-     * $user: false = no token storage within container, null = no user
+     * $user: false = no token storage within container, null = no user.
      *
      * @param UserInterface|bool|null $user
      */
