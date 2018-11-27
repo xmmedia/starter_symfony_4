@@ -4,35 +4,26 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use ArrayAccess;
-use Countable;
-use Iterator;
-use JsonSerializable;
-use ReflectionClass;
-use RuntimeException;
-use SplFixedArray;
-use Traversable;
-
 /**
  * Based heavily on: https://github.com/jkoudys/immutable.php/blob/master/src/Collection/ImmArray.php.
  */
-abstract class Collection implements Iterator, ArrayAccess, Countable, JsonSerializable
+abstract class Collection implements \Iterator, \ArrayAccess, \Countable, \JsonSerializable
 {
-    /** @var Traversable|SplFixedArray */
+    /** @var \Traversable|\SplFixedArray */
     protected $items;
 
     // @todo add some way of check that all items are of correct type
 
     public static function fromArray(array $items)
     {
-        return new static(SplFixedArray::fromArray($items));
+        return new static(\SplFixedArray::fromArray($items));
     }
 
-    public static function fromItems(Traversable $arr, callable $cb = null): self
+    public static function fromItems(\Traversable $arr, callable $cb = null): self
     {
         // We can only do it this way if we can count it
-        if ($arr instanceof Countable) {
-            $items = new SplFixedArray(count($arr));
+        if ($arr instanceof \Countable) {
+            $items = new \SplFixedArray(count($arr));
             foreach ($arr as $i => $el) {
                 // Apply a mapping function if available
                 if ($cb) {
@@ -54,7 +45,7 @@ abstract class Collection implements Iterator, ArrayAccess, Countable, JsonSeria
         return static::fromArray($asArray);
     }
 
-    private function __construct(Traversable $items)
+    private function __construct(\Traversable $items)
     {
         $this->items = $items;
     }
@@ -67,7 +58,7 @@ abstract class Collection implements Iterator, ArrayAccess, Countable, JsonSeria
     public function map(callable $cb): self
     {
         $count = count($this);
-        $items = new SplFixedArray($count);
+        $items = new \SplFixedArray($count);
 
         for ($i = 0; $i < $count; ++$i) {
             $items[$i] = $cb($this->items[$i], $i, $this);
@@ -111,7 +102,7 @@ abstract class Collection implements Iterator, ArrayAccess, Countable, JsonSeria
         array_unshift($args, $this->items);
 
         // Concat this iterator, and variadic args
-        $class = new ReflectionClass(ConcatIterator::class);
+        $class = new \ReflectionClass(ConcatIterator::class);
         $concatIt = $class->newInstanceArgs($args);
 
         // Create as new immutable's iterator
@@ -193,12 +184,12 @@ abstract class Collection implements Iterator, ArrayAccess, Countable, JsonSeria
 
     public function offsetSet($offset, $value)
     {
-        throw new RuntimeException('Attempt to mutate immutable '.__CLASS__.' object.');
+        throw new \RuntimeException('Attempt to mutate immutable '.__CLASS__.' object.');
     }
 
     public function offsetUnset($offset)
     {
-        throw new RuntimeException('Attempt to mutate immutable '.__CLASS__.' object.');
+        throw new \RuntimeException('Attempt to mutate immutable '.__CLASS__.' object.');
     }
 
     public function jsonSerialize()

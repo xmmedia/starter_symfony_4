@@ -2,21 +2,12 @@
 
 declare(strict_types=1);
 
+namespace App\Model;
+
 /**
  * Iterator to allow multiple iterators to be concatenated.
  */
-
-namespace App\Model;
-
-use ArrayAccess;
-use AppendIterator;
-use JsonSerializable;
-use Countable;
-use Iterator;
-use RuntimeException;
-use InvalidArgumentException;
-
-class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, JsonSerializable
+class ConcatIterator extends \AppendIterator implements \ArrayAccess, \Countable, \JsonSerializable
 {
     public const INVALID_INDEX = 'Index invalid or out of range';
 
@@ -27,15 +18,15 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
      * Build an iterator over multiple iterators
      * Unlike a LimitIterator, the $end defines the last index, not the count.
      *
-     * @param Iterator $iterator,... Concat iterators in order
+     * @param \Iterator $iterator,... Concat iterators in order
      */
     public function __construct()
     {
         parent::__construct();
         foreach (func_get_args() as $i => $iterator) {
             if (
-                $iterator instanceof ArrayAccess &&
-                $iterator instanceof Countable
+                $iterator instanceof \ArrayAccess &&
+                $iterator instanceof \Countable
             ) {
                 // Unroll other ConcatIterators, so we avoid deep iterator stacks
                 if ($iterator instanceof self) {
@@ -47,7 +38,7 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
                 }
                 $this->count += count($iterator);
             } else {
-                throw new InvalidArgumentException(
+                throw new \InvalidArgumentException(
                     'Argument '.$i.
                     ' passed to '.__METHOD__.
                     ' must be of type ArrayAccess, Countable, and Traversable. '.
@@ -80,7 +71,7 @@ class ConcatIterator extends AppendIterator implements ArrayAccess, Countable, J
 
             return $it->offsetGet($idx);
         } else {
-            throw new RuntimeException(self::INVALID_INDEX);
+            throw new \RuntimeException(self::INVALID_INDEX);
         }
     }
 

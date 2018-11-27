@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\EventStore\PersistenceStrategy;
 
 use App\Util\Json;
-use Iterator;
 use Prooph\Common\Messaging\MessageConverter;
 use Prooph\EventStore\Pdo\DefaultMessageConverter;
 use Prooph\EventStore\Pdo\HasQueryHint;
@@ -65,7 +64,7 @@ EOT;
         ];
     }
 
-    public function prepareData(Iterator $streamEvents): array
+    public function prepareData(\Iterator $streamEvents): array
     {
         $data = [];
 
