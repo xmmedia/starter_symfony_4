@@ -10,7 +10,7 @@ use Postmark\PostmarkClient;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class EmailGateway
+class EmailGateway implements EmailGatewayInterface
 {
     /** @var PostmarkClient */
     private $client;

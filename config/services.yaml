@@ -65,9 +65,12 @@ services:
 
     App\Model\User\Service\ChecksUniqueUsersEmail: '@App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel'
 
+    App\Security\TokenGeneratorInterface: '@App\Security\TokenGenerator'
+
     App\Infrastructure\Email\EmailGateway:
         arguments:
             $postmarkApiKey: '%env(POSTMARK_API_KEY)%'
             $emailFrom: '%env(FROM_EMAIL)%'
             $emailFromName: '%env(FROM_EMAIL_NAME)%'
             $kernelEnv: '%kernel.environment%'
+    App\Infrastructure\Email\EmailGatewayInterface: '@App\Infrastructure\Email\EmailGateway'

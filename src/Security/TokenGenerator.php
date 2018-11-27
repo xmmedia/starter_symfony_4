@@ -6,7 +6,7 @@ namespace App\Security;
 
 use App\Model\User\Token;
 
-class TokenGenerator
+class TokenGenerator implements TokenGeneratorInterface
 {
     public function __invoke(): Token
     {

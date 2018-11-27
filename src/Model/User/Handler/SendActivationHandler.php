@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Model\User\Handler;
 
-use App\Infrastructure\Email\EmailGateway;
+use App\Infrastructure\Email\EmailGatewayInterface;
 use App\Model\Email;
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
-use App\Security\TokenGenerator;
+use App\Security\TokenGeneratorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -18,20 +18,20 @@ class SendActivationHandler
     /** @var UserList */
     private $userRepo;
 
-    /** @var EmailGateway */
+    /** @var EmailGatewayInterface|\App\Infrastructure\Email\EmailGateway */
     private $emailGateway;
 
     /** @var RouterInterface|\Symfony\Bundle\FrameworkBundle\Routing\Router */
     private $router;
 
-    /** @var TokenGenerator */
+    /** @var TokenGeneratorInterface|\App\Security\TokenGenerator */
     private $tokenGenerator;
 
     public function __construct(
         UserList $userRepo,
-        EmailGateway $emailGateway,
+        EmailGatewayInterface $emailGateway,
         RouterInterface $router,
-        TokenGenerator $tokenGenerator
+        TokenGeneratorInterface $tokenGenerator
     ) {
         $this->userRepo = $userRepo;
         $this->emailGateway = $emailGateway;
