@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\User;
 
 use App\Model\ValueObject;
+use Webmozart\Assert\Assert;
 
 class Token implements ValueObject
 {
@@ -13,6 +14,8 @@ class Token implements ValueObject
 
     public static function fromString(string $token): self
     {
+        Assert::notEmpty($token);
+
         return new self($token);
     }
 
