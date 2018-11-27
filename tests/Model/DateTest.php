@@ -100,7 +100,6 @@ class DateTest extends TestCase
 
         $date = Date::now();
         yield [$date, '"'.$date->format('Y-m-d\TH:i:s.u\Z').'"'];
-
     }
 
     public function testSameValueAs(): void
