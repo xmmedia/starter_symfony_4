@@ -26,12 +26,12 @@ final class StreamStrategy implements PersistenceStrategy, HasQueryHint
     }
 
     /**
-     * @param string $tableName
-     *
      * @return string[]
      */
     public function createSchema(string $tableName): array
     {
+        $index = $this->indexName();
+
         $statement = <<<EOT
 CREATE TABLE `$tableName` (
     `no` BIGINT(20) NOT NULL AUTO_INCREMENT,
@@ -46,7 +46,7 @@ CREATE TABLE `$tableName` (
     PRIMARY KEY (`no`),
     UNIQUE KEY `ix_event_id` (`event_id`),
     UNIQUE KEY `ix_unique_event` (`aggregate_type`, `aggregate_id`, `aggregate_version`),
-    KEY `ix_query_aggregate` (`aggregate_type`,`aggregate_id`,`no`)
+    KEY `$index` (`aggregate_type`,`aggregate_id`,`no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 EOT;
 

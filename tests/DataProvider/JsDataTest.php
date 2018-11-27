@@ -37,7 +37,7 @@ class JsDataTest extends TestCase
 
     public function testGetPublic(): void
     {
-        $class = $this->getJsData(null);
+        $class = $this->getJsData(false);
 
         $this->assertSame([], $class->get('public'));
     }
@@ -85,7 +85,28 @@ class JsDataTest extends TestCase
         $this->assertSame($expected, $class->get('admin'));
     }
 
-    private function getJsData(?UserInterface $user): JsData
+    public function testGetAdminNotLoggedIn(): void
+    {
+        $token = Mockery::mock(CsrfToken::class);
+        $token->shouldReceive('getValue')
+            ->once()
+            ->andReturn('csrf_token');
+
+        $this->tokenManager->shouldReceive('getToken')
+            ->once()
+            ->andReturn($token);
+
+        $class = $this->getJsData(null);
+
+        $expected = [
+            'user'      => null,
+            'csrfToken' => 'csrf_token',
+        ];
+
+        $this->assertSame($expected, $class->get('admin'));
+    }
+
+    private function getJsData($user): JsData
     {
         return new JsData(
             $this->router,
@@ -94,11 +115,16 @@ class JsDataTest extends TestCase
         );
     }
 
-    private function createSecurity(?UserInterface $user): Security
+    /**
+     * $user: false = no token storage within container, null = no user
+     *
+     * @param UserInterface|bool|null $user
+     */
+    private function createSecurity($user): Security
     {
         $tokenStorage = Mockery::mock(TokenStorageInterface::class);
 
-        if (null !== $user) {
+        if (false !== $user) {
             $token = Mockery::mock(TokenInterface::class);
             $token->shouldReceive('getUser')
                 ->once()
