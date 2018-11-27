@@ -9,7 +9,7 @@ use Webmozart\Assert\Assert;
 
 class Name implements ValueObject, \JsonSerializable
 {
-    public const NAME_MIN_LENGTH = 5;
+    public const NAME_MIN_LENGTH = 2;
     public const NAME_MAX_LENGTH = 50;
 
     /** @var string */
