@@ -43,7 +43,7 @@ class Json
         return $data;
     }
 
-    final private function __construct()
+    private function __construct()
     {
     }
 }
