@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Model\User\Handler;
+
+use App\Model\User\Command\VerifyUser;
+use App\Model\User\Exception\UserNotFound;
+use App\Model\User\Handler\VerifyUserHandler;
+use App\Model\User\User;
+use App\Model\User\UserId;
+use App\Model\User\UserList;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
+
+class VerifyUserHandlerTest extends TestCase
+{
+    use MockeryPHPUnitIntegration;
+
+    public function test(): void
+    {
+        $user = Mockery::mock(User::class);
+        $user->shouldReceive('verify')
+            ->once();
+
+        $command = VerifyUser::now(UserId::generate());
+
+        $repo = Mockery::mock(UserList::class);
+        $repo->shouldReceive('get')
+            ->with(Mockery::type(UserId::class))
+            ->andReturn($user);
+        $repo->shouldReceive('save')
+            ->once()
+            ->with(Mockery::type(User::class));
+
+        (new VerifyUserHandler($repo))($command);
+    }
+
+    public function testUserNotFound(): void
+    {
+        $command = VerifyUser::now(UserId::generate());
+
+        $repo = Mockery::mock(UserList::class);
+        $repo->shouldReceive('get')
+            ->with(Mockery::type(UserId::class))
+            ->andReturnNull();
+
+        $this->expectException(UserNotFound::class);
+
+        (new VerifyUserHandler($repo))($command);
+    }
+}

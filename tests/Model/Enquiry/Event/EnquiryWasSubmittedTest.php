@@ -7,11 +7,14 @@ namespace App\Tests\Model\Enquiry\Event;
 use App\Model\Email;
 use App\Model\Enquiry\EnquiryId;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
+use App\Tests\CanCreateEvent;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
 class EnquiryWasSubmittedTest extends TestCase
 {
+    use CanCreateEvent;
+
     public function testOccur(): void
     {
         $faker = Faker\Factory::create();
@@ -38,19 +41,16 @@ class EnquiryWasSubmittedTest extends TestCase
         $email = Email::fromString($faker->email);
         $message = $faker->asciify(str_repeat('*', 100));
 
-        $event = EnquiryWasSubmitted::fromArray([
-            'message_name' => EnquiryWasSubmitted::class,
-            'uuid'         => $faker->uuid,
-            'payload'      => [
+        /** @var EnquiryWasSubmitted $event */
+        $event = $this->createEvent(
+            EnquiryWasSubmitted::class,
+            $enquiryId->toString(),
+            [
                 'name'    => $name,
                 'email'   => $email->toString(),
                 'message' => $message,
-            ],
-            'metadata' => [
-                '_aggregate_id' => $enquiryId->toString(),
-            ],
-            'created_at' => new \DateTimeImmutable(),
-        ]);
+            ]
+        );
 
         $this->assertInstanceOf(EnquiryWasSubmitted::class, $event);
 

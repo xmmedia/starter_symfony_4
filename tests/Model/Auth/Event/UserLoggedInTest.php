@@ -8,11 +8,14 @@ use App\Model\Auth\AuthId;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\Email;
 use App\Model\User\UserId;
+use App\Tests\CanCreateEvent;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
 class UserLoggedInTest extends TestCase
 {
+    use CanCreateEvent;
+
     public function testOccur(): void
     {
         $faker = Faker\Factory::create();
@@ -48,20 +51,17 @@ class UserLoggedInTest extends TestCase
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
 
-        $event = UserLoggedIn::fromArray([
-            'message_name' => UserLoggedIn::class,
-            'uuid'         => $faker->uuid,
-            'payload'      => [
+        /** @var UserLoggedIn $event */
+        $event = $this->createEvent(
+            UserLoggedIn::class,
+            $authId->toString(),
+            [
                 'userId'    => $userId->toString(),
                 'email'     => $email->toString(),
                 'userAgent' => $userAgent,
                 'ipAddress' => $ipAddress,
-            ],
-            'metadata' => [
-                '_aggregate_id' => $authId->toString(),
-            ],
-            'created_at' => new \DateTimeImmutable(),
-        ]);
+            ]
+        );
 
         $this->assertInstanceOf(UserLoggedIn::class, $event);
 

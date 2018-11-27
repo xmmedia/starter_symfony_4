@@ -6,11 +6,14 @@ namespace App\Tests\Model\Auth\Event;
 
 use App\Model\Auth\AuthId;
 use App\Model\Auth\Event\UserFailedToLogin;
+use App\Tests\CanCreateEvent;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
 class UserFailedToLoginTest extends TestCase
 {
+    use CanCreateEvent;
+
     public function testOccur(): void
     {
         $faker = Faker\Factory::create();
@@ -66,20 +69,17 @@ class UserFailedToLoginTest extends TestCase
         $ipAddress = $faker->ipv4;
         $message = $faker->asciify(str_repeat('*', 100));
 
-        $event = UserFailedToLogin::fromArray([
-            'message_name' => UserFailedToLogin::class,
-            'uuid'         => $faker->uuid,
-            'payload'      => [
+        /** @var UserFailedToLogin $event */
+        $event = $this->createEvent(
+            UserFailedToLogin::class,
+            $authId->toString(),
+            [
                 'email'            => $email,
                 'userAgent'        => $userAgent,
                 'ipAddress'        => $ipAddress,
                 'exceptionMessage' => $message,
-            ],
-            'metadata' => [
-                '_aggregate_id' => $authId->toString(),
-            ],
-            'created_at' => new \DateTimeImmutable(),
-        ]);
+            ]
+        );
 
         $this->assertInstanceOf(UserFailedToLogin::class, $event);
 
@@ -98,20 +98,18 @@ class UserFailedToLoginTest extends TestCase
         $ipAddress = $faker->ipv4;
         $message = $faker->asciify(str_repeat('*', 100));
 
-        $event = UserFailedToLogin::fromArray([
-            'message_name' => UserFailedToLogin::class,
-            'uuid'         => $faker->uuid,
-            'payload'      => [
+
+        /** @var UserFailedToLogin $event */
+        $event = $this->createEvent(
+            UserFailedToLogin::class,
+            $authId->toString(),
+            [
                 'email'            => null,
                 'userAgent'        => null,
                 'ipAddress'        => $ipAddress,
                 'exceptionMessage' => $message,
-            ],
-            'metadata' => [
-                '_aggregate_id' => $authId->toString(),
-            ],
-            'created_at' => new \DateTimeImmutable(),
-        ]);
+            ]
+        );
 
         $this->assertInstanceOf(UserFailedToLogin::class, $event);
 
