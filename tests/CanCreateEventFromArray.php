@@ -7,9 +7,9 @@ namespace App\Tests;
 use App\Messaging\DomainEvent;
 use Faker;
 
-trait CanCreateEvent
+trait CanCreateEventFromArray
 {
-    protected function createEvent(
+    protected function createEventFromArray(
         string $eventName,
         string $aggregateId,
         array $payload = []

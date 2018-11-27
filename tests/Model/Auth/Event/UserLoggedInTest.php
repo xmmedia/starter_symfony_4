@@ -8,13 +8,13 @@ use App\Model\Auth\AuthId;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\Email;
 use App\Model\User\UserId;
-use App\Tests\CanCreateEvent;
+use App\Tests\CanCreateEventFromArray;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
 class UserLoggedInTest extends TestCase
 {
-    use CanCreateEvent;
+    use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
@@ -52,7 +52,7 @@ class UserLoggedInTest extends TestCase
         $ipAddress = $faker->ipv4;
 
         /** @var UserLoggedIn $event */
-        $event = $this->createEvent(
+        $event = $this->createEventFromArray(
             UserLoggedIn::class,
             $authId->toString(),
             [

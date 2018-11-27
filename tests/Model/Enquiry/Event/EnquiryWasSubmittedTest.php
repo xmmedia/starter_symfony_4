@@ -7,13 +7,13 @@ namespace App\Tests\Model\Enquiry\Event;
 use App\Model\Email;
 use App\Model\Enquiry\EnquiryId;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
-use App\Tests\CanCreateEvent;
+use App\Tests\CanCreateEventFromArray;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
 class EnquiryWasSubmittedTest extends TestCase
 {
-    use CanCreateEvent;
+    use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
@@ -42,7 +42,7 @@ class EnquiryWasSubmittedTest extends TestCase
         $message = $faker->asciify(str_repeat('*', 100));
 
         /** @var EnquiryWasSubmitted $event */
-        $event = $this->createEvent(
+        $event = $this->createEventFromArray(
             EnquiryWasSubmitted::class,
             $enquiryId->toString(),
             [

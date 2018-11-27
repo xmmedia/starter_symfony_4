@@ -8,13 +8,13 @@ use App\Model\Email;
 use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\Name;
 use App\Model\User\UserId;
-use App\Tests\CanCreateEvent;
+use App\Tests\CanCreateEventFromArray;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
 class UserUpdatedProfileTest extends TestCase
 {
-    use CanCreateEvent;
+    use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
@@ -43,7 +43,7 @@ class UserUpdatedProfileTest extends TestCase
         $lastName = Name::fromString($faker->lastName);
 
         /** @var UserUpdatedProfile $event */
-        $event = $this->createEvent(
+        $event = $this->createEventFromArray(
             UserUpdatedProfile::class,
             $userId->toString(),
             [

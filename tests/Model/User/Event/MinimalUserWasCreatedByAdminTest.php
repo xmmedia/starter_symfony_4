@@ -7,14 +7,14 @@ namespace App\Tests\Model\User\Event;
 use App\Model\Email;
 use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
 use App\Model\User\UserId;
-use App\Tests\CanCreateEvent;
+use App\Tests\CanCreateEventFromArray;
 use Faker;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Role\Role;
 
 class MinimalUserWasCreatedByAdminTest extends TestCase
 {
-    use CanCreateEvent;
+    use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
@@ -43,7 +43,7 @@ class MinimalUserWasCreatedByAdminTest extends TestCase
         $role = new Role('ROLE_USER');
 
         /** @var MinimalUserWasCreatedByAdmin $event */
-        $event = $this->createEvent(
+        $event = $this->createEventFromArray(
             MinimalUserWasCreatedByAdmin::class,
             $userId->toString(),
             [

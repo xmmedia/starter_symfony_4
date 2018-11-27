@@ -6,13 +6,13 @@ namespace App\Tests\Model\Auth\Event;
 
 use App\Model\Auth\AuthId;
 use App\Model\Auth\Event\UserFailedToLogin;
-use App\Tests\CanCreateEvent;
+use App\Tests\CanCreateEventFromArray;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
 class UserFailedToLoginTest extends TestCase
 {
-    use CanCreateEvent;
+    use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
@@ -70,7 +70,7 @@ class UserFailedToLoginTest extends TestCase
         $message = $faker->asciify(str_repeat('*', 100));
 
         /** @var UserFailedToLogin $event */
-        $event = $this->createEvent(
+        $event = $this->createEventFromArray(
             UserFailedToLogin::class,
             $authId->toString(),
             [
@@ -100,7 +100,7 @@ class UserFailedToLoginTest extends TestCase
 
 
         /** @var UserFailedToLogin $event */
-        $event = $this->createEvent(
+        $event = $this->createEventFromArray(
             UserFailedToLogin::class,
             $authId->toString(),
             [

@@ -6,13 +6,13 @@ namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\ChangedPassword;
 use App\Model\User\UserId;
-use App\Tests\CanCreateEvent;
+use App\Tests\CanCreateEventFromArray;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
 class ChangedPasswordTest extends TestCase
 {
-    use CanCreateEvent;
+    use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
@@ -35,7 +35,7 @@ class ChangedPasswordTest extends TestCase
         $password = $faker->password;
 
         /** @var ChangedPassword $event */
-        $event = $this->createEvent(
+        $event = $this->createEventFromArray(
             ChangedPassword::class,
             $userId->toString(),
             [

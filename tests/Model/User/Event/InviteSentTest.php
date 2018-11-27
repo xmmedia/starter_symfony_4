@@ -8,13 +8,13 @@ use App\Model\EmailGatewayMessageId;
 use App\Model\User\Event\InviteSent;
 use App\Model\User\Token;
 use App\Model\User\UserId;
-use App\Tests\CanCreateEvent;
+use App\Tests\CanCreateEventFromArray;
 use Faker;
 use PHPUnit\Framework\TestCase;
 
 class InviteSentTest extends TestCase
 {
-    use CanCreateEvent;
+    use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
@@ -40,7 +40,7 @@ class InviteSentTest extends TestCase
         $messageId = EmailGatewayMessageId::fromString($faker->uuid);
 
         /** @var InviteSent $event */
-        $event = $this->createEvent(
+        $event = $this->createEventFromArray(
             InviteSent::class,
             $userId->toString(),
             [

@@ -6,12 +6,12 @@ namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\UserVerified;
 use App\Model\User\UserId;
-use App\Tests\CanCreateEvent;
+use App\Tests\CanCreateEventFromArray;
 use PHPUnit\Framework\TestCase;
 
 class UserVerifiedTest extends TestCase
 {
-    use CanCreateEvent;
+    use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
@@ -27,7 +27,7 @@ class UserVerifiedTest extends TestCase
         $userId = UserId::generate();
 
         /** @var UserVerified $event */
-        $event = $this->createEvent(
+        $event = $this->createEventFromArray(
             UserVerified::class,
             $userId->toString()
         );
