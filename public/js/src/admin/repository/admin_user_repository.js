@@ -24,4 +24,7 @@ export default {
     verify (userId) {
         return api.post('/api/admin/user/'+userId+'/verify');
     },
+    sendReset (userId) {
+        return api.post('/api/admin/user/'+userId+'/send-reset');
+    },
 };

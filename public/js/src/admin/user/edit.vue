@@ -47,6 +47,10 @@
                             class="button-link form-action"
                             @click.prevent="verify">Manually Verify User</button>
                 </li>
+                <li v-if="active">
+                    <button class="button-link form-action"
+                            @click.prevent="sendReset">Send Password Reset</button>
+                </li>
             </ul>
         </form>
     </div>
@@ -207,7 +211,7 @@ export default {
 
             } catch (e) {
                 logError(e);
-                alert('There was a problem saving. Please try again later.');
+                alert('There was a problem toggling the active state. Please try again later.');
 
                 window.scrollTo(0, 0);
 
@@ -234,7 +238,33 @@ export default {
 
             } catch (e) {
                 logError(e);
-                alert('There was a problem saving. Please try again later.');
+                alert('There was a problem verifying the user. Please try again later.');
+
+                window.scrollTo(0, 0);
+
+                this.status = statuses.LOADED;
+            }
+        },
+
+        async sendReset () {
+            if (!this.allowSave) {
+                return;
+            }
+
+            this.status = statuses.SAVING;
+
+            try {
+                await adminUserRepo.sendReset(this.userId);
+
+                this.status = statuses.SAVED;
+
+                setTimeout(() => {
+                    this.status = statuses.LOADED;
+                }, 3000);
+
+            } catch (e) {
+                logError(e);
+                alert('There was a problem sending the reset. Please try again later.');
 
                 window.scrollTo(0, 0);
 
