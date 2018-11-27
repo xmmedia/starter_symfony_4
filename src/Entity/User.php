@@ -197,7 +197,7 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
      * User will be logged out if their email (username) or password changes,
      * or if they've become inactive or unverified.
      *
-     * @param User|UserInterface $user The user just loaded from the db.
+     * @param User|UserInterface $user the user just loaded from the db
      */
     public function isEqualTo(UserInterface $user): bool
     {

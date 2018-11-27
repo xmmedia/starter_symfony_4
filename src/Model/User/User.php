@@ -9,7 +9,6 @@ use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
 use App\Model\EmailGatewayMessageId;
 use App\Model\Entity;
-use App\Model\User\Event;
 use Symfony\Component\Security\Core\Role\Role;
 
 class User extends AggregateRoot implements Entity

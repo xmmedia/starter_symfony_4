@@ -9,5 +9,4 @@ namespace App\Model;
  */
 final class EmailGatewayMessageId extends NotificationGatewayId
 {
-
 }

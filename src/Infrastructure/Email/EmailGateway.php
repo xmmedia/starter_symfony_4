@@ -94,7 +94,8 @@ class EmailGateway
             'index',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
-        );$default['indexUrl'] = $this->router->generate(
+        );
+        $default['indexUrl'] = $this->router->generate(
             'index',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
@@ -109,6 +110,6 @@ class EmailGateway
 
     private function isProduction(): bool
     {
-        return $this->kernelEnv === 'prod';
+        return 'prod' === $this->kernelEnv;
     }
 }

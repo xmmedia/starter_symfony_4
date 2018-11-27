@@ -6,7 +6,6 @@ namespace App\Model\Auth;
 
 use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
-use App\Model\Auth\Event;
 use App\Model\Email;
 use App\Model\Entity;
 use App\Model\User\UserId;

@@ -7,7 +7,6 @@ namespace App\Model\Enquiry;
 use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
-use App\Model\Enquiry\Event;
 use App\Model\Entity;
 
 class Enquiry extends AggregateRoot implements Entity

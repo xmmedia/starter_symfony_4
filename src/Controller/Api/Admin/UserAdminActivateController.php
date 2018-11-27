@@ -41,7 +41,7 @@ class UserAdminActivateController extends AbstractController
         $userId = UserId::fromString($request->attributes->get('id'));
         $action = strtolower($request->attributes->get('action'));
 
-        if ($action == 'activate') {
+        if ('activate' == $action) {
             $command = ActivateUserByAdmin::class;
         } else {
             $command = DeactivateUserByAdmin::class;

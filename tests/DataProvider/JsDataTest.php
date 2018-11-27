@@ -75,9 +75,9 @@ class JsDataTest extends TestCase
 
         $expected = [
             'user' => [
-                'email' => $email,
+                'email'     => $email,
                 'firstName' => $firstName,
-                'lastName' => $lastName,
+                'lastName'  => $lastName,
             ],
             'csrfToken' => 'csrf_token',
         ];
