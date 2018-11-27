@@ -62,8 +62,8 @@ class JsData
 
         return [
             'email'     => $user->email()->toString(),
-            'firstName' => $user->firstName(),
-            'lastName'  => $user->lastName(),
+            'firstName' => $user->firstName()->toString(),
+            'lastName'  => $user->lastName()->toString(),
         ];
     }
 }
