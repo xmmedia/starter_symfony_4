@@ -38,7 +38,7 @@ class UserAdminVerifyController extends AbstractController
 
         $userId = UserId::fromString($request->attributes->get('id'));
 
-        $commandBus->dispatch(VerifyUserByAdmin::user($userId));
+        $commandBus->dispatch(VerifyUserByAdmin::now($userId));
 
         return $this->json(['success' => true]);
     }

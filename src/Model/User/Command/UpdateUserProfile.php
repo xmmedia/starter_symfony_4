@@ -12,7 +12,7 @@ use Webmozart\Assert\Assert;
 
 final class UpdateUserProfile extends Command
 {
-    public static function withData(
+    public static function with(
         UserId $userId,
         Email $email,
         Name $firstName,

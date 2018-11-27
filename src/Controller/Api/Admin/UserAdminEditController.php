@@ -64,7 +64,7 @@ class UserAdminEditController extends AbstractController
 
         $encodedPassword = ($passwordEncoder)($form->getData()['role'], $password);
 
-        $commandBus->dispatch(AdminCreateUser::withData(
+        $commandBus->dispatch(AdminCreateUser::with(
             $userId,
             $form->getData()['email'],
             $encodedPassword,
@@ -103,7 +103,7 @@ class UserAdminEditController extends AbstractController
 
         $userId = UserId::fromString($request->attributes->get('id'));
 
-        $commandBus->dispatch(AdminUpdateUser::withData(
+        $commandBus->dispatch(AdminUpdateUser::with(
             $userId,
             $form->getData()['email'],
             $form->getData()['role'],
@@ -118,7 +118,7 @@ class UserAdminEditController extends AbstractController
             );
 
             $commandBus->dispatch(
-                AdminChangePassword::withData($userId, $encodedPassword)
+                AdminChangePassword::with($userId, $encodedPassword)
             );
         }
 

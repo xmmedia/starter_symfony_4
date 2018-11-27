@@ -8,7 +8,7 @@ use App\Controller\RequestCsrfCheck;
 use App\Exception\FormValidationException;
 use App\Form\UserRecoverInitiateType;
 use App\Form\UserRecoverResetType;
-use App\Model\User\Command\ChangeUserPassword;
+use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
@@ -127,7 +127,7 @@ class UserRecoverController extends AbstractController
             $form->getData()['newPassword']
         );
         $commandBus->dispatch(
-            ChangeUserPassword::forUser($user->id(), $encodedPassword)
+            ChangePassword::forUser($user->id(), $encodedPassword)
         );
 
         $authHandler->authenticateUserAndHandleSuccess(

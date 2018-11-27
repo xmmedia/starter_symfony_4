@@ -8,7 +8,7 @@ use App\Controller\RequestCsrfCheck;
 use App\Exception\FormValidationException;
 use App\Form\UserChangePasswordType;
 use App\Form\UserProfileType;
-use App\Model\User\Command\ChangeUserPassword;
+use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\UpdateUserProfile;
 use App\Security\PasswordEncoder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -58,7 +58,7 @@ class UserProfileEditController extends AbstractController
         }
 
         $commandBus->dispatch(
-            UpdateUserProfile::withData(
+            UpdateUserProfile::with(
                 $user->id(),
                 $form->getData()['email'],
                 $form->getData()['firstName'],
@@ -103,7 +103,7 @@ class UserProfileEditController extends AbstractController
         );
 
         $commandBus->dispatch(
-            ChangeUserPassword::forUser(
+            ChangePassword::forUser(
                 $user->id(),
                 $encodedPassword
             )

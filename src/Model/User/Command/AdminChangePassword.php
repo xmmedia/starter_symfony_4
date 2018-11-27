@@ -10,7 +10,7 @@ use Webmozart\Assert\Assert;
 
 final class AdminChangePassword extends Command
 {
-    public static function withData(
+    public static function with(
         UserId $userId,
         string $encodedPassword
     ): self {

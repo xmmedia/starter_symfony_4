@@ -64,7 +64,7 @@ final class CreateUserCommand extends ContainerAwareCommand
 
         $userId = UserId::generate();
 
-        $this->commandBus->dispatch(AdminCreateUserMinimum::withData(
+        $this->commandBus->dispatch(AdminCreateUserMinimum::with(
             $userId,
             $email,
             $encodedPassword,

@@ -7,7 +7,7 @@ namespace App\Controller\Api;
 use App\Controller\RequestCsrfCheck;
 use App\Exception\FormValidationException;
 use App\Form\UserVerifyType;
-use App\Model\User\Command\ChangeUserPassword;
+use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
 use App\Model\User\Exception\TokenHasExpired;
@@ -84,7 +84,7 @@ class UserVerifyController extends AbstractController
             $form->getData()['password']
         );
         $commandBus->dispatch(
-            ChangeUserPassword::forUser($user->id(), $encodedPassword)
+            ChangePassword::forUser($user->id(), $encodedPassword)
         );
 
         $authHandler->authenticateUserAndHandleSuccess(

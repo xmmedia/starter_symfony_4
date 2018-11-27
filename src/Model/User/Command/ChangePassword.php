@@ -8,7 +8,7 @@ use App\Messaging\Command;
 use App\Model\User\UserId;
 use Webmozart\Assert\Assert;
 
-final class ChangeUserPassword extends Command
+final class ChangePassword extends Command
 {
     public static function forUser(
         UserId $userId,

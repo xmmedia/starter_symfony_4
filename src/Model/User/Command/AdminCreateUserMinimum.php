@@ -12,7 +12,7 @@ use Webmozart\Assert\Assert;
 
 final class AdminCreateUserMinimum extends Command
 {
-    public static function withData(
+    public static function with(
         UserId $userId,
         Email $email,
         string $encodedPassword,

@@ -10,7 +10,7 @@ use Webmozart\Assert\Assert;
 
 final class VerifyUserByAdmin extends Command
 {
-    public static function user(UserId $userId): self
+    public static function now(UserId $userId): self
     {
         return new self([
             'userId' => $userId->toString(),
