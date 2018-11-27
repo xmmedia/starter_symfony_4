@@ -62,7 +62,7 @@
 
             <div v-if="status === 'saved'" class="alert alert-success" role="alert">
                 Your password has been reset.<br>
-                <a href="/login">You can now login.</a>
+                <a href="/login" class="pl-4">Continue</a>
             </div>
         </div>
     </div>
@@ -126,7 +126,7 @@ export default {
                 this.validationErrors = {};
 
                 setTimeout(() => {
-                    this.status = statuses.LOADED;
+                    window.location = '/login';
                 }, 5000);
 
             } catch (e) {

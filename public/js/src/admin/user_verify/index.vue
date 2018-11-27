@@ -58,7 +58,7 @@
 
         <div v-if="status === 'saved'" class="alert alert-success" role="alert">
             Your account is now active.<br>
-            <a href="/login">You can now login.</a>
+            <a href="/login" class="pl-4">Continue</a>
         </div>
     </div>
 </template>
