@@ -35,6 +35,8 @@ class EnquiryTest extends BaseTestCase
         ], $events);
 
         $this->assertCount(1, $events);
+
+        $this->assertEquals($enquiryId, $enquiry->enquiryId());
     }
 
     public function testSameIdentityAs(): void

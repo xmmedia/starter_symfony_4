@@ -64,6 +64,11 @@ class Auth extends AggregateRoot implements Entity
         return $this->authId->toString();
     }
 
+    public function authId(): AuthId
+    {
+        return $this->authId;
+    }
+
     protected function whenUserLoggedIn(Event\UserLoggedIn $event): void
     {
         $this->authId = $event->authId();

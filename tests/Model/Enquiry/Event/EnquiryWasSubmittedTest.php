@@ -29,7 +29,7 @@ class EnquiryWasSubmittedTest extends TestCase
         $this->assertEquals($message, $event->message());
     }
 
-    public function testFromARray(): void
+    public function testFromArray(): void
     {
         $faker = Faker\Factory::create();
 
@@ -39,11 +39,9 @@ class EnquiryWasSubmittedTest extends TestCase
         $message = $faker->asciify(str_repeat('*', 100));
 
         $event = EnquiryWasSubmitted::fromArray([
-
             'message_name' => EnquiryWasSubmitted::class,
-            'uuid' => $faker->uuid,
-            'payload' => [
-
+            'uuid'         => $faker->uuid,
+            'payload'      => [
                 'name'    => $name,
                 'email'   => $email->toString(),
                 'message' => $message,
@@ -56,7 +54,7 @@ class EnquiryWasSubmittedTest extends TestCase
 
         $this->assertInstanceOf(EnquiryWasSubmitted::class, $event);
 
-        $this->assertEquals( $enquiryId, $event->enquiryId());
+        $this->assertEquals($enquiryId, $event->enquiryId());
         $this->assertEquals($name, $event->name());
         $this->assertEquals($email, $event->email());
         $this->assertEquals($message, $event->message());

@@ -40,6 +40,11 @@ class Enquiry extends AggregateRoot implements Entity
         return $this->enquiryId->toString();
     }
 
+    public function enquiryId(): EnquiryId
+    {
+        return $this->enquiryId;
+    }
+
     protected function whenEnquiryWasSubmitted(Event\EnquiryWasSubmitted $event): void
     {
         $this->enquiryId = $event->enquiryId();
