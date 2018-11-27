@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class Date implements ValueObject, \JsonSerializable
 {
     public const STRING_FORMAT = 'Y-m-d';
-    public const TZ = 'America/Edmonton';
+    public const TZ = 'UTC';
 
     /** @var Carbon */
     private $date;
