@@ -6,13 +6,12 @@ namespace App\Tests\EventStore\PersistenceStrategy;
 
 use App\EventSourcing\AggregateChanged;
 use App\EventStore\PersistenceStrategy\StreamStrategy;
+use App\Tests\BaseTestCase;
 use Faker;
-use PHPUnit\Framework\TestCase;
 use Prooph\EventStore\Pdo\DefaultMessageConverter;
 use Prooph\EventStore\StreamName;
-use Webmozart\Assert\Assert;
 
-class StreamStrategyTest extends TestCase
+class StreamStrategyTest extends BaseTestCase
 {
     public function testPrepareData(): void
     {
@@ -30,7 +29,7 @@ class StreamStrategyTest extends TestCase
 
         $this->assertCount(count($strategy->columnNames()), $result);
 
-        Assert::uuid($result[0]);
+        $this->assertUuid($result[0]);
         $this->assertEquals(AggregateChanged::class, $result[1]);
         $this->assertEquals('[]', $result[2]);
         $this->assertEquals(\json_encode(['_aggregate_id' => $uuid, '_aggregate_version' => 1]), $result[3]);
