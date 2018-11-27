@@ -16,9 +16,10 @@ class Date implements ValueObject, \JsonSerializable
     /** @var Carbon */
     private $date;
 
-    public static function fromString(string $date): self
+    public static function fromString(string $string): self
     {
-        return new static(new Carbon($date, self::TZ));
+        // timezone is only used if it's not in the date string
+        return new static(new Carbon($string, self::TZ));
     }
 
     public static function now(string $tz = null): self
@@ -26,12 +27,7 @@ class Date implements ValueObject, \JsonSerializable
         return new static(new Carbon('now', $tz));
     }
 
-    public static function fromDateTime(\DateTime $date): self
-    {
-        return new static(Carbon::instance($date));
-    }
-
-    public static function fromImmutable(\DateTimeImmutable $date): self
+    public static function fromDateTime(\DateTimeInterface $date): self
     {
         return new static(Carbon::instance($date));
     }
