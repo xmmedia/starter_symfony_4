@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5308db6311bf9d9c6d21b098e531d2d",
+    "content-hash": "ae4a2e4e60a2788e94f02c43cc2609cd",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2108,6 +2108,77 @@
                 "telephone number"
             ],
             "time": "2018-01-18T09:06:41+00:00"
+        },
+        {
+            "name": "money/money",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-mod/money.git",
+                "reference": "8666ec5b7fc686973740bfb47fa2968d65953dfe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-mod/money/zipball/8666ec5b7fc686973740bfb47fa2968d65953dfe",
+                "reference": "8666ec5b7fc686973740bfb47fa2968d65953dfe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "Sylius/SyliusMoneyBundle": "Sylius' Symfony2 integration with Money library",
+                "TheBigBrainsCompany/TbbcMoneyBundle": "Very complete Symfony2 bundle with support for Twig, Doctrine, Forms, ...",
+                "pink-tie/money-bundle": "Pink-Tie's Symfony2 integration with Money library"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Money": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathias Verraes",
+                    "email": "mathias@verraes.net",
+                    "homepage": "http://verraes.net",
+                    "role": "Developer of wrapped Money library"
+                },
+                {
+                    "name": "Gustavo Santos",
+                    "email": "gustavo.santos@hgestao.com.br"
+                },
+                {
+                    "name": "Hassan AMOUHZI",
+                    "email": "hassan@amouhzi.com"
+                },
+                {
+                    "name": "Aken Roberts",
+                    "email": "aken@swarmingtech.com"
+                }
+            ],
+            "description": "PHP implementation of Fowler's Money pattern",
+            "homepage": "http://verraes.net/2011/04/fowler-money-pattern-in-php/",
+            "keywords": [
+                "Generic Sub-domain",
+                "Value Object",
+                "ddd",
+                "domain-driven design",
+                "money"
+            ],
+            "time": "2014-04-20T16:04:35+00:00"
         },
         {
             "name": "monolog/monolog",

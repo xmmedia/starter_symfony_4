@@ -176,6 +176,9 @@
     "mockery/mockery": {
         "version": "1.2.0"
     },
+    "money/money": {
+        "version": "2.0.3"
+    },
     "monolog/monolog": {
         "version": "1.23.0"
     },

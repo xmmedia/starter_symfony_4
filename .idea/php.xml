@@ -183,6 +183,7 @@
       <path value="$PROJECT_DIR$/vendor/prooph/event-store-bus-bridge" />
       <path value="$PROJECT_DIR$/vendor/prooph/pdo-event-store" />
       <path value="$PROJECT_DIR$/vendor/prooph/event-store" />
+      <path value="$PROJECT_DIR$/vendor/money/money" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
