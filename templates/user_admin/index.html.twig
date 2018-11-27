@@ -3,6 +3,9 @@
 {% block page_title %}User Admin | {% endblock %}
 {% block header_page_title %}User Admin{% endblock %}
 {% block header_actions %}
+    <div class="header-secondary_actions">
+        <router-link :to="{ name: 'admin-user' }">Return to List</router-link>
+    </div>
     <router-link :to="{ name: 'admin-user-create' }" class="header-action header-action-main">Add User</router-link>
 {% endblock header_actions %}
 
