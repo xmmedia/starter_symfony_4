@@ -86,7 +86,7 @@ final class ProjectionRunCommand extends Command
         $keepRunning = !$input->getOption(static::OPTION_RUN_ONCE);
         $sleep = (int) $input->getOption(static::OPTION_SLEEP);
 
-        if (! $this->projectionManagerForProjectionsLocator->has($this->projectionName)) {
+        if (!$this->projectionManagerForProjectionsLocator->has($this->projectionName)) {
             throw new \RuntimeException(
                 sprintf('ProjectionManager for "%s" not found', $this->projectionName)
             );
@@ -94,14 +94,14 @@ final class ProjectionRunCommand extends Command
         $projectionManager = $this->projectionManagerForProjectionsLocator
             ->get($this->projectionName);
 
-        if (! $this->projectionsLocator->has($this->projectionName)) {
+        if (!$this->projectionsLocator->has($this->projectionName)) {
             throw new \RuntimeException(
                 sprintf('Projection "%s" not found', $this->projectionName)
             );
         }
         $projection = $this->projectionsLocator->get($this->projectionName);
 
-        if (! $this->projectionReadModelLocator->has($this->projectionName)) {
+        if (!$this->projectionReadModelLocator->has($this->projectionName)) {
             throw new \RuntimeException(
                 sprintf('ReadModel for "%s" not found', $this->projectionName)
             );
@@ -125,7 +125,7 @@ final class ProjectionRunCommand extends Command
         $this->io->text(sprintf('Current status: %s', $state));
 
         $this->io->text(sprintf('Starting projection "%s"', $this->projectionName));
-        $this->io->text(sprintf('Keep running %s', $keepRunning === true ? 'enabled' : 'disabled'));
+        $this->io->text(sprintf('Keep running %s', true === $keepRunning ? 'enabled' : 'disabled'));
 
         pcntl_signal(SIGTERM, [$this, 'signalHandler']);
         pcntl_signal(SIGHUP, [$this, 'signalHandler']);
