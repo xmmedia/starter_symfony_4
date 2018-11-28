@@ -74,3 +74,9 @@ services:
             $emailFromName: '%env(FROM_EMAIL_NAME)%'
             $kernelEnv: '%kernel.environment%'
     App\Infrastructure\Email\EmailGatewayInterface: '@App\Infrastructure\Email\EmailGateway'
+
+    App\Command\ProjectionRunCommand:
+        arguments:
+            $projectionManagerForProjectionsLocator: '@prooph_event_store.projection_manager_for_projections_locator'
+            $projectionsLocator: '@prooph_event_store.projections_locator'
+            $projectionReadModelLocator: '@prooph_event_store.projection_read_models_locator'
