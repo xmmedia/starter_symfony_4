@@ -67,6 +67,7 @@ final class SupervisorWriteConfigCommand extends Command
         // 4 - current user
         // 5 - path to log dir
         // 6 - symfony env
+        // 7 - supervisord program prefix
         $programConfigBase = <<<EOA
 [program:%7\$s_%1\$s]
 command=%2\$s
