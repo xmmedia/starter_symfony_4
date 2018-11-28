@@ -76,7 +76,6 @@ autostart=true
 autorestart=true
 redirect_stderr=true
 stdout_logfile=%5\$s/%1\$s.log
-environment=SYMFONY_ENV="%6\$s"
 EOA;
 
         $programNames = [];
