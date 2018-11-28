@@ -98,7 +98,6 @@ class UserFailedToLoginTest extends TestCase
         $ipAddress = $faker->ipv4;
         $message = $faker->asciify(str_repeat('*', 100));
 
-
         /** @var UserFailedToLogin $event */
         $event = $this->createEventFromArray(
             UserFailedToLogin::class,

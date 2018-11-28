@@ -68,7 +68,6 @@ class UserNormalizerTest extends KernelTestCase
 
         yield [$user, $expected, ['user_admin']];
 
-
         $user = clone $user;
 
         $reflection = new \ReflectionClass(User::class);
@@ -79,7 +78,6 @@ class UserNormalizerTest extends KernelTestCase
         $expected['lastLogin'] = '2018-01-01T15:00:00+00:00';
 
         yield [$user, $expected, ['user_admin']];
-
 
         $user = clone $user;
 

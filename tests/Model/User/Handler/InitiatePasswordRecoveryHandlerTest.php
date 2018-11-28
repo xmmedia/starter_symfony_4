@@ -54,7 +54,10 @@ class InitiatePasswordRecoveryHandlerTest extends TestCase
             ->andReturn('url');
 
         (new InitiatePasswordRecoveryHandler(
-            $repo, $emailGateway, $router, $tokenGenerator
+            $repo,
+            $emailGateway,
+            $router,
+            $tokenGenerator
         ))(
             $command
         );
@@ -81,7 +84,10 @@ class InitiatePasswordRecoveryHandlerTest extends TestCase
         $this->expectException(UserNotFound::class);
 
         (new InitiatePasswordRecoveryHandler(
-            $repo, $emailGateway, $router, $tokenGenerator
+            $repo,
+            $emailGateway,
+            $router,
+            $tokenGenerator
         ))(
             $command
         );

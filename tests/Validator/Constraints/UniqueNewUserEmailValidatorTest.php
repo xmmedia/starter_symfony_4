@@ -94,7 +94,6 @@ class UniqueNewUserEmailValidatorTestUniquenessCheckerDuplicate implements Check
         $this->userId = $userId;
     }
 
-
     public function __invoke(Email $email): ?UserId
     {
         return $this->userId;

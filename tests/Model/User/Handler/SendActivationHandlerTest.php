@@ -57,7 +57,10 @@ class SendActivationHandlerTest extends TestCase
             ->andReturn('url');
 
         (new SendActivationHandler(
-            $repo, $emailGateway, $router, $tokenGenerator
+            $repo,
+            $emailGateway,
+            $router,
+            $tokenGenerator
         ))(
             $command
         );
@@ -86,7 +89,10 @@ class SendActivationHandlerTest extends TestCase
         $this->expectException(UserNotFound::class);
 
         (new SendActivationHandler(
-            $repo, $emailGateway, $router, $tokenGenerator
+            $repo,
+            $emailGateway,
+            $router,
+            $tokenGenerator
         ))(
             $command
         );
