@@ -45,7 +45,7 @@ class EnquiryController extends AbstractController
             throw FormValidationException::fromForm($form);
         }
 
-        $commandBus->dispatch(SubmitEnquiry::withData(
+        $commandBus->dispatch(SubmitEnquiry::with(
             EnquiryId::generate(),
             $form->getData()['name'],
             $form->getData()['email'],

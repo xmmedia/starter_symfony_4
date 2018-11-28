@@ -12,7 +12,7 @@ use Webmozart\Assert\Assert;
 
 final class SubmitEnquiry extends Command
 {
-    public static function withData(
+    public static function with(
         EnquiryId $enquiryId,
         string $name,
         Email $email,

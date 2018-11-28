@@ -20,7 +20,7 @@ class EnquirySubmittedProcessManager
 
     public function __invoke(EnquiryWasSubmitted $event): void
     {
-        $this->commandBus->dispatch(SendEnquiryEmail::withData(
+        $this->commandBus->dispatch(SendEnquiryEmail::with(
             $event->name(),
             $event->email(),
             $event->message()

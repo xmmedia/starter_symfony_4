@@ -21,7 +21,7 @@ class SubmitEnquiryTest extends TestCase
         $email = Email::fromString($faker->email);
         $message = $faker->asciify(str_repeat('*', 100));
 
-        $command = SubmitEnquiry::withData($enquiryId, $name, $email, $message);
+        $command = SubmitEnquiry::with($enquiryId, $name, $email, $message);
 
         $this->assertTrue($enquiryId->sameValueAs($command->enquiryId()));
         $this->assertEquals($name, $command->name());

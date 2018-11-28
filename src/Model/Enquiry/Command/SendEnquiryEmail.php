@@ -10,7 +10,7 @@ use Webmozart\Assert\Assert;
 
 final class SendEnquiryEmail extends Command
 {
-    public static function withData(
+    public static function with(
         string $name,
         Email $email,
         string $message

@@ -28,7 +28,7 @@ class SubmitEnquiryHandlerTest extends TestCase
         $email = Email::fromString($faker->email);
         $message = $faker->asciify(str_repeat('*', 100));
 
-        $command = SubmitEnquiry::withData($enquiryId, $name, $email, $message);
+        $command = SubmitEnquiry::with($enquiryId, $name, $email, $message);
 
         $repo = Mockery::mock(EnquiryList::class);
         $repo->shouldReceive('save')
