@@ -67,6 +67,8 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
 
     /**
      * @param Credentials $credentials
+     *
+     * @return \App\Model\User\User
      */
     public function getUser(
         $credentials,
@@ -82,7 +84,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException('Account could not be found.');
         }
 
         return $user;
