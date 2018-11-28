@@ -80,3 +80,10 @@ services:
             $projectionManagerForProjectionsLocator: '@prooph_event_store.projection_manager_for_projections_locator'
             $projectionsLocator: '@prooph_event_store.projections_locator'
             $projectionReadModelLocator: '@prooph_event_store.projection_read_models_locator'
+
+    App\Command\SupervisorWriteConfigCommand:
+        arguments:
+            $kernelEnv: '%kernel.environment%'
+            $kernelProjectDir: '%kernel.project_dir%'
+            $logDir: '%kernel.logs_dir%'
+            $supervisordProgramPrefix: '%env(SUPERVISORD_PROGRAM_PREFIX)%'
