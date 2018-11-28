@@ -20,7 +20,7 @@ trait CanCreateEventFromArray
             'message_name' => $eventName,
             'uuid'         => $faker->uuid,
             'payload'      => $payload,
-            'metadata' => [
+            'metadata'     => [
                 '_aggregate_id' => $aggregateId,
             ],
             'created_at' => new \DateTimeImmutable(),
