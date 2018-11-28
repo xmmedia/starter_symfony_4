@@ -10,7 +10,7 @@
         <div class="alert alert-warning alert-type-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <div class="form-wrap form-form_wrap">
+    <div class="form-wrap">
         <h1 class="mt-0 leading-none">Login</h1>
 
         <form method="post">
@@ -22,7 +22,7 @@
                 <input type="hidden" name="_target_path" value="{{ target_path }}">
             {% endif %}
 
-            <div class="field-wrap form-field_wrap">
+            <div class="field-wrap">
                 <label for="inputEmail">Email Address</label>
                 <input id="inputEmail"
                        type="email"
@@ -42,7 +42,7 @@
                        autocomplete="current-password">
             </div>
 
-            <div class="field-wrap-checkbox form-field_wrap form-field_wrap-checkbox">
+            <div class="field-wrap-checkbox">
                 <input type="checkbox"
                        id="remember_me"
                        name="_remember_me"
@@ -50,7 +50,7 @@
                         for="remember_me">Remember Me</label>
             </div>
 
-            <div class="form-button_wrap">
+            <div>
                 <button class="button">Login</button>
                 <a href="{{ path('forgot_password') }}"
                    class="form-action">Forgot your password?</a>
