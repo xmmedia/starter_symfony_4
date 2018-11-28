@@ -87,3 +87,10 @@ services:
             $kernelProjectDir: '%kernel.project_dir%'
             $logDir: '%kernel.logs_dir%'
             $supervisordProgramPrefix: '%env(SUPERVISORD_PROGRAM_PREFIX)%'
+
+    App\Infrastructure\Service\Supervisord:
+        arguments:
+            $supervisordAddress: '%env(SUPERVISORD_ADDRESS)%'
+            $supervisordUsername: '%env(SUPERVISORD_USERNAME)%'
+            $supervisordPassword: '%env(SUPERVISORD_PASSWORD)%'
+            $supervisordProgramPrefix: '%env(SUPERVISORD_PROGRAM_PREFIX)%'
