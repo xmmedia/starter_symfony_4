@@ -232,13 +232,10 @@ class CollectionTest extends TestCase
 
     public function testLoadBigSet()
     {
-        $startMem = ini_get('memory_limit');
-        ini_set('memory_limit', '50M');
         // Big
         $bigSet = Collection::fromItems(new MD5Iterator(200000));
 
         $this->assertCount(200000, $bigSet);
-        ini_set('memory_limit', $startMem);
     }
 }
 
