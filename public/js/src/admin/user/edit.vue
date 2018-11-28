@@ -28,8 +28,7 @@
             <field-role v-model="role" :validation-errors="validationErrors" />
 
             <div>
-                <button type="submit"
-                        class="button">Update User</button>
+                <button type="submit" class="button">Update User</button>
                 <router-link :to="{ name: 'admin-user' }"
                              class="form-action">Cancel</router-link>
 

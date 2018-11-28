@@ -51,8 +51,7 @@
                 </div>
 
                 <div>
-                    <button type="submit"
-                            class="button">Set Password</button>
+                    <button type="submit" class="button">Set Password</button>
                     <a href="/login" class="form-action">Return to Login</a>
 
                     <span v-if="status === 'saving'" class="ml-4 text-sm italic">Saving...</span>

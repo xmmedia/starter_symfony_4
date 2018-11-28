@@ -48,8 +48,7 @@
                 </div>
 
                 <div>
-                    <button type="submit"
-                            class="button">Change Password</button>
+                    <button type="submit" class="button">Change Password</button>
                     <router-link :to="{ name: 'user-profile-edit' }"
                                  class="form-action">Cancel</router-link>
 

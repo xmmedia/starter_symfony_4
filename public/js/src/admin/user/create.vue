@@ -41,8 +41,7 @@
             </div>
 
             <div>
-                <button type="submit"
-                        class="button">Add User</button>
+                <button type="submit" class="button">Add User</button>
                 <router-link :to="{ name: 'admin-user' }"
                              class="form-action">Cancel</router-link>
 

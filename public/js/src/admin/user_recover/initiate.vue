@@ -9,7 +9,7 @@
                     <li>An account with that email cannot be found.</li>
                 </ul>
 
-                <div class="field-wrap form-field_wrap">
+                <div class="field-wrap">
                     <label for="inputEmail">Please enter your email address to search for your account.</label>
                     <input id="inputEmail"
                            v-model="email"

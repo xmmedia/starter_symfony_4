@@ -49,8 +49,7 @@
             </div>
 
             <div>
-                <button type="submit"
-                        class="button">Activate</button>
+                <button type="submit" class="button">Activate</button>
 
                 <span v-if="status === 'saving'" class="ml-4 text-sm italic">Activating...</span>
             </div>

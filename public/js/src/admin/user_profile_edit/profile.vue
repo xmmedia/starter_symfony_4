@@ -44,8 +44,7 @@
                 </div>
 
                 <div>
-                    <button type="submit"
-                            class="button">Save Profile</button>
+                    <button type="submit" class="button">Save Profile</button>
                     <button class="form-action button-link"
                             @click.prevent="reset">Reset</button>
 
