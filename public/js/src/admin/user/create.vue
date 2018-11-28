@@ -120,7 +120,7 @@ export default {
                     active: this.active,
                     firstName: this.firstName,
                     lastName: this.lastName,
-                    sendInvite: this.sendInvite,
+                    sendInvite: this.setPassword || !this.active ? false : this.sendInvite,
                 };
 
                 await adminUserRepo.create(data);
