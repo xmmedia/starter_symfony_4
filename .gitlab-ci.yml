@@ -68,5 +68,7 @@ deploy:
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -f $REMOTE_BASE/current; ln -s $RELEASE $REMOTE_BASE/current; cd $REMOTE_BASE/current; export SYMFONY_ENV=prod; php composer.phar run-script post-update-cmd; bin/console doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration"
     # clear opcache
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; export SYMFONY_ENV=prod; bin/console cache:accelerator:clear --opcode" || echo -e "\033[0;31mFAILURE unable to reset OPcache"
+    # supervisord: write config & restart all
+    - php bin/console app:supervisor:write-config; php bin/console app:supervisor:restart --all
     # remove >3 releases
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ls -1d $RELEASES/* | sort -rg | tail -n +4 | xargs /bin/rm -rf"
