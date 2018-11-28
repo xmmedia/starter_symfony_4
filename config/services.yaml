@@ -88,6 +88,12 @@ services:
             $logDir: '%kernel.logs_dir%'
             $supervisordProgramPrefix: '%env(SUPERVISORD_PROGRAM_PREFIX)%'
 
+    App\Infrastructure\Service\Cloudflare:
+        arguments:
+            $cloudflareZone: '%env(CLOUDFLARE_ZONE)%'
+            $cloudflareUsername: '%env(CLOUDFLARE_USERNAME)%'
+            $cloudflareApiKey: '%env(CLOUDFLARE_API_KEY)%'
+
     App\Infrastructure\Service\Supervisord:
         arguments:
             $supervisordAddress: '%env(SUPERVISORD_ADDRESS)%'

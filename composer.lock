@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72fe4bc43c94235a6ba8c3755ecc5ab8",
+    "content-hash": "5dcccab08581499f91e94fe4af1118f8",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -60,6 +60,49 @@
                 "validation"
             ],
             "time": "2018-10-29T11:13:48+00:00"
+        },
+        {
+            "name": "cloudflare/sdk",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cloudflare/cloudflare-php.git",
+                "reference": "a3a346ccb2f5cb49759db3d71ba0006a10cf20ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cloudflare/cloudflare-php/zipball/a3a346ccb2f5cb49759db3d71ba0006a10cf20ef",
+                "reference": "a3a346ccb2f5cb49759db3d71ba0006a10cf20ef",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2.2",
+                "php": ">=7.0.0",
+                "psr/http-message": "~1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.6",
+                "phpmd/phpmd": "@stable",
+                "phpunit/phpunit": "5.7.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cloudflare\\API\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Junade Ali",
+                    "email": "junade@cloudflare.com"
+                }
+            ],
+            "description": "PHP binding for v4 of the Cloudflare Client API.",
+            "time": "2018-08-28T14:01:57+00:00"
         },
         {
             "name": "clue/stream-filter",
