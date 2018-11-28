@@ -43,7 +43,7 @@ class FormValidationExceptionSubscriberTest extends TestCase
             ->with($form, 'json', ['json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS])
             ->andReturn('{}');
 
-        $listener = new FormValidationExceptionSubscriber($serializer);
+        $subscriber = new FormValidationExceptionSubscriber($serializer);
 
         $event = Mockery::mock(GetResponseForExceptionEvent::class);
 
@@ -55,7 +55,7 @@ class FormValidationExceptionSubscriberTest extends TestCase
             ->once()
             ->with(JsonResponse::class);
 
-        $listener->{$method}($event);
+        $subscriber->{$method}($event);
     }
 
     public function testOnKernelExceptionOtherException(): void
@@ -65,7 +65,7 @@ class FormValidationExceptionSubscriberTest extends TestCase
 
         $serializer = Mockery::mock(SerializerInterface::class);
 
-        $listener = new FormValidationExceptionSubscriber($serializer);
+        $subscriber = new FormValidationExceptionSubscriber($serializer);
 
         $event = Mockery::mock(GetResponseForExceptionEvent::class);
 
@@ -75,6 +75,6 @@ class FormValidationExceptionSubscriberTest extends TestCase
             ->once()
             ->andReturn($exception);
 
-        $listener->{$method}($event);
+        $subscriber->{$method}($event);
     }
 }

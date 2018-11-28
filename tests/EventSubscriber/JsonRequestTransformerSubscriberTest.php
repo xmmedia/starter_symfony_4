@@ -17,11 +17,11 @@ class JsonRequestTransformerSubscriberTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /** @var JsonRequestTransformerSubscriber */
-    private $listener;
+    private $subscriber;
 
     public function setUp()
     {
-        $this->listener = new JsonRequestTransformerSubscriber();
+        $this->subscriber = new JsonRequestTransformerSubscriber();
     }
 
     public function testSubscribedEvents(): void
@@ -43,7 +43,7 @@ class JsonRequestTransformerSubscriberTest extends TestCase
         $request = $this->createRequest($contentType, true, \GuzzleHttp\json_encode($data));
         $event = $this->createGetResponseEventMock($request);
 
-        $this->listener->onKernelRequest($event);
+        $this->subscriber->onKernelRequest($event);
 
         $this->assertEquals(
             $data,
@@ -79,7 +79,7 @@ class JsonRequestTransformerSubscriberTest extends TestCase
             }))
             ->once();
 
-        $this->listener->onKernelRequest($event);
+        $this->subscriber->onKernelRequest($event);
     }
 
     /**
@@ -90,7 +90,7 @@ class JsonRequestTransformerSubscriberTest extends TestCase
         $request = $this->createRequest($contentType, true, 'some=body');
         $event = $this->createGetResponseEventMock($request);
 
-        $this->listener->onKernelRequest($event);
+        $this->subscriber->onKernelRequest($event);
 
         $this->assertEquals($request, $event->getRequest());
     }
@@ -100,7 +100,7 @@ class JsonRequestTransformerSubscriberTest extends TestCase
         $request = $this->createRequest('application/json', true, '');
         $event = $this->createGetResponseEventMock($request);
 
-        $this->listener->onKernelRequest($event);
+        $this->subscriber->onKernelRequest($event);
 
         $this->assertEquals($request, $event->getRequest());
     }
@@ -110,7 +110,7 @@ class JsonRequestTransformerSubscriberTest extends TestCase
         $request = $this->createRequest('application/json', true, 'null');
         $event = $this->createGetResponseEventMock($request);
 
-        $this->listener->onKernelRequest($event);
+        $this->subscriber->onKernelRequest($event);
 
         $this->assertEquals($request, $event->getRequest());
     }
@@ -120,7 +120,7 @@ class JsonRequestTransformerSubscriberTest extends TestCase
         $request = $this->createRequest('application/json', false, \GuzzleHttp\json_encode([]));
         $event = $this->createGetResponseEventMock($request);
 
-        $this->listener->onKernelRequest($event);
+        $this->subscriber->onKernelRequest($event);
 
         $this->assertEquals($request, $event->getRequest());
     }
