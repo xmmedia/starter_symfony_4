@@ -10,6 +10,7 @@
                         :value="value"
                         :validation-errors="validationErrors"
                         :show-help="true"
+                        :required="setPassword"
                         label="Password"
                         field="password"
                         class="ml-6"
