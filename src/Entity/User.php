@@ -41,13 +41,13 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $verified;
+    private $verified = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $active;
+    private $active = false;
 
     /**
      * @var array
