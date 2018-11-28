@@ -29,9 +29,9 @@ class TokenValidator
             throw InvalidToken::tokenDoesntExist($token);
         }
 
-        if (!$user = $tokenEntity->user()) {
-            throw InvalidToken::userDoesntExist($token);
-        }
+        // there will be a PHP error if the user doesn't exist
+        // that's attached to the token
+        $user = $tokenEntity->user();
 
         if (!$user->active()) {
             throw InvalidToken::userInactive($token);
