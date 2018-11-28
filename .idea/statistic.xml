@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Statistic">
+    <option name="excludedDirectories">
+      <list>
+        <option value="$PROJECT_DIR$/var" />
+        <option value="$PROJECT_DIR$/vendor" />
+        <option value="$PROJECT_DIR$/bin" />
+        <option value="$PROJECT_DIR$/public/build" />
+        <option value="$PROJECT_DIR$/cypress" />
+      </list>
+    </option>
+  </component>
+</project>
