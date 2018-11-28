@@ -28,25 +28,17 @@
                        autocomplete="username email">
             </div>
 
-            <div class="field-wrap form-field_wrap">
-                <label for="inputPassword">Password</label>
-                <field-errors :errors="validationErrors" field="newPassword.first" />
-                <input id="inputPassword"
-                       v-model="password"
-                       type="password"
-                       required
-                       autocomplete="new-password">
-                <div class="field-help">Must be at least 12 characters long.</div>
-            </div>
-            <div class="field-wrap form-field_wrap">
-                <label for="inputRepeatPassword">Password Again</label>
-                <field-errors :errors="validationErrors" field="newPassword.second" />
-                <input id="inputRepeatPassword"
-                       v-model="repeatPassword"
-                       type="password"
-                       required
-                       autocomplete="new-password">
-            </div>
+            <password-field v-model="newPassword"
+                            :validation-errors="validationErrors"
+                            :show-help="true"
+                            label="Password"
+                            field="newPassword.first"
+                            autocomplete="new-password" />
+            <password-field v-model="repeatPassword"
+                            :validation-errors="validationErrors"
+                            label="Password Again"
+                            field="newPassword.second"
+                            autocomplete="new-password" />
 
             <div>
                 <button type="submit" class="button">Activate</button>

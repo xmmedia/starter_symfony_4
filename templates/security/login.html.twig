@@ -10,51 +10,6 @@
         <div class="alert alert-warning alert-type-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <div class="form-wrap">
-        <h1 class="mt-0 leading-none">Login</h1>
-
-        <form method="post">
-            <input type="hidden"
-                   name="_csrf_token"
-                   value="{{ csrf_token(constant('App\\Model\\User\\Credentials::CSRF_TOKEN_ID')) }}">
-
-            {% if target_path is defined %}
-                <input type="hidden" name="_target_path" value="{{ target_path }}">
-            {% endif %}
-
-            <div class="field-wrap">
-                <label for="inputEmail">Email Address</label>
-                <input id="inputEmail"
-                       type="email"
-                       name="email"
-                       value="{{ lastUsername }}"
-                       required
-                       autofocus
-                       autocomplete="username email">
-            </div>
-
-            <div class="field-wrap form-field_wrap">
-                <label for="inputPassword">Password</label>
-                <input id="inputPassword"
-                       type="password"
-                       name="password"
-                       required
-                       autocomplete="current-password">
-            </div>
-
-            <div class="field-wrap-checkbox">
-                <input type="checkbox"
-                       id="remember_me"
-                       name="_remember_me"
-                       value="on"><label
-                        for="remember_me">Remember Me</label>
-            </div>
-
-            <div>
-                <button class="button">Login</button>
-                <a href="{{ path('forgot_password') }}"
-                   class="form-action">Forgot your password?</a>
-            </div>
-        </form>
-    </div>
+    <login-form last-username="{{ lastUsername }}"
+                csrf-token="{{ csrf_token(constant('App\\Model\\User\\Credentials::CSRF_TOKEN_ID')) }}"></login-form>
 {% endblock content %}

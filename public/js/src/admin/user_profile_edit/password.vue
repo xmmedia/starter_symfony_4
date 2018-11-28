@@ -17,35 +17,22 @@
                            autocomplete="username email">
                 </div>
 
-                <div class="field-wrap form-field_wrap">
-                    <label for="inputPassword">Current Password</label>
-                    <field-errors :errors="validationErrors" field="currentPassword" />
-                    <input id="inputPassword"
-                           v-model="currentPassword"
-                           type="password"
-                           required
-                           autocomplete="current-password">
-                </div>
+                <password-field v-model="currentPassword"
+                                :validation-errors="validationErrors"
+                                label="Current Password"
+                                field="currentPassword"
+                                autocomplete="current-password" />
 
-                <div class="field-wrap form-field_wrap">
-                    <label for="inputNewPassword">New Password</label>
-                    <field-errors :errors="validationErrors" field="newPassword.first" />
-                    <input id="inputNewPassword"
-                           v-model="newPassword"
-                           type="password"
-                           required
-                           autocomplete="new-password">
-                    <div class="field-help">Must be at least 12 characters long.</div>
-                </div>
-                <div class="field-wrap form-field_wrap">
-                    <label for="inputNewPasswordRepeat">New Password Again</label>
-                    <field-errors :errors="validationErrors" field="newPassword.second" />
-                    <input id="inputNewPasswordRepeat"
-                           v-model="repeatPassword"
-                           type="password"
-                           required
-                           autocomplete="new-password">
-                </div>
+                <password-field v-model="newPassword"
+                                :validation-errors="validationErrors"
+                                label="New Password"
+                                field="newPassword.first"
+                                autocomplete="new-password" />
+                <password-field v-model="repeatPassword"
+                                :validation-errors="validationErrors"
+                                label="New Password Again"
+                                field="newPassword.second"
+                                autocomplete="new-password" />
 
                 <div>
                     <button type="submit" class="button">Change Password</button>

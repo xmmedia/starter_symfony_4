@@ -1,0 +1,89 @@
+<template>
+    <div class="field-wrap">
+        <label :for="id" v-html="label"></label>
+        <field-errors :errors="validationErrors" :field="field" />
+        <div class="relative">
+            <input :id="id"
+                   :name="field"
+                   :value="value"
+                   :type="fieldType"
+                   :required="required"
+                   :autocomplete="autocomplete"
+                   @input="$emit('input', $event.target.value)">
+            <button type="button"
+                    class="absolute button-link block pin-t pin-r w-8 h-8 mt-px mr-2 text-grey-dark hover:text-grey-darker"
+                    @click.prevent="visible = !visible">
+                <svg class="w-8 h-8 fill-current"><use :xlink:href="icon"></use></svg>
+            </button>
+        </div>
+        <div v-if="showHelp" class="field-help">
+            Must be at least 12 characters long.
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    components: {},
+
+    props: {
+        value: {
+            type: String,
+            default: null,
+        },
+        label: {
+            type: String,
+            required: true,
+        },
+        // all validation errors
+        validationErrors: {
+            type: Object,
+            default: function () {
+                return {};
+            },
+        },
+        // used to find the validation errors
+        field: {
+            type: String,
+            required: true,
+        },
+        required: {
+            type: Boolean,
+            default: true,
+        },
+        autocomplete: {
+            type: String,
+            default: null,
+        },
+        showHelp: {
+            type: Boolean,
+            default: false,
+        },
+    },
+
+    data () {
+        return {
+            id: 'input'+this.field,
+            visible: false,
+        };
+    },
+
+    computed: {
+        fieldType () {
+            return this.visible ? 'text' : 'password';
+        },
+        icon () {
+            return this.visible ? '#visible' : '#invisible';
+        },
+    },
+
+    watch: {},
+
+    beforeMount () {},
+
+    mounted () {},
+
+    methods: {
+    },
+}
+</script>

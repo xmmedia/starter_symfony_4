@@ -5,18 +5,16 @@
             <input id="inputSetPassword" v-model="setPassword" type="checkbox">
             <label for="inputSetPassword">{{ checkboxLabel }}</label>
         </div>
-        <div v-show="setPassword" class="field-wrap ml-6">
-            <label for="inputPassword">Password</label>
-            <field-errors :errors="validationErrors" field="password" />
-            <input id="inputPassword"
-                   ref="password"
-                   :value="value"
-                   :required="setPassword"
-                   type="password"
-                   maxlength="4096"
-                   autocomplete="new-password"
-                   @input="$emit('input', $event.target.value)">
-        </div>
+
+        <password-field v-show="setPassword"
+                        :value="value"
+                        :validation-errors="validationErrors"
+                        :show-help="true"
+                        label="Password"
+                        field="password"
+                        class="ml-6"
+                        autocomplete="new-password"
+                        @input="$emit('input', $event)"/>
     </div>
 </template>
 
@@ -48,12 +46,6 @@ export default {
     watch: {
         setPassword (val) {
             this.$emit('set-password', val);
-
-            if (val) {
-                this.$nextTick(() => {
-                    this.$refs.password.focus();
-                });
-            }
         },
     },
 }
