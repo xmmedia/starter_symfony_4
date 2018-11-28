@@ -34,7 +34,7 @@ export default {
         validationErrors: {
             type: Object,
             default: function () {
-                return [];
+                return {};
             },
         },
     },
