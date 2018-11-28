@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Serializer\Normalizer;
 
 use App\Entity\User;
-use App\Serializer\SerializerGroupTrait;
+use App\Serializer\SerializerGroupAwareTrait;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
-    use SerializerGroupTrait;
+    use SerializerGroupAwareTrait;
 
     /**
      * @param User $user
