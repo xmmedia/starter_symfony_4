@@ -49,7 +49,7 @@ class AdminUserEditType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Email([
-                        'strict'  => true,
+                        'mode'    => 'strict',
                         'checkMX' => true,
                     ]),
                 ],

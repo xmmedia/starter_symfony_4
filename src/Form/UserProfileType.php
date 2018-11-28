@@ -26,7 +26,7 @@ class UserProfileType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Email([
-                        'strict'  => true,
+                        'mode'    => 'strict',
                         'checkMX' => true,
                     ]),
                     new UniqueCurrentUsersEmail(),
