@@ -4,7 +4,7 @@ prooph_event_store:
             event_store: 'Prooph\EventStore\EventStore'
 
     projection_managers:
-        user_projection_manager:
+        app:
             event_store: '@Prooph\EventStore\EventStore'
             connection: '@app.event_store.pdo_connection.mysql'
             projections:
@@ -14,11 +14,6 @@ prooph_event_store:
                 user_token_projection:
                     read_model: App\Projection\User\UserTokenReadModel
                     projection: App\Projection\User\UserTokenProjection
-
-        enquiry_projection_manager:
-            event_store: '@Prooph\EventStore\EventStore'
-            connection: '@app.event_store.pdo_connection.mysql'
-            projections:
                 enquiry_projection:
                     read_model: App\Projection\Enquiry\EnquiryReadModel
                     projection: App\Projection\Enquiry\EnquiryProjection
