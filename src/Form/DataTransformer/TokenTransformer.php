@@ -21,6 +21,9 @@ class TokenTransformer implements DataTransformerInterface
         return $token->toString();
     }
 
+    /**
+     * @param string|null $role
+     */
     public function reverseTransform($token): ?Token
     {
         if (null === $token) {

@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Role\Role;
 class SecurityRoleTransformer implements DataTransformerInterface
 {
     /**
-     * @param Role|null|string $role
+     * @param Role|null $role
      */
     public function transform($role): ?string
     {
@@ -21,6 +21,9 @@ class SecurityRoleTransformer implements DataTransformerInterface
         return $role->getRole();
     }
 
+    /**
+     * @param string|null $role
+     */
     public function reverseTransform($role): ?Role
     {
         if (null === $role) {

@@ -10,7 +10,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 class EmailTransformer implements DataTransformerInterface
 {
     /**
-     * @param Email|null|string $email
+     * @param Email|null $email
      */
     public function transform($email): ?string
     {
@@ -21,6 +21,9 @@ class EmailTransformer implements DataTransformerInterface
         return $email->toString();
     }
 
+    /**
+     * @param string|null $email
+     */
     public function reverseTransform($email): ?Email
     {
         if (null === $email) {
