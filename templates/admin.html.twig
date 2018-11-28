@@ -36,8 +36,6 @@
                             'Users': path('admin_user'),
                         }
                     %}
-                    {# @todo:  ~ '?' ~ user_filter.query() #}
-                    {# 'Login History': path('xm_user_admin_login_history'), #}
                     <menu-subnav name="{{ 'app.admin.menu.admin'|trans }}"
                         :items="{{ items|json_encode }}">
                     </menu-subnav>
