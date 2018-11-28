@@ -1,0 +1,297 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Security;
+
+use App\Entity\User;
+use App\Model\User\Credentials;
+use App\Security\AppAuthenticator;
+use Faker;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use PHPUnit\Framework\TestCase;
+use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+
+class AppAuthenticatorTest extends TestCase
+{
+    use MockeryPHPUnitIntegration;
+
+    /** @var Request */
+    private $requestWithoutSession;
+    /** @var Request */
+    private $requestWithSession;
+    /** @var AppAuthenticator */
+    private $authenticator;
+    /** @var RouterInterface|\Mockery\MockInterface */
+    private $router;
+    /** @var CsrfTokenManagerInterface|\Mockery\MockInterface */
+    private $csrfTokenManager;
+    /** @var UserPasswordEncoderInterface|\Mockery\MockInterface */
+    private $passwordEncoder;
+
+    protected function setUp()
+    {
+        $this->requestWithoutSession = new Request([], [], [], [], [], []);
+        $this->requestWithSession = new Request([], [], [], [], [], []);
+
+        $session = Mockery::mock(SessionInterface::class);
+        $this->requestWithSession->setSession($session);
+
+        $this->router = Mockery::mock(RouterInterface::class);
+        $this->csrfTokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
+        $this->passwordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+
+        $this->authenticator = new AppAuthenticator(
+            $this->router,
+            $this->csrfTokenManager,
+            $this->passwordEncoder
+        );
+    }
+
+    public function testSupports(): void
+    {
+        $this->requestWithSession->attributes->add(['_route' => 'app_login']);
+        $this->requestWithSession->setMethod('POST');
+
+        $this->assertTrue($this->authenticator->supports($this->requestWithSession));
+    }
+
+    public function testStartRequestToLogin(): void
+    {
+        $this->requestWithoutSession->attributes->add(['_route' => 'app_login']);
+
+        $this->router->shouldReceive('generate')
+            ->with('app_login')
+            ->once()
+            ->andReturn('/login');
+
+        $res = $this->authenticator->start($this->requestWithoutSession);
+
+        $this->assertInstanceOf(RedirectResponse::class, $res);
+        $this->assertEquals('/login', $res->getTargetUrl());
+    }
+
+    public function testGetCredentials(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $email = $faker->email;
+        $password = $faker->password;
+
+        $this->requestWithSession->request->add([
+            'email'       => $email,
+            'password'    => $password,
+            '_csrf_token' => 'string',
+        ]);
+
+        $this->requestWithSession->getSession()
+            ->shouldReceive('set')
+            ->with(Security::LAST_USERNAME, $email)
+            ->once();
+
+        $credentials = $this->authenticator->getCredentials($this->requestWithSession);
+
+        $this->assertInstanceOf(Credentials::class, $credentials);
+        $this->assertSame($email, $credentials->email());
+        $this->assertSame($password, $credentials->password());
+        $this->assertInstanceOf(CsrfToken::class, $credentials->csrfToken());
+    }
+
+    public function testGetCredentialsNulls(): void
+    {
+        $this->requestWithSession->request->add([
+            '_email'      => null,
+            '_password'   => null,
+            '_csrf_token' => null,
+        ]);
+
+        $this->requestWithSession->getSession()
+            ->shouldReceive('set')
+            ->with(Security::LAST_USERNAME, null)
+            ->once();
+
+        $credentials = $this->authenticator->getCredentials($this->requestWithSession);
+
+        $this->assertInstanceOf(Credentials::class, $credentials);
+        $this->assertNull($credentials->email());
+        $this->assertNull($credentials->password());
+        $this->assertInstanceOf(CsrfToken::class, $credentials->csrfToken());
+    }
+
+    public function testGetCredentialsNotInRequest(): void
+    {
+        $this->requestWithSession
+            ->getSession()
+            ->shouldReceive('set')
+            ->with(Security::LAST_USERNAME, null)
+            ->once();
+
+        $credentials = $this->authenticator->getCredentials($this->requestWithSession);
+
+        $this->assertInstanceOf(Credentials::class, $credentials);
+        $this->assertNull($credentials->email());
+        $this->assertNull($credentials->password());
+        $this->assertInstanceOf(CsrfToken::class, $credentials->csrfToken());
+    }
+
+    public function testGetUser(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $email = $faker->email;
+        $password = $faker->password;
+        $credentials = Credentials::build($email, $password, 'string');
+
+        $user = Mockery::mock(User::class);
+
+        $userProvider = Mockery::mock(EntityUserProvider::class);
+        $userProvider->shouldReceive('loadUserByUsername')
+            ->with($credentials->email())
+            ->once()
+            ->andReturn($user);
+
+        $this->csrfTokenManager
+            ->shouldReceive('isTokenValid')
+            ->andReturnTrue();
+
+        /** @var User $userReceived */
+        $userReceived = $this->authenticator->getUser($credentials, $userProvider);
+
+        $this->assertInstanceOf(User::class, $userReceived);
+    }
+
+    public function testGetUserInvalidToken(): void
+    {
+        $credentials = Credentials::build(null, null, null);
+
+        $userProvider = Mockery::mock(EntityUserProvider::class);
+
+        $this->csrfTokenManager
+            ->shouldReceive('isTokenValid')
+            ->andReturnFalse();
+
+        $this->expectException(InvalidCsrfTokenException::class);
+
+        $this->authenticator->getUser($credentials, $userProvider);
+    }
+
+    public function testGetUserInvalidEmail(): void
+    {
+        $email = 'email';
+        $credentials = Credentials::build($email, null, 'string');
+
+        $userProvider = Mockery::mock(EntityUserProvider::class);
+        $userProvider->shouldReceive('loadUserByUsername')
+            ->with($credentials->email())
+            ->once()
+            ->andReturnNull();
+
+        $this->csrfTokenManager
+            ->shouldReceive('isTokenValid')
+            ->andReturnTrue();
+
+        $this->expectException(CustomUserMessageAuthenticationException::class);
+
+        $this->authenticator->getUser($credentials, $userProvider);
+    }
+
+    public function testCheckCredentials(): void
+    {
+        $this->passwordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnTrue();
+
+        $faker = Faker\Factory::create();
+
+        $email = $faker->email;
+        $password = $faker->password;
+        $credentials = Credentials::build($email, $password, null);
+
+        $user = Mockery::mock(User::class);
+
+        $result = $this->authenticator->checkCredentials($credentials, $user);
+
+        $this->assertTrue($result);
+    }
+
+    public function testCheckCredentialsFalse(): void
+    {
+        $this->passwordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnFalse();
+
+        $faker = Faker\Factory::create();
+
+        $email = $faker->email;
+        $password = $faker->password;
+        $credentials = Credentials::build($email, $password, null);
+
+        $user = Mockery::mock(User::class);
+
+        $result = $this->authenticator->checkCredentials($credentials, $user);
+
+        $this->assertFalse($result);
+    }
+
+    public function testOnAuthenticationSuccess(): void
+    {
+        $providerKey = 'key';
+        $this->requestWithSession
+            ->getSession()
+            ->shouldReceive('get')
+            ->with('_security.'.$providerKey.'.target_path')
+            ->andReturnNull();
+        $token = Mockery::mock(TokenInterface::class);
+
+        $this->router->shouldReceive('generate')
+            ->with('admin_dashboard')
+            ->once()
+            ->andReturn('/url');
+
+        $result = $this->authenticator->onAuthenticationSuccess(
+            $this->requestWithSession,
+            $token,
+            $providerKey
+        );
+
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame('/url', $result->getTargetUrl());
+    }
+
+    public function testOnAuthenticationSuccessWithTarget(): void
+    {
+        $providerKey = 'key';
+        $this->requestWithSession
+            ->getSession()
+            ->shouldReceive('get')
+            ->with('_security.'.$providerKey.'.target_path')
+            ->andReturn('/go');
+        $token = Mockery::mock(TokenInterface::class);
+
+        $result = $this->authenticator->onAuthenticationSuccess(
+            $this->requestWithSession,
+            $token,
+            $providerKey
+        );
+
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame('/go', $result->getTargetUrl());
+    }
+
+    public function testRememberMe()
+    {
+        $doSupport = $this->authenticator->supportsRememberMe();
+
+        $this->assertTrue($doSupport);
+    }
+}
