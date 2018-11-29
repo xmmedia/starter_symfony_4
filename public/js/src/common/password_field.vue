@@ -24,8 +24,6 @@
 
 <script>
 export default {
-    components: {},
-
     props: {
         value: {
             type: String,
@@ -75,15 +73,6 @@ export default {
         icon () {
             return this.visible ? '#visible' : '#invisible';
         },
-    },
-
-    watch: {},
-
-    beforeMount () {},
-
-    mounted () {},
-
-    methods: {
     },
 }
 </script>
