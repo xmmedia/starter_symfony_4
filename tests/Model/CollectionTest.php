@@ -100,7 +100,7 @@ class CollectionTest extends TestCase
         $this->assertEquals($diff, $diffCollection->toArray());
     }
 
-    public function testSameAs(): void
+    public function testSameValuesAs(): void
     {
         $arr1 = [1, 2, 3, 4, 5];
         $arr2 = [1, 2, 3, 4, 5];
@@ -108,10 +108,10 @@ class CollectionTest extends TestCase
         $collection1 = Collection::fromArray($arr1);
         $collection2 = Collection::fromArray($arr2);
 
-        $this->assertTrue($collection1->sameAs($collection2));
+        $this->assertTrue($collection1->sameValuesAs($collection2));
     }
 
-    public function testSameAsDiffClass(): void
+    public function testSameValuesAsDiffClass(): void
     {
         $arr1 = [1, 2, 3, 4, 5];
         $arr2 = [1, 2, 3, 4, 5];
@@ -119,10 +119,10 @@ class CollectionTest extends TestCase
         $collection1 = Collection::fromArray($arr1);
         $collection2 = CollectionOther::fromArray($arr2);
 
-        $this->assertFalse($collection1->sameAs($collection2));
+        $this->assertFalse($collection1->sameValuesAs($collection2));
     }
 
-    public function testSameAsDiffItemCount(): void
+    public function testSameValuesAsDiffItemCount(): void
     {
         $arr1 = [1, 2];
         $arr2 = [1, 2, 3, 4, 5];
@@ -130,7 +130,7 @@ class CollectionTest extends TestCase
         $collection1 = Collection::fromArray($arr1);
         $collection2 = Collection::fromArray($arr2);
 
-        $this->assertFalse($collection1->sameAs($collection2));
+        $this->assertFalse($collection1->sameValuesAs($collection2));
     }
 
     public function testWalk(): void

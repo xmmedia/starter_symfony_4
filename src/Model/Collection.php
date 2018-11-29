@@ -129,7 +129,7 @@ abstract class Collection implements \Iterator, \ArrayAccess, \Countable, \JsonS
         return self::fromArray(array_values($diff1 + $diff2));
     }
 
-    public function sameAs(self $other): bool
+    public function sameValuesAs(self $other): bool
     {
         if (get_class($this) !== get_class($other)) {
             return false;
