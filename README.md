@@ -32,7 +32,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
        4. Ensure programs are running: `supervisorctl status` 
    12. Setup mail spool: add cron task similar to: `* * * * * cd <path> && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1`
    13. Add logrotate cron: `30 4 * * 1 cd /home/user/example.com/current && logrotate app/config/logrotate.conf --state var/logrotate-state`
-10. Delete starter files: `README.md` (or update), `TEMPLATES.md`.
+10. Delete starter files: `README.md` (or update), `TEMPLATES.md`, `LICENSE`.
 
 **Dev site can be accessed at https://[domain]/**
 
