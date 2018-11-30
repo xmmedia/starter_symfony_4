@@ -21,9 +21,7 @@ class UserRecoverInitiateType extends AbstractType
                 'attr'        => ['maxlength' => 150],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Email([
-                        'mode' => 'strict',
-                    ]),
+                    new Assert\Email(['mode' => 'strict']),
                 ],
             ])
         ;
