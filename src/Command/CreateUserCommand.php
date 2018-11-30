@@ -12,7 +12,7 @@ use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 use Symfony\Component\Security\Core\Role\Role;
 use Webmozart\Assert\Assert;
 
-final class CreateUserCommand extends ContainerAwareCommand
+final class CreateUserCommand extends Command
 {
     /** @var MessageBusInterface */
     private $commandBus;

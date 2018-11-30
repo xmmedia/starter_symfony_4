@@ -6,7 +6,7 @@ namespace App\Command;
 
 use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Stopwatch\Stopwatch;
 
-final class PasswordEncoderTestCommand extends ContainerAwareCommand
+final class PasswordEncoderTestCommand extends Command
 {
     /** @var PasswordEncoder */
     private $passwordEncoder;
