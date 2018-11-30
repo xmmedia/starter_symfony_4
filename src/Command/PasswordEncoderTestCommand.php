@@ -61,7 +61,7 @@ final class PasswordEncoderTestCommand extends Command
 
         $times = $memories = [];
 
-        for ($i = 0; $i <= $input->getArgument('count'); ++$i ) {
+        for ($i = 0; $i <= $input->getArgument('count'); ++$i) {
             $stopwatch->start('encode-'.$i);
 
             ($this->passwordEncoder)(
