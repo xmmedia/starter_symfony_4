@@ -18,6 +18,7 @@ use Nelmio\Alice\ParameterBag;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\AuthenticationEvents;
@@ -46,7 +47,8 @@ class SecuritySubscriberTest extends TestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
-            ->with(Mockery::type(UserLoggedInSuccessfully::class));
+            ->with(Mockery::type(UserLoggedInSuccessfully::class))
+            ->andReturn(new Envelope(new \StdClass()));
 
         $request = Mockery::mock(Request::class);
         $request->headers = new ParameterBag(['User-Agent' => $faker->userAgent]);
@@ -79,7 +81,8 @@ class SecuritySubscriberTest extends TestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
-            ->with(Mockery::type(UserLoginFailed::class));
+            ->with(Mockery::type(UserLoginFailed::class))
+            ->andReturn(new Envelope(new \StdClass()));
 
         $request = Mockery::mock(Request::class);
         $request->headers = new ParameterBag(['User-Agent' => $faker->userAgent]);

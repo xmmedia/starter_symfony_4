@@ -13,6 +13,7 @@ use App\Tests\BaseTestCase;
 use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class EnquirySubmittedProcessManagerTest extends BaseTestCase
@@ -31,7 +32,8 @@ class EnquirySubmittedProcessManagerTest extends BaseTestCase
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(SendEnquiryEmail::class));
+            ->with(Mockery::type(SendEnquiryEmail::class))
+            ->andReturn(new Envelope(new \StdClass()));
 
         $event = EnquiryWasSubmitted::now($enquiryId, $name, $email, $message);
 

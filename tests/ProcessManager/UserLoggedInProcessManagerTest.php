@@ -13,6 +13,7 @@ use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class UserLoggedInProcessManagerTest extends TestCase
@@ -26,7 +27,8 @@ class UserLoggedInProcessManagerTest extends TestCase
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(\App\Model\User\Command\UserLoggedIn::class));
+            ->with(Mockery::type(\App\Model\User\Command\UserLoggedIn::class))
+            ->andReturn(new Envelope(new \StdClass()));
 
         $event = UserLoggedIn::now(
             AuthId::generate(),

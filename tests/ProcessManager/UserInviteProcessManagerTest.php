@@ -14,6 +14,7 @@ use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Role\Role;
 
@@ -28,7 +29,8 @@ class UserInviteProcessManagerTest extends TestCase
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(SendActivation::class));
+            ->with(Mockery::type(SendActivation::class))
+            ->andReturn(new Envelope(new \StdClass()));
 
         $event = UserWasCreatedByAdmin::now(
             UserId::generate(),
