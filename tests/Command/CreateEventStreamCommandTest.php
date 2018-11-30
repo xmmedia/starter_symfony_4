@@ -22,7 +22,6 @@ class CreateEventStreamCommandTest extends TestCase
 
         $eventStore = Mockery::mock(EventStore::class);
         $eventStore->shouldReceive('create')
-
             ->withArgs(function ($stream) use ($streamName) {
                 /* @var Stream $stream */
                 $this->assertInstanceOf(Stream::class, $stream);
