@@ -12,6 +12,8 @@ use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Middleware\StackMiddleware;
 
 class CommandEnricherMiddlewareTest extends TestCase
 {
@@ -29,11 +31,18 @@ class CommandEnricherMiddlewareTest extends TestCase
 
         $middleware = new CommandEnricherMiddleware($issuerProvider);
 
-        $command = VerifyUser::now(UserId::generate());
+        $envelope = $middleware->handle(
+            new Envelope(VerifyUser::now(UserId::generate())),
+            new StackMiddleware()
+        );
 
-        $middleware->handle($command, function ($command) use ($uuid) {
-            $this->assertArrayHasKey('issuedBy', $command->metadata());
-            $this->assertArraySubset(['issuedBy' => $uuid], $command->metadata());
-        });
+        $this->assertArrayHasKey(
+            'issuedBy',
+            $envelope->getMessage()->metadata()
+        );
+        $this->assertArraySubset(
+            ['issuedBy' => $uuid],
+            $envelope->getMessage()->metadata()
+        );
     }
 }

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Messenger;
 
 use App\DataProvider\IssuerProvider;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
+use Symfony\Component\Messenger\Middleware\StackInterface;
 
 class CommandEnricherMiddleware implements MiddlewareInterface
 {
@@ -20,13 +22,17 @@ class CommandEnricherMiddleware implements MiddlewareInterface
     /**
      * @param \App\Messaging\Command $message
      */
-    public function handle($message, callable $next)
+    public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
+        $message = $envelope->getMessage();
         $message = $message->withAddedMetadata(
             'issuedBy',
             $this->issuerProvider->getIssuer()
         );
 
-        $next($message);
+        // @todo this seems wrong to not pass any stamps, but atm there are no
+        $newEnvelope = new Envelope($message);
+
+        return $stack->next()->handle($newEnvelope, $stack);
     }
 }
