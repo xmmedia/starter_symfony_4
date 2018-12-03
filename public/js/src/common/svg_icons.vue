@@ -26,5 +26,5 @@ export default {
                 this.svg = response.data;
             });
     },
-};
+}
 </script>

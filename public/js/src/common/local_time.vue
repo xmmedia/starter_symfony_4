@@ -22,5 +22,5 @@ export default {
             return str.substring(0, 10) + ' ' + str.substring(12, 17);
         },
     },
-};
+}
 </script>

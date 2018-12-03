@@ -74,5 +74,5 @@ export default {
             error: this.error,
         });
     },
-};
+}
 </script>

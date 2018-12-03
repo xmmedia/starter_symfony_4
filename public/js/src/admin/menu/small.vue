@@ -43,5 +43,5 @@ export default {
             return window.innerHeight || e.clientHeight || g.clientHeight;
         },
     },
-};
+}
 </script>
