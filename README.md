@@ -9,7 +9,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
 3. [Install Composer](https://getcomposer.org/download/) locally.
 4. Update `composer.json`: `name`, `license` (likely `private`) and `description`
 5. Update `package.json`: `name`, `version`, `git.url`, `license`, `private`, `script.dev-server`
-6. Composer install & update (locally, no autoloader or scripts): `composer install && php -d memory_limit=-1 /usr/local/bin/composer update`
+6. Composer install & update (locally): `composer install && composer update` (or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
 7. Run `yarn && yarn upgrade` locally.
 8. Find and make changes near `@todo-symfony` comments throughout the site.
 9. Setup server:
@@ -20,19 +20,22 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
    5. Install NVM: https://github.com/creationix/nvm#install-script
    6. Run `. ./node_setup.sh` (this will setup node & install the JS packages).
    7. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
-   8. Create the database: `bin/console doctrine:schema:create`
    9. Create event streams & projections tables from: https://github.com/prooph/pdo-event-store/tree/master/scripts/mysql
-   10. Create one or more event streams with the command `bin/console event-store:event-stream:create enquiry_event`
-   10. Create a user `bin/console app:user:create`
-   11. Copy or recreate the templates in Postmark & update the template IDs (see `@todo-symfony`).
-   12. Setup supervisord:
+   10. Create one or more event streams with the command `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (and if using enquiry: `bin/console event-store:event-stream:create enquiry`)
+   11. Run all projections once:
+       1. `bin/console event-store:projection:run user_projection -o` 
+       2. `bin/console event-store:projection:run user_token_projection -o` 
+       3. `bin/console event-store:projection:run enquiry_projection -o` 
+   12. Create a user `bin/console app:user:create` & run user projection: `bin/console event-store:projection:run user_projection -o`
+   13. Copy or recreate the templates in Postmark & update the template IDs (see `@todo-symfony`).
+   14. Setup supervisord:
        1. Write supervisord config: `bin/console app:supervisor:write-config`
        2. Add site supervisord config to main config, for example `files = /etc/supervisord/*.conf /home/user/supervisord.conf` (as root)
        3. Tell supervisord to read the config: `supervisorctl reread && supervisorctl update` (as root)
        4. Ensure programs are running: `supervisorctl status` 
-   12. Setup mail spool: add cron task similar to: `* * * * * cd <path> && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1`
+   15. Setup mail spool: add cron task similar to: `* * * * * cd <path> && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1`
    13. Add logrotate cron: `30 4 * * 1 cd /home/user/example.com/current && logrotate app/config/logrotate.conf --state var/logrotate-state`
-10. Delete starter files: `README.md` (or update), `TEMPLATES.md`, `LICENSE`.
+10. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
 
 **Dev site can be accessed at https://[domain]/**
 
