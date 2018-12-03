@@ -9,11 +9,13 @@
                    :type="fieldType"
                    :required="required"
                    :autocomplete="autocomplete"
+                   class="pr-10"
                    @input="$emit('input', $event.target.value)">
             <button type="button"
-                    class="absolute button-link block pin-t pin-r w-8 h-8 mt-px mr-2 text-grey-dark hover:text-grey-darker"
+                    class="absolute button-link block pin-t pin-r w-6 h-6 mr-2 text-grey-dark hover:text-grey-darker"
+                    style="margin-top: 0.3rem;"
                     @click.prevent="visible = !visible">
-                <svg class="w-8 h-8 fill-current"><use :xlink:href="icon"></use></svg>
+                <svg class="w-6 h-6 fill-current"><use :xlink:href="icon"></use></svg>
             </button>
         </div>
         <div v-if="showHelp" class="field-help">
