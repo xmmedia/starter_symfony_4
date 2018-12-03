@@ -32,7 +32,7 @@ final class CreateEventStreamCommand extends Command
             ->addArgument(
                 'stream_name',
                 InputArgument::REQUIRED,
-                'The name of the event stream. This will also be used in the table name. Don\'t include "_stream".'
+                'The name of the event stream. This will also be used in the table name. Don\'t include "_event_stream".'
             )
         ;
     }
