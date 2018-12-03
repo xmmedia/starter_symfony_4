@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\User\Handler;
 
 use App\Infrastructure\Email\EmailGatewayInterface;
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\Email;
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Model\User\Exception\UserNotFound;
@@ -55,8 +56,7 @@ class InitiatePasswordRecoveryHandler
         );
 
         $messageId = $this->emailGateway->send(
-            // @todo-symfony
-            9119712,
+            EmailTemplate::PASSWORD_RESET,
             Email::fromString($command->email()->toString()),
             [
                 'resetUrl' => $resetUrl,

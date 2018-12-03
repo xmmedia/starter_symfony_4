@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\User\Handler;
 
 use App\Infrastructure\Email\EmailGatewayInterface;
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\Email;
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Exception\UserNotFound;
@@ -60,8 +61,7 @@ class SendActivationHandler
         );
 
         $messageId = $this->emailGateway->send(
-            // @todo-symfony
-            9106459,
+            EmailTemplate::USER_INVITE,
             Email::fromString($command->email()->toString(), $name),
             [
                 'verifyUrl' => $verifyUrl,
