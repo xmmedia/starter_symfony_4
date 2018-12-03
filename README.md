@@ -52,23 +52,22 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
   - Dev JS/CSS build: `yarn dev`
   - Dev JS/CSS watch: `yarn watch` (files will not be versioned)
   - Dev JS/CSS HMR server: `yarn dev-server` (see below)
-  - Testing:
-    - JS unit tests: `yarn test:unit`
-    - E2E tests using Cypress: `yarn test:e2e`
+  - JS Tests ([Jest](https://jestjs.io/)): `yarn test:unit`
+  - E2E Tests ([Cypress](https://www.cypress.io/)): `yarn test:e2e`
   - Linting:
-    - JS: `yarn lint:js` or `yarn lint:js:fix`
+    - JS ([ESLint](https://eslint.org/)): `yarn lint:js` or `yarn lint:js:fix`
     - CSS: `yarn lint:css` or `yarn lint:css:fix`
-  - PHPUnit: 
+  - PHP Tests ([PhpUnit](https://phpunit.de/)): 
     - `composer test`
     - no memory limit `php -d memory_limit=-1 bin/simple-phpunit`
     - with coverage (HTML) `composer test:coverage`
-  - PHP CS Fixer: (must be installed first)
+  - [PHP CS](https://cs.sensiolabs.org/): (must be installed first)
     - Dry run: `composer cs`
     - Fix: `composer cs:fix`
-  - PHP Static Analysis (PHPStan): `composer static`
+  - PHP Static Analysis ([PHPStan](https://github.com/phpstan/phpstan)): `composer static`
   - Projections:
     - All commands: `bin/console event-store:projection`
-    - Run once: `bin/console event-store:projection:run enquiry_projection -o`
+    - Run once: `bin/console event-store:projection:run user_projection -o`
 
 ### Apache Config
 
@@ -118,7 +117,7 @@ running multiple sites on one server.
     - [Doctrine](https://www.doctrine-project.org/) – for reading from read models
     - [PhpUnit](https://phpunit.de/) – for running PHP tests
     - [PHP CS](https://cs.sensiolabs.org/) – PHP coding standards analyzer & fixer
-    - [PhpStan](https://github.com/phpstan/phpstan) – static analysis of PHP
+    - [PHPStan](https://github.com/phpstan/phpstan) – static analysis of PHP
     - [Postmark](https://postmarkapp.com/) – for sending email, contains email templates (currently setup under XM Media's account)
     - [Cloudflare](https://www.cloudflare.com/) – DNS & CDN
   - [GitLab](https://gitlab.com/batteryanalytics) – deployment
