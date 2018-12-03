@@ -101,7 +101,7 @@ running multiple sites on one server.
       - [Autoprefixer](ub.com/postcss/autoprefixer) – for adding browser prefixes
       - [Purge CSS](https://github.com/FullHuman/purgecss) – removes unused CSS during the deployment process (not run in dev)
       - [SVGO](https://github.com/svg/svgo) – optimizes SVG files
-    - [Tailwind](https://tailwindcss.com/docs/what-is-tailwind/)
+    - [Tailwind](https://tailwindcss.com/docs/what-is-tailwind/) – utility first styling framework
     - [Cypress](https://www.cypress.io/) – end-to-end (e2e) testing
     - [Axios](https://github.com/axios/axios) – smooths over browser inconsistencies related to AJAX requests
     - [Lodash](https://lodash.com/) – helper functions for JS
