@@ -28,7 +28,7 @@
                        autocomplete="username email">
             </div>
 
-            <password-field v-model="newPassword"
+            <password-field v-model="password"
                             :validation-errors="validationErrors"
                             :show-help="true"
                             label="Password"
