@@ -4,7 +4,8 @@
             <svg class="w-3 h-3"><use xlink:href="#gt"></use></svg>
         </button>
         <div :class="{ 'sidebar_nav-submenu-wrap-open' : open }"
-             class="sidebar_nav-submenu-wrap">
+             class="sidebar_nav-submenu-wrap"
+             ref="submenu">
             <div class="text-2xl font-thin border-b border-grey-darker sidebar_nav-submenu_header">{{ name }}</div>
             <ul class="h-full list-reset overflow-y-scroll">
                 <li v-for="(href, anchor) in items" :key="href">
@@ -71,17 +72,12 @@ export default {
         },
     },
 
-    mounted () {
-        this.$nextTick(() => {
-            document.documentElement.addEventListener('click', this.htmlClick);
-        });
-    },
-
     methods: {
         toggleMenu () {
             this.open = !this.open;
             if (this.open) {
                 this.$store.dispatch('adminMenu/subNavOpened', this.id);
+                document.documentElement.addEventListener('click', this.htmlClick);
             } else {
                 this.$store.dispatch('adminMenu/subNavClosed');
             }
@@ -89,9 +85,12 @@ export default {
         close () {
             this.open = false;
         },
-        htmlClick () {
-            this.close();
-            this.$store.dispatch('adminMenu/closeAllMenus');
+        htmlClick (e) {
+            if (!this.$refs.submenu.contains(e.target)) {
+                this.close();
+                this.$store.dispatch('adminMenu/closeAllMenus');
+                document.documentElement.removeEventListener('click', this.htmlClick);
+            }
         },
     },
 };
