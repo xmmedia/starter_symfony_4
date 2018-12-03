@@ -82,3 +82,42 @@ The following is needed in the Apache VirtualHost for the Webpack Dev Server/HMR
 You'll probably want to customize the port number in the Apache ProxyPass config
 and in `package.json` (`script.dev-server`) to be unique to each project if
 running multiple sites on one server.
+
+## Incorporated Libraries & Tools
+
+  - Frontend – full list of dependencies can be found in [package.json](https://gitlab.com/batteryanalytics/customer/blob/master/package.json)
+    - [Vue](https://vuejs.org/) – frontend framework
+      - [Vue Router](https://router.vuejs.org/) – routing package for frontend
+      - [Vuex](https://vuex.vuejs.org/) – helps to manage state
+      - [Vue Devtools](https://github.com/vuejs/vue-devtools) – makes debugging in the browser easier
+      - [Vue Templates](https://vuejs.org/v2/guide/syntax.html) – the syntax for .vue files
+      - [Vue Test Utils](https://vue-test-utils.vuejs.org/) – to help testing Vue components
+    - [Vue CLI](https://cli.vuejs.org/) – to manage & run the frontend compilation & testing
+    - [SASS](https://sass-lang.com/) – CSS preprocessor (uses [node-sass](https://www.npmjs.com/package/node-sass))
+    - [Webpack](https://webpack.js.org/) – compiles JS & CSS
+      - [Babel](https://babeljs.io/) – transforms JS to work in all browsers
+      - [Webpack Encore](https://symfony.com/doc/current/frontend.html) – connects the frontend and backend and makes Webpack configuration simpler
+      - [PostCSS](https://github.com/postcss/postcss) – transforms CSS
+      - [Autoprefixer](ub.com/postcss/autoprefixer) – for adding browser prefixes
+      - [Purge CSS](https://github.com/FullHuman/purgecss) – removes unused CSS during the deployment process (not run in dev)
+      - [SVGO](https://github.com/svg/svgo) – optimizes SVG files
+    - [Tailwind](https://tailwindcss.com/docs/what-is-tailwind/)
+    - [Cypress](https://www.cypress.io/) – end-to-end (e2e) testing
+    - [Axios](https://github.com/axios/axios) – smooths over browser inconsistencies related to AJAX requests
+    - [Lodash](https://lodash.com/) – helper functions for JS
+    - [PortalVue](https://github.com/LinusBorg/portal-vue) – 
+    - [Workbox](https://developers.google.com/web/tools/workbox/) – helps with configuration of service worker/PWA
+    - [Faker.js](https://github.com/marak/Faker.js/) – for generating fake data in tests
+    - [ESLint](https://eslint.org/) – checks JS for conventions & errors
+    - [Stylelint](https://stylelint.io/) – checks CSS for conventions & errors
+  - Backend – full list of dependencies can be found in [composer.json](https://gitlab.com/batteryanalytics/customer/blob/master/composer.json)
+    - [Symfony](https://symfony.com/doc/current/index.html#gsc.tab=0) – backend framework
+    - [Twig](https://twig.symfony.com/) – server side templating language (limited use)
+    - [Prooph PDO Event Store](https://github.com/prooph/pdo-event-store) & Bridge/Bundle – for doing Event Sourcing
+    - [Doctrine](https://www.doctrine-project.org/) – for reading from read models
+    - [PhpUnit](https://phpunit.de/) – for running PHP tests
+    - [PHP CS](https://cs.sensiolabs.org/) – PHP coding standards analyzer & fixer
+    - [PhpStan](https://github.com/phpstan/phpstan) – static analysis of PHP
+    - [Postmark](https://postmarkapp.com/) – for sending email, contains email templates (currently setup under XM Media's account)
+    - [Cloudflare](https://www.cloudflare.com/) – DNS & CDN
+  - [GitLab](https://gitlab.com/batteryanalytics) – deployment
