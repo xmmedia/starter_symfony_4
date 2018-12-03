@@ -85,6 +85,41 @@ class JsDataTest extends TestCase
         $this->assertSame($expected, $class->get('admin'));
     }
 
+    public function testGetAdminNullNames(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $email = $faker->email;
+
+        $token = Mockery::mock(CsrfToken::class);
+        $token->shouldReceive('getValue')
+            ->once()
+            ->andReturn('csrf_token');
+
+        $this->tokenManager->shouldReceive('getToken')
+            ->once()
+            ->andReturn($token);
+
+        $user = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('email');
+        $property->setAccessible(true);
+        $property->setValue($user, $email);
+
+        $class = $this->getJsData($user);
+
+        $expected = [
+            'user' => [
+                'email'     => $email,
+                'firstName' => null,
+                'lastName'  => null,
+            ],
+            'csrfToken' => 'csrf_token',
+        ];
+
+        $this->assertSame($expected, $class->get('admin'));
+    }
+
     public function testGetAdminNotLoggedIn(): void
     {
         $token = Mockery::mock(CsrfToken::class);
