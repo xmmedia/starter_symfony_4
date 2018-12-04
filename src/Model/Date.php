@@ -6,7 +6,6 @@ namespace App\Model;
 
 use Carbon\Carbon;
 
-// @todo tests
 // @todo switch to CarbonImmutable?
 class Date implements ValueObject, \JsonSerializable
 {
@@ -63,10 +62,16 @@ class Date implements ValueObject, \JsonSerializable
     }
 
     /**
+     * Compares up to milliseconds. Ignores microseconds.
+     *
      * @param Date|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->date->equalTo($other->date);
+        if (get_class($this) !== get_class($other)) {
+            return false;
+        }
+
+        return 0 === $this->date->diffInMilliseconds($other->date);
     }
 }

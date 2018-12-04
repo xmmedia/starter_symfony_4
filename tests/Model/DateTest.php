@@ -117,12 +117,35 @@ class DateTest extends TestCase
         yield [$date, '"'.$date->format('Y-m-d\TH:i:s.u\Z').'"'];
     }
 
-    public function testSameValueAs(): void
+    /**
+     * @dataProvider sameValueAsProvider
+     */
+    public function testSameValueAs(string $date1, string $date2, bool $expected): void
     {
-        $date1 = Date::fromString('2000-01-01');
-        $date2 = Date::fromString('2000-01-01');
+        $date1 = Date::fromString($date1);
+        $date2 = Date::fromString($date2);
 
-        $this->assertTrue($date1->sameValueAs($date2));
+        $this->assertEquals($expected, $date1->sameValueAs($date2));
+    }
+
+    public function sameValueAsProvider(): \Generator
+    {
+        yield ['2000-01-01', '2000-01-01', true];
+        yield ['2000-01-01 00:00:00', '2000-01-01 00:00:00', true];
+        yield ['2000-01-01 00:00:00.0', '2000-01-01 00:00:00.0', true];
+        // start microseconds which are ignored in same as comparison
+        yield ['2000-01-01 00:00:00.0000', '2000-01-01 00:00:00.0001', true];
+        yield ['2000-01-01 00:00:00.00000', '2000-01-01 00:00:00.00001', true];
+        yield ['2000-01-01 00:00:00.000000', '2000-01-01 00:00:00.000001', true];
+
+        yield ['2000-01-01', '2000-01-02', false];
+        yield ['2000-01-01 00:00:00', '2000-01-01 10:00:00', false];
+        yield ['2000-01-01 00:00:00', '2000-01-01 00:01:00', false];
+        yield ['2000-01-01 00:00:00', '2000-01-01 00:00:01', false];
+        // 1000 is the max milliseconds
+        yield ['2000-01-01 00:00:00.0', '2000-01-01 00:00:00.1', false];
+        yield ['2000-01-01 00:00:00.00', '2000-01-01 00:00:00.01', false];
+        yield ['2000-01-01 00:00:00.000', '2000-01-01 00:00:00.001', false];
     }
 
     public function testInvalid(): void
