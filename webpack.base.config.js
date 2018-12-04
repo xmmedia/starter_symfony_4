@@ -96,8 +96,6 @@ module.exports = function (Encore) {
                 // Specify the locations of any files you want to scan for class names.
                 paths: glob.sync([
                     path.join(__dirname, 'templates/**/*.html.twig'),
-                    path.join(__dirname, 'vendor/xm/security-bundle/Resources/views/**/*.html.twig'),
-                    path.join(__dirname, 'vendor/xm/user-admin-bundle/Resources/views/**/*.html.twig'),
                     path.join(__dirname, 'public/js/src/**/*.vue'),
                     path.join(__dirname, 'public/js/src/**/*.js'),
                     path.join(__dirname, 'node_modules/vue-js-modal/dist/index.js'),
