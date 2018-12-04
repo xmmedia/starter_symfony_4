@@ -49,6 +49,21 @@ class DateTest extends TestCase
         $this->assertEquals('UTC', $date->date()->timezone->getName());
     }
 
+    public function testNowUtc(): void
+    {
+        $now = new \DateTimeImmutable(
+            'now',
+            new \DateTimeZone('America/Edmonton')
+        );
+        $date = Date::now('America/Edmonton');
+
+        $this->assertEquals(
+            $now->format(\DateTime::ISO8601),
+            $date->date()->format(\DateTime::ISO8601)
+        );
+        $this->assertEquals('America/Edmonton', $date->date()->timezone->getName());
+    }
+
     /**
      * @dataProvider dateTimeProvider
      */

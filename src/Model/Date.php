@@ -22,7 +22,7 @@ class Date implements ValueObject, \JsonSerializable
         return new static(new Carbon($string, self::TZ));
     }
 
-    public static function now(string $tz = null): self
+    public static function now(string $tz = self::TZ): self
     {
         return new static(new Carbon('now', $tz));
     }
