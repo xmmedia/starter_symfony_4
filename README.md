@@ -104,6 +104,7 @@ running multiple sites on one server.
     - [Cypress](https://www.cypress.io/) – end-to-end (e2e) testing
     - [Axios](https://github.com/axios/axios) – smooths over browser inconsistencies related to AJAX requests
     - [Lodash](https://lodash.com/) – helper functions for JS
+    - [date-fns](https://date-fns.org/) – helper functions for Dates in JS
     - [PortalVue](https://github.com/LinusBorg/portal-vue) – helps to manage things like modals
     - [Vue-JS-Modal](http://vue-js-modal.yev.io/) – for modals 
     - [Workbox](https://developers.google.com/web/tools/workbox/) – helps with configuration of service worker/PWA
