@@ -29,7 +29,8 @@
                 <div class="record_list-col">{{ availableRoles[user.roles[0]] }}</div>
 
                 <div class="record_list-col record_list-col-actions">
-                    <router-link :to="{ name: 'admin-user-edit', params: { userId: user.id } }">
+                    <router-link :to="{ name: 'admin-user-edit', params: { userId: user.id } }"
+                                 class="record_list-action">
                         Edit
                     </router-link>
                 </div>
