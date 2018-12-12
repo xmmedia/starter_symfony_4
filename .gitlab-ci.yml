@@ -41,7 +41,7 @@ deploy:
   when: manual
   allow_failure: false
   script:
-    - export SYMFONY_ENV=prod
+    - export APP_ENV=prod
     - php -v
     - php composer.phar --version
     - node --version
