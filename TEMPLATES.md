@@ -1,66 +1,95 @@
 # Code Templates
 
-### Forms
+For HTML, check [pattern_library_public.html.twig](https://github.com/xmmedia/starter_symfony_4/blob/master/templates/default/pattern_library_public.html.twig) & [pattern_library_admin.html.twig](https://github.com/xmmedia/starter_symfony_4/blob/master/templates/default/pattern_library_admin.html.twig)
 
-The new view:
-```
-{% extends '::admin.html.twig' %}
+## Vue
 
-{% block page_title %}Add Category | {% endblock %}
-{% block header_page_title %}Add Category{% endblock %}
+### Vue Component
+```vue
+<template>
 
-{% block content %}
-    {% include 'flash_messages.html.twig' %}
+</template>
 
-    {% embed 'AdminCategory/form.html.twig' %}{% endembed %}
-{% endblock content %}
-```
+<script>
+export default {
+    components: {},
+    
+    props: {},
 
-The edit view:
-```
-{% extends '::admin.html.twig' %}
+    data () {
+        return {};
+    },
 
-{% block page_title %}Add Category | {% endblock %}
-{% block header_page_title %}Add Category{% endblock %}
+    computed: {},
 
-{% block content %}
-    {% include 'flash_messages.html.twig' %}
+    watch: {},
 
-    {% embed 'AdminCategory/form.html.twig' %}
-        {% block extra_actions %}
-            <ul class="form-extra_actions">
-                <li>
-                    {{
-                        form_start(delete_form, {
-                            'attr' : {
-                                'class' : 'js-form-delete',
-                                'data-record-desc' : 'Category'
-                            }
-                        })
-                    }}
-                        <button class="form-action button-link">Delete</button>
-                    {{ form_end(delete_form) }}
-                </li>
-            </ul>
-        {% endblock extra_actions %}
-    {% endembed %}
-{% endblock content %}
+    beforeMount () {},
+
+    mounted () {},
+
+    methods: {},
+}
+</script>
 ```
 
-The form view:
+### Vue Store
+```javascript
+const state = {
+};
+
+const getters = {
+    // getter (state, getters) {
+    //     return state.param;
+    // },
+    // getter: (state) => (value) => {
+    //     return state.param[value];
+    // },
+};
+
+const actions = {
+    // action ({ commit, state, dispatch, rootState, rootGetters }, data) {
+    //     commit('mutation');
+    // },
+};
+
+const mutations = {
+    // mutation (state, param) {
+    //     state.param = param;
+    // },
+};
+
+export default {
+    namespaced: true,
+    state,
+    getters,
+    actions,
+    mutations
+}
 ```
-<div class="form-wrap">
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
 
-        {{ form_row(form.name) }}
+### Vue Router
+```javascript
+import VueRouter from 'vue-router';
 
-        <div class="form-button_wrap">
-            <button class="button">Save</button>
-            <a href="{{ path('admin_category_list') }}" class="form-action">Back to list</a>
-        </div>
-    {{ form_end(form) }}
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            name: null,
+            path: null,
+            component: null,
+        },
+    ],
 
-    {% block extra_actions %}{% endblock %}
-</div>
+    scrollBehavior (to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    },
+});
+
+export default router;
 ```
