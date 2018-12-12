@@ -7,13 +7,10 @@ namespace App\Tests\Form\DataTransformer;
 use App\Form\DataTransformer\EmailTransformer;
 use App\Model\Email;
 use Faker;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 class EmailTransformerTest extends TestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @dataProvider transformProvider
      */
