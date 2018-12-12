@@ -45,6 +45,7 @@ deploy:
     - php -v
     - php composer.phar --version
     - node --version
+    - yarn --version
     # setup vars for paths
     - TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
     - echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
