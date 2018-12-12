@@ -10,6 +10,8 @@ use Symfony\Component\Form\DataTransformerInterface;
 class TokenTransformer implements DataTransformerInterface
 {
     /**
+     * From Token to form value.
+     *
      * @param Token|null|string $token
      */
     public function transform($token): ?string
@@ -22,6 +24,8 @@ class TokenTransformer implements DataTransformerInterface
     }
 
     /**
+     * From user input to Token.
+     *
      * @param string|null $role
      */
     public function reverseTransform($token): ?Token

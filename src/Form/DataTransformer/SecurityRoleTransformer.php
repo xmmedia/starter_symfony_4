@@ -10,6 +10,8 @@ use Symfony\Component\Security\Core\Role\Role;
 class SecurityRoleTransformer implements DataTransformerInterface
 {
     /**
+     * From Role to form value.
+     *
      * @param Role|null $role
      */
     public function transform($role): ?string
@@ -22,6 +24,8 @@ class SecurityRoleTransformer implements DataTransformerInterface
     }
 
     /**
+     * From user input to Role.
+     *
      * @param string|null $role
      */
     public function reverseTransform($role): ?Role

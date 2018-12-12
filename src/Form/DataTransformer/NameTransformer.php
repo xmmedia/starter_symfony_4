@@ -10,6 +10,8 @@ use Symfony\Component\Form\DataTransformerInterface;
 class NameTransformer implements DataTransformerInterface
 {
     /**
+     * From Name to form value.
+     *
      * @param Name|null $name
      */
     public function transform($name): ?string
@@ -22,6 +24,8 @@ class NameTransformer implements DataTransformerInterface
     }
 
     /**
+     * From user input to Name.
+     *
      * @param string|null $name
      */
     public function reverseTransform($name): ?Name
