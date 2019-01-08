@@ -32,6 +32,8 @@ select {
     @apply cursor-pointer;
 }
 [type=file] { width: 100%; }
+// hide the reveal password in IE/Edge; use our own cross browser functionality
+[type=password]::-ms-reveal { @apply hidden; }
 
 .form-wrap {
     @apply w-9/10 max-w-sm mx-auto my-4 p-4 rounded-sm shadow-md;
