@@ -73,12 +73,10 @@
 
 .record_list-col-actions {
     @apply text-right;
-
-    a {
-        @apply ml-4;
-    }
-    // the first <a> that's a direct child of the actions col
-    > a:first-child {
+}
+.record_list-action {
+    @apply ml-4;
+    &:first-child {
         @apply ml-0;
     }
 }
