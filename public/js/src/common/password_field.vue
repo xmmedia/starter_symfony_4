@@ -10,6 +10,9 @@
                    :required="required"
                    :autocomplete="autocomplete"
                    class="pr-10"
+                   autocapitalize="off"
+                   autocorrect="off"
+                   spellcheck="false"
                    @input="$emit('input', $event.target.value)">
             <button type="button"
                     class="absolute button-link block pin-t pin-r w-6 h-6 mr-2 text-grey-dark hover:text-grey-darker"
