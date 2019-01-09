@@ -1,0 +1,18 @@
+User:
+    type: object
+    inherits: [Entity]
+    config:
+        description: 'The User object.'
+        fields:
+            id:
+                type: UUID!
+            email:
+                type: String!
+            firstName:
+                type: String
+            lastName:
+                type: String
+            loginCount:
+                type: Int!
+            lastLogin:
+                type: DateTime

@@ -1,0 +1,17 @@
+UserQuery:
+    decorator: true
+    heirs: [Query]
+    config:
+        fields:
+            Users:
+                type: '[User!]!'
+                description: "Retrieve all Users."
+                resolve: '@=resolver("app.graphql.resolver.user.all")'
+
+            User:
+                type: 'User'
+                description: "Retrieve a single User."
+                args:
+                    id:
+                        type: UUID!
+                resolve: '@=resolver("app.graphql.resolver.user.by.id", [args["id"]])'

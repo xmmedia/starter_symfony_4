@@ -1,0 +1,9 @@
+Query:
+    type: object
+    config:
+        description: 'Main Queries'
+        fields:
+            Me:
+                type: 'User'
+                description: 'The current User object or null.'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\CurrentUserResolver")'
