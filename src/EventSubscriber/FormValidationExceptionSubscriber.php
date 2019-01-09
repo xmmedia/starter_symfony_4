@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace App\EventSubscriber;
 
 use App\Exception\FormValidationException;
+use Overblog\GraphQLBundle\Event\ErrorFormattingEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class FormValidationExceptionSubscriber implements EventSubscriberInterface
 {
-    /** @var SerializerInterface */
+    /** @var SerializerInterface|Serializer */
     private $serializer;
 
     public function __construct(SerializerInterface $serializer)
@@ -24,13 +26,14 @@ class FormValidationExceptionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::EXCEPTION => ['onKernelException', -100],
+            KernelEvents::EXCEPTION    => ['onKernelException', -100],
+            'graphql.error_formatting' => ['onGraphqlError', -100],
         ];
     }
 
     /**
-     * If the exception if of customer doesn't exist,
-     * change the exception to an HTTP 404.
+     * Add a response body of the form validation errors
+     * if the exception is a FormValidationException.
      *
      * @see \FOS\RestBundle\Serializer\Normalizer\FormErrorNormalizer
      */
@@ -46,6 +49,35 @@ class FormValidationExceptionSubscriber implements EventSubscriberInterface
                 ]));
 
             $event->setResponse(JsonResponse::fromJsonString($json, 400));
+        }
+    }
+
+    /**
+     * Add the validation error details to the GraphQL formatted error
+     * if the exception is a FormValidationException.
+     */
+    public function onGraphqlError(ErrorFormattingEvent $event): void
+    {
+        /** @var FormValidationException $exception */
+        $exception = $event->getError()->getPrevious();
+        if ($exception instanceof FormValidationException) {
+            $validationErrors = $this->serializer
+                ->normalize($exception->getForm(), 'array', array_merge([
+                    'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,
+                ]));
+
+            if ($exception->getField()) {
+                $validation = [
+                    $exception->getField() => $validationErrors['errors']['children'],
+                ];
+            } else {
+                $validation = $validationErrors['errors']['children'];
+            }
+
+            $formattedError = $event->getFormattedError();
+            $formattedError->offsetSet('message', 'Validation Failed');
+            $formattedError->offsetSet('category', 'validation');
+            $formattedError->offsetSet('validation', $validation);
         }
     }
 }

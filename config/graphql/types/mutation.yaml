@@ -1,0 +1,9 @@
+Mutation:
+    type: object
+    config:
+        description: 'Main Mutations'
+        fields:
+            # so there's always a mutation available
+            Noop:
+                type: Boolean!
+                resolve: '@=true'

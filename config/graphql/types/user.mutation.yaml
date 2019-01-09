@@ -1,0 +1,48 @@
+UserMutation:
+    decorator: true
+    heirs: [Mutation]
+    config:
+        fields:
+            CreateUser:
+                type: UserCreatePayload!
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserCreateMutation", [args])'
+                args:
+                    user: UserCreateInput!
+
+UserCreateInput:
+    type: input-object
+    config:
+        description: 'User create mutation input.'
+        fields:
+            id:
+                type: UUID!
+            email:
+                type: String!
+            setPassword:
+                type: Boolean!
+            password:
+                type: String
+            role:
+                type: Role!
+            active:
+                type: Boolean!
+            firstName:
+                type: String!
+            lastName:
+                type: String!
+            sendInvite:
+                type: Boolean!
+
+UserCreatePayload:
+    type: object
+    config:
+        description: 'User create mutation payload.'
+        fields:
+            id:
+                type: UUID!
+            email:
+                type: String!
+            active:
+                type: Boolean!
