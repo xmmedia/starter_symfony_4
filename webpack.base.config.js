@@ -2,6 +2,7 @@
 const path = require('path');
 const glob = require('glob-all');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 function resolve (dir) {
     return path.join(__dirname, '.', dir);
@@ -81,6 +82,8 @@ module.exports = function (Encore) {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
             }
         })
+
+        .addPlugin(new Dotenv())
     ;
 
     if (Encore.isProduction()) {
