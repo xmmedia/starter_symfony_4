@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueApollo from 'vue-apollo';
 import PortalVue from 'portal-vue';
 import VueModal from 'vue-js-modal';
 
 import router from './admin/router';
 import store from './admin/store';
+import apolloProvider from './common/apollo';
 
 import svgIcons from './common/svg_icons';
 import fieldErrors from './common/field_errors';
@@ -24,6 +26,7 @@ import '../../images/icons-admin.svg';
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
+Vue.use(VueApollo);
 Vue.use(PortalVue);
 Vue.use(VueModal);
 
@@ -38,6 +41,7 @@ window.App = new Vue({
     el: '#app',
     router,
     store,
+    apolloProvider,
 
     components: {
         'svg-icons': svgIcons,
