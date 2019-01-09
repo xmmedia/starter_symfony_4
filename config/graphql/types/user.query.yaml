@@ -6,6 +6,8 @@ UserQuery:
             Users:
                 type: '[User!]!'
                 description: "Retrieve all Users."
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=resolver("app.graphql.resolver.user.all")'
 
             User:
@@ -14,4 +16,6 @@ UserQuery:
                 args:
                     id:
                         type: UUID!
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=resolver("app.graphql.resolver.user.by.id", [args["id"]])'
