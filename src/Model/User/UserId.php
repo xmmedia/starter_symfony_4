@@ -6,9 +6,10 @@ namespace App\Model\User;
 
 use App\Model\UuidId;
 use App\Model\UuidIdGeneratable;
+use App\Model\UuidInterface;
 use App\Model\ValueObject;
 
-class UserId implements ValueObject
+class UserId implements ValueObject, UuidInterface
 {
     use UuidId;
     use UuidIdGeneratable;
