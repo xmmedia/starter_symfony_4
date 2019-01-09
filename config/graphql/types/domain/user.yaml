@@ -12,6 +12,8 @@ User:
                 type: String
             lastName:
                 type: String
+            name:
+                type: String
             verified:
                 type: Boolean
                 access: '@=hasRole("ROLE_ADMIN")'

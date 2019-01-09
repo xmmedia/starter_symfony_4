@@ -40,11 +40,9 @@
 </template>
 
 <script>
+import gql from 'graphql-tag';
 import { mapState } from 'vuex';
-import { repositoryFactory } from '../repository/factory';
 import { logError } from '@/common/lib';
-
-const adminUserRepo = repositoryFactory.get('adminUser');
 
 const statuses = {
     LOADING: 'loading',
@@ -82,33 +80,30 @@ export default {
         ]),
     },
 
-    watch: {},
-
-    beforeMount () {},
-
-    mounted () {
-        this.load();
-    },
-
-    methods: {
-        async load () {
-            try {
-                const response = await adminUserRepo.list();
-
-                this.users = response.data.users.map((user) => {
-                    if (user.lastLogin) {
-                        user.lastLogin = new Date(user.lastLogin);
-                    }
-
-                    return user;
-                });
-                this.status = statuses.LOADED;
-
-            } catch (e) {
+    apollo: {
+        users: {
+            query: gql`query {
+              Users {
+                id
+                email
+                name
+                lastLogin
+                loginCount
+                roles
+                verified
+                active
+              }
+            }`,
+            update: data => data.Users,
+            error (e) {
                 logError(e);
-
                 this.status = statuses.ERROR;
-            }
+            },
+            watchLoading (isLoading) {
+                if (!isLoading && this.status !== statuses.ERROR) {
+                    this.status = statuses.LOADED;
+                }
+            },
         },
     },
 }
