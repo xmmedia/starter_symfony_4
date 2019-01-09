@@ -12,7 +12,7 @@ class TokenTransformer implements DataTransformerInterface
     /**
      * From Token to form value.
      *
-     * @param Token|null|string $token
+     * @param Token|string|null $token
      */
     public function transform($token): ?string
     {

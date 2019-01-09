@@ -71,7 +71,7 @@ class AggregateRepository
     /**
      * Returns null if no stream events can be found for aggregate root otherwise the reconstituted aggregate root.
      *
-     * @return null|object
+     * @return object|null
      */
     public function getAggregateRoot(string $aggregateId)
     {
