@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Mutation;
 
 use App\Exception\FormValidationException;
-use App\Form\UserRecoverResetType;
+use App\Form\UserVerifyType;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Role\Role;
 
-class UserRecoverResetMutation implements MutationInterface
+class UserVerifyMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;
@@ -48,11 +48,11 @@ class UserRecoverResetMutation implements MutationInterface
     public function __invoke(Argument $args): array
     {
         $form = $this->formFactory
-            ->create(UserRecoverResetType::class)
+            ->create(UserVerifyType::class)
             ->submit([
-                'token'       => $args['token'],
-                'newPassword' => [
-                    'first'  => $args['newPassword'],
+                'token'    => $args['token'],
+                'password' => [
+                    'first'  => $args['password'],
                     'second' => $args['repeatPassword'],
                 ],
             ]);
@@ -73,14 +73,16 @@ class UserRecoverResetMutation implements MutationInterface
 
         if (!$user || !$user->active()) {
             // 404 -> not found
-            throw new UserError('An account with that email cannot be found.', 404);
+            throw new UserError('An account with that email cannot be found.');
         }
 
-        if (!$user->verified()) {
-            $this->commandBus->dispatch(
-                VerifyUser::now($user->id())
-            );
+        if ($user->verified()) {
+            throw new UserError('Your account has already been activated.', 404);
         }
+
+        $this->commandBus->dispatch(
+            VerifyUser::now($user->id())
+        );
 
         $encodedPassword = ($this->passwordEncoder)(
             new Role($user->roles()[0]),

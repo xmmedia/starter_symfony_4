@@ -127,16 +127,22 @@ export default {
                         this.invalidToken = true;
                     } else if (e.graphQLErrors[0].code === 405) {
                         this.tokenExpired = true;
+                    } else {
+                        this.showError(e);
                     }
                 } else {
-                    logError(e);
-                    alert('There was a problem saving your password. Please try again later.');
+                    this.showError(e);
                 }
 
                 window.scrollTo(0, 0);
 
                 this.status = statuses.LOADED;
             }
+        },
+
+        showError (e) {
+            logError(e);
+            alert('There was a problem saving your password. Please try again later.');
         },
     },
 }

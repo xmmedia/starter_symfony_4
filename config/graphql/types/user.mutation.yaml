@@ -33,6 +33,14 @@ UserMutation:
                     newPassword: String!
                     repeatPassword: String!
 
+            UserVerify:
+                type: UserResultPayload!
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserRecoverResetMutation", [args])'
+                args:
+                    token: String!
+                    newPassword: String!
+                    repeatPassword: String!
+
             AdminCreateUser:
                 type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'

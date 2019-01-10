@@ -29,8 +29,11 @@ class GraphQlErrorSubscriber implements EventSubscriberInterface
     {
         /** @var FormValidationException $exception */
         $exception = $event->getError()->getPrevious();
-        $event->getFormattedError()
-            ->offsetSet('code', $exception->getCode())
-        ;
+
+        if ($exception && $exception->getCode() > 0) {
+            $event->getFormattedError()
+                ->offsetSet('code', $exception->getCode())
+            ;
+        }
     }
 }
