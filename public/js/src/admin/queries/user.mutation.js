@@ -3,8 +3,6 @@ import gql from 'graphql-tag';
 export const CreateUserMutation = gql`mutation CreateUser($user: UserCreateInput!) {
     CreateUser(user: $user) {
         id
-        email
-        active
     }
 }`;
 
