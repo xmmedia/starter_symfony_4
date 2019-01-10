@@ -26,7 +26,7 @@ class SendEnquiryEmailHandler
     {
         $this->emailGateway->send(
             // @todo-symfony
-            'enquiry-received',
+            9157888,
             Email::fromString($this->adminEmail),
             [
                 'name'     => $command->name(),

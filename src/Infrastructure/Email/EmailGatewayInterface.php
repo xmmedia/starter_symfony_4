@@ -10,7 +10,7 @@ use App\Model\EmailGatewayMessageId;
 interface EmailGatewayInterface
 {
     public function send(
-        $templateId,
+        int $templateId,
         Email $to,
         array $templateData
     ): EmailGatewayMessageId;
