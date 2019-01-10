@@ -54,7 +54,8 @@
 
 <script>
 import gql from 'graphql-tag';
-import { logError, uuid4, hasGraphQlError } from '@/common/lib';
+import uuid4 from 'uuid/v4';
+import { logError, hasGraphQlError } from '@/common/lib';
 import fieldEmail from './component/email';
 import fieldPassword from './component/password';
 import fieldName from './component/name';
