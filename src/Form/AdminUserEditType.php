@@ -136,7 +136,7 @@ class AdminUserEditType extends AbstractType
 
                 return $groups;
             },
-            'constraints' => [
+            'constraints'       => [
                 new UniqueExistingUserEmail(),
             ],
         ]);

@@ -53,13 +53,13 @@
 </template>
 
 <script>
-import gql from 'graphql-tag';
 import uuid4 from 'uuid/v4';
 import { logError, hasGraphQlError } from '@/common/lib';
 import fieldEmail from './component/email';
 import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
+import { CreateUserMutation } from '../queries/user.mutation';
 
 const statuses = {
     LOADED: 'loaded',
@@ -103,13 +103,7 @@ export default {
 
             try {
                 await this.$apollo.mutate({
-                    mutation: gql`mutation CreateUser($user: UserCreateInput!) {
-                      CreateUser(user: $user) {
-                        id
-                        email
-                        active
-                      }
-                    }`,
+                    mutation: CreateUserMutation,
                     variables: {
                         user: {
                             id: uuid4(),

@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Mutation;
 
 use App\Exception\FormValidationException;
-use App\Form\AdminUserCreateType;
-use App\Model\User\Command\AdminCreateUser;
-use App\Model\User\UserId;
+use App\Form\AdminUserEditType;
+use App\Model\User\Command\AdminChangePassword;
+use App\Model\User\Command\AdminUpdateUser;
 use App\Security\PasswordEncoder;
-use App\Security\TokenGenerator;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class UserCreateMutation implements MutationInterface
+class UserUpdateMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;
@@ -23,58 +22,52 @@ class UserCreateMutation implements MutationInterface
     /** @var FormFactoryInterface */
     private $formFactory;
 
-    /** @var TokenGenerator */
-    private $tokenGenerator;
-
     /** @var PasswordEncoder */
     private $passwordEncoder;
 
     public function __construct(
         MessageBusInterface $commandBus,
         FormFactoryInterface $formFactory,
-        TokenGenerator $tokenGenerator,
         PasswordEncoder $passwordEncoder
     ) {
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
-        $this->tokenGenerator = $tokenGenerator;
         $this->passwordEncoder = $passwordEncoder;
     }
 
     public function __invoke(Argument $args): array
     {
         $form = $this->formFactory
-            ->create(AdminUserCreateType::class)
+            ->create(AdminUserEditType::class)
             ->submit($args['user']);
 
         if (!$form->isValid()) {
             throw FormValidationException::fromForm($form, 'user');
         }
 
-        $userId = UserId::fromString($args['user']['id']);
-        if (!$form->getData()['setPassword']) {
-            $password = ($this->tokenGenerator)()->toString();
-        } else {
-            $password = $form->getData()['password'];
-        }
+        $userId = $form->getData()['id'];
 
-        $encodedPassword = ($this->passwordEncoder)($form->getData()['role'], $password);
-
-        $this->commandBus->dispatch(AdminCreateUser::with(
+        $this->commandBus->dispatch(AdminUpdateUser::with(
             $userId,
             $form->getData()['email'],
-            $encodedPassword,
             $form->getData()['role'],
-            $form->getData()['active'],
             $form->getData()['firstName'],
-            $form->getData()['lastName'],
-            $form->getData()['sendInvite']
+            $form->getData()['lastName']
         ));
 
+        if ($form->getData()['changePassword']) {
+            $encodedPassword = ($this->passwordEncoder)(
+                $form->getData()['role'],
+                $form->getData()['password']
+            );
+
+            $this->commandBus->dispatch(
+                AdminChangePassword::with($userId, $encodedPassword)
+            );
+        }
+
         return [
-            'id'     => $userId,
-            'email'  => $form->getData()['email'],
-            'active' => $form->getData()['active'],
+            'id' => $userId,
         ];
     }
 }

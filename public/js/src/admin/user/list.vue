@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import gql from 'graphql-tag';
 import { mapState } from 'vuex';
 import { logError } from '@/common/lib';
+import { GetUsersQuery } from '../queries/user.query';
 
 const statuses = {
     LOADING: 'loading',
@@ -51,8 +51,6 @@ const statuses = {
 };
 
 export default {
-    components: {},
-
     filters: {
         accountStatus (user) {
             if (!user.active) {
@@ -64,8 +62,6 @@ export default {
             return 'Active';
         },
     },
-
-    props: {},
 
     data () {
         return {
@@ -80,27 +76,24 @@ export default {
         ]),
     },
 
+    mounted () {
+        // refresh the list of users if it's not already load
+        // this will happen when the user is returning from an edit screen
+        if (!this.$apollo.queries.users.loading) {
+            this.$apollo.queries.users.refetch();
+        }
+    },
+
     apollo: {
         users: {
-            query: gql`query {
-              Users {
-                id
-                email
-                name
-                lastLogin
-                loginCount
-                roles
-                verified
-                active
-              }
-            }`,
+            query: GetUsersQuery,
             update: data => data.Users,
             error (e) {
                 logError(e);
                 this.status = statuses.ERROR;
             },
             watchLoading (isLoading) {
-                if (!isLoading && this.status !== statuses.ERROR) {
+                if (!isLoading && this.status === statuses.LOADING) {
                     this.status = statuses.LOADED;
                 }
             },

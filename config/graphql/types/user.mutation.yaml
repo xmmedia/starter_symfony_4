@@ -10,6 +10,13 @@ UserMutation:
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserCreateMutation", [args])'
                 args:
                     user: UserCreateInput!
+            UpdateUser:
+                type: UserUpdatePayload!
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserUpdateMutation", [args])'
+                args:
+                    user: UserUpdateInput!
 
 UserCreateInput:
     type: input-object
@@ -35,6 +42,26 @@ UserCreateInput:
             sendInvite:
                 type: Boolean!
 
+UserUpdateInput:
+    type: input-object
+    config:
+        description: 'User update mutation input.'
+        fields:
+            id:
+                type: UUID!
+            email:
+                type: String!
+            changePassword:
+                type: Boolean!
+            password:
+                type: String
+            role:
+                type: Role!
+            firstName:
+                type: String!
+            lastName:
+                type: String!
+
 UserCreatePayload:
     type: object
     config:
@@ -46,3 +73,11 @@ UserCreatePayload:
                 type: String!
             active:
                 type: Boolean!
+
+UserUpdatePayload:
+    type: object
+    config:
+        description: 'User update mutation payload.'
+        fields:
+            id:
+                type: UUID!
