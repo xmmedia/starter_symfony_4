@@ -53,14 +53,12 @@
 </template>
 
 <script>
-import { repositoryFactory } from '../repository/factory';
-import { logError } from '@/common/lib';
+import gql from 'graphql-tag';
+import { logError, uuid4, hasGraphQlError } from '@/common/lib';
 import fieldEmail from './component/email';
 import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
-
-const adminUserRepo = repositoryFactory.get('adminUser');
 
 const statuses = {
     LOADED: 'loaded',
@@ -75,8 +73,6 @@ export default {
         'field-name': fieldName,
         'field-role': fieldRole,
     },
-
-    props: {},
 
     data () {
         return {
@@ -100,29 +96,33 @@ export default {
         },
     },
 
-    watch: {},
-
-    beforeMount () {},
-
-    mounted () {},
-
     methods: {
         async submit () {
             this.status = statuses.SAVING;
 
             try {
-                const data = {
-                    email: this.email,
-                    setPassword: this.setPassword,
-                    password: this.password,
-                    role: this.role,
-                    active: this.active,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    sendInvite: this.setPassword || !this.active ? false : this.sendInvite,
-                };
-
-                await adminUserRepo.create(data);
+                await this.$apollo.mutate({
+                    mutation: gql`mutation CreateUser($user: UserCreateInput!) {
+                      CreateUser(user: $user) {
+                        id
+                        email
+                        active
+                      }
+                    }`,
+                    variables: {
+                        user: {
+                            id: uuid4(),
+                            email: this.email,
+                            setPassword: this.setPassword,
+                            password: this.password,
+                            role: this.role,
+                            active: this.active,
+                            firstName: this.firstName,
+                            lastName: this.lastName,
+                            sendInvite: this.setPassword || !this.active ? false : this.sendInvite,
+                        },
+                    },
+                });
 
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
@@ -132,8 +132,8 @@ export default {
                 }, 1500);
 
             } catch (e) {
-                if (e.response && e.response.status === 400) {
-                    this.validationErrors = e.response.data.errors;
+                if (hasGraphQlError(e)) {
+                    this.validationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);
                     alert('There was a problem saving. Please try again later.');

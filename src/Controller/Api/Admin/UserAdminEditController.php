@@ -6,14 +6,11 @@ namespace App\Controller\Api\Admin;
 
 use App\Controller\RequestCsrfCheck;
 use App\Exception\FormValidationException;
-use App\Form\AdminUserCreateType;
 use App\Form\AdminUserEditType;
 use App\Model\User\Command\AdminChangePassword;
-use App\Model\User\Command\AdminCreateUser;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
-use App\Security\TokenGenerator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -30,53 +27,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserAdminEditController extends AbstractController
 {
     use RequestCsrfCheck;
-
-    /**
-     * @Route(
-     *     "/api/admin/user/create",
-     *     name="api_admin_user_create",
-     *     methods={"POST"}
-     * )
-     */
-    public function create(
-        Request $request,
-        MessageBusInterface $commandBus,
-        FormFactoryInterface $formFactory,
-        TokenGenerator $tokenGenerator,
-        PasswordEncoder $passwordEncoder
-    ): JsonResponse {
-        $this->checkAdminCsrf($request);
-
-        $form = $formFactory
-            ->create(AdminUserCreateType::class)
-            ->submit($request->request->get('user'));
-
-        if (!$form->isValid()) {
-            throw FormValidationException::fromForm($form);
-        }
-
-        $userId = UserId::generate();
-        if (!$form->getData()['setPassword']) {
-            $password = ($tokenGenerator)()->toString();
-        } else {
-            $password = $form->getData()['password'];
-        }
-
-        $encodedPassword = ($passwordEncoder)($form->getData()['role'], $password);
-
-        $commandBus->dispatch(AdminCreateUser::with(
-            $userId,
-            $form->getData()['email'],
-            $encodedPassword,
-            $form->getData()['role'],
-            $form->getData()['active'],
-            $form->getData()['firstName'],
-            $form->getData()['lastName'],
-            $form->getData()['sendInvite']
-        ));
-
-        return $this->json(['userId' => $userId->toString()]);
-    }
 
     /**
      * @Route(

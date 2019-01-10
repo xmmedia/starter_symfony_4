@@ -55,12 +55,12 @@ export default {
             const path = toPath(this.field);
 
             if (path.length === 1) {
-                return [['children', this.field, 'errors']];
+                return [[this.field, 'errors']];
             }
 
             return [
-                ['children', path[0], 'errors'],
-                ['children', path[0], 'children', path[1], 'errors'],
+                [path[0], 'errors'],
+                [path[0], 'children', path[1], 'errors'],
             ];
         },
     },
