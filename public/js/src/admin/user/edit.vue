@@ -56,16 +56,13 @@
 </template>
 
 <script>
-import { repositoryFactory } from '../repository/factory';
 import { logError, hasGraphQlError } from '@/common/lib';
 import fieldEmail from './component/email';
 import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
 import { GetUserQuery } from '../queries/user.query';
-import { UpdateUserMutation } from '../queries/user.mutation';
-
-const adminUserRepo = repositoryFactory.get('adminUser');
+import { UpdateUserMutation, ActivateUserMutation, VerifyUserMutation, SendResetToUserMutation } from '../queries/user.mutation';
 
 const statuses = {
     LOADING: 'loading',
@@ -198,11 +195,15 @@ export default {
             this.status = statuses.SAVING;
 
             try {
-                if (!this.active) {
-                    await adminUserRepo.activate(this.userId);
-                } else {
-                    await adminUserRepo.deactivate(this.userId);
-                }
+                await this.$apollo.mutate({
+                    mutation: ActivateUserMutation,
+                    variables: {
+                        user: {
+                            id: this.userId,
+                            action: this.active ? 'deactivate' : 'activate',
+                        },
+                    },
+                });
 
                 this.active = !this.active;
 
@@ -230,9 +231,14 @@ export default {
             this.status = statuses.SAVING;
 
             try {
-                await adminUserRepo.verify(this.userId);
+                await this.$apollo.mutate({
+                    mutation: VerifyUserMutation,
+                    variables: {
+                        user: { id: this.userId },
+                    },
+                });
 
-                this.verify = true;
+                this.verified = true;
                 this.status = statuses.SAVED;
 
                 setTimeout(() => {
@@ -257,7 +263,12 @@ export default {
             this.status = statuses.SAVING;
 
             try {
-                await adminUserRepo.sendReset(this.userId);
+                await this.$apollo.mutate({
+                    mutation: SendResetToUserMutation,
+                    variables: {
+                        user: { id: this.userId },
+                    },
+                });
 
                 this.status = statuses.SAVED;
 

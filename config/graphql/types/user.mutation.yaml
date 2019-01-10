@@ -3,20 +3,42 @@ UserMutation:
     heirs: [Mutation]
     config:
         fields:
+            # @todo rename to Admin... (because of profile edit)
             CreateUser:
-                type: UserCreatePayload!
+                type: UserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserCreateMutation", [args])'
                 args:
                     user: UserCreateInput!
             UpdateUser:
-                type: UserUpdatePayload!
+                type: UserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserUpdateMutation", [args])'
                 args:
                     user: UserUpdateInput!
+            ActivateUser:
+                type: UserMutationPayload!
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserActivateMutation", [args])'
+                args:
+                    user: UserActivateInput!
+            VerifyUser:
+                type: UserMutationPayload!
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserVerifyMutation", [args])'
+                args:
+                    user: UserInput!
+            SendResetToUser:
+                type: UserMutationPayload!
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserSendResetToUserMutation", [args])'
+                args:
+                    user: UserInput!
 
 UserCreateInput:
     type: input-object
@@ -62,22 +84,28 @@ UserUpdateInput:
             lastName:
                 type: String!
 
-UserCreatePayload:
-    type: object
+UserActivateInput:
+    type: input-object
     config:
-        description: 'User create mutation payload.'
+        description: 'User activate/deactivate mutation input.'
         fields:
             id:
                 type: UUID!
-            email:
+            action:
                 type: String!
-            active:
-                type: Boolean!
 
-UserUpdatePayload:
+UserInput:
+    type: input-object
+    config:
+        description: 'User mutation input.'
+        fields:
+            id:
+                type: UUID!
+
+UserMutationPayload:
     type: object
     config:
-        description: 'User update mutation payload.'
+        description: 'User mutation payload.'
         fields:
             id:
                 type: UUID!

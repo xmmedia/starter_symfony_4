@@ -13,3 +13,21 @@ export const UpdateUserMutation = gql`mutation UpdateUser($user: UserUpdateInput
         id
     }
 }`;
+
+export const ActivateUserMutation =  gql`mutation ActivateUser($user: UserActivateInput!) {
+    ActivateUser(user: $user) {
+        id
+    }
+}`;
+
+export const VerifyUserMutation =  gql`mutation VerifyUser($user: UserInput!) {
+    VerifyUser(user: $user) {
+        id
+    }
+}`;
+
+export const SendResetToUserMutation =  gql`mutation SendResetToUser($user: UserInput!) {
+    SendResetToUser(user: $user) {
+        id
+    }
+}`;
