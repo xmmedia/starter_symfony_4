@@ -10,7 +10,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class UserVerifyMutation implements MutationInterface
+class AdminUserVerifyMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;

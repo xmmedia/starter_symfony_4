@@ -12,7 +12,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class UserSendResetToUserMutation implements MutationInterface
+class AdminUserSendResetToUserMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;

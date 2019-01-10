@@ -11,7 +11,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class UserActivateMutation implements MutationInterface
+class AdminUserActivateMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;

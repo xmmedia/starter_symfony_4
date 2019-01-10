@@ -3,44 +3,43 @@ UserMutation:
     heirs: [Mutation]
     config:
         fields:
-            # @todo rename to Admin... (because of profile edit)
-            CreateUser:
-                type: UserMutationPayload!
+            AdminCreateUser:
+                type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserCreateMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserCreateMutation", [args])'
                 args:
-                    user: UserCreateInput!
-            UpdateUser:
-                type: UserMutationPayload!
+                    user: AdminUserCreateInput!
+            AdminUpdateUser:
+                type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserUpdateMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserUpdateMutation", [args])'
                 args:
-                    user: UserUpdateInput!
-            ActivateUser:
-                type: UserMutationPayload!
+                    user: AdminUserUpdateInput!
+            AdminActivateUser:
+                type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserActivateMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserActivateMutation", [args])'
                 args:
-                    user: UserActivateInput!
-            VerifyUser:
-                type: UserMutationPayload!
+                    user: AdminUserActivateInput!
+            AdminVerifyUser:
+                type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserVerifyMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserVerifyMutation", [args])'
                 args:
-                    user: UserInput!
-            SendResetToUser:
-                type: UserMutationPayload!
+                    user: AdminUserInput!
+            AdminSendResetToUser:
+                type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserSendResetToUserMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserSendResetToUserMutation", [args])'
                 args:
-                    user: UserInput!
+                    user: AdminUserInput!
 
-UserCreateInput:
+AdminUserCreateInput:
     type: input-object
     config:
         description: 'User create mutation input.'
@@ -64,7 +63,7 @@ UserCreateInput:
             sendInvite:
                 type: Boolean!
 
-UserUpdateInput:
+AdminUserUpdateInput:
     type: input-object
     config:
         description: 'User update mutation input.'
@@ -84,7 +83,7 @@ UserUpdateInput:
             lastName:
                 type: String!
 
-UserActivateInput:
+AdminUserActivateInput:
     type: input-object
     config:
         description: 'User activate/deactivate mutation input.'
@@ -94,7 +93,7 @@ UserActivateInput:
             action:
                 type: String!
 
-UserInput:
+AdminUserInput:
     type: input-object
     config:
         description: 'User mutation input.'
@@ -102,7 +101,7 @@ UserInput:
             id:
                 type: UUID!
 
-UserMutationPayload:
+AdminUserMutationPayload:
     type: object
     config:
         description: 'User mutation payload.'

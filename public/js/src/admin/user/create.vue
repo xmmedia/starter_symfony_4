@@ -59,7 +59,7 @@ import fieldEmail from './component/email';
 import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
-import { CreateUserMutation } from '../queries/user.mutation';
+import { AdminCreateUserMutation } from '../queries/admin/user.mutation';
 
 const statuses = {
     LOADED: 'loaded',
@@ -103,7 +103,7 @@ export default {
 
             try {
                 await this.$apollo.mutate({
-                    mutation: CreateUserMutation,
+                    mutation: AdminCreateUserMutation,
                     variables: {
                         user: {
                             id: uuid4(),
