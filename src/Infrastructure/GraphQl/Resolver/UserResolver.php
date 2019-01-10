@@ -22,7 +22,7 @@ class UserResolver implements ResolverInterface, AliasedInterface
 
     public function all(): array
     {
-        return $this->userRepo->findAll();
+        return $this->userRepo->findBy([], ['email' => 'ASC']);
     }
 
     public function userById(string $id): ?User
