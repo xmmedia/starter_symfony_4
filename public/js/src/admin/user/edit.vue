@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { logError, hasGraphQlError } from '@/common/lib';
+import { logError, hasGraphQlValidationError } from '@/common/lib';
 import fieldEmail from './component/email';
 import fieldPassword from './component/password';
 import fieldName from './component/name';
@@ -174,7 +174,7 @@ export default {
                 }, 1500);
 
             } catch (e) {
-                if (hasGraphQlError(e)) {
+                if (hasGraphQlValidationError(e)) {
                     this.validationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);

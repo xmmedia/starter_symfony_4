@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { logError, hasGraphQlError } from '@/common/lib';
+import { logError, hasGraphQlValidationError } from '@/common/lib';
 import profileTabs from './component/tabs';
 import { UpdateUser } from '../queries/user.mutation';
 
@@ -130,7 +130,7 @@ export default {
                 }, 5000);
 
             } catch (e) {
-                if (hasGraphQlError(e)) {
+                if (hasGraphQlValidationError(e)) {
                     this.validationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);

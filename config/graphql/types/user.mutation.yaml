@@ -19,6 +19,20 @@ UserMutation:
                 args:
                     user: UserPasswordInput!
 
+            UserRecoverInitiate:
+                type: UserResultPayload!
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserRecoverInitiateMutation", [args])'
+                args:
+                    email: String!
+
+            UserRecoverReset:
+                type: UserResultPayload!
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserRecoverResetMutation", [args])'
+                args:
+                    token: String!
+                    newPassword: String!
+                    repeatPassword: String!
+
             AdminCreateUser:
                 type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
@@ -154,6 +168,14 @@ UserMutationPayload:
         fields:
             id:
                 type: UUID!
+
+UserResultPayload:
+    type: object
+    config:
+        description: 'Payload if the User mutation was successful.'
+        fields:
+            success:
+                type: Boolean!
 
 AdminUserMutationPayload:
     type: object
