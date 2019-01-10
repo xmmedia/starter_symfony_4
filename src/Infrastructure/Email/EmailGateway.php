@@ -38,7 +38,7 @@ class EmailGateway implements EmailGatewayInterface
     }
 
     public function send(
-        int $templateId,
+        $templateId,
         Email $to,
         array $templateData
     ): EmailGatewayMessageId {
