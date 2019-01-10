@@ -7,7 +7,6 @@ namespace App\Infrastructure\GraphQl\Mutation;
 use App\Exception\FormValidationException;
 use App\Form\AdminUserCreateType;
 use App\Model\User\Command\AdminCreateUser;
-use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -51,7 +50,8 @@ class UserCreateMutation implements MutationInterface
             throw FormValidationException::fromForm($form, 'user');
         }
 
-        $userId = UserId::fromString($args['user']['id']);
+        $userId = $form->getData()['id'];
+
         if (!$form->getData()['setPassword']) {
             $password = ($this->tokenGenerator)()->toString();
         } else {

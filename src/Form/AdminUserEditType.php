@@ -8,12 +8,11 @@ use App\DataProvider\RoleProvider;
 use App\Form\DataTransformer\EmailTransformer;
 use App\Form\DataTransformer\NameTransformer;
 use App\Form\DataTransformer\SecurityRoleTransformer;
+use App\Form\DataTransformer\UserIdTransformer;
 use App\Model\User\Name;
 use App\Model\User\User;
-use App\Model\User\UserId;
 use App\Validator\Constraints\UniqueExistingUserEmail;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -96,22 +95,7 @@ class AdminUserEditType extends AbstractType
         ;
 
         $builder->get('id')
-            ->addModelTransformer(
-                new CallbackTransformer(
-                    function ($value): ?string {
-                        return $value;
-                    },
-                    function ($value): ?UserId {
-                        if (null === $value) {
-                            return null;
-                        }
-
-                        return UserId::fromString($value);
-                    }
-                )
-            )
-        ;
-
+            ->addModelTransformer(new UserIdTransformer());
         $builder->get('email')
             ->addModelTransformer(new EmailTransformer());
         $builder->get('role')

@@ -8,6 +8,7 @@ use App\DataProvider\RoleProvider;
 use App\Form\DataTransformer\EmailTransformer;
 use App\Form\DataTransformer\NameTransformer;
 use App\Form\DataTransformer\SecurityRoleTransformer;
+use App\Form\DataTransformer\UserIdTransformer;
 use App\Model\User\Name;
 use App\Model\User\User;
 use App\Validator\Constraints\UniqueNewUserEmail;
@@ -103,6 +104,8 @@ class AdminUserCreateType extends AbstractType
             ])
         ;
 
+        $builder->get('id')
+            ->addModelTransformer(new UserIdTransformer());
         $builder->get('email')
             ->addModelTransformer(new EmailTransformer());
         $builder->get('role')
