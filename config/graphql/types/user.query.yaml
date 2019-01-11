@@ -11,7 +11,7 @@ UserQuery:
                 resolve: '@=resolver("app.graphql.resolver.user.all")'
 
             User:
-                type: 'User'
+                type: User
                 description: "Retrieve a single User."
                 args:
                     id:
