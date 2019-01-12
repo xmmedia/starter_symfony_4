@@ -1,5 +1,5 @@
 <script>
-import api from './api';
+import fetch from 'unfetch';
 import { logError } from './lib';
 
 export default {
@@ -49,13 +49,9 @@ export default {
                 this.loading = true;
                 this.error = false;
 
-                const response = await api.get(this.url, {
-                    params: {
-                        _csrf_token: this.csrfToken,
-                    },
-                });
+                const response = await fetch(this.url);
 
-                this.data = response.data[this.responseKey];
+                this.data = await response.json()[this.responseKey];
 
                 this.loading = false;
                 this.error = false;
