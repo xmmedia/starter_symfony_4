@@ -66,7 +66,7 @@ deploy:
     # link shared folders
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -rf $RELEASE/var; ln -s $SHARED/var $RELEASE/var; rm -rf $RELEASE/public/uploads; ln -s $SHARED/public/uploads $RELEASE/public/uploads; rm -rf $RELEASE/public/media/cache; ln -s $SHARED/public/media/cache $RELEASE/public/media/cache"
     # switch to new version; run composer on server; db migrations
-    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -f $REMOTE_BASE/current; ln -s $RELEASE $REMOTE_BASE/current; cd $REMOTE_BASE/current; export SYMFONY_ENV=prod; php composer.phar run-script post-update-cmd; bin/console doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration"
+    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -f $REMOTE_BASE/current; ln -s $RELEASE $REMOTE_BASE/current; cd $REMOTE_BASE/current; export APP_ENV=prod; php composer.phar run-script post-update-cmd"
     # clear opcache
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; echo '<?php opcache_reset();' > html/opcache_reset.php; curl $HTTP_ROOT/opcache_reset.php; rm html/opcache_reset.php" || echo -e "\033[0;31mFAILURE unable to reset OPcache"
     # supervisord: write config & restart all
