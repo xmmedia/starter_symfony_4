@@ -92,6 +92,8 @@ running multiple sites on one server.
       - [Vue Templates](https://vuejs.org/v2/guide/syntax.html) – the syntax for .vue files
       - [Vue Test Utils](https://vue-test-utils.vuejs.org/) – to help testing Vue components
     - [Vue CLI](https://cli.vuejs.org/) – to manage & run the frontend compilation & testing
+    - [GraphQL](https://graphql.org/) – the communication (query) language for the API
+      - [Apollo Client](https://www.apollographql.com/docs/react/) through [Vue Apollo](https://vue-apollo.netlify.com) – frontend GraphQL 
     - [SASS](https://sass-lang.com/) – CSS preprocessor (uses [node-sass](https://www.npmjs.com/package/node-sass))
     - [Webpack](https://webpack.js.org/) – compiles JS & CSS
       - [Babel](https://babeljs.io/) – transforms JS to work in all browsers
@@ -100,9 +102,9 @@ running multiple sites on one server.
       - [Autoprefixer](ub.com/postcss/autoprefixer) – for adding browser prefixes
       - [Purge CSS](https://github.com/FullHuman/purgecss) – removes unused CSS during the deployment process (not run in dev)
       - [SVGO](https://github.com/svg/svgo) – optimizes SVG files
+      - [Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) – displays sizes/stats on the JS bundle size
     - [Tailwind](https://tailwindcss.com/docs/what-is-tailwind/) – utility first styling framework
     - [Cypress](https://www.cypress.io/) – end-to-end (e2e) testing
-    - [Axios](https://github.com/axios/axios) – smooths over browser inconsistencies related to AJAX requests
     - [Lodash](https://lodash.com/) – helper functions for JS
     - [date-fns](https://date-fns.org/) – helper functions for Dates in JS
     - [PortalVue](https://github.com/LinusBorg/portal-vue) – helps to manage things like modals
@@ -113,6 +115,8 @@ running multiple sites on one server.
     - [Stylelint](https://stylelint.io/) – checks CSS for conventions & errors
   - Backend – full list of dependencies can be found in [composer.json](https://gitlab.com/batteryanalytics/customer/blob/master/composer.json)
     - [Symfony](https://symfony.com/doc/current/index.html#gsc.tab=0) – backend framework
+    - [GraphQLBundle](https://github.com/overblog/GraphQLBundle) – provides GraphQL in PHP using [graphql-php](https://github.com/webonyx/graphql-php)
+      - [GraphQiL](https://github.com/graphql/graphiql) is available at `/graphiql` (on dev only)
     - [Twig](https://twig.symfony.com/) – server side templating language (limited use)
     - [Prooph PDO Event Store](https://github.com/prooph/pdo-event-store) & Bridge/Bundle – for doing Event Sourcing
     - [Doctrine](https://www.doctrine-project.org/) – for reading from read models
@@ -122,3 +126,7 @@ running multiple sites on one server.
     - [Postmark](https://postmarkapp.com/) – for sending email, contains email templates (currently setup under XM Media's account)
     - [Cloudflare](https://www.cloudflare.com/) – DNS & CDN
   - [GitLab](https://gitlab.com/batteryanalytics) – deployment
+  - Dev Tools
+    - [Vue Devtools](https://github.com/vuejs/vue-devtools)
+    - [Apollo Devtools](https://github.com/apollographql/apollo-client-devtools)
+    - [GraphQiL](https://github.com/graphql/graphiql) is available at `/graphiql`
