@@ -4,6 +4,7 @@ Mutation:
         description: 'Main Mutations'
         fields:
             # so there's always a mutation available
-            Noop:
+            Ping:
                 type: Boolean!
+                description: 'A default query so public pages have a mutation.'
                 resolve: '@=true'
