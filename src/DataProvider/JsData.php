@@ -16,17 +16,10 @@ class JsData
     /** @var Security */
     private $security;
 
-    /** @var CsrfTokenManagerInterface */
-    private $csrfTokenManager;
-
-    public function __construct(
-        RouterInterface $router,
-        Security $security,
-        CsrfTokenManagerInterface $csrfTokenManager
-    ) {
+    public function __construct(RouterInterface $router, Security $security)
+    {
         $this->router = $router;
         $this->security = $security;
-        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     /**
@@ -46,8 +39,7 @@ class JsData
     private function getAdmin(): array
     {
         return [
-            'user'      => $this->getUser(),
-            'csrfToken' => $this->csrfTokenManager->getToken('admin')->getValue(),
+            'user' => $this->getUser(),
         ];
     }
 
