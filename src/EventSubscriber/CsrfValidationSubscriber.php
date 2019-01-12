@@ -55,25 +55,23 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $value = $request->headers->get($this->haderName);
+        $value = $request->cookies->get($this->cookieName);
+        if (!$value) {
+            throw new AccessDeniedHttpException('Bad CSRF token.');
+        }
 
-        if (!$value || !$this->csrfTokenManager->isTokenValid(new CsrfToken($this->tokenName, $value))) {
+        $token = new CsrfToken($this->tokenName, $value);
+        if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new AccessDeniedHttpException('Bad CSRF token.');
         }
     }
 
     public function addCsrfCookie(FilterResponseEvent $event): void
     {
+        $token = $this->csrfTokenManager->getToken($this->tokenName)->getValue();
+
         $event->getResponse()->headers->setCookie(
-            new Cookie(
-                $this->cookieName,
-                $this->csrfTokenManager->getToken($this->tokenName)->getValue(),
-                0,
-                '/',
-                null,
-                true,
-                false
-            )
+            Cookie::create($this->cookieName, $token, 0, '/', null, true)
         );
     }
 }
