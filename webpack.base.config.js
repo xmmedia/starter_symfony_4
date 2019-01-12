@@ -3,6 +3,7 @@ const path = require('path');
 const glob = require('glob-all');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function resolve (dir) {
     return path.join(__dirname, '.', dir);
@@ -84,6 +85,11 @@ module.exports = function (Encore) {
         })
 
         .addPlugin(new Dotenv())
+
+        .addPlugin(new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+        }))
     ;
 
     if (Encore.isProduction()) {

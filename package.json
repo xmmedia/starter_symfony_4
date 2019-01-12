@@ -69,6 +69,7 @@
     "tailwindcss": "^0.7.2",
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",
+    "webpack-bundle-analyzer": "^3.0.3",
     "workbox-webpack-plugin": "^3.6.3"
   }
 }
