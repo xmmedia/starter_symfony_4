@@ -48,7 +48,7 @@
         </form>
 
         <div v-if="status === 'saved'" class="alert alert-success" role="alert">
-            Your account is now active.<br>
+            Your account is now active.
             <a href="/login" class="pl-4">Login</a>
         </div>
     </div>

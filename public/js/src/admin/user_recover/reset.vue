@@ -52,7 +52,7 @@
             </form>
 
             <div v-if="status === 'saved'" class="alert alert-success" role="alert">
-                Your password has been reset.<br>
+                Your password has been reset.
                 <a href="/login" class="pl-4">Login</a>
             </div>
         </div>
