@@ -48,11 +48,9 @@
 </template>
 
 <script>
-import { repositoryFactory } from '../repository/factory';
 import { logError } from '@/common/lib';
 import profileTabs from './component/tabs';
-
-const userProfileEditRepo = repositoryFactory.get('userProfileEdit');
+import { ChangePassword } from '../queries/user.mutation';
 
 const statuses = {
     LOADED: 'loaded',
@@ -87,15 +85,16 @@ export default {
             this.status = statuses.SAVING;
 
             try {
-                const data = {
-                    currentPassword: this.currentPassword,
-                    newPassword: {
-                        first: this.newPassword,
-                        second: this.repeatPassword,
+                await this.$apollo.mutate({
+                    mutation: ChangePassword,
+                    variables: {
+                        user: {
+                            currentPassword: this.currentPassword,
+                            newPassword: this.newPassword,
+                            repeatPassword: this.repeatPassword,
+                        },
                     },
-                };
-
-                await userProfileEditRepo.password(data);
+                });
 
                 this.currentPassword = null;
                 this.newPassword = null;
@@ -104,6 +103,7 @@ export default {
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
 
+                // @todo they'll be logged out at this point, redirect them to the login? with message?
                 setTimeout(() => {
                     this.status = statuses.LOADED;
                 }, 5000);

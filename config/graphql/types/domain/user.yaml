@@ -1,0 +1,46 @@
+User:
+    type: object
+    inherits: [Entity]
+    config:
+        description: 'The User object.'
+        fields:
+            id:
+                type: UUID!
+            email:
+                type: String!
+            firstName:
+                type: String
+            lastName:
+                type: String
+            name:
+                type: String
+            verified:
+                type: Boolean
+                access: '@=hasRole("ROLE_ADMIN")'
+            active:
+                type: Boolean
+                access: '@=hasRole("ROLE_ADMIN")'
+            roles:
+                type: '[Role!]'
+                access: '@=hasRole("ROLE_ADMIN")'
+            # if they attempt to access this field when not admin
+            # they'll get a access denied + null for the whole user
+            # as this field cannot come back as null
+            loginCount:
+                type: Int!
+                access: '@=hasRole("ROLE_ADMIN")'
+            lastLogin:
+                type: DateTime
+                access: '@=hasRole("ROLE_ADMIN")'
+
+Role:
+    type: enum
+    config:
+        description: 'Available User roles.'
+        values:
+            ROLE_USER:
+                value: 'ROLE_USER'
+            ROLE_ADMIN:
+                value: 'ROLE_ADMIN'
+            ROLE_SUPER_ADMIN:
+                value: 'ROLE_SUPER_ADMIN'

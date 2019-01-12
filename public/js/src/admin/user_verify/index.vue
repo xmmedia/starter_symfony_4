@@ -49,16 +49,14 @@
 
         <div v-if="status === 'saved'" class="alert alert-success" role="alert">
             Your account is now active.<br>
-            <a href="/login" class="pl-4">Continue</a>
+            <a href="/login" class="pl-4">Login</a>
         </div>
     </div>
 </template>
 
 <script>
-import { repositoryFactory } from '../repository/factory';
-import { logError } from '@/common/lib';
-
-const userProfileEditRepo = repositoryFactory.get('userProfileEdit');
+import { logError, hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
+import { UserVerify } from '../queries/user.mutation';
 
 const statuses = {
     LOADED: 'loaded',
@@ -92,26 +90,19 @@ export default {
         },
     },
 
-    watch: {},
-
-    beforeMount () {},
-
-    mounted () {},
-
     methods: {
         async submit () {
             this.status = statuses.SAVING;
 
             try {
-                const data = {
-                    token: this.$route.params.token,
-                    password: {
-                        first: this.password,
-                        second: this.repeatPassword,
+                await this.$apollo.mutate({
+                    mutation: UserVerify,
+                    variables: {
+                        token: this.$route.params.token,
+                        newPassword: this.password,
+                        repeatPassword: this.repeatPassword,
                     },
-                };
-
-                await userProfileEditRepo.activate(data);
+                });
 
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
@@ -125,24 +116,31 @@ export default {
                 }, 5000);
 
             } catch (e) {
-                if (e.response && e.response.status === 400) {
-                    this.validationErrors = e.response.data.errors;
+                this.validationErrors = {};
 
-                } else if (e.response && e.response.status === 404) {
-                    this.invalidToken = true;
-
-                } else if (e.response && e.response.status === 405) {
-                    this.tokenExpired = true;
-
+                if (hasGraphQlError(e)) {
+                    if (hasGraphQlValidationError(e)) {
+                        this.validationErrors = e.graphQLErrors[0].validation;
+                    } else if (e.graphQLErrors[0].code === 404) {
+                        this.invalidToken = true;
+                    } else if (e.graphQLErrors[0].code === 405) {
+                        this.tokenExpired = true;
+                    } else {
+                        this.showError(e);
+                    }
                 } else {
-                    logError(e);
-                    alert('There was a problem saving your password. Please try again later.');
+                    this.showError(e);
                 }
 
                 window.scrollTo(0, 0);
 
                 this.status = statuses.LOADED;
             }
+        },
+
+        showError (e) {
+            logError(e);
+            alert('There was a problem saving your password. Please try again later.');
         },
     },
 }

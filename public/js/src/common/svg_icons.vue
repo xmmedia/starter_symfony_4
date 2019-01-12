@@ -1,9 +1,9 @@
 <template>
-    <div style="height: 0; width: 0; position: absolute; visibility: hidden;" v-html="svg"></div>
+    <div v-if="svg" style="height: 0; width: 0; position: absolute; visibility: hidden;" v-html="svg"></div>
 </template>
 
 <script>
-import api from '@/common/api';
+import fetch from 'unfetch';
 
 export default {
     props: {
@@ -19,12 +19,10 @@ export default {
         };
     },
 
-    mounted () {
-        api
-            .get(this.src)
-            .then((response) => {
-                this.svg = response.data;
-            });
+    async mounted () {
+        const response = await fetch(this.src);
+
+        this.svg = await response.text();
     },
 }
 </script>

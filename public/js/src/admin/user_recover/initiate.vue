@@ -36,10 +36,8 @@
 </template>
 
 <script>
-import { repositoryFactory } from '../repository/factory';
-import { logError } from '@/common/lib';
-
-const userProfileEditRepo = repositoryFactory.get('userProfileEdit');
+import { logError, hasGraphQlValidationError } from '@/common/lib';
+import { UserRecoverInitiate } from '../queries/user.mutation';
 
 const statuses = {
     LOADED: 'loaded',
@@ -72,11 +70,12 @@ export default {
             this.status = statuses.SAVING;
 
             try {
-                const data = {
-                    email: this.email,
-                };
-
-                await userProfileEditRepo.recoverInitiate(data);
+                await this.$apollo.mutate({
+                    mutation: UserRecoverInitiate,
+                    variables: {
+                        email: this.email,
+                    },
+                });
 
                 this.email = null;
 
@@ -85,8 +84,8 @@ export default {
                 this.notFound = false;
 
             } catch (e) {
-                if (e.response && e.response.status === 400) {
-                    this.validationErrors = e.response.data.errors;
+                if (hasGraphQlValidationError(e)) {
+                    this.validationErrors = e.graphQLErrors[0].validation;
                 } else if (e.response && e.response.status === 404) {
                     this.notFound = true;
                 } else {

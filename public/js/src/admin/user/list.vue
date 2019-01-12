@@ -41,10 +41,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import { repositoryFactory } from '../repository/factory';
 import { logError } from '@/common/lib';
-
-const adminUserRepo = repositoryFactory.get('adminUser');
+import { GetUsersQuery } from '../queries/user.query';
 
 const statuses = {
     LOADING: 'loading',
@@ -53,8 +51,6 @@ const statuses = {
 };
 
 export default {
-    components: {},
-
     filters: {
         accountStatus (user) {
             if (!user.active) {
@@ -66,8 +62,6 @@ export default {
             return 'Active';
         },
     },
-
-    props: {},
 
     data () {
         return {
@@ -82,33 +76,27 @@ export default {
         ]),
     },
 
-    watch: {},
-
-    beforeMount () {},
-
     mounted () {
-        this.load();
+        // refresh the list of users if it's not already load
+        // this will happen when the user is returning from an edit screen
+        if (!this.$apollo.queries.users.loading) {
+            this.$apollo.queries.users.refetch();
+        }
     },
 
-    methods: {
-        async load () {
-            try {
-                const response = await adminUserRepo.list();
-
-                this.users = response.data.users.map((user) => {
-                    if (user.lastLogin) {
-                        user.lastLogin = new Date(user.lastLogin);
-                    }
-
-                    return user;
-                });
-                this.status = statuses.LOADED;
-
-            } catch (e) {
+    apollo: {
+        users: {
+            query: GetUsersQuery,
+            update: data => data.Users,
+            error (e) {
                 logError(e);
-
                 this.status = statuses.ERROR;
-            }
+            },
+            watchLoading (isLoading) {
+                if (!isLoading && this.status === statuses.LOADING) {
+                    this.status = statuses.LOADED;
+                }
+            },
         },
     },
 }

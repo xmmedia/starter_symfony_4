@@ -56,14 +56,13 @@
 </template>
 
 <script>
-import { repositoryFactory } from '../repository/factory';
-import { logError } from '@/common/lib';
+import { logError, hasGraphQlValidationError } from '@/common/lib';
 import fieldEmail from './component/email';
 import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
-
-const adminUserRepo = repositoryFactory.get('adminUser');
+import { GetUserQuery } from '../queries/user.query';
+import { AdminUpdateUserMutation, AdminActivateUserMutation, AdminVerifyUserMutation, AdminSendResetToUserMutation } from '../queries/admin/user.mutation';
 
 const statuses = {
     LOADING: 'loading',
@@ -80,8 +79,6 @@ export default {
         'field-name': fieldName,
         'field-role': fieldRole,
     },
-
-    props: {},
 
     data () {
         return {
@@ -116,35 +113,36 @@ export default {
         },
     },
 
-    watch: {},
-
-    beforeMount () {},
-
-    mounted () {
-        this.load();
+    apollo: {
+        user: {
+            query: GetUserQuery,
+            variables () {
+                return {
+                    id: this.userId,
+                };
+            },
+            update (data) {
+                this.email = data.User.email;
+                this.role = data.User.roles[0];
+                this.firstName = data.User.firstName;
+                this.lastName = data.User.lastName;
+                this.verified = data.User.verified;
+                this.active = data.User.active;
+            },
+            error (e) {
+                logError(e);
+                this.status = statuses.ERROR;
+            },
+            watchLoading (isLoading) {
+                if (!isLoading && this.status === statuses.LOADING) {
+                    this.status = statuses.LOADED;
+                }
+            },
+            fetchPolicy: 'network-only',
+        },
     },
 
     methods: {
-        async load () {
-            try {
-                const response = await adminUserRepo.get(this.userId);
-
-                this.email = response.data.user.email;
-                this.role = response.data.user.roles[0];
-                this.firstName = response.data.user.firstName;
-                this.lastName = response.data.user.lastName;
-                this.verified = response.data.user.verified;
-                this.active = response.data.user.active;
-
-                this.status = statuses.LOADED;
-
-            } catch (e) {
-                logError(e);
-
-                this.status = statuses.ERROR;
-            }
-        },
-
         async submit () {
             if (!this.allowSave) {
                 return;
@@ -153,17 +151,20 @@ export default {
             this.status = statuses.SAVING;
 
             try {
-                const data = {
-                    id: this.userId,
-                    email: this.email,
-                    changePassword: this.changePassword,
-                    password: this.password,
-                    role: this.role,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                };
-
-                await adminUserRepo.update(data);
+                await this.$apollo.mutate({
+                    mutation: AdminUpdateUserMutation,
+                    variables: {
+                        user: {
+                            id: this.userId,
+                            email: this.email,
+                            changePassword: this.changePassword,
+                            password: this.password,
+                            role: this.role,
+                            firstName: this.firstName,
+                            lastName: this.lastName,
+                        },
+                    },
+                });
 
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
@@ -173,8 +174,8 @@ export default {
                 }, 1500);
 
             } catch (e) {
-                if (e.response && e.response.status === 400) {
-                    this.validationErrors = e.response.data.errors;
+                if (hasGraphQlValidationError(e)) {
+                    this.validationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);
                     alert('There was a problem saving. Please try again later.');
@@ -194,11 +195,15 @@ export default {
             this.status = statuses.SAVING;
 
             try {
-                if (!this.active) {
-                    await adminUserRepo.activate(this.userId);
-                } else {
-                    await adminUserRepo.deactivate(this.userId);
-                }
+                await this.$apollo.mutate({
+                    mutation: AdminActivateUserMutation,
+                    variables: {
+                        user: {
+                            id: this.userId,
+                            action: this.active ? 'deactivate' : 'activate',
+                        },
+                    },
+                });
 
                 this.active = !this.active;
 
@@ -226,9 +231,14 @@ export default {
             this.status = statuses.SAVING;
 
             try {
-                await adminUserRepo.verify(this.userId);
+                await this.$apollo.mutate({
+                    mutation: AdminVerifyUserMutation,
+                    variables: {
+                        user: { id: this.userId },
+                    },
+                });
 
-                this.verify = true;
+                this.verified = true;
                 this.status = statuses.SAVED;
 
                 setTimeout(() => {
@@ -253,7 +263,12 @@ export default {
             this.status = statuses.SAVING;
 
             try {
-                await adminUserRepo.sendReset(this.userId);
+                await this.$apollo.mutate({
+                    mutation: AdminSendResetToUserMutation,
+                    variables: {
+                        user: { id: this.userId },
+                    },
+                });
 
                 this.status = statuses.SAVED;
 

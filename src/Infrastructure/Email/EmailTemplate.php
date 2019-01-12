@@ -7,6 +7,7 @@ namespace App\Infrastructure\Email;
 class EmailTemplate
 {
     // @todo-symfony
-    public const PASSWORD_RESET = 9223137;
-    public const USER_INVITE = 9223492;
+    public const ENQUIRY_RECEIVED = 9157888;
+    public const PASSWORD_RESET = 9119712;
+    public const USER_INVITE = 9106459;
 }

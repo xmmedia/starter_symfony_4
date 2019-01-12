@@ -57,11 +57,9 @@
 </template>
 
 <script>
-import { repositoryFactory } from '../repository/factory';
-import { logError } from '@/common/lib';
+import { logError, hasGraphQlValidationError } from '@/common/lib';
 import profileTabs from './component/tabs';
-
-const userProfileEditRepo = repositoryFactory.get('userProfileEdit');
+import { UpdateUser } from '../queries/user.mutation';
 
 const statuses = {
     LOADED: 'loaded',
@@ -113,7 +111,12 @@ export default {
                     lastName: this.lastName,
                 };
 
-                await userProfileEditRepo.save(data);
+                await this.$apollo.mutate({
+                    mutation: UpdateUser,
+                    variables: {
+                        user: data,
+                    },
+                });
 
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
@@ -127,8 +130,8 @@ export default {
                 }, 5000);
 
             } catch (e) {
-                if (e.response && e.response.status === 400) {
-                    this.validationErrors = e.response.data.errors;
+                if (hasGraphQlValidationError(e)) {
+                    this.validationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);
                     alert('There was a problem saving your profile. Please try again later.');

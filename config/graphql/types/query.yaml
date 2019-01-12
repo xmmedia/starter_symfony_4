@@ -1,0 +1,10 @@
+Query:
+    type: object
+    config:
+        description: 'Main Queries'
+        fields:
+            Me:
+                type: User
+                description: 'The current User object or null.'
+                access: '@=isAuthenticated()'
+                resolve: '@=getUser()'

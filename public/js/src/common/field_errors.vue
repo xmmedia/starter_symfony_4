@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import { get, toPath } from 'lodash';
+import get from 'lodash/get';
+import toPath from 'lodash/toPath';
 
 export default {
     props: {
@@ -55,12 +56,12 @@ export default {
             const path = toPath(this.field);
 
             if (path.length === 1) {
-                return [['children', this.field, 'errors']];
+                return [[this.field, 'errors']];
             }
 
             return [
-                ['children', path[0], 'errors'],
-                ['children', path[0], 'children', path[1], 'errors'],
+                [path[0], 'errors'],
+                [path[0], 'children', path[1], 'errors'],
             ];
         },
     },

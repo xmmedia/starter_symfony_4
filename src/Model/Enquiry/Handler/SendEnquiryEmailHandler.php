@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\Enquiry\Handler;
 
 use App\Infrastructure\Email\EmailGatewayInterface;
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\Email;
 use App\Model\Enquiry\Command\SendEnquiryEmail;
 
@@ -25,8 +26,7 @@ class SendEnquiryEmailHandler
     public function __invoke(SendEnquiryEmail $command): void
     {
         $this->emailGateway->send(
-            // @todo-symfony
-            9157888,
+            EmailTemplate::ENQUIRY_RECEIVED,
             Email::fromString($this->adminEmail),
             [
                 'name'     => $command->name(),
