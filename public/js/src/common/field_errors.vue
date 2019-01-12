@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import { get, toPath } from 'lodash';
+import get from 'lodash/get';
+import toPath from 'lodash/toPath';
 
 export default {
     props: {
