@@ -7,6 +7,13 @@
                 <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
                     <li>Please fix the errors below.</li>
                 </ul>
+                <div v-if="status === 'saved'" class="alert alert-success mb-4" role="alert">
+                    <div>
+                        Your password has been updated.<br>
+                        You will need to login again.
+                    </div>
+                    <a href="/login" class="pl-4">Go to Login</a>
+                </div>
 
                 <div class="hidden">
                     <label for="inputEmail">Email</label>
@@ -34,6 +41,8 @@
                                 field="newPassword.second"
                                 autocomplete="new-password" />
 
+                <div class="mb-4 text-sm">After changing your password, you will need to login again.</div>
+
                 <div>
                     <button type="submit" class="button">Change Password</button>
                     <router-link :to="{ name: 'user-profile-edit' }"
@@ -48,7 +57,7 @@
 </template>
 
 <script>
-import { logError } from '@/common/lib';
+import { logError, hasGraphQlValidationError } from '@/common/lib';
 import profileTabs from './component/tabs';
 import { ChangePassword } from '../queries/user.mutation';
 
@@ -103,14 +112,9 @@ export default {
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
 
-                // @todo they'll be logged out at this point, redirect them to the login? with message?
-                setTimeout(() => {
-                    this.status = statuses.LOADED;
-                }, 5000);
-
             } catch (e) {
-                if (e.response && e.response.status === 400) {
-                    this.validationErrors = e.response.data.errors;
+                if (hasGraphQlValidationError(e)) {
+                    this.validationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);
                     alert('There was a problem saving your password. Please try again later.');
