@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Mutation;
 
 use App\Exception\FormValidationException;
-use App\Form\AdminUserEditType;
+use App\Form\AdminUserUpdateType;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Security\PasswordEncoder;
@@ -38,7 +38,7 @@ class AdminUserUpdateMutation implements MutationInterface
     public function __invoke(Argument $args): array
     {
         $form = $this->formFactory
-            ->create(AdminUserEditType::class)
+            ->create(AdminUserUpdateType::class)
             ->submit($args['user']);
 
         if (!$form->isValid()) {

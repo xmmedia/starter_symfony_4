@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdminUserEditType extends AbstractType
+class AdminUserUpdateType extends AbstractType
 {
     /** @var RoleProvider */
     private $roleProvider;

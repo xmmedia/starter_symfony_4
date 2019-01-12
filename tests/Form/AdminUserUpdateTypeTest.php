@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Form;
 
 use App\DataProvider\RoleProvider;
-use App\Form\AdminUserEditType;
+use App\Form\AdminUserUpdateType;
 use App\Model\Email;
 use App\Model\User\Name;
 use Faker;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
-class AdminUserEditTypeTest extends TypeTestCase
+class AdminUserUpdateTypeTest extends TypeTestCase
 {
     use ValidatorExtensionTrait;
     use MockeryPHPUnitIntegration;
@@ -28,7 +28,7 @@ class AdminUserEditTypeTest extends TypeTestCase
         $roleHierarchy = Mockery::mock(RoleHierarchyInterface::class);
         $roleHierarchy->shouldReceive('getReachableRoles')
             ->andReturn([new Role('ROLE_USER')]);
-        $extensions[] = new AdminUserEditType(new RoleProvider($roleHierarchy));
+        $extensions[] = new AdminUserUpdateType(new RoleProvider($roleHierarchy));
 
         return $extensions;
     }
@@ -47,7 +47,7 @@ class AdminUserEditTypeTest extends TypeTestCase
             'role'           => 'ROLE_USER',
         ];
 
-        $form = $this->factory->create(AdminUserEditType::class)
+        $form = $this->factory->create(AdminUserUpdateType::class)
             ->submit($formData);
 
         $this->assertTrue($form->isValid());
@@ -70,7 +70,7 @@ class AdminUserEditTypeTest extends TypeTestCase
             'role'           => 'ROLE_USER',
         ];
 
-        $form = $this->factory->create(AdminUserEditType::class)
+        $form = $this->factory->create(AdminUserUpdateType::class)
             ->submit($formData);
 
         $this->assertTrue($form->isValid());
