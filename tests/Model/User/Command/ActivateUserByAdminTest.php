@@ -14,7 +14,7 @@ class ActivateUserByAdminTest extends TestCase
     {
         $userId = UserId::generate();
 
-        $command = ActivateUserByAdmin::now($userId);
+        $command = ActivateUserByAdmin::user($userId);
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
     }

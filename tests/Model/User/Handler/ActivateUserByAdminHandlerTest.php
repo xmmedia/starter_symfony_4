@@ -24,7 +24,7 @@ class ActivateUserByAdminHandlerTest extends TestCase
         $user->shouldReceive('activateByAdmin')
             ->once();
 
-        $command = ActivateUserByAdmin::now(UserId::generate());
+        $command = ActivateUserByAdmin::user(UserId::generate());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -39,7 +39,7 @@ class ActivateUserByAdminHandlerTest extends TestCase
 
     public function testUserNotFound(): void
     {
-        $command = ActivateUserByAdmin::now(UserId::generate());
+        $command = ActivateUserByAdmin::user(UserId::generate());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
