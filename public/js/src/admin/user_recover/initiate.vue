@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { logError, hasGraphQlValidationError } from '@/common/lib';
+import { logError, hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
 import { UserRecoverInitiate } from '../queries/user.mutation';
 
 const statuses = {
@@ -84,19 +84,29 @@ export default {
                 this.notFound = false;
 
             } catch (e) {
-                if (hasGraphQlValidationError(e)) {
-                    this.validationErrors = e.graphQLErrors[0].validation;
-                } else if (e.response && e.response.status === 404) {
-                    this.notFound = true;
+                this.validationErrors = {};
+
+                if (hasGraphQlError(e)) {
+                    if (hasGraphQlValidationError(e)) {
+                        this.validationErrors = e.graphQLErrors[0].validation;
+                    } else if (e.graphQLErrors[0].code === 404) {
+                        this.notFound = true;
+                    } else {
+                        this.showError(e);
+                    }
                 } else {
-                    logError(e);
-                    alert('There was a problem requesting a password reset. Please try again later.');
+                    this.showError(e);
                 }
 
                 window.scrollTo(0, 0);
 
                 this.status = statuses.LOADED;
             }
+        },
+
+        showError (e) {
+            logError(e);
+            alert('There was a problem requesting a password reset. Please try again later.');
         },
     },
 }

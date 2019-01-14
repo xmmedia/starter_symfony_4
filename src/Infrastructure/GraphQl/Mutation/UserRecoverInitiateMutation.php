@@ -48,7 +48,7 @@ class UserRecoverInitiateMutation implements MutationInterface
         $user = $this->userRepo->findOneByEmail($form->getData()['email']);
 
         if (!$user || !$user->active()) {
-            throw new UserError('An account with that email cannot be found.');
+            throw new UserError('An account with that email cannot be found.', 404);
         }
 
         $this->commandBus->dispatch(
