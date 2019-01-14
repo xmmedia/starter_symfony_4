@@ -104,6 +104,7 @@ running multiple sites on one server.
       - [SVGO](https://github.com/svg/svgo) – optimizes SVG files
       - [Bundle Analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) – displays sizes/stats on the JS bundle size
     - [Tailwind](https://tailwindcss.com/docs/what-is-tailwind/) – utility first styling framework
+    - [Jest](https://jestjs.io/) – JS unit testing
     - [Cypress](https://www.cypress.io/) – end-to-end (e2e) testing
     - [Lodash](https://lodash.com/) – helper functions for JS
     - [date-fns](https://date-fns.org/) – helper functions for Dates in JS
