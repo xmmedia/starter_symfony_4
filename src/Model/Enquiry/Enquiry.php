@@ -13,7 +13,7 @@ class Enquiry extends AggregateRoot implements Entity
 {
     use AppliesAggregateChanged;
 
-    public const NAME_MIN_LENGTH = 5;
+    public const NAME_MIN_LENGTH = 3;
     public const NAME_MAX_LENGTH = 50;
     public const MESSAGE_MIN_LENGTH = 10;
     public const MESSAGE_MAX_LENGTH = 5000;

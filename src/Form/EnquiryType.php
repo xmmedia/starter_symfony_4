@@ -27,6 +27,8 @@ class EnquiryType extends AbstractType
                     new Assert\Length([
                         'min' => Enquiry::NAME_MIN_LENGTH,
                         'max' => Enquiry::NAME_MAX_LENGTH,
+                        'minMessage' => 'The name is a bit short.',
+                        'maxMessage' => 'This is a bit long. Only include your first and last name.',
                     ]),
                 ],
             ])
@@ -46,6 +48,8 @@ class EnquiryType extends AbstractType
                     new Assert\Length([
                         'min' => Enquiry::MESSAGE_MIN_LENGTH,
                         'max' => Enquiry::MESSAGE_MAX_LENGTH,
+                        'minMessage' => 'Your message needs to be a bit longer.',
+                        'maxMessage' => 'Your message is too long (max 5000 characters). Try shortening it and we can confirm the details at a later date.',
                     ]),
                 ],
             ])

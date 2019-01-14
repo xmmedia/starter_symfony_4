@@ -1,0 +1,30 @@
+EnquiryMutation:
+    decorator: true
+    heirs: [Mutation]
+    config:
+        fields:
+            SendEnquiry:
+                type: EnquiryPayload!
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\SendEnquiryMutation", [args])'
+                args:
+                    enquiry: EnquiryInput!
+
+EnquiryInput:
+    type: input-object
+    config:
+        description: 'Send Enquiry input.'
+        fields:
+            name:
+                type: String!
+            email:
+                type: String!
+            message:
+                type: String!
+
+EnquiryPayload:
+    type: object
+    config:
+        description: 'Send Enquiry mutation payload.'
+        fields:
+            success:
+                type: Boolean!
