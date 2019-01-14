@@ -30,9 +30,15 @@ class AdminUserCreateType extends AbstractType
     /** @var RoleProvider */
     private $roleProvider;
 
-    public function __construct(RoleProvider $roleProvider)
-    {
+    /** @var SecurityRoleTransformer */
+    private $securityRoleTransformer;
+
+    public function __construct(
+        RoleProvider $roleProvider,
+        SecurityRoleTransformer $securityRoleTransformer
+    ) {
         $this->roleProvider = $roleProvider;
+        $this->securityRoleTransformer = $securityRoleTransformer;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -109,7 +115,7 @@ class AdminUserCreateType extends AbstractType
         $builder->get('email')
             ->addModelTransformer(new EmailTransformer());
         $builder->get('role')
-            ->addModelTransformer(new SecurityRoleTransformer());
+            ->addModelTransformer($this->securityRoleTransformer);
         $builder->get('firstName')
             ->addModelTransformer(new NameTransformer());
         $builder->get('lastName')

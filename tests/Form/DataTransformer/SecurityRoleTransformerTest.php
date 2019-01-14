@@ -4,18 +4,26 @@ declare(strict_types=1);
 
 namespace App\Tests\Form\DataTransformer;
 
+use App\DataProvider\RoleProvider;
 use App\Form\DataTransformer\SecurityRoleTransformer;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Security\Core\Role\Role;
 
 class SecurityRoleTransformerTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @dataProvider transformProvider
      */
-    public function testTransform($value, $expected): void
+    public function testTransform(?Role $value, ?string $expected): void
     {
-        $result = (new SecurityRoleTransformer())->transform($value);
+        $roleProvider = Mockery::mock(RoleProvider::class);
+
+        $result = (new SecurityRoleTransformer($roleProvider))->transform($value);
 
         $this->assertEquals($expected, $result);
     }
@@ -30,9 +38,16 @@ class SecurityRoleTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformProvider
      */
-    public function testReverseTransform($value, $expected): void
+    public function testReverseTransform(?string $value, ?Role $expected): void
     {
-        $result = (new SecurityRoleTransformer())->reverseTransform($value);
+        $roleProvider = Mockery::mock(RoleProvider::class);
+        if (null !== $value) {
+            $roleProvider->shouldReceive('__invoke')
+                ->andReturn(['ROLE_USER']);
+        }
+
+        $result = (new SecurityRoleTransformer($roleProvider))
+            ->reverseTransform($value);
 
         $this->assertEquals($expected, $result);
     }
@@ -42,5 +57,16 @@ class SecurityRoleTransformerTest extends TestCase
         yield [null, null];
 
         yield ['ROLE_USER', new Role('ROLE_USER')];
+    }
+
+    public function testReverseTransformInvalid(): void
+    {
+        $roleProvider = Mockery::mock(RoleProvider::class);
+        $roleProvider->shouldReceive('__invoke')
+            ->andReturn(['ROLE_USER']);
+
+        $this->expectException(TransformationFailedException::class);
+
+        (new SecurityRoleTransformer($roleProvider))->reverseTransform('ROLE');
     }
 }

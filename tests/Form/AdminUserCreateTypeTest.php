@@ -6,6 +6,7 @@ namespace App\Tests\Form;
 
 use App\DataProvider\RoleProvider;
 use App\Form\AdminUserCreateType;
+use App\Form\DataTransformer\SecurityRoleTransformer;
 use App\Model\Email;
 use App\Model\User\Name;
 use Faker;
@@ -28,7 +29,16 @@ class AdminUserCreateTypeTest extends TypeTestCase
         $roleHierarchy = Mockery::mock(RoleHierarchyInterface::class);
         $roleHierarchy->shouldReceive('getReachableRoles')
             ->andReturn([new Role('ROLE_USER')]);
-        $extensions[] = new AdminUserCreateType(new RoleProvider($roleHierarchy));
+
+        $roleTransformer = Mockery::mock(SecurityRoleTransformer::class);
+        $roleTransformer->shouldReceive('transform')
+            ->with(null)
+            ->andReturnNull();
+        $roleTransformer->shouldReceive('reverseTransform')
+            ->with('ROLE_USER')
+            ->andReturn(new Role('ROLE_USER'));
+
+        $extensions[] = new AdminUserCreateType(new RoleProvider($roleHierarchy), $roleTransformer);
 
         return $extensions;
     }
