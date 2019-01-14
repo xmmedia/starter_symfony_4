@@ -69,7 +69,6 @@
         "phpstan/phpstan-symfony": "^0.10.2",
         "phpstan/phpstan-webmozart-assert": "^0.10.0",
         "phpunit/phpunit": "^7.4",
-        "prolic/fpp": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.0",

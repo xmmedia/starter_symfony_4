@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e60284244b91bfe736a5b904a8817080",
+    "content-hash": "b5039a80042bf32a3aff642d282d7b1b",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -11062,52 +11062,6 @@
             "time": "2018-12-12T07:20:32+00:00"
         },
         {
-            "name": "prolic/fpp",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/prolic/fpp.git",
-                "reference": "ca440d62f5bc42f45466c81afbb98fd206730f51"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/prolic/fpp/zipball/ca440d62f5bc42f45466c81afbb98fd206730f51",
-                "reference": "ca440d62f5bc42f45466c81afbb98fd206730f51",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "^1.6.5",
-                "phpstan/phpstan": "^0.10.1",
-                "phpunit/phpunit": "^7.0",
-                "prooph/php-cs-fixer-config": "^0.3",
-                "satooshi/php-coveralls": "^2.0"
-            },
-            "bin": [
-                "bin/fpp"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Fpp\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Sascha-Oliver Prolic",
-                    "email": "saschaprolic@googlemail.com"
-                }
-            ],
-            "description": "Functional PHP Preprocessor",
-            "time": "2018-11-13T05:11:21+00:00"
-        },
-        {
             "name": "sebastian/code-unit-reverse-lookup",
             "version": "1.0.1",
             "source": {
@@ -12678,8 +12632,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "roave/security-advisories": 20,
-        "liip/functional-test-bundle": 15,
-        "prolic/fpp": 20
+        "liip/functional-test-bundle": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
