@@ -16,8 +16,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class JsDataTest extends TestCase
 {
@@ -26,13 +24,9 @@ class JsDataTest extends TestCase
     /** @var RouterInterface|\Symfony\Bundle\FrameworkBundle\Routing\Router|Mockery\Mock */
     private $router;
 
-    /** @var CsrfTokenManagerInterface|Mockery\Mock */
-    private $tokenManager;
-
     public function setUp(): void
     {
         $this->router = Mockery::mock(RouterInterface::class);
-        $this->tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
     }
 
     public function testGetPublic(): void
@@ -49,15 +43,6 @@ class JsDataTest extends TestCase
         $email = $faker->email;
         $firstName = $faker->name;
         $lastName = $faker->name;
-
-        $token = Mockery::mock(CsrfToken::class);
-        $token->shouldReceive('getValue')
-            ->once()
-            ->andReturn('csrf_token');
-
-        $this->tokenManager->shouldReceive('getToken')
-            ->once()
-            ->andReturn($token);
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -79,7 +64,6 @@ class JsDataTest extends TestCase
                 'firstName' => $firstName,
                 'lastName'  => $lastName,
             ],
-            'csrfToken' => 'csrf_token',
         ];
 
         $this->assertSame($expected, $class->get('admin'));
@@ -90,15 +74,6 @@ class JsDataTest extends TestCase
         $faker = Faker\Factory::create();
 
         $email = $faker->email;
-
-        $token = Mockery::mock(CsrfToken::class);
-        $token->shouldReceive('getValue')
-            ->once()
-            ->andReturn('csrf_token');
-
-        $this->tokenManager->shouldReceive('getToken')
-            ->once()
-            ->andReturn($token);
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -114,7 +89,6 @@ class JsDataTest extends TestCase
                 'firstName' => null,
                 'lastName'  => null,
             ],
-            'csrfToken' => 'csrf_token',
         ];
 
         $this->assertSame($expected, $class->get('admin'));
@@ -122,20 +96,10 @@ class JsDataTest extends TestCase
 
     public function testGetAdminNotLoggedIn(): void
     {
-        $token = Mockery::mock(CsrfToken::class);
-        $token->shouldReceive('getValue')
-            ->once()
-            ->andReturn('csrf_token');
-
-        $this->tokenManager->shouldReceive('getToken')
-            ->once()
-            ->andReturn($token);
-
         $class = $this->getJsData(null);
 
         $expected = [
-            'user'      => null,
-            'csrfToken' => 'csrf_token',
+            'user' => null,
         ];
 
         $this->assertSame($expected, $class->get('admin'));
@@ -145,8 +109,7 @@ class JsDataTest extends TestCase
     {
         return new JsData(
             $this->router,
-            $this->createSecurity($user),
-            $this->tokenManager
+            $this->createSecurity($user)
         );
     }
 
