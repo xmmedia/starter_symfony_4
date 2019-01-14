@@ -6,7 +6,6 @@ namespace App\DataProvider;
 
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class JsData
 {

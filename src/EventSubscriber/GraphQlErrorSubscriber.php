@@ -7,11 +7,6 @@ namespace App\EventSubscriber;
 use App\Exception\FormValidationException;
 use Overblog\GraphQLBundle\Event\ErrorFormattingEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class GraphQlErrorSubscriber implements EventSubscriberInterface
 {
@@ -23,7 +18,7 @@ class GraphQlErrorSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Set the exception code in the
+     * Set the exception code in the.
      */
     public function onGraphqlError(ErrorFormattingEvent $event): void
     {
