@@ -94,39 +94,6 @@ class AdminUpdateUserHandlerTest extends TestCase
             $command
         );
     }
-
-    public function testNonUnique(): void
-    {
-        $faker = Faker\Factory::create();
-
-        $userId = UserId::generate();
-        $email = Email::fromString($faker->email);
-        $role = new Role('ROLE_USER');
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
-
-        $command = AdminUpdateUser::with(
-            $userId,
-            $email,
-            $role,
-            $firstName,
-            $lastName
-        );
-
-        $repo = Mockery::mock(UserList::class);
-        $repo->shouldReceive('get')
-            ->with(Mockery::type(UserId::class))
-            ->andReturn(Mockery::mock(User::class));
-
-        $this->expectException(DuplicateEmailAddress::class);
-
-        (new AdminUpdateUserHandler(
-            $repo,
-            new AdminUpdateUserHandlerUniquenessCheckerDuplicate()
-        ))(
-            $command
-        );
-    }
 }
 
 class AdminUpdateUserHandlerUniquenessCheckerNone implements ChecksUniqueUsersEmail
@@ -134,13 +101,5 @@ class AdminUpdateUserHandlerUniquenessCheckerNone implements ChecksUniqueUsersEm
     public function __invoke(Email $email): ?UserId
     {
         return null;
-    }
-}
-
-class AdminUpdateUserHandlerUniquenessCheckerDuplicate implements ChecksUniqueUsersEmail
-{
-    public function __invoke(Email $email): ?UserId
-    {
-        return UserId::generate();
     }
 }
