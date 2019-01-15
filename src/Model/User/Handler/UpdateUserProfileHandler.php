@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model\User\Handler;
 
 use App\Model\User\Command\UpdateUserProfile;
-use App\Model\User\Exception\DuplicateEmailAddress;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserList;

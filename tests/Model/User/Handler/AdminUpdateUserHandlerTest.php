@@ -6,7 +6,6 @@ namespace App\Tests\Model\User\Handler;
 
 use App\Model\Email;
 use App\Model\User\Command\AdminUpdateUser;
-use App\Model\User\Exception\DuplicateEmailAddress;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Handler\AdminUpdateUserHandler;
 use App\Model\User\Name;
