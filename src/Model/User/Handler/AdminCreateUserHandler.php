@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model\User\Handler;
 
 use App\Model\User\Command\AdminCreateUser;
-use App\Model\User\Exception\DuplicateEmailAddress;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserList;
@@ -28,10 +27,6 @@ class AdminCreateUserHandler
 
     public function __invoke(AdminCreateUser $command): void
     {
-        if ($userId = ($this->checksUniqueUsersEmailAddress)($command->email())) {
-            throw DuplicateEmailAddress::withEmail($command->email(), $userId);
-        }
-
         $user = User::createByAdmin(
             $command->userId(),
             $command->email(),
@@ -40,7 +35,8 @@ class AdminCreateUserHandler
             $command->active(),
             $command->firstName(),
             $command->lastName(),
-            $command->sendInvite()
+            $command->sendInvite(),
+            $this->checksUniqueUsersEmailAddress
         );
 
         $this->userRepo->save($user);

@@ -9,6 +9,7 @@ use App\EventSourcing\AppliesAggregateChanged;
 use App\Model\Email;
 use App\Model\Entity;
 use App\Model\NotificationGatewayId;
+use App\Model\User\Service\ChecksUniqueUsersEmail;
 use Symfony\Component\Security\Core\Role\Role;
 
 class User extends AggregateRoot implements Entity
@@ -34,8 +35,16 @@ class User extends AggregateRoot implements Entity
         bool $active,
         Name $firstName,
         Name $lastName,
-        bool $sendInvite
+        bool $sendInvite,
+        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
     ): self {
+        if ($duplicateUserId = ($checksUniqueUsersEmailAddress)($email)) {
+            throw Exception\DuplicateEmailAddress::withEmail(
+                $email,
+                $duplicateUserId
+            );
+        }
+
         // if they're not active, don't allow sending an invite
         if (!$active) {
             $sendInvite = false;
@@ -62,8 +71,16 @@ class User extends AggregateRoot implements Entity
         UserId $userId,
         Email $email,
         string $encodedPassword,
-        Role $role
+        Role $role,
+        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
     ): self {
+        if ($duplicateUserId = ($checksUniqueUsersEmailAddress)($email)) {
+            throw Exception\DuplicateEmailAddress::withEmail(
+                $email,
+                $duplicateUserId
+            );
+        }
+
         $self = new self();
         $self->recordThat(
             Event\MinimalUserWasCreatedByAdmin::now(
@@ -81,8 +98,18 @@ class User extends AggregateRoot implements Entity
         Email $email,
         Role $role,
         Name $firstName,
-        Name $lastName
+        Name $lastName,
+        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
     ): void {
+        if ($duplicateUserId = ($checksUniqueUsersEmailAddress)($email)) {
+            if (!$this->userId->sameValueAs($duplicateUserId)) {
+                throw Exception\DuplicateEmailAddress::withEmail(
+                    $email,
+                    $duplicateUserId
+                );
+            }
+        }
+
         $this->recordThat(
             Event\AdminUpdatedUser::now(
                 $this->userId,
@@ -186,12 +213,22 @@ class User extends AggregateRoot implements Entity
     public function update(
         Email $email,
         Name $firstName,
-        Name $lastName
+        Name $lastName,
+        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
     ): void {
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToUpdateProfile(
                 $this->userId
             );
+        }
+
+        if ($duplicateUserId = ($checksUniqueUsersEmailAddress)($email)) {
+            if (!$this->userId->sameValueAs($duplicateUserId)) {
+                throw Exception\DuplicateEmailAddress::withEmail(
+                    $email,
+                    $duplicateUserId
+                );
+            }
         }
 
         $this->recordThat(

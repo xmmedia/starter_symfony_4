@@ -34,16 +34,11 @@ class UpdateUserProfileHandler
             throw UserNotFound::withUserId($command->userId());
         }
 
-        if ($userId = ($this->checksUniqueUsersEmailAddress)($command->email())) {
-            if (!$command->userId()->sameValueAs($userId)) {
-                throw DuplicateEmailAddress::withEmail($command->email(), $userId);
-            }
-        }
-
         $user->update(
             $command->email(),
             $command->firstName(),
-            $command->lastName()
+            $command->lastName(),
+            $this->checksUniqueUsersEmailAddress
         );
 
         $this->userRepo->save($user);

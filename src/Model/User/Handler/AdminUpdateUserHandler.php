@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model\User\Handler;
 
 use App\Model\User\Command\AdminUpdateUser;
-use App\Model\User\Exception\DuplicateEmailAddress;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserList;
@@ -34,17 +33,12 @@ class AdminUpdateUserHandler
             throw UserNotFound::withUserId($command->userId());
         }
 
-        if ($userId = ($this->checksUniqueUsersEmailAddress)($command->email())) {
-            if (!$command->userId()->sameValueAs($userId)) {
-                throw DuplicateEmailAddress::withEmail($command->email(), $userId);
-            }
-        }
-
         $user->updateByAdmin(
             $command->email(),
             $command->role(),
             $command->firstName(),
-            $command->lastName()
+            $command->lastName(),
+            $this->checksUniqueUsersEmailAddress
         );
 
         $this->userRepo->save($user);

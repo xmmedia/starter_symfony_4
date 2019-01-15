@@ -7,6 +7,7 @@ namespace App\Tests\Model\User;
 use App\Model\Email;
 use App\Model\EmailGatewayMessageId;
 use App\Model\User\Name;
+use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\Token;
 use App\Model\User\User;
 use App\Model\User\UserId;
@@ -37,7 +38,8 @@ class UserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            false
+            false,
+            new UserArUniquenessCheckerNone()
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -84,7 +86,8 @@ class UserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            true
+            true,
+            new UserArUniquenessCheckerNone()
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -131,7 +134,8 @@ class UserTest extends BaseTestCase
             false,
             $firstName,
             $lastName,
-            true
+            true,
+            new UserArUniquenessCheckerNone()
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -159,6 +163,32 @@ class UserTest extends BaseTestCase
         $this->assertFalse($user->active());
     }
 
+    public function testCreateByAdminDuplicateEmail(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $userId = UserId::generate();
+        $email = Email::fromString($faker->email);
+        $password = $faker->password;
+        $role = new Role('ROLE_USER');
+        $firstName = Name::fromString($faker->firstName);
+        $lastName = Name::fromString($faker->lastName);
+
+        $this->expectException(Exception\DuplicateEmailAddress::class);
+
+        User::createByAdmin(
+            $userId,
+            $email,
+            $password,
+            $role,
+            true,
+            $firstName,
+            $lastName,
+            true,
+            new UserArUniquenessCheckerDuplicate()
+        );
+    }
+
     public function testCreateByAdminMinimal(): void
     {
         $faker = Faker\Factory::create();
@@ -168,7 +198,13 @@ class UserTest extends BaseTestCase
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 
-        $user = User::createByAdminMinimum($userId, $email, $password, $role);
+        $user = User::createByAdminMinimum(
+            $userId,
+            $email,
+            $password,
+            $role,
+            new UserArUniquenessCheckerNone()
+        );
 
         $this->assertInstanceOf(User::class, $user);
 
@@ -191,6 +227,26 @@ class UserTest extends BaseTestCase
         $this->assertTrue($user->active());
     }
 
+    public function testCreateByAdminMinimalDuplicate(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $userId = UserId::generate();
+        $email = Email::fromString($faker->email);
+        $password = $faker->password;
+        $role = new Role('ROLE_USER');
+
+        $this->expectException(Exception\DuplicateEmailAddress::class);
+
+        User::createByAdminMinimum(
+            $userId,
+            $email,
+            $password,
+            $role,
+            new UserArUniquenessCheckerDuplicate()
+        );
+    }
+
     public function testUpdateByAdmin(): void
     {
         $faker = Faker\Factory::create();
@@ -202,7 +258,13 @@ class UserTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $user->updateByAdmin($email, $role, $firstName, $lastName);
+        $user->updateByAdmin(
+            $email,
+            $role,
+            $firstName,
+            $lastName,
+            new UserArUniquenessCheckerNone()
+        );
 
         $events = $this->popRecordedEvent($user);
 
@@ -218,6 +280,28 @@ class UserTest extends BaseTestCase
         );
 
         $this->assertCount(2, $events);
+    }
+
+    public function testUpdateByAdminDuplicate(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $user = $this->getUserActive();
+
+        $email = Email::fromString($faker->email);
+        $role = new Role('ROLE_USER');
+        $firstName = Name::fromString($faker->firstName);
+        $lastName = Name::fromString($faker->lastName);
+
+        $this->expectException(Exception\DuplicateEmailAddress::class);
+
+        $user->updateByAdmin(
+            $email,
+            $role,
+            $firstName,
+            $lastName,
+            new UserArUniquenessCheckerDuplicate()
+        );
     }
 
     public function testChangePasswordByAdmin(): void
@@ -262,7 +346,8 @@ class UserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            true // will set the user to unverified
+            true, // will set the user to unverified
+            new UserArUniquenessCheckerNone()
         );
 
         $user->verifyByAdmin();
@@ -364,7 +449,8 @@ class UserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            true
+            true,
+            new UserArUniquenessCheckerNone()
         );
 
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
@@ -418,7 +504,8 @@ class UserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            true
+            true,
+            new UserArUniquenessCheckerNone()
         );
 
         $user->verify();
@@ -460,7 +547,8 @@ class UserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            true
+            true,
+            new UserArUniquenessCheckerNone()
         );
 
         $user->deactivateByAdmin();
@@ -489,7 +577,8 @@ class UserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            true
+            true,
+            new UserArUniquenessCheckerNone()
         );
 
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
@@ -535,7 +624,12 @@ class UserTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $user->update($email, $firstName, $lastName);
+        $user->update(
+            $email,
+            $firstName,
+            $lastName,
+            new UserArUniquenessCheckerNone()
+        );
 
         $events = $this->popRecordedEvent($user);
 
@@ -564,7 +658,32 @@ class UserTest extends BaseTestCase
 
         $this->expectException(Exception\InvalidUserActiveStatus::class);
 
-        $user->update($email, $firstName, $lastName);
+        $user->update(
+            $email,
+            $firstName,
+            $lastName,
+            new UserArUniquenessCheckerNone()
+        );
+    }
+
+    public function testUpdateDuplicate(): void
+    {
+        $faker = Faker\Factory::create();
+
+        $user = $this->getUserActive();
+
+        $email = Email::fromString($faker->email);
+        $firstName = Name::fromString($faker->firstName);
+        $lastName = Name::fromString($faker->lastName);
+
+        $this->expectException(Exception\DuplicateEmailAddress::class);
+
+        $user->update(
+            $email,
+            $firstName,
+            $lastName,
+            new UserArUniquenessCheckerDuplicate()
+        );
     }
 
     public function testLoggedIn(): void
@@ -603,7 +722,8 @@ class UserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            true
+            true,
+            new UserArUniquenessCheckerNone()
         );
 
         $this->expectException(Exception\UserNotVerified::class);
@@ -663,8 +783,20 @@ class UserTest extends BaseTestCase
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 
-        $user1 = User::createByAdminMinimum($userId, $email, $password, $role);
-        $user2 = User::createByAdminMinimum($userId, $email, $password, $role);
+        $user1 = User::createByAdminMinimum(
+            $userId,
+            $email,
+            $password,
+            $role,
+            new UserArUniquenessCheckerNone()
+        );
+        $user2 = User::createByAdminMinimum(
+            $userId,
+            $email,
+            $password,
+            $role,
+            new UserArUniquenessCheckerNone()
+        );
 
         $this->assertTrue($user1->sameIdentityAs($user2));
     }
@@ -688,7 +820,8 @@ class UserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            false
+            false,
+            new UserArUniquenessCheckerNone()
         );
     }
 
@@ -711,7 +844,24 @@ class UserTest extends BaseTestCase
             false,
             $firstName,
             $lastName,
-            false
+            false,
+            new UserArUniquenessCheckerNone()
         );
+    }
+}
+
+class UserArUniquenessCheckerNone implements ChecksUniqueUsersEmail
+{
+    public function __invoke(Email $email): ?UserId
+    {
+        return null;
+    }
+}
+
+class UserArUniquenessCheckerDuplicate implements ChecksUniqueUsersEmail
+{
+    public function __invoke(Email $email): ?UserId
+    {
+        return UserId::generate();
     }
 }
