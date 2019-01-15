@@ -1,31 +1,31 @@
 import gql from 'graphql-tag';
 
-export const AdminCreateUserMutation = gql`mutation AdminCreateUser($user: AdminUserCreateInput!) {
-    AdminCreateUser(user: $user) {
+export const AdminUserCreateMutation = gql`mutation AdminUserCreate($user: AdminUserCreateInput!) {
+    AdminUserCreate(user: $user) {
         id
     }
 }`;
 
-export const AdminUpdateUserMutation = gql`mutation AdminUpdateUser($user: AdminUserUpdateInput!) {
-    AdminUpdateUser(user: $user) {
+export const AdminUserUpdateMutation = gql`mutation AdminUserUpdate($user: AdminUserUpdateInput!) {
+    AdminUserUpdate(user: $user) {
         id
     }
 }`;
 
-export const AdminActivateUserMutation =  gql`mutation AdminActivateUser($user: AdminUserActivateInput!) {
-    AdminActivateUser(user: $user) {
+export const AdminUserActivateMutation =  gql`mutation AdminUserActivate($user: AdminUserActivateInput!) {
+    AdminUserActivate(user: $user) {
         id
     }
 }`;
 
-export const AdminVerifyUserMutation =  gql`mutation AdminVerifyUser($user: AdminUserInput!) {
-    AdminVerifyUser(user: $user) {
+export const AdminUserVerifyMutation =  gql`mutation AdminUserVerify($user: AdminUserInput!) {
+    AdminUserVerify(user: $user) {
         id
     }
 }`;
 
-export const AdminSendResetToUserMutation =  gql`mutation AdminSendResetToUser($user: AdminUserInput!) {
-    AdminSendResetToUser(user: $user) {
+export const AdminUserSendResetMutation =  gql`mutation AdminUserSendReset($user: AdminUserInput!) {
+    AdminUserSendReset(user: $user) {
         id
     }
 }`;

@@ -59,7 +59,7 @@
 <script>
 import { logError, hasGraphQlValidationError } from '@/common/lib';
 import profileTabs from './component/tabs';
-import { UpdateUser } from '../queries/user.mutation';
+import { UserUpdate } from '../queries/user.mutation';
 
 const statuses = {
     LOADED: 'loaded',
@@ -112,7 +112,7 @@ export default {
                 };
 
                 await this.$apollo.mutate({
-                    mutation: UpdateUser,
+                    mutation: UserUpdate,
                     variables: {
                         user: data,
                     },

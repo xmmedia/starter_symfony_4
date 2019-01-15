@@ -62,7 +62,7 @@ import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
 import { GetUserQuery } from '../queries/user.query';
-import { AdminUpdateUserMutation, AdminActivateUserMutation, AdminVerifyUserMutation, AdminSendResetToUserMutation } from '../queries/admin/user.mutation';
+import { AdminUserUpdateMutation, AdminUserActivateMutation, AdminUserVerifyMutation, AdminUserSendResetMutation } from '../queries/admin/user.mutation';
 
 const statuses = {
     LOADING: 'loading',
@@ -152,7 +152,7 @@ export default {
 
             try {
                 await this.$apollo.mutate({
-                    mutation: AdminUpdateUserMutation,
+                    mutation: AdminUserUpdateMutation,
                     variables: {
                         user: {
                             id: this.userId,
@@ -196,7 +196,7 @@ export default {
 
             try {
                 await this.$apollo.mutate({
-                    mutation: AdminActivateUserMutation,
+                    mutation: AdminUserActivateMutation,
                     variables: {
                         user: {
                             id: this.userId,
@@ -232,7 +232,7 @@ export default {
 
             try {
                 await this.$apollo.mutate({
-                    mutation: AdminVerifyUserMutation,
+                    mutation: AdminUserVerifyMutation,
                     variables: {
                         user: { id: this.userId },
                     },
@@ -264,7 +264,7 @@ export default {
 
             try {
                 await this.$apollo.mutate({
-                    mutation: AdminSendResetToUserMutation,
+                    mutation: AdminUserSendResetMutation,
                     variables: {
                         user: { id: this.userId },
                     },

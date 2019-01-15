@@ -3,7 +3,7 @@ UserMutation:
     heirs: [Mutation]
     config:
         fields:
-            UpdateUser:
+            UserUpdate:
                 type: UserMutationPayload!
                 public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
@@ -41,7 +41,7 @@ UserMutation:
                     newPassword: String!
                     repeatPassword: String!
 
-            AdminCreateUser:
+            AdminUserCreate:
                 type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
@@ -49,7 +49,7 @@ UserMutation:
                 args:
                     user: AdminUserCreateInput!
 
-            AdminUpdateUser:
+            AdminUserUpdate:
                 type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
@@ -57,7 +57,7 @@ UserMutation:
                 args:
                     user: AdminUserUpdateInput!
 
-            AdminActivateUser:
+            AdminUserActivate:
                 type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
@@ -65,7 +65,7 @@ UserMutation:
                 args:
                     user: AdminUserActivateInput!
 
-            AdminVerifyUser:
+            AdminUserVerify:
                 type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
@@ -73,7 +73,7 @@ UserMutation:
                 args:
                     user: AdminUserInput!
 
-            AdminSendResetToUser:
+            AdminUserSendReset:
                 type: AdminUserMutationPayload!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
