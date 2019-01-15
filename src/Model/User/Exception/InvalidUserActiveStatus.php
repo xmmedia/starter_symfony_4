@@ -43,7 +43,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
     public static function triedToUpdateProfile(UserId $userId): self
     {
         return new self(sprintf(
-            'User "%s" tried to update their profile but their currently inactive.',
+            'User "%s" tried to update their profile but their user is inactive.',
             $userId->toString()
         ));
     }
