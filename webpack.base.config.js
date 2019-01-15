@@ -60,7 +60,7 @@ module.exports = function (Encore) {
 
         .addAliases({
             '@': resolve('public/js/src'),
-            'vue$': 'vue/dist/vue.common.js',
+            'vue$': 'vue/dist/vue.esm.js',
         })
 
         // this is because the main chunk doesn't get a different hash even though a referenced chunk has a different hash
