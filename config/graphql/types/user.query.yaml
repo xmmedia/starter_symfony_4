@@ -4,15 +4,15 @@ UserQuery:
     config:
         fields:
             Users:
-                type: [User!]
-                description: "Retrieve all Users."
+                type: '[User!]'
+                description: 'Retrieve all Users.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=resolver("app.graphql.resolver.user.all")'
 
             User:
                 type: User
-                description: "Retrieve a single User."
+                description: 'Retrieve a single User.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=resolver("app.graphql.resolver.user.by.id", [args["id"]])'
