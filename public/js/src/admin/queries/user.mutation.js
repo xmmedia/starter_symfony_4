@@ -20,8 +20,8 @@ export const UserVerify = gql`
         }
     }`;
 
-export const UserUpdate = gql`mutation UserUpdate($user: UserUpdateInput!) {
-    UserUpdate(user: $user) {
+export const UserUpdateProfile = gql`mutation UserUpdateProfile($user: UserUpdateProfileInput!) {
+    UserUpdateProfile(user: $user) {
         id
     }
 }`;

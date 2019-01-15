@@ -3,16 +3,18 @@ UserMutation:
     heirs: [Mutation]
     config:
         fields:
-            UserUpdate:
+            UserUpdateProfile:
                 type: UserMutationPayload!
+                description: 'Update User profile.'
                 public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserUpdateMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserUpdateProfileMutation", [args])'
                 args:
-                    user: UserUpdateInput!
+                    user: UserUpdateProfileInput!
 
             ChangePassword:
                 type: UserMutationPayload!
+                description: 'Change User password.'
                 public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserPasswordMutation", [args])'
@@ -21,12 +23,14 @@ UserMutation:
 
             UserRecoverInitiate:
                 type: UserResultPayload!
+                description: 'Initiate User account recovery.'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserRecoverInitiateMutation", [args])'
                 args:
                     email: String!
 
             UserRecoverReset:
                 type: UserResultPayload!
+                description: 'Set User password with User token.'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserRecoverResetMutation", [args])'
                 args:
                     token: String!
@@ -35,6 +39,7 @@ UserMutation:
 
             UserVerify:
                 type: UserResultPayload!
+                description: 'Verify (activate) User account with password and User token.'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\UserRecoverResetMutation", [args])'
                 args:
                     token: String!
@@ -43,6 +48,7 @@ UserMutation:
 
             AdminUserCreate:
                 type: AdminUserMutationPayload!
+                description: 'Admin User create.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserCreateMutation", [args])'
@@ -51,6 +57,7 @@ UserMutation:
 
             AdminUserUpdate:
                 type: AdminUserMutationPayload!
+                description: 'Admin User update.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserUpdateMutation", [args])'
@@ -59,6 +66,7 @@ UserMutation:
 
             AdminUserActivate:
                 type: AdminUserMutationPayload!
+                description: 'Activate User by Admin.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserActivateMutation", [args])'
@@ -67,6 +75,7 @@ UserMutation:
 
             AdminUserVerify:
                 type: AdminUserMutationPayload!
+                description: 'Verify User by Admin.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserVerifyMutation", [args])'
@@ -75,15 +84,14 @@ UserMutation:
 
             AdminUserSendReset:
                 type: AdminUserMutationPayload!
+                description: 'Send User a password reset link.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\AdminUserSendResetToUserMutation", [args])'
                 args:
                     user: AdminUserInput!
 
-# @todo check if these are publicly access; do we care?
-
-UserUpdateInput:
+UserUpdateProfileInput:
     type: input-object
     config:
         description: 'User update mutation input.'

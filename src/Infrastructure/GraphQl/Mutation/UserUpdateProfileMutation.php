@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Security;
 
-class UserUpdateMutation implements MutationInterface
+class UserUpdateProfileMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;
