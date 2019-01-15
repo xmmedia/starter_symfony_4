@@ -4,7 +4,7 @@ UserQuery:
     config:
         fields:
             Users:
-                type: '[User!]!'
+                type: '[User!]'
                 description: "Retrieve all Users."
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
