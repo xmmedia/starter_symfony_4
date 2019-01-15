@@ -4,7 +4,7 @@ UserQuery:
     config:
         fields:
             Users:
-                type: '[User!]'
+                type: [User!]
                 description: "Retrieve all Users."
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
@@ -13,9 +13,9 @@ UserQuery:
             User:
                 type: User
                 description: "Retrieve a single User."
-                args:
-                    id:
-                        type: UUID!
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=resolver("app.graphql.resolver.user.by.id", [args["id"]])'
+                args:
+                    id:
+                        type: UUID!
