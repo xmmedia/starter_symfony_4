@@ -78,12 +78,6 @@ module.exports = function (Encore) {
             fonts: 'fonts/[name].[hash:8].[ext]',
         })
 
-        .configureDefinePlugin(function () {
-            return {
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-            }
-        })
-
         .addPlugin(new Dotenv())
 
         .addPlugin(new BundleAnalyzerPlugin({
