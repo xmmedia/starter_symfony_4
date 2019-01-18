@@ -27,6 +27,10 @@ b, strong {
     @apply font-bold;
 }
 
+h1 {
+    @apply text-blue-darker;
+}
+
 // load common styles
 @import "common/forms",
     "common/alerts",
