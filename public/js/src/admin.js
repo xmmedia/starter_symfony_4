@@ -46,7 +46,6 @@ window.App = new Vue({
         'menu-subnav': menuSubnav,
         'menu-small': menuSmall,
         'login-form': loginForm,
-        'admin-user': () => import('./admin/user/index'),
         'user-profile': () => import('./admin/user_profile_edit/index'),
     },
 
