@@ -16,7 +16,7 @@
             </trans-unit>
             <trans-unit id="4">
                 <source>Invalid credentials.</source>
-                <target>Your email and password combination are incorrect.</target>
+                <target>The email and password combination are incorrect.</target>
             </trans-unit>
             <trans-unit id="7">
                 <source>Invalid CSRF token.</source>
