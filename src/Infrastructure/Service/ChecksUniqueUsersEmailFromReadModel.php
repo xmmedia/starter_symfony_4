@@ -22,7 +22,7 @@ class ChecksUniqueUsersEmailFromReadModel implements ChecksUniqueUsersEmail
     public function __invoke(Email $email): ?UserId
     {
         if ($user = $this->userRepo->findOneByEmail($email)) {
-            return $user->id();
+            return $user->userId();
         }
 
         return null;

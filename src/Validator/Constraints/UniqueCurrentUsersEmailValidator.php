@@ -34,7 +34,7 @@ class UniqueCurrentUsersEmailValidator extends ConstraintValidator
     {
         $userId = ($this->checksUniqueUsersEmailAddress)($email);
 
-        if ($userId && !$this->security->getUser()->id()->sameValueAs($userId)) {
+        if ($userId && !$this->security->getUser()->userId()->sameValueAs($userId)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

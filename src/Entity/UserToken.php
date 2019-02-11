@@ -22,6 +22,7 @@ class UserToken
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tokens")
+     * @ORM\JoinColumn(referencedColumnName="user_id")
      */
     private $user;
 

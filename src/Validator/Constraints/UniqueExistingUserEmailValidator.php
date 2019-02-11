@@ -27,7 +27,7 @@ class UniqueExistingUserEmailValidator extends ConstraintValidator
     {
         $userId = ($this->checksUniqueUsersEmailAddress)($data['email']);
 
-        if ($userId && !$data['id']->sameValueAs($userId)) {
+        if ($userId && !$data['userId']->sameValueAs($userId)) {
             $this->context->buildViolation($constraint->message)
                 ->atPath('[email]')
                 ->addViolation();

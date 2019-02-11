@@ -23,7 +23,7 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
      * @ORM\Id
      * @ORM\Column(type="uuid")
      */
-    private $id;
+    private $userId;
 
     /**
      * @var Email|string
@@ -90,9 +90,9 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
         $this->tokens = new ArrayCollection();
     }
 
-    public function id(): UserId
+    public function userId(): UserId
     {
-        return UserId::fromUuid($this->id);
+        return UserId::fromUuid($this->userId);
     }
 
     public function email(): Email

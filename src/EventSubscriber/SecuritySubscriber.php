@@ -51,7 +51,7 @@ class SecuritySubscriber implements EventSubscriberInterface
         $this->commandBus->dispatch(
             UserLoggedInSuccessfully::now(
                 $authId,
-                $user->id(),
+                $user->userId(),
                 $user->email(),
                 $request->headers->get('User-Agent'),
                 $request->getClientIp()

@@ -29,6 +29,6 @@ class IssuerProvider
             return 'anonymous';
         }
 
-        return $user->id()->toString();
+        return $user->userId()->toString();
     }
 }

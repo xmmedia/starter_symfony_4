@@ -33,7 +33,7 @@ final class UserReadModel extends AbstractReadModel
 
         $sql = <<<EOT
 CREATE TABLE `$tableName` (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
+  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
   `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `verified` tinyint(1) NOT NULL,
@@ -51,7 +51,7 @@ EOT;
 
         $sql = <<<EOT
 ALTER TABLE `$tableName`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `email` (`email`) USING BTREE;
 EOT;
 
@@ -69,7 +69,7 @@ EOT;
         $this->connection->update(
             self::TABLE,
             $data,
-            ['id' => $userId],
+            ['user_id' => $userId],
             $types
         );
     }
@@ -79,7 +79,7 @@ EOT;
         $tableName = self::TABLE;
 
         $sql = <<<EOT
-UPDATE `$tableName` SET login_count = login_count + 1, last_login = :last_login WHERE id = :user_id;
+UPDATE `$tableName` SET login_count = login_count + 1, last_login = :last_login WHERE user_id = :user_id;
 EOT;
 
         $stmt = $this->connection->prepare($sql);

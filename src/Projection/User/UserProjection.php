@@ -22,7 +22,7 @@ class UserProjection implements ReadModelProjection
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack('insert', [
-                        'id'         => $event->aggregateId(),
+                        'user_id'    => $event->aggregateId(),
                         'email'      => $event->email()->toString(),
                         'password'   => $event->encodedPassword(),
                         // if sent an invite, then account is not verified
@@ -46,7 +46,7 @@ class UserProjection implements ReadModelProjection
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack('insert', [
-                        'id'         => $event->aggregateId(),
+                        'user_id'    => $event->aggregateId(),
                         'email'      => $event->email()->toString(),
                         'password'   => $event->encodedPassword(),
                         'verified'   => true,
