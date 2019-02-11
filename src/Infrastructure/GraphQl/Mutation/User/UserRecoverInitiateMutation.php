@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\GraphQl\Mutation;
+namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
 use App\Form\UserRecoverInitiateType;
