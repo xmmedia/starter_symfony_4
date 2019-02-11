@@ -1,6 +1,5 @@
 User:
     type: object
-    inherits: [Entity]
     config:
         description: 'The User object.'
         fields:

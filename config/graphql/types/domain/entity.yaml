@@ -1,7 +1,0 @@
-Entity:
-    decorator: true
-    config:
-        description: 'The base Entity interface.'
-        fields:
-            id:
-                type: UUID!
