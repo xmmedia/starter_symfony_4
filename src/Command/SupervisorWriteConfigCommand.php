@@ -53,7 +53,7 @@ final class SupervisorWriteConfigCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->title('Writing Supervisord Config');
 
-        $config = Yaml::parseFile($this->kernelProjectDir.'/config/supervisord.yml');
+        $config = Yaml::parseFile($this->kernelProjectDir.'/config/supervisord.yaml');
 
         Assert::keyExists($config, 'programs', 'The programs key is required in the config file.');
 
