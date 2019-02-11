@@ -22,6 +22,9 @@ final class UuidType extends ScalarType implements AliasedInterface
         ]);
     }
 
+    /**
+     * @param UuidInterface|string $value strings must be valid UUIDs
+     */
     public function serialize($value): ?string
     {
         if ($value instanceof UuidInterface) {
@@ -31,11 +34,17 @@ final class UuidType extends ScalarType implements AliasedInterface
         return \is_string($value) && Uuid::isValid($value) ? $value : null;
     }
 
+    /**
+     * @param string|mixed $value
+     */
     public function parseValue($value): ?string
     {
         return \is_string($value) && Uuid::isValid($value) ? $value : null;
     }
 
+    /**
+     * @param StringValueNode $valueNode
+     */
     public function parseLiteral($valueNode, array $variables = null): ?string
     {
         if (!$valueNode instanceof StringValueNode) {

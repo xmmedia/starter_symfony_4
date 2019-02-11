@@ -16,15 +16,25 @@ final class DateTimeType extends ScalarType implements AliasedInterface
     {
         parent::__construct([
             'name'        => self::NAME,
-            'description' => 'A date & time represented as string.',
+            'description' => 'Date & time represented as string.',
         ]);
     }
 
+    /**
+     * @param \DateTimeInterface $value
+     */
     public function serialize($value): ?string
     {
-        return $value->format(\DateTime::RFC3339);
+        if (null === $value) {
+            return null;
+        }
+
+        return $value->format(\DateTimeInterface::RFC3339);
     }
 
+    /**
+     * @param string $value
+     */
     public function parseValue($value): ?\DateTimeImmutable
     {
         if (null === $value) {
@@ -34,7 +44,10 @@ final class DateTimeType extends ScalarType implements AliasedInterface
         return new \DateTimeImmutable($value);
     }
 
-    public function parseLiteral($valueNode, array $variables = null): ?string
+    /**
+     * @param StringValueNode $valueNode
+     */
+    public function parseLiteral($valueNode, array $variables = null): ?\DateTimeImmutable
     {
         if (!$valueNode instanceof StringValueNode) {
             return null;
