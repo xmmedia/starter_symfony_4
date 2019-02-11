@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\Faker\Provider;
 
-use Faker\Provider\en_CA\PhoneNumber;
+use App\Model\PhoneNumber;
+use Faker\Provider\en_CA\PhoneNumber as FakerPhoneNumber;
 use libphonenumber\PhoneNumberUtil;
 
-class PhoneNumberFakerProvider extends PhoneNumber
+/**
+ * @codeCoverageIgnore
+ */
+class PhoneNumberFakerProvider extends FakerPhoneNumber
 {
-    public function formatPhoneNumber()
+    public function phoneNumberVo()
     {
         $util = PhoneNumberUtil::getInstance();
+        $phoneNumber = $util->parse(static::phoneNumber(), 'CA');
 
-        return $util->parse(static::phoneNumber(), 'CA');
+        return PhoneNumber::fromObject($phoneNumber);
     }
 }
