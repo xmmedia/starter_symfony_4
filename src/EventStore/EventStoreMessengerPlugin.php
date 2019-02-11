@@ -23,7 +23,7 @@ final class EventStoreMessengerPlugin extends AbstractPlugin
     {
         $this->listenerHandlers[] = $eventStore->attach(
             ActionEventEmitterEventStore::EVENT_APPEND_TO,
-            function (ActionEvent $event) use ($eventStore): void {
+            function (ActionEvent $event): void {
                 $recordedEvents = $event->getParam('streamEvents', new \ArrayIterator());
 
                 if ($event->getParam('streamNotFound', false)
@@ -40,7 +40,7 @@ final class EventStoreMessengerPlugin extends AbstractPlugin
 
         $this->listenerHandlers[] = $eventStore->attach(
             ActionEventEmitterEventStore::EVENT_CREATE,
-            function (ActionEvent $event) use ($eventStore): void {
+            function (ActionEvent $event): void {
                 $stream = $event->getParam('stream');
                 $recordedEvents = $stream->streamEvents();
 
