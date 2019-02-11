@@ -8,6 +8,9 @@ use App\Model\User\Event;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\EventStore\Projection\ReadModelProjector;
 
+/**
+ * @method \Prooph\EventStore\Projection\ReadModel readModel()
+ */
 class UserTokenProjection implements ReadModelProjection
 {
     public function project(ReadModelProjector $projector): ReadModelProjector
@@ -18,7 +21,7 @@ class UserTokenProjection implements ReadModelProjection
                     array $state,
                     Event\InviteSent $event
                 ): void {
-                    /** @var UserReadModel $readModel */
+                    /** @var UserTokenReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack(
@@ -38,7 +41,7 @@ class UserTokenProjection implements ReadModelProjection
                     array $state,
                     Event\PasswordRecoverySent $event
                 ): void {
-                    /** @var UserReadModel $readModel */
+                    /** @var UserTokenReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack(
@@ -58,7 +61,7 @@ class UserTokenProjection implements ReadModelProjection
                     array $state,
                     Event\UserVerified $event
                 ): void {
-                    /** @var UserReadModel $readModel */
+                    /** @var UserTokenReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack(
@@ -71,7 +74,7 @@ class UserTokenProjection implements ReadModelProjection
                     array $state,
                     Event\ChangedPassword $event
                 ): void {
-                    /** @var UserReadModel $readModel */
+                    /** @var UserTokenReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack(

@@ -19,9 +19,6 @@ class CommandEnricherMiddleware implements MiddlewareInterface
         $this->issuerProvider = $issuerProvider;
     }
 
-    /**
-     * @param \App\Messaging\Command $message
-     */
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
         $message = $envelope->getMessage();

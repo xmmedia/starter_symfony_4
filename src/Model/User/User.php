@@ -359,6 +359,10 @@ class User extends AggregateRoot implements Entity
      */
     public function sameIdentityAs(Entity $other): bool
     {
-        return get_class($this) === get_class($other) && $this->userId->sameValueAs($other->userId);
+        if (get_class($this) !== get_class($other)) {
+            return false;
+        }
+
+        return $this->userId->sameValueAs($other->userId);
     }
 }
