@@ -19,7 +19,6 @@ doctrine:
 
         types:
             uuid: Ramsey\Uuid\Doctrine\UuidType
-            phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
