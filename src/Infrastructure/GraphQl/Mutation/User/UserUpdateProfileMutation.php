@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
-use App\Form\UserProfileType;
+use App\Form\User\UserProfileType;
 use App\Model\User\Command\UpdateUserProfile;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
@@ -48,7 +48,7 @@ class UserUpdateProfileMutation implements MutationInterface
 
         $this->commandBus->dispatch(
             UpdateUserProfile::with(
-                $this->security->getUser()->id(),
+                $this->security->getUser()->userId(),
                 $form->getData()['email'],
                 $form->getData()['firstName'],
                 $form->getData()['lastName']
@@ -56,7 +56,7 @@ class UserUpdateProfileMutation implements MutationInterface
         );
 
         return [
-            'id' => $this->security->getUser()->id(),
+            'userId' => $this->security->getUser()->userId(),
         ];
     }
 }

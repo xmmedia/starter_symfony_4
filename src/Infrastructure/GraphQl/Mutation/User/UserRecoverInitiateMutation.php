@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
-use App\Form\UserRecoverInitiateType;
+use App\Form\User\UserRecoverInitiateType;
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Repository\UserRepository;
-use GraphQL\Error\UserError;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -52,7 +52,7 @@ class UserRecoverInitiateMutation implements MutationInterface
         }
 
         $this->commandBus->dispatch(
-            InitiatePasswordRecovery::now($user->id(), $user->email())
+            InitiatePasswordRecovery::now($user->userId(), $user->email())
         );
 
         return [

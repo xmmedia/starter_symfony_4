@@ -30,7 +30,7 @@ class AdminUserSendResetToUserMutation implements MutationInterface
 
     public function __invoke(Argument $args): array
     {
-        $userId = UserId::fromString($args['user']['id']);
+        $userId = UserId::fromString($args['user']['userId']);
 
         $user = $this->userRepo->find($userId);
         if (!$user) {
@@ -38,11 +38,11 @@ class AdminUserSendResetToUserMutation implements MutationInterface
         }
 
         $this->commandBus->dispatch(
-            InitiatePasswordRecovery::now($user->id(), $user->email())
+            InitiatePasswordRecovery::now($user->userId(), $user->email())
         );
 
         return [
-            'id' => $userId,
+            'userId' => $userId,
         ];
     }
 }

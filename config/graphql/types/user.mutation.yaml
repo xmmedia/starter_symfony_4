@@ -120,7 +120,7 @@ AdminUserCreateInput:
     config:
         description: 'Admin User create mutation input.'
         fields:
-            id:
+            userId:
                 type: UUID!
             email:
                 type: String!
@@ -144,7 +144,7 @@ AdminUserUpdateInput:
     config:
         description: 'Admin User update mutation input.'
         fields:
-            id:
+            userId:
                 type: UUID!
             email:
                 type: String!
@@ -164,7 +164,7 @@ AdminUserActivateInput:
     config:
         description: 'Admin User activate/deactivate mutation input.'
         fields:
-            id:
+            userId:
                 type: UUID!
             action:
                 type: String!
@@ -174,7 +174,7 @@ AdminUserInput:
     config:
         description: 'Admin User mutation input.'
         fields:
-            id:
+            userId:
                 type: UUID!
 
 UserMutationPayload:
@@ -182,7 +182,7 @@ UserMutationPayload:
     config:
         description: 'User mutation payload.'
         fields:
-            id:
+            userId:
                 type: UUID!
 
 UserResultPayload:
@@ -198,5 +198,5 @@ AdminUserMutationPayload:
     config:
         description: 'Admin User mutation payload.'
         fields:
-            id:
+            userId:
                 type: UUID!

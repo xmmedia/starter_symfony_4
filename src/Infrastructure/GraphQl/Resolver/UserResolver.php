@@ -20,21 +20,24 @@ class UserResolver implements ResolverInterface, AliasedInterface
         $this->userRepo = $userRepo;
     }
 
+    /**
+     * @return User[]
+     */
     public function all(): array
     {
         return $this->userRepo->findBy([], ['email' => 'ASC']);
     }
 
-    public function userById(string $id): ?User
+    public function userByUserId(string $userId): ?User
     {
-        return $this->userRepo->find(UserId::fromString($id));
+        return $this->userRepo->find(UserId::fromString($userId));
     }
 
-    public static function getAliases()
+    public static function getAliases(): array
     {
         return [
-            'all'      => 'app.graphql.resolver.user.all',
-            'userById' => 'app.graphql.resolver.user.by.id',
+            'all'          => 'app.graphql.resolver.user.all',
+            'userByUserId' => 'app.graphql.resolver.user.by.userId',
         ];
     }
 }

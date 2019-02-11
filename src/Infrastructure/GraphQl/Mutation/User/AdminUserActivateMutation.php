@@ -9,6 +9,7 @@ use App\Model\User\Command\DeactivateUserByAdmin;
 use App\Model\User\UserId;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserActivateMutation implements MutationInterface
@@ -23,19 +24,26 @@ class AdminUserActivateMutation implements MutationInterface
 
     public function __invoke(Argument $args): array
     {
-        $userId = UserId::fromString($args['user']['id']);
+        $userId = UserId::fromString($args['user']['userId']);
         $action = strtolower($args['user']['action']);
 
-        if ('activate' === $action) {
-            $command = ActivateUserByAdmin::class;
-        } else {
-            $command = DeactivateUserByAdmin::class;
+        switch ($action) {
+            case 'activate':
+                $command = ActivateUserByAdmin::class;
+                break;
+            case 'deactivate':
+                $command = DeactivateUserByAdmin::class;
+                break;
+            default:
+                throw new UserError(
+                    sprintf('The "%s" action is invalid.', $action)
+                );
         }
 
         $this->commandBus->dispatch($command::user($userId));
 
         return [
-            'id' => $userId,
+            'userId' => $userId,
         ];
     }
 }

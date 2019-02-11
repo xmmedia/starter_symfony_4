@@ -15,7 +15,7 @@ UserQuery:
                 description: 'Retrieve a single User.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=resolver("app.graphql.resolver.user.by.id", [args["id"]])'
+                resolve: '@=resolver("app.graphql.resolver.user.by.userId", [args["userId"]])'
                 args:
-                    id:
+                    userId:
                         type: UUID!

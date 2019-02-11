@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
-use App\Form\UserRecoverResetType;
+use App\Form\User\UserRecoverResetType;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
@@ -71,14 +71,9 @@ class UserRecoverResetMutation implements MutationInterface
             throw new UserError('The link has expired.', 405);
         }
 
-        if (!$user || !$user->active()) {
-            // 404 -> not found
-            throw new UserError('An account with that email cannot be found.', 404);
-        }
-
         if (!$user->verified()) {
             $this->commandBus->dispatch(
-                VerifyUser::now($user->id())
+                VerifyUser::now($user->userId())
             );
         }
 
@@ -87,7 +82,7 @@ class UserRecoverResetMutation implements MutationInterface
             $form->getData()['newPassword']
         );
         $this->commandBus->dispatch(
-            ChangePassword::forUser($user->id(), $encodedPassword)
+            ChangePassword::forUser($user->userId(), $encodedPassword)
         );
 
         // we would log the user in right away, but as we don't have a request

@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
-use App\Form\AdminUserUpdateType;
+use App\Form\User\AdminUserUpdateType;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
+use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
@@ -45,7 +46,8 @@ class AdminUserUpdateMutation implements MutationInterface
             throw FormValidationException::fromForm($form, 'user');
         }
 
-        $userId = $form->getData()['id'];
+        /** @var UserId $userId */
+        $userId = $form->getData()['userId'];
 
         $this->commandBus->dispatch(AdminUpdateUser::with(
             $userId,
@@ -67,7 +69,7 @@ class AdminUserUpdateMutation implements MutationInterface
         }
 
         return [
-            'id' => $userId,
+            'userId' => $userId,
         ];
     }
 }

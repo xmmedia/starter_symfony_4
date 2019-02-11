@@ -22,12 +22,12 @@ class AdminUserVerifyMutation implements MutationInterface
 
     public function __invoke(Argument $args): array
     {
-        $userId = UserId::fromString($args['user']['id']);
+        $userId = UserId::fromString($args['user']['userId']);
 
         $this->commandBus->dispatch(VerifyUserByAdmin::now($userId));
 
         return [
-            'id' => $userId,
+            'userId' => $userId,
         ];
     }
 }

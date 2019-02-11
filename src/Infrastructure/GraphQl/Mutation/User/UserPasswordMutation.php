@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
-use App\Form\UserChangePasswordType;
+use App\Form\User\UserChangePasswordType;
 use App\Model\User\Command\ChangePassword;
 use App\Security\PasswordEncoder;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -58,19 +58,19 @@ class UserPasswordMutation implements MutationInterface
         }
 
         $encodedPassword = ($this->passwordEncoder)(
-            new Role($this->security->getUser()->getRoles()[0]),
+            new Role($this->security->getUser()->roles()[0]),
             $form->getData()['newPassword']
         );
 
         $this->commandBus->dispatch(
             ChangePassword::forUser(
-                $this->security->getUser()->id(),
+                $this->security->getUser()->userId(),
                 $encodedPassword
             )
         );
 
         return [
-            'id' => $this->security->getUser()->id(),
+            'userId' => $this->security->getUser()->userId(),
         ];
     }
 }
