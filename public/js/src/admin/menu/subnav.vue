@@ -3,14 +3,17 @@
         <button :class="buttonClasses" @click.stop="toggleMenu">
             <svg class="w-3 h-3"><use xlink:href="#gt"></use></svg>
         </button>
-        <div :class="{ 'sidebar_nav-submenu-wrap-open' : open }"
-             class="sidebar_nav-submenu-wrap"
-             ref="submenu">
+        <div ref="submenu"
+             :class="{ 'sidebar_nav-submenu-wrap-open' : open }"
+             class="sidebar_nav-submenu-wrap">
             <div class="text-2xl font-thin border-b border-grey-darker sidebar_nav-submenu_header">{{ name }}</div>
             <ul class="h-full list-reset overflow-y-scroll">
-                <li v-for="(href, anchor) in items" :key="href">
-                    <a :href="href"
-                       class="sidebar_nav-link block py-3 px-4 opacity-100 hover:bg-blue-darker">{{ anchor }}</a>
+                <li v-for="(route, anchor) in items" :key="route">
+                    <router-link :to="{ name: route }"
+                                 class="sidebar_nav-link block py-3 px-4 opacity-100 hover:bg-blue-darker"
+                                 @click.native="toggleMenu">
+                        {{ anchor }}
+                    </router-link>
                 </li>
             </ul>
         </div>

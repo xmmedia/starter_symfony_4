@@ -1,8 +1,18 @@
 import gql from 'graphql-tag';
 
+export const MeQuery = gql`query Me {
+    Me {
+        userId
+        email
+        name
+        firstName
+        lastName
+    }
+}`;
+
 export const GetUsersQuery = gql`query GetUsers {
     Users {
-        id
+        userId
         email
         name
         lastLogin
@@ -13,9 +23,9 @@ export const GetUsersQuery = gql`query GetUsers {
     }
 }`;
 
-export const GetUserQuery = gql`query GetUser($id: UUID!) {
-    User(id: $id) {
-        id
+export const GetUserQuery = gql`query GetUser($userId: UUID!) {
+    User(userId: $userId) {
+        userId
         email
         roles
         firstName

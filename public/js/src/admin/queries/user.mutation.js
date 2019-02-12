@@ -22,12 +22,12 @@ export const UserVerify = gql`
 
 export const UserUpdateProfile = gql`mutation UserUpdateProfile($user: UserUpdateProfileInput!) {
     UserUpdateProfile(user: $user) {
-        id
+        userId
     }
 }`;
 
 export const ChangePassword = gql`mutation ChangePassword($user: UserPasswordInput!) {
     ChangePassword(user: $user) {
-        id
+        userId
     }
 }`;

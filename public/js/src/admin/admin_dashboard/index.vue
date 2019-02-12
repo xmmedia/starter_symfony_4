@@ -1,0 +1,21 @@
+<template>
+    <ul class="flex flex-wrap list-reset">
+        <portal to="header-page-title">Admin</portal>
+        <portal to="header-actions" />
+
+        <li>
+            <router-link :to="{ name: 'admin-user' }" class="dashboard-link">
+                <svg><use xlink:href="#users"></use></svg>
+                Users
+            </router-link>
+        </li>
+    </ul>
+</template>
+
+<script>
+    export default {
+        mounted () {
+            this.$store.dispatch('updatePageTitle', 'Admin');
+        },
+    }
+</script>

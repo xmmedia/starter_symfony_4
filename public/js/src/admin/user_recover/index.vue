@@ -1,7 +1,15 @@
 <template>
-    <router-view />
+    <div>
+        <portal to="header-page-title">Account Recovery</portal>
+
+        <router-view />
+    </div>
 </template>
 
 <script>
-export default {}
+export default {
+    mounted () {
+        this.$store.dispatch('updatePageTitle', 'Account Recovery');
+    },
+}
 </script>

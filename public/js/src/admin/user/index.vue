@@ -1,27 +1,15 @@
 <template>
     <div>
+        <portal to="header-page-title">User Admin</portal>
+
         <router-view />
     </div>
 </template>
 
 <script>
 export default {
-    components: {},
-
-    props: {},
-
-    data () {
-        return {};
+    mounted () {
+        this.$store.dispatch('updatePageTitle', 'Users | Admin');
     },
-
-    computed: {},
-
-    watch: {},
-
-    beforeMount () {},
-
-    mounted () {},
-
-    methods: {},
 }
 </script>

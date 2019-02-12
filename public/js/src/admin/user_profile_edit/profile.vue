@@ -78,9 +78,9 @@ export default {
             status: statuses.LOADED,
             validationErrors: {},
 
-            email: this.$store.state.serverData.user.email,
-            firstName: this.$store.state.serverData.user.firstName,
-            lastName: this.$store.state.serverData.user.lastName,
+            email: this.$store.state.user.email,
+            firstName: this.$store.state.user.firstName,
+            lastName: this.$store.state.user.lastName,
         };
     },
 
@@ -121,7 +121,10 @@ export default {
                 this.status = statuses.SAVED;
                 this.validationErrors = {};
 
-                this.$store.dispatch('updateUser', data);
+                this.$store.dispatch('updateUser', {
+                    ...data,
+                    name: data.firstName + ' ' + data.lastName,
+                });
 
                 setTimeout(() => {
                     if (this.status === statuses.SAVED) {
@@ -148,9 +151,9 @@ export default {
         },
 
         reset () {
-            this.email = this.$store.state.serverData.user.email;
-            this.firstName = this.$store.state.serverData.user.firstName;
-            this.lastName = this.$store.state.serverData.user.lastName;
+            this.email = this.$store.state.user.email;
+            this.firstName = this.$store.state.user.firstName;
+            this.lastName = this.$store.state.user.lastName;
 
             this.status = statuses.LOADED;
         },

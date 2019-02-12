@@ -1,5 +1,7 @@
 <template>
-    <a href="" class="ml-4" @click.stop.prevent="toggleMenu">Menu</a>
+    <button class="button-link text-white ml-4"
+            style="margin-top: -1rem;"
+            @click.stop="toggleMenu">Menu</button>
 </template>
 
 <script>

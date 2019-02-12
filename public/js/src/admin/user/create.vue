@@ -1,5 +1,11 @@
 <template>
     <div class="form-wrap">
+        <portal to="header-actions">
+            <div class="header-secondary_actions">
+                <router-link :to="{ name: 'admin-user' }">Return to List</router-link>
+            </div>
+        </portal>
+
         <h2 class="mt-0">Add User</h2>
         <form @submit.prevent="submit">
             <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
@@ -106,7 +112,7 @@ export default {
                     mutation: AdminUserCreateMutation,
                     variables: {
                         user: {
-                            id: uuid4(),
+                            userId: uuid4(),
                             email: this.email,
                             setPassword: this.setPassword,
                             password: this.password,

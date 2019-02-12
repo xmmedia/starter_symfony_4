@@ -21,7 +21,7 @@
 
                 <div>
                     <button type="submit" class="button">Search</button>
-                    <a href="/login" class="form-action">Return to Login</a>
+                    <router-link :to="{ name: 'login' }" class="form-action">Return to Login</router-link>
 
                     <span v-if="status === 'saving'" class="ml-4 text-sm italic">Requesting...</span>
                 </div>

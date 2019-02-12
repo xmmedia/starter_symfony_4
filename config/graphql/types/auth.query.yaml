@@ -1,0 +1,19 @@
+AuthQuery:
+    decorator: true
+    heirs: [Query]
+    config:
+        fields:
+            AuthLast:
+                type: AuthLast!
+                description: 'Retrieves the last email used on the login form and the last error from the last auth attempt (from session).'
+                resolve: '@=resolver("app.graphql.resolver.auth_last")'
+
+AuthLast:
+    type: object
+    config:
+        description: 'The last email & last error after a login attempt.'
+        fields:
+            email:
+                type: String
+            error:
+                type: String

@@ -1,8 +1,14 @@
 <template>
     <div class="form-wrap">
+        <portal to="header-actions">
+            <div class="header-secondary_actions">
+                <router-link :to="{ name: 'admin-user' }">Return to List</router-link>
+            </div>
+        </portal>
+
         <h2 class="mt-0">Edit User</h2>
         <div v-if="status === 'loading'" class="italic">Loading user...</div>
-        <div v-else-if="status === 'error'">There was a problem loading the user list. Please try again later.</div>
+        <div v-else-if="status === 'error'">There was a problem loading the user. Please try again later.</div>
 
         <form v-else-if="showForm" @submit.prevent="submit">
             <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
@@ -155,7 +161,7 @@ export default {
                     mutation: AdminUserUpdateMutation,
                     variables: {
                         user: {
-                            id: this.userId,
+                            userId: this.userId,
                             email: this.email,
                             changePassword: this.changePassword,
                             password: this.password,

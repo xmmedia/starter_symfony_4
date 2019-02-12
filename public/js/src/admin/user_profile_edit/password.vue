@@ -12,13 +12,13 @@
                         Your password has been updated.<br>
                         You will need to login again.
                     </div>
-                    <a href="/login" class="pl-4">Go to Login</a>
+                    <router-link :to="{ name: 'login' }" class="pl-4">Go to Login</router-link>
                 </div>
 
                 <div class="hidden">
                     <label for="inputEmail">Email</label>
                     <input id="inputEmail"
-                           :value="$store.state.serverData.user.email"
+                           :value="$store.state.user.email"
                            type="email"
                            name="email"
                            autocomplete="username email">

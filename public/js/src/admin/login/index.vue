@@ -1,10 +1,12 @@
 <template>
     <div class="form-wrap">
+        <portal to="header-page-title">Login</portal>
+
         <h1 class="mt-0 leading-none">Login</h1>
 
-        <form method="post">
-            <input :value="csrfToken" type="hidden" name="_csrf_token">
+        <div v-if="errorMsg" class="alert alert-warning alert-type-warning">{{ errorMsg }}</div>
 
+        <form method="post">
             <div class="field-wrap">
                 <label for="inputEmail">Email Address</label>
                 <input id="inputEmail"
@@ -25,48 +27,48 @@
                 <input id="remember_me"
                        type="checkbox"
                        name="_remember_me"
-                       value="on"><label
-                           for="remember_me">Remember Me</label>
+                       value="on">
+                <label for="remember_me">Remember Me</label>
             </div>
 
             <div>
                 <button class="button">Login</button>
-                <a href="/recover" class="form-action">Forgot your password?</a>
+                <router-link :to="{ name: 'user-recover-initiate' }" class="form-action">
+                    Forgot your password?
+                </router-link>
             </div>
         </form>
     </div>
 </template>
 
 <script>
+import { AuthLast } from '../queries/auth.query';
+
 export default {
-    components: {},
-
-    props: {
-        lastUsername: {
-            type: String,
-            default: null,
-        },
-        csrfToken: {
-            type: String,
-            required: true,
-        },
-    },
-
     data () {
         return {
-            email: this.lastUsername,
+            email: null,
             password: null,
+            errorMsg: null,
         };
     },
 
-    computed: {},
+    mounted () {
+        this.$store.dispatch('updatePageTitle', 'Login');
+    },
 
-    watch: {},
-
-    beforeMount () {},
-
-    mounted () {},
-
-    methods: {},
+    apollo: {
+        lastAuth: {
+            query: AuthLast,
+            update (data) {
+                if (!this.email) {
+                    this.email = data.AuthLast.email;
+                }
+                if (data.AuthLast.error) {
+                    this.errorMsg = data.AuthLast.error;
+                }
+            },
+        },
+    },
 }
 </script>

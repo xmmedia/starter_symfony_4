@@ -4,6 +4,16 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
+            name: 'login',
+            path: '/login',
+            component: () => import('./login'),
+        },
+        {
+            name: 'admin-dashboard',
+            path: '/admin',
+            component: () => import('./admin_dashboard/index'),
+        },
+        {
             path: '/recover',
             component: () => import('./user_recover/index'),
             children: [
@@ -61,6 +71,12 @@ const router = new VueRouter({
                     component: () => import('./user/edit'),
                 },
             ],
+        },
+
+        {
+            path: '/admin/pattern-library',
+            name: 'pattern-library',
+            component: () => import('./pattern_library/index'),
         },
     ],
 

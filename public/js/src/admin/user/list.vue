@@ -1,41 +1,50 @@
 <template>
     <div>
+        <portal to="header-actions">
+            <router-link :to="{ name: 'admin-user-create' }"
+                         class="header-action header-action-main">Add User</router-link>
+        </portal>
+
         <div v-if="status === 'loading'" class="italic">Loading users...</div>
-        <div v-else-if="status === 'error'">There was a problem loading the user list. Please try again later.</div>
+        <div v-if="status === 'error'">There was a problem loading the user list. Please try again later.</div>
 
-        <ul v-else-if="status === 'loaded'" class="record_list-wrap">
-            <li class="record_list-headers">
-                <div class="record_list-col">Username</div>
-                <div class="record_list-col">Name</div>
-                <div class="record_list-col">Account Status</div>
-                <div class="record_list-col">Last Login (Count)</div>
-                <div class="record_list-col">Role</div>
-                <div class="record_list-col"></div>
-            </li>
+        <template v-if="status === 'loaded'">
+            <div class="record_list-record_count">Showing {{ users.length }}</div>
 
-            <li v-for="user in users"
-                :key="user.id"
-                :class="{ 'record_list-item-inactive' : (!user.active || !user.verified) }"
-                class="record_list-item">
-                <div class="record_list-col">{{ user.email }}</div>
-                <div class="record_list-col">{{ user.name }}</div>
-                <div class="record_list-col">{{ user|accountStatus }}</div>
-                <div class="record_list-col user_list-last_login">
-                    <template v-if="user.loginCount > 0">
-                        <local-time :datetime="user.lastLogin" /> ({{ user.loginCount }})
-                    </template>
-                    <i v-else>Never logged in</i>
-                </div>
-                <div class="record_list-col">{{ availableRoles[user.roles[0]] }}</div>
+            <ul class="record_list-wrap">
+                <li class="record_list-headers">
+                    <div class="record_list-col">Username</div>
+                    <div class="record_list-col">Name</div>
+                    <div class="record_list-col">Account Status</div>
+                    <div class="record_list-col">Last Login (Count)</div>
+                    <div class="record_list-col">Role</div>
+                    <div class="record_list-col"></div>
+                </li>
 
-                <div class="record_list-col record_list-col-actions">
-                    <router-link :to="{ name: 'admin-user-edit', params: { userId: user.id } }"
-                                 class="record_list-action">
-                        Edit
-                    </router-link>
-                </div>
-            </li>
-        </ul>
+                <li v-for="user in users"
+                    :key="user.userId"
+                    :class="{ 'record_list-item-inactive' : (!user.active || !user.verified) }"
+                    class="record_list-item">
+                    <div class="record_list-col">{{ user.email }}</div>
+                    <div class="record_list-col">{{ user.name }}</div>
+                    <div class="record_list-col">{{ user|accountStatus }}</div>
+                    <div class="record_list-col user_list-last_login">
+                        <template v-if="user.loginCount > 0">
+                            <local-time :datetime="user.lastLogin" /> ({{ user.loginCount }})
+                        </template>
+                        <i v-else>Never logged in</i>
+                    </div>
+                    <div class="record_list-col">{{ availableRoles[user.roles[0]] }}</div>
+
+                    <div class="record_list-col record_list-col-actions">
+                        <router-link :to="{ name: 'admin-user-edit', params: { userId: user.userId } }"
+                                     class="record_list-action">
+                            Edit
+                        </router-link>
+                    </div>
+                </li>
+            </ul>
+        </template>
     </div>
 </template>
 
@@ -76,14 +85,6 @@ export default {
         ]),
     },
 
-    mounted () {
-        // refresh the list of users if it's not already load
-        // this will happen when the user is returning from an edit screen
-        if (!this.$apollo.queries.users.loading) {
-            this.$apollo.queries.users.refetch();
-        }
-    },
-
     apollo: {
         users: {
             query: GetUsersQuery,
@@ -97,6 +98,7 @@ export default {
                     this.status = statuses.LOADED;
                 }
             },
+            fetchPolicy: 'network-only',
         },
     },
 }

@@ -8,8 +8,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     namespaced: true,
     strict: true,
+
     state: {
-        serverData: {},
+        ready: false,
+        user: null,
+        // @todo-symfony
+        pageTitleSuffix: 'XM Media Inc.',
 
         availableRoles: {
             ROLE_USER: 'User',
@@ -17,18 +21,41 @@ export default new Vuex.Store({
             ROLE_SUPER_ADMIN: 'Super Admin',
         },
     },
-    getters: {},
+
+    getters: {
+        loggedIn (state) {
+            if (!state.ready) {
+                return false;
+            }
+
+            return null !== state.user;
+        },
+    },
+
     actions: {
         updateUser ({ commit }, user) {
             commit('setUser', user);
         },
+
+        updatePageTitle ({ state }, pageTitle) {
+            if (pageTitle) {
+                document.title = pageTitle + ' | ' + state.pageTitleSuffix;
+            } else {
+                document.title = state.pageTitleSuffix;
+            }
+        },
     },
+
     mutations: {
-        updateServerData (state, serverData) {
-            state.serverData = serverData;
+        ready (state) {
+            state.ready = true;
         },
         setUser (state, user) {
-            state.serverData.user = { ...state.serverData.user, ...user };
+            if (state.user === null) {
+                Vue.set(state, 'user', { ...user });
+            } else {
+                Vue.set(state, 'user', { ...state.user, ...user });
+            }
         },
     },
 

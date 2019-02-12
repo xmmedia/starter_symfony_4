@@ -8,18 +8,14 @@ import router from './admin/router';
 import store from './admin/store';
 import apolloProvider from './common/apollo';
 
-import svgIcons from './common/svg_icons';
+import app from './admin/index';
+
 import fieldErrors from './common/field_errors';
-import menuSubnav from './admin/menu/subnav';
-import menuSmall from './admin/menu/small';
-import loginForm from './admin/login/index';
 import passwordField from './common/password_field';
+import { MeQuery } from './admin/queries/user.query';
 
 // SASS/CSS
 import '../../css/sass/admin.scss';
-
-// images
-import '../../images/icons-admin.svg';
 
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
@@ -31,7 +27,7 @@ Vue.use(VueModal);
 
 // global components
 Vue.component('field-errors', fieldErrors);
-Vue.component('admin-delete', () => import('./admin/admin_delete'));
+Vue.component('admin-delete', () => import('./admin/admin_delete/index'));
 Vue.component('local-time', () => import('./common/local_time'));
 Vue.component('password-field', passwordField);
 
@@ -42,19 +38,26 @@ window.App = new Vue({
     apolloProvider,
 
     components: {
-        'svg-icons': svgIcons,
-        'menu-subnav': menuSubnav,
-        'menu-small': menuSmall,
-        'login-form': loginForm,
-        'user-profile': () => import('./admin/user_profile_edit/index'),
+        app,
     },
 
-    mounted () {
-        if (this.$el.dataset && this.$el.dataset.serverData) {
-            this.$store.commit(
-                'updateServerData',
-                JSON.parse(this.$el.dataset.serverData)
-            );
-        }
+    apollo: {
+        user: {
+            query: MeQuery,
+            update (data) {
+                // don't set a user if we didn't get anything
+                if (data.Me) {
+                    this.$store.dispatch(
+                        'updateUser',
+                        data.Me
+                    );
+                }
+                this.$store.commit('ready');
+            },
+        },
+    },
+
+    render: function(h) {
+        return h(app);
     },
 });

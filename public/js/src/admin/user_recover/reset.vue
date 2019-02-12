@@ -44,7 +44,7 @@
 
                 <div>
                     <button type="submit" class="button">Set Password</button>
-                    <a href="/login" class="form-action">Return to Login</a>
+                    <router-link :to="{ name: 'login' }" class="form-action">Return to Login</router-link>
 
                     <span v-if="status === 'saving'" class="ml-4 text-sm italic">Saving...</span>
                     <span v-else-if="status === 'saved'" class="ml-4 text-sm italic">Saved</span>
@@ -53,7 +53,7 @@
 
             <div v-if="status === 'saved'" class="alert alert-success" role="alert">
                 Your password has been reset.
-                <a href="/login" class="pl-4">Login</a>
+                <router-link :to="{ name: 'login' }" class="pl-4">Login</router-link>
             </div>
         </div>
     </div>
