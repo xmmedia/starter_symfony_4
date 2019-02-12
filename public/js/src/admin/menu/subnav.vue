@@ -34,9 +34,7 @@ export default {
 
     data () {
         return {
-            id: Math.random()
-                .toString(36)
-                .substring(7),
+            id: Math.random().toString(36).substring(7),
             open: false,
         };
     },
@@ -75,6 +73,7 @@ export default {
     methods: {
         toggleMenu () {
             this.open = !this.open;
+
             if (this.open) {
                 this.$store.dispatch('adminMenu/subNavOpened', this.id);
                 document.documentElement.addEventListener('click', this.htmlClick);
@@ -82,9 +81,11 @@ export default {
                 this.$store.dispatch('adminMenu/subNavClosed');
             }
         },
+
         close () {
             this.open = false;
         },
+
         htmlClick (e) {
             if (!this.$refs.submenu.contains(e.target)) {
                 this.close();
