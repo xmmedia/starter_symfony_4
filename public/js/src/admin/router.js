@@ -78,6 +78,11 @@ const router = new VueRouter({
             name: 'pattern-library',
             component: () => import('./pattern_library/index'),
         },
+
+        {
+            path: '*',
+            component: () => import('./error/404.vue'),
+        },
     ],
 
     scrollBehavior (to, from, savedPosition) {
