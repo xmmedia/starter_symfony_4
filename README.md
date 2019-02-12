@@ -84,7 +84,7 @@ running multiple sites on one server.
 
 ## Incorporated Libraries & Tools
 
-  - Frontend – full list of dependencies can be found in [package.json](https://gitlab.com/batteryanalytics/customer/blob/master/package.json)
+  - Frontend – full list of dependencies can be found in [package.json](https://github.com/xmmedia/starter_symfony_4/blob/master/package.json)
     - [Vue](https://vuejs.org/) – frontend framework
       - [Vue Router](https://router.vuejs.org/) – routing package for frontend
       - [Vuex](https://vuex.vuejs.org/) – helps to manage state
@@ -114,7 +114,7 @@ running multiple sites on one server.
     - [Faker.js](https://github.com/marak/Faker.js/) – for generating fake data in tests
     - [ESLint](https://eslint.org/) – checks JS for conventions & errors
     - [Stylelint](https://stylelint.io/) – checks CSS for conventions & errors
-  - Backend – full list of dependencies can be found in [composer.json](https://gitlab.com/batteryanalytics/customer/blob/master/composer.json)
+  - Backend – full list of dependencies can be found in [composer.json](https://github.com/xmmedia/starter_symfony_4/blob/master/composer.json)
     - [Symfony](https://symfony.com/doc/current/index.html#gsc.tab=0) – backend framework
     - [GraphQLBundle](https://github.com/overblog/GraphQLBundle) – provides GraphQL in PHP using [graphql-php](https://github.com/webonyx/graphql-php)
       - [GraphQiL](https://github.com/graphql/graphiql) is available at `/graphiql` (on dev only)
