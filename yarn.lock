@@ -11644,7 +11644,7 @@ webpack-chunk-hash@^0.6.0:
   dependencies:
     "@types/webpack" "^3.0.0 || ^4.0.0"
 
-webpack-cli@^3.0.0:
+webpack-cli@^3.0.0, webpack-cli@^3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.2.3.tgz#13653549adfd8ccd920ad7be1ef868bacc22e346"
   integrity sha512-Ik3SjV6uJtWIAN5jp5ZuBMWEAaP5E4V78XJ2nI+paFPh8v4HPSwo/myN0r29Xc/6ZKnd2IdrAlpSgNOu2CDQ6Q==
