@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use Egulias\EmailValidator\EmailValidator;
+use Egulias\EmailValidator\Validation\NoRFCWarningsValidation;
+use Webmozart\Assert\Assert;
+
 final class Email implements ValueObject
 {
     /** @var string */
@@ -12,13 +16,19 @@ final class Email implements ValueObject
     /** @var string|null */
     private $name;
 
-    public static function fromString(string $email, string $name = null): self
+    public static function fromString(string $email, ?string $name = null): self
     {
         return new self($email, $name);
     }
 
-    private function __construct(string $email, string $name = null)
+    private function __construct(string $email, ?string $name = null)
     {
+        Assert::notEmpty($email);
+        Assert::true(
+            (new EmailValidator())->isValid($email, new NoRFCWarningsValidation()),
+            'The email "%s" is invalid.'
+        );
+
         $this->email = $email;
         $this->name = $name;
     }
@@ -57,6 +67,10 @@ final class Email implements ValueObject
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && strtolower($this->email) === strtolower($other->email);
+        if (get_class($this) !== get_class($other)) {
+            return false;
+        }
+
+        return strtolower($this->email) === strtolower($other->email);
     }
 }

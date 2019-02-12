@@ -6,6 +6,7 @@ namespace App\Form\DataTransformer;
 
 use App\Model\Email;
 use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class EmailTransformer implements DataTransformerInterface
 {
@@ -34,6 +35,14 @@ class EmailTransformer implements DataTransformerInterface
             return null;
         }
 
-        return Email::fromString($email);
+        try {
+            return Email::fromString($email);
+        } catch (\Throwable $e) {
+            throw new TransformationFailedException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e
+            );
+        }
     }
 }
