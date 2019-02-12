@@ -126,7 +126,7 @@ running multiple sites on one server.
     - [PHPStan](https://github.com/phpstan/phpstan) – static analysis of PHP
     - [Postmark](https://postmarkapp.com/) – for sending email, contains email templates (currently setup under XM Media's account)
     - [Cloudflare](https://www.cloudflare.com/) – DNS & CDN
-  - [GitLab](https://gitlab.com/batteryanalytics) – deployment
+  - [GitLab](https://gitlab.com/) – deployment
   - Dev Tools
     - [Vue Devtools](https://github.com/vuejs/vue-devtools)
     - [Apollo Devtools](https://github.com/apollographql/apollo-client-devtools)
