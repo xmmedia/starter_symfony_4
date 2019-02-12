@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Form\User;
 
-use App\Form\DataTransformer\EmailTransformer;
 use App\Form\DataTransformer\NameTransformer;
+use App\Form\Type\EmailType;
 use App\Model\User\Name;
 use App\Validator\Constraints\UniqueCurrentUsersEmail;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -21,17 +20,13 @@ class UserProfileType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label'       => 'Email',
-                'attr'        => ['maxlength' => 150],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Email(['mode' => 'strict']),
                     new UniqueCurrentUsersEmail(),
                 ],
             ])
             ->add('firstName', TextType::class, [
                 'label'       => 'First Name',
-                'attr'        => ['maxlength' => Name::NAME_MAX_LENGTH],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
@@ -39,10 +34,10 @@ class UserProfileType extends AbstractType
                         'max' => Name::NAME_MAX_LENGTH,
                     ]),
                 ],
+                'invalid_message' => '"{{ value }}" is not a valid name.',
             ])
             ->add('lastName', TextType::class, [
                 'label'       => 'Last Name',
-                'attr'        => ['maxlength' => Name::NAME_MAX_LENGTH],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
@@ -50,11 +45,10 @@ class UserProfileType extends AbstractType
                         'max' => Name::NAME_MAX_LENGTH,
                     ]),
                 ],
+                'invalid_message' => '"{{ value }}" is not a valid name.',
             ])
         ;
 
-        $builder->get('email')
-            ->addModelTransformer(new EmailTransformer());
         $builder->get('firstName')
             ->addModelTransformer(new NameTransformer());
         $builder->get('lastName')

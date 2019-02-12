@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Form\User;
 
-use App\Form\DataTransformer\EmailTransformer;
+use App\Form\Type\EmailType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,17 +16,11 @@ class UserRecoverInitiateType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label'       => 'Email',
-                'attr'        => ['maxlength' => 150],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Email(['mode' => 'strict']),
                 ],
             ])
         ;
-
-        $builder->get('email')
-            ->addModelTransformer(new EmailTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver): void

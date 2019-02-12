@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Form\User;
 
 use App\DataProvider\RoleProvider;
-use App\Form\DataTransformer\EmailTransformer;
 use App\Form\DataTransformer\NameTransformer;
 use App\Form\DataTransformer\SecurityRoleTransformer;
 use App\Form\DataTransformer\UserIdTransformer;
+use App\Form\Type\EmailType;
 use App\Model\User\Name;
 use App\Model\User\User;
 use App\Validator\Constraints\UniqueExistingUserEmail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -44,16 +43,13 @@ class AdminUserUpdateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('id', HiddenType::class, [
-                'label' => 'User ID',
-                // no constraints because we don't want to show these errors to the user
+            ->add('userId', HiddenType::class, [
+                'label'           => 'User ID',
+                'invalid_message' => 'Invalid UUID.',
             ])
             ->add('email', EmailType::class, [
-                'label'       => 'Email',
-                'attr'        => ['maxlength' => 150],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Email(['mode' => 'strict']),
                 ],
             ])
             ->add('changePassword', CheckboxType::class, [
@@ -62,7 +58,6 @@ class AdminUserUpdateType extends AbstractType
             // @todo additional validation: check common passwords
             ->add('password', PasswordType::class, [
                 'label'       => 'Password',
-                'attr'        => ['maxlength' => BasePasswordEncoder::MAX_PASSWORD_LENGTH],
                 'constraints' => [
                     new Assert\NotBlank(['groups' => ['password']]),
                     new Assert\Length([
@@ -74,7 +69,6 @@ class AdminUserUpdateType extends AbstractType
             ])
             ->add('firstName', TextType::class, [
                 'label'       => 'First Name',
-                'attr'        => ['maxlength' => Name::NAME_MAX_LENGTH],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
@@ -82,10 +76,10 @@ class AdminUserUpdateType extends AbstractType
                         'max' => Name::NAME_MAX_LENGTH,
                     ]),
                 ],
+                'invalid_message' => '"{{ value }}" is not a valid name.',
             ])
             ->add('lastName', TextType::class, [
                 'label'       => 'Last Name',
-                'attr'        => ['maxlength' => Name::NAME_MAX_LENGTH],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
@@ -93,17 +87,17 @@ class AdminUserUpdateType extends AbstractType
                         'max' => Name::NAME_MAX_LENGTH,
                     ]),
                 ],
+                'invalid_message' => '"{{ value }}" is not a valid name.',
             ])
             ->add('role', ChoiceType::class, [
-                'label'   => 'Role',
-                'choices' => ($this->roleProvider)(),
+                'label'           => 'Role',
+                'choices'         => ($this->roleProvider)(),
+                'invalid_message' => '"{{ value }}" is not a valid role.',
             ])
         ;
 
-        $builder->get('id')
+        $builder->get('userId')
             ->addModelTransformer(new UserIdTransformer());
-        $builder->get('email')
-            ->addModelTransformer(new EmailTransformer());
         $builder->get('role')
             ->addModelTransformer($this->securityRoleTransformer);
         $builder->get('firstName')

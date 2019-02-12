@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Form\User;
 
 use App\Form\DataTransformer\TokenTransformer;
 use App\Model\User\User;
@@ -21,12 +21,12 @@ class UserVerifyType extends AbstractType
     {
         $builder
             ->add('token', HiddenType::class, [
-                'label' => 'Token',
+                'label'           => 'Token',
+                'invalid_message' => '"{{ value }}" is not a valid token.',
             ])
             ->add('password', RepeatedType::class, [
                 'type'            => PasswordType::class,
                 'label'           => 'New Password',
-                'attr'            => ['maxlength' => BasePasswordEncoder::MAX_PASSWORD_LENGTH],
                 'invalid_message' => 'The passwords must match.',
                 'constraints'     => [
                     new Assert\NotBlank(),
