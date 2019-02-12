@@ -11,6 +11,10 @@ function resolve (dir) {
 
 // Base configuration of Encore/Webpack
 module.exports = function (Encore) {
+    if (!Encore.isRuntimeEnvironmentConfigured()) {
+        Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
+    }
+
     Encore
     // directory where all compiled assets will be stored
         .setOutputPath('public/build/')
