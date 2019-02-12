@@ -17,6 +17,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class CsrfValidationSubscriber implements EventSubscriberInterface
 {
     private $routes = [
+        'app_login',
         'overblog_graphql_endpoint',
         'overblog_graphql_batch_endpoint',
         'overblog_graphql_multiple_endpoint',
@@ -25,7 +26,6 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
 
     private $tokenName = 'main';
     private $cookieName = 'CSRF-TOKEN';
-    private $haderName = 'X-CSRF-TOKEN';
 
     /** @var CsrfTokenManagerInterface */
     private $csrfTokenManager;

@@ -12,11 +12,9 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
@@ -27,19 +25,14 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
     /** @var RouterInterface */
     private $router;
 
-    /** @var CsrfTokenManagerInterface */
-    private $csrfTokenManager;
-
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
     public function __construct(
         RouterInterface $router,
-        CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
         $this->router = $router;
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
     }
 
@@ -53,8 +46,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
     {
         $credentials = Credentials::build(
             $request->request->get('email'),
-            $request->request->get('password'),
-            $request->request->get('_csrf_token')
+            $request->request->get('password')
         );
 
         $request->getSession()->set(
@@ -74,9 +66,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
         $credentials,
         UserProviderInterface $userProvider
     ): UserInterface {
-        if (!$this->csrfTokenManager->isTokenValid($credentials->csrfToken())) {
-            throw new InvalidCsrfTokenException();
-        }
+        // CSRF check is done in CsrfValidationSubscriber
 
         // Load / create our user however you need.
         // You can do this by calling the user provider, or with custom logic here.
@@ -113,8 +103,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // @todo-symfony
-        return new RedirectResponse($this->router->generate('admin_dashboard'));
+        return new RedirectResponse('/');
     }
 
     protected function getLoginUrl(): string
