@@ -7,6 +7,7 @@ a, .button-link {
 
 // reset margins on headings as tailwind removes them
 h1 {
+    @apply text-blue-darker;
     margin: 0.67rem 0;
 }
 h2 {
