@@ -21,7 +21,7 @@ User:
                 access: '@=hasRole("ROLE_ADMIN")'
             roles:
                 type: '[Role!]'
-                access: '@=hasRole("ROLE_ADMIN")'
+                access: '@=isAuthenticated()'
             # if they attempt to access this field when not admin
             # they'll get a access denied + null for the whole user
             # as this field cannot come back as null

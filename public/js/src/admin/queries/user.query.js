@@ -7,6 +7,7 @@ export const MeQuery = gql`query Me {
         name
         firstName
         lastName
+        roles
     }
 }`;
 

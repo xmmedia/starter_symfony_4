@@ -31,33 +31,23 @@ Vue.component('admin-delete', () => import('./admin/admin_delete/index'));
 Vue.component('local-time', () => import('./common/local_time'));
 Vue.component('password-field', passwordField);
 
-window.App = new Vue({
-    el: '#app',
-    router,
-    store,
-    apolloProvider,
+// run gql query to see if the user is logged in, set state to ready
+// and then initialize
+apolloProvider.defaultClient.query({ query: MeQuery })
+    .then((result) =>  {
+        // don't set a user if we didn't get anything
+        if (result.data.Me) {
+            store.dispatch('updateUser', result.data.Me);
+        }
 
-    components: {
-        app,
-    },
+        store.commit('ready');
 
-    apollo: {
-        user: {
-            query: MeQuery,
-            update (data) {
-                // don't set a user if we didn't get anything
-                if (data.Me) {
-                    this.$store.dispatch(
-                        'updateUser',
-                        data.Me
-                    );
-                }
-                this.$store.commit('ready');
-            },
-        },
-    },
+        window.App = new Vue({
+            el: '#app',
+            router,
+            store,
+            apolloProvider,
 
-    render: function(h) {
-        return h(app);
-    },
-});
+            render: h => h(app),
+        });
+    });

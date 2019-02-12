@@ -6,6 +6,7 @@ security:
                 class: App\Entity\User
                 property: email
 
+    # also in Vuex
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN

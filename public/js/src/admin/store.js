@@ -15,6 +15,11 @@ export default new Vuex.Store({
         // @todo-symfony
         pageTitleSuffix: 'XM Media Inc.',
 
+        // also in Symfony security config
+        roleHierarchy: {
+            ROLE_ADMIN: ['ROLE_USER'],
+            ROLE_SUPER_ADMIN: ['ROLE_ADMIN'],
+        },
         availableRoles: {
             ROLE_USER: 'User',
             ROLE_ADMIN: 'Admin',
@@ -29,6 +34,50 @@ export default new Vuex.Store({
             }
 
             return null !== state.user;
+        },
+
+        hasRole: (state, getters) => (role) => {
+            if (!getters.loggedIn) {
+                return false;
+            }
+
+            // all logged in users have ROLE_USER
+            if (role === 'ROLE_USER') {
+                return true;
+            }
+
+            for (let r = 0; r < state.user.roles.length; r++) {
+                if (getters.roleMap[state.user.roles[r]].has(role)) {
+                    return true;
+                }
+            }
+
+            return false;
+        },
+
+        roleMap (state) {
+            const map = { ...state.roleHierarchy };
+
+            for (let main in state.roleHierarchy) {
+                const roles = state.roleHierarchy[main];
+                map[main] = new Set([...roles]);
+                map[main].add(main);
+                let visited = [];
+
+                roles.forEach((role) => {
+                    if (!map.hasOwnProperty(role)) {
+                        return;
+                    }
+
+                    visited.push(role);
+
+                    state.roleHierarchy[role].forEach((roleToAdd) => {
+                        map[main].add(roleToAdd);
+                    });
+                });
+            }
+
+            return map;
         },
     },
 
