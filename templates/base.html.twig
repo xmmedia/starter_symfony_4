@@ -16,8 +16,7 @@
         {% include 'ie9_warning.html.twig' %}
 
         {# #app is what Vue.js mounts to #}
-        {% set js_base = js_base|default('public') %}
-        <div id="app" data-server-data="{{ js_data.get(js_base)|json_encode(constant('JSON_FORCE_OBJECT')) }}">
+        <div id="app">
             {% block body %}
                 {% block header %}
                     <header>

@@ -3,7 +3,6 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-        js_data: '@App\DataProvider\JsData'
         ga_tracking_id: '%env(GA_TRACKING_ID)%'
         form_themes:
             - 'Form/fields.html.twig'
