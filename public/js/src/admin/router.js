@@ -99,6 +99,7 @@ const router = new VueRouter({
 
         {
             path: '*',
+            name: '404',
             component: () => import('./error/404.vue'),
         },
     ],
