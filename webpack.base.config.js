@@ -46,6 +46,12 @@ module.exports = function (Encore) {
 
         .enableSourceMaps(true)
 
+        .configureBabel(() => {}, {
+            include_node_modules: [
+                'vue-apollo', // Object.entries()
+            ],
+        })
+
         .addLoader({
             test: /\.svg$/,
             use: [
