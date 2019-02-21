@@ -124,7 +124,7 @@ export default {
             query: GetUserQuery,
             variables () {
                 return {
-                    id: this.userId,
+                    userId: this.userId,
                 };
             },
             update (data) {
