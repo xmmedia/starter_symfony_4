@@ -1,6 +1,4 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import VueApollo from 'vue-apollo';
 import PortalVue from 'portal-vue';
 import VueModal from 'vue-js-modal';
 
@@ -20,8 +18,6 @@ import '../../css/sass/admin.scss';
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
 
-Vue.use(VueRouter);
-Vue.use(VueApollo);
 Vue.use(PortalVue);
 Vue.use(VueModal);
 
