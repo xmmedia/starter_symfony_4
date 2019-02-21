@@ -8,7 +8,7 @@ const devDomain = 'dev.example.com';
 module.exports = {
     runtimeCompiler: true,
     lintOnSave: false,
-    publicPath: process.env.DEV_SERVER ? 'https://'+devDomain+'/dev-server' : 'build',
+    publicPath: process.env.DEV_SERVER ? 'https://'+devDomain+'/dev-server/' : 'build',
     outputDir: 'public/build',
 
     pages: {
@@ -28,7 +28,7 @@ module.exports = {
 
     css: {
         // extract breaks HMR (for CSS)
-        extract: true,
+        // extract: true,
         sourceMap: true,
     },
 
@@ -160,9 +160,25 @@ module.exports = {
     // Dev server requests to the dev server are proxied through Apache
     devServer: {
         public: devDomain,
-        // @todo-symfony update public & port
+        // @todo-symfony update port
         port: 9008,
-        writeToDisk: true,
+        contentBase: path.join(__dirname, 'public/'),
+        // watchContentBase: false,
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        inline: true,
+        writeToDisk: (filePath) => {
+            return /(public|admin)\.html\.twig/.test(filePath);
+        },
         compress: true,
+        clientLogLevel: 'info',
+        historyApiFallback: true,
+        // allowedHosts: [
+        //     devDomain,
+        // ],
+        watchOptions: {
+            aggregateTimeout: 300,
+            poll: 1000,
+            ignored: /node_modules/,
+        },
     },
 }

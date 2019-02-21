@@ -12,7 +12,7 @@
     "build": "vue-cli-service build",
     "dev": "vue-cli-service build --mode development",
     "watch": "vue-cli-service build --watch",
-    "serve": "DEV_SERVER=1 vue-cli-service serve --config",
+    "serve": "DEV_SERVER=1 vue-cli-service serve",
     "lint:js": "vue-cli-service lint --ext .js,.vue public/js",
     "lint:js:fix": "vue-cli-service lint --ext .js,.vue public/js --fix",
     "lint:css": "stylelint public/css/**/*.scss",
