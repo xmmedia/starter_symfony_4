@@ -9,17 +9,17 @@
   "license": "MIT",
   "//private": true,
   "scripts": {
-    "dev": "encore dev",
-    "dev-server": "encore dev-server --config webpack.dev-server.config.js --hot --port 9008 --public symfonystarter.dev2.xmmedia.com:443",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "cypress open",
+    "build": "vue-cli-service build",
+    "dev": "vue-cli-service build --mode development",
+    "watch": "vue-cli-service build --watch",
+    "serve": "DEV_SERVER=1 vue-cli-service serve --config",
     "lint:js": "vue-cli-service lint --ext .js,.vue public/js",
     "lint:js:fix": "vue-cli-service lint --ext .js,.vue public/js --fix",
     "lint:css": "stylelint public/css/**/*.scss",
     "lint:css:fix": "stylelint public/css/**/*.scss --fix",
-    "watch": "encore dev --watch",
-    "build": "encore production",
-    "stats": "encore production --profile --json > webpack-stats.json"
+    "test:e2e": "vue-cli-service test:e2e",
+    "test:unit": "vue-cli-service test:unit",
+    "cli": "vue-cli-service"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.3.12",
@@ -42,7 +42,6 @@
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^4.0.2",
-    "@symfony/webpack-encore": "^0.23.0",
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-plugin-e2e-cypress": "^3.0.5",
     "@vue/cli-plugin-eslint": "^3.0.5",
@@ -53,7 +52,6 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
     "css-loader": "^1.0.0",
-    "dotenv-webpack": "^1.6.0",
     "eslint-plugin-cypress": "^2.0.1",
     "faker": "^4.1.0",
     "glob-all": "^3.1.0",
@@ -68,9 +66,6 @@
     "svgo-loader": "^2.2.0",
     "tailwindcss": "^0.7.2",
     "vue-loader": "^15.4.2",
-    "vue-template-compiler": "^2.5.17",
-    "webpack-bundle-analyzer": "^3.0.3",
-    "webpack-cli": "^3.2.3",
-    "workbox-webpack-plugin": "^3.6.3"
+    "vue-template-compiler": "^2.5.17"
   }
 }

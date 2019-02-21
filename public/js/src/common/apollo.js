@@ -6,7 +6,7 @@ import fetch from 'unfetch';
 
 // HTTP connexion to the API
 const httpLink = createHttpLink({
-    uri: process.env.REQUEST_CONTEXT_SCHEME+'://'+process.env.REQUEST_CONTEXT_HOST+'/graphql/',
+    uri: process.env.VUE_APP_REQUEST_CONTEXT_SCHEME+'://'+process.env.VUE_APP_REQUEST_CONTEXT_HOST+'/graphql/',
     fetch: fetch,
     connectToDevTools: process.env.NODE_ENV === 'production',
 });

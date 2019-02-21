@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.getLocale()[:2] }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title_wrap %}{% block page_title %}{% endblock %}{{ 'app.parameter.name'|trans }}{% endblock %}</title>
+
+    {% block head %}{% endblock %}
+</head>
+<body{% if body_attributes is defined %}{{ body_attributes }}{% endif %}>
+    {% include 'ie9_warning.html.twig' %}
+
+    {# #app is what Vue.js mounts to #}
+    <div id="app">
+        {% block body %}
+            {% block header %}
+                <header>
+                    <div><a href="{{ path('index') }}"><img src="/images/logo.svg" alt="{{ 'app.parameter.name'|trans }}"></a></div>
+                </header>
+            {% endblock header %}
+            {% block content_wrap %}
+                <main class="max-w-90 max:max-w-2xl mx-auto clearfix">
+                    {% block content %}
+                        {% include 'flash_messages.html.twig' %}
+                    {% endblock content %}
+                </main>
+            {% endblock content_wrap %}
+            {% block footer %}
+                <footer>
+                    <div class="text-sm">
+                        ©{{ 'now'|date('Y') }} {{ 'app.parameter.name'|trans }} {{ "app.string.all_rights_reserved"|trans }}
+                    </div>
+                </footer>
+            {% endblock footer %}
+
+            <portal-target name="modal" multiple></portal-target>
+        {% endblock body %}
+    </div>
+
+    {% block analytics %}
+        {% if ga_tracking_id %}
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', '{{ ga_tracking_id }}', 'auto');
+                ga('send', 'pageview');
+            </script>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>
