@@ -72,10 +72,6 @@ const router = new Router({
                     name: 'admin-user',
                     path: '',
                     component: () => import(/* webpackChunkName: "admin-user" */ './user/list'),
-                    meta: {
-                        requiresAuth: true,
-                        role: 'ROLE_ADMIN',
-                    },
                 },
                 {
                     name: 'admin-user-create',
@@ -124,9 +120,12 @@ router.beforeEach( (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
     if (requiresAuth) {
+        // find the first matched route that has a role
+        const routeWithRole = to.matched.find(record => record.meta && record.meta.role);
+
         // this route requires auth, check if logged in
         // and check if they have the right role
-        if (store.getters.loggedIn && store.getters.hasRole(to.meta.role)) {
+        if (store.getters.loggedIn && store.getters.hasRole(routeWithRole.meta.role)) {
             next();
         } else {
             next({ name: 'login' });
