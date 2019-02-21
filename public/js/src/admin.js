@@ -23,8 +23,8 @@ Vue.use(VueModal);
 
 // global components
 Vue.component('field-errors', fieldErrors);
-Vue.component('admin-delete', () => import('./admin/admin_delete/index'));
-Vue.component('local-time', () => import('./common/local_time'));
+Vue.component('admin-delete', () => import(/* webpackChunkName: "admin-delete" */ './admin/admin_delete/index'));
+Vue.component('local-time', () => import(/* webpackChunkName: "local-time" */ './common/local_time'));
 Vue.component('password-field', passwordField);
 
 // run gql query to see if the user is logged in, set state to ready

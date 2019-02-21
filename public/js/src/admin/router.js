@@ -11,43 +11,43 @@ const router = new Router({
         {
             name: 'login',
             path: '/login',
-            component: () => import('./login'),
+            component: () => import(/* webpackChunkName: "login" */ './login'),
         },
         {
             path: '/recover',
-            component: () => import('./user_recover/index'),
+            component: () => import(/* webpackChunkName: "user-recover" */ './user_recover/index'),
             children: [
                 { path: '', redirect: '/recover/initiate' },
                 {
                     name: 'user-recover-initiate',
                     path: 'initiate',
-                    component: () => import('./user_recover/initiate'),
+                    component: () => import(/* webpackChunkName: "user-recover" */ './user_recover/initiate'),
                 },
                 {
                     name: 'user-recover-reset',
                     path: 'reset/:token',
-                    component: () => import('./user_recover/reset'),
+                    component: () => import(/* webpackChunkName: "user-recover" */ './user_recover/reset'),
                 },
             ],
         },
         {
             name: 'user-verify',
             path: '/activate/:token',
-            component: () => import('./user_verify/index'),
+            component: () => import(/* webpackChunkName: "user-verify" */ './user_verify/index'),
         },
         {
             path: '/profile/edit',
-            component: () => import('./user_profile_edit/index'),
+            component: () => import(/* webpackChunkName: "user-profile-edit" */ './user_profile_edit/index'),
             children: [
                 {
                     name: 'user-profile-edit',
                     path: '',
-                    component: () => import('./user_profile_edit/profile'),
+                    component: () => import(/* webpackChunkName: "user-profile-edit" */ './user_profile_edit/profile'),
                 },
                 {
                     name: 'user-profile-edit-password',
                     path: 'password',
-                    component: () => import('./user_profile_edit/password'),
+                    component: () => import(/* webpackChunkName: "user-profile-edit" */ './user_profile_edit/password'),
                 },
             ],
             meta: {
@@ -58,7 +58,7 @@ const router = new Router({
         {
             name: 'admin-dashboard',
             path: '/admin',
-            component: () => import('./admin_dashboard/index'),
+            component: () => import(/* webpackChunkName: "admin-dashboard" */ './admin_dashboard/index'),
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_ADMIN',
@@ -66,22 +66,26 @@ const router = new Router({
         },
         {
             path: '/admin/user',
-            component: () => import('./user/index'),
+            component: () => import(/* webpackChunkName: "admin-user" */ './user/index'),
             children: [
                 {
                     name: 'admin-user',
                     path: '',
-                    component: () => import('./user/list'),
+                    component: () => import(/* webpackChunkName: "admin-user" */ './user/list'),
+                    meta: {
+                        requiresAuth: true,
+                        role: 'ROLE_ADMIN',
+                    },
                 },
                 {
                     name: 'admin-user-create',
                     path: 'create',
-                    component: () => import('./user/create'),
+                    component: () => import(/* webpackChunkName: "admin-user" */ './user/create'),
                 },
                 {
                     name: 'admin-user-edit',
                     path: ':userId/edit',
-                    component: () => import('./user/edit'),
+                    component: () => import(/* webpackChunkName: "admin-user" */ './user/edit'),
                 },
             ],
             meta: {
@@ -93,7 +97,7 @@ const router = new Router({
         {
             path: '/admin/pattern-library',
             name: 'pattern-library',
-            component: () => import('./pattern_library/index'),
+            component: () => import(/* webpackChunkName: "admin-pattern_library" */ './pattern_library/index'),
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_SUPER_ADMIN',
@@ -103,7 +107,7 @@ const router = new Router({
         {
             path: '*',
             name: '404',
-            component: () => import('./error/404.vue'),
+            component: () => import(/* webpackChunkName: "admin-404" */ './error/404.vue'),
         },
     ],
 

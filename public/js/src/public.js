@@ -27,6 +27,6 @@ window.App = new Vue({
 
     components: {
         'svg-icons': svgIcons,
-        'contact-form': () => import('./public/contact/index'),
+        'contact-form': () => import(/* webpackChunkName: "public-contact" */ './public/contact/index'),
     },
 });
