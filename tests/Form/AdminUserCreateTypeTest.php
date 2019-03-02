@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Form;
 
 use App\DataProvider\RoleProvider;
-use App\Form\AdminUserCreateType;
+use App\Form\User\AdminUserCreateType;
 use App\Form\DataTransformer\SecurityRoleTransformer;
 use App\Model\Email;
 use App\Model\User\Name;

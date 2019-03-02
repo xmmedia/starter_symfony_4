@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Form;
 
-use App\Form\UserProfileType;
+use App\Form\User\UserProfileType;
 use App\Model\Email;
 use App\Model\User\Name;
 use Faker;

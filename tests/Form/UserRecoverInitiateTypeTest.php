@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Form;
 
-use App\Form\UserRecoverInitiateType;
+use App\Form\User\UserRecoverInitiateType;
 use App\Model\Email;
 use Faker;
 use Symfony\Component\Form\Test\Traits\ValidatorExtensionTrait;
