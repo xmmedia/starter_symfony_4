@@ -19,10 +19,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class AppAuthenticatorTest extends TestCase
 {
@@ -36,8 +33,6 @@ class AppAuthenticatorTest extends TestCase
     private $authenticator;
     /** @var RouterInterface|\Mockery\MockInterface */
     private $router;
-    /** @var CsrfTokenManagerInterface|\Mockery\MockInterface */
-    private $csrfTokenManager;
     /** @var UserPasswordEncoderInterface|\Mockery\MockInterface */
     private $passwordEncoder;
 
@@ -50,12 +45,10 @@ class AppAuthenticatorTest extends TestCase
         $this->requestWithSession->setSession($session);
 
         $this->router = Mockery::mock(RouterInterface::class);
-        $this->csrfTokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
         $this->passwordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
 
         $this->authenticator = new AppAuthenticator(
             $this->router,
-            $this->csrfTokenManager,
             $this->passwordEncoder
         );
     }
@@ -91,9 +84,8 @@ class AppAuthenticatorTest extends TestCase
         $password = $faker->password;
 
         $this->requestWithSession->request->add([
-            'email'       => $email,
-            'password'    => $password,
-            '_csrf_token' => 'string',
+            'email'    => $email,
+            'password' => $password,
         ]);
 
         $this->requestWithSession->getSession()
@@ -106,7 +98,6 @@ class AppAuthenticatorTest extends TestCase
         $this->assertInstanceOf(Credentials::class, $credentials);
         $this->assertSame($email, $credentials->email());
         $this->assertSame($password, $credentials->password());
-        $this->assertInstanceOf(CsrfToken::class, $credentials->csrfToken());
     }
 
     public function testGetCredentialsNulls(): void
@@ -114,7 +105,6 @@ class AppAuthenticatorTest extends TestCase
         $this->requestWithSession->request->add([
             '_email'      => null,
             '_password'   => null,
-            '_csrf_token' => null,
         ]);
 
         $this->requestWithSession->getSession()
@@ -127,7 +117,6 @@ class AppAuthenticatorTest extends TestCase
         $this->assertInstanceOf(Credentials::class, $credentials);
         $this->assertNull($credentials->email());
         $this->assertNull($credentials->password());
-        $this->assertInstanceOf(CsrfToken::class, $credentials->csrfToken());
     }
 
     public function testGetCredentialsNotInRequest(): void
@@ -143,7 +132,6 @@ class AppAuthenticatorTest extends TestCase
         $this->assertInstanceOf(Credentials::class, $credentials);
         $this->assertNull($credentials->email());
         $this->assertNull($credentials->password());
-        $this->assertInstanceOf(CsrfToken::class, $credentials->csrfToken());
     }
 
     public function testGetUser(): void
@@ -152,7 +140,7 @@ class AppAuthenticatorTest extends TestCase
 
         $email = $faker->email;
         $password = $faker->password;
-        $credentials = Credentials::build($email, $password, 'string');
+        $credentials = Credentials::build($email, $password);
 
         $user = Mockery::mock(User::class);
 
@@ -162,45 +150,22 @@ class AppAuthenticatorTest extends TestCase
             ->once()
             ->andReturn($user);
 
-        $this->csrfTokenManager
-            ->shouldReceive('isTokenValid')
-            ->andReturnTrue();
-
         /** @var User $userReceived */
         $userReceived = $this->authenticator->getUser($credentials, $userProvider);
 
         $this->assertInstanceOf(User::class, $userReceived);
     }
 
-    public function testGetUserInvalidToken(): void
-    {
-        $credentials = Credentials::build(null, null, null);
-
-        $userProvider = Mockery::mock(EntityUserProvider::class);
-
-        $this->csrfTokenManager
-            ->shouldReceive('isTokenValid')
-            ->andReturnFalse();
-
-        $this->expectException(InvalidCsrfTokenException::class);
-
-        $this->authenticator->getUser($credentials, $userProvider);
-    }
-
     public function testGetUserInvalidEmail(): void
     {
         $email = 'email';
-        $credentials = Credentials::build($email, null, 'string');
+        $credentials = Credentials::build($email, null);
 
         $userProvider = Mockery::mock(EntityUserProvider::class);
         $userProvider->shouldReceive('loadUserByUsername')
             ->with($credentials->email())
             ->once()
             ->andReturnNull();
-
-        $this->csrfTokenManager
-            ->shouldReceive('isTokenValid')
-            ->andReturnTrue();
 
         $this->expectException(CustomUserMessageAuthenticationException::class);
 
@@ -216,7 +181,7 @@ class AppAuthenticatorTest extends TestCase
 
         $email = $faker->email;
         $password = $faker->password;
-        $credentials = Credentials::build($email, $password, null);
+        $credentials = Credentials::build($email, $password);
 
         $user = Mockery::mock(User::class);
 
@@ -234,7 +199,7 @@ class AppAuthenticatorTest extends TestCase
 
         $email = $faker->email;
         $password = $faker->password;
-        $credentials = Credentials::build($email, $password, null);
+        $credentials = Credentials::build($email, $password);
 
         $user = Mockery::mock(User::class);
 
@@ -253,11 +218,6 @@ class AppAuthenticatorTest extends TestCase
             ->andReturnNull();
         $token = Mockery::mock(TokenInterface::class);
 
-        $this->router->shouldReceive('generate')
-            ->with('admin_dashboard')
-            ->once()
-            ->andReturn('/url');
-
         $result = $this->authenticator->onAuthenticationSuccess(
             $this->requestWithSession,
             $token,
@@ -265,7 +225,7 @@ class AppAuthenticatorTest extends TestCase
         );
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/url', $result->getTargetUrl());
+        $this->assertSame('/', $result->getTargetUrl());
     }
 
     public function testOnAuthenticationSuccessWithTarget(): void
