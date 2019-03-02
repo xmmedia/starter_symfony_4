@@ -697,10 +697,10 @@ FileETag None
 # ----------------------------------------------------------------------
 
 # Disable all caching on the Service Worker (service-worker.js)
-# and importScripts files (ie, service_worker_import.js).
+# and importScripts files.
 # This is very forceful.
 
-<FilesMatch "(service-worker|service_worker_import)\.js$">
+<FilesMatch "(service-worker)\.js$">
   <IfModule mod_headers.c>
      Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
      Header set Pragma "no-cache"

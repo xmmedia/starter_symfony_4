@@ -28,6 +28,15 @@
             {{ encore_entry_script_tags('admin') }}
         {% endblock %}
 
+        <script>
+            if ('serviceWorker' in navigator) {
+                // Use the window load event to keep the page load performant
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js');
+                });
+            }
+        </script>
+
         {% block analytics %}
             {% if ga_tracking_id %}
                 <script>

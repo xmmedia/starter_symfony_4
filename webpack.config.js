@@ -4,55 +4,39 @@ const Encore = require('@symfony/webpack-encore');
 const encoreConfigure = require('./webpack.base.config');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const merge = require('webpack-merge');
+const path = require('path');
 
 encoreConfigure(Encore);
 
-if (Encore.isProduction()) {
-    Encore.addPlugin(new WorkboxPlugin.GenerateSW({
-        swDest: '../service-worker.js',
+if (!Encore.isDevServer()) {
+    Encore.addPlugin(new WorkboxPlugin.InjectManifest({
+        swSrc: path.join(__dirname, 'public/js/src/service_worker.js'),
+
+        // don't put this in a sub folder as the sw will be just for the folder
+        // though this could be useful if you want more than 1 service worker
+        swDest: path.join(__dirname, 'public/service-worker.js'),
         importWorkboxFrom: 'local',
-        chunks: ['public', 'admin'],
-        // these options encourage the ServiceWorkers to get in there fast
-        // and not allow any straggling "old" SWs to hang around
-        clientsClaim: true,
-        skipWaiting: true,
+        // @todo-symfony customize these lists depending on if the sw is for admins only or for public and admin; these are used to determine what's put in the precache manifest; by default, NOTHING IS PRECACHED; see: https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin#full_injectmanifest_config
+        chunks: [''],
+        // excludeChunks: [],
         maximumFileSizeToCacheInBytes: 20 * 1024 * 1024, // 20mb
 
-        // chunk name is not used because these are refreshed
-        // every time the service worker script is updated
-        importScripts: ['/js/src/service_worker_import.js'],
-
-        runtimeCaching: [
-            {
-                urlPattern: /()/,
-                handler: 'networkFirst',
-                options: {
-                    cacheName: 'pages',
-                },
-            },
-            {
-                urlPattern: /\.(?:js|css|svg)$/,
-                handler: 'networkFirst',
-                options: {
-                    cacheName: 'static-resources',
-                },
-            },
-            // page to show if offline
-            // {
-            //     urlPattern: /(.*)/,
-            //     // based on: https://github.com/GoogleChrome/workbox/issues/757#issuecomment-326672407
-            //     handler: ({url, event, params}) => {
-            //         return fetch(event.request)
-            //             .catch((error) => {
-            //                 if (event.request.mode === 'navigate') {
-            //                     return caches.match('/offline');
-            //                 }
-            //
-            //                 return error;
-            //             });
-            //     },
-            // },
+        globDirectory: 'public/',
+        globPatterns: [
+            'favicon.ico',
+            'site.webmanifest',
         ],
+
+        // list of files that are generated outside of webpack
+        // the array will be used to generate a revision for the file
+        // that will be included as part of the precache manifest
+        templatedURLs: {
+            '/admin': [
+                'js/src/**/*.js',
+                'js/src/**/*.vue',
+                'css/sass/**/*.scss',
+            ],
+        },
     }));
 }
 
