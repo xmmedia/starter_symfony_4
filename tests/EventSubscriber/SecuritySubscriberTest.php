@@ -57,7 +57,7 @@ class SecuritySubscriberTest extends TestCase
         $requestStack = Mockery::mock(RequestStack::class);
 
         $user = Mockery::mock(User::class);
-        $user->shouldReceive('id')
+        $user->shouldReceive('userId')
             ->andReturn(UserId::generate());
         $user->shouldReceive('email')
             ->andReturn(Email::fromString('test@example.com'));
@@ -93,7 +93,7 @@ class SecuritySubscriberTest extends TestCase
             ->andReturn($request);
 
         $user = Mockery::mock(User::class);
-        $user->shouldReceive('id')
+        $user->shouldReceive('userId')
             ->andReturn(UserId::generate());
         $user->shouldReceive('email')
             ->andReturn(Email::fromString('test@example.com'));

@@ -48,7 +48,7 @@ class AdminUserUpdateTypeTest extends TypeTestCase
         $faker = Faker\Factory::create();
 
         $formData = [
-            'id'             => $faker->uuid,
+            'userId'         => $faker->uuid,
             'changePassword' => true,
             'password'       => $faker->password,
             'email'          => $faker->email,

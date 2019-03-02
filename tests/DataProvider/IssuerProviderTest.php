@@ -26,7 +26,7 @@ class IssuerProviderTest extends TestCase
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
-        $property = $reflection->getProperty('id');
+        $property = $reflection->getProperty('userId');
         $property->setAccessible(true);
         $property->setValue($user, $userId);
 

@@ -28,7 +28,7 @@ class UniqueExistingUserEmailValidatorTest extends TestCase
         $uniqueChecker = new UniqueExistingUserEmailValidatorTestUniquenessCheckerNone();
 
         $user = Mockery::mock(User::class);
-        $user->shouldNotReceive('id')
+        $user->shouldNotReceive('userId')
             ->andReturn(UserId::generate());
 
         $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
@@ -49,7 +49,7 @@ class UniqueExistingUserEmailValidatorTest extends TestCase
         $uniqueChecker = new UniqueExistingUserEmailValidatorTestUniquenessCheckerDuplicate($userId);
 
         $user = Mockery::mock(User::class);
-        $user->shouldReceive('id')
+        $user->shouldReceive('userId')
             ->andReturn($userId);
 
         $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
@@ -58,8 +58,8 @@ class UniqueExistingUserEmailValidatorTest extends TestCase
 
         $validator->validate(
             [
-                'email' => Email::fromString($faker->email),
-                'id'    => $userId,
+                'email'  => Email::fromString($faker->email),
+                'userId' => $userId,
             ],
             $constraint
         );
@@ -74,7 +74,7 @@ class UniqueExistingUserEmailValidatorTest extends TestCase
         );
 
         $user = Mockery::mock(User::class);
-        $user->shouldReceive('id')
+        $user->shouldReceive('userId')
             ->andReturn(UserId::generate());
 
         $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
@@ -99,8 +99,8 @@ class UniqueExistingUserEmailValidatorTest extends TestCase
 
         $validator->validate(
             [
-                'email' => Email::fromString($faker->email),
-                'id'    => UserId::generate(),
+                'email'  => Email::fromString($faker->email),
+                'userId' => UserId::generate(),
             ],
             $constraint
         );

@@ -25,7 +25,7 @@ class ChecksUniqueUsersEmailFromReadModelTest extends TestCase
         $email = Email::fromString($faker->email);
 
         $user = Mockery::mock(User::class);
-        $user->shouldReceive('id')
+        $user->shouldReceive('userId')
             ->andReturn(UserId::generate());
 
         $userRepo = Mockery::mock(UserRepository::class);
