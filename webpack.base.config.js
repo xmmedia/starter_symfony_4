@@ -47,7 +47,7 @@ module.exports = function (Encore) {
         .enableSourceMaps(true)
 
         .configureBabel(() => {}, {
-            include_node_modules: [
+            includeNodeModules: [
                 'vue-apollo', // Object.entries()
             ],
         })
