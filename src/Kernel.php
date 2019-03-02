@@ -94,8 +94,8 @@ class Kernel extends BaseKernel implements CompilerPassInterface
 
         foreach ($repositories as $repository) {
             $container->setDefinition(
-                    $repository['repository_class'],
-                    new ChildDefinition(AggregateRepository::class)
+                $repository['repository_class'],
+                new ChildDefinition(AggregateRepository::class)
                 )
                 ->setArguments(
                     [
