@@ -7,17 +7,15 @@ namespace App\Tests\Model\User\Command;
 use App\Model\Email;
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Name;
-use App\Model\User\UserId;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class SendActivationTest extends TestCase
+class SendActivationTest extends BaseTestCase
 {
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);

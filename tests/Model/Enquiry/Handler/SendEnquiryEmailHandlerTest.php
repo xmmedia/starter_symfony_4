@@ -9,18 +9,17 @@ use App\Model\Email;
 use App\Model\EmailGatewayMessageId;
 use App\Model\Enquiry\Command\SendEnquiryEmail;
 use App\Model\Enquiry\Handler\SendEnquiryEmailHandler;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class SendEnquiryEmailHandlerTest extends TestCase
+class SendEnquiryEmailHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $adminEmail = $faker->email;
 

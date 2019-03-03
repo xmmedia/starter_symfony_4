@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Tests\Model\User;
 
 use App\Model\User\Token;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class TokenTest extends TestCase
+class TokenTest extends BaseTestCase
 {
     public function testFromString(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
         $tokenString = $faker->asciify(str_repeat('*', 25));
 
         $token = Token::fromString($tokenString);
@@ -31,7 +30,7 @@ class TokenTest extends TestCase
 
     public function testSameValueAs(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
         $tokenString = $faker->asciify(str_repeat('*', 25));
 
         $token1 = Token::fromString($tokenString);

@@ -7,18 +7,17 @@ namespace App\Tests\EventStore;
 use App\DataProvider\IssuerProvider;
 use App\EventSourcing\AggregateChanged;
 use App\EventStore\MetadataIssuedByEnricher;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class MetadataIssuedByEnricherTest extends TestCase
+class MetadataIssuedByEnricherTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
         $uuid = $faker->uuid;
 
         $issuerProvider = Mockery::mock(IssuerProvider::class);

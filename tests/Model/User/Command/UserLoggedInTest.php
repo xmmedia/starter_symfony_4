@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Command;
 
 use App\Model\User\Command\UserLoggedIn;
-use App\Model\User\UserId;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class UserLoggedInTest extends TestCase
+class UserLoggedInTest extends BaseTestCase
 {
     public function test(): void
     {
-        $userId = UserId::generate();
+        $faker = $this->faker();
+
+        $userId = $faker->userId;
 
         $command = UserLoggedIn::now($userId);
 

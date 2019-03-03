@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Command;
 
 use App\Model\User\Command\VerifyUserByAdmin;
-use App\Model\User\UserId;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class VerifyUserByAdminTest extends TestCase
+class VerifyUserByAdminTest extends BaseTestCase
 {
     public function test(): void
     {
-        $userId = UserId::generate();
+        $faker = $this->faker();
+
+        $userId = $faker->userId;
 
         $command = VerifyUserByAdmin::now($userId);
 

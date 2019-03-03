@@ -8,28 +8,27 @@ use App\Entity\User;
 use App\Model\Email;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserId;
+use App\Tests\BaseTestCase;
 use App\Validator\Constraints\UniqueCurrentUsersEmail;
 use App\Validator\Constraints\UniqueNewUserEmailValidator;
-use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class UniqueNewUserEmailValidatorTest extends TestCase
+class UniqueNewUserEmailValidatorTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function testUnique(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $uniqueChecker = new UniqueNewUserEmailValidatorTestUniquenessCheckerNone();
 
         $user = Mockery::mock(User::class);
         $user->shouldNotReceive('userId')
-            ->andReturn(UserId::generate());
+            ->andReturn($faker->userId);
 
         $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
 
@@ -43,15 +42,15 @@ class UniqueNewUserEmailValidatorTest extends TestCase
 
     public function testNotUnique(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $uniqueChecker = new UniqueNewUserEmailValidatorTestUniquenessCheckerDuplicate(
-            UserId::generate()
+            $faker->userId
         );
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn(UserId::generate());
+            ->andReturn($faker->userId);
 
         $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
 

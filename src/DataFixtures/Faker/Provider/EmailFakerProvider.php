@@ -8,6 +8,8 @@ use App\Model\Email;
 use Faker;
 
 /**
+ * @property Email $emailVo
+ *
  * @codeCoverageIgnore
  */
 class EmailFakerProvider extends Faker\Provider\Internet

@@ -15,26 +15,26 @@ use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Security\TokenGeneratorInterface;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\RouterInterface;
 
-class InitiatePasswordRecoveryHandlerTest extends TestCase
+class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('passwordRecoverySent')
             ->once();
 
         $command = InitiatePasswordRecovery::now(
-            UserId::generate(),
+            $faker->userId,
             Email::fromString($faker->email)
         );
 
@@ -65,10 +65,10 @@ class InitiatePasswordRecoveryHandlerTest extends TestCase
 
     public function testUserNotFound(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $command = InitiatePasswordRecovery::now(
-            UserId::generate(),
+            $faker->userId,
             Email::fromString($faker->email)
         );
 
@@ -101,9 +101,7 @@ class InitiatePasswordRecoveryHandlerTestEmailGateway implements EmailGatewayInt
         Email $to,
         array $templateData
     ): EmailGatewayMessageId {
-        $faker = Faker\Factory::create();
-
-        return EmailGatewayMessageId::fromString($faker->uuid);
+        return EmailGatewayMessageId::fromString(Uuid::uuid4()->toString());
     }
 }
 

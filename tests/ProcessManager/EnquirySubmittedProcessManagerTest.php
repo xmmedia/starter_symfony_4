@@ -6,11 +6,9 @@ namespace App\Tests\ProcessManager;
 
 use App\Model\Email;
 use App\Model\Enquiry\Command\SendEnquiryEmail;
-use App\Model\Enquiry\EnquiryId;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\ProcessManager\EnquirySubmittedProcessManager;
 use App\Tests\BaseTestCase;
-use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Messenger\Envelope;
@@ -22,9 +20,9 @@ class EnquirySubmittedProcessManagerTest extends BaseTestCase
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $enquiryId = EnquiryId::generate();
+        $enquiryId = $faker->enquiryId;
         $name = $faker->name;
         $email = Email::fromString($faker->email);
         $message = $faker->asciify(str_repeat('*', 100));

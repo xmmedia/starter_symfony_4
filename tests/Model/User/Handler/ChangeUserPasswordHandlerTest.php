@@ -10,20 +10,19 @@ use App\Model\User\Handler\ChangeUserPasswordHandler;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class ChangeUserPasswordHandlerTest extends TestCase
+class ChangeUserPasswordHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $password = $faker->password;
 
         $user = Mockery::mock(User::class);
@@ -45,9 +44,9 @@ class ChangeUserPasswordHandlerTest extends TestCase
 
     public function testNonUnique(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $password = $faker->password;
 
         $command = ChangePassword::forUser($userId, $password);

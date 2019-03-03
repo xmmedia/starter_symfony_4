@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace App\Tests\Entity;
 
 use App\Entity\User;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class UserTest extends TestCase
+class UserTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function testName(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $firstName = $faker->name;
         $lastName = $faker->name;
@@ -66,7 +65,7 @@ class UserTest extends TestCase
 
     public function userEqualProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);

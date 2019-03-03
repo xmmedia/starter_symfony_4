@@ -9,11 +9,13 @@ use Faker\Provider\en_CA\PhoneNumber as FakerPhoneNumber;
 use libphonenumber\PhoneNumberUtil;
 
 /**
+ * @property PhoneNumber $phoneNumberVo
+ *
  * @codeCoverageIgnore
  */
 class PhoneNumberFakerProvider extends FakerPhoneNumber
 {
-    public function phoneNumberVo()
+    public function phoneNumberVo(): PhoneNumber
     {
         $util = PhoneNumberUtil::getInstance();
         $phoneNumber = $util->parse(static::phoneNumber(), 'CA');

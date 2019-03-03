@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Tests\Security;
 
 use App\Security\PasswordEncoder;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Role\Role;
 
-class PasswordEncoderTest extends TestCase
+class PasswordEncoderTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
@@ -21,7 +20,7 @@ class PasswordEncoderTest extends TestCase
      */
     public function test(string $role): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $passwordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
         $passwordEncoder->shouldReceive('encodePassword')

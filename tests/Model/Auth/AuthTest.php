@@ -5,22 +5,19 @@ declare(strict_types=1);
 namespace App\Tests\Model\Auth;
 
 use App\Model\Auth\Auth;
-use App\Model\Auth\AuthId;
 use App\Model\Auth\Event\UserFailedToLogin;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\Email;
-use App\Model\User\UserId;
 use App\Tests\BaseTestCase;
-use Faker;
 
 class AuthTest extends BaseTestCase
 {
     public function testSuccess(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
-        $userId = UserId::generate();
+        $authId = $faker->authId;
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
@@ -45,9 +42,9 @@ class AuthTest extends BaseTestCase
 
     public function testFailure(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
+        $authId = $faker->authId;
         $email = $faker->email;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
@@ -73,9 +70,9 @@ class AuthTest extends BaseTestCase
 
     public function testFailureNullValues(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
+        $authId = $faker->authId;
         $ipAddress = $faker->ipv4;
         $message = $faker->asciify(str_repeat('*', 100));
 
@@ -97,10 +94,10 @@ class AuthTest extends BaseTestCase
 
     public function testSameIdentityAs(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
-        $userId = UserId::generate();
+        $authId = $faker->authId;
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;

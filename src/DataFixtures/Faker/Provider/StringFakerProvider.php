@@ -8,8 +8,6 @@ use Faker;
 
 /**
  * @codeCoverageIgnore
- *
- * @property string cableGauge
  */
 class StringFakerProvider extends Faker\Provider\Base
 {

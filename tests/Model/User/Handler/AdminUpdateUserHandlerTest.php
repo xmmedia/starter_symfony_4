@@ -13,21 +13,20 @@ use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Role\Role;
 
-class AdminUpdateUserHandlerTest extends TestCase
+class AdminUpdateUserHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -63,9 +62,9 @@ class AdminUpdateUserHandlerTest extends TestCase
 
     public function testNotFound(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);

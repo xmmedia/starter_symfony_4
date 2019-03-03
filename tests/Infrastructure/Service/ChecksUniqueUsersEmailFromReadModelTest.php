@@ -7,26 +7,24 @@ namespace App\Tests\Infrastructure\Service;
 use App\Entity\User;
 use App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel;
 use App\Model\Email;
-use App\Model\User\UserId;
 use App\Repository\UserRepository;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class ChecksUniqueUsersEmailFromReadModelTest extends TestCase
+class ChecksUniqueUsersEmailFromReadModelTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function testTrue(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = Email::fromString($faker->email);
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn(UserId::generate());
+            ->andReturn($faker->userId);
 
         $userRepo = Mockery::mock(UserRepository::class);
         $userRepo->shouldReceive('findOneByEmail')
@@ -38,9 +36,9 @@ class ChecksUniqueUsersEmailFromReadModelTest extends TestCase
 
     public function testFalse(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
 
         $userRepo = Mockery::mock(UserRepository::class);
         $userRepo->shouldReceive('findOneByEmail')

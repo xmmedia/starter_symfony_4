@@ -16,26 +16,26 @@ use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Security\TokenGeneratorInterface;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\RouterInterface;
 
-class SendActivationHandlerTest extends TestCase
+class SendActivationHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('inviteSent')
             ->once();
 
         $command = SendActivation::now(
-            UserId::generate(),
+            $faker->userId,
             Email::fromString($faker->email),
             Name::fromString($faker->name),
             Name::fromString($faker->name)
@@ -68,10 +68,10 @@ class SendActivationHandlerTest extends TestCase
 
     public function testUserNotFound(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $command = SendActivation::now(
-            UserId::generate(),
+            $faker->userId,
             Email::fromString($faker->email),
             Name::fromString($faker->name),
             Name::fromString($faker->name)
@@ -106,9 +106,7 @@ class SendActivationHandlerTestEmailGateway implements EmailGatewayInterface
         Email $to,
         array $templateData
     ): EmailGatewayMessageId {
-        $faker = Faker\Factory::create();
-
-        return EmailGatewayMessageId::fromString($faker->uuid);
+        return EmailGatewayMessageId::fromString(Uuid::uuid4()->toString());
     }
 }
 

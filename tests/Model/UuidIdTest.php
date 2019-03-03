@@ -6,14 +6,13 @@ namespace App\Tests\Model;
 
 use App\Model\UuidId;
 use App\Model\ValueObject;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class UuidIdTest extends TestCase
+class UuidIdTest extends BaseTestCase
 {
     public function testFromString(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $uuidString = $faker->uuid;
 
@@ -30,7 +29,7 @@ class UuidIdTest extends TestCase
 
     public function testFromUuid(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $uuidString = $faker->uuid;
 
@@ -47,7 +46,7 @@ class UuidIdTest extends TestCase
 
     public function testSameValueAs(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $uuidString = $faker->uuid;
 

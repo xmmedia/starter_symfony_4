@@ -8,6 +8,9 @@ use App\Model\Address;
 use Faker;
 
 /**
+ * @property Address $addressVo
+ * @property array   $addressArray
+ *
  * @codeCoverageIgnore
  */
 class AddressFakerProvider extends Faker\Provider\Base

@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\Auth\Event;
 
-use App\Model\Auth\AuthId;
 use App\Model\Auth\Event\UserFailedToLogin;
+use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
-use Faker;
-use PHPUnit\Framework\TestCase;
 
-class UserFailedToLoginTest extends TestCase
+class UserFailedToLoginTest extends BaseTestCase
 {
     use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
+        $authId = $faker->authId;
         $email = $faker->email;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
@@ -41,9 +39,9 @@ class UserFailedToLoginTest extends TestCase
 
     public function testOccurNullValues(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
+        $authId = $faker->authId;
         $ipAddress = $faker->ipv4;
         $message = $faker->asciify(str_repeat('*', 100));
 
@@ -61,9 +59,9 @@ class UserFailedToLoginTest extends TestCase
 
     public function testFromArray(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
+        $authId = $faker->authId;
         $email = $faker->email;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
@@ -92,9 +90,9 @@ class UserFailedToLoginTest extends TestCase
 
     public function testFromArrayNullValues(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
+        $authId = $faker->authId;
         $ipAddress = $faker->ipv4;
         $message = $faker->asciify(str_repeat('*', 100));
 

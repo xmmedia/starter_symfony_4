@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Command;
 
 use App\Model\User\Command\DeactivateUserByAdmin;
-use App\Model\User\UserId;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class DeactivateUserByAdminTest extends TestCase
+class DeactivateUserByAdminTest extends BaseTestCase
 {
     public function test(): void
     {
-        $userId = UserId::generate();
+        $faker = $this->faker();
+
+        $userId = $faker->userId;
 
         $command = DeactivateUserByAdmin::user($userId);
 

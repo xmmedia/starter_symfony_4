@@ -10,12 +10,10 @@ use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Command\UserLoginFailed;
 use App\Model\Email;
 use App\Model\User\Credentials;
-use App\Model\User\UserId;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Nelmio\Alice\ParameterBag;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Messenger\Envelope;
@@ -27,7 +25,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
-class SecuritySubscriberTest extends TestCase
+class SecuritySubscriberTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
@@ -41,7 +39,7 @@ class SecuritySubscriberTest extends TestCase
 
     public function testSuccessfulLogin(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $method = SecuritySubscriber::getSubscribedEvents()[SecurityEvents::INTERACTIVE_LOGIN];
 
@@ -58,7 +56,7 @@ class SecuritySubscriberTest extends TestCase
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn(UserId::generate());
+            ->andReturn($faker->userId);
         $user->shouldReceive('email')
             ->andReturn(Email::fromString('test@example.com'));
 
@@ -75,7 +73,7 @@ class SecuritySubscriberTest extends TestCase
 
     public function testFailedLogin(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $method = SecuritySubscriber::getSubscribedEvents()[AuthenticationEvents::AUTHENTICATION_FAILURE];
 
@@ -94,7 +92,7 @@ class SecuritySubscriberTest extends TestCase
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn(UserId::generate());
+            ->andReturn($faker->userId);
         $user->shouldReceive('email')
             ->andReturn(Email::fromString('test@example.com'));
 

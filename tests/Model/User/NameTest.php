@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\Model\User;
 
 use App\Model\User\Name;
+use App\Tests\BaseTestCase;
 use App\Util\Json;
-use Faker;
-use PHPUnit\Framework\TestCase;
 
-class NameTest extends TestCase
+class NameTest extends BaseTestCase
 {
     public function testFromString(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
         $nameString = $faker->name;
 
         $name = Name::fromString($nameString);
@@ -40,7 +39,7 @@ class NameTest extends TestCase
 
     public function testTooLong(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $this->expectException(\InvalidArgumentException::class);
 
@@ -49,7 +48,7 @@ class NameTest extends TestCase
 
     public function testSameValueAs(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
         $nameString = $faker->name;
 
         $name1 = Name::fromString($nameString);

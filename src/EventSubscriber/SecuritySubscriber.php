@@ -7,6 +7,7 @@ namespace App\EventSubscriber;
 use App\Model\Auth\AuthId;
 use App\Model\Auth\Command\UserLoginFailed;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -44,7 +45,7 @@ class SecuritySubscriber implements EventSubscriberInterface
      */
     public function loginSuccess(InteractiveLoginEvent $event): void
     {
-        $authId = AuthId::generate();
+        $authId = AuthId::fromUuid(Uuid::uuid4());
         $user = $event->getAuthenticationToken()->getUser();
         $request = $event->getRequest();
 
@@ -64,7 +65,7 @@ class SecuritySubscriber implements EventSubscriberInterface
      */
     public function loginFailure(AuthenticationFailureEvent $event): void
     {
-        $authId = AuthId::generate();
+        $authId = AuthId::fromUuid(Uuid::uuid4());
         $token = $event->getAuthenticationToken();
         $request = $this->requestStack->getCurrentRequest();
 

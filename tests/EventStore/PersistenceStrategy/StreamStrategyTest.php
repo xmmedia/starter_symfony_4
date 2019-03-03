@@ -7,7 +7,6 @@ namespace App\Tests\EventStore\PersistenceStrategy;
 use App\EventSourcing\AggregateChanged;
 use App\EventStore\PersistenceStrategy\StreamStrategy;
 use App\Tests\BaseTestCase;
-use Faker;
 use Prooph\EventStore\Pdo\DefaultMessageConverter;
 use Prooph\EventStore\StreamName;
 
@@ -15,7 +14,7 @@ class StreamStrategyTest extends BaseTestCase
 {
     public function testPrepareData(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $uuid = $faker->uuid;
 

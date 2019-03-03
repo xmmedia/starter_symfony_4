@@ -12,6 +12,7 @@ use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -62,7 +63,7 @@ final class CreateUserCommand extends Command
 
         $encodedPassword = ($this->passwordEncoder)($role, $password);
 
-        $userId = UserId::generate();
+        $userId = UserId::fromUuid(Uuid::uuid4());
 
         $this->commandBus->dispatch(AdminCreateUserMinimum::with(
             $userId,

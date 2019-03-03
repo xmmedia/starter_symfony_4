@@ -13,20 +13,19 @@ use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class UpdateUserProfileHandlerTest extends TestCase
+class UpdateUserProfileHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -60,9 +59,9 @@ class UpdateUserProfileHandlerTest extends TestCase
 
     public function testNotFound(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);

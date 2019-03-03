@@ -6,6 +6,9 @@ namespace App\Model;
 
 use Ramsey\Uuid\Uuid;
 
+/**
+ * [!!] Avoid using unless necessary.
+ */
 trait UuidIdGeneratable
 {
     public static function generate(): self

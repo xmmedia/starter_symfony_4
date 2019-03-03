@@ -6,17 +6,15 @@ namespace App\Tests\Model\User\Command;
 
 use App\Model\Email;
 use App\Model\User\Command\InitiatePasswordRecovery;
-use App\Model\User\UserId;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class InitiatePasswordRecoveryTest extends TestCase
+class InitiatePasswordRecoveryTest extends BaseTestCase
 {
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
 
         $command = InitiatePasswordRecovery::now($userId, $email);

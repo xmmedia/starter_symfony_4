@@ -5,27 +5,24 @@ declare(strict_types=1);
 namespace App\Tests\Model\Auth\Handler;
 
 use App\Model\Auth\Auth;
-use App\Model\Auth\AuthId;
 use App\Model\Auth\AuthList;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Handler\UserLoggedInSuccessfullyHandler;
 use App\Model\Email;
-use App\Model\User\UserId;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class UserLoggedInSuccessfullyHandlerTest extends TestCase
+class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
-        $userId = UserId::generate();
+        $authId = $faker->authId;
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;

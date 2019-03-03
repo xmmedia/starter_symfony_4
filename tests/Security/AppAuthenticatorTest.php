@@ -7,10 +7,9 @@ namespace App\Tests\Security;
 use App\Entity\User;
 use App\Model\User\Credentials;
 use App\Security\AppAuthenticator;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +20,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Security;
 
-class AppAuthenticatorTest extends TestCase
+class AppAuthenticatorTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
@@ -78,7 +77,7 @@ class AppAuthenticatorTest extends TestCase
 
     public function testGetCredentials(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = $faker->email;
         $password = $faker->password;
@@ -136,7 +135,7 @@ class AppAuthenticatorTest extends TestCase
 
     public function testGetUser(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = $faker->email;
         $password = $faker->password;
@@ -177,7 +176,7 @@ class AppAuthenticatorTest extends TestCase
         $this->passwordEncoder->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = $faker->email;
         $password = $faker->password;
@@ -195,7 +194,7 @@ class AppAuthenticatorTest extends TestCase
         $this->passwordEncoder->shouldReceive('isPasswordValid')
             ->andReturnFalse();
 
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = $faker->email;
         $password = $faker->password;

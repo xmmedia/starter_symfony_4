@@ -7,20 +7,18 @@ namespace App\Tests\Model\User\Event;
 use App\Model\EmailGatewayMessageId;
 use App\Model\User\Event\InviteSent;
 use App\Model\User\Token;
-use App\Model\User\UserId;
+use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
-use Faker;
-use PHPUnit\Framework\TestCase;
 
-class InviteSentTest extends TestCase
+class InviteSentTest extends BaseTestCase
 {
     use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $token = Token::fromString($faker->asciify('token'));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid);
 
@@ -33,9 +31,9 @@ class InviteSentTest extends TestCase
 
     public function testFromArray(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $token = Token::fromString($faker->asciify('token'));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid);
 

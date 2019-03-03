@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace App\Tests\ProcessManager;
 
-use App\Model\Auth\AuthId;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\Email;
-use App\Model\User\UserId;
 use App\ProcessManager\UserLoggedInProcessManager;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class UserLoggedInProcessManagerTest extends TestCase
+class UserLoggedInProcessManagerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function testSend(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -31,8 +28,8 @@ class UserLoggedInProcessManagerTest extends TestCase
             ->andReturn(new Envelope(new \StdClass()));
 
         $event = UserLoggedIn::now(
-            AuthId::generate(),
-            UserId::generate(),
+            $faker->authId,
+            $faker->userId,
             Email::fromString($faker->email),
             $faker->userAgent,
             $faker->ipv4

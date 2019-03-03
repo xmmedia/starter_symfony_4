@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Tests\Model\User;
 
 use App\Model\User\Credentials;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class CredentialsTest extends TestCase
+class CredentialsTest extends BaseTestCase
 {
     public function testBuild(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = $faker->email;
         $password = $faker->password;
@@ -33,7 +32,7 @@ class CredentialsTest extends TestCase
 
     public function testSameValueAs(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = $faker->email;
         $password = $faker->password;
@@ -46,7 +45,7 @@ class CredentialsTest extends TestCase
 
     public function testSameValueAsDiffEmail(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $password = $faker->password;
 
@@ -58,7 +57,7 @@ class CredentialsTest extends TestCase
 
     public function testSameValueAsDiffPassword(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = $faker->email;
 

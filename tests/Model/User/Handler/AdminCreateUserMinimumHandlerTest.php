@@ -12,21 +12,21 @@ use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\Role\Role;
 
-class AdminCreateUserMinimumHandlerTest extends TestCase
+class AdminCreateUserMinimumHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -53,9 +53,9 @@ class AdminCreateUserMinimumHandlerTest extends TestCase
 
     public function testNonUnique(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -92,6 +92,6 @@ class AdminCreateUserMinimumHandlerUniquenessCheckerDuplicate implements ChecksU
 {
     public function __invoke(Email $email): ?UserId
     {
-        return UserId::generate();
+        return UserId::fromUuid(Uuid::uuid4());
     }
 }

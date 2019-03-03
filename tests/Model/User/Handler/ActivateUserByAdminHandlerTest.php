@@ -10,21 +10,23 @@ use App\Model\User\Handler\ActivateUserByAdminHandler;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class ActivateUserByAdminHandlerTest extends TestCase
+class ActivateUserByAdminHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
+        $faker = $this->faker();
+
         $user = Mockery::mock(User::class);
         $user->shouldReceive('activateByAdmin')
             ->once();
 
-        $command = ActivateUserByAdmin::user(UserId::generate());
+        $command = ActivateUserByAdmin::user($faker->userId);
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -39,7 +41,9 @@ class ActivateUserByAdminHandlerTest extends TestCase
 
     public function testUserNotFound(): void
     {
-        $command = ActivateUserByAdmin::user(UserId::generate());
+        $faker = $this->faker();
+
+        $command = ActivateUserByAdmin::user($faker->userId);
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

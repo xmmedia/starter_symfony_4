@@ -10,6 +10,7 @@ use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\EnquiryId;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -40,7 +41,7 @@ class SendEnquiryMutation implements MutationInterface
         }
 
         $this->commandBus->dispatch(SubmitEnquiry::with(
-            EnquiryId::generate(),
+            EnquiryId::fromUuid(Uuid::uuid4()),
             $form->getData()['name'],
             $form->getData()['email'],
             $form->getData()['message']

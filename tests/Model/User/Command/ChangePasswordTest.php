@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Command;
 
 use App\Model\User\Command\ChangePassword;
-use App\Model\User\UserId;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class ChangePasswordTest extends TestCase
+class ChangePasswordTest extends BaseTestCase
 {
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $password = $faker->password;
 
         $command = ChangePassword::forUser($userId, $password);

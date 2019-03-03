@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Tests\Model;
 
 use App\Model\Email;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class EmailTest extends TestCase
+class EmailTest extends BaseTestCase
 {
     public function testFromString(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = $faker->email;
         $name = $faker->name;
@@ -27,7 +26,7 @@ class EmailTest extends TestCase
 
     public function testFromStringWithoutName(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $email = $faker->email;
 

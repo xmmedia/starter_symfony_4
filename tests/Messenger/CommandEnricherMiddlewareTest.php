@@ -7,21 +7,19 @@ namespace App\Tests\Messenger;
 use App\DataProvider\IssuerProvider;
 use App\Messenger\CommandEnricherMiddleware;
 use App\Model\User\Command\VerifyUser;
-use App\Model\User\UserId;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackMiddleware;
 
-class CommandEnricherMiddlewareTest extends TestCase
+class CommandEnricherMiddlewareTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
         $uuid = $faker->uuid;
 
         $issuerProvider = Mockery::mock(IssuerProvider::class);
@@ -32,7 +30,7 @@ class CommandEnricherMiddlewareTest extends TestCase
         $middleware = new CommandEnricherMiddleware($issuerProvider);
 
         $envelope = $middleware->handle(
-            new Envelope(VerifyUser::now(UserId::generate())),
+            new Envelope(VerifyUser::now($faker->userId)),
             new StackMiddleware()
         );
 

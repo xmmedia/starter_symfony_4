@@ -6,10 +6,9 @@ namespace App\Tests\Form\DataTransformer;
 
 use App\Form\DataTransformer\NameTransformer;
 use App\Model\User\Name;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class NameTransformerTest extends TestCase
+class NameTransformerTest extends BaseTestCase
 {
     /**
      * @dataProvider transformProvider
@@ -23,7 +22,7 @@ class NameTransformerTest extends TestCase
 
     public function transformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 
@@ -43,7 +42,7 @@ class NameTransformerTest extends TestCase
 
     public function reverseTransformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 

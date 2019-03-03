@@ -14,16 +14,16 @@ use App\Model\User\UserId;
 use App\Model\User\Event;
 use App\Model\User\Exception;
 use App\Tests\BaseTestCase;
-use Faker;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\Role\Role;
 
 class UserTest extends BaseTestCase
 {
     public function testCreateByAdmin(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -69,9 +69,9 @@ class UserTest extends BaseTestCase
 
     public function testCreateByAdminSendInvite(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -117,9 +117,9 @@ class UserTest extends BaseTestCase
 
     public function testCreateByAdminNotActive(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -165,9 +165,9 @@ class UserTest extends BaseTestCase
 
     public function testCreateByAdminDuplicateEmail(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -191,9 +191,9 @@ class UserTest extends BaseTestCase
 
     public function testCreateByAdminMinimal(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -229,9 +229,9 @@ class UserTest extends BaseTestCase
 
     public function testCreateByAdminMinimalDuplicate(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -249,7 +249,7 @@ class UserTest extends BaseTestCase
 
     public function testUpdateByAdmin(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user = $this->getUserActive();
 
@@ -284,7 +284,7 @@ class UserTest extends BaseTestCase
 
     public function testUpdateByAdminDuplicate(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user = $this->getUserActive();
 
@@ -306,7 +306,7 @@ class UserTest extends BaseTestCase
 
     public function testChangePasswordByAdmin(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user = $this->getUserActive();
 
@@ -329,9 +329,9 @@ class UserTest extends BaseTestCase
 
     public function testVerifyByAdmin(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -432,9 +432,9 @@ class UserTest extends BaseTestCase
 
     public function testInviteSent(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -474,7 +474,7 @@ class UserTest extends BaseTestCase
 
     public function testInviteSentAlreadyVerified(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid);
 
@@ -487,9 +487,9 @@ class UserTest extends BaseTestCase
 
     public function testVerify(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -530,9 +530,9 @@ class UserTest extends BaseTestCase
 
     public function testVerifyInactive(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -560,9 +560,9 @@ class UserTest extends BaseTestCase
 
     public function testPasswordRecoverySent(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -602,7 +602,7 @@ class UserTest extends BaseTestCase
 
     public function testPasswordRecoverySentInactive(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user = $this->getUserInactive();
 
@@ -616,7 +616,7 @@ class UserTest extends BaseTestCase
 
     public function testUpdate(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user = $this->getUserActive();
 
@@ -648,7 +648,7 @@ class UserTest extends BaseTestCase
 
     public function testUpdateInactive(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user = $this->getUserInactive();
 
@@ -668,7 +668,7 @@ class UserTest extends BaseTestCase
 
     public function testUpdateDuplicate(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $user = $this->getUserActive();
 
@@ -705,9 +705,9 @@ class UserTest extends BaseTestCase
 
     public function testLoggedInUnverified(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -742,7 +742,7 @@ class UserTest extends BaseTestCase
 
     public function testChangePassword(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $password = $faker->password;
 
@@ -763,7 +763,7 @@ class UserTest extends BaseTestCase
 
     public function testChangePasswordInactive(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $password = $faker->password;
 
@@ -776,9 +776,9 @@ class UserTest extends BaseTestCase
 
     public function testSameIdentityAs(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -803,9 +803,9 @@ class UserTest extends BaseTestCase
 
     private function getUserActive(): User
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -827,9 +827,9 @@ class UserTest extends BaseTestCase
 
     private function getUserInactive(): User
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $password = $faker->password;
         $role = new Role('ROLE_USER');
@@ -862,6 +862,6 @@ class UserArUniquenessCheckerDuplicate implements ChecksUniqueUsersEmail
 {
     public function __invoke(Email $email): ?UserId
     {
-        return UserId::generate();
+        return UserId::fromUuid(Uuid::uuid4());
     }
 }

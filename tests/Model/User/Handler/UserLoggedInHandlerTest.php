@@ -10,21 +10,23 @@ use App\Model\User\Handler\UserLoggedInHandler;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class UserLoggedInHandlerTest extends TestCase
+class UserLoggedInHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
+        $faker = $this->faker();
+
         $user = Mockery::mock(User::class);
         $user->shouldReceive('loggedIn')
             ->once();
 
-        $command = UserLoggedIn::now(UserId::generate());
+        $command = UserLoggedIn::now($faker->userId);
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -39,7 +41,9 @@ class UserLoggedInHandlerTest extends TestCase
 
     public function testUserNotFound(): void
     {
-        $command = UserLoggedIn::now(UserId::generate());
+        $faker = $this->faker();
+
+        $command = UserLoggedIn::now($faker->userId);
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

@@ -5,21 +5,19 @@ declare(strict_types=1);
 namespace App\Tests\Model\Enquiry\Event;
 
 use App\Model\Email;
-use App\Model\Enquiry\EnquiryId;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
+use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
-use Faker;
-use PHPUnit\Framework\TestCase;
 
-class EnquiryWasSubmittedTest extends TestCase
+class EnquiryWasSubmittedTest extends BaseTestCase
 {
     use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $enquiryId = EnquiryId::generate();
+        $enquiryId = $faker->enquiryId;
         $name = $faker->name;
         $email = Email::fromString($faker->email);
         $message = $faker->asciify(str_repeat('*', 100));
@@ -34,9 +32,9 @@ class EnquiryWasSubmittedTest extends TestCase
 
     public function testFromArray(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $enquiryId = EnquiryId::generate();
+        $enquiryId = $faker->enquiryId;
         $name = $faker->name;
         $email = Email::fromString($faker->email);
         $message = $faker->asciify(str_repeat('*', 100));

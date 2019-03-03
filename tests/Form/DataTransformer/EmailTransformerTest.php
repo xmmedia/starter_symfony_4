@@ -6,10 +6,9 @@ namespace App\Tests\Form\DataTransformer;
 
 use App\Form\DataTransformer\EmailTransformer;
 use App\Model\Email;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class EmailTransformerTest extends TestCase
+class EmailTransformerTest extends BaseTestCase
 {
     /**
      * @dataProvider transformProvider
@@ -23,7 +22,7 @@ class EmailTransformerTest extends TestCase
 
     public function transformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 
@@ -43,7 +42,7 @@ class EmailTransformerTest extends TestCase
 
     public function reverseTransformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 

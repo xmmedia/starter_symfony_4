@@ -5,24 +5,22 @@ declare(strict_types=1);
 namespace App\Tests\Model\Auth\Handler;
 
 use App\Model\Auth\Auth;
-use App\Model\Auth\AuthId;
 use App\Model\Auth\AuthList;
 use App\Model\Auth\Command\UserLoginFailed;
 use App\Model\Auth\Handler\UserLoginFailedHandler;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class UserLoginFailedHandlerTest extends TestCase
+class UserLoginFailedHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
+        $authId = $faker->authId;
         $email = $faker->email;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;

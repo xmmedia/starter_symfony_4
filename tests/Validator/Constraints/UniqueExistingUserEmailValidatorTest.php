@@ -8,28 +8,27 @@ use App\Entity\User;
 use App\Model\Email;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserId;
+use App\Tests\BaseTestCase;
 use App\Validator\Constraints\UniqueCurrentUsersEmail;
 use App\Validator\Constraints\UniqueExistingUserEmailValidator;
-use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
-class UniqueExistingUserEmailValidatorTest extends TestCase
+class UniqueExistingUserEmailValidatorTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function testUnique(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $uniqueChecker = new UniqueExistingUserEmailValidatorTestUniquenessCheckerNone();
 
         $user = Mockery::mock(User::class);
         $user->shouldNotReceive('userId')
-            ->andReturn(UserId::generate());
+            ->andReturn($faker->userId);
 
         $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
 
@@ -43,9 +42,9 @@ class UniqueExistingUserEmailValidatorTest extends TestCase
 
     public function testSameUser(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $uniqueChecker = new UniqueExistingUserEmailValidatorTestUniquenessCheckerDuplicate($userId);
 
         $user = Mockery::mock(User::class);
@@ -67,15 +66,15 @@ class UniqueExistingUserEmailValidatorTest extends TestCase
 
     public function testNotUnique(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $uniqueChecker = new UniqueExistingUserEmailValidatorTestUniquenessCheckerDuplicate(
-            UserId::generate()
+            $faker->userId
         );
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn(UserId::generate());
+            ->andReturn($faker->userId);
 
         $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
 
@@ -100,7 +99,7 @@ class UniqueExistingUserEmailValidatorTest extends TestCase
         $validator->validate(
             [
                 'email'  => Email::fromString($faker->email),
-                'userId' => UserId::generate(),
+                'userId' => $faker->userId,
             ],
             $constraint
         );

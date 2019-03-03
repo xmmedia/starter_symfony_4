@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Tests\Model;
 
 use App\Model\Date;
+use App\Tests\BaseTestCase;
 use App\Util\Json;
-use Faker;
-use PHPUnit\Framework\TestCase;
 
-class DateTest extends TestCase
+class DateTest extends BaseTestCase
 {
     /**
      * @dataProvider dateStringProvider
@@ -27,7 +26,7 @@ class DateTest extends TestCase
 
     public function dateStringProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
         $max = '+5 years';
 
         $str = $faker->iso8601($max);

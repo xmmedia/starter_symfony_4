@@ -7,23 +7,21 @@ namespace App\Tests\Model\Enquiry\Handler;
 use App\Model\Email;
 use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\Enquiry;
-use App\Model\Enquiry\EnquiryId;
 use App\Model\Enquiry\EnquiryList;
 use App\Model\Enquiry\Handler\SubmitEnquiryHandler;
-use Faker;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class SubmitEnquiryHandlerTest extends TestCase
+class SubmitEnquiryHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $enquiryId = EnquiryId::generate();
+        $enquiryId = $faker->enquiryId;
         $name = $faker->name;
         $email = Email::fromString($faker->email);
         $message = $faker->asciify(str_repeat('*', 100));

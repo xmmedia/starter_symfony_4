@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\Auth\Event;
 
-use App\Model\Auth\AuthId;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\Email;
-use App\Model\User\UserId;
+use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
-use Faker;
-use PHPUnit\Framework\TestCase;
 
-class UserLoggedInTest extends TestCase
+class UserLoggedInTest extends BaseTestCase
 {
     use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
-        $userId = UserId::generate();
+        $authId = $faker->authId;
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
@@ -43,10 +40,10 @@ class UserLoggedInTest extends TestCase
 
     public function testFromArray(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
-        $userId = UserId::generate();
+        $authId = $faker->authId;
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;

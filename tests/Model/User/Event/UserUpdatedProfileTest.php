@@ -7,20 +7,18 @@ namespace App\Tests\Model\User\Event;
 use App\Model\Email;
 use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\Name;
-use App\Model\User\UserId;
+use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
-use Faker;
-use PHPUnit\Framework\TestCase;
 
-class UserUpdatedProfileTest extends TestCase
+class UserUpdatedProfileTest extends BaseTestCase
 {
     use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -35,9 +33,9 @@ class UserUpdatedProfileTest extends TestCase
 
     public function testFromArray(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);

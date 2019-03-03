@@ -6,17 +6,15 @@ namespace App\Tests\Model\Enquiry\Command;
 
 use App\Model\Email;
 use App\Model\Enquiry\Command\SubmitEnquiry;
-use App\Model\Enquiry\EnquiryId;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class SubmitEnquiryTest extends TestCase
+class SubmitEnquiryTest extends BaseTestCase
 {
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $enquiryId = EnquiryId::generate();
+        $enquiryId = $faker->enquiryId;
         $name = $faker->name;
         $email = Email::fromString($faker->email);
         $message = $faker->asciify(str_repeat('*', 100));

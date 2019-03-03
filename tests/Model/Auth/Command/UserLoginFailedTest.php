@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\Auth\Command;
 
-use App\Model\Auth\AuthId;
 use App\Model\Auth\Command\UserLoginFailed;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class UserLoginFailedTest extends TestCase
+class UserLoginFailedTest extends BaseTestCase
 {
     public function testNow(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
+        $authId = $faker->authId;
         $email = $faker->email;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
@@ -38,10 +36,10 @@ class UserLoginFailedTest extends TestCase
 
     public function testNowNullValues(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $command = UserLoginFailed::now(
-            AuthId::generate(),
+            $faker->authId,
             null,
             null,
             $faker->ipv4,

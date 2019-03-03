@@ -10,21 +10,23 @@ use App\Model\User\Handler\VerifyUserHandler;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
+use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class VerifyUserHandlerTest extends TestCase
+class VerifyUserHandlerTest extends BaseTestCase
 {
     use MockeryPHPUnitIntegration;
 
     public function test(): void
     {
+        $faker = $this->faker();
+
         $user = Mockery::mock(User::class);
         $user->shouldReceive('verify')
             ->once();
 
-        $command = VerifyUser::now(UserId::generate());
+        $command = VerifyUser::now($faker->userId);
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -39,7 +41,9 @@ class VerifyUserHandlerTest extends TestCase
 
     public function testUserNotFound(): void
     {
-        $command = VerifyUser::now(UserId::generate());
+        $faker = $this->faker();
+
+        $command = VerifyUser::now($faker->userId);
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

@@ -7,18 +7,16 @@ namespace App\Tests\Model\User\Command;
 use App\Model\Email;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
-use App\Model\User\UserId;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 use Symfony\Component\Security\Core\Role\Role;
 
-class AdminUpdateUserTest extends TestCase
+class AdminUpdateUserTest extends BaseTestCase
 {
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $userId = UserId::generate();
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);

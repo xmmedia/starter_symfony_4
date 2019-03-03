@@ -4,21 +4,18 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\Auth\Command;
 
-use App\Model\Auth\AuthId;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Email;
-use App\Model\User\UserId;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 
-class UserLoggedInSuccessfullyTest extends TestCase
+class UserLoggedInSuccessfullyTest extends BaseTestCase
 {
     public function test(): void
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
-        $authId = AuthId::generate();
-        $userId = UserId::generate();
+        $authId = $faker->authId;
+        $userId = $faker->userId;
         $email = Email::fromString($faker->email);
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;

@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\UserVerified;
-use App\Model\User\UserId;
+use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
-use PHPUnit\Framework\TestCase;
 
-class UserVerifiedTest extends TestCase
+class UserVerifiedTest extends BaseTestCase
 {
     use CanCreateEventFromArray;
 
     public function testOccur(): void
     {
-        $userId = UserId::generate();
+        $faker = $this->faker();
+
+        $userId = $faker->userId;
 
         $event = UserVerified::now($userId);
 
@@ -24,7 +25,9 @@ class UserVerifiedTest extends TestCase
 
     public function testFromArray(): void
     {
-        $userId = UserId::generate();
+        $faker = $this->faker();
+
+        $userId = $faker->userId;
 
         /** @var UserVerified $event */
         $event = $this->createEventFromArray(
