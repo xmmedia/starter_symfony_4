@@ -19,6 +19,9 @@ class RoleProvider
         $this->roleHierarchy = $roleHierarchy;
     }
 
+    /**
+     * @return string[]
+     */
     public function __invoke(): array
     {
         return array_map(function (Role $role) {
