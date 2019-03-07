@@ -43,7 +43,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
 
 ## System Requirements
 
-  - PHP 7.2+
+  - PHP 7.3+
   - MySQL 5.7+
   - [Yarn](https://yarnpkg.com/en/docs/install)
 
