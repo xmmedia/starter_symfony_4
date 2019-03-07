@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Form;
+namespace App\Tests\Form\User;
 
 use App\Form\User\UserRecoverInitiateType;
 use App\Model\Email;

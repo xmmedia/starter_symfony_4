@@ -35,6 +35,9 @@ class Enquiry extends AggregateRoot implements Entity
         return $self;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     protected function aggregateId(): string
     {
         return $this->enquiryId->toString();
@@ -55,6 +58,10 @@ class Enquiry extends AggregateRoot implements Entity
      */
     public function sameIdentityAs(Entity $other): bool
     {
-        return get_class($this) === get_class($other) && $this->enquiryId->sameValueAs($other->enquiryId);
+        if (get_class($this) !== get_class($other)) {
+            return false;
+        }
+
+        return $this->enquiryId->sameValueAs($other->enquiryId);
     }
 }

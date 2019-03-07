@@ -62,6 +62,14 @@ class PhoneNumberTest extends BaseTestCase
         $this->assertTrue($phoneNumber1->sameValueAs($phoneNumber2));
     }
 
+    public function testSameValueAsDiffObject(): void
+    {
+        $phoneNumber = PhoneNumber::fromString('433-323-3233');
+        $email = \App\Model\Email::fromString('test@example.com');
+
+        $this->assertFalse($phoneNumber->sameValueAs($email));
+    }
+
     public function phoneNumberProvider(): \Generator
     {
         yield [

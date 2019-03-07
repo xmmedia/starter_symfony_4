@@ -12,8 +12,10 @@ class RoleProviderTest extends KernelTestCase
     public function test(): void
     {
         self::bootKernel();
+        /** @var \Symfony\Bundle\FrameworkBundle\Test\TestContainer $container */
+        $container = self::$container;
 
-        $result = (self::$container->get(RoleProvider::class))();
+        $result = ($container->get(RoleProvider::class))();
 
         // if changes are made to this list,
         // changes will also likely be needed in JS or other PHP code

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Form;
+namespace App\Tests\Form\User;
 
 use App\DataProvider\RoleProvider;
-use App\Form\User\AdminUserCreateType;
+use App\Form\User\AdminUserUpdateType;
 use App\Form\DataTransformer\SecurityRoleTransformer;
 use App\Model\Email;
 use App\Model\User\Name;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
-class AdminUserCreateTypeTest extends TypeTestCase
+class AdminUserUpdateTypeTest extends TypeTestCase
 {
     use ValidatorExtensionTrait;
     use MockeryPHPUnitIntegration;
@@ -38,7 +38,7 @@ class AdminUserCreateTypeTest extends TypeTestCase
             ->with('ROLE_USER')
             ->andReturn(new Role('ROLE_USER'));
 
-        $extensions[] = new AdminUserCreateType(new RoleProvider($roleHierarchy), $roleTransformer);
+        $extensions[] = new AdminUserUpdateType(new RoleProvider($roleHierarchy), $roleTransformer);
 
         return $extensions;
     }
@@ -48,17 +48,16 @@ class AdminUserCreateTypeTest extends TypeTestCase
         $faker = Faker\Factory::create();
 
         $formData = [
-            'email'       => $faker->email,
-            'setPassword' => true,
-            'password'    => $faker->password,
-            'firstName'   => $faker->name,
-            'lastName'    => $faker->name,
-            'role'        => 'ROLE_USER',
-            'active'      => true,
-            'sendInvite'  => true,
+            'userId'         => $faker->uuid,
+            'changePassword' => true,
+            'password'       => $faker->password,
+            'email'          => $faker->email,
+            'firstName'      => $faker->name,
+            'lastName'       => $faker->name,
+            'role'           => 'ROLE_USER',
         ];
 
-        $form = $this->factory->create(AdminUserCreateType::class)
+        $form = $this->factory->create(AdminUserUpdateType::class)
             ->submit($formData);
 
         $this->assertTrue($form->isValid());
@@ -74,16 +73,14 @@ class AdminUserCreateTypeTest extends TypeTestCase
         $faker = Faker\Factory::create();
 
         $formData = [
-            'email'       => $faker->email,
-            'setPassword' => false,
-            'firstName'   => $faker->name,
-            'lastName'    => $faker->name,
-            'role'        => 'ROLE_USER',
-            'active'      => true,
-            'sendInvite'  => true,
+            'email'          => $faker->email,
+            'changePassword' => false,
+            'firstName'      => $faker->name,
+            'lastName'       => $faker->name,
+            'role'           => 'ROLE_USER',
         ];
 
-        $form = $this->factory->create(AdminUserCreateType::class)
+        $form = $this->factory->create(AdminUserUpdateType::class)
             ->submit($formData);
 
         $this->assertTrue($form->isValid());

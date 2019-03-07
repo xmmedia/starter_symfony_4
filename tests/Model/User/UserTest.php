@@ -24,7 +24,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -72,7 +72,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -120,7 +120,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -168,7 +168,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -194,7 +194,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 
@@ -232,7 +232,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 
@@ -253,7 +253,7 @@ class UserTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -288,7 +288,7 @@ class UserTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -332,7 +332,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -435,7 +435,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -490,7 +490,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -533,7 +533,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -563,7 +563,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -620,7 +620,7 @@ class UserTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
@@ -652,7 +652,7 @@ class UserTest extends BaseTestCase
 
         $user = $this->getUserInactive();
 
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
@@ -672,7 +672,7 @@ class UserTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
@@ -708,7 +708,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -779,7 +779,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 
@@ -801,12 +801,60 @@ class UserTest extends BaseTestCase
         $this->assertTrue($user1->sameIdentityAs($user2));
     }
 
+    public function testSameIdentityAsFalse(): void
+    {
+        $faker = $this->faker();
+
+        $email = $faker->emailVo;
+        $password = $faker->password;
+        $role = new Role('ROLE_USER');
+
+        $user1 = User::createByAdminMinimum(
+            $faker->userId,
+            $email,
+            $password,
+            $role,
+            new UserArUniquenessCheckerNone()
+        );
+        $user2 = User::createByAdminMinimum(
+            $faker->userId,
+            $email,
+            $password,
+            $role,
+            new UserArUniquenessCheckerNone()
+        );
+
+        $this->assertFalse($user1->sameIdentityAs($user2));
+    }
+
+    public function testSameIdentityAsDiffObject(): void
+    {
+        $faker = $this->faker();
+
+        $user = User::createByAdminMinimum(
+            $faker->userId,
+            $faker->emailVo,
+            $faker->password,
+            new Role('ROLE_USER'),
+            new UserArUniquenessCheckerNone()
+        );
+        $auth = \App\Model\Auth\Auth::success(
+            $faker->authId,
+            $faker->userId,
+            $faker->emailVo,
+            $faker->userAgent,
+            $faker->ipv4
+        );
+
+        $this->assertFalse($user->sameIdentityAs($auth));
+    }
+
     private function getUserActive(): User
     {
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -830,7 +878,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);

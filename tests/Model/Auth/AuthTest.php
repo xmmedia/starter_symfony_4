@@ -8,7 +8,10 @@ use App\Model\Auth\Auth;
 use App\Model\Auth\Event\UserFailedToLogin;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\Email;
+use App\Model\User\Service\ChecksUniqueUsersEmail;
+use App\Model\User\UserId;
 use App\Tests\BaseTestCase;
+use Symfony\Component\Security\Core\Role\Role;
 
 class AuthTest extends BaseTestCase
 {
@@ -18,7 +21,7 @@ class AuthTest extends BaseTestCase
 
         $authId = $faker->authId;
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
 
@@ -98,7 +101,7 @@ class AuthTest extends BaseTestCase
 
         $authId = $faker->authId;
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
 
@@ -106,5 +109,50 @@ class AuthTest extends BaseTestCase
         $auth2 = Auth::success($authId, $userId, $email, $userAgent, $ipAddress);
 
         $this->assertTrue($auth1->sameIdentityAs($auth2));
+    }
+
+    public function testSameIdentityAsFalse(): void
+    {
+        $faker = $this->faker();
+
+        $userId = $faker->userId;
+        $email = $faker->emailVo;
+        $userAgent = $faker->userAgent;
+        $ipAddress = $faker->ipv4;
+
+        $auth1 = Auth::success($faker->authId, $userId, $email, $userAgent, $ipAddress);
+        $auth2 = Auth::success($faker->authId, $userId, $email, $userAgent, $ipAddress);
+
+        $this->assertFalse($auth1->sameIdentityAs($auth2));
+    }
+
+    public function testSameIdentityAsDiffObject(): void
+    {
+        $faker = $this->faker();
+
+        $auth = Auth::success(
+            $faker->authId,
+            $faker->userId,
+            $faker->emailVo,
+            $faker->userAgent,
+            $faker->ipv4
+        );
+        $user = \App\Model\User\User::createByAdminMinimum(
+            $faker->userId,
+            $faker->emailVo,
+            $faker->password,
+            new Role('ROLE_USER'),
+            new UserArUniquenessCheckerNoneForSameAsCheck()
+        );
+
+        $this->assertFalse($auth->sameIdentityAs($user));
+    }
+}
+
+class UserArUniquenessCheckerNoneForSameAsCheck implements ChecksUniqueUsersEmail
+{
+    public function __invoke(Email $email): ?UserId
+    {
+        return null;
     }
 }

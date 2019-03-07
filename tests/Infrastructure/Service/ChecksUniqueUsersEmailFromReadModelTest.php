@@ -6,7 +6,6 @@ namespace App\Tests\Infrastructure\Service;
 
 use App\Entity\User;
 use App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel;
-use App\Model\Email;
 use App\Repository\UserRepository;
 use App\Tests\BaseTestCase;
 use Mockery;
@@ -20,7 +19,7 @@ class ChecksUniqueUsersEmailFromReadModelTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')

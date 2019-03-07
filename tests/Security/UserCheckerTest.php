@@ -11,6 +11,7 @@ use App\Security\UserChecker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserCheckerTest extends TestCase
 {
@@ -21,6 +22,17 @@ class UserCheckerTest extends TestCase
         $checker = new UserChecker();
 
         $user = Mockery::mock(User::class);
+        $user->shouldNotReceive('verified');
+        $user->shouldNotReceive('active');
+
+        $checker->checkPreAuth($user);
+    }
+
+    public function testCheckPreAuthDiffUser(): void
+    {
+        $checker = new UserChecker();
+
+        $user = Mockery::mock(UserInterface::class);
         $user->shouldNotReceive('verified');
         $user->shouldNotReceive('active');
 
@@ -70,6 +82,17 @@ class UserCheckerTest extends TestCase
             ->andReturnFalse();
 
         $this->expectException(AccountInactiveException::class);
+
+        $checker->checkPostAuth($user);
+    }
+
+    public function testCheckPostAuthDiffUser(): void
+    {
+        $checker = new UserChecker();
+
+        $user = Mockery::mock(UserInterface::class);
+        $user->shouldNotReceive('verified');
+        $user->shouldNotReceive('active');
 
         $checker->checkPostAuth($user);
     }

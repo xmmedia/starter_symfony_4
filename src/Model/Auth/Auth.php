@@ -59,6 +59,9 @@ class Auth extends AggregateRoot implements Entity
         return $self;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     protected function aggregateId(): string
     {
         return $this->authId->toString();
@@ -84,6 +87,10 @@ class Auth extends AggregateRoot implements Entity
      */
     public function sameIdentityAs(Entity $other): bool
     {
-        return get_class($this) === get_class($other) && $this->authId->sameValueAs($other->authId);
+        if (get_class($this) !== get_class($other)) {
+            return false;
+        }
+
+        return $this->authId->sameValueAs($other->authId);
     }
 }

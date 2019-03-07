@@ -127,6 +127,14 @@ class DateTest extends BaseTestCase
         $this->assertEquals($expected, $date1->sameValueAs($date2));
     }
 
+    public function testSameValueAsDiffObject(): void
+    {
+        $date = Date::fromString('2019-01-01');
+        $email = \App\Model\Email::fromString('info@example.com');
+
+        $this->assertFalse($date->sameValueAs($email));
+    }
+
     public function sameValueAsProvider(): \Generator
     {
         yield ['2000-01-01', '2000-01-01', true];

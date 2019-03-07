@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Event;
 
-use App\Model\Email;
 use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
@@ -19,7 +18,7 @@ class MinimalUserWasCreatedByAdminTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 
@@ -36,7 +35,7 @@ class MinimalUserWasCreatedByAdminTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 

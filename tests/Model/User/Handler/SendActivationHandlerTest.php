@@ -36,7 +36,7 @@ class SendActivationHandlerTest extends BaseTestCase
 
         $command = SendActivation::now(
             $faker->userId,
-            Email::fromString($faker->email),
+            $faker->emailVo,
             Name::fromString($faker->name),
             Name::fromString($faker->name)
         );
@@ -72,7 +72,7 @@ class SendActivationHandlerTest extends BaseTestCase
 
         $command = SendActivation::now(
             $faker->userId,
-            Email::fromString($faker->email),
+            $faker->emailVo,
             Name::fromString($faker->name),
             Name::fromString($faker->name)
         );

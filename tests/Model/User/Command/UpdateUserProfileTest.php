@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Command;
 
-use App\Model\Email;
 use App\Model\User\Command\UpdateUserProfile;
 use App\Model\User\Name;
 use App\Tests\BaseTestCase;
@@ -16,7 +15,7 @@ class UpdateUserProfileTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 

@@ -27,7 +27,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -65,7 +65,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);

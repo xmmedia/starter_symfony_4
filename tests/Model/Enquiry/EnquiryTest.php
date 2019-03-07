@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\Enquiry;
 
-use App\Model\Email;
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\Tests\BaseTestCase;
@@ -17,7 +16,7 @@ class EnquiryTest extends BaseTestCase
 
         $enquiryId = $faker->enquiryId;
         $name = $faker->name;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $message = $faker->asciify(str_repeat('*', 100));
 
         $enquiry = Enquiry::submit($enquiryId, $name, $email, $message);
@@ -43,12 +42,47 @@ class EnquiryTest extends BaseTestCase
 
         $enquiryId = $faker->enquiryId;
         $name = $faker->name;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $message = $faker->asciify(str_repeat('*', 100));
 
         $enquiry1 = Enquiry::submit($enquiryId, $name, $email, $message);
         $enquiry2 = Enquiry::submit($enquiryId, $name, $email, $message);
 
         $this->assertTrue($enquiry1->sameIdentityAs($enquiry2));
+    }
+
+    public function testSameIdentityAsFalse(): void
+    {
+        $faker = $this->faker();
+
+        $name = $faker->name;
+        $email = $faker->emailVo;
+        $message = $faker->asciify(str_repeat('*', 100));
+
+        $enquiry1 = Enquiry::submit($faker->enquiryId, $name, $email, $message);
+        $enquiry2 = Enquiry::submit($faker->enquiryId, $name, $email, $message);
+
+        $this->assertFalse($enquiry1->sameIdentityAs($enquiry2));
+    }
+
+    public function testSameIdentityAsDiffObject(): void
+    {
+        $faker = $this->faker();
+
+        $enquiry = Enquiry::submit(
+            $faker->enquiryId,
+            $faker->name,
+            $faker->emailVo,
+            $faker->string(100)
+        );
+        $auth = \App\Model\Auth\Auth::success(
+            $faker->authId,
+            $faker->userId,
+            $faker->emailVo,
+            $faker->string(5),
+            $faker->ipv4
+        );
+
+        $this->assertFalse($enquiry->sameIdentityAs($auth));
     }
 }

@@ -7,6 +7,7 @@ namespace App\Tests\Form\DataTransformer;
 use App\Form\DataTransformer\EmailTransformer;
 use App\Model\Email;
 use App\Tests\BaseTestCase;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class EmailTransformerTest extends BaseTestCase
 {
@@ -48,5 +49,12 @@ class EmailTransformerTest extends BaseTestCase
 
         $email = $faker->email;
         yield [$email, Email::fromString($email)];
+    }
+
+    public function testReverseTransformInvalid(): void
+    {
+        $this->expectException(TransformationFailedException::class);
+
+        (new EmailTransformer())->reverseTransform('string');
     }
 }

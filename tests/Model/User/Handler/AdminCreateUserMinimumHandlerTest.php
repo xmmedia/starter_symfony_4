@@ -27,7 +27,7 @@ class AdminCreateUserMinimumHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 
@@ -56,7 +56,7 @@ class AdminCreateUserMinimumHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 

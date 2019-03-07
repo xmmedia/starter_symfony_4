@@ -35,7 +35,7 @@ class UniqueExistingUserEmailValidatorTest extends BaseTestCase
         $validator = new UniqueExistingUserEmailValidator($uniqueChecker);
 
         $validator->validate(
-            ['email' => Email::fromString($faker->email)],
+            ['email' => $faker->emailVo],
             $constraint
         );
     }
@@ -57,7 +57,7 @@ class UniqueExistingUserEmailValidatorTest extends BaseTestCase
 
         $validator->validate(
             [
-                'email'  => Email::fromString($faker->email),
+                'email'  => $faker->emailVo,
                 'userId' => $userId,
             ],
             $constraint
@@ -80,7 +80,7 @@ class UniqueExistingUserEmailValidatorTest extends BaseTestCase
 
         $validator = new UniqueExistingUserEmailValidator($uniqueChecker);
 
-        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $builder = Mockery::mock(ConstraintViolationBuilder::class);
         $builder->shouldReceive('atPath')
             ->once()
             ->with('[email]')
@@ -88,7 +88,7 @@ class UniqueExistingUserEmailValidatorTest extends BaseTestCase
         $builder->shouldReceive('addViolation')
             ->once();
 
-        $context = \Mockery::mock(ExecutionContext::class);
+        $context = Mockery::mock(ExecutionContext::class);
         $context->shouldReceive('buildViolation')
             ->once()
             ->with($constraint->message)
@@ -98,7 +98,7 @@ class UniqueExistingUserEmailValidatorTest extends BaseTestCase
 
         $validator->validate(
             [
-                'email'  => Email::fromString($faker->email),
+                'email'  => $faker->emailVo,
                 'userId' => $faker->userId,
             ],
             $constraint

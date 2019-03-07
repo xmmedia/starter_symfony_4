@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Model\Enquiry\Handler;
 
 use App\Infrastructure\Email\EmailGatewayInterface;
-use App\Model\Email;
 use App\Model\EmailGatewayMessageId;
 use App\Model\Enquiry\Command\SendEnquiryEmail;
 use App\Model\Enquiry\Handler\SendEnquiryEmailHandler;
@@ -25,7 +24,7 @@ class SendEnquiryEmailHandlerTest extends BaseTestCase
 
         $command = SendEnquiryEmail::with(
             $faker->name,
-            Email::fromString($faker->email),
+            $faker->emailVo,
             $faker->asciify(str_repeat('*', 25))
         );
 

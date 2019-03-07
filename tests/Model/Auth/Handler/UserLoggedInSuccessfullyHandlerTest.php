@@ -8,7 +8,6 @@ use App\Model\Auth\Auth;
 use App\Model\Auth\AuthList;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Handler\UserLoggedInSuccessfullyHandler;
-use App\Model\Email;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
@@ -23,7 +22,7 @@ class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
 
         $authId = $faker->authId;
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
 

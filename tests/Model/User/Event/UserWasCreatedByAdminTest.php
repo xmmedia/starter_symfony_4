@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Event;
 
-use App\Model\Email;
 use App\Model\User\Event\UserWasCreatedByAdmin;
 use App\Model\User\Name;
 use App\Tests\BaseTestCase;
@@ -20,7 +19,7 @@ class UserWasCreatedByAdminTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
@@ -52,7 +51,7 @@ class UserWasCreatedByAdminTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);

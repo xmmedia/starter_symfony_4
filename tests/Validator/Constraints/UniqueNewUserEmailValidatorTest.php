@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Validator\Constraints;
 
-use App\Entity\User;
 use App\Model\Email;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserId;
@@ -26,16 +25,17 @@ class UniqueNewUserEmailValidatorTest extends BaseTestCase
 
         $uniqueChecker = new UniqueNewUserEmailValidatorTestUniquenessCheckerNone();
 
-        $user = Mockery::mock(User::class);
-        $user->shouldNotReceive('userId')
-            ->andReturn($faker->userId);
-
         $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
 
         $validator = new UniqueNewUserEmailValidator($uniqueChecker);
 
+        $context = Mockery::mock(ExecutionContext::class);
+        $context->shouldNotReceive('buildViolation');
+
+        $validator->initialize($context);
+
         $validator->validate(
-            Email::fromString($faker->email),
+            $faker->emailVo,
             $constraint
         );
     }
@@ -48,19 +48,15 @@ class UniqueNewUserEmailValidatorTest extends BaseTestCase
             $faker->userId
         );
 
-        $user = Mockery::mock(User::class);
-        $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
-
         $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
 
         $validator = new UniqueNewUserEmailValidator($uniqueChecker);
 
-        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $builder = Mockery::mock(ConstraintViolationBuilder::class);
         $builder->shouldReceive('addViolation')
             ->once();
 
-        $context = \Mockery::mock(ExecutionContext::class);
+        $context = Mockery::mock(ExecutionContext::class);
         $context->shouldReceive('buildViolation')
             ->once()
             ->with($constraint->message)
@@ -69,9 +65,37 @@ class UniqueNewUserEmailValidatorTest extends BaseTestCase
         $validator->initialize($context);
 
         $validator->validate(
-            Email::fromString($faker->email),
+            $faker->emailVo,
             $constraint
         );
+    }
+
+    /**
+     * @dataProvider emptyProvider
+     */
+    public function testEmpty($empty): void
+    {
+        $uniqueChecker = new UniqueNewUserEmailValidatorTestUniquenessCheckerNone();
+
+        $constraint = Mockery::mock(UniqueCurrentUsersEmail::class);
+
+        $validator = new UniqueNewUserEmailValidator($uniqueChecker);
+
+        $context = Mockery::mock(ExecutionContext::class);
+        $context->shouldNotReceive('buildViolation');
+
+        $validator->initialize($context);
+
+        $validator->validate(
+            $empty,
+            $constraint
+        );
+    }
+
+    public function emptyProvider(): \Generator
+    {
+        yield [''];
+        yield [null];
     }
 }
 

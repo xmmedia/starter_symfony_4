@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Model\Auth\Event;
 
 use App\Model\Auth\Event\UserLoggedIn;
-use App\Model\Email;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
 
@@ -19,7 +18,7 @@ class UserLoggedInTest extends BaseTestCase
 
         $authId = $faker->authId;
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
 
@@ -44,7 +43,7 @@ class UserLoggedInTest extends BaseTestCase
 
         $authId = $faker->authId;
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
 

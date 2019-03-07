@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Command;
 
-use App\Model\Email;
 use App\Model\User\Command\AdminCreateUser;
 use App\Model\User\Name;
 use App\Tests\BaseTestCase;
@@ -17,7 +16,7 @@ class AdminCreateUserTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);

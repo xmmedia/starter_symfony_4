@@ -46,7 +46,7 @@ class SecuritySubscriberTest extends BaseTestCase
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->with(Mockery::type(UserLoggedInSuccessfully::class))
-            ->andReturn(new Envelope(new \StdClass()));
+            ->andReturn(new Envelope(new \stdClass()));
 
         $request = Mockery::mock(Request::class);
         $request->headers = new ParameterBag(['User-Agent' => $faker->userAgent]);
@@ -80,7 +80,7 @@ class SecuritySubscriberTest extends BaseTestCase
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->with(Mockery::type(UserLoginFailed::class))
-            ->andReturn(new Envelope(new \StdClass()));
+            ->andReturn(new Envelope(new \stdClass()));
 
         $request = Mockery::mock(Request::class);
         $request->headers = new ParameterBag(['User-Agent' => $faker->userAgent]);
@@ -98,7 +98,7 @@ class SecuritySubscriberTest extends BaseTestCase
 
         $token = Mockery::mock(TokenInterface::class);
         $token->shouldReceive('getCredentials')
-            ->andReturn(Credentials::build($faker->email, $faker->password, 'token'));
+            ->andReturn(Credentials::build($faker->email, $faker->password));
 
         $exception = Mockery::mock(AuthenticationException::class);
 

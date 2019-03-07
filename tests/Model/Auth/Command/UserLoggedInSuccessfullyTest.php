@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Model\Auth\Command;
 
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
-use App\Model\Email;
 use App\Tests\BaseTestCase;
 
 class UserLoggedInSuccessfullyTest extends BaseTestCase
@@ -16,7 +15,7 @@ class UserLoggedInSuccessfullyTest extends BaseTestCase
 
         $authId = $faker->authId;
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
 

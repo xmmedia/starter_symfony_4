@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\ProcessManager;
 
 use App\Model\Auth\Event\UserLoggedIn;
-use App\Model\Email;
 use App\ProcessManager\UserLoggedInProcessManager;
 use App\Tests\BaseTestCase;
 use Mockery;
@@ -25,12 +24,12 @@ class UserLoggedInProcessManagerTest extends BaseTestCase
         $commandBus->shouldReceive('dispatch')
             ->once()
             ->with(Mockery::type(\App\Model\User\Command\UserLoggedIn::class))
-            ->andReturn(new Envelope(new \StdClass()));
+            ->andReturn(new Envelope(new \stdClass()));
 
         $event = UserLoggedIn::now(
             $faker->authId,
             $faker->userId,
-            Email::fromString($faker->email),
+            $faker->emailVo,
             $faker->userAgent,
             $faker->ipv4
         );

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\Enquiry\Event;
 
-use App\Model\Email;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
@@ -19,7 +18,7 @@ class EnquiryWasSubmittedTest extends BaseTestCase
 
         $enquiryId = $faker->enquiryId;
         $name = $faker->name;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $message = $faker->asciify(str_repeat('*', 100));
 
         $event = EnquiryWasSubmitted::now($enquiryId, $name, $email, $message);
@@ -36,7 +35,7 @@ class EnquiryWasSubmittedTest extends BaseTestCase
 
         $enquiryId = $faker->enquiryId;
         $name = $faker->name;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $message = $faker->asciify(str_repeat('*', 100));
 
         /** @var EnquiryWasSubmitted $event */

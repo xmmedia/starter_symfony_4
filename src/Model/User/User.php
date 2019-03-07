@@ -280,6 +280,9 @@ class User extends AggregateRoot implements Entity
         return $this->active;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     protected function aggregateId(): string
     {
         return $this->userId->toString();

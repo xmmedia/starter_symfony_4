@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\Enquiry\Handler;
 
-use App\Model\Email;
 use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\EnquiryList;
@@ -23,7 +22,7 @@ class SubmitEnquiryHandlerTest extends BaseTestCase
 
         $enquiryId = $faker->enquiryId;
         $name = $faker->name;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
         $message = $faker->asciify(str_repeat('*', 100));
 
         $command = SubmitEnquiry::with($enquiryId, $name, $email, $message);

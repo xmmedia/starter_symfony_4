@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Command;
 
-use App\Model\Email;
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Tests\BaseTestCase;
 
@@ -15,7 +14,7 @@ class InitiatePasswordRecoveryTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $email = Email::fromString($faker->email);
+        $email = $faker->emailVo;
 
         $command = InitiatePasswordRecovery::now($userId, $email);
 

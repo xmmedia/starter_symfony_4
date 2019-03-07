@@ -55,6 +55,18 @@ class UuidIdTest extends BaseTestCase
 
         $this->assertTrue($uuid1->sameValueAs($uuid2));
     }
+
+    public function testSameValueAsDiffObject(): void
+    {
+        $faker = $this->faker();
+
+        $uuidString = $faker->uuid;
+
+        $uuid = UuidIdId::fromString($uuidString);
+        $email = \App\Model\Email::fromString('info@example.com');
+
+        $this->assertFalse($uuid->sameValueAs($email));
+    }
 }
 
 class UuidIdId implements ValueObject

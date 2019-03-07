@@ -8,6 +8,9 @@ use App\Model\Enquiry\Event;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\EventStore\Projection\ReadModelProjector;
 
+/**
+ * @method \Prooph\EventStore\Projection\ReadModel readModel()
+ */
 class EnquiryProjection implements ReadModelProjection
 {
     public function project(ReadModelProjector $projector): ReadModelProjector

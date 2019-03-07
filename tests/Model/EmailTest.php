@@ -37,6 +37,33 @@ class EmailTest extends BaseTestCase
         $this->assertNull($vo->name());
     }
 
+    public function testNullName(): void
+    {
+        $faker = $this->faker();
+
+        $email = $faker->email;
+
+        $vo = Email::fromString($email, null);
+
+        $this->assertEquals($email, $vo->toString());
+        $this->assertEquals($email, (string) $vo);
+        $this->assertNull($vo->name());
+    }
+
+    public function testEmpty(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Email::fromString('');
+    }
+
+    public function testInvalid(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Email::fromString('asdf');
+    }
+
     public function testFromStringWithNameMethod(): void
     {
         $vo = Email::fromString('email@email.com', 'Name');
@@ -60,6 +87,14 @@ class EmailTest extends BaseTestCase
     }
 
     public function testSameAsCapitals(): void
+    {
+        $vo1 = Email::fromString('eMail@email.com');
+        $vo2 = Email::fromString('email@eMail.com');
+
+        $this->assertTrue($vo1->sameValueAs($vo2));
+    }
+
+    public function testSameAsDiffObject(): void
     {
         $vo1 = Email::fromString('eMail@email.com');
         $vo2 = Email::fromString('email@eMail.com');

@@ -42,7 +42,7 @@ class UniqueCurrentUsersEmailValidatorTest extends BaseTestCase
             $this->createSecurity($user)
         );
 
-        $validator->validate(Email::fromString($faker->email), $constraint);
+        $validator->validate($faker->emailVo, $constraint);
     }
 
     public function testSameUser(): void
@@ -63,7 +63,7 @@ class UniqueCurrentUsersEmailValidatorTest extends BaseTestCase
             $this->createSecurity($user)
         );
 
-        $validator->validate(Email::fromString($faker->email), $constraint);
+        $validator->validate($faker->emailVo, $constraint);
     }
 
     public function testNotUnique(): void
@@ -83,11 +83,11 @@ class UniqueCurrentUsersEmailValidatorTest extends BaseTestCase
             $this->createSecurity($user)
         );
 
-        $builder = \Mockery::mock(ConstraintViolationBuilder::class);
+        $builder = Mockery::mock(ConstraintViolationBuilder::class);
         $builder->shouldReceive('addViolation')
             ->once();
 
-        $context = \Mockery::mock(ExecutionContext::class);
+        $context = Mockery::mock(ExecutionContext::class);
         $context->shouldReceive('buildViolation')
             ->once()
             ->with($constraint->message)
@@ -95,7 +95,7 @@ class UniqueCurrentUsersEmailValidatorTest extends BaseTestCase
 
         $validator->initialize($context);
 
-        $validator->validate(Email::fromString($faker->email), $constraint);
+        $validator->validate($faker->emailVo, $constraint);
     }
 
     /**
