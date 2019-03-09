@@ -15,14 +15,14 @@ class AdminCreateUserHandler
     private $userRepo;
 
     /** @var ChecksUniqueUsersEmail */
-    private $checksUniqueUsersEmailAddress;
+    private $checksUniqueUsersEmail;
 
     public function __construct(
         UserList $userRepo,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ) {
         $this->userRepo = $userRepo;
-        $this->checksUniqueUsersEmailAddress = $checksUniqueUsersEmailAddress;
+        $this->checksUniqueUsersEmail = $checksUniqueUsersEmail;
     }
 
     public function __invoke(AdminCreateUser $command): void
@@ -36,7 +36,7 @@ class AdminCreateUserHandler
             $command->firstName(),
             $command->lastName(),
             $command->sendInvite(),
-            $this->checksUniqueUsersEmailAddress
+            $this->checksUniqueUsersEmail
         );
 
         $this->userRepo->save($user);

@@ -7,7 +7,7 @@ namespace App\Model\User\Exception;
 use App\Model\Email;
 use App\Model\User\UserId;
 
-final class DuplicateEmailAddress extends \InvalidArgumentException
+final class DuplicateEmail extends \InvalidArgumentException
 {
     public static function withEmail(Email $email, UserId $userId): self
     {

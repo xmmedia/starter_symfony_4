@@ -11,12 +11,12 @@ use Symfony\Component\Validator\ConstraintValidator;
 class UniqueExistingUserEmailValidator extends ConstraintValidator
 {
     /** @var ChecksUniqueUsersEmail */
-    private $checksUniqueUsersEmailAddress;
+    private $checksUniqueUsersEmail;
 
     public function __construct(
-        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ) {
-        $this->checksUniqueUsersEmailAddress = $checksUniqueUsersEmailAddress;
+        $this->checksUniqueUsersEmail = $checksUniqueUsersEmail;
     }
 
     /**
@@ -25,7 +25,7 @@ class UniqueExistingUserEmailValidator extends ConstraintValidator
      */
     public function validate($data, Constraint $constraint): void
     {
-        $userId = ($this->checksUniqueUsersEmailAddress)($data['email']);
+        $userId = ($this->checksUniqueUsersEmail)($data['email']);
 
         if ($userId && !$data['userId']->sameValueAs($userId)) {
             $this->context->buildViolation($constraint->message)

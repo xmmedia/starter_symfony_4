@@ -6,7 +6,7 @@ namespace App\Tests\Model\User\Handler;
 
 use App\Model\Email;
 use App\Model\User\Command\AdminCreateUserMinimum;
-use App\Model\User\Exception\DuplicateEmailAddress;
+use App\Model\User\Exception\DuplicateEmail;
 use App\Model\User\Handler\AdminCreateUserMinimumHandler;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
@@ -69,7 +69,7 @@ class AdminCreateUserMinimumHandlerTest extends BaseTestCase
 
         $repo = Mockery::mock(UserList::class);
 
-        $this->expectException(DuplicateEmailAddress::class);
+        $this->expectException(DuplicateEmail::class);
 
         (new AdminCreateUserMinimumHandler(
             $repo,

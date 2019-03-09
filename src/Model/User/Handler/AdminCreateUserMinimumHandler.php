@@ -15,14 +15,14 @@ class AdminCreateUserMinimumHandler
     private $userRepo;
 
     /** @var ChecksUniqueUsersEmail */
-    private $checksUniqueUsersEmailAddress;
+    private $checksUniqueUsersEmail;
 
     public function __construct(
         UserList $userRepo,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ) {
         $this->userRepo = $userRepo;
-        $this->checksUniqueUsersEmailAddress = $checksUniqueUsersEmailAddress;
+        $this->checksUniqueUsersEmail = $checksUniqueUsersEmail;
     }
 
     public function __invoke(AdminCreateUserMinimum $command): void
@@ -32,7 +32,7 @@ class AdminCreateUserMinimumHandler
             $command->email(),
             $command->encodedPassword(),
             $command->role(),
-            $this->checksUniqueUsersEmailAddress
+            $this->checksUniqueUsersEmail
         );
 
         $this->userRepo->save($user);

@@ -36,10 +36,10 @@ class User extends AggregateRoot implements Entity
         Name $firstName,
         Name $lastName,
         bool $sendInvite,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ): self {
-        if ($duplicateUserId = ($checksUniqueUsersEmailAddress)($email)) {
-            throw Exception\DuplicateEmailAddress::withEmail(
+        if ($duplicateUserId = ($checksUniqueUsersEmail)($email)) {
+            throw Exception\DuplicateEmail::withEmail(
                 $email,
                 $duplicateUserId
             );
@@ -72,10 +72,10 @@ class User extends AggregateRoot implements Entity
         Email $email,
         string $encodedPassword,
         Role $role,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ): self {
-        if ($duplicateUserId = ($checksUniqueUsersEmailAddress)($email)) {
-            throw Exception\DuplicateEmailAddress::withEmail(
+        if ($duplicateUserId = ($checksUniqueUsersEmail)($email)) {
+            throw Exception\DuplicateEmail::withEmail(
                 $email,
                 $duplicateUserId
             );
@@ -99,11 +99,11 @@ class User extends AggregateRoot implements Entity
         Role $role,
         Name $firstName,
         Name $lastName,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ): void {
-        if ($duplicateUserId = ($checksUniqueUsersEmailAddress)($email)) {
+        if ($duplicateUserId = ($checksUniqueUsersEmail)($email)) {
             if (!$this->userId->sameValueAs($duplicateUserId)) {
-                throw Exception\DuplicateEmailAddress::withEmail(
+                throw Exception\DuplicateEmail::withEmail(
                     $email,
                     $duplicateUserId
                 );
@@ -214,7 +214,7 @@ class User extends AggregateRoot implements Entity
         Email $email,
         Name $firstName,
         Name $lastName,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmailAddress
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ): void {
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToUpdateProfile(
@@ -222,9 +222,9 @@ class User extends AggregateRoot implements Entity
             );
         }
 
-        if ($duplicateUserId = ($checksUniqueUsersEmailAddress)($email)) {
+        if ($duplicateUserId = ($checksUniqueUsersEmail)($email)) {
             if (!$this->userId->sameValueAs($duplicateUserId)) {
-                throw Exception\DuplicateEmailAddress::withEmail(
+                throw Exception\DuplicateEmail::withEmail(
                     $email,
                     $duplicateUserId
                 );

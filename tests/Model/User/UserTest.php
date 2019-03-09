@@ -174,7 +174,7 @@ class UserTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $this->expectException(Exception\DuplicateEmailAddress::class);
+        $this->expectException(Exception\DuplicateEmail::class);
 
         User::createByAdmin(
             $userId,
@@ -236,7 +236,7 @@ class UserTest extends BaseTestCase
         $password = $faker->password;
         $role = new Role('ROLE_USER');
 
-        $this->expectException(Exception\DuplicateEmailAddress::class);
+        $this->expectException(Exception\DuplicateEmail::class);
 
         User::createByAdminMinimum(
             $userId,
@@ -293,7 +293,7 @@ class UserTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $this->expectException(Exception\DuplicateEmailAddress::class);
+        $this->expectException(Exception\DuplicateEmail::class);
 
         $user->updateByAdmin(
             $email,
@@ -676,7 +676,7 @@ class UserTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $this->expectException(Exception\DuplicateEmailAddress::class);
+        $this->expectException(Exception\DuplicateEmail::class);
 
         $user->update(
             $email,
