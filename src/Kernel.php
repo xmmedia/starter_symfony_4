@@ -97,17 +97,15 @@ class Kernel extends BaseKernel implements CompilerPassInterface
                 $repository['repository_class'],
                 new ChildDefinition(AggregateRepository::class)
                 )
-                ->setArguments(
-                    [
-                        $repository['repository_class'],
-                        new Reference('prooph_event_store.default'),
-                        $repository['aggregate_type'],
-                        new Reference(AggregateTranslator::class),
-                        // "_event_stream" will be appended to this
-                        // see \App\EventStore\PersistenceStrategy\StreamStrategy::generateTableName()
-                        $repository['stream_name'],
-                    ]
-                )
+                ->setArguments([
+                    $repository['repository_class'],
+                    new Reference('prooph_event_store.default'),
+                    $repository['aggregate_type'],
+                    new Reference(AggregateTranslator::class),
+                    // "_event_stream" will be appended to this
+                    // see \App\EventStore\PersistenceStrategy\StreamStrategy::generateTableName()
+                    $repository['stream_name'],
+                ])
             ;
         }
     }
