@@ -31,7 +31,7 @@ class SendEnquiryEmailHandlerTest extends BaseTestCase
         $emailGateway = Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
             ->once()
-            ->withArgs(function ($templateId, $email, $payload) use ($adminEmail) {
+            ->withArgs(function ($templateId, $email, $payload) use ($adminEmail): bool {
                 $this->assertEquals($adminEmail, $email->toString());
 
                 return true;

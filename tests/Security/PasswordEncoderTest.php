@@ -24,7 +24,7 @@ class PasswordEncoderTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
         $passwordEncoder->shouldReceive('encodePassword')
-            ->withArgs(function ($user, $password) use ($role) {
+            ->withArgs(function ($user, $password) use ($role): bool {
                 $this->assertEquals($role, $user->roles()[0]);
 
                 return true;
