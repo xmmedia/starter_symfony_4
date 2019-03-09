@@ -65,7 +65,7 @@ class CountryTest extends TestCase
         $this->assertFalse($country1->sameValueAs($country2));
     }
 
-    public function testSameValueAsDiffObject(): void
+    public function testSameValueAsDiffClass(): void
     {
         $country = Country::fromString('CA');
         $email = \App\Model\Email::fromString('email@example.com');

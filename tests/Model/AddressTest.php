@@ -244,7 +244,7 @@ class AddressTest extends BaseTestCase
         $this->assertFalse($address1->sameValueAs($address2));
     }
 
-    public function testSameValueAsDiffObject(): void
+    public function testSameValueAsDiffClass(): void
     {
         $faker = $this->faker();
 

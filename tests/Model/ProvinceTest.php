@@ -74,7 +74,7 @@ class ProvinceTest extends TestCase
         $this->assertFalse($province1->sameValueAs($province2));
     }
 
-    public function testSameValueAsDiffObject(): void
+    public function testSameValueAsDiffClass(): void
     {
         $province = Province::fromString('MS');
         $email = \App\Model\Email::fromString('email@example.com');

@@ -126,7 +126,7 @@ class AuthTest extends BaseTestCase
         $this->assertFalse($auth1->sameIdentityAs($auth2));
     }
 
-    public function testSameIdentityAsDiffObject(): void
+    public function testSameIdentityAsDiffClass(): void
     {
         $faker = $this->faker();
 

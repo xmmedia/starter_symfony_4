@@ -827,7 +827,7 @@ class UserTest extends BaseTestCase
         $this->assertFalse($user1->sameIdentityAs($user2));
     }
 
-    public function testSameIdentityAsDiffObject(): void
+    public function testSameIdentityAsDiffClass(): void
     {
         $faker = $this->faker();
 

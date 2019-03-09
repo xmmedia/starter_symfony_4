@@ -65,7 +65,7 @@ class EnquiryTest extends BaseTestCase
         $this->assertFalse($enquiry1->sameIdentityAs($enquiry2));
     }
 
-    public function testSameIdentityAsDiffObject(): void
+    public function testSameIdentityAsDiffClass(): void
     {
         $faker = $this->faker();
 

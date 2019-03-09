@@ -68,7 +68,7 @@ class PostalCodeTest extends TestCase
         $this->assertFalse($province1->sameValueAs($province2));
     }
 
-    public function testSameValueAsDiffObject(): void
+    public function testSameValueAsDiffClass(): void
     {
         $province = PostalCode::fromString('T9D 8K2');
         $email = \App\Model\Email::fromString('email@example.com');

@@ -56,7 +56,7 @@ class UuidIdTest extends BaseTestCase
         $this->assertTrue($uuid1->sameValueAs($uuid2));
     }
 
-    public function testSameValueAsDiffObject(): void
+    public function testSameValueAsDiffClass(): void
     {
         $faker = $this->faker();
 

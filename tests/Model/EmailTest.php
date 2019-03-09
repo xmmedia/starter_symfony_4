@@ -94,7 +94,7 @@ class EmailTest extends BaseTestCase
         $this->assertTrue($vo1->sameValueAs($vo2));
     }
 
-    public function testSameAsDiffObject(): void
+    public function testSameAsDiffClass(): void
     {
         $vo1 = Email::fromString('eMail@email.com');
         $vo2 = Email::fromString('email@eMail.com');

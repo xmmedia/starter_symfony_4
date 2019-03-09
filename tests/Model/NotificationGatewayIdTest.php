@@ -35,7 +35,7 @@ class NotificationGatewayIdTest extends BaseTestCase
         $this->assertTrue($id1->sameValueAs($id2));
     }
 
-    public function testSameValueAsDiffObject(): void
+    public function testSameValueAsDiffClass(): void
     {
         $id = NotificationGatewayId::fromString('string');
         $email = \App\Model\Email::fromString('info@example.com');
