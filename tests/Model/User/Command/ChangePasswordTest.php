@@ -14,7 +14,7 @@ class ChangePasswordTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $password = $faker->password;
+        $password = $faker->password(12, 250);
 
         $command = ChangePassword::forUser($userId, $password);
 

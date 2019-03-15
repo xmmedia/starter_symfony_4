@@ -107,7 +107,7 @@ class AdminUserCreateMutationTest extends BaseTestCase
             'userId'      => $faker->uuid,
             'email'       => $faker->email,
             'setPassword' => true,
-            'password'    => $faker->password,
+            'password'    => $faker->password(12, 250),
             'firstName'   => $faker->name,
             'lastName'    => $faker->name,
             'role'        => 'ROLE_USER',

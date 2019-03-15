@@ -17,11 +17,13 @@ class UserChangePasswordTypeTest extends TypeTestCase
     {
         $faker = Faker\Factory::create();
 
+        $newPassword = $faker->password(12, 250);
+
         $formData = [
-            'currentPassword' => $faker->password,
+            'currentPassword' => $faker->password(12, 250),
             'newPassword'     => [
-                'first'  => $faker->password,
-                'second' => $faker->password,
+                'first'  => $newPassword,
+                'second' => $newPassword,
             ],
         ];
 

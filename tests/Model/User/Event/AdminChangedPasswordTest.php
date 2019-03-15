@@ -17,7 +17,7 @@ class AdminChangedPasswordTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $password = $faker->password;
+        $password = $faker->password(12, 250);
 
         $event = AdminChangedPassword::now($userId, $password);
 
@@ -30,7 +30,7 @@ class AdminChangedPasswordTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $password = $faker->password;
+        $password = $faker->password(12, 250);
 
         /** @var AdminChangedPassword $event */
         $event = $this->createEventFromArray(

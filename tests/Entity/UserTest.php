@@ -71,17 +71,17 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
         $property->setAccessible(true);
-        $property->setValue($user1, $faker->password);
+        $property->setValue($user1, $faker->password(12, 250));
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
         $property->setAccessible(true);
-        $property->setValue($user2, $faker->password);
+        $property->setValue($user2, $faker->password(12, 250));
 
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
+        $password = $faker->password(12, 250);
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -103,7 +103,7 @@ class UserTest extends BaseTestCase
 
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
+        $password = $faker->password(12, 250);
         $email = $faker->email;
 
         $user1 = new User();
@@ -129,7 +129,7 @@ class UserTest extends BaseTestCase
 
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
+        $password = $faker->password(12, 250);
         $email = $faker->email;
 
         $user1 = new User();
@@ -158,7 +158,7 @@ class UserTest extends BaseTestCase
 
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
+        $password = $faker->password(12, 250);
         $email = $faker->email;
 
         $user1 = new User();

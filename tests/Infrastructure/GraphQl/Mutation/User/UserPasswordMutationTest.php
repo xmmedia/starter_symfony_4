@@ -30,9 +30,9 @@ class UserPasswordMutationTest extends BaseTestCase
         $faker = $this->faker();
         $userId = $faker->userId;
         $data = [
-            'currentPassword' => $faker->password,
-            'newPassword'     => $faker->password,
-            'repeatPassword'  => $faker->password,
+            'currentPassword' => $faker->password(12, 250),
+            'newPassword'     => $faker->password(12, 250),
+            'repeatPassword'  => $faker->password(12, 250),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -93,9 +93,9 @@ class UserPasswordMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'currentPassword' => $faker->password,
-            'newPassword'     => $faker->password,
-            'repeatPassword'  => $faker->password,
+            'currentPassword' => $faker->password(12, 250),
+            'newPassword'     => $faker->password(12, 250),
+            'repeatPassword'  => $faker->password(12, 250),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);

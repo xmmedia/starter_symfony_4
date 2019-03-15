@@ -32,7 +32,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
         $event = UserWasCreatedByAdmin::now(
             $faker->userId,
             $faker->emailVo,
-            $faker->password,
+            $faker->password(12, 250),
             new Role('ROLE_USER'),
             true,
             Name::fromString($faker->firstName),
@@ -53,7 +53,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
         $event = UserWasCreatedByAdmin::now(
             $faker->userId,
             $faker->emailVo,
-            $faker->password,
+            $faker->password(12, 250),
             new Role('ROLE_USER'),
             true,
             Name::fromString($faker->firstName),

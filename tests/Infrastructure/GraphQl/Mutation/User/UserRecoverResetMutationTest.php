@@ -33,9 +33,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'          => $faker->password,
-            'password'       => $faker->password,
-            'repeatPassword' => $faker->password,
+            'token'          => $faker->password(12, 250),
+            'password'       => $faker->password(12, 250),
+            'repeatPassword' => $faker->password(12, 250),
         ];
         $transformedData = [
             'token'       => new Token($data['token']),
@@ -106,9 +106,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'          => $faker->password,
-            'password'       => $faker->password,
-            'repeatPassword' => $faker->password,
+            'token'          => $faker->password(12, 250),
+            'password'       => $faker->password(12, 250),
+            'repeatPassword' => $faker->password(12, 250),
         ];
         $transformedData = [
             'token'       => new Token($data['token']),
@@ -175,9 +175,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'          => $faker->password,
-            'password'       => $faker->password,
-            'repeatPassword' => $faker->password,
+            'token'          => $faker->password(12, 250),
+            'password'       => $faker->password(12, 250),
+            'repeatPassword' => $faker->password(12, 250),
         ];
         $transformedData = [
             'token'       => new Token($data['token']),
@@ -234,9 +234,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'          => $faker->password,
-            'password'       => $faker->password,
-            'repeatPassword' => $faker->password,
+            'token'          => $faker->password(12, 250),
+            'password'       => $faker->password(12, 250),
+            'repeatPassword' => $faker->password(12, 250),
         ];
         $transformedData = [
             'token'       => new Token($data['token']),
@@ -293,9 +293,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'          => $faker->password,
-            'password'       => $faker->password,
-            'repeatPassword' => $faker->password,
+            'token'          => $faker->password(12, 250),
+            'password'       => $faker->password(12, 250),
+            'repeatPassword' => $faker->password(12, 250),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
