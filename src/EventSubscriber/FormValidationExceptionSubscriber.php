@@ -44,9 +44,9 @@ class FormValidationExceptionSubscriber implements EventSubscriberInterface
 
         if ($exception instanceof FormValidationException) {
             $json = $this->serializer
-                ->serialize($exception->getForm(), 'json', array_merge([
+                ->serialize($exception->getForm(), 'json', [
                     'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,
-                ]));
+                ]);
 
             $event->setResponse(JsonResponse::fromJsonString($json, 400));
         }
@@ -62,9 +62,7 @@ class FormValidationExceptionSubscriber implements EventSubscriberInterface
         $exception = $event->getError()->getPrevious();
         if ($exception instanceof FormValidationException) {
             $validationErrors = $this->serializer
-                ->normalize($exception->getForm(), 'array', array_merge([
-                    'json_encode_options' => JsonResponse::DEFAULT_ENCODING_OPTIONS,
-                ]));
+                ->normalize($exception->getForm(), 'array');
 
             if ($exception->getField()) {
                 $validation = [
