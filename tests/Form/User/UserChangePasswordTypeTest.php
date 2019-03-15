@@ -5,13 +5,29 @@ declare(strict_types=1);
 namespace App\Tests\Form\User;
 
 use App\Form\User\UserChangePasswordType;
+use App\Tests\TypeTestCase;
 use Faker;
-use Symfony\Component\Form\Test\Traits\ValidatorExtensionTrait;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPasswordValidator;
 
 class UserChangePasswordTypeTest extends TypeTestCase
 {
-    use ValidatorExtensionTrait;
+    use MockeryPHPUnitIntegration;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $validator = Mockery::mock(UserPasswordValidator::class);
+        $validator->shouldReceive('initialize');
+        $validator->shouldReceive('validate');
+
+        $this->validatorContainer->set(
+            'security.validator.user_password',
+            $validator
+        );
+    }
 
     public function test()
     {
@@ -30,6 +46,7 @@ class UserChangePasswordTypeTest extends TypeTestCase
         $form = $this->factory->create(UserChangePasswordType::class)
             ->submit($formData);
 
-        $this->assertTrue($form->isValid());
+        $this->assertFormIsValid($form);
+        $this->hasAllFormFields($form, $formData);
     }
 }

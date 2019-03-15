@@ -6,14 +6,11 @@ namespace App\Tests\Form\User;
 
 use App\Form\User\UserRecoverInitiateType;
 use App\Model\Email;
+use App\Tests\TypeTestCase;
 use Faker;
-use Symfony\Component\Form\Test\Traits\ValidatorExtensionTrait;
-use Symfony\Component\Form\Test\TypeTestCase;
 
 class UserRecoverInitiateTypeTest extends TypeTestCase
 {
-    use ValidatorExtensionTrait;
-
     public function test()
     {
         $faker = Faker\Factory::create();
@@ -25,7 +22,8 @@ class UserRecoverInitiateTypeTest extends TypeTestCase
         $form = $this->factory->create(UserRecoverInitiateType::class)
             ->submit($formData);
 
-        $this->assertTrue($form->isValid());
+        $this->assertFormIsValid($form);
+        $this->hasAllFormFields($form, $formData);
 
         $this->assertInstanceOf(Email::class, $form->getData()['email']);
     }

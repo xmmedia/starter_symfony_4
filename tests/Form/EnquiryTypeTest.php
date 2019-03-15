@@ -6,14 +6,11 @@ namespace App\Tests\Form;
 
 use App\Form\EnquiryType;
 use App\Model\Email;
+use App\Tests\TypeTestCase;
 use Faker;
-use Symfony\Component\Form\Test\Traits\ValidatorExtensionTrait;
-use Symfony\Component\Form\Test\TypeTestCase;
 
 class EnquiryTypeTest extends TypeTestCase
 {
-    use ValidatorExtensionTrait;
-
     public function testSubmitValidData()
     {
         $faker = Faker\Factory::create();
@@ -27,7 +24,8 @@ class EnquiryTypeTest extends TypeTestCase
         $form = $this->factory->create(EnquiryType::class)
             ->submit($formData);
 
-        $this->assertTrue($form->isValid());
+        $this->assertFormIsValid($form);
+        $this->hasAllFormFields($form, $formData);
 
         $this->assertInstanceOf(Email::class, $form->getData()['email']);
     }

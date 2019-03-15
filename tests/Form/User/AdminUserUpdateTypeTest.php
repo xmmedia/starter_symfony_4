@@ -9,18 +9,32 @@ use App\Form\User\AdminUserUpdateType;
 use App\Form\DataTransformer\SecurityRoleTransformer;
 use App\Model\Email;
 use App\Model\User\Name;
+use App\Model\User\Service\ChecksUniqueUsersEmail;
+use App\Tests\TypeTestCase;
+use App\Validator\Constraints\UniqueExistingUserEmailValidator;
 use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Symfony\Component\Form\Test\Traits\ValidatorExtensionTrait;
-use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 class AdminUserUpdateTypeTest extends TypeTestCase
 {
-    use ValidatorExtensionTrait;
     use MockeryPHPUnitIntegration;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $checker = Mockery::mock(ChecksUniqueUsersEmail::class);
+        $checker->shouldReceive('__invoke')
+            ->andReturnNull();
+
+        $this->validatorContainer->set(
+            UniqueExistingUserEmailValidator::class,
+            new UniqueExistingUserEmailValidator($checker)
+        );
+    }
 
     protected function getTypes()
     {
@@ -60,7 +74,8 @@ class AdminUserUpdateTypeTest extends TypeTestCase
         $form = $this->factory->create(AdminUserUpdateType::class)
             ->submit($formData);
 
-        $this->assertTrue($form->isValid());
+        $this->assertFormIsValid($form);
+        $this->hasAllFormFields($form, $formData);
 
         $this->assertInstanceOf(Email::class, $form->getData()['email']);
         $this->assertInstanceOf(Role::class, $form->getData()['role']);
@@ -83,6 +98,9 @@ class AdminUserUpdateTypeTest extends TypeTestCase
         $form = $this->factory->create(AdminUserUpdateType::class)
             ->submit($formData);
 
-        $this->assertTrue($form->isValid());
+        $this->assertFormIsValid($form);
+        $this->hasAllFormFields($form, $formData);
+
+        $this->hasAllFormFields($form, $formData);
     }
 }

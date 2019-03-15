@@ -9,20 +9,34 @@ use App\Form\User\AdminUserCreateType;
 use App\Form\DataTransformer\SecurityRoleTransformer;
 use App\Model\Email;
 use App\Model\User\Name;
+use App\Model\User\Service\ChecksUniqueUsersEmail;
+use App\Tests\TypeTestCase;
+use App\Validator\Constraints\UniqueNewUserEmailValidator;
 use Faker;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Symfony\Component\Form\Test\Traits\ValidatorExtensionTrait;
-use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 class AdminUserCreateTypeTest extends TypeTestCase
 {
-    use ValidatorExtensionTrait;
     use MockeryPHPUnitIntegration;
 
-    protected function getTypes()
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $checker = Mockery::mock(ChecksUniqueUsersEmail::class);
+        $checker->shouldReceive('__invoke')
+            ->andReturnNull();
+
+        $this->validatorContainer->set(
+            UniqueNewUserEmailValidator::class,
+            new UniqueNewUserEmailValidator($checker)
+        );
+    }
+
+    protected function getTypes(): array
     {
         $extensions = parent::getTypes();
 
@@ -38,7 +52,10 @@ class AdminUserCreateTypeTest extends TypeTestCase
             ->with('ROLE_USER')
             ->andReturn(new Role('ROLE_USER'));
 
-        $extensions[] = new AdminUserCreateType(new RoleProvider($roleHierarchy), $roleTransformer);
+        $extensions[] = new AdminUserCreateType(
+            new RoleProvider($roleHierarchy),
+            $roleTransformer
+        );
 
         return $extensions;
     }
@@ -61,7 +78,8 @@ class AdminUserCreateTypeTest extends TypeTestCase
         $form = $this->factory->create(AdminUserCreateType::class)
             ->submit($formData);
 
-        $this->assertTrue($form->isValid());
+        $this->assertFormIsValid($form);
+        $this->hasAllFormFields($form, $formData);
 
         $this->assertInstanceOf(Email::class, $form->getData()['email']);
         $this->assertInstanceOf(Role::class, $form->getData()['role']);
@@ -86,6 +104,7 @@ class AdminUserCreateTypeTest extends TypeTestCase
         $form = $this->factory->create(AdminUserCreateType::class)
             ->submit($formData);
 
-        $this->assertTrue($form->isValid());
+        $this->assertFormIsValid($form);
+        $this->hasAllFormFields($form, $formData);
     }
 }

@@ -6,14 +6,12 @@ namespace App\Tests\Form;
 
 use App\Form\AddressType;
 use App\Model\Address;
+use App\Tests\TypeTestCase;
 use Faker;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Symfony\Component\Form\Test\Traits\ValidatorExtensionTrait;
-use Symfony\Component\Form\Test\TypeTestCase;
 
 class AddressTypeTest extends TypeTestCase
 {
-    use ValidatorExtensionTrait;
     use MockeryPHPUnitIntegration;
 
     /**
