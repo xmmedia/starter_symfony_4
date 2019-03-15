@@ -7,6 +7,7 @@ namespace App\Tests\Model\Enquiry;
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeAr;
 
 class EnquiryTest extends BaseTestCase
 {
@@ -75,14 +76,7 @@ class EnquiryTest extends BaseTestCase
             $faker->emailVo,
             $faker->string(100)
         );
-        $auth = \App\Model\Auth\Auth::success(
-            $faker->authId,
-            $faker->userId,
-            $faker->emailVo,
-            $faker->string(5),
-            $faker->ipv4
-        );
 
-        $this->assertFalse($enquiry->sameIdentityAs($auth));
+        $this->assertFalse($enquiry->sameIdentityAs(FakeAr::create()));
     }
 }

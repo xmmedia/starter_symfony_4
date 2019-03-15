@@ -14,6 +14,7 @@ use App\Model\User\UserId;
 use App\Model\User\Event;
 use App\Model\User\Exception;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeAr;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\Role\Role;
 
@@ -838,15 +839,8 @@ class UserTest extends BaseTestCase
             new Role('ROLE_USER'),
             new UserArUniquenessCheckerNone()
         );
-        $auth = \App\Model\Auth\Auth::success(
-            $faker->authId,
-            $faker->userId,
-            $faker->emailVo,
-            $faker->userAgent,
-            $faker->ipv4
-        );
 
-        $this->assertFalse($user->sameIdentityAs($auth));
+        $this->assertFalse($user->sameIdentityAs(FakeAr::create()));
     }
 
     private function getUserActive(): User

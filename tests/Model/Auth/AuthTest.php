@@ -11,7 +11,7 @@ use App\Model\Email;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserId;
 use App\Tests\BaseTestCase;
-use Symfony\Component\Security\Core\Role\Role;
+use App\Tests\FakeAr;
 
 class AuthTest extends BaseTestCase
 {
@@ -137,15 +137,8 @@ class AuthTest extends BaseTestCase
             $faker->userAgent,
             $faker->ipv4
         );
-        $user = \App\Model\User\User::createByAdminMinimum(
-            $faker->userId,
-            $faker->emailVo,
-            $faker->password,
-            new Role('ROLE_USER'),
-            new UserArUniquenessCheckerNoneForSameAsCheck()
-        );
 
-        $this->assertFalse($auth->sameIdentityAs($user));
+        $this->assertFalse($auth->sameIdentityAs(FakeAr::create()));
     }
 }
 
