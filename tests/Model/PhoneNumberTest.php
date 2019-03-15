@@ -6,6 +6,7 @@ namespace App\Tests\Model;
 
 use App\Model\PhoneNumber;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeVo;
 use libphonenumber\PhoneNumberUtil;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
@@ -65,9 +66,8 @@ class PhoneNumberTest extends BaseTestCase
     public function testSameValueAsDiffClass(): void
     {
         $phoneNumber = PhoneNumber::fromString('433-323-3233');
-        $email = \App\Model\Email::fromString('test@example.com');
 
-        $this->assertFalse($phoneNumber->sameValueAs($email));
+        $this->assertFalse($phoneNumber->sameValueAs(FakeVo::create()));
     }
 
     public function phoneNumberProvider(): \Generator

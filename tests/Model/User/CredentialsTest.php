@@ -6,6 +6,7 @@ namespace App\Tests\Model\User;
 
 use App\Model\User\Credentials;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeVo;
 
 class CredentialsTest extends BaseTestCase
 {
@@ -65,5 +66,14 @@ class CredentialsTest extends BaseTestCase
         $credentials2 = Credentials::build($email, $faker->password);
 
         $this->assertFalse($credentials1->sameValueAs($credentials2));
+    }
+
+    public function testSameValueAsDiffClass(): void
+    {
+        $faker = $this->faker();
+
+        $credentials = Credentials::build($faker->email, $faker->password);
+
+        $this->assertFalse($credentials->sameValueAs(FakeVo::create()));
     }
 }

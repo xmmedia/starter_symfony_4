@@ -7,6 +7,7 @@ namespace App\Tests\Model;
 use App\Exception\InvalidProvince;
 use App\Model\Country;
 use App\Model\Province;
+use App\Tests\FakeVo;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
@@ -77,8 +78,7 @@ class ProvinceTest extends TestCase
     public function testSameValueAsDiffClass(): void
     {
         $province = Province::fromString('MS');
-        $email = \App\Model\Email::fromString('email@example.com');
 
-        $this->assertFalse($province->sameValueAs($email));
+        $this->assertFalse($province->sameValueAs(FakeVo::create()));
     }
 }

@@ -6,6 +6,7 @@ namespace App\Tests\Model;
 
 use App\Exception\InvalidCountry;
 use App\Model\Country;
+use App\Tests\FakeVo;
 use PHPUnit\Framework\TestCase;
 
 class CountryTest extends TestCase
@@ -68,8 +69,7 @@ class CountryTest extends TestCase
     public function testSameValueAsDiffClass(): void
     {
         $country = Country::fromString('CA');
-        $email = \App\Model\Email::fromString('email@example.com');
 
-        $this->assertFalse($country->sameValueAs($email));
+        $this->assertFalse($country->sameValueAs(FakeVo::create()));
     }
 }

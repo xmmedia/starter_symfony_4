@@ -6,6 +6,7 @@ namespace App\Tests\Model;
 
 use App\Model\Date;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeVo;
 use App\Util\Json;
 
 class DateTest extends BaseTestCase
@@ -130,9 +131,8 @@ class DateTest extends BaseTestCase
     public function testSameValueAsDiffClass(): void
     {
         $date = Date::fromString('2019-01-01');
-        $email = \App\Model\Email::fromString('info@example.com');
 
-        $this->assertFalse($date->sameValueAs($email));
+        $this->assertFalse($date->sameValueAs(FakeVo::create()));
     }
 
     public function sameValueAsProvider(): \Generator

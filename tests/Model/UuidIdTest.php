@@ -7,6 +7,7 @@ namespace App\Tests\Model;
 use App\Model\UuidId;
 use App\Model\ValueObject;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeVo;
 
 class UuidIdTest extends BaseTestCase
 {
@@ -63,9 +64,8 @@ class UuidIdTest extends BaseTestCase
         $uuidString = $faker->uuid;
 
         $uuid = UuidIdId::fromString($uuidString);
-        $email = \App\Model\Email::fromString('info@example.com');
 
-        $this->assertFalse($uuid->sameValueAs($email));
+        $this->assertFalse($uuid->sameValueAs(FakeVo::create()));
     }
 }
 

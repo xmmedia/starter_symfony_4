@@ -6,6 +6,7 @@ namespace App\Tests\Model;
 
 use App\Exception\InvalidPostalCode;
 use App\Model\PostalCode;
+use App\Tests\FakeVo;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
@@ -71,8 +72,7 @@ class PostalCodeTest extends TestCase
     public function testSameValueAsDiffClass(): void
     {
         $province = PostalCode::fromString('T9D 8K2');
-        $email = \App\Model\Email::fromString('email@example.com');
 
-        $this->assertFalse($province->sameValueAs($email));
+        $this->assertFalse($province->sameValueAs(FakeVo::create()));
     }
 }

@@ -10,6 +10,7 @@ use App\Model\Country;
 use App\Model\PostalCode;
 use App\Model\Province;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeVo;
 
 class AddressTest extends BaseTestCase
 {
@@ -249,8 +250,7 @@ class AddressTest extends BaseTestCase
         $faker = $this->faker();
 
         $address = $faker->addressVo;
-        $email = \App\Model\Email::fromString('email@example.com');
 
-        $this->assertFalse($address->sameValueAs($email));
+        $this->assertFalse($address->sameValueAs(FakeVo::create()));
     }
 }

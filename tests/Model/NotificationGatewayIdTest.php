@@ -6,6 +6,7 @@ namespace App\Tests\Model;
 
 use App\Model\NotificationGatewayId;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeVo;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class NotificationGatewayIdTest extends BaseTestCase
@@ -38,8 +39,7 @@ class NotificationGatewayIdTest extends BaseTestCase
     public function testSameValueAsDiffClass(): void
     {
         $id = NotificationGatewayId::fromString('string');
-        $email = \App\Model\Email::fromString('info@example.com');
 
-        $this->assertFalse($id->sameValueAs($email));
+        $this->assertFalse($id->sameValueAs(FakeVo::create()));
     }
 }
