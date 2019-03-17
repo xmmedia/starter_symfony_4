@@ -31,7 +31,7 @@ class PostalCode implements ValueObject
         try {
             Assert::minLength($postalCode, self::MIN_LENGTH);
             Assert::maxLength($postalCode, self::MAX_LENGTH);
-        } catch (\Exception $e) {
+        } catch (\InvalidArgumentException $e) {
             throw InvalidPostalCode::invalid($postalCode);
         }
 

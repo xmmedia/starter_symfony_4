@@ -34,7 +34,7 @@ class Province implements ValueObject
                 $abbreviation,
                 ProvinceProvider::abbreviations(false)
             );
-        } catch (\Exception $e) {
+        } catch (\InvalidArgumentException $e) {
             throw InvalidProvince::invalid($abbreviation);
         }
 

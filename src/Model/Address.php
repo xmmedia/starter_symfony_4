@@ -83,7 +83,7 @@ class Address implements ValueObject
             Assert::stringNotEmpty($line1);
             Assert::minLength($line1, self::LINE1_MIN_LENGTH);
             Assert::maxLength($line1, self::LINE1_MAX_LENGTH);
-        } catch (\Exception $e) {
+        } catch (\InvalidArgumentException $e) {
             throw InvalidAddress::line1($line1, $e->getMessage());
         }
 
@@ -95,7 +95,7 @@ class Address implements ValueObject
             try {
                 Assert::minLength($line2, self::LINE2_MIN_LENGTH);
                 Assert::maxLength($line2, self::LINE2_MAX_LENGTH);
-            } catch (\Exception $e) {
+            } catch (\InvalidArgumentException $e) {
                 throw InvalidAddress::line2($line2, $e->getMessage());
             }
         }
@@ -104,7 +104,7 @@ class Address implements ValueObject
             Assert::stringNotEmpty($city);
             Assert::minLength($city, self::CITY_MIN_LENGTH);
             Assert::maxLength($city, self::CITY_MAX_LENGTH);
-        } catch (\Exception $e) {
+        } catch (\InvalidArgumentException $e) {
             throw InvalidAddress::city($city, $e->getMessage());
         }
 

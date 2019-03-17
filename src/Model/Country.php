@@ -28,7 +28,7 @@ class Country implements ValueObject
         try {
             Assert::length($abbreviation, 2);
             Assert::oneOf($abbreviation, CountryProvider::abbreviations());
-        } catch (\Exception $e) {
+        } catch (\InvalidArgumentException $e) {
             throw InvalidCountry::invalid($abbreviation);
         }
 
