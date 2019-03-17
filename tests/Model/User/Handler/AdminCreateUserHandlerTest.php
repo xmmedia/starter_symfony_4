@@ -15,14 +15,11 @@ use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\Role\Role;
 
 class AdminCreateUserHandlerTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function test(): void
     {
         $faker = $this->faker();

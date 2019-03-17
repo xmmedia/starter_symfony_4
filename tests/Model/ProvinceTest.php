@@ -8,13 +8,10 @@ use App\Exception\InvalidProvince;
 use App\Model\Country;
 use App\Model\Province;
 use App\Tests\FakeVo;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 class ProvinceTest extends TestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @dataProvider countryProvider
      */

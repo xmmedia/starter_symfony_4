@@ -6,16 +6,13 @@ namespace App\Tests\Form\DataTransformer;
 
 use App\DataProvider\RoleProvider;
 use App\Form\DataTransformer\SecurityRoleTransformer;
+use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Security\Core\Role\Role;
 
-class SecurityRoleTransformerTest extends TestCase
+class SecurityRoleTransformerTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @dataProvider transformProvider
      */

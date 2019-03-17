@@ -13,7 +13,6 @@ use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Repository\UserRepository;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -23,8 +22,6 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class UserRecoverInitiateMutationTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testValid(): void
     {
         $faker = $this->faker();

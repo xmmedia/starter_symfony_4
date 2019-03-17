@@ -6,9 +6,8 @@ namespace App\Tests\DataProvider;
 
 use App\DataProvider\IssuerProvider;
 use App\Entity\User;
+use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -16,10 +15,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class IssuerProviderTest extends TestCase
+class IssuerProviderTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testLoggedIn(): void
     {
         $userId = Uuid::uuid4();

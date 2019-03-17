@@ -8,12 +8,9 @@ use App\Form\AddressType;
 use App\Model\Address;
 use App\Tests\TypeTestCase;
 use Faker;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class AddressTypeTest extends TypeTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @dataProvider addressProvider
      */

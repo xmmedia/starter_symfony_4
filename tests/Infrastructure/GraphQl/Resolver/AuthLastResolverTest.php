@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\Infrastructure\GraphQl\Resolver;
 
 use App\Infrastructure\GraphQl\Resolver\AuthLastResolver;
+use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class AuthLastResolverTest extends TestCase
+class AuthLastResolverTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function test(): void
     {
         $authException = Mockery::mock(AuthenticationException::class);

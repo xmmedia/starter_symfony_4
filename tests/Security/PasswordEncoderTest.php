@@ -7,14 +7,11 @@ namespace App\Tests\Security;
 use App\Security\PasswordEncoder;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Role\Role;
 
 class PasswordEncoderTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @dataProvider roleProvider
      */

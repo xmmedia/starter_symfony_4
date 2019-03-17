@@ -9,12 +9,9 @@ use App\EventSourcing\AggregateChanged;
 use App\EventStore\MetadataIssuedByEnricher;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class MetadataIssuedByEnricherTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function test(): void
     {
         $faker = $this->faker();

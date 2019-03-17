@@ -7,12 +7,9 @@ namespace App\Tests\Model;
 use App\Model\NotificationGatewayId;
 use App\Tests\BaseTestCase;
 use App\Tests\FakeVo;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class NotificationGatewayIdTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testFromString(): void
     {
         $id = NotificationGatewayId::fromString('string');

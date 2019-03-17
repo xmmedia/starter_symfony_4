@@ -11,14 +11,11 @@ use App\Model\User\Exception\TokenHasExpired;
 use App\Model\User\Token;
 use App\Repository\UserTokenRepository;
 use App\Security\TokenValidator;
+use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 
-class TokenValidatorTest extends TestCase
+class TokenValidatorTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testValid(): void
     {
         $token = Token::fromString('string');

@@ -11,14 +11,11 @@ use App\Tests\BaseTestCase;
 use App\Validator\Constraints\UniqueCurrentUsersEmail;
 use App\Validator\Constraints\UniqueNewUserEmailValidator;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class UniqueNewUserEmailValidatorTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testUnique(): void
     {
         $faker = $this->faker();

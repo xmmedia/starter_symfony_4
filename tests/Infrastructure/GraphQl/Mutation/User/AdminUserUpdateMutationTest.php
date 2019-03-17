@@ -15,7 +15,6 @@ use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -25,8 +24,6 @@ use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUserUpdateMutationTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testValid(): void
     {
         $faker = $this->faker();

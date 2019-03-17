@@ -9,14 +9,11 @@ use App\Model\User\Command\VerifyUser;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\StackMiddleware;
 
 class CommandRecorderMiddlewareTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function test(): void
     {
         $faker = $this->faker();

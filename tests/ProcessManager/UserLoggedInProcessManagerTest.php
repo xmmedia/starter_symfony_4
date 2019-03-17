@@ -8,14 +8,11 @@ use App\Model\Auth\Event\UserLoggedIn;
 use App\ProcessManager\UserLoggedInProcessManager;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class UserLoggedInProcessManagerTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testSend(): void
     {
         $faker = $this->faker();

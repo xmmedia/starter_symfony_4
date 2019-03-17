@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\EventSubscriber;
 
 use App\EventSubscriber\CsrfValidationSubscriber;
+use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +19,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class CsrfValidationSubscriberTest extends TestCase
+class CsrfValidationSubscriberTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testSubscribedEvents(): void
     {
         $subscribed = CsrfValidationSubscriber::getSubscribedEvents();

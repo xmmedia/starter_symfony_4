@@ -8,15 +8,12 @@ use App\Entity\User;
 use App\Security\Exception\AccountInactiveException;
 use App\Security\Exception\AccountNotVerifiedException;
 use App\Security\UserChecker;
+use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserCheckerTest extends TestCase
+class UserCheckerTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testCheckPreAuth(): void
     {
         $checker = new UserChecker();

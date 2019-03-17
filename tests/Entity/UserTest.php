@@ -6,12 +6,9 @@ namespace App\Tests\Entity;
 
 use App\Entity\User;
 use App\Tests\BaseTestCase;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class UserTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testName(): void
     {
         $faker = $this->faker();

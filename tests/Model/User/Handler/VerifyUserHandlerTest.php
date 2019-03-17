@@ -12,12 +12,9 @@ use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class VerifyUserHandlerTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function test(): void
     {
         $faker = $this->faker();

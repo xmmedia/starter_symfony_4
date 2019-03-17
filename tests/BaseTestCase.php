@@ -9,9 +9,12 @@ use App\EventSourcing\Aggregate\AggregateTranslator;
 use App\EventSourcing\Aggregate\AggregateType;
 use App\DataFixtures\Faker\Provider;
 use Faker;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class BaseTestCase extends \PHPUnit\Framework\TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @var AggregateTranslator */
     private $aggregateTranslator;
 

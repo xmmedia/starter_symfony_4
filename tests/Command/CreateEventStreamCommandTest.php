@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\Command;
 
 use App\Command\CreateEventStreamCommand;
+use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Prooph\EventStore\EventStore;
 use Prooph\EventStore\Stream;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class CreateEventStreamCommandTest extends TestCase
+class CreateEventStreamCommandTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function test(): void
     {
         $streamName = 'user';

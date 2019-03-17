@@ -8,12 +8,9 @@ use App\Model\PhoneNumber;
 use App\Tests\BaseTestCase;
 use App\Tests\FakeVo;
 use libphonenumber\PhoneNumberUtil;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class PhoneNumberTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @dataProvider phoneNumberProvider
      */

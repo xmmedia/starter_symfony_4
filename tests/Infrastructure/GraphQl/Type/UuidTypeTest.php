@@ -7,12 +7,9 @@ namespace App\Tests\Infrastructure\GraphQl\Type;
 use App\Infrastructure\GraphQl\Type\UuidType;
 use App\Tests\BaseTestCase;
 use GraphQL\Language\AST\StringValueNode;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class UuidTypeTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @dataProvider uuidProvider
      */

@@ -10,12 +10,9 @@ use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Handler\UserLoggedInSuccessfullyHandler;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function test(): void
     {
         $faker = $this->faker();

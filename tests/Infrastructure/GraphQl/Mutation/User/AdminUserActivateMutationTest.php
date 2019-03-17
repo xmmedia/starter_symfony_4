@@ -9,7 +9,6 @@ use App\Model\User\Command\ActivateUserByAdmin;
 use App\Model\User\Command\DeactivateUserByAdmin;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\Envelope;
@@ -17,8 +16,6 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserActivateMutationTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testActivate(): void
     {
         $faker = $this->faker();

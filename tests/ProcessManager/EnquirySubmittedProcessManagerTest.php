@@ -9,14 +9,11 @@ use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\ProcessManager\EnquirySubmittedProcessManager;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class EnquirySubmittedProcessManagerTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function test(): void
     {
         $faker = $this->faker();

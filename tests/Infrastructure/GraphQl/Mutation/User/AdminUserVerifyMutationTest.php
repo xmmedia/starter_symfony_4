@@ -8,15 +8,12 @@ use App\Infrastructure\GraphQl\Mutation\User\AdminUserVerifyMutation;
 use App\Model\User\Command\VerifyUserByAdmin;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserVerifyMutationTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testActivate(): void
     {
         $faker = $this->faker();

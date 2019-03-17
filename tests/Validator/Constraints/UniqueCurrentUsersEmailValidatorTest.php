@@ -12,7 +12,6 @@ use App\Tests\BaseTestCase;
 use App\Validator\Constraints\UniqueCurrentUsersEmail;
 use App\Validator\Constraints\UniqueCurrentUsersEmailValidator;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -23,8 +22,6 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
 
 class UniqueCurrentUsersEmailValidatorTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testUnique(): void
     {
         $faker = $this->faker();

@@ -16,7 +16,6 @@ use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -26,8 +25,6 @@ use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUserCreateMutationTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testValidGeneratePassword(): void
     {
         $faker = $this->faker();

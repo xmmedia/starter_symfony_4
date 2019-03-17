@@ -6,19 +6,16 @@ namespace App\Tests\EventSubscriber;
 
 use App\EventSubscriber\FormValidationExceptionSubscriber;
 use App\Exception\FormValidationException;
+use App\Tests\BaseTestCase;
 use Exception;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class FormValidationExceptionSubscriberTest extends TestCase
+class FormValidationExceptionSubscriberTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testSubscribedEvents(): void
     {
         $subscribed = FormValidationExceptionSubscriber::getSubscribedEvents();

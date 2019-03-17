@@ -10,15 +10,12 @@ use App\Model\User\Name;
 use App\ProcessManager\UserInviteProcessManager;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Role\Role;
 
 class UserInviteProcessManagerTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testSend(): void
     {
         $faker = $this->faker();

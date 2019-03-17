@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\EventSubscriber;
 
 use App\EventSubscriber\JsonRequestTransformerSubscriber;
+use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
-class JsonRequestTransformerSubscriberTest extends TestCase
+class JsonRequestTransformerSubscriberTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /** @var JsonRequestTransformerSubscriber */
     private $subscriber;
 

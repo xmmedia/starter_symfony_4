@@ -10,12 +10,9 @@ use App\Model\Enquiry\Command\SendEnquiryEmail;
 use App\Model\Enquiry\Handler\SendEnquiryEmailHandler;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class SendEnquiryEmailHandlerTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function test(): void
     {
         $faker = $this->faker();

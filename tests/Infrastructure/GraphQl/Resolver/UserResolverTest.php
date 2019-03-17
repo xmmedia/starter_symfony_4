@@ -10,12 +10,9 @@ use App\Model\User\UserId;
 use App\Repository\UserRepository;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class UserResolverTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testAll(): void
     {
         $user = Mockery::mock(User::class);

@@ -17,7 +17,6 @@ use App\Security\PasswordEncoder;
 use App\Security\TokenValidator;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -27,8 +26,6 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class UserVerifyMutationTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testValid(): void
     {
         $faker = $this->faker();

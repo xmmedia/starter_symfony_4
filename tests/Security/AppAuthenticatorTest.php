@@ -9,7 +9,6 @@ use App\Model\User\Credentials;
 use App\Security\AppAuthenticator;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +21,6 @@ use Symfony\Component\Security\Core\Security;
 
 class AppAuthenticatorTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /** @var Request */
     private $requestWithoutSession;
     /** @var Request */

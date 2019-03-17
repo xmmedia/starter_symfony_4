@@ -9,12 +9,9 @@ use App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel;
 use App\Repository\UserRepository;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class ChecksUniqueUsersEmailFromReadModelTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testTrue(): void
     {
         $faker = $this->faker();

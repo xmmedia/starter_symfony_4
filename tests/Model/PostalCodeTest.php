@@ -7,13 +7,10 @@ namespace App\Tests\Model;
 use App\Exception\InvalidPostalCode;
 use App\Model\PostalCode;
 use App\Tests\FakeVo;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 class PostalCodeTest extends TestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @dataProvider countryProvider
      */

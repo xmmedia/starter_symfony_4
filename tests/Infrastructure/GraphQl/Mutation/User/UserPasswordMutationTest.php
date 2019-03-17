@@ -12,7 +12,6 @@ use App\Security\PasswordEncoder;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateSecurityTrait;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -22,7 +21,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserPasswordMutationTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
     use CanCreateSecurityTrait;
 
     public function testValid(): void

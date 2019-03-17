@@ -12,7 +12,6 @@ use App\Model\Email;
 use App\Model\User\Credentials;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Nelmio\Alice\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -27,8 +26,6 @@ use Symfony\Component\Security\Http\SecurityEvents;
 
 class SecuritySubscriberTest extends BaseTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function testSubscribedEvents(): void
     {
         $subscribed = SecuritySubscriber::getSubscribedEvents();
