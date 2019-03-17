@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormInterface;
@@ -14,6 +15,7 @@ use Symfony\Component\Validator\Validation;
 class TypeTestCase extends \Symfony\Component\Form\Test\TypeTestCase
 {
     use ValidatorExtensionTrait;
+    use MockeryPHPUnitIntegration;
 
     /**
      * @var Container for use when validators have constructor arguments

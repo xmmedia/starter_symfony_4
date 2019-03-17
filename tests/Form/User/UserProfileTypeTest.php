@@ -14,13 +14,10 @@ use App\Tests\TypeTestCase;
 use App\Validator\Constraints\UniqueCurrentUsersEmailValidator;
 use Faker;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Security\Core\Security;
 
 class UserProfileTypeTest extends TypeTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function setUp(): void
     {
         parent::setUp();

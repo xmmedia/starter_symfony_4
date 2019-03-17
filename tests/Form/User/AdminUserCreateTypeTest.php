@@ -14,14 +14,11 @@ use App\Tests\TypeTestCase;
 use App\Validator\Constraints\UniqueNewUserEmailValidator;
 use Faker;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 class AdminUserCreateTypeTest extends TypeTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function setUp(): void
     {
         parent::setUp();

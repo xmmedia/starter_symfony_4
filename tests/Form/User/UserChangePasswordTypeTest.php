@@ -8,13 +8,10 @@ use App\Form\User\UserChangePasswordType;
 use App\Tests\TypeTestCase;
 use Faker;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPasswordValidator;
 
 class UserChangePasswordTypeTest extends TypeTestCase
 {
-    use MockeryPHPUnitIntegration;
-
     public function setUp(): void
     {
         parent::setUp();
