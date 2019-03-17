@@ -6,6 +6,7 @@ namespace App\Tests\Model;
 
 use App\Model\Email;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeVo;
 
 class EmailTest extends BaseTestCase
 {
@@ -96,9 +97,8 @@ class EmailTest extends BaseTestCase
 
     public function testSameAsDiffClass(): void
     {
-        $vo1 = Email::fromString('eMail@email.com');
-        $vo2 = Email::fromString('email@eMail.com');
+        $vo = Email::fromString('eMail@email.com');
 
-        $this->assertTrue($vo1->sameValueAs($vo2));
+        $this->assertFalse($vo->sameValueAs(FakeVo::create()));
     }
 }
