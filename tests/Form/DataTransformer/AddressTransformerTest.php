@@ -6,11 +6,10 @@ namespace App\Tests\Form\DataTransformer;
 
 use App\Form\DataTransformer\AddressTransformer;
 use App\Model\Address;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class AddressTransformerTest extends TestCase
+class AddressTransformerTest extends BaseTestCase
 {
     /**
      * @dataProvider transformProvider
@@ -24,7 +23,7 @@ class AddressTransformerTest extends TestCase
 
     public function transformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 
@@ -52,7 +51,7 @@ class AddressTransformerTest extends TestCase
 
     public function reverseTransformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 

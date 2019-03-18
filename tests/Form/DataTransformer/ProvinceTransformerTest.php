@@ -6,11 +6,10 @@ namespace App\Tests\Form\DataTransformer;
 
 use App\Form\DataTransformer\ProvinceTransformer;
 use App\Model\Province;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class ProvinceTransformerTest extends TestCase
+class ProvinceTransformerTest extends BaseTestCase
 {
     /**
      * @dataProvider transformProvider
@@ -24,7 +23,7 @@ class ProvinceTransformerTest extends TestCase
 
     public function transformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 
@@ -44,7 +43,7 @@ class ProvinceTransformerTest extends TestCase
 
     public function reverseTransformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 

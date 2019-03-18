@@ -29,7 +29,7 @@ class PasswordEncoderTest extends BaseTestCase
 
         (new PasswordEncoder($passwordEncoder))(
             new Role($role),
-            $faker->password(12, 250)
+            $faker->password
         );
     }
 

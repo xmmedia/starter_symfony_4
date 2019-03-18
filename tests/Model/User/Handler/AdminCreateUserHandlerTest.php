@@ -26,7 +26,7 @@ class AdminCreateUserHandlerTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -61,7 +61,7 @@ class AdminCreateUserHandlerTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);

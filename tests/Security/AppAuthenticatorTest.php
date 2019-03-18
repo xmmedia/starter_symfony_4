@@ -77,7 +77,7 @@ class AppAuthenticatorTest extends BaseTestCase
         $faker = $this->faker();
 
         $email = $faker->email;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $this->requestWithSession->request->add([
             'email'    => $email,
@@ -135,7 +135,7 @@ class AppAuthenticatorTest extends BaseTestCase
         $faker = $this->faker();
 
         $email = $faker->email;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $credentials = Credentials::build($email, $password);
 
         $user = Mockery::mock(User::class);
@@ -176,7 +176,7 @@ class AppAuthenticatorTest extends BaseTestCase
         $faker = $this->faker();
 
         $email = $faker->email;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $credentials = Credentials::build($email, $password);
 
         $user = Mockery::mock(User::class);
@@ -194,7 +194,7 @@ class AppAuthenticatorTest extends BaseTestCase
         $faker = $this->faker();
 
         $email = $faker->email;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $credentials = Credentials::build($email, $password);
 
         $user = Mockery::mock(User::class);

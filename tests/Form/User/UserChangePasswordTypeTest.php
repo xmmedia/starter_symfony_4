@@ -6,7 +6,6 @@ namespace App\Tests\Form\User;
 
 use App\Form\User\UserChangePasswordType;
 use App\Tests\TypeTestCase;
-use Faker;
 use Mockery;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPasswordValidator;
 
@@ -28,12 +27,12 @@ class UserChangePasswordTypeTest extends TypeTestCase
 
     public function test()
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $newPassword = $faker->password(12, 250);
 
         $formData = [
-            'currentPassword' => $faker->password(12, 250),
+            'currentPassword' => $faker->password,
             'newPassword'     => [
                 'first'  => $newPassword,
                 'second' => $newPassword,

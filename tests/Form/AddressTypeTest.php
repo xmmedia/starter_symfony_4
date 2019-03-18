@@ -7,7 +7,6 @@ namespace App\Tests\Form;
 use App\Form\AddressType;
 use App\Model\Address;
 use App\Tests\TypeTestCase;
-use Faker;
 
 class AddressTypeTest extends TypeTestCase
 {
@@ -26,7 +25,7 @@ class AddressTypeTest extends TypeTestCase
 
     public function addressProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [[
             'line1'      => $faker->address,

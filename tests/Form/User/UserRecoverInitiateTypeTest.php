@@ -7,13 +7,12 @@ namespace App\Tests\Form\User;
 use App\Form\User\UserRecoverInitiateType;
 use App\Model\Email;
 use App\Tests\TypeTestCase;
-use Faker;
 
 class UserRecoverInitiateTypeTest extends TypeTestCase
 {
     public function test()
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $formData = [
             'email' => $faker->email,

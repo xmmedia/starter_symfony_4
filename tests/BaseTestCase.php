@@ -7,40 +7,15 @@ namespace App\Tests;
 use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\Aggregate\AggregateTranslator;
 use App\EventSourcing\Aggregate\AggregateType;
-use App\DataFixtures\Faker\Provider;
-use Faker;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 
 class BaseTestCase extends \PHPUnit\Framework\TestCase
 {
     use MockeryPHPUnitIntegration;
+    use UsesFaker;
 
     /** @var AggregateTranslator */
     private $aggregateTranslator;
-
-    /** @var Faker\Generator */
-    private $faker;
-
-    /**
-     * @return Faker\Generator|Provider\AddressFakerProvider|Provider\EmailFakerProvider|Provider\NameFakerProvider|Provider\PhoneNumberFakerProvider|Provider\StringFakerProvider|Provider\UuidFakerProvider
-     */
-    protected function faker(): Faker\Generator
-    {
-        return is_null($this->faker) ? $this->makeFaker() : $this->faker;
-    }
-
-    private function makeFaker(): Faker\Generator
-    {
-        $this->faker = Faker\Factory::create();
-        $this->faker->addProvider(new Provider\AddressFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\EmailFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\NameFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\PhoneNumberFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\StringFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\UuidFakerProvider($this->faker));
-
-        return $this->faker;
-    }
 
     protected function assertRecordedEvent(
         string $eventName,

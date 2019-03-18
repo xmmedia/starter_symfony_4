@@ -14,7 +14,7 @@ class AdminChangePasswordTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $command = AdminChangePassword::with($userId, $password);
 

@@ -95,7 +95,7 @@ class SecuritySubscriberTest extends BaseTestCase
 
         $token = Mockery::mock(TokenInterface::class);
         $token->shouldReceive('getCredentials')
-            ->andReturn(Credentials::build($faker->email, $faker->password(12, 250)));
+            ->andReturn(Credentials::build($faker->email, $faker->password));
 
         $exception = Mockery::mock(AuthenticationException::class);
 

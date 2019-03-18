@@ -26,7 +26,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -74,7 +74,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -122,7 +122,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -170,7 +170,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -196,7 +196,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
 
         $user = User::createByAdminMinimum(
@@ -234,7 +234,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
 
         $this->expectException(Exception\DuplicateEmail::class);
@@ -311,7 +311,7 @@ class UserTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $user->changePasswordByAdmin($password);
 
@@ -334,7 +334,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -437,7 +437,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -492,7 +492,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -535,7 +535,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -565,7 +565,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -710,7 +710,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -745,7 +745,7 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $user = $this->getUserActive();
 
@@ -766,7 +766,7 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $user = $this->getUserInactive();
 
@@ -781,7 +781,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
 
         $user1 = User::createByAdminMinimum(
@@ -807,7 +807,7 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
 
         $user1 = User::createByAdminMinimum(
@@ -835,7 +835,7 @@ class UserTest extends BaseTestCase
         $user = User::createByAdminMinimum(
             $faker->userId,
             $faker->emailVo,
-            $faker->password(12, 250),
+            $faker->password,
             new Role('ROLE_USER'),
             new UserArUniquenessCheckerNone()
         );
@@ -849,7 +849,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
@@ -873,7 +873,7 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
         $role = new Role('ROLE_USER');
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);

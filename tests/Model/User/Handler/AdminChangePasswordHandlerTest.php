@@ -20,7 +20,7 @@ class AdminChangePasswordHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('changePasswordByAdmin')
@@ -44,7 +44,7 @@ class AdminChangePasswordHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $command = AdminChangePassword::with($userId, $password);
 

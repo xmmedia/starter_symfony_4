@@ -7,13 +7,12 @@ namespace App\Tests\Form;
 use App\Form\EnquiryType;
 use App\Model\Email;
 use App\Tests\TypeTestCase;
-use Faker;
 
 class EnquiryTypeTest extends TypeTestCase
 {
     public function testSubmitValidData()
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $formData = [
             'name'    => $faker->name,

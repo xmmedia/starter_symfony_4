@@ -20,7 +20,7 @@ class ChangeUserPasswordHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('changePassword')
@@ -44,7 +44,7 @@ class ChangeUserPasswordHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $command = ChangePassword::forUser($userId, $password);
 

@@ -12,7 +12,6 @@ use App\Model\User\Name;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Tests\TypeTestCase;
 use App\Validator\Constraints\UniqueNewUserEmailValidator;
-use Faker;
 use Mockery;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
@@ -59,12 +58,12 @@ class AdminUserCreateTypeTest extends TypeTestCase
 
     public function test()
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $formData = [
             'email'       => $faker->email,
             'setPassword' => true,
-            'password'    => $faker->password(12, 250),
+            'password'    => $faker->password,
             'firstName'   => $faker->name,
             'lastName'    => $faker->name,
             'role'        => 'ROLE_USER',
@@ -86,7 +85,7 @@ class AdminUserCreateTypeTest extends TypeTestCase
 
     public function testNoPassword()
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $formData = [
             'email'       => $faker->email,

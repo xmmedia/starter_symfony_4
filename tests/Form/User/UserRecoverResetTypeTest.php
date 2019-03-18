@@ -7,18 +7,17 @@ namespace App\Tests\Form\User;
 use App\Form\User\UserRecoverResetType;
 use App\Model\User\Token;
 use App\Tests\TypeTestCase;
-use Faker;
 
 class UserRecoverResetTypeTest extends TypeTestCase
 {
     public function test()
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $newPassword = $faker->password(12, 250);
 
         $formData = [
-            'token'       => $faker->password(12, 250),
+            'token'       => $faker->password,
             'newPassword' => [
                 'first'  => $newPassword,
                 'second' => $newPassword,

@@ -12,7 +12,6 @@ use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserId;
 use App\Tests\TypeTestCase;
 use App\Validator\Constraints\UniqueCurrentUsersEmailValidator;
-use Faker;
 use Mockery;
 use Symfony\Component\Security\Core\Security;
 
@@ -22,7 +21,7 @@ class UserProfileTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
         $userId = UserId::fromString($faker->uuid);
 
         $checker = Mockery::mock(ChecksUniqueUsersEmail::class);
@@ -45,7 +44,7 @@ class UserProfileTypeTest extends TypeTestCase
 
     public function test()
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         $formData = [
             'email'     => $faker->email,

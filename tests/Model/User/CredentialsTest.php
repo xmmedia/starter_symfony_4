@@ -15,7 +15,7 @@ class CredentialsTest extends BaseTestCase
         $faker = $this->faker();
 
         $email = $faker->email;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $credentials = Credentials::build($email, $password);
 
@@ -36,7 +36,7 @@ class CredentialsTest extends BaseTestCase
         $faker = $this->faker();
 
         $email = $faker->email;
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $credentials1 = Credentials::build($email, $password);
         $credentials2 = Credentials::build($email, $password);
@@ -48,7 +48,7 @@ class CredentialsTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password(12, 250);
+        $password = $faker->password;
 
         $credentials1 = Credentials::build($faker->email, $password);
         $credentials2 = Credentials::build($faker->email, $password);
@@ -62,8 +62,8 @@ class CredentialsTest extends BaseTestCase
 
         $email = $faker->email;
 
-        $credentials1 = Credentials::build($email, $faker->password(12, 250));
-        $credentials2 = Credentials::build($email, $faker->password(12, 250));
+        $credentials1 = Credentials::build($email, $faker->password);
+        $credentials2 = Credentials::build($email, $faker->password);
 
         $this->assertFalse($credentials1->sameValueAs($credentials2));
     }
@@ -72,7 +72,7 @@ class CredentialsTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $credentials = Credentials::build($faker->email, $faker->password(12, 250));
+        $credentials = Credentials::build($faker->email, $faker->password);
 
         $this->assertFalse($credentials->sameValueAs(FakeVo::create()));
     }

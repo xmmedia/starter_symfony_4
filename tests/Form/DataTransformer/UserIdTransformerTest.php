@@ -6,11 +6,10 @@ namespace App\Tests\Form\DataTransformer;
 
 use App\Form\DataTransformer\UserIdTransformer;
 use App\Model\User\UserId;
-use Faker;
-use PHPUnit\Framework\TestCase;
+use App\Tests\BaseTestCase;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 
-class UserIdTransformerTest extends TestCase
+class UserIdTransformerTest extends BaseTestCase
 {
     /**
      * @dataProvider transformProvider
@@ -24,7 +23,7 @@ class UserIdTransformerTest extends TestCase
 
     public function transformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 
@@ -44,7 +43,7 @@ class UserIdTransformerTest extends TestCase
 
     public function reverseTransformProvider(): \Generator
     {
-        $faker = Faker\Factory::create();
+        $faker = $this->faker();
 
         yield [null, null];
 
