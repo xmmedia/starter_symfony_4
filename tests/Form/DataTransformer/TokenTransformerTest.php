@@ -7,6 +7,7 @@ namespace App\Tests\Form\DataTransformer;
 use App\Form\DataTransformer\TokenTransformer;
 use App\Model\User\Token;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class TokenTransformerTest extends TestCase
 {
@@ -42,5 +43,12 @@ class TokenTransformerTest extends TestCase
         yield [null, null];
 
         yield ['string', Token::fromString('string')];
+    }
+
+    public function testReverseTransformInvalid(): void
+    {
+        $this->expectException(TransformationFailedException::class);
+
+        (new TokenTransformer())->reverseTransform('');
     }
 }

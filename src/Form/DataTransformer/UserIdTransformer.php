@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Form\DataTransformer;
 
 use App\Model\User\UserId;
+use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UserIdTransformer implements DataTransformerInterface
 {
@@ -34,6 +36,14 @@ class UserIdTransformer implements DataTransformerInterface
             return null;
         }
 
-        return UserId::fromString($uuid);
+        try {
+            return UserId::fromString($uuid);
+        } catch (InvalidUuidStringException $e) {
+            throw new TransformationFailedException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e
+            );
+        }
     }
 }

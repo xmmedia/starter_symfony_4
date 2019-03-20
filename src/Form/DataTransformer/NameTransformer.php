@@ -6,6 +6,7 @@ namespace App\Form\DataTransformer;
 
 use App\Model\User\Name;
 use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class NameTransformer implements DataTransformerInterface
 {
@@ -34,6 +35,14 @@ class NameTransformer implements DataTransformerInterface
             return null;
         }
 
-        return Name::fromString($name);
+        try {
+            return Name::fromString($name);
+        } catch (\InvalidArgumentException $e) {
+            throw new TransformationFailedException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e
+            );
+        }
     }
 }

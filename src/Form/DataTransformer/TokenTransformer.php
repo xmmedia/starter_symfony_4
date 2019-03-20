@@ -6,6 +6,7 @@ namespace App\Form\DataTransformer;
 
 use App\Model\User\Token;
 use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class TokenTransformer implements DataTransformerInterface
 {
@@ -34,6 +35,14 @@ class TokenTransformer implements DataTransformerInterface
             return null;
         }
 
-        return Token::fromString($token);
+        try {
+            return Token::fromString($token);
+        } catch (\InvalidArgumentException $e) {
+            throw new TransformationFailedException(
+                $e->getMessage(),
+                $e->getCode(),
+                $e
+            );
+        }
     }
 }

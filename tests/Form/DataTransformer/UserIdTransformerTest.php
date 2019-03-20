@@ -7,7 +7,7 @@ namespace App\Tests\Form\DataTransformer;
 use App\Form\DataTransformer\UserIdTransformer;
 use App\Model\User\UserId;
 use App\Tests\BaseTestCase;
-use Ramsey\Uuid\Exception\InvalidUuidStringException;
+use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UserIdTransformerTest extends BaseTestCase
 {
@@ -56,7 +56,7 @@ class UserIdTransformerTest extends BaseTestCase
      */
     public function testReverseTransformInvalid($value): void
     {
-        $this->expectException(InvalidUuidStringException::class);
+        $this->expectException(TransformationFailedException::class);
 
         (new UserIdTransformer())->reverseTransform($value);
     }
