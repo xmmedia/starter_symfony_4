@@ -72,8 +72,8 @@ class AdminUserUpdateType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
-                        'min' => Name::NAME_MIN_LENGTH,
-                        'max' => Name::NAME_MAX_LENGTH,
+                        'min' => Name::MIN_LENGTH,
+                        'max' => Name::MAX_LENGTH,
                     ]),
                 ],
                 'invalid_message' => '"{{ value }}" is not a valid name.',
@@ -83,8 +83,8 @@ class AdminUserUpdateType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
-                        'min' => Name::NAME_MIN_LENGTH,
-                        'max' => Name::NAME_MAX_LENGTH,
+                        'min' => Name::MIN_LENGTH,
+                        'max' => Name::MAX_LENGTH,
                     ]),
                 ],
                 'invalid_message' => '"{{ value }}" is not a valid name.',

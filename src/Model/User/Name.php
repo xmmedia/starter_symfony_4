@@ -9,8 +9,8 @@ use Webmozart\Assert\Assert;
 
 class Name implements ValueObject, \JsonSerializable
 {
-    public const NAME_MIN_LENGTH = 2;
-    public const NAME_MAX_LENGTH = 50;
+    public const MIN_LENGTH = 2;
+    public const MAX_LENGTH = 50;
 
     /** @var string */
     private $name;
@@ -23,8 +23,8 @@ class Name implements ValueObject, \JsonSerializable
     private function __construct(string $name)
     {
         Assert::notEmpty($name);
-        Assert::minLength($name, self::NAME_MIN_LENGTH);
-        Assert::maxLength($name, self::NAME_MAX_LENGTH);
+        Assert::minLength($name, self::MIN_LENGTH);
+        Assert::maxLength($name, self::MAX_LENGTH);
 
         $this->name = $name;
     }
