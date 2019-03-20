@@ -42,10 +42,20 @@ class TypeTestCase extends \Symfony\Component\Form\Test\TypeTestCase
 
     protected function assertFormIsValid(FormInterface $form): void
     {
-        $this->assertTrue($form->isSynchronized(), 'The form data is not synchronized.');
+        $this->assertTrue(
+            $form->isSynchronized(),
+            'The form data is not synchronized: '.implode(
+                ', ',
+                $this->getFormErrors($form)
+            )
+        );
+
         $this->assertTrue(
             $form->isValid(),
-            'The following fields are invalid: '.implode(', ', $this->getFormErrors($form))
+            'The following fields are invalid: '.implode(
+                ', ',
+                $this->getFormErrors($form)
+            )
         );
     }
 
