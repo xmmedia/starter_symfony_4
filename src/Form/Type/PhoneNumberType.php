@@ -6,7 +6,6 @@ namespace App\Form\Type;
 
 use App\Form\DataTransformer\PhoneNumberTransformer;
 use libphonenumber\PhoneNumberFormat;
-use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,14 +20,10 @@ class PhoneNumberType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'label'          => 'Phone Number',
-            'default_region' => 'CA',
-            'format'         => PhoneNumberFormat::NATIONAL,
-            'constraints'    => [
-                new AssertPhoneNumber([
-                    'defaultRegion' => 'CA',
-                ]),
-            ],
+            'label'           => 'Phone Number',
+            'default_region'  => 'CA',
+            'format'          => PhoneNumberFormat::NATIONAL,
+            'invalid_message' => '"{{ value }}" is not a valid phone number.',
         ]);
     }
 

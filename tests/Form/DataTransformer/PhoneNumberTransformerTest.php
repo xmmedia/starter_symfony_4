@@ -7,57 +7,61 @@ namespace App\Tests\Form\DataTransformer;
 use App\Form\DataTransformer\PhoneNumberTransformer;
 use App\Model\PhoneNumber;
 use App\Tests\BaseTestCase;
+use App\Tests\Model\PhoneNumberDataProvider;
 use libphonenumber\PhoneNumberUtil;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class PhoneNumberTransformerTest extends BaseTestCase
 {
+    use PhoneNumberDataProvider;
+
     /**
-     * @dataProvider transformProvider
+     * @dataProvider phoneNumberValidProvider
      */
-    public function testTransform($value, $expected): void
+    public function testTransform(string $void, array $expected): void
     {
-        $result = (new PhoneNumberTransformer())->transform($value);
+        $result = (new PhoneNumberTransformer())->transform(
+            PhoneNumber::fromArray($expected)
+        );
 
         $this->assertEquals($expected, $result);
     }
 
-    public function transformProvider(): \Generator
+    public function testTransformNull(): void
     {
-        $faker = self::faker();
+        $result = (new PhoneNumberTransformer())->transform(null);
 
-        yield [null, null];
-
-        $phoneNumber = $faker->phoneNumberVo();
-        yield [$phoneNumber, $phoneNumber->toArray()];
+        $this->assertNull($result);
     }
 
     /**
-     * @dataProvider reverseTransformProvider
+     * @dataProvider phoneNumberValidProvider
      */
-    public function testReverseTransform($value, $expected): void
+    public function testReverseTransform($phoneNumber, $expected): void
     {
+        $util = PhoneNumberUtil::getInstance();
+        $value = $util->parse($phoneNumber, 'CA');
+
         $result = (new PhoneNumberTransformer())->reverseTransform($value);
 
-        $this->assertEquals($expected, $result);
+        $this->assertInstanceOf(PhoneNumber::class, $result);
+        $this->assertEquals($expected, $result->toArray());
     }
 
-    public function reverseTransformProvider(): \Generator
+    public function testReverseTransformNull(): void
     {
-        $faker = self::faker();
+        $result = (new PhoneNumberTransformer())->reverseTransform(null);
 
-        yield [null, null];
-
-        $util = PhoneNumberUtil::getInstance();
-        $phoneNumber = $util->parse($faker->phoneNumber, 'CA');
-
-        yield [$phoneNumber, PhoneNumber::fromObject($phoneNumber)];
+        $this->assertNull($result);
     }
 
-    public function testReverseTransformInvalid(): void
+    /**
+     * @dataProvider phoneNumberInvalidProvider
+     */
+    public function testReverseTransformInvalid(string $value): void
     {
         $this->expectException(TransformationFailedException::class);
 
-        (new PhoneNumberTransformer())->reverseTransform('string');
+        (new PhoneNumberTransformer())->reverseTransform($value);
     }
 }

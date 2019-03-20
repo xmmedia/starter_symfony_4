@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumber as LibPhoneNumber;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
@@ -19,9 +20,18 @@ class PhoneNumber implements ValueObject
     {
         $util = PhoneNumberUtil::getInstance();
 
-        $phoneNumber = $util->parse($data['phoneNumber'], self::$defaultRegion);
-        if (!empty($data['extension'])) {
-            $phoneNumber->setExtension($data['extension']);
+        try {
+            $phoneNumber = $util->parse($data['phoneNumber'], self::$defaultRegion);
+            if (!empty($data['extension'])) {
+                $phoneNumber->setExtension($data['extension']);
+            }
+        } catch (NumberParseException $e) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The phone number is invalid: %s',
+                    $e->getMessage()
+                )
+            );
         }
 
         return new self($phoneNumber);
@@ -31,9 +41,19 @@ class PhoneNumber implements ValueObject
     {
         $util = PhoneNumberUtil::getInstance();
 
-        return new self(
-            $util->parse($phoneNumber, self::$defaultRegion)
-        );
+        try {
+            return new self(
+                $util->parse($phoneNumber, self::$defaultRegion)
+            );
+        } catch (NumberParseException $e) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The phone number "%s" is invalid: %s',
+                    $phoneNumber,
+                    $e->getMessage()
+                )
+            );
+        }
     }
 
     public static function fromObject(LibPhoneNumber $phoneNumber): self
@@ -43,6 +63,14 @@ class PhoneNumber implements ValueObject
 
     private function __construct(LibPhoneNumber $phoneNumber)
     {
+        $util = PhoneNumberUtil::getInstance();
+
+        if (!$util->isValidNumber($phoneNumber)) {
+            throw new \InvalidArgumentException(
+                sprintf('The phone number "%s" is invalid.', $phoneNumber)
+            );
+        }
+
         $this->phoneNumber = $phoneNumber;
     }
 
@@ -62,6 +90,11 @@ class PhoneNumber implements ValueObject
             'phoneNumber' => $this->e164(),
             'extension'   => $this->phoneNumber->getExtension(),
         ];
+    }
+
+    public function __toString(): string
+    {
+        return $this->e164();
     }
 
     /**
