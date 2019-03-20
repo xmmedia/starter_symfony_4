@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Form;
+namespace App\Tests\Form\Type;
 
-use App\Form\AddressType;
+use App\Form\Type\AddressType;
 use App\Model\Address;
 use App\Tests\TypeTestCase;
 
