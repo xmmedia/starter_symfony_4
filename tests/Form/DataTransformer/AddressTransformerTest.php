@@ -6,6 +6,7 @@ namespace App\Tests\Form\DataTransformer;
 
 use App\Form\DataTransformer\AddressTransformer;
 use App\Model\Address;
+use App\Model\PostalCode;
 use App\Tests\BaseTestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -32,7 +33,7 @@ class AddressTransformerTest extends BaseTestCase
             'line2'      => $faker->address,
             'city'       => $faker->city,
             'province'   => $faker->stateAbbr,
-            'postalCode' => $faker->postcode,
+            'postalCode' => PostalCode::format($faker->postcode),
             'country'    => 'CA',
         ];
 
@@ -60,7 +61,7 @@ class AddressTransformerTest extends BaseTestCase
             'line2'      => $faker->address,
             'city'       => $faker->city,
             'province'   => $faker->stateAbbr,
-            'postalCode' => $faker->postcode,
+            'postalCode' => PostalCode::format($faker->postcode),
             'country'    => 'CA',
         ];
 

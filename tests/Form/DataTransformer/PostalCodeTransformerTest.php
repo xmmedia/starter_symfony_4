@@ -28,7 +28,7 @@ class PostalCodeTransformerTest extends BaseTestCase
         yield [null, null];
 
         $postalCode = $faker->postcode;
-        yield [PostalCode::fromString($postalCode), $postalCode];
+        yield [PostalCode::fromString($postalCode), PostalCode::format($postalCode)];
     }
 
     /**

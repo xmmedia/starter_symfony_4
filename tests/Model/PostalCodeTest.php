@@ -26,6 +26,7 @@ class PostalCodeTest extends TestCase
     {
         yield ['T9D 8K2', 'T9D 8K2'];
         yield ['T9D8K2', 'T9D 8K2'];
+        yield ['T9D-8K2', 'T9D 8K2'];
 
         yield ['50301', '50301'];
         yield [50301, '50301'];

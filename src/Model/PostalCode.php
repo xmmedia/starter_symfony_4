@@ -35,8 +35,15 @@ class PostalCode implements ValueObject
             throw InvalidPostalCode::invalid($postalCode);
         }
 
+        $this->postalCode = self::format($postalCode);
+    }
+
+    public static function format(string $postalCode): string
+    {
         // if first char is a letter, we're assuming it's a Canadian postal code
         if (ctype_alpha(substr($postalCode, 0, 1))) {
+            $postalCode = strtoupper(str_replace([' ', '-'], '', $postalCode));
+
             $postalCode = sprintf(
                 '%s %s',
                 substr($postalCode, 0, 3),
@@ -44,7 +51,7 @@ class PostalCode implements ValueObject
             );
         }
 
-        $this->postalCode = $postalCode;
+        return $postalCode;
     }
 
     public function toString(): string

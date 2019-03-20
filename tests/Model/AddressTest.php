@@ -23,7 +23,8 @@ class AddressTest extends BaseTestCase
         string $city,
         string $province,
         string $postalCode,
-        string $country
+        string $country,
+        string $expectedPostalCode
     ): void {
         $address = Address::fromStrings(
             $line1,
@@ -38,46 +39,52 @@ class AddressTest extends BaseTestCase
         $this->assertEquals($line2, $address->line2());
         $this->assertEquals($city, $address->city());
         $this->assertEquals($province, $address->province()->toString());
-        $this->assertEquals($postalCode, $address->postalCode()->toString());
+        $this->assertEquals($expectedPostalCode, $address->postalCode()->toString());
         $this->assertEquals($country, $address->country()->toString());
     }
 
     public function addressStringProvider(): \Generator
     {
-        $faker = self::faker();
+        $faker = $this->faker();
 
+        $postalCode = $faker->postcode;
         yield [
             $faker->address,
             $faker->address,
             $faker->city,
             $faker->stateAbbr,
-            $faker->postcode,
-            'CA',
+            $postalCode,
+            $faker->randomElement(['CA', 'US']),
+            PostalCode::format($postalCode),
         ];
 
+        $postalCode = $faker->postcode;
         yield [
             $faker->address,
             null,
             $faker->city,
             $faker->stateAbbr,
-            $faker->postcode,
-            'CA',
+            $postalCode,
+            $faker->randomElement(['CA', 'US']),
+            PostalCode::format($postalCode),
         ];
 
+        $postalCode = $faker->postcode;
         yield [
             $faker->address,
             '', // empty string is changed to null
             $faker->city,
             $faker->stateAbbr,
-            $faker->postcode,
-            'CA',
+            $postalCode,
+            $faker->randomElement(['CA', 'US']),
+            PostalCode::format($postalCode),
         ];
     }
 
     /**
      * @dataProvider addressArrayProvider
      */
-    public function testFromArray(array $data): void
+    public function testFromArray(array $data, string $expectedPostalCode): void
     {
         $address = Address::fromArray($data);
 
@@ -85,51 +92,70 @@ class AddressTest extends BaseTestCase
         $this->assertEquals($data['line2'], $address->line2());
         $this->assertEquals($data['city'], $address->city());
         $this->assertEquals($data['province'], $address->province()->toString());
-        $this->assertEquals($data['postalCode'], $address->postalCode()->toString());
+        $this->assertEquals($expectedPostalCode, $address->postalCode()->toString());
         $this->assertEquals($data['country'], $address->country()->toString());
 
+        $data['postalCode'] = $expectedPostalCode;
         $this->assertEquals($data, $address->toArray());
     }
 
     public function addressArrayProvider(): \Generator
     {
-        $faker = self::faker();
+        $faker = $this->faker();
 
-        yield [[
-           'line1'      => $faker->address,
-           'line2'      => $faker->address,
-           'city'       => $faker->city,
-           'province'   => $faker->stateAbbr,
-           'postalCode' => $faker->postcode,
-           'country'    => 'CA',
-        ]];
+        $postalCode = $faker->postcode;
+        yield [
+            [
+                'line1'      => $faker->address,
+                'line2'      => $faker->address,
+                'city'       => $faker->city,
+                'province'   => $faker->stateAbbr,
+                'postalCode' => $postalCode,
+                'country'    => $faker->randomElement(['CA', 'US']),
+            ],
+            PostalCode::format($postalCode),
+        ];
 
-        yield [[
-           'line1'      => $faker->address,
-           'line2'      => null,
-           'city'       => $faker->city,
-           'province'   => $faker->stateAbbr,
-           'postalCode' => $faker->postcode,
-           'country'    => 'CA',
-        ]];
+        $postalCode = $faker->postcode;
+        yield [
+            [
+                'line1'      => $faker->address,
+                'line2'      => null,
+                'city'       => $faker->city,
+                'province'   => $faker->stateAbbr,
+                'postalCode' => $postalCode,
+                'country'    => $faker->randomElement(['CA', 'US']),
+            ],
+            PostalCode::format($postalCode),
+        ];
 
-        yield [[
-           'line1'      => $faker->address,
-           'line2'      => '', // empty string is changed to null
-           'city'       => $faker->city,
-           'province'   => $faker->stateAbbr,
-           'postalCode' => $faker->postcode,
-           'country'    => 'CA',
-        ]];
+        $postalCode = $faker->postcode;
+        yield [
+            [
+                'line1'      => $faker->address,
+                'line2'      => '', // empty string is changed to null
+                'city'       => $faker->city,
+                'province'   => $faker->stateAbbr,
+                'postalCode' => $postalCode,
+                'country'    => $faker->randomElement(['CA', 'US']),
+            ],
+            PostalCode::format($postalCode),
+        ];
 
-        yield [[
-            'line1'      => $faker->address,
-            'line2'      => $faker->address,
-            'city'       => $faker->city,
-            'province'   => Province::fromString($faker->stateAbbr),
-            'postalCode' => PostalCode::fromString($faker->postcode),
-            'country'    => Country::fromString('CA'),
-        ]];
+        $postalCode = $faker->postcode;
+        yield [
+            [
+                'line1'      => $faker->address,
+                'line2'      => $faker->address,
+                'city'       => $faker->city,
+                'province'   => Province::fromString($faker->stateAbbr),
+                'postalCode' => PostalCode::fromString($postalCode),
+                'country'    => Country::fromString(
+                    $faker->randomElement(['CA', 'US'])
+                ),
+            ],
+            PostalCode::format($postalCode),
+        ];
     }
 
     /**
@@ -160,7 +186,7 @@ class AddressTest extends BaseTestCase
 
     public function addressInvalidProvider(): \Generator
     {
-        $faker = self::faker();
+        $faker = $this->faker();
 
         yield [
             'a',
@@ -168,7 +194,7 @@ class AddressTest extends BaseTestCase
             'Calgary',
             'AB',
             'T3L 2H9',
-            'CA',
+            $faker->randomElement(['CA', 'US']),
             InvalidAddress::class,
         ];
 
@@ -178,7 +204,7 @@ class AddressTest extends BaseTestCase
             'Calgary',
             'AB',
             'T3L 2H9',
-            'CA',
+            $faker->randomElement(['CA', 'US']),
             InvalidAddress::class,
         ];
 
@@ -188,7 +214,7 @@ class AddressTest extends BaseTestCase
             'Calgary',
             'AB',
             'T3L 2H9',
-            'CA',
+            $faker->randomElement(['CA', 'US']),
             InvalidAddress::class,
         ];
 
@@ -198,7 +224,7 @@ class AddressTest extends BaseTestCase
             'Calgary',
             'AB',
             'T3L 2H9',
-            'CA',
+            $faker->randomElement(['CA', 'US']),
             InvalidAddress::class,
         ];
 
@@ -208,7 +234,7 @@ class AddressTest extends BaseTestCase
             'a',
             'AB',
             'T3L 2H9',
-            'CA',
+            $faker->randomElement(['CA', 'US']),
             InvalidAddress::class,
         ];
 
@@ -218,7 +244,7 @@ class AddressTest extends BaseTestCase
             $faker->string(101),
             'AB',
             'T3L 2H9',
-            'CA',
+            $faker->randomElement(['CA', 'US']),
             InvalidAddress::class,
         ];
     }
