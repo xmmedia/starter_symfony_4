@@ -6,6 +6,7 @@ namespace App\Tests\Model\User;
 
 use App\Model\User\Token;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeVo;
 
 class TokenTest extends BaseTestCase
 {
@@ -37,5 +38,24 @@ class TokenTest extends BaseTestCase
         $token2 = Token::fromString($tokenString);
 
         $this->assertTrue($token1->sameValueAs($token2));
+    }
+
+    public function testSameValueAsFalse(): void
+    {
+        $faker = $this->faker();
+
+        $token1 = Token::fromString($faker->asciify(str_repeat('*', 25)));
+        $token2 = Token::fromString($faker->asciify(str_repeat('*', 25)));
+
+        $this->assertTrue($token1->sameValueAs($token2));
+    }
+
+    public function testSameValueAsDiffClass(): void
+    {
+        $faker = $this->faker();
+
+        $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
+
+        $this->assertTrue($token->sameValueAs(FakeVo::create()));
     }
 }

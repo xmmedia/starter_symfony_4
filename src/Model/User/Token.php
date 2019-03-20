@@ -14,13 +14,13 @@ class Token implements ValueObject
 
     public static function fromString(string $token): self
     {
-        Assert::notEmpty($token);
-
         return new self($token);
     }
 
     public function __construct(string $token)
     {
+        Assert::notEmpty($token);
+
         $this->token = $token;
     }
 
@@ -44,6 +44,10 @@ class Token implements ValueObject
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->token === $other->token;
+        if (get_class($this) !== get_class($other)) {
+            return false;
+        }
+
+        return $this->token === $other->token;
     }
 }
