@@ -22,7 +22,9 @@ trait UsesFaker
 
     private function makeFaker(): Faker\Generator
     {
-        $this->faker = Faker\Factory::create();
+        $locales = ['en_CA', 'en_US'];
+
+        $this->faker = Faker\Factory::create($locales[array_rand($locales)]);
         $this->faker->addProvider(new Provider\AddressFakerProvider($this->faker));
         $this->faker->addProvider(new Provider\EmailFakerProvider($this->faker));
         $this->faker->addProvider(new Provider\InternetFakerProvider($this->faker));
