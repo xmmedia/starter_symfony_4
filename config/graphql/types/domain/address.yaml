@@ -1,0 +1,58 @@
+Address:
+    type: object
+    config:
+        description: 'The Address object.'
+        fieldsDefaultPublic: '@=isAuthenticated()'
+        fields:
+            line1:
+                type: String!
+            line2:
+                type: String
+            city:
+                type: String!
+            province:
+                type: Province!
+            postalCode:
+                type: String!
+            country:
+                type: Country!
+
+AddressInput:
+    type: input-object
+    config:
+        description: 'The Address input object.'
+        fields:
+            line1:
+                type: String!
+            line2:
+                type: String
+            city:
+                type: String!
+            province:
+                type: ProvinceInput!
+            postalCode:
+                type: String!
+            country:
+                type: CountryInput!
+
+Province:
+    type: object
+    config:
+        fieldsDefaultPublic: '@=isAuthenticated()'
+        fields:
+            country:
+                type: Country!
+            name:
+                type: String!
+            abbreviation:
+                type: String!
+
+Country:
+    type: object
+    config:
+        fieldsDefaultPublic: '@=isAuthenticated()'
+        fields:
+            name:
+                type: String!
+            abbreviation:
+                type: String!
