@@ -10,7 +10,7 @@ use App\Tests\TypeTestCase;
 
 class UserVerifyTypeTest extends TypeTestCase
 {
-    public function test()
+    public function test(): void
     {
         $faker = $this->faker();
 

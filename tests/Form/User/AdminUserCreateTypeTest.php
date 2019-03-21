@@ -56,7 +56,7 @@ class AdminUserCreateTypeTest extends TypeTestCase
         return $extensions;
     }
 
-    public function test()
+    public function test(): void
     {
         $faker = $this->faker();
 
@@ -83,7 +83,7 @@ class AdminUserCreateTypeTest extends TypeTestCase
         $this->assertInstanceOf(Name::class, $form->getData()['lastName']);
     }
 
-    public function testNoPassword()
+    public function testNoPassword(): void
     {
         $faker = $this->faker();
 

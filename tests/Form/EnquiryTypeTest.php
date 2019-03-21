@@ -10,7 +10,7 @@ use App\Tests\TypeTestCase;
 
 class EnquiryTypeTest extends TypeTestCase
 {
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $faker = $this->faker();
 

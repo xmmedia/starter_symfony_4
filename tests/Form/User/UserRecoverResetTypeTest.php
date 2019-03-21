@@ -10,7 +10,7 @@ use App\Tests\TypeTestCase;
 
 class UserRecoverResetTypeTest extends TypeTestCase
 {
-    public function test()
+    public function test(): void
     {
         $faker = $this->faker();
 
