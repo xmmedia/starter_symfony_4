@@ -13,7 +13,7 @@ class TokenTest extends BaseTestCase
     public function testFromString(): void
     {
         $faker = $this->faker();
-        $tokenString = $faker->asciify(str_repeat('*', 25));
+        $tokenString = $faker->string(25);
 
         $token = Token::fromString($tokenString);
 
@@ -32,7 +32,7 @@ class TokenTest extends BaseTestCase
     public function testSameValueAs(): void
     {
         $faker = $this->faker();
-        $tokenString = $faker->asciify(str_repeat('*', 25));
+        $tokenString = $faker->string(25);
 
         $token1 = Token::fromString($tokenString);
         $token2 = Token::fromString($tokenString);
@@ -44,8 +44,8 @@ class TokenTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $token1 = Token::fromString($faker->asciify(str_repeat('*', 25)));
-        $token2 = Token::fromString($faker->asciify(str_repeat('*', 25)));
+        $token1 = Token::fromString($faker->string(25));
+        $token2 = Token::fromString($faker->string(25));
 
         $this->assertFalse($token1->sameValueAs($token2));
     }
@@ -54,7 +54,7 @@ class TokenTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
+        $token = Token::fromString($faker->string(25));
 
         $this->assertFalse($token->sameValueAs(FakeVo::create()));
     }

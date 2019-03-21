@@ -6,6 +6,7 @@ namespace App\Tests\Model\User;
 
 use App\Model\User\Name;
 use App\Tests\BaseTestCase;
+use App\Tests\FakeVo;
 use App\Util\Json;
 
 class NameTest extends BaseTestCase
@@ -55,5 +56,24 @@ class NameTest extends BaseTestCase
         $name2 = Name::fromString($nameString);
 
         $this->assertTrue($name1->sameValueAs($name2));
+    }
+
+    public function testSameValueAsFalse(): void
+    {
+        $faker = $this->faker();
+
+        $name1 = Name::fromString($faker->unique()->name);
+        $name2 = Name::fromString($faker->unique()->name);
+
+        $this->assertFalse($name1->sameValueAs($name2));
+    }
+
+    public function testSameValueAsDiffClass(): void
+    {
+        $faker = $this->faker();
+
+        $name = Name::fromString($faker->name);
+
+        $this->assertFalse($name->sameValueAs(FakeVo::create()));
     }
 }
