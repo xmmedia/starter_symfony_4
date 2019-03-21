@@ -47,7 +47,7 @@ class TokenTest extends BaseTestCase
         $token1 = Token::fromString($faker->asciify(str_repeat('*', 25)));
         $token2 = Token::fromString($faker->asciify(str_repeat('*', 25)));
 
-        $this->assertTrue($token1->sameValueAs($token2));
+        $this->assertFalse($token1->sameValueAs($token2));
     }
 
     public function testSameValueAsDiffClass(): void
@@ -56,6 +56,6 @@ class TokenTest extends BaseTestCase
 
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
 
-        $this->assertTrue($token->sameValueAs(FakeVo::create()));
+        $this->assertFalse($token->sameValueAs(FakeVo::create()));
     }
 }
