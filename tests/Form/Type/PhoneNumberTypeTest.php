@@ -48,10 +48,14 @@ class PhoneNumberTypeTest extends TypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertFalse($form->isValid());
 
-        $this->assertCount(1, $form->get('phoneNumber')->getErrors(true, true));
         $this->assertEquals(
             sprintf('"%s" is not a valid phone number.', $string),
             $form->get('phoneNumber')->getErrors()[0]->getMessage()
+        );
+        $this->assertCount(
+            1,
+            $form->get('phoneNumber')->getErrors(true, true),
+            'There is more than 1 error.'
         );
     }
 }
