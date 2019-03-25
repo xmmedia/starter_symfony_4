@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\DataProvider;
 
 use App\DataProvider\ProvinceProvider;
+use App\Exception\InvalidProvince;
+use App\Model\Country;
 use PHPUnit\Framework\TestCase;
 
 class ProvinceProviderTest extends TestCase
@@ -39,5 +41,25 @@ class ProvinceProviderTest extends TestCase
         $abbreviations = ProvinceProvider::abbreviations(false);
 
         $this->assertCount(64, $abbreviations);
+    }
+
+    public function testName(): void
+    {
+        $this->assertEquals('Alberta', ProvinceProvider::name('AB'));
+    }
+
+    public function testCountry(): void
+    {
+        $this->assertEquals(
+            Country::fromString('CA'),
+            ProvinceProvider::country('AB')
+        );
+    }
+
+    public function testCountryUnknownProvince(): void
+    {
+        $this->expectException(InvalidProvince::class);
+
+        ProvinceProvider::country('88');
     }
 }
