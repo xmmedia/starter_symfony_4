@@ -6,8 +6,6 @@ namespace App\Tests\Form\User;
 
 use App\Entity\User;
 use App\Form\User\UserProfileType;
-use App\Model\Email;
-use App\Model\User\Name;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserId;
 use App\Tests\TypeTestCase;
@@ -57,9 +55,5 @@ class UserProfileTypeTest extends TypeTestCase
 
         $this->assertFormIsValid($form);
         $this->hasAllFormFields($form, $formData);
-
-        $this->assertInstanceOf(Email::class, $form->getData()['email']);
-        $this->assertInstanceOf(Name::class, $form->getData()['firstName']);
-        $this->assertInstanceOf(Name::class, $form->getData()['lastName']);
     }
 }

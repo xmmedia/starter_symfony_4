@@ -30,7 +30,11 @@ class PhoneNumberTypeTest extends TypeTestCase
         $this->assertFormIsValid($form);
         $this->hasAllFormFields($form, $formData);
 
-        $this->assertInstanceOf(PhoneNumber::class, $form->getData()['phoneNumber']);
+        // make sure the string can be converted to a phone number VO
+        $this->assertInstanceOf(
+            PhoneNumber::class,
+            PhoneNumber::fromObject($form->getData()['phoneNumber'])
+        );
     }
 
     /**
@@ -48,15 +52,7 @@ class PhoneNumberTypeTest extends TypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertFalse($form->isValid());
 
-        $this->assertEquals(
-            sprintf('"%s" is not a valid phone number.', $string),
-            $form->get('phoneNumber')->getErrors()[0]->getMessage()
-        );
-        $this->assertCount(
-            1,
-            $form->get('phoneNumber')->getErrors(true, true),
-            'There is more than 1 error.'
-        );
+        $this->assertCount(1, $form->get('phoneNumber')->getErrors(true, true));
     }
 }
 
@@ -64,11 +60,6 @@ class PhoneNumberTypeTestForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('phoneNumber', PhoneNumberType::class, [
-                'label'           => 'Phone Number',
-                'invalid_message' => '"{{ value }}" is not a valid phone number.',
-            ])
-        ;
+        $builder->add('phoneNumber', PhoneNumberType::class);
     }
 }

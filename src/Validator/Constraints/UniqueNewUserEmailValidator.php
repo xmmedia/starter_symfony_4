@@ -21,7 +21,7 @@ class UniqueNewUserEmailValidator extends ConstraintValidator
     }
 
     /**
-     * @param Email                         $email
+     * @param string                        $email
      * @param Constraint|UniqueNewUserEmail $constraint
      */
     public function validate($email, Constraint $constraint): void
@@ -30,7 +30,7 @@ class UniqueNewUserEmailValidator extends ConstraintValidator
             return;
         }
 
-        if (($this->checksUniqueUsersEmail)($email)) {
+        if (($this->checksUniqueUsersEmail)(Email::fromString($email))) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

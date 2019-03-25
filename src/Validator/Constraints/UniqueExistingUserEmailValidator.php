@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
+use App\Model\Email;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -25,7 +26,9 @@ class UniqueExistingUserEmailValidator extends ConstraintValidator
      */
     public function validate($data, Constraint $constraint): void
     {
-        $userId = ($this->checksUniqueUsersEmail)($data['email']);
+        $userId = ($this->checksUniqueUsersEmail)(
+            Email::fromString($data['email'])
+        );
 
         if ($userId && !$data['userId']->sameValueAs($userId)) {
             $this->context->buildViolation($constraint->message)

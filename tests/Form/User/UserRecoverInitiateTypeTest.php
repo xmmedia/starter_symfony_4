@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Form\User;
 
 use App\Form\User\UserRecoverInitiateType;
-use App\Model\Email;
 use App\Tests\TypeTestCase;
 
 class UserRecoverInitiateTypeTest extends TypeTestCase
@@ -23,7 +22,5 @@ class UserRecoverInitiateTypeTest extends TypeTestCase
 
         $this->assertFormIsValid($form);
         $this->hasAllFormFields($form, $formData);
-
-        $this->assertInstanceOf(Email::class, $form->getData()['email']);
     }
 }

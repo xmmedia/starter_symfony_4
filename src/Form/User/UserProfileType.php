@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Form\User;
 
-use App\Form\DataTransformer\NameTransformer;
 use App\Form\Type\EmailType;
 use App\Model\User\Name;
 use App\Validator\Constraints\UniqueCurrentUsersEmail;
@@ -34,7 +33,6 @@ class UserProfileType extends AbstractType
                         'max' => Name::MAX_LENGTH,
                     ]),
                 ],
-                'invalid_message' => '"{{ value }}" is not a valid name.',
             ])
             ->add('lastName', TextType::class, [
                 'label'       => 'Last Name',
@@ -45,14 +43,8 @@ class UserProfileType extends AbstractType
                         'max' => Name::MAX_LENGTH,
                     ]),
                 ],
-                'invalid_message' => '"{{ value }}" is not a valid name.',
             ])
         ;
-
-        $builder->get('firstName')
-            ->addModelTransformer(new NameTransformer());
-        $builder->get('lastName')
-            ->addModelTransformer(new NameTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Form\DataTransformer\EmailTransformer;
 use App\Model\Enquiry\Enquiry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -37,7 +36,6 @@ class EnquiryType extends AbstractType
                 'attr'        => ['maxlength' => 150],
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\Email(['mode' => 'strict']),
                 ],
             ])
             ->add('message', TextareaType::class, [
@@ -54,9 +52,6 @@ class EnquiryType extends AbstractType
                 ],
             ])
         ;
-
-        $builder->get('email')
-            ->addModelTransformer(new EmailTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver): void

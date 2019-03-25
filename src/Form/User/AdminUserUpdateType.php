@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace App\Form\User;
 
 use App\DataProvider\RoleProvider;
-use App\Form\DataTransformer\NameTransformer;
-use App\Form\DataTransformer\SecurityRoleTransformer;
-use App\Form\DataTransformer\UserIdTransformer;
 use App\Form\Type\EmailType;
 use App\Model\User\Name;
 use App\Model\User\User;
@@ -28,23 +25,16 @@ class AdminUserUpdateType extends AbstractType
     /** @var RoleProvider */
     private $roleProvider;
 
-    /** @var SecurityRoleTransformer */
-    private $securityRoleTransformer;
-
-    public function __construct(
-        RoleProvider $roleProvider,
-        SecurityRoleTransformer $securityRoleTransformer
-    ) {
+    public function __construct(RoleProvider $roleProvider)
+    {
         $this->roleProvider = $roleProvider;
-        $this->securityRoleTransformer = $securityRoleTransformer;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('userId', TextType::class, [
-                'label'           => 'User ID',
-                'invalid_message' => 'Invalid UUID.',
+                'label' => 'User ID',
             ])
             ->add('email', EmailType::class, [
                 'constraints' => [
@@ -75,7 +65,6 @@ class AdminUserUpdateType extends AbstractType
                         'max' => Name::MAX_LENGTH,
                     ]),
                 ],
-                'invalid_message' => '"{{ value }}" is not a valid name.',
             ])
             ->add('lastName', TextType::class, [
                 'label'       => 'Last Name',
@@ -86,7 +75,6 @@ class AdminUserUpdateType extends AbstractType
                         'max' => Name::MAX_LENGTH,
                     ]),
                 ],
-                'invalid_message' => '"{{ value }}" is not a valid name.',
             ])
             ->add('role', ChoiceType::class, [
                 'label'           => 'Role',
@@ -94,15 +82,6 @@ class AdminUserUpdateType extends AbstractType
                 'invalid_message' => '"{{ value }}" is not a valid role.',
             ])
         ;
-
-        $builder->get('userId')
-            ->addModelTransformer(new UserIdTransformer());
-        $builder->get('role')
-            ->addModelTransformer($this->securityRoleTransformer);
-        $builder->get('firstName')
-            ->addModelTransformer(new NameTransformer());
-        $builder->get('lastName')
-            ->addModelTransformer(new NameTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver): void

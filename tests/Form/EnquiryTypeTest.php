@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Form;
 
 use App\Form\EnquiryType;
-use App\Model\Email;
 use App\Tests\TypeTestCase;
 
 class EnquiryTypeTest extends TypeTestCase
@@ -25,7 +24,5 @@ class EnquiryTypeTest extends TypeTestCase
 
         $this->assertFormIsValid($form);
         $this->hasAllFormFields($form, $formData);
-
-        $this->assertInstanceOf(Email::class, $form->getData()['email']);
     }
 }

@@ -6,6 +6,7 @@ namespace App\Infrastructure\GraphQl\Mutation;
 
 use App\Exception\FormValidationException;
 use App\Form\EnquiryType;
+use App\Model\Email;
 use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\EnquiryId;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -44,7 +45,7 @@ class SendEnquiryMutation implements MutationInterface
         $this->commandBus->dispatch(SubmitEnquiry::with(
             EnquiryId::fromUuid(Uuid::uuid4()),
             $form->getData()['name'],
-            $form->getData()['email'],
+            Email::fromString($form->getData()['email']),
             $form->getData()['message']
         ));
 

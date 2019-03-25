@@ -32,7 +32,7 @@ class UniqueNewUserEmailValidatorTest extends BaseTestCase
         $validator->initialize($context);
 
         $validator->validate(
-            $faker->emailVo,
+            $faker->email,
             $constraint
         );
     }
@@ -62,7 +62,7 @@ class UniqueNewUserEmailValidatorTest extends BaseTestCase
         $validator->initialize($context);
 
         $validator->validate(
-            $faker->emailVo,
+            $faker->email,
             $constraint
         );
     }

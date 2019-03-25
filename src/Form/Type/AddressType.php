@@ -6,10 +6,6 @@ namespace App\Form\Type;
 
 use App\DataProvider\CountryProvider;
 use App\DataProvider\ProvinceProvider;
-use App\Form\DataTransformer\AddressTransformer;
-use App\Form\DataTransformer\CountryTransformer;
-use App\Form\DataTransformer\PostalCodeTransformer;
-use App\Form\DataTransformer\ProvinceTransformer;
 use App\Model\Address;
 use App\Model\PostalCode;
 use Symfony\Component\Form\AbstractType;
@@ -74,13 +70,5 @@ class AddressType extends AbstractType
                 'invalid_message' => 'The country "{{ value }}" is not an allowed country.',
             ])
         ;
-
-        $builder->addModelTransformer(new AddressTransformer());
-        $builder->get('province')
-            ->addModelTransformer(new ProvinceTransformer());
-        $builder->get('postalCode')
-            ->addModelTransformer(new PostalCodeTransformer());
-        $builder->get('country')
-            ->addModelTransformer(new CountryTransformer());
     }
 }

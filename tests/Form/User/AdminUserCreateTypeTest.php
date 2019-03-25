@@ -6,9 +6,6 @@ namespace App\Tests\Form\User;
 
 use App\DataProvider\RoleProvider;
 use App\Form\User\AdminUserCreateType;
-use App\Form\DataTransformer\SecurityRoleTransformer;
-use App\Model\Email;
-use App\Model\User\Name;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Tests\TypeTestCase;
 use App\Validator\Constraints\UniqueNewUserEmailValidator;
@@ -40,23 +37,14 @@ class AdminUserCreateTypeTest extends TypeTestCase
         $roleHierarchy->shouldReceive('getReachableRoles')
             ->andReturn([new Role('ROLE_USER')]);
 
-        $roleTransformer = Mockery::mock(SecurityRoleTransformer::class);
-        $roleTransformer->shouldReceive('transform')
-            ->with(null)
-            ->andReturnNull();
-        $roleTransformer->shouldReceive('reverseTransform')
-            ->with('ROLE_USER')
-            ->andReturn(new Role('ROLE_USER'));
-
         $extensions[] = new AdminUserCreateType(
-            new RoleProvider($roleHierarchy),
-            $roleTransformer
+            new RoleProvider($roleHierarchy)
         );
 
         return $extensions;
     }
 
-    public function test(): void
+    public function test()
     {
         $faker = $this->faker();
 
@@ -76,14 +64,9 @@ class AdminUserCreateTypeTest extends TypeTestCase
 
         $this->assertFormIsValid($form);
         $this->hasAllFormFields($form, $formData);
-
-        $this->assertInstanceOf(Email::class, $form->getData()['email']);
-        $this->assertInstanceOf(Role::class, $form->getData()['role']);
-        $this->assertInstanceOf(Name::class, $form->getData()['firstName']);
-        $this->assertInstanceOf(Name::class, $form->getData()['lastName']);
     }
 
-    public function testNoPassword(): void
+    public function testNoPassword()
     {
         $faker = $this->faker();
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Form\User;
 
-use App\Form\DataTransformer\TokenTransformer;
 use App\Model\User\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -21,8 +20,7 @@ class UserVerifyType extends AbstractType
     {
         $builder
             ->add('token', TextType::class, [
-                'label'           => 'Token',
-                'invalid_message' => '"{{ value }}" is not a valid token.',
+                'label' => 'Token',
             ])
             ->add('password', RepeatedType::class, [
                 'type'            => PasswordType::class,
@@ -37,9 +35,6 @@ class UserVerifyType extends AbstractType
                 ],
             ])
         ;
-
-        $builder->get('token')
-            ->addModelTransformer(new TokenTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver): void

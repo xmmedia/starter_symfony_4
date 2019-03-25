@@ -27,12 +27,12 @@ class UniqueCurrentUsersEmailValidator extends ConstraintValidator
     }
 
     /**
-     * @param Email                              $email
+     * @param string                             $email
      * @param Constraint|UniqueCurrentUsersEmail $constraint
      */
     public function validate($email, Constraint $constraint): void
     {
-        $userId = ($this->checksUniqueUsersEmail)($email);
+        $userId = ($this->checksUniqueUsersEmail)(Email::fromString($email));
 
         if ($userId && !$this->security->getUser()->userId()->sameValueAs($userId)) {
             $this->context->buildViolation($constraint->message)

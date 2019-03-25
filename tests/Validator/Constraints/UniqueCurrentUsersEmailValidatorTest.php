@@ -39,7 +39,7 @@ class UniqueCurrentUsersEmailValidatorTest extends BaseTestCase
             $this->createSecurity($user)
         );
 
-        $validator->validate($faker->emailVo, $constraint);
+        $validator->validate($faker->email, $constraint);
     }
 
     public function testSameUser(): void
@@ -60,7 +60,7 @@ class UniqueCurrentUsersEmailValidatorTest extends BaseTestCase
             $this->createSecurity($user)
         );
 
-        $validator->validate($faker->emailVo, $constraint);
+        $validator->validate($faker->email, $constraint);
     }
 
     public function testNotUnique(): void
@@ -92,7 +92,7 @@ class UniqueCurrentUsersEmailValidatorTest extends BaseTestCase
 
         $validator->initialize($context);
 
-        $validator->validate($faker->emailVo, $constraint);
+        $validator->validate($faker->email, $constraint);
     }
 
     /**
