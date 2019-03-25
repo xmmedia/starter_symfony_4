@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
+use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
-use Symfony\Component\Security\Core\Role\Role;
 
 class MinimalUserWasCreatedByAdminTest extends BaseTestCase
 {
@@ -20,7 +20,7 @@ class MinimalUserWasCreatedByAdminTest extends BaseTestCase
         $userId = $faker->userId;
         $email = $faker->emailVo;
         $password = $faker->password;
-        $role = new Role('ROLE_USER');
+        $role = Role::ROLE_USER();
 
         $event = MinimalUserWasCreatedByAdmin::now($userId, $email, $password, $role);
 
@@ -37,7 +37,7 @@ class MinimalUserWasCreatedByAdminTest extends BaseTestCase
         $userId = $faker->userId;
         $email = $faker->emailVo;
         $password = $faker->password;
-        $role = new Role('ROLE_USER');
+        $role = Role::ROLE_USER();
 
         /** @var MinimalUserWasCreatedByAdmin $event */
         $event = $this->createEventFromArray(
@@ -46,7 +46,7 @@ class MinimalUserWasCreatedByAdminTest extends BaseTestCase
             [
                 'email'           => $email->toString(),
                 'encodedPassword' => $password,
-                'role'            => $role->getRole(),
+                'role'            => $role->getValue(),
             ]
         );
 

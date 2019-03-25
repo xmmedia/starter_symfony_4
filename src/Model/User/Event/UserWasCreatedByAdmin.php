@@ -7,8 +7,8 @@ namespace App\Model\User\Event;
 use App\EventSourcing\AggregateChanged;
 use App\Model\Email;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Model\User\UserId;
-use Symfony\Component\Security\Core\Role\Role;
 
 class UserWasCreatedByAdmin extends AggregateChanged
 {
@@ -46,7 +46,7 @@ class UserWasCreatedByAdmin extends AggregateChanged
         $event = self::occur($userId->toString(), [
             'email'           => $email->toString(),
             'encodedPassword' => $encodedPassword,
-            'role'            => $role->getRole(),
+            'role'            => $role->getValue(),
             'active'          => $active,
             'firstName'       => $firstName->toString(),
             'lastName'        => $lastName->toString(),
@@ -90,7 +90,7 @@ class UserWasCreatedByAdmin extends AggregateChanged
     public function role(): Role
     {
         if (null === $this->role) {
-            $this->role = new Role($this->payload()['role']);
+            $this->role = Role::byValue($this->payload()['role']);
         }
 
         return $this->role;

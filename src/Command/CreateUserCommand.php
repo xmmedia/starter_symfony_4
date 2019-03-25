@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\DataProvider\RoleProvider;
 use App\Model\Email;
 use App\Model\User\Command\AdminCreateUserMinimum;
+use App\Model\User\Role;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
@@ -19,7 +19,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
-use Symfony\Component\Security\Core\Role\Role;
 use Webmozart\Assert\Assert;
 
 final class CreateUserCommand extends Command
@@ -27,21 +26,16 @@ final class CreateUserCommand extends Command
     /** @var MessageBusInterface */
     private $commandBus;
 
-    /** @var RoleProvider */
-    private $roleProvider;
-
     /** @var PasswordEncoder */
     private $passwordEncoder;
 
     public function __construct(
         MessageBusInterface $commandBus,
-        RoleProvider $roleProvider,
         PasswordEncoder $passwordEncoder
     ) {
         parent::__construct();
 
         $this->commandBus = $commandBus;
-        $this->roleProvider = $roleProvider;
         $this->passwordEncoder = $passwordEncoder;
     }
 
@@ -59,7 +53,7 @@ final class CreateUserCommand extends Command
 
         $email = Email::fromString($this->askForEmail($io));
         $password = $this->askForPassword($io);
-        $role = new Role($this->askForRole($io));
+        $role = Role::byValue($this->askForRole($io));
 
         $encodedPassword = ($this->passwordEncoder)($role, $password);
 
@@ -76,7 +70,7 @@ final class CreateUserCommand extends Command
             sprintf(
                 'Created new active user %s with role %s with ID: %s.',
                 $email,
-                $role->getRole(),
+                $role->getValue(),
                 $userId->toString()
             )
         );
@@ -117,6 +111,6 @@ final class CreateUserCommand extends Command
 
     private function askForRole(SymfonyStyle $io): string
     {
-        return $io->choice('Role', ($this->roleProvider)(), 'ROLE_USER');
+        return $io->choice('Role', Role::getValues(), 'ROLE_USER');
     }
 }

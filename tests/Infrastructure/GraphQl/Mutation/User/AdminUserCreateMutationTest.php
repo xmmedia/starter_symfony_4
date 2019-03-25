@@ -8,6 +8,7 @@ use App\Exception\FormValidationException;
 use App\Form\User\AdminUserCreateType;
 use App\Infrastructure\GraphQl\Mutation\User\AdminUserCreateMutation;
 use App\Model\User\Command\AdminCreateUser;
+use App\Model\User\Role;
 use App\Model\User\Token;
 use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
@@ -18,7 +19,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUserCreateMutationTest extends BaseTestCase
 {

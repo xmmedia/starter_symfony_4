@@ -7,8 +7,8 @@ namespace App\Model\User\Command;
 use App\Messaging\Command;
 use App\Model\Email;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Model\User\UserId;
-use Symfony\Component\Security\Core\Role\Role;
 use Webmozart\Assert\Assert;
 
 final class AdminUpdateUser extends Command
@@ -23,7 +23,7 @@ final class AdminUpdateUser extends Command
         return new self([
             'userId'          => $userId->toString(),
             'email'           => $email->toString(),
-            'role'            => $role->getRole(),
+            'role'            => $role->getValue(),
             'firstName'       => $firstName->toString(),
             'lastName'        => $lastName->toString(),
         ]);
@@ -41,7 +41,7 @@ final class AdminUpdateUser extends Command
 
     public function role(): Role
     {
-        return new Role($this->payload()['role']);
+        return Role::byValue($this->payload()['role']);
     }
 
     public function firstName(): Name

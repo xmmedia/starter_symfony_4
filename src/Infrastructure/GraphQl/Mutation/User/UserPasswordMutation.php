@@ -12,7 +12,6 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Security;
 
 class UserPasswordMutation implements MutationInterface
@@ -58,7 +57,7 @@ class UserPasswordMutation implements MutationInterface
         }
 
         $encodedPassword = ($this->passwordEncoder)(
-            new Role($this->security->getUser()->roles()[0]),
+            $this->security->getUser()->firstRole(),
             $form->getData()['newPassword']
         );
 

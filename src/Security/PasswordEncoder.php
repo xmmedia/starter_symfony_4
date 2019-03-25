@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\User;
+use App\Model\User\Role;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Role\Role;
 
 class PasswordEncoder
 {
@@ -33,7 +33,7 @@ class PasswordEncoder
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('roles');
         $property->setAccessible(true);
-        $property->setValue($user, [$role->getRole()]);
+        $property->setValue($user, [$role->getValue()]);
 
         return $user;
     }

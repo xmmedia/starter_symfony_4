@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Model\User\Role;
 use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
 use Symfony\Component\Console\Command\Command;
@@ -11,7 +12,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 final class PasswordEncoderTestCommand extends Command
@@ -65,7 +65,7 @@ final class PasswordEncoderTestCommand extends Command
             $stopwatch->start('encode-'.$i);
 
             ($this->passwordEncoder)(
-                new Role($input->getArgument('role')),
+                Role::byValue($input->getArgument('role')),
                 (new TokenGenerator())()
             );
 

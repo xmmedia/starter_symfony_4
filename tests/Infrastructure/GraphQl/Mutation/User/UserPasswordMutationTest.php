@@ -8,6 +8,7 @@ use App\Exception\FormValidationException;
 use App\Form\User\UserChangePasswordType;
 use App\Infrastructure\GraphQl\Mutation\User\UserPasswordMutation;
 use App\Model\User\Command\ChangePassword;
+use App\Model\User\Role;
 use App\Security\PasswordEncoder;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateSecurityTrait;
@@ -64,9 +65,9 @@ class UserPasswordMutationTest extends BaseTestCase
             ->atLeast()
             ->times(2)
             ->andReturn($userId);
-        $user->shouldReceive('roles')
+        $user->shouldReceive('firstRole')
             ->once()
-            ->andReturn(['ROLE_USER']);
+            ->andReturn(Role::ROLE_USER());
         $security = $this->createSecurity($user);
 
         $args = new Argument([

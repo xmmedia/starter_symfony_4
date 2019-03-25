@@ -7,8 +7,8 @@ namespace App\Model\User\Command;
 use App\Messaging\Command;
 use App\Model\Email;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Model\User\UserId;
-use Symfony\Component\Security\Core\Role\Role;
 use Webmozart\Assert\Assert;
 
 final class AdminCreateUser extends Command
@@ -27,7 +27,7 @@ final class AdminCreateUser extends Command
             'userId'          => $userId->toString(),
             'email'           => $email->toString(),
             'encodedPassword' => $encodedPassword,
-            'role'            => $role->getRole(),
+            'role'            => $role->getValue(),
             'active'          => $active,
             'firstName'       => $firstName->toString(),
             'lastName'        => $lastName->toString(),
@@ -52,7 +52,7 @@ final class AdminCreateUser extends Command
 
     public function role(): Role
     {
-        return new Role($this->payload()['role']);
+        return Role::byValue($this->payload()['role']);
     }
 
     public function active(): bool

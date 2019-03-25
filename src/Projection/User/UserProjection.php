@@ -33,7 +33,7 @@ class UserProjection implements ReadModelProjection
                         // because there's no way for them to verify the account
                         'verified'   => !$event->sendInvite(),
                         'active'     => $event->active(),
-                        'roles'      => [$event->role()->getRole()],
+                        'roles'      => [$event->role()->getValue()],
                         'first_name' => $event->firstName()->toString(),
                         'last_name'  => $event->lastName()->toString(),
                     ], [
@@ -54,7 +54,7 @@ class UserProjection implements ReadModelProjection
                         'password'   => $event->encodedPassword(),
                         'verified'   => true,
                         'active'     => true,
-                        'roles'      => [$event->role()->getRole()],
+                        'roles'      => [$event->role()->getValue()],
                     ], [
                         'roles' => 'array',
                     ]);
@@ -72,7 +72,7 @@ class UserProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         [
                             'email'      => $event->email()->toString(),
-                            'roles'      => [$event->role()->getRole()],
+                            'roles'      => [$event->role()->getValue()],
                             'first_name' => $event->firstName()->toString(),
                             'last_name'  => $event->lastName()->toString(),
                         ],

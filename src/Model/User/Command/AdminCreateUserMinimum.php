@@ -6,8 +6,8 @@ namespace App\Model\User\Command;
 
 use App\Messaging\Command;
 use App\Model\Email;
+use App\Model\User\Role;
 use App\Model\User\UserId;
-use Symfony\Component\Security\Core\Role\Role;
 use Webmozart\Assert\Assert;
 
 final class AdminCreateUserMinimum extends Command
@@ -22,7 +22,7 @@ final class AdminCreateUserMinimum extends Command
             'userId'          => $userId->toString(),
             'email'           => $email->toString(),
             'encodedPassword' => $encodedPassword,
-            'role'            => $role->getRole(),
+            'role'            => $role->getValue(),
         ]);
     }
 
@@ -43,7 +43,7 @@ final class AdminCreateUserMinimum extends Command
 
     public function role(): Role
     {
-        return new Role($this->payload()['role']);
+        return Role::byValue($this->payload()['role']);
     }
 
     protected function setPayload(array $payload): void

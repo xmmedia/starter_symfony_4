@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Form\User;
 
-use App\DataProvider\RoleProvider;
 use App\Form\Type\EmailType;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Model\User\User;
 use App\Validator\Constraints\UniqueNewUserEmail;
 use Symfony\Component\Form\AbstractType;
@@ -22,14 +22,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminUserCreateType extends AbstractType
 {
-    /** @var RoleProvider */
-    private $roleProvider;
-
-    public function __construct(RoleProvider $roleProvider)
-    {
-        $this->roleProvider = $roleProvider;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -79,7 +71,7 @@ class AdminUserCreateType extends AbstractType
             ])
             ->add('role', ChoiceType::class, [
                 'label'           => 'Role',
-                'choices'         => ($this->roleProvider)(),
+                'choices'         => Role::getValues(),
                 'invalid_message' => '"{{ value }}" is not a valid role.',
             ])
             ->add('active', CheckboxType::class, [

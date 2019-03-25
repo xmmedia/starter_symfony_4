@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Model\Email;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Model\User\UserId;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -143,6 +144,11 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
     public function getRoles(): array
     {
         return $this->roles();
+    }
+
+    public function firstRole(): Role
+    {
+        return Role::byValue($this->roles[0]);
     }
 
     public function lastLogin(): ?\DateTimeImmutable

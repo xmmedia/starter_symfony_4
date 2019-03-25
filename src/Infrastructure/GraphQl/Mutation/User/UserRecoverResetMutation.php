@@ -18,7 +18,6 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Role\Role;
 
 class UserRecoverResetMutation implements MutationInterface
 {
@@ -81,7 +80,7 @@ class UserRecoverResetMutation implements MutationInterface
         }
 
         $encodedPassword = ($this->passwordEncoder)(
-            new Role($user->roles()[0]),
+            $user->firstRole(),
             $form->getData()['newPassword']
         );
         $this->commandBus->dispatch(

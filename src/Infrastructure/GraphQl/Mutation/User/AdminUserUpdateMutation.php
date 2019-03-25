@@ -10,6 +10,7 @@ use App\Model\Email;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -17,7 +18,6 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUserUpdateMutation implements MutationInterface
 {
@@ -77,7 +77,7 @@ class AdminUserUpdateMutation implements MutationInterface
 
         return [
             Email::fromString($formData['email']),
-            new Role($formData['role']),
+            Role::byValue($formData['role']),
             Name::fromString($formData['firstName']),
             Name::fromString($formData['lastName']),
         ];
@@ -88,7 +88,7 @@ class AdminUserUpdateMutation implements MutationInterface
         $formData = $form->getData();
 
         $encodedPassword = ($this->passwordEncoder)(
-            new Role($formData['role']),
+            Role::byValue($formData['role']),
             $formData['password']
         );
 

@@ -9,6 +9,7 @@ use App\Form\User\AdminUserCreateType;
 use App\Model\Email;
 use App\Model\User\Command\AdminCreateUser;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
@@ -17,7 +18,6 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUserCreateMutation implements MutationInterface
 {
@@ -79,7 +79,7 @@ class AdminUserCreateMutation implements MutationInterface
             $password = $formData['password'];
         }
 
-        $role = new Role($formData['role']);
+        $role = Role::byValue($formData['role']);
 
         return [
             Email::fromString($formData['email']),

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Command;
 
 use App\Model\User\Command\AdminCreateUserMinimum;
+use App\Model\User\Role;
 use App\Tests\BaseTestCase;
-use Symfony\Component\Security\Core\Role\Role;
 
 class AdminCreateUserMinimumTest extends BaseTestCase
 {
@@ -17,7 +17,7 @@ class AdminCreateUserMinimumTest extends BaseTestCase
         $userId = $faker->userId;
         $email = $faker->emailVo;
         $password = $faker->password;
-        $role = new Role('ROLE_USER');
+        $role = Role::ROLE_USER();
 
         $command = AdminCreateUserMinimum::with(
             $userId,

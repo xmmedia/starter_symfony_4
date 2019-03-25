@@ -6,9 +6,9 @@ namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\UserWasCreatedByAdmin;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
-use Symfony\Component\Security\Core\Role\Role;
 
 class UserWasCreatedByAdminTest extends BaseTestCase
 {
@@ -21,7 +21,7 @@ class UserWasCreatedByAdminTest extends BaseTestCase
         $userId = $faker->userId;
         $email = $faker->emailVo;
         $password = $faker->password;
-        $role = new Role('ROLE_USER');
+        $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
@@ -53,7 +53,7 @@ class UserWasCreatedByAdminTest extends BaseTestCase
         $userId = $faker->userId;
         $email = $faker->emailVo;
         $password = $faker->password;
-        $role = new Role('ROLE_USER');
+        $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
@@ -64,7 +64,7 @@ class UserWasCreatedByAdminTest extends BaseTestCase
             [
                 'email'           => $email->toString(),
                 'encodedPassword' => $password,
-                'role'            => $role->getRole(),
+                'role'            => $role->getValue(),
                 'active'          => true,
                 'firstName'       => $firstName->toString(),
                 'lastName'        => $lastName->toString(),

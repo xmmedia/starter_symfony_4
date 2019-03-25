@@ -9,6 +9,7 @@ use App\Form\User\AdminUserUpdateType;
 use App\Infrastructure\GraphQl\Mutation\User\AdminUserUpdateMutation;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
+use App\Model\User\Role;
 use App\Security\PasswordEncoder;
 use App\Tests\BaseTestCase;
 use Mockery;
@@ -17,7 +18,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUserUpdateMutationTest extends BaseTestCase
 {

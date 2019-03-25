@@ -6,8 +6,8 @@ namespace App\Tests\Model\User\Command;
 
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Tests\BaseTestCase;
-use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUpdateUserTest extends BaseTestCase
 {
@@ -17,7 +17,7 @@ class AdminUpdateUserTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $role = new Role('ROLE_USER');
+        $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 

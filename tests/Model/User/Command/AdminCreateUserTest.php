@@ -6,8 +6,8 @@ namespace App\Tests\Model\User\Command;
 
 use App\Model\User\Command\AdminCreateUser;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Tests\BaseTestCase;
-use Symfony\Component\Security\Core\Role\Role;
 
 class AdminCreateUserTest extends BaseTestCase
 {
@@ -18,7 +18,7 @@ class AdminCreateUserTest extends BaseTestCase
         $userId = $faker->userId;
         $email = $faker->emailVo;
         $password = $faker->password;
-        $role = new Role('ROLE_USER');
+        $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 

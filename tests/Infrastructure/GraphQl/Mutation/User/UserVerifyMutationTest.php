@@ -12,6 +12,7 @@ use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
 use App\Model\User\Exception\TokenHasExpired;
+use App\Model\User\Role;
 use App\Model\User\Token;
 use App\Security\PasswordEncoder;
 use App\Security\TokenValidator;
@@ -72,9 +73,9 @@ class UserVerifyMutationTest extends BaseTestCase
         $user->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
-        $user->shouldReceive('roles')
+        $user->shouldReceive('firstRole')
             ->once()
-            ->andReturn(['ROLE_USER']);
+            ->andReturn(Role::ROLE_USER());
 
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')

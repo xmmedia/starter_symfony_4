@@ -9,13 +9,13 @@ use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Handler\AdminUpdateUserHandler;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUpdateUserHandlerTest extends BaseTestCase
 {
@@ -25,7 +25,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $role = new Role('ROLE_USER');
+        $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
@@ -63,7 +63,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
 
         $userId = $faker->userId;
         $email = $faker->emailVo;
-        $role = new Role('ROLE_USER');
+        $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 

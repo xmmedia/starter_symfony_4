@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Form\User;
 
-use App\DataProvider\RoleProvider;
 use App\Form\User\AdminUserCreateType;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Tests\TypeTestCase;
 use App\Validator\Constraints\UniqueNewUserEmailValidator;
 use Mockery;
-use Symfony\Component\Security\Core\Role\Role;
-use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 class AdminUserCreateTypeTest extends TypeTestCase
 {
@@ -27,21 +24,6 @@ class AdminUserCreateTypeTest extends TypeTestCase
             UniqueNewUserEmailValidator::class,
             new UniqueNewUserEmailValidator($checker)
         );
-    }
-
-    protected function getTypes(): array
-    {
-        $extensions = parent::getTypes();
-
-        $roleHierarchy = Mockery::mock(RoleHierarchyInterface::class);
-        $roleHierarchy->shouldReceive('getReachableRoles')
-            ->andReturn([new Role('ROLE_USER')]);
-
-        $extensions[] = new AdminUserCreateType(
-            new RoleProvider($roleHierarchy)
-        );
-
-        return $extensions;
     }
 
     public function test()

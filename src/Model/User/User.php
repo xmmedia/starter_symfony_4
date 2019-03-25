@@ -10,7 +10,6 @@ use App\Model\Email;
 use App\Model\Entity;
 use App\Model\NotificationGatewayId;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
-use Symfony\Component\Security\Core\Role\Role;
 
 class User extends AggregateRoot implements Entity
 {

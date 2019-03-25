@@ -7,12 +7,12 @@ namespace App\Tests\ProcessManager;
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Event\UserWasCreatedByAdmin;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\ProcessManager\UserInviteProcessManager;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Role\Role;
 
 class UserInviteProcessManagerTest extends BaseTestCase
 {
@@ -30,7 +30,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
             $faker->userId,
             $faker->emailVo,
             $faker->password,
-            new Role('ROLE_USER'),
+            Role::ROLE_USER(),
             true,
             Name::fromString($faker->firstName),
             Name::fromString($faker->lastName),
@@ -51,7 +51,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
             $faker->userId,
             $faker->emailVo,
             $faker->password,
-            new Role('ROLE_USER'),
+            Role::ROLE_USER(),
             true,
             Name::fromString($faker->firstName),
             Name::fromString($faker->lastName),
