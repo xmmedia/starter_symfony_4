@@ -9,6 +9,8 @@ use Faker\Provider\en_US\PhoneNumber as FakerPhoneNumber;
 use libphonenumber\PhoneNumberUtil;
 
 /**
+ * @property PhoneNumber $phoneNumberVo
+ *
  * @codeCoverageIgnore
  */
 class PhoneNumberFakerProvider extends FakerPhoneNumber
