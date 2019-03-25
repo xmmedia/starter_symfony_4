@@ -6,7 +6,6 @@ namespace App\Form\Type;
 
 use App\Validator\Constraints\PhoneNumber;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PhoneNumberType extends AbstractType
@@ -23,6 +22,6 @@ class PhoneNumberType extends AbstractType
 
     public function getParent()
     {
-        return TextType::class;
+        return \Symfony\Component\Form\Extension\Core\Type\TextType::class;
     }
 }
