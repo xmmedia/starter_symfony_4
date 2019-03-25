@@ -15,7 +15,6 @@ use App\Validator\Constraints\UniqueNewUserEmail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -43,7 +42,7 @@ class AdminUserCreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('userId', HiddenType::class, [
+            ->add('userId', TextType::class, [
                 'label'           => 'User ID',
                 'invalid_message' => 'Invalid UUID.',
             ])
