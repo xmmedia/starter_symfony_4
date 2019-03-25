@@ -25,8 +25,8 @@ class AddressFakerProvider extends Faker\Provider\Base
         $faker = Faker\Factory::create();
 
         return [
-            'line1'      => $faker->address,
-            'line2'      => $faker->address,
+            'line1'      => $faker->streetAddress,
+            'line2'      => $faker->streetAddress,
             'city'       => $faker->city,
             'province'   => $faker->stateAbbr,
             'postalCode' => $faker->postcode,
