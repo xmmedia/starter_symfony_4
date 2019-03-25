@@ -29,8 +29,8 @@ class AddressTransformerTest extends BaseTestCase
         yield [null, null];
 
         $address = [
-            'line1'      => $faker->address,
-            'line2'      => $faker->address,
+            'line1'      => $faker->streetAddress,
+            'line2'      => $faker->streetAddress,
             'city'       => $faker->city,
             'province'   => $faker->stateAbbr,
             'postalCode' => PostalCode::format($faker->postcode),
@@ -57,8 +57,8 @@ class AddressTransformerTest extends BaseTestCase
         yield [null, null];
 
         $address = [
-            'line1'      => $faker->address,
-            'line2'      => $faker->address,
+            'line1'      => $faker->streetAddress,
+            'line2'      => $faker->streetAddress,
             'city'       => $faker->city,
             'province'   => $faker->stateAbbr,
             'postalCode' => PostalCode::format($faker->postcode),
