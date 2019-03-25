@@ -24,7 +24,6 @@ class EmailType extends AbstractType
             'constraints'     => [
                 new Assert\Email(['mode' => 'strict']),
                 new Assert\Length([
-                    'min' => 6,
                     'max' => 150,
                 ]),
             ],
