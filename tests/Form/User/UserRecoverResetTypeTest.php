@@ -13,7 +13,7 @@ class UserRecoverResetTypeTest extends TypeTestCase
     {
         $faker = $this->faker();
 
-        $newPassword = $faker->password(12, 250);
+        $newPassword = $faker->password;
 
         $formData = [
             'token'       => $faker->password,
