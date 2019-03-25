@@ -13,15 +13,15 @@ use PHPUnit\Framework\TestCase;
 class ProvinceTest extends TestCase
 {
     /**
-     * @dataProvider countryProvider
+     * @dataProvider provinceProvider
      */
     public function testFromString(
-        string $code,
+        string $abbreviation,
         string $expected,
         string $name,
         Country $country
     ): void {
-        $province = Province::fromString($code);
+        $province = Province::fromString($abbreviation);
 
         $this->assertEquals($expected, $province->abbreviation());
         $this->assertEquals($name, $province->name());
@@ -30,7 +30,7 @@ class ProvinceTest extends TestCase
         $this->assertEquals($expected, (string) $province);
     }
 
-    public function countryProvider(): \Generator
+    public function provinceProvider(): \Generator
     {
         yield ['SK', 'SK', 'Saskatchewan', Country::fromString('CA')];
         yield ['sk', 'SK', 'Saskatchewan', Country::fromString('CA')];

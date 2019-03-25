@@ -19,9 +19,9 @@ class Province implements ValueObject
     /** @var Country */
     private $country;
 
-    public static function fromString(string $province): self
+    public static function fromString(string $abbreviation): self
     {
-        return new self($province);
+        return new self($abbreviation);
     }
 
     private function __construct(string $abbreviation)
@@ -73,6 +73,10 @@ class Province implements ValueObject
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->abbreviation === $other->abbreviation;
+        if (get_class($this) !== get_class($other)) {
+            return false;
+        }
+
+        return $this->abbreviation === $other->abbreviation;
     }
 }

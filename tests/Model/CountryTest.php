@@ -14,9 +14,12 @@ class CountryTest extends TestCase
     /**
      * @dataProvider countryProvider
      */
-    public function testFromString(string $code, string $expected, string $name): void
-    {
-        $country = Country::fromString($code);
+    public function testFromString(
+        string $abbreviation,
+        string $expected,
+        string $name
+    ): void {
+        $country = Country::fromString($abbreviation);
 
         $this->assertEquals($expected, $country->abbreviation());
         $this->assertEquals($name, $country->name());

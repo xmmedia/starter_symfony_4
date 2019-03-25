@@ -69,6 +69,10 @@ class PostalCode implements ValueObject
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->postalCode === $other->postalCode;
+        if (get_class($this) !== get_class($other)) {
+            return false;
+        }
+
+        return $this->postalCode === $other->postalCode;
     }
 }

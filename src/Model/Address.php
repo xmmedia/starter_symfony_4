@@ -163,6 +163,10 @@ class Address implements ValueObject
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->toArray() === $other->toArray();
+        if (get_class($this) !== get_class($other)) {
+            return false;
+        }
+
+        return $this->toArray() === $other->toArray();
     }
 }
