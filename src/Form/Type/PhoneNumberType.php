@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use libphonenumber\PhoneNumberFormat;
-use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber;
+use App\Validator\Constraints\PhoneNumber;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PhoneNumberType extends AbstractType
@@ -14,10 +14,8 @@ class PhoneNumberType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'label'           => 'Phone Number',
-            'default_region'  => 'CA',
-            'format'          => PhoneNumberFormat::NATIONAL,
-            'constraints'     => [
+            'label'       => 'Phone Number',
+            'constraints' => [
                 new PhoneNumber(),
             ],
         ]);
@@ -25,6 +23,6 @@ class PhoneNumberType extends AbstractType
 
     public function getParent()
     {
-        return \Misd\PhoneNumberBundle\Form\Type\PhoneNumberType::class;
+        return TextType::class;
     }
 }

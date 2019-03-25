@@ -26,6 +26,18 @@ class PhoneNumberTest extends BaseTestCase
     }
 
     /**
+     * @dataProvider phoneNumberInvalidProvider
+     */
+    public function testFromArrayInvalid(string $string): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        PhoneNumber::fromArray([
+            'phoneNumber' => $string,
+        ]);
+    }
+
+    /**
      * @dataProvider phoneNumberValidProvider
      */
     public function testFromString(string $string, array $expected): void
@@ -35,6 +47,16 @@ class PhoneNumberTest extends BaseTestCase
         $this->assertEquals($expected, $phoneNumber->toArray());
         $this->assertEquals($expected['phoneNumber'], $phoneNumber->phoneNumber());
         $this->assertEquals($expected['extension'], $phoneNumber->extension());
+    }
+
+    /**
+     * @dataProvider phoneNumberValidProvider
+     */
+    public function testToString(string $string, array $expected): void
+    {
+        $phoneNumber = PhoneNumber::fromString($string);
+
+        $this->assertEquals($expected['phoneNumber'], (string) $phoneNumber);
     }
 
     /**

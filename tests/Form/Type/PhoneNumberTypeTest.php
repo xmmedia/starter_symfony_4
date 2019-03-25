@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Form\Type;
 
 use App\Form\Type\PhoneNumberType;
-use App\Model\PhoneNumber;
 use App\Tests\Model\PhoneNumberDataProvider;
 use App\Tests\TypeTestCase;
 use Symfony\Component\Form\AbstractType;
@@ -18,7 +17,7 @@ class PhoneNumberTypeTest extends TypeTestCase
     /**
      * @dataProvider phoneNumberValidProvider
      */
-    public function testValid(string $string, array $expected): void
+    public function testValid(string $string): void
     {
         $formData = [
             'phoneNumber' => $string,
@@ -30,11 +29,7 @@ class PhoneNumberTypeTest extends TypeTestCase
         $this->assertFormIsValid($form);
         $this->hasAllFormFields($form, $formData);
 
-        // make sure the string can be converted to a phone number VO
-        $this->assertInstanceOf(
-            PhoneNumber::class,
-            PhoneNumber::fromObject($form->getData()['phoneNumber'])
-        );
+        $this->assertEquals($string, $form->getData()['phoneNumber']);
     }
 
     /**
