@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\User;
 
 use App\Form\Type\EmailType;
+use App\Form\Type\UuidType;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\User;
@@ -25,7 +26,7 @@ class AdminUserUpdateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('userId', TextType::class, [
+            ->add('userId', UuidType::class, [
                 'label' => 'User ID',
             ])
             ->add('email', EmailType::class, [

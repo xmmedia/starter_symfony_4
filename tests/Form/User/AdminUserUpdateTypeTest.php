@@ -52,6 +52,7 @@ class AdminUserUpdateTypeTest extends TypeTestCase
         $faker = $this->faker();
 
         $formData = [
+            'userId'      => $faker->uuid,
             'email'          => $faker->email,
             'changePassword' => false,
             'firstName'      => $faker->name,

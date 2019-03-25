@@ -31,6 +31,7 @@ class AdminUserCreateTypeTest extends TypeTestCase
         $faker = $this->faker();
 
         $formData = [
+            'userId'      => $faker->uuid,
             'email'       => $faker->email,
             'setPassword' => true,
             'password'    => $faker->password,
@@ -53,6 +54,7 @@ class AdminUserCreateTypeTest extends TypeTestCase
         $faker = $this->faker();
 
         $formData = [
+            'userId'      => $faker->uuid,
             'email'       => $faker->email,
             'setPassword' => false,
             'firstName'   => $faker->name,
