@@ -96,7 +96,5 @@ class AdminUserUpdateTypeTest extends TypeTestCase
 
         $this->assertFormIsValid($form);
         $this->hasAllFormFields($form, $formData);
-
-        $this->hasAllFormFields($form, $formData);
     }
 }
