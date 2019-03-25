@@ -22,7 +22,9 @@ class EmailType extends AbstractType
         $resolver->setDefaults([
             'label'           => 'Email',
             'constraints'     => [
-                new Assert\Email(['mode' => 'strict']),
+                new Assert\Email([
+                    'mode' => Assert\Email::VALIDATION_MODE_STRICT,
+                ]),
                 new Assert\Length([
                     'max' => 150,
                 ]),
