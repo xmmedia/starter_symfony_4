@@ -7,9 +7,7 @@ namespace App\Tests\Infrastructure\GraphQl\Mutation\User;
 use App\Exception\FormValidationException;
 use App\Form\User\UserProfileType;
 use App\Infrastructure\GraphQl\Mutation\User\UserUpdateProfileMutation;
-use App\Model\Email;
 use App\Model\User\Command\UpdateUserProfile;
-use App\Model\User\Name;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateSecurityTrait;
 use Mockery;
@@ -33,11 +31,6 @@ class UserUpdateProfileMutationTest extends BaseTestCase
             'firstName' => $faker->name,
             'lastName'  => $faker->name,
         ];
-        $transformedData = [
-            'email'     => Email::fromString($data['email']),
-            'firstName' => Name::fromString($data['firstName']),
-            'lastName'  => Name::fromString($data['lastName']),
-        ] + $data;
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -54,7 +47,7 @@ class UserUpdateProfileMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(UserProfileType::class)

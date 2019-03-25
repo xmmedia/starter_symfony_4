@@ -6,6 +6,7 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
 use App\Form\User\UserRecoverInitiateType;
+use App\Model\Email;
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Repository\UserRepository;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -45,7 +46,9 @@ class UserRecoverInitiateMutation implements MutationInterface
             throw FormValidationException::fromForm($form);
         }
 
-        $user = $this->userRepo->findOneByEmail($form->getData()['email']);
+        $user = $this->userRepo->findOneByEmail(
+            Email::fromString($form->getData()['email'])
+        );
 
         if (!$user || !$user->active()) {
             throw new UserError('An account with that email cannot be found.', 404);

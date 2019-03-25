@@ -6,14 +6,18 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
 use App\Form\User\AdminUserCreateType;
+use App\Model\Email;
 use App\Model\User\Command\AdminCreateUser;
+use App\Model\User\Name;
 use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUserCreateMutation implements MutationInterface
 {
@@ -51,32 +55,40 @@ class AdminUserCreateMutation implements MutationInterface
             throw FormValidationException::fromForm($form, 'user');
         }
 
-        /** @var UserId $userId */
-        $userId = $form->getData()['userId'];
-
-        if (!$form->getData()['setPassword']) {
-            $password = ($this->tokenGenerator)()->toString();
-        } else {
-            $password = $form->getData()['password'];
-        }
-
-        $encodedPassword = ($this->passwordEncoder)($form->getData()['role'], $password);
+        $userId = UserId::fromString($form->getData()['userId']);
 
         $this->commandBus->dispatch(AdminCreateUser::with(
             $userId,
-            $form->getData()['email'],
-            $encodedPassword,
-            $form->getData()['role'],
-            $form->getData()['active'],
-            $form->getData()['firstName'],
-            $form->getData()['lastName'],
-            $form->getData()['sendInvite']
+            ...$this->transformData($form)
         ));
 
         return [
             'userId' => $userId,
             'email'  => $form->getData()['email'],
             'active' => $form->getData()['active'],
+        ];
+    }
+
+    private function transformData(FormInterface $form): array
+    {
+        $formData = $form->getData();
+
+        if (!$form->getData()['setPassword']) {
+            $password = ($this->tokenGenerator)()->toString();
+        } else {
+            $password = $formData['password'];
+        }
+
+        $role = new Role($formData['role']);
+
+        return [
+            Email::fromString($formData['email']),
+            ($this->passwordEncoder)($role, $password),
+            $role,
+            $formData['active'],
+            Name::fromString($formData['firstName']),
+            Name::fromString($formData['lastName']),
+            $formData['sendInvite'],
         ];
     }
 }

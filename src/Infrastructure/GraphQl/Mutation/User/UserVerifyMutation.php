@@ -10,6 +10,7 @@ use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
 use App\Model\User\Exception\TokenHasExpired;
+use App\Model\User\Token;
 use App\Security\PasswordEncoder;
 use App\Security\TokenValidator;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -63,7 +64,9 @@ class UserVerifyMutation implements MutationInterface
 
         try {
             // checks if the token is valid & user is active
-            $user = $this->tokenValidator->validate($form->getData()['token']);
+            $user = $this->tokenValidator->validate(
+                Token::fromString($form->getData()['token'])
+            );
         } catch (InvalidToken $e) {
             // 404 -> not found
             throw new UserError('The token is invalid.', 404, $e);
@@ -83,7 +86,7 @@ class UserVerifyMutation implements MutationInterface
 
         $encodedPassword = ($this->passwordEncoder)(
             new Role($user->roles()[0]),
-            $form->getData()['newPassword']
+            $form->getData()['password']
         );
         $this->commandBus->dispatch(
             ChangePassword::forUser($user->userId(), $encodedPassword)

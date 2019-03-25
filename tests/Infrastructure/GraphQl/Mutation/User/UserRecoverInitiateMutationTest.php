@@ -28,9 +28,6 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $data = [
             'email' => $faker->email,
         ];
-        $transformedData = [
-            'email' => Email::fromString($data['email']),
-        ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -47,7 +44,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(UserRecoverInitiateType::class)
@@ -59,7 +56,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->andReturn($faker->userId);
         $user->shouldReceive('email')
             ->once()
-            ->andReturn($transformedData['email']);
+            ->andReturn(Email::fromString($data['email']));
         $user->shouldReceive('active')
             ->once()
             ->andReturnTrue();
@@ -67,7 +64,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $userRepo = Mockery::mock(UserRepository::class);
         $userRepo->shouldReceive('findOneByEmail')
             ->once()
-            ->with($transformedData['email'])
+            ->with(Mockery::type(Email::class))
             ->andReturn($user);
 
         $args = new Argument($data);
@@ -87,9 +84,6 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $data = [
             'email' => $faker->email,
         ];
-        $transformedData = [
-            'email' => Email::fromString($data['email']),
-        ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
@@ -102,7 +96,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(UserRecoverInitiateType::class)
@@ -116,7 +110,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $userRepo = Mockery::mock(UserRepository::class);
         $userRepo->shouldReceive('findOneByEmail')
             ->once()
-            ->with($transformedData['email'])
+            ->with(Mockery::type(Email::class))
             ->andReturn($user);
 
         $args = new Argument($data);
@@ -137,9 +131,6 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $data = [
             'email' => $faker->email,
         ];
-        $transformedData = [
-            'email' => Email::fromString($data['email']),
-        ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
@@ -152,7 +143,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(UserRecoverInitiateType::class)
@@ -161,7 +152,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $userRepo = Mockery::mock(UserRepository::class);
         $userRepo->shouldReceive('findOneByEmail')
             ->once()
-            ->with($transformedData['email'])
+            ->with(Mockery::type(Email::class))
             ->andReturnNull();
 
         $args = new Argument($data);

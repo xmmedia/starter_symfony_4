@@ -29,14 +29,11 @@ class UserVerifyMutationTest extends BaseTestCase
     public function testValid(): void
     {
         $faker = $this->faker();
+        $password = $faker->password;
         $data = [
             'token'          => $faker->password,
-            'password'       => $faker->password,
-            'repeatPassword' => $faker->password,
-        ];
-        $transformedData = [
-            'token'       => new Token($data['token']),
-            'newPassword' => $data['password'],
+            'password'       => $password,
+            'repeatPassword' => $password,
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -58,7 +55,7 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(UserVerifyType::class)
@@ -82,7 +79,7 @@ class UserVerifyMutationTest extends BaseTestCase
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
             ->once()
-            ->with($transformedData['token'])
+            ->with(Mockery::type(Token::class))
             ->andReturn($user);
 
         $args = new Argument([
@@ -107,10 +104,6 @@ class UserVerifyMutationTest extends BaseTestCase
             'password'       => $faker->password,
             'repeatPassword' => $faker->password,
         ];
-        $transformedData = [
-            'token'       => new Token($data['token']),
-            'newPassword' => $data['password'],
-        ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
@@ -123,7 +116,7 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(UserVerifyType::class)
@@ -141,7 +134,7 @@ class UserVerifyMutationTest extends BaseTestCase
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
             ->once()
-            ->with($transformedData['token'])
+            ->with(Mockery::type(Token::class))
             ->andReturn($user);
 
         $args = new Argument([
@@ -169,10 +162,6 @@ class UserVerifyMutationTest extends BaseTestCase
             'password'       => $faker->password,
             'repeatPassword' => $faker->password,
         ];
-        $transformedData = [
-            'token'       => new Token($data['token']),
-            'newPassword' => $data['password'],
-        ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
@@ -185,7 +174,7 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(UserVerifyType::class)
@@ -200,7 +189,7 @@ class UserVerifyMutationTest extends BaseTestCase
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
             ->once()
-            ->with($transformedData['token'])
+            ->with(Mockery::type(Token::class))
             ->andThrow(TokenHasExpired::before(new Token('string'), '24 hours'));
 
         $args = new Argument([
@@ -228,10 +217,6 @@ class UserVerifyMutationTest extends BaseTestCase
             'password'       => $faker->password,
             'repeatPassword' => $faker->password,
         ];
-        $transformedData = [
-            'token'       => new Token($data['token']),
-            'newPassword' => $data['password'],
-        ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
@@ -244,7 +229,7 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(UserVerifyType::class)
@@ -259,7 +244,7 @@ class UserVerifyMutationTest extends BaseTestCase
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
             ->once()
-            ->with($transformedData['token'])
+            ->with(Mockery::type(Token::class))
             ->andThrow(InvalidToken::tokenDoesntExist(new Token('string')));
 
         $args = new Argument([

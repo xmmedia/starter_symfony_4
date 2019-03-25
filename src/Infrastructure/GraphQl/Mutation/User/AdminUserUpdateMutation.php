@@ -6,14 +6,18 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
 use App\Form\User\AdminUserUpdateType;
+use App\Model\Email;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
+use App\Model\User\Name;
 use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Core\Role\Role;
 
 class AdminUserUpdateMutation implements MutationInterface
 {
@@ -46,30 +50,50 @@ class AdminUserUpdateMutation implements MutationInterface
             throw FormValidationException::fromForm($form, 'user');
         }
 
-        /** @var UserId $userId */
-        $userId = $form->getData()['userId'];
+        $userId = UserId::fromString($form->getData()['userId']);
 
         $this->commandBus->dispatch(AdminUpdateUser::with(
             $userId,
-            $form->getData()['email'],
-            $form->getData()['role'],
-            $form->getData()['firstName'],
-            $form->getData()['lastName']
+            ...$this->transformData($form)
         ));
 
         if ($form->getData()['changePassword']) {
-            $encodedPassword = ($this->passwordEncoder)(
-                $form->getData()['role'],
-                $form->getData()['password']
-            );
-
             $this->commandBus->dispatch(
-                AdminChangePassword::with($userId, $encodedPassword)
+                AdminChangePassword::with(
+                    $userId,
+                    ...$this->transformChangePasswordData($form)
+                )
             );
         }
 
         return [
             'userId' => $userId,
+        ];
+    }
+
+    private function transformData(FormInterface $form): array
+    {
+        $formData = $form->getData();
+
+        return [
+            Email::fromString($formData['email']),
+            new Role($formData['role']),
+            Name::fromString($formData['firstName']),
+            Name::fromString($formData['lastName']),
+        ];
+    }
+
+    private function transformChangePasswordData(FormInterface $form): array
+    {
+        $formData = $form->getData();
+
+        $encodedPassword = ($this->passwordEncoder)(
+            new Role($formData['role']),
+            $formData['password']
+        );
+
+        return [
+            $encodedPassword,
         ];
     }
 }

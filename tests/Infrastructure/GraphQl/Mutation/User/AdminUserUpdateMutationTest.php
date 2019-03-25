@@ -7,11 +7,8 @@ namespace App\Tests\Infrastructure\GraphQl\Mutation\User;
 use App\Exception\FormValidationException;
 use App\Form\User\AdminUserUpdateType;
 use App\Infrastructure\GraphQl\Mutation\User\AdminUserUpdateMutation;
-use App\Model\Email;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
-use App\Model\User\Name;
-use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
 use App\Tests\BaseTestCase;
 use Mockery;
@@ -35,13 +32,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'lastName'       => $faker->name,
             'role'           => 'ROLE_USER',
         ];
-        $transformedData = [
-            'userId'    => UserId::fromString($data['userId']),
-            'email'     => Email::fromString($data['email']),
-            'role'      => new Role($data['role']),
-            'firstName' => Name::fromString($data['firstName']),
-            'lastName'  => Name::fromString($data['lastName']),
-        ] + $data;
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -58,7 +48,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(AdminUserUpdateType::class)
@@ -95,13 +85,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'lastName'       => $faker->name,
             'role'           => 'ROLE_USER',
         ];
-        $transformedData = [
-            'userId'    => UserId::fromString($data['userId']),
-            'email'     => Email::fromString($data['email']),
-            'role'      => new Role($data['role']),
-            'firstName' => Name::fromString($data['firstName']),
-            'lastName'  => Name::fromString($data['lastName']),
-        ] + $data;
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -122,7 +105,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
         $form->shouldReceive('getData')
-            ->andReturn($transformedData);
+            ->andReturn($data);
         $formFactory = Mockery::mock(FormFactoryInterface::class);
         $formFactory->shouldReceive('create')
             ->with(AdminUserUpdateType::class)
@@ -131,7 +114,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
         $passwordEncoder->shouldReceive('__invoke')
             ->once()
-            ->with($transformedData['role'], $data['password'])
+            ->with(Mockery::type(Role::class), $data['password'])
             ->andReturn('string');
 
         $args = new Argument([
