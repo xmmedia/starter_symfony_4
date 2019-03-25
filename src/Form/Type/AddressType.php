@@ -60,7 +60,6 @@ class AddressType extends AbstractType
                         'max' => PostalCode::MAX_LENGTH,
                     ]),
                 ],
-                'invalid_message' => '"{{ value }}" is not a valid Postal or Zip Code.',
             ])
             ->add('country', ChoiceType::class, [
                 'choices'     => CountryProvider::all(),
