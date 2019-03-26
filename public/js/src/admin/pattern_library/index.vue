@@ -83,33 +83,35 @@
                     <ul class="field-errors">
                         <li>Error</li>
                     </ul>
-                    <input type="text" id="pattern-library-text">
+                    <input id="pattern-library-text" type="text">
                     <div class="field-help">Use at least 8 characters.</div>
                 </div>
 
                 <div class="field-wrap field-wrap-readonly">
-                    <label for="pattern-library-text">Read-only Field</label>
-                    <input type="text" readonly id="pattern-library-text">
+                    <label for="pattern-library-text-readonly">Read-only Field</label>
+                    <input id="pattern-library-text-readonly" type="text" readonly>
                 </div>
 
                 <div class="sm:flex">
                     <div class="field-wrap w-1/2 mr-2">
                         <label for="pattern-library-full_width-1">First Field</label>
-                        <input type="text" id="pattern-library-full_width-1">
+                        <input id="pattern-library-full_width-1" type="text">
                     </div>
                     <div class="field-wrap w-1/2">
                         <label for="pattern-library-full_width-2">Second Field</label>
-                        <input type="text" id="pattern-library-full_width-2">
+                        <input id="pattern-library-full_width-2" type="text">
                     </div>
                 </div>
 
                 <div class="field-wrap">
                     <label for="pattern-library-prefix-suffix">Field with Prefix Beside</label>
-                    <span class="mr-2">Prefix Beside</span><input type="text" class="w-auto" id="pattern-library-prefix-suffix"><span class="ml-2">Suffix</span>
+                    <span class="mr-2">Prefix Beside</span>
+                    <input id="pattern-library-prefix-suffix" type="text" class="w-auto">
+                    <span class="ml-2">Suffix</span>
                 </div>
                 <div class="field-wrap">
                     <label for="pattern-library-textarea">Text Area</label>
-                    <textarea class="h-32" id="pattern-library-textarea"></textarea>
+                    <textarea id="pattern-library-textarea" class="h-32"></textarea>
                 </div>
                 <div class="field-wrap">
                     <label for="pattern-library-select">Select</label>
@@ -119,25 +121,46 @@
                     </select>
                 </div>
                 <div class="field-wrap-checkbox">
-                    <input type="checkbox" id="pattern-library-checkbox" name="pattern-library-checkbox"><label for="pattern-library-checkbox">Checkbox label</label>
+                    <input id="pattern-library-checkbox"
+                           type="checkbox"
+                           name="pattern-library-checkbox">
+                    <label for="pattern-library-checkbox">Checkbox label</label>
                 </div>
                 <div class="field-wrap-radios">
                     <label>Horizontal Radios</label>
-                    <input type="radio" id="pattern-library-radio-01" name="pattern-library-radio-1"><label for="pattern-library-radio-01">Option 1</label>
-                    <input type="radio" id="pattern-library-radio-02" name="pattern-library-radio-1"><label for="pattern-library-radio-02">Option 2</label>
-                    <input type="radio" id="pattern-library-radio-03" name="pattern-library-radio-1"><label for="pattern-library-radio-03">Option 3</label>
+                    <input id="pattern-library-radio-01"
+                           type="radio"
+                           name="pattern-library-radio-1">
+                    <label for="pattern-library-radio-01">Option 1</label>
+                    <input id="pattern-library-radio-02"
+                           type="radio"
+                           name="pattern-library-radio-1">
+                    <label for="pattern-library-radio-02">Option 2</label>
+                    <input id="pattern-library-radio-03"
+                           type="radio"
+                           name="pattern-library-radio-1">
+                    <label for="pattern-library-radio-03">Option 3</label>
                 </div>
 
                 <div class="field-wrap-radios">
                     <label>Vertical Radios</label>
                     <div class="mb-1">
-                        <input type="radio" id="pattern-library-radio-04" name="pattern-library-radio-2"><label for="pattern-library-radio-04">Radio Button</label>
+                        <input id="pattern-library-radio-04"
+                               type="radio"
+                               name="pattern-library-radio-2">
+                        <label for="pattern-library-radio-04">Radio Button</label>
                     </div>
                     <div class="mb-1">
-                        <input type="radio" id="pattern-library-radio-05" name="pattern-library-radio-2"><label for="pattern-library-radio-05">Radio Button</label>
+                        <input id="pattern-library-radio-05"
+                               type="radio"
+                               name="pattern-library-radio-2">
+                        <label for="pattern-library-radio-05">Radio Button</label>
                     </div>
                     <div>
-                        <input type="radio" id="pattern-library-radio-06" name="pattern-library-radio-2"><label for="pattern-library-radio-06">Radio Button</label>
+                        <input id="pattern-library-radio-06"
+                               type="radio"
+                               name="pattern-library-radio-2">
+                        <label for="pattern-library-radio-06">Radio Button</label>
                     </div>
                     <div class="field-help">Some help...</div>
                 </div>
@@ -145,21 +168,30 @@
                 <div class="field-wrap-checkboxes">
                     <label>Multiple Checkboxes</label>
                     <div class="mb-1">
-                        <input type="checkbox" id="pattern-library-checkbox-01" name="pattern-library-checkbox1[]"><label for="pattern-library-checkbox-01">Checkbox</label>
+                        <input id="pattern-library-checkbox-01"
+                               type="checkbox"
+                               name="pattern-library-checkbox1[]">
+                        <label for="pattern-library-checkbox-01">Checkbox</label>
                     </div>
                     <div class="mb-1">
-                        <input type="checkbox" id="pattern-library-checkbox-02" name="pattern-library-checkbox1[]"><label for="pattern-library-checkbox-02">Checkbox</label>
+                        <input id="pattern-library-checkbox-02"
+                               type="checkbox"
+                               name="pattern-library-checkbox1[]">
+                        <label for="pattern-library-checkbox-02">Checkbox</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="pattern-library-checkbox-03" name="pattern-library-checkbox1[]"><label for="pattern-library-checkbox-03">Checkbox</label>
+                        <input id="pattern-library-checkbox-03"
+                               type="checkbox"
+                               name="pattern-library-checkbox1[]">
+                        <label for="pattern-library-checkbox-03">Checkbox</label>
                     </div>
                     <div class="field-help">Some help...</div>
                 </div>
 
                 <div class="field-wrap">
                     <label for="pattern-library-two-fields-1">2 Fields Beside Each Other</label>
-                    <input type="text" class="w-auto mr-2" id="pattern-library-two-fields-1">
-                    <select class="w-auto" id="pattern-library-two-fields-2">
+                    <input id="pattern-library-two-fields-1" type="text" class="w-auto mr-2">
+                    <select id="pattern-library-two-fields-2" class="w-auto">
                         <option value="1">January</option>
                         <option value="2">February</option>
                         <option value="3">....</option>
@@ -169,11 +201,11 @@
                 <div class="field-wrap">
                     <label for="pattern-library-separator-1">Fields with Separator</label>
                     <div class="flex items-center">
-                        <select class="mr-1" id="pattern-library-separator-1">
+                        <select id="pattern-library-separator-1" class="mr-1">
                             <option>––</option>
                         </select>
                         <div class="mr-1">–</div>
-                        <select class="mr-1" id="pattern-library-separator-2">
+                        <select id="pattern-library-separator-2" class="mr-1">
                             <option>––</option>
                         </select>
                         <div class="mr-1">–</div>
@@ -207,13 +239,22 @@
                     <div class="field-wrap-checkboxes mb-0">
                         <label>Multiple Checkboxes</label>
                         <div class="mb-1">
-                            <input type="checkbox" id="pattern-library-checkbox-04" name="pattern-library-checkbox2[]"><label for="pattern-library-checkbox-04">Checkbox</label>
+                            <input id="pattern-library-checkbox-04"
+                                   type="checkbox"
+                                   name="pattern-library-checkbox2[]">
+                            <label for="pattern-library-checkbox-04">Checkbox</label>
                         </div>
                         <div class="mb-1">
-                            <input type="checkbox" id="pattern-library-checkbox-05" name="pattern-library-checkbox2[]"><label for="pattern-library-checkbox-05">Checkbox</label>
+                            <input id="pattern-library-checkbox-05"
+                                   type="checkbox"
+                                   name="pattern-library-checkbox2[]">
+                            <label for="pattern-library-checkbox-05">Checkbox</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="pattern-library-checkbox-06" name="pattern-library-checkbox2[]"><label for="pattern-library-checkbox-06">Checkbox</label>
+                            <input id="pattern-library-checkbox-06"
+                                   type="checkbox"
+                                   name="pattern-library-checkbox2[]">
+                            <label for="pattern-library-checkbox-06">Checkbox</label>
                         </div>
                         <div class="field-help">Some help...</div>
                     </div>
@@ -221,13 +262,13 @@
 
                 <div>
                     <button class="button">Primary Button</button>
-                    <a href="" class="form-action">Cancel Link</a>
+                    <button class="form-action button-link">Cancel Link</button>
                     <a href="" class="form-action">Go Back</a>
                     <div class="field-help">Form Button Help.</div>
 
                     <ul class="form-extra_actions">
                         <li>
-                            <button class="button form-action button-link">Delete</button>
+                            <button class="form-action button-link">Delete</button>
                         </li>
                         <li>
                             <a href="" class="form-action">Other Action</a>
@@ -452,7 +493,7 @@
                     <div class="record_list-col record_list-col-view"></div>
                 </li>
 
-                <li v-if="i in 5" :key="i" class="record_list-item">
+                <li v-for="i in 5" :key="i" class="record_list-item">
                     <div class="record_list-col record_list-col-view">
                         <div class="record_list-mobile_heading">Col 1</div>
                         Value 1-{{ i }}
