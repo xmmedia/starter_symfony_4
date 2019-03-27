@@ -1,0 +1,11 @@
+ProvinceQuery:
+    decorator: true
+    heirs: [Query]
+    config:
+        fields:
+            Provinces:
+                type: '[Province!]!'
+                description: 'Retrieve all Provinces.'
+                public: '@=isAuthenticated()'
+                access: '@=isAuthenticated()'
+                resolve: '@=resolver("app.graphql.resolver.province.all")'

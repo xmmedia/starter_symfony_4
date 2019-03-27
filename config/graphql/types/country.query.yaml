@@ -1,0 +1,11 @@
+CountryQuery:
+    decorator: true
+    heirs: [Query]
+    config:
+        fields:
+            Countries:
+                type: '[Country!]!'
+                description: 'Retrieve all Countries.'
+                public: '@=isAuthenticated()'
+                access: '@=isAuthenticated()'
+                resolve: '@=resolver("app.graphql.resolver.country.all")'
