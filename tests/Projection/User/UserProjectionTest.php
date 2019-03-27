@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Projection\Member;
+namespace App\Tests\Projection\User;
 
 use App\Model\User\Event;
 use App\Projection\User\UserProjection;
