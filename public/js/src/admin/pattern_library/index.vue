@@ -57,7 +57,7 @@
         <button class="button">Button Button</button>
         <a href="" class="button">Link Button</a>
         <a href="" class="button text-red-dark hover:text-white border-2 border-solid border-red-dark hover:border-red-dark bg-white hover:bg-red-dark">Delete Button</a>
-        <div style="background: grey; margin-top: 1em; padding: 1em;">
+        <div style="background: grey; margin-top: 1rem; padding: 1rem;">
             <h2>Buttons on Dark Background</h2>
             <button class="button">Button Button</button>
             <a href="" class="button">Link Button</a>

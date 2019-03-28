@@ -86,7 +86,7 @@ select {
 
     &:after {
         @apply absolute pin-r text-xs opacity-50;
-        top: 0.5em;
+        top: 0.5rem;
         content: "read-only";
     }
 }
@@ -94,7 +94,7 @@ select {
 .field-help {
     @apply text-xs italic text-grey-dark leading-tight;
     // the padding helps it align better with field above
-    padding-left: 0.1em;
+    padding-left: 0.1rem;
 }
 
 .form-action {
