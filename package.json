@@ -26,6 +26,7 @@
     "apollo-client": "^2.4.8",
     "apollo-link": "^1.2.6",
     "apollo-link-http": "^1.5.9",
+    "cuid": "^2.1.6",
     "date-fns": "^1.29.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",

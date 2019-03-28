@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import cuid from 'cuid';
+
 export default {
     props: {
         value: {
@@ -66,7 +68,7 @@ export default {
 
     data () {
         return {
-            id: 'input'+this.field,
+            id: cuid(),
             visible: false,
         };
     },

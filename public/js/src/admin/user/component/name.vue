@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import cuid from 'cuid';
+
 export default {
     props: {
         label: {
@@ -34,10 +36,10 @@ export default {
         },
     },
 
-    computed: {
-        id () {
-            return 'input'+this.field;
-        },
+    data () {
+        return {
+            id: cuid(),
+        };
     },
 }
 </script>

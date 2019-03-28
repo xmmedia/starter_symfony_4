@@ -1,8 +1,8 @@
 <template>
     <div class="field-wrap">
-        <label for="inputRole">Role</label>
+        <label :for="id">Role</label>
         <field-errors :errors="validationErrors" field="role" />
-        <select id="inputRole"
+        <select :id="id"
                 :value="value"
                 @change="$emit('input', $event.target.value)">
             <option v-for="(name,role) in availableRoles"
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import cuid from 'cuid';
 import { mapState } from 'vuex';
 
 export default {
@@ -27,6 +28,12 @@ export default {
                 return {};
             },
         },
+    },
+
+    data () {
+        return {
+            id: cuid(),
+        };
     },
 
     computed: {

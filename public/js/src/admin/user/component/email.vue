@@ -1,8 +1,8 @@
 <template>
     <div class="field-wrap">
-        <label for="inputEmail">Email (Username)</label>
+        <label :for="id">Email (Username)</label>
         <field-errors :errors="validationErrors" field="email" />
-        <input id="inputEmail"
+        <input :id="id"
                :value="value"
                type="email"
                maxlength="150"
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import cuid from 'cuid';
+
 export default {
     props: {
         value: {
@@ -25,6 +27,12 @@ export default {
                 return {};
             },
         },
+    },
+
+    data () {
+        return {
+            id: cuid(),
+        };
     },
 }
 </script>

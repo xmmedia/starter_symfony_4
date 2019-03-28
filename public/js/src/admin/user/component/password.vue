@@ -2,8 +2,8 @@
     <div>
         <div :class="{ 'mb-2' : setPassword }" class="field-wrap-checkbox">
             <field-errors :errors="validationErrors" field="setPassword" />
-            <input id="inputSetPassword" v-model="setPassword" type="checkbox">
-            <label for="inputSetPassword">{{ checkboxLabel }}</label>
+            <input :id="id" v-model="setPassword" type="checkbox">
+            <label :for="id">{{ checkboxLabel }}</label>
         </div>
 
         <password-field v-show="setPassword"
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import cuid from 'cuid';
+
 export default {
     props: {
         value: {
@@ -41,6 +43,7 @@ export default {
     data () {
         return {
             setPassword: false,
+            id: cuid(),
         };
     },
 
