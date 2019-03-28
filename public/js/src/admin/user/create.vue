@@ -19,7 +19,7 @@
                             checkbox-label="Set Password"
                             @set-password="setPassword = $event" />
 
-            <div class="field-wrap field-wrap-checkbox">
+            <div class="field-wrap-checkbox">
                 <field-errors :errors="validationErrors" field="active" />
                 <input id="inputActive" v-model="active" type="checkbox">
                 <label for="inputActive">Active</label>
@@ -36,7 +36,7 @@
 
             <field-role v-model="role" :validation-errors="validationErrors" />
 
-            <div v-if="!setPassword && active" class="field-wrap field-wrap-checkbox">
+            <div v-if="!setPassword && active" class="field-wrap-checkbox">
                 <field-errors :errors="validationErrors" field="sendInvite" />
                 <input id="inputSendInvite" v-model="sendInvite" type="checkbox">
                 <label for="inputSendInvite">Send Invite</label>
