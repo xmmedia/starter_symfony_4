@@ -6,7 +6,7 @@ namespace App\Tests\Infrastructure\Service;
 
 use App\Entity\User;
 use App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel;
-use App\Repository\UserRepository;
+use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
 use Mockery;
 
@@ -22,12 +22,12 @@ class ChecksUniqueUsersEmailFromReadModelTest extends BaseTestCase
         $user->shouldReceive('userId')
             ->andReturn($faker->userId);
 
-        $userRepo = Mockery::mock(UserRepository::class);
-        $userRepo->shouldReceive('findOneByEmail')
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findOneByEmail')
             ->with($email)
             ->andReturn($user);
 
-        (new ChecksUniqueUsersEmailFromReadModel($userRepo))($email);
+        (new ChecksUniqueUsersEmailFromReadModel($userFinder))($email);
     }
 
     public function testFalse(): void
@@ -36,11 +36,11 @@ class ChecksUniqueUsersEmailFromReadModelTest extends BaseTestCase
 
         $email = $faker->emailVo;
 
-        $userRepo = Mockery::mock(UserRepository::class);
-        $userRepo->shouldReceive('findOneByEmail')
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findOneByEmail')
             ->with($email)
             ->andReturnNull();
 
-        (new ChecksUniqueUsersEmailFromReadModel($userRepo))($email);
+        (new ChecksUniqueUsersEmailFromReadModel($userFinder))($email);
     }
 }

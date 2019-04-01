@@ -8,22 +8,22 @@ use App\Entity\User;
 use App\Model\User\Exception\InvalidToken;
 use App\Model\User\Exception\TokenHasExpired;
 use App\Model\User\Token;
-use App\Repository\UserTokenRepository;
+use App\Projection\User\UserTokenFinder;
 
 class TokenValidator
 {
-    /** @var UserTokenRepository */
-    private $tokenRepo;
+    /** @var UserTokenFinder */
+    private $tokenFinder;
 
-    public function __construct(UserTokenRepository $tokenRepo)
+    public function __construct(UserTokenFinder $tokenFinder)
     {
-        $this->tokenRepo = $tokenRepo;
+        $this->tokenFinder = $tokenFinder;
     }
 
     public function validate(Token $token): User
     {
         // the token is the ID (a unique key)
-        $tokenEntity = $this->tokenRepo->find($token->toString());
+        $tokenEntity = $this->tokenFinder->find($token->toString());
 
         if (!$tokenEntity) {
             throw InvalidToken::tokenDoesntExist($token);

@@ -6,7 +6,7 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Model\User\UserId;
-use App\Repository\UserRepository;
+use App\Projection\User\UserFinder;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
@@ -17,22 +17,22 @@ class AdminUserSendResetToUserMutation implements MutationInterface
     /** @var MessageBusInterface */
     private $commandBus;
 
-    /** @var UserRepository */
-    private $userRepo;
+    /** @var UserFinder */
+    private $userFinder;
 
     public function __construct(
         MessageBusInterface $commandBus,
-        UserRepository $userRepo
+        UserFinder $userFinder
     ) {
         $this->commandBus = $commandBus;
-        $this->userRepo = $userRepo;
+        $this->userFinder = $userFinder;
     }
 
     public function __invoke(Argument $args): array
     {
         $userId = UserId::fromString($args['user']['userId']);
 
-        $user = $this->userRepo->find($userId);
+        $user = $this->userFinder->find($userId);
         if (!$user) {
             throw new UserError('The user could not be found.');
         }

@@ -7,7 +7,7 @@ namespace App\Tests\Infrastructure\GraphQl\Resolver;
 use App\Entity\User;
 use App\Infrastructure\GraphQl\Resolver\UserResolver;
 use App\Model\User\UserId;
-use App\Repository\UserRepository;
+use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
 use Mockery;
 
@@ -17,12 +17,12 @@ class UserResolverTest extends BaseTestCase
     {
         $user = Mockery::mock(User::class);
 
-        $userRepo = Mockery::mock(UserRepository::class);
-        $userRepo->shouldReceive('findBy')
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findBy')
             ->once()
             ->andReturn([$user]);
 
-        $resolver = new UserResolver($userRepo);
+        $resolver = new UserResolver($userFinder);
 
         $result = $resolver->all();
 
@@ -31,12 +31,12 @@ class UserResolverTest extends BaseTestCase
 
     public function testAllNoneFound(): void
     {
-        $userRepo = Mockery::mock(UserRepository::class);
-        $userRepo->shouldReceive('findBy')
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findBy')
             ->once()
             ->andReturn([]);
 
-        $resolver = new UserResolver($userRepo);
+        $resolver = new UserResolver($userFinder);
 
         $this->assertEquals([], $resolver->all());
     }
@@ -48,13 +48,13 @@ class UserResolverTest extends BaseTestCase
         $userId = $faker->uuid;
         $user = Mockery::mock(User::class);
 
-        $userRepo = Mockery::mock(UserRepository::class);
-        $userRepo->shouldReceive('find')
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('find')
             ->once()
             ->with(Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $resolver = new UserResolver($userRepo);
+        $resolver = new UserResolver($userFinder);
 
         $result = $resolver->userByUserId($userId);
 
@@ -67,13 +67,13 @@ class UserResolverTest extends BaseTestCase
 
         $userId = $faker->uuid;
 
-        $userRepo = Mockery::mock(UserRepository::class);
-        $userRepo->shouldReceive('find')
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('find')
             ->once()
             ->with(Mockery::type(UserId::class))
             ->andReturnNull();
 
-        $resolver = new UserResolver($userRepo);
+        $resolver = new UserResolver($userFinder);
 
         $result = $resolver->userByUserId($userId);
 

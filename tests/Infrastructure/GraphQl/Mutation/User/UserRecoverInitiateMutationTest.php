@@ -10,7 +10,7 @@ use App\Form\User\UserRecoverInitiateType;
 use App\Infrastructure\GraphQl\Mutation\User\UserRecoverInitiateMutation;
 use App\Model\Email;
 use App\Model\User\Command\InitiatePasswordRecovery;
-use App\Repository\UserRepository;
+use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -61,8 +61,8 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
 
-        $userRepo = Mockery::mock(UserRepository::class);
-        $userRepo->shouldReceive('findOneByEmail')
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findOneByEmail')
             ->once()
             ->with(Mockery::type(Email::class))
             ->andReturn($user);
@@ -72,7 +72,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $result = (new UserRecoverInitiateMutation(
             $commandBus,
             $formFactory,
-            $userRepo
+            $userFinder
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -107,8 +107,8 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->once()
             ->andReturnFalse();
 
-        $userRepo = Mockery::mock(UserRepository::class);
-        $userRepo->shouldReceive('findOneByEmail')
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findOneByEmail')
             ->once()
             ->with(Mockery::type(Email::class))
             ->andReturn($user);
@@ -121,7 +121,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         (new UserRecoverInitiateMutation(
             $commandBus,
             $formFactory,
-            $userRepo
+            $userFinder
         ))($args);
     }
 
@@ -149,8 +149,8 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->with(UserRecoverInitiateType::class)
             ->andReturn($form);
 
-        $userRepo = Mockery::mock(UserRepository::class);
-        $userRepo->shouldReceive('findOneByEmail')
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findOneByEmail')
             ->once()
             ->with(Mockery::type(Email::class))
             ->andReturnNull();
@@ -163,7 +163,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         (new UserRecoverInitiateMutation(
             $commandBus,
             $formFactory,
-            $userRepo
+            $userFinder
         ))($args);
     }
 
@@ -189,7 +189,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->with(UserRecoverInitiateType::class)
             ->andReturn($form);
 
-        $userRepo = Mockery::mock(UserRepository::class);
+        $userFinder = Mockery::mock(UserFinder::class);
 
         $args = new Argument($data);
 
@@ -198,7 +198,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         (new UserRecoverInitiateMutation(
             $commandBus,
             $formFactory,
-            $userRepo
+            $userFinder
         ))($args);
     }
 }

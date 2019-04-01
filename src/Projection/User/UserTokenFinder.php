@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Projection\User;
 
 use App\Entity\UserToken;
 use App\Model\User\Token;
@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method UserToken[]    findAll()
  * @method UserToken[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserTokenRepository extends ServiceEntityRepository
+class UserTokenFinder extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {

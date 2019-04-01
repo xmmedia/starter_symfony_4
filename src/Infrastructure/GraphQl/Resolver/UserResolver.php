@@ -6,18 +6,18 @@ namespace App\Infrastructure\GraphQl\Resolver;
 
 use App\Entity\User;
 use App\Model\User\UserId;
-use App\Repository\UserRepository;
+use App\Projection\User\UserFinder;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
 
 class UserResolver implements ResolverInterface, AliasedInterface
 {
-    /** @var UserRepository */
-    private $userRepo;
+    /** @var UserFinder */
+    private $userFinder;
 
-    public function __construct(UserRepository $userRepo)
+    public function __construct(UserFinder $userFinder)
     {
-        $this->userRepo = $userRepo;
+        $this->userFinder = $userFinder;
     }
 
     /**
@@ -25,12 +25,12 @@ class UserResolver implements ResolverInterface, AliasedInterface
      */
     public function all(): array
     {
-        return $this->userRepo->findBy([], ['email' => 'ASC']);
+        return $this->userFinder->findBy([], ['email' => 'ASC']);
     }
 
     public function userByUserId(string $userId): ?User
     {
-        return $this->userRepo->find(UserId::fromString($userId));
+        return $this->userFinder->find(UserId::fromString($userId));
     }
 
     public static function getAliases(): array

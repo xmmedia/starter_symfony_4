@@ -8,7 +8,7 @@ use App\Model\User\Token;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Projection\User\UserTokenFinder")
  */
 class UserToken
 {

@@ -8,7 +8,7 @@ use App\Exception\FormValidationException;
 use App\Form\User\UserRecoverInitiateType;
 use App\Model\Email;
 use App\Model\User\Command\InitiatePasswordRecovery;
-use App\Repository\UserRepository;
+use App\Projection\User\UserFinder;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
@@ -23,17 +23,17 @@ class UserRecoverInitiateMutation implements MutationInterface
     /** @var FormFactoryInterface */
     private $formFactory;
 
-    /** @var UserRepository */
-    private $userRepo;
+    /** @var UserFinder */
+    private $userFinder;
 
     public function __construct(
         MessageBusInterface $commandBus,
         FormFactoryInterface $formFactory,
-        UserRepository $userRepo
+        UserFinder $userFinder
     ) {
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
-        $this->userRepo = $userRepo;
+        $this->userFinder = $userFinder;
     }
 
     public function __invoke(Argument $args): array
@@ -46,7 +46,7 @@ class UserRecoverInitiateMutation implements MutationInterface
             throw FormValidationException::fromForm($form);
         }
 
-        $user = $this->userRepo->findOneByEmail(
+        $user = $this->userFinder->findOneByEmail(
             Email::fromString($form->getData()['email'])
         );
 

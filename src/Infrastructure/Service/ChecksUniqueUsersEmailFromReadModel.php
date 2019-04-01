@@ -7,21 +7,21 @@ namespace App\Infrastructure\Service;
 use App\Model\Email;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\UserId;
-use App\Repository\UserRepository;
+use App\Projection\User\UserFinder;
 
 class ChecksUniqueUsersEmailFromReadModel implements ChecksUniqueUsersEmail
 {
-    /** @var UserRepository */
-    private $userRepo;
+    /** @var UserFinder */
+    private $userFinder;
 
-    public function __construct(UserRepository $userRepo)
+    public function __construct(UserFinder $userFinder)
     {
-        $this->userRepo = $userRepo;
+        $this->userFinder = $userFinder;
     }
 
     public function __invoke(Email $email): ?UserId
     {
-        if ($user = $this->userRepo->findOneByEmail($email)) {
+        if ($user = $this->userFinder->findOneByEmail($email)) {
             return $user->userId();
         }
 
