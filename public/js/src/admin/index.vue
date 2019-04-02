@@ -2,7 +2,7 @@
     <div v-if="ready">
         <svg-icons :src="iconsPath" />
 
-        <nav class="sidebar_nav-wrap fixed pin-l z-10 w-24 h-full text-center text-white bg-black fill-current">
+        <nav class="sidebar_nav-wrap">
             <router-link :to="{ name: 'admin-dashboard' }"
                          class="flex items-center justify-center w-24 border-b border-grey-darker"
                          style="height: 3.75rem; padding: 0.65rem 0;">
@@ -12,7 +12,7 @@
                      style="max-width: 5rem; max-height: 2.3rem;"
                      alt="Battery Analytics">
             </router-link>
-            <ul class="sidebar_nav-nav w-24 h-full overflow-y-scroll list-reset">
+            <ul class="sidebar_nav-nav">
                 <template v-if="loggedIn">
                     <li>
                         <router-link :to="{ name: 'admin-dashboard' }"
@@ -26,7 +26,7 @@
                 </template>
             </ul>
 
-            <div class="sidebar_nav-bottom_wrap absolute pin-b w-24 pt-2 bg-black text-grey text-center font-thin">
+            <div class="sidebar_nav-bottom_wrap">
                 <div v-if="loggedIn" class="text-sm">
                     <router-link :to="{ name: 'user-profile-edit' }"
                                  class="text-inherit">
