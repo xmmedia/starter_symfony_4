@@ -11,7 +11,6 @@ Vue.use(VueApollo);
 const httpLink = createHttpLink({
     uri: process.env.REQUEST_CONTEXT_SCHEME+'://'+process.env.REQUEST_CONTEXT_HOST+'/graphql/',
     fetch: fetch,
-    connectToDevTools: process.env.NODE_ENV === 'production',
 });
 
 // Cache implementation
