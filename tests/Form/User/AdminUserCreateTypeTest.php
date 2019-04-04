@@ -12,7 +12,7 @@ use Mockery;
 
 class AdminUserCreateTypeTest extends TypeTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

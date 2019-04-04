@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Security;
 
 class UserProfileTypeTest extends TypeTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

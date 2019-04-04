@@ -32,7 +32,7 @@ class AppAuthenticatorTest extends BaseTestCase
     /** @var UserPasswordEncoderInterface|\Mockery\MockInterface */
     private $passwordEncoder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->requestWithoutSession = new Request([], [], [], [], [], []);
         $this->requestWithSession = new Request([], [], [], [], [], []);

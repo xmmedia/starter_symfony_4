@@ -16,7 +16,7 @@ class JsonRequestTransformerSubscriberTest extends BaseTestCase
     /** @var JsonRequestTransformerSubscriber */
     private $subscriber;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subscriber = new JsonRequestTransformerSubscriber();
     }

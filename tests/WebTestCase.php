@@ -25,7 +25,7 @@ class WebTestCase extends BaseWebTestCase
      */
     protected $fixtures;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
