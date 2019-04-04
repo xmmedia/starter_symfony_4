@@ -35,9 +35,9 @@ class CommandEnricherMiddlewareTest extends BaseTestCase
             'issuedBy',
             $envelope->getMessage()->metadata()
         );
-        $this->assertArraySubset(
-            ['issuedBy' => $uuid],
-            $envelope->getMessage()->metadata()
+        $this->assertEquals(
+            $uuid,
+            $envelope->getMessage()->metadata()['issuedBy']
         );
     }
 }

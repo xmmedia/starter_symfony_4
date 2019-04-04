@@ -27,6 +27,6 @@ class MetadataIssuedByEnricherTest extends BaseTestCase
         $event = $enricher->enrich(AggregateChanged::occur($faker->uuid, []));
 
         $this->assertArrayHasKey('issuedBy', $event->metadata());
-        $this->assertArraySubset(['issuedBy' => $uuid], $event->metadata());
+        $this->assertEquals($uuid, $event->metadata()['issuedBy']);
     }
 }
