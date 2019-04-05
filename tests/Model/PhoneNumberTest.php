@@ -26,6 +26,20 @@ class PhoneNumberTest extends BaseTestCase
     }
 
     /**
+     * @dataProvider phoneNumberValidProvider
+     */
+    public function testToArrayFromArray(string $void, array $data): void
+    {
+        $phoneNumber = PhoneNumber::fromArray(
+            PhoneNumber::fromArray($data)->toArray()
+        );
+
+        $this->assertEquals($data, $phoneNumber->toArray());
+        $this->assertEquals($data['phoneNumber'], $phoneNumber->phoneNumber());
+        $this->assertEquals($data['extension'], $phoneNumber->extension());
+    }
+
+    /**
      * @dataProvider phoneNumberInvalidProvider
      */
     public function testFromArrayInvalid(string $string): void
