@@ -9,10 +9,8 @@ use Webmozart\Assert\Assert;
 
 class Address implements ValueObject
 {
-    public const LINE1_MIN_LENGTH = 4;
-    public const LINE1_MAX_LENGTH = 100;
-    public const LINE2_MIN_LENGTH = 2;
-    public const LINE2_MAX_LENGTH = 100;
+    public const LINE_MIN_LENGTH = 3;
+    public const LINE_MAX_LENGTH = 100;
     public const CITY_MIN_LENGTH = 2;
     public const CITY_MAX_LENGTH = 100;
 
@@ -81,8 +79,8 @@ class Address implements ValueObject
     ) {
         try {
             Assert::stringNotEmpty($line1);
-            Assert::minLength($line1, self::LINE1_MIN_LENGTH);
-            Assert::maxLength($line1, self::LINE1_MAX_LENGTH);
+            Assert::minLength($line1, self::LINE_MIN_LENGTH);
+            Assert::maxLength($line1, self::LINE_MAX_LENGTH);
         } catch (\InvalidArgumentException $e) {
             throw InvalidAddress::line1($line1, $e->getMessage());
         }
@@ -93,8 +91,8 @@ class Address implements ValueObject
 
         if (null !== $line2) {
             try {
-                Assert::minLength($line2, self::LINE2_MIN_LENGTH);
-                Assert::maxLength($line2, self::LINE2_MAX_LENGTH);
+                Assert::minLength($line2, self::LINE_MIN_LENGTH);
+                Assert::maxLength($line2, self::LINE_MAX_LENGTH);
             } catch (\InvalidArgumentException $e) {
                 throw InvalidAddress::line2($line2, $e->getMessage());
             }

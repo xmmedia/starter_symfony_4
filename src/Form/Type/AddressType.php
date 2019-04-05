@@ -23,16 +23,16 @@ class AddressType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Length([
-                        'min' => Address::LINE1_MIN_LENGTH,
-                        'max' => Address::LINE1_MAX_LENGTH,
+                        'min' => Address::LINE_MIN_LENGTH,
+                        'max' => Address::LINE_MAX_LENGTH,
                     ]),
                 ],
             ])
             ->add('line2', TextType::class, [
                 'constraints' => [
                     new Assert\Length([
-                        'min' => Address::LINE2_MIN_LENGTH,
-                        'max' => Address::LINE2_MAX_LENGTH,
+                        'min' => Address::LINE_MIN_LENGTH,
+                        'max' => Address::LINE_MAX_LENGTH,
                     ]),
                 ],
             ])
