@@ -26,7 +26,7 @@ final class Email implements ValueObject
         Assert::notEmpty($email);
         Assert::true(
             (new EmailValidator())->isValid($email, new NoRFCWarningsValidation()),
-            'The email "%s" is invalid.'
+            sprintf('The email "%s" is invalid.', $email)
         );
 
         $this->email = $email;
