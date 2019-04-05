@@ -87,7 +87,7 @@ class AddressTypeTest extends TypeTestCase
         $faker = $this->faker();
 
         // line 1
-        foreach (['123', $faker->string(101)] as $line1) {
+        foreach (['12', $faker->string(101)] as $line1) {
             yield [
                 [
                     'line1'      => $line1,
@@ -101,7 +101,7 @@ class AddressTypeTest extends TypeTestCase
             ];
         }
         // line 2
-        foreach (['1', $faker->string(101)] as $line2) {
+        foreach (['12', $faker->string(101)] as $line2) {
             yield [
                 [
                     'line1'      => $faker->streetAddress,
