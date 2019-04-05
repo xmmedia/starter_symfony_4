@@ -12,7 +12,7 @@ class Address implements ValueObject
     public const LINE_MIN_LENGTH = 3;
     public const LINE_MAX_LENGTH = 100;
     public const CITY_MIN_LENGTH = 2;
-    public const CITY_MAX_LENGTH = 100;
+    public const CITY_MAX_LENGTH = 50;
 
     /** @var string */
     private $line1;
