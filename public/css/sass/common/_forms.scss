@@ -14,14 +14,14 @@
 [type=url],
 [type=color],
 textarea {
-    @apply w-full p-2 border border-grey rounded-sm bg-grey-lightest;
+    @apply w-full p-2 text-black border border-grey rounded-sm bg-grey-lightest;
 }
 textarea {
     // fixes space below textareas, making it consistent across browsers
-    @apply align-top;
+    @apply align-top text-black;
 }
 select {
-    @apply w-full p-2 border border-grey rounded-sm bg-grey-lightest;
+    @apply w-full p-2 text-black border border-grey rounded-sm bg-grey-lightest;
     height: 2.3rem;
 }
 [type=radio], [type=checkbox] {
