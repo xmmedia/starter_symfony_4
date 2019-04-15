@@ -86,12 +86,18 @@ export default {
         'field-role': fieldRole,
     },
 
+    props: {
+        userId: {
+            type: String,
+            required: true,
+        },
+    },
+
     data () {
         return {
             status: statuses.LOADING,
             validationErrors: {},
 
-            userId: this.$route.params.userId,
             email: null,
             changePassword: false,
             password: null,

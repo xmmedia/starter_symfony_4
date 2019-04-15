@@ -82,6 +82,7 @@ const router = new Router({
                     name: 'admin-user-edit',
                     path: ':userId/edit',
                     component: () => import(/* webpackChunkName: "admin-user" */ './user/edit'),
+                    props: true,
                 },
             ],
             meta: {
