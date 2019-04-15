@@ -68,7 +68,12 @@ import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
 import { GetUserQuery } from '../queries/user.query';
-import { AdminUserUpdateMutation, AdminUserActivateMutation, AdminUserVerifyMutation, AdminUserSendResetMutation } from '../queries/admin/user.mutation';
+import {
+    AdminUserUpdateMutation,
+    AdminUserActivateMutation,
+    AdminUserVerifyMutation,
+    AdminUserSendResetMutation
+} from '../queries/admin/user.mutation';
 
 const statuses = {
     LOADING: 'loading',
