@@ -14,6 +14,7 @@
                    transition="md">
                 <div slot="top-right" class="text-4xl pr-6">
                     <button class="hover:no-underline text-white"
+                            type="button"
                             @click="close">×</button>
                 </div>
 
