@@ -35,7 +35,8 @@ h1 {
 @import "common/forms",
     "common/alerts",
     "common/modal",
-    "common/button_pair";
+    "common/button_pair",
+    "common/loading";
 
 // admin only styles
 @import "admin/content",

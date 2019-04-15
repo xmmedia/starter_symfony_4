@@ -19,7 +19,9 @@
 
         {# #app is what Vue.js mounts to #}
         <div id="app">
-            <div class="text-center mt-8">Loading...</div>
+            <div class="flex justify-center items-center mt-8">
+                <div class="loading" aria-hidden="true"></div> Loading...
+            </div>
 
             {% include 'flash_messages.html.twig' %}
         </div>
