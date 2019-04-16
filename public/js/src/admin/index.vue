@@ -51,12 +51,8 @@
         </header>
         <div class="content-wrap js-content-wrap">
             <header class="header-wrap">
-                <div class="header-page_title">
-                    <portal-target name="header-page-title" />
-                </div>
-                <div class="header-actions">
-                    <portal-target name="header-actions" />
-                </div>
+                <portal-target name="header-page-title" class="header-page_title" />
+                <portal-target name="header-actions" class="header-actions" />
             </header>
 
             <main class="p-4">
