@@ -32,7 +32,10 @@ class UniqueExistingUserEmailValidatorTest extends BaseTestCase
         $validator = new UniqueExistingUserEmailValidator($uniqueChecker);
 
         $validator->validate(
-            ['email' => $faker->email],
+            [
+                'userId' => $faker->uuid,
+                'email'  => $faker->email,
+            ],
             $constraint
         );
     }
@@ -55,7 +58,7 @@ class UniqueExistingUserEmailValidatorTest extends BaseTestCase
         $validator->validate(
             [
                 'email'  => $faker->email,
-                'userId' => $userId,
+                'userId' => $userId->toString(),
             ],
             $constraint
         );
@@ -96,7 +99,7 @@ class UniqueExistingUserEmailValidatorTest extends BaseTestCase
         $validator->validate(
             [
                 'email'  => $faker->email,
-                'userId' => $faker->userId,
+                'userId' => $faker->uuid,
             ],
             $constraint
         );
