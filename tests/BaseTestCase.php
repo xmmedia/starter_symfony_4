@@ -8,6 +8,7 @@ use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\Aggregate\AggregateTranslator;
 use App\EventSourcing\Aggregate\AggregateType;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 
 class BaseTestCase extends \PHPUnit\Framework\TestCase
 {
