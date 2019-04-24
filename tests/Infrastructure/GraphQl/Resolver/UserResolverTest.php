@@ -90,5 +90,9 @@ class UserResolverTest extends BaseTestCase
         ];
 
         $this->assertEquals($expected, $result);
+
+        $this->assertHasAllResolverMethods(
+            new UserResolver(Mockery::mock(UserFinder::class))
+        );
     }
 }

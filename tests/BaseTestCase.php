@@ -73,6 +73,16 @@ class BaseTestCase extends \PHPUnit\Framework\TestCase
         }
     }
 
+    protected function assertHasAllResolverMethods(AliasedInterface $resolver): void
+    {
+        foreach ($resolver::getAliases() as $method => $alias) {
+            $this->assertTrue(
+                method_exists($resolver, $method),
+                'Resolver method "'.$method.'" is missing.'
+            );
+        }
+    }
+
     protected function popRecordedEvent(AggregateRoot $aggregateRoot): array
     {
         return $this->getAggregateTranslator()

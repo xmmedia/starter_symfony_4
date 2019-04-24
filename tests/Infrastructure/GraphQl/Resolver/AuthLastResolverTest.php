@@ -106,5 +106,12 @@ class AuthLastResolverTest extends BaseTestCase
         ];
 
         $this->assertEquals($expected, $result);
+
+        $resolver = new AuthLastResolver(
+            Mockery::mock(AuthenticationUtils::class),
+            Mockery::mock(TranslatorInterface::class)
+        );
+
+        $this->assertHasAllResolverMethods($resolver);
     }
 }

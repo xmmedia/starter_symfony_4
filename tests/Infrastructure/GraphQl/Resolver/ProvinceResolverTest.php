@@ -6,15 +6,16 @@ namespace App\Tests\Infrastructure\GraphQl\Resolver;
 
 use App\Infrastructure\GraphQl\Resolver\ProvinceResolver;
 use App\Model\Province;
+use App\Tests\BaseTestCase;
 use PHPUnit\Framework\TestCase;
 
-class ProvinceResolverTest extends TestCase
+class ProvinceResolverTest extends BaseTestCase
 {
     public function test(): void
     {
         $all = (new ProvinceResolver())->all();
 
-        $this->assertCount(64, $all);
+        $this->assertCount(13, $all);
         $this->assertInstanceOf(Province::class, $all[0]);
     }
 
@@ -27,5 +28,7 @@ class ProvinceResolverTest extends TestCase
         ];
 
         $this->assertEquals($expected, $result);
+
+        $this->assertHasAllResolverMethods(new ProvinceResolver());
     }
 }

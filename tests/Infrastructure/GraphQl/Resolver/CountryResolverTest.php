@@ -6,9 +6,10 @@ namespace App\Tests\Infrastructure\GraphQl\Resolver;
 
 use App\Infrastructure\GraphQl\Resolver\CountryResolver;
 use App\Model\Country;
+use App\Tests\BaseTestCase;
 use PHPUnit\Framework\TestCase;
 
-class CountryResolverTest extends TestCase
+class CountryResolverTest extends BaseTestCase
 {
     public function test(): void
     {
@@ -27,5 +28,7 @@ class CountryResolverTest extends TestCase
         ];
 
         $this->assertEquals($expected, $result);
+
+        $this->assertHasAllResolverMethods(new CountryResolver());
     }
 }
