@@ -164,8 +164,10 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function inviteSent(Token $token, NotificationGatewayId $messageId): void
-    {
+    public function inviteSent(
+        Token $token,
+        NotificationGatewayId $messageId
+    ): void {
         if ($this->verified) {
             throw Exception\UserAlreadyVerified::triedToSendVerification(
                 $this->userId
@@ -247,7 +249,9 @@ class User extends AggregateRoot implements Entity
         }
 
         if (!$this->active) {
-            throw Exception\InvalidUserActiveStatus::triedToLogin($this->userId);
+            throw Exception\InvalidUserActiveStatus::triedToLogin(
+                $this->userId
+            );
         }
 
         $this->recordThat(Event\UserLoggedIn::now($this->userId));
@@ -261,7 +265,9 @@ class User extends AggregateRoot implements Entity
             );
         }
 
-        $this->recordThat(Event\ChangedPassword::now($this->userId, $encodedPassword));
+        $this->recordThat(
+            Event\ChangedPassword::now($this->userId, $encodedPassword)
+        );
     }
 
     public function userId(): UserId
@@ -287,15 +293,17 @@ class User extends AggregateRoot implements Entity
         return $this->userId->toString();
     }
 
-    protected function whenUserWasCreatedByAdmin(Event\UserWasCreatedByAdmin $event): void
-    {
+    protected function whenUserWasCreatedByAdmin(
+        Event\UserWasCreatedByAdmin $event
+    ): void {
         $this->userId = $event->userId();
         $this->verified = !$event->sendInvite();
         $this->active = $event->active();
     }
 
-    protected function whenMinimalUserWasCreatedByAdmin(Event\MinimalUserWasCreatedByAdmin $event): void
-    {
+    protected function whenMinimalUserWasCreatedByAdmin(
+        Event\MinimalUserWasCreatedByAdmin $event
+    ): void {
         $this->userId = $event->userId();
         $this->verified = true;
         $this->active = true;
@@ -303,32 +311,35 @@ class User extends AggregateRoot implements Entity
 
     protected function whenAdminUpdatedUser(Event\AdminUpdatedUser $event): void
     {
-        // nothing atm
+        // noop
     }
 
-    protected function whenAdminChangedPassword(Event\AdminChangedPassword $event): void
-    {
-        // nothing atm
+    protected function whenAdminChangedPassword(
+        Event\AdminChangedPassword $event
+    ): void {
+        // noop
     }
 
-    protected function whenUserVerifiedByAdmin(Event\UserVerifiedByAdmin $event): void
-    {
+    protected function whenUserVerifiedByAdmin(Event\UserVerifiedByAdmin $event
+    ): void {
         $this->verified = true;
     }
 
-    protected function whenUserActivatedByAdmin(Event\UserActivatedByAdmin $event): void
-    {
+    protected function whenUserActivatedByAdmin(
+        Event\UserActivatedByAdmin $event
+    ): void {
         $this->active = true;
     }
 
-    protected function whenUserDeactivatedByAdmin(Event\UserDeactivatedByAdmin $event): void
-    {
+    protected function whenUserDeactivatedByAdmin(
+        Event\UserDeactivatedByAdmin $event
+    ): void {
         $this->active = false;
     }
 
     protected function whenInviteSent(Event\InviteSent $event): void
     {
-        // nothing atm
+        // noop
     }
 
     protected function whenUserVerified(Event\UserVerified $event): void
@@ -336,24 +347,25 @@ class User extends AggregateRoot implements Entity
         $this->verified = true;
     }
 
-    protected function whenPasswordRecoverySent(Event\PasswordRecoverySent $event): void
-    {
-        // nothing atm
+    protected function whenPasswordRecoverySent(
+        Event\PasswordRecoverySent $event
+    ): void {
+        // noop
     }
 
-    protected function whenUserUpdatedProfile(Event\UserUpdatedProfile $event): void
-    {
-        // nothing atm
+    protected function whenUserUpdatedProfile(Event\UserUpdatedProfile $event
+    ): void {
+        // noop
     }
 
     protected function whenChangedPassword(Event\ChangedPassword $event): void
     {
-        // nothing atm
+        // noop
     }
 
     protected function whenUserLoggedIn(Event\UserLoggedIn $event): void
     {
-        // nothing atm
+        // noop
     }
 
     /**
