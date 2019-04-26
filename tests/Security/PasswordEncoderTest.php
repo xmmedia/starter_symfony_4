@@ -25,7 +25,8 @@ class PasswordEncoderTest extends BaseTestCase
                 $this->assertEquals($role, $user->firstRole());
 
                 return true;
-            });
+            })
+            ->andReturn('encoded-password');
 
         (new PasswordEncoder($passwordEncoder))($role, $faker->password);
     }

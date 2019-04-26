@@ -18,7 +18,7 @@ class PasswordEncoder
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function __invoke(Role $role, string $password)
+    public function __invoke(Role $role, string $password): string
     {
         return $this->passwordEncoder->encodePassword(
             $this->getUserForRole($role),
