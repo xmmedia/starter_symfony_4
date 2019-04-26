@@ -216,7 +216,7 @@ export default {
                     mutation: AdminUserActivateMutation,
                     variables: {
                         user: {
-                            id: this.userId,
+                            userId: this.userId,
                             action: this.active ? 'deactivate' : 'activate',
                         },
                     },
@@ -251,7 +251,9 @@ export default {
                 await this.$apollo.mutate({
                     mutation: AdminUserVerifyMutation,
                     variables: {
-                        user: { id: this.userId },
+                        user: {
+                            userId: this.userId,
+                        },
                     },
                 });
 
