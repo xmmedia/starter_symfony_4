@@ -20,6 +20,8 @@ use Ramsey\Uuid\Uuid;
 
 class UserTest extends BaseTestCase
 {
+    use UserTestTrait;
+
     public function testCreateByAdmin(): void
     {
         $faker = $this->faker();
@@ -40,7 +42,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             false,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -88,7 +90,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -136,7 +138,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -186,7 +188,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            new UserArUniquenessCheckerDuplicate()
+            $this->userUniquenessCheckerDuplicate
         );
     }
 
@@ -204,7 +206,7 @@ class UserTest extends BaseTestCase
             $email,
             $password,
             $role,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -244,7 +246,7 @@ class UserTest extends BaseTestCase
             $email,
             $password,
             $role,
-            new UserArUniquenessCheckerDuplicate()
+            $this->userUniquenessCheckerDuplicate
         );
     }
 
@@ -264,7 +266,7 @@ class UserTest extends BaseTestCase
             $role,
             $firstName,
             $lastName,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $events = $this->popRecordedEvent($user);
@@ -301,7 +303,7 @@ class UserTest extends BaseTestCase
             $role,
             $firstName,
             $lastName,
-            new UserArUniquenessCheckerDuplicate()
+            $this->userUniquenessCheckerDuplicate
         );
     }
 
@@ -348,7 +350,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             true, // will set the user to unverified
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $user->verifyByAdmin();
@@ -451,7 +453,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
@@ -506,7 +508,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $user->verify();
@@ -549,7 +551,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $user->deactivateByAdmin();
@@ -579,7 +581,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
@@ -629,7 +631,7 @@ class UserTest extends BaseTestCase
             $email,
             $firstName,
             $lastName,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $events = $this->popRecordedEvent($user);
@@ -663,7 +665,7 @@ class UserTest extends BaseTestCase
             $email,
             $firstName,
             $lastName,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
     }
 
@@ -683,7 +685,7 @@ class UserTest extends BaseTestCase
             $email,
             $firstName,
             $lastName,
-            new UserArUniquenessCheckerDuplicate()
+            $this->userUniquenessCheckerDuplicate
         );
     }
 
@@ -724,7 +726,7 @@ class UserTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $this->expectException(Exception\UserNotVerified::class);
@@ -789,14 +791,14 @@ class UserTest extends BaseTestCase
             $email,
             $password,
             $role,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
         $user2 = User::createByAdminMinimum(
             $userId,
             $email,
             $password,
             $role,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $this->assertTrue($user1->sameIdentityAs($user2));
@@ -815,14 +817,14 @@ class UserTest extends BaseTestCase
             $email,
             $password,
             $role,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
         $user2 = User::createByAdminMinimum(
             $faker->userId,
             $email,
             $password,
             $role,
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $this->assertFalse($user1->sameIdentityAs($user2));
@@ -837,73 +839,9 @@ class UserTest extends BaseTestCase
             $faker->emailVo,
             $faker->password,
             Role::ROLE_USER(),
-            new UserArUniquenessCheckerNone()
+            $this->userUniquenessCheckerNone
         );
 
         $this->assertFalse($user->sameIdentityAs(FakeAr::create()));
-    }
-
-    private function getUserActive(): User
-    {
-        $faker = $this->faker();
-
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
-        $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
-
-        return User::createByAdmin(
-            $userId,
-            $email,
-            $password,
-            $role,
-            true,
-            $firstName,
-            $lastName,
-            false,
-            new UserArUniquenessCheckerNone()
-        );
-    }
-
-    private function getUserInactive(): User
-    {
-        $faker = $this->faker();
-
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
-        $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
-
-        return User::createByAdmin(
-            $userId,
-            $email,
-            $password,
-            $role,
-            false,
-            $firstName,
-            $lastName,
-            false,
-            new UserArUniquenessCheckerNone()
-        );
-    }
-}
-
-class UserArUniquenessCheckerNone implements ChecksUniqueUsersEmail
-{
-    public function __invoke(Email $email): ?UserId
-    {
-        return null;
-    }
-}
-
-class UserArUniquenessCheckerDuplicate implements ChecksUniqueUsersEmail
-{
-    public function __invoke(Email $email): ?UserId
-    {
-        return UserId::fromUuid(Uuid::uuid4());
     }
 }
