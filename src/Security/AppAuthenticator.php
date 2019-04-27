@@ -22,6 +22,9 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
+    // @todo-symfony
+    public const DEFAULT_REDIRECT = '/';
+
     /** @var RouterInterface */
     private $router;
 
@@ -103,7 +106,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse('/');
+        return new RedirectResponse(self::DEFAULT_REDIRECT);
     }
 
     protected function getLoginUrl(): string
