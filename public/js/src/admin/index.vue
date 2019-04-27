@@ -64,7 +64,7 @@
         <portal-target name="modal" multiple />
     </div>
 
-    <div v-else class="text-center mt-8">Loading...</div>
+    <loading-spinner v-else class="mt-8" />
 </template>
 
 <script>
