@@ -23,9 +23,9 @@ class GenderTypeTest extends TestCase
     {
         $type = new GenderType();
 
-        $result = $type->serialize(Gender::byValue('m'));
+        $result = $type->serialize(Gender::byValue('MALE'));
 
-        $this->assertEquals('m', $result);
+        $this->assertEquals('MALE', $result);
     }
 
     public function testSerializeNotGender(): void
