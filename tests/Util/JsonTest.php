@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Util;
 
-use App\Exception\JsonException;
 use App\Util\Json;
 use PHPUnit\Framework\TestCase;
 
@@ -43,14 +42,14 @@ class JsonTest extends TestCase
 
     public function testEncodeError(): void
     {
-        $this->expectException(JsonException::class);
+        $this->expectException(\JsonException::class);
 
         Json::encode("\xB1\x31");
     }
 
     public function testDecodeError(): void
     {
-        $this->expectException(JsonException::class);
+        $this->expectException(\JsonException::class);
 
         Json::decode('asdf');
     }

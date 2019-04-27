@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use App\Exception\JsonException;
 use App\Util\Json;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -45,7 +44,7 @@ class JsonRequestTransformerSubscriber implements EventSubscriberInterface
     {
         try {
             $data = Json::decode($request->getContent());
-        } catch (JsonException $e) {
+        } catch (\JsonException $e) {
             return false;
         }
 
