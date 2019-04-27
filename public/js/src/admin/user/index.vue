@@ -1,6 +1,6 @@
 <template>
     <div>
-        <portal to="header-page-title">User Admin</portal>
+        <portal to="header-page-title">Users</portal>
 
         <router-view />
     </div>
