@@ -34,6 +34,6 @@ class CreateEventStreamCommandTest extends BaseTestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('Event stream was created successfully.', $output);
+        $this->assertStringContainsString('Event stream was created successfully.', $output);
     }
 }
