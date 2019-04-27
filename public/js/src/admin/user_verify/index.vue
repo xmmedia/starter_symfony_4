@@ -63,10 +63,6 @@ const statuses = {
 };
 
 export default {
-    components: {},
-
-    props: {},
-
     data () {
         return {
             status: statuses.LOADED,

@@ -19,22 +19,6 @@
 
 <script>
 export default {
-    components: {},
-
-    props: {},
-
-    data () {
-        return {};
-    },
-
-    computed: {},
-
-    watch: {},
-
-    beforeMount () {},
-
-    mounted () {},
-
     methods: {
         linkActiveClass (linkRoute) {
             return {

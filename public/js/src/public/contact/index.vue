@@ -62,10 +62,6 @@ const statuses = {
 };
 
 export default {
-    components: {},
-
-    props: {},
-
     data () {
         return {
             status: statuses.LOADED,
@@ -85,12 +81,6 @@ export default {
             return Object.keys(this.serverValidationErrors).length > 0;
         },
     },
-
-    watch: {},
-
-    beforeMount () {},
-
-    mounted () {},
 
     methods: {
         async submit () {
