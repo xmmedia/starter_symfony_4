@@ -236,6 +236,9 @@
     "nette/robot-loader": {
         "version": "v3.1.0"
     },
+    "nette/schema": {
+        "version": "v1.0.0"
+    },
     "nette/utils": {
         "version": "v2.5.3"
     },
@@ -252,15 +255,6 @@
             "branch": "master",
             "version": "0.1",
             "ref": "fe8d172f2480efc598f5a8be0e732656d3594cec"
-        }
-    },
-    "overblog/graphql-bundle": {
-        "version": "0.11",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "0.11",
-            "ref": "80a27b90b4928728bc2afe3ff1198826e033285c"
         }
     },
     "overblog/graphql-php-generator": {
@@ -637,6 +631,9 @@
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.9.0"
+    },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.11.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.9.0"
