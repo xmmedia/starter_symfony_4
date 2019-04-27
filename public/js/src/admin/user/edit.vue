@@ -44,14 +44,17 @@
                 <li>
                     <button v-if="verified"
                             class="button-link form-action"
+                            type="button"
                             @click.prevent="toggleActive"
                             v-html="activeButtonText"></button>
                     <button v-else
                             class="button-link form-action"
+                            type="button"
                             @click.prevent="verify">Manually Verify User</button>
                 </li>
                 <li v-if="active">
                     <button class="button-link form-action"
+                            type="button"
                             @click.prevent="sendReset">Send Password Reset</button>
                 </li>
             </ul>
