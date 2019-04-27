@@ -5,10 +5,18 @@
                          class="header-action header-action-main">Add User</router-link>
         </portal>
 
-        <div v-if="status === 'loading'" class="italic">Loading users...</div>
-        <div v-if="status === 'error'">There was a problem loading the user list. Please try again later.</div>
+        <loading-spinner v-if="status === 'loading'">
+            Loading users...
+        </loading-spinner>
+        <div v-else-if="status === 'error'" class="italic text-center">
+            There was a problem loading the user list. Please try again later.
+        </div>
 
-        <template v-if="status === 'loaded'">
+        <div v-else-if="users && users.length === 0" class="italic text-center">
+            No users were found.
+        </div>
+
+        <template v-else>
             <div class="record_list-record_count">Showing {{ users.length }}</div>
 
             <ul class="record_list-wrap">

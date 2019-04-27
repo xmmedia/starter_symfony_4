@@ -7,9 +7,15 @@
         </portal>
 
         <h2 class="mt-0">Edit User</h2>
-        <div v-if="status === 'loading'" class="italic">Loading user...</div>
-        <div v-else-if="status === 'error'">There was a problem loading the user. Please try again later.</div>
 
+        <loading-spinner v-if="status === 'loading'">
+            Loading user...
+        </loading-spinner>
+        <div v-else-if="status === 'error'" class="italic text-center">
+            There was a problem loading the user. Please try again later.
+        </div>
+
+        <!-- @todo vuelidate, etc -->
         <form v-else-if="showForm" @submit.prevent="submit">
             <form-error v-if="hasValidationErrors" />
 
