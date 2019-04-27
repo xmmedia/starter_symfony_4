@@ -13,10 +13,11 @@ class PhoneNumberType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'label'       => 'Phone Number',
-            'constraints' => [
+            'label'           => 'Phone Number',
+            'constraints'     => [
                 new PhoneNumber(),
             ],
+            'invalid_message' => '"{{ value }}" is not a valid phone number.',
         ]);
     }
 
