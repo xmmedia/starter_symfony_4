@@ -77,7 +77,7 @@ class AddressTypeTest extends TypeTestCase
             $this->assertCount(
                 1,
                 $form->get($atPath)->getErrors(true, true),
-                sprintf('There is more than 1 error at: %s.', $atPath)
+                sprintf('There are 0 or more than 1 errors at: %s.', $atPath)
             );
         }
     }
