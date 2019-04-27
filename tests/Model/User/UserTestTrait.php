@@ -53,7 +53,7 @@ trait UserTestTrait
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        return User::createByAdmin(
+        $user = User::createByAdmin(
             $userId,
             $email,
             $password,
@@ -64,6 +64,9 @@ trait UserTestTrait
             false,
             $this->userUniquenessCheckerNone
         );
+        $this->popRecordedEvent($user);
+
+        return $user;
     }
 
     private function getUserInactive(): User
@@ -77,7 +80,7 @@ trait UserTestTrait
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        return User::createByAdmin(
+        $user = User::createByAdmin(
             $userId,
             $email,
             $password,
@@ -88,5 +91,8 @@ trait UserTestTrait
             false,
             $this->userUniquenessCheckerNone
         );
+        $this->popRecordedEvent($user);
+
+        return $user;
     }
 }

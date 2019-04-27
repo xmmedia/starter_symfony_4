@@ -50,7 +50,7 @@ class UserUpdateTest extends BaseTestCase
             $events
         );
 
-        $this->assertCount(2, $events);
+        $this->assertCount(1, $events);
     }
 
     public function testUpdateByAdminDuplicate(): void
@@ -104,7 +104,7 @@ class UserUpdateTest extends BaseTestCase
             $events
         );
 
-        $this->assertCount(2, $events);
+        $this->assertCount(1, $events);
     }
 
     public function testUpdateInactive(): void

@@ -40,6 +40,7 @@ class UserInviteTest extends BaseTestCase
             true,
             $this->userUniquenessCheckerNone
         );
+        $this->popRecordedEvent($user);
 
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid);
@@ -57,7 +58,7 @@ class UserInviteTest extends BaseTestCase
             $events
         );
 
-        $this->assertCount(2, $events);
+        $this->assertCount(1, $events);
     }
 
     public function testInviteSentAlreadyVerified(): void

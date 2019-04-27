@@ -40,6 +40,7 @@ class UserFlagsTest extends BaseTestCase
             true, // will set the user to unverified
             $this->userUniquenessCheckerNone
         );
+        $this->popRecordedEvent($user);
 
         $user->verifyByAdmin();
 
@@ -51,7 +52,7 @@ class UserFlagsTest extends BaseTestCase
             $events
         );
 
-        $this->assertCount(2, $events);
+        $this->assertCount(1, $events);
 
         $this->assertTrue($user->verified());
     }
@@ -79,7 +80,7 @@ class UserFlagsTest extends BaseTestCase
             $events
         );
 
-        $this->assertCount(2, $events);
+        $this->assertCount(1, $events);
 
         $this->assertTrue($user->active());
     }
@@ -107,7 +108,7 @@ class UserFlagsTest extends BaseTestCase
             $events
         );
 
-        $this->assertCount(2, $events);
+        $this->assertCount(1, $events);
 
         $this->assertFalse($user->active());
     }
@@ -143,6 +144,7 @@ class UserFlagsTest extends BaseTestCase
             true,
             $this->userUniquenessCheckerNone
         );
+        $this->popRecordedEvent($user);
 
         $user->verify();
 
@@ -150,7 +152,7 @@ class UserFlagsTest extends BaseTestCase
 
         $this->assertRecordedEvent(Event\UserVerified::class, [], $events);
 
-        $this->assertCount(2, $events);
+        $this->assertCount(1, $events);
 
         $this->assertTrue($user->verified());
     }
