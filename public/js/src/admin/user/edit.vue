@@ -11,9 +11,7 @@
         <div v-else-if="status === 'error'">There was a problem loading the user. Please try again later.</div>
 
         <form v-else-if="showForm" @submit.prevent="submit">
-            <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
-                <li>Please fix the errors below and try again.</li>
-            </ul>
+            <form-error v-if="hasValidationErrors" />
 
             <field-email v-model="email" :validation-errors="validationErrors" />
 

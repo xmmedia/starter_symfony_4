@@ -4,9 +4,7 @@
 
         <div class="p-4">
             <form @submit.prevent="submit">
-                <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
-                    <li>Please fix the errors below and save your profile again.</li>
-                </ul>
+                <form-error v-if="hasValidationErrors" />
 
                 <div class="field-wrap">
                     <label for="inputEmail">Email Address</label>

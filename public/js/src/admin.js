@@ -9,6 +9,7 @@ import apolloProvider from './common/apollo';
 import app from './admin/index';
 
 import loadingSpinner from './common/loading_spinner';
+import formError from './common/form_error';
 import fieldErrors from './common/field_errors';
 import passwordField from './common/password_field';
 import { MeQuery } from './admin/queries/user.query';
@@ -24,6 +25,7 @@ Vue.use(VueModal);
 
 // global components
 Vue.component('loading-spinner', loadingSpinner);
+Vue.component('form-error', formError);
 Vue.component('field-errors', fieldErrors);
 Vue.component('admin-delete', () => import(/* webpackChunkName: "admin-delete" */ './admin/admin_delete/index'));
 Vue.component('local-time', () => import(/* webpackChunkName: "local-time" */ './common/local_time'));

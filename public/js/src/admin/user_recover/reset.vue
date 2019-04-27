@@ -2,9 +2,7 @@
     <div class="form-wrap p-0">
         <div class="p-4">
             <form v-if="showForm" @submit.prevent="submit">
-                <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
-                    <li>Please fix the errors below.</li>
-                </ul>
+                <form-error v-if="hasValidationErrors" />
                 <ul v-if="invalidToken" class="field-errors mb-4" role="alert">
                     <li>
                         Your reset link is invalid.

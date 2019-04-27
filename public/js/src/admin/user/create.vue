@@ -8,9 +8,7 @@
 
         <h2 class="mt-0">Add User</h2>
         <form @submit.prevent="submit">
-            <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
-                <li>Please fix the errors below and try again.</li>
-            </ul>
+            <form-error v-if="hasValidationErrors" />
 
             <field-email v-model="email" :validation-errors="validationErrors" />
 

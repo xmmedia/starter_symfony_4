@@ -4,9 +4,7 @@
 
         <div class="p-4">
             <form @submit.prevent="submit">
-                <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
-                    <li>Please fix the errors below.</li>
-                </ul>
+                <form-error v-if="hasValidationErrors" />
                 <div v-if="status === 'saved'" class="alert alert-success mb-4" role="alert">
                     <div>
                         Your password has been updated.<br>
