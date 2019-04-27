@@ -17,9 +17,9 @@ class UserProjection implements ReadModelProjection
     {
         $projector->fromStream('user')
             ->when([
-                Event\UserWasCreatedByAdmin::class => function (
+                Event\UserWasAddedByAdmin::class => function (
                     array $state,
-                    Event\UserWasCreatedByAdmin $event
+                    Event\UserWasAddedByAdmin $event
                 ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -41,9 +41,9 @@ class UserProjection implements ReadModelProjection
                     ]);
                 },
 
-                Event\MinimalUserWasCreatedByAdmin::class => function (
+                Event\MinimalUserWasAddedByAdmin::class => function (
                     array $state,
-                    Event\MinimalUserWasCreatedByAdmin $event
+                    Event\MinimalUserWasAddedByAdmin $event
                 ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */

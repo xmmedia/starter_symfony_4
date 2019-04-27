@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Handler;
 
 use App\Model\Email;
-use App\Model\User\Command\AdminCreateUserMinimum;
+use App\Model\User\Command\AdminAddUser;
 use App\Model\User\Exception\DuplicateEmail;
-use App\Model\User\Handler\AdminCreateUserMinimumHandler;
+use App\Model\User\Handler\AdminAddUserHandler;
+use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
@@ -17,7 +18,7 @@ use App\Tests\BaseTestCase;
 use Mockery;
 use Ramsey\Uuid\Uuid;
 
-class AdminCreateUserMinimumHandlerTest extends BaseTestCase
+class AdminAddUserHandlerTest extends BaseTestCase
 {
     public function test(): void
     {
@@ -27,12 +28,18 @@ class AdminCreateUserMinimumHandlerTest extends BaseTestCase
         $email = $faker->emailVo;
         $password = $faker->password;
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->firstName);
+        $lastName = Name::fromString($faker->lastName);
 
-        $command = AdminCreateUserMinimum::with(
+        $command = AdminAddUser::with(
             $userId,
             $email,
             $password,
-            $role
+            $role,
+            true,
+            $firstName,
+            $lastName,
+            false
         );
 
         $repo = Mockery::mock(UserList::class);
@@ -40,9 +47,9 @@ class AdminCreateUserMinimumHandlerTest extends BaseTestCase
             ->once()
             ->with(Mockery::type(User::class));
 
-        (new AdminCreateUserMinimumHandler(
+        (new AdminAddUserHandler(
             $repo,
-            new AdminCreateUserMinimumHandlerUniquenessCheckerNone()
+            new AdminAddUserHandlerUniquenessCheckerNone()
         ))(
             $command
         );
@@ -56,28 +63,34 @@ class AdminCreateUserMinimumHandlerTest extends BaseTestCase
         $email = $faker->emailVo;
         $password = $faker->password;
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->firstName);
+        $lastName = Name::fromString($faker->lastName);
 
-        $command = AdminCreateUserMinimum::with(
+        $command = AdminAddUser::with(
             $userId,
             $email,
             $password,
-            $role
+            $role,
+            true,
+            $firstName,
+            $lastName,
+            false
         );
 
         $repo = Mockery::mock(UserList::class);
 
         $this->expectException(DuplicateEmail::class);
 
-        (new AdminCreateUserMinimumHandler(
+        (new AdminAddUserHandler(
             $repo,
-            new AdminCreateUserMinimumHandlerUniquenessCheckerDuplicate()
+            new AdminAddUserHandlerUniquenessCheckerDuplicate()
         ))(
             $command
         );
     }
 }
 
-class AdminCreateUserMinimumHandlerUniquenessCheckerNone implements ChecksUniqueUsersEmail
+class AdminAddUserHandlerUniquenessCheckerNone implements ChecksUniqueUsersEmail
 {
     public function __invoke(Email $email): ?UserId
     {
@@ -85,7 +98,7 @@ class AdminCreateUserMinimumHandlerUniquenessCheckerNone implements ChecksUnique
     }
 }
 
-class AdminCreateUserMinimumHandlerUniquenessCheckerDuplicate implements ChecksUniqueUsersEmail
+class AdminAddUserHandlerUniquenessCheckerDuplicate implements ChecksUniqueUsersEmail
 {
     public function __invoke(Email $email): ?UserId
     {

@@ -63,7 +63,7 @@ trait UserTestTrait
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $user = User::createByAdmin(
+        $user = User::addByAdmin(
             $userId,
             $email,
             $password,

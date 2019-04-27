@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export const AdminUserCreateMutation = gql`mutation AdminUserCreate($user: AdminUserCreateInput!) {
-    AdminUserCreate(user: $user) {
+export const AdminUserAddMutation = gql`mutation AdminUserAdd($user: AdminUserAddInput!) {
+    AdminUserAdd(user: $user) {
         userId
     }
 }`;

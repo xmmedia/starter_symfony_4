@@ -72,7 +72,7 @@ import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
 
-import { AdminUserCreateMutation } from '../queries/admin/user.mutation';
+import { AdminUserAddMutation } from '../queries/admin/user.mutation';
 
 const statuses = {
     LOADED: 'loaded',
@@ -144,7 +144,7 @@ export default {
 
             try {
                 await this.$apollo.mutate({
-                    mutation: AdminUserCreateMutation,
+                    mutation: AdminUserAddMutation,
                     variables: {
                         user: {
                             userId: uuid4(),

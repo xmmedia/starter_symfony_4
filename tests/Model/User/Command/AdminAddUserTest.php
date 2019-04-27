@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Command;
 
-use App\Model\User\Command\AdminCreateUserMinimum;
+use App\Model\User\Command\AdminAddUser;
+use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 
-class AdminCreateUserMinimumTest extends BaseTestCase
+class AdminAddUserTest extends BaseTestCase
 {
     public function test(): void
     {
@@ -18,17 +19,27 @@ class AdminCreateUserMinimumTest extends BaseTestCase
         $email = $faker->emailVo;
         $password = $faker->password;
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->firstName);
+        $lastName = Name::fromString($faker->lastName);
 
-        $command = AdminCreateUserMinimum::with(
+        $command = AdminAddUser::with(
             $userId,
             $email,
             $password,
-            $role
+            $role,
+            true,
+            $firstName,
+            $lastName,
+            false
         );
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
         $this->assertTrue($email->sameValueAs($command->email()));
         $this->assertEquals($password, $command->encodedPassword());
         $this->assertEquals($role, $command->role());
+        $this->assertTrue($command->active());
+        $this->assertTrue($firstName->sameValueAs($command->firstName()));
+        $this->assertTrue($lastName->sameValueAs($command->lastName()));
+        $this->assertFalse($command->sendInvite());
     }
 }

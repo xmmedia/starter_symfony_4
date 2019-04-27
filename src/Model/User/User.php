@@ -26,7 +26,7 @@ class User extends AggregateRoot implements Entity
     /** @var bool */
     private $active;
 
-    public static function createByAdmin(
+    public static function addByAdmin(
         UserId $userId,
         Email $email,
         string $encodedPassword,
@@ -51,7 +51,7 @@ class User extends AggregateRoot implements Entity
 
         $self = new self();
         $self->recordThat(
-            Event\UserWasCreatedByAdmin::now(
+            Event\UserWasAddedByAdmin::now(
                 $userId,
                 $email,
                 $encodedPassword,
@@ -66,7 +66,7 @@ class User extends AggregateRoot implements Entity
         return $self;
     }
 
-    public static function createByAdminMinimum(
+    public static function addByAdminMinimum(
         UserId $userId,
         Email $email,
         string $encodedPassword,
@@ -82,7 +82,7 @@ class User extends AggregateRoot implements Entity
 
         $self = new self();
         $self->recordThat(
-            Event\MinimalUserWasCreatedByAdmin::now(
+            Event\MinimalUserWasAddedByAdmin::now(
                 $userId,
                 $email,
                 $encodedPassword,
@@ -293,16 +293,16 @@ class User extends AggregateRoot implements Entity
         return $this->userId->toString();
     }
 
-    protected function whenUserWasCreatedByAdmin(
-        Event\UserWasCreatedByAdmin $event
+    protected function whenUserWasAddedByAdmin(
+        Event\UserWasAddedByAdmin $event
     ): void {
         $this->userId = $event->userId();
         $this->verified = !$event->sendInvite();
         $this->active = $event->active();
     }
 
-    protected function whenMinimalUserWasCreatedByAdmin(
-        Event\MinimalUserWasCreatedByAdmin $event
+    protected function whenMinimalUserWasAddedByAdmin(
+        Event\MinimalUserWasAddedByAdmin $event
     ): void {
         $this->userId = $event->userId();
         $this->verified = true;

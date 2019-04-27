@@ -74,9 +74,9 @@ const router = new Router({
                     component: () => import(/* webpackChunkName: "admin-user" */ './user/list'),
                 },
                 {
-                    name: 'admin-user-create',
-                    path: 'create',
-                    component: () => import(/* webpackChunkName: "admin-user" */ './user/create'),
+                    name: 'admin-user-add',
+                    path: 'add',
+                    component: () => import(/* webpackChunkName: "admin-user" */ './user/add'),
                 },
                 {
                     name: 'admin-user-edit',

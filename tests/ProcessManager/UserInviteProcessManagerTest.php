@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\ProcessManager;
 
 use App\Model\User\Command\SendActivation;
-use App\Model\User\Event\UserWasCreatedByAdmin;
+use App\Model\User\Event\UserWasAddedByAdmin;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\ProcessManager\UserInviteProcessManager;
@@ -26,7 +26,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
             ->with(Mockery::type(SendActivation::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $event = UserWasCreatedByAdmin::now(
+        $event = UserWasAddedByAdmin::now(
             $faker->userId,
             $faker->emailVo,
             $faker->password,
@@ -47,7 +47,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldNotReceive('dispatch');
 
-        $event = UserWasCreatedByAdmin::now(
+        $event = UserWasAddedByAdmin::now(
             $faker->userId,
             $faker->emailVo,
             $faker->password,

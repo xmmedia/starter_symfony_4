@@ -10,7 +10,7 @@ use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\UserId;
 
-class UserWasCreatedByAdmin extends AggregateChanged
+class UserWasAddedByAdmin extends AggregateChanged
 {
     /** @var Email */
     private $email;

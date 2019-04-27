@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Exception\FormValidationException;
-use App\Form\User\AdminUserCreateType;
+use App\Form\User\AdminUserAddType;
 use App\Model\Email;
-use App\Model\User\Command\AdminCreateUser;
+use App\Model\User\Command\AdminAddUser;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\UserId;
@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class AdminUserCreateMutation implements MutationInterface
+class AdminUserAddMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;
@@ -48,7 +48,7 @@ class AdminUserCreateMutation implements MutationInterface
     public function __invoke(Argument $args): array
     {
         $form = $this->formFactory
-            ->create(AdminUserCreateType::class)
+            ->create(AdminUserAddType::class)
             ->submit($args['user']);
 
         if (!$form->isValid()) {
@@ -57,7 +57,7 @@ class AdminUserCreateMutation implements MutationInterface
 
         $userId = UserId::fromString($form->getData()['userId']);
 
-        $this->commandBus->dispatch(AdminCreateUser::with(
+        $this->commandBus->dispatch(AdminAddUser::with(
             $userId,
             ...$this->transformData($form)
         ));

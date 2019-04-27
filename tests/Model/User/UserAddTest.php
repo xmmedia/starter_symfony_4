@@ -11,11 +11,11 @@ use App\Model\User\Event;
 use App\Model\User\Exception;
 use App\Tests\BaseTestCase;
 
-class UserCreateTest extends BaseTestCase
+class UserAddTest extends BaseTestCase
 {
     use UserTestTrait;
 
-    public function testCreateByAdmin(): void
+    public function testAddByAdmin(): void
     {
         $faker = $this->faker();
 
@@ -26,7 +26,7 @@ class UserCreateTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $user = User::createByAdmin(
+        $user = User::addByAdmin(
             $userId,
             $email,
             $password,
@@ -43,7 +43,7 @@ class UserCreateTest extends BaseTestCase
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
-            Event\UserWasCreatedByAdmin::class,
+            Event\UserWasAddedByAdmin::class,
             [
                 'email'           => $email->toString(),
                 'encodedPassword' => $password,
@@ -63,7 +63,7 @@ class UserCreateTest extends BaseTestCase
         $this->assertTrue($user->active());
     }
 
-    public function testCreateByAdminSendInvite(): void
+    public function testAddByAdminSendInvite(): void
     {
         $faker = $this->faker();
 
@@ -74,7 +74,7 @@ class UserCreateTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $user = User::createByAdmin(
+        $user = User::addByAdmin(
             $userId,
             $email,
             $password,
@@ -91,7 +91,7 @@ class UserCreateTest extends BaseTestCase
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
-            Event\UserWasCreatedByAdmin::class,
+            Event\UserWasAddedByAdmin::class,
             [
                 'email'           => $email->toString(),
                 'encodedPassword' => $password,
@@ -111,7 +111,7 @@ class UserCreateTest extends BaseTestCase
         $this->assertTrue($user->active());
     }
 
-    public function testCreateByAdminNotActive(): void
+    public function testAddByAdminNotActive(): void
     {
         $faker = $this->faker();
 
@@ -122,7 +122,7 @@ class UserCreateTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $user = User::createByAdmin(
+        $user = User::addByAdmin(
             $userId,
             $email,
             $password,
@@ -139,7 +139,7 @@ class UserCreateTest extends BaseTestCase
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
-            Event\UserWasCreatedByAdmin::class,
+            Event\UserWasAddedByAdmin::class,
             [
                 'email'           => $email->toString(),
                 'encodedPassword' => $password,
@@ -159,7 +159,7 @@ class UserCreateTest extends BaseTestCase
         $this->assertFalse($user->active());
     }
 
-    public function testCreateByAdminDuplicateEmail(): void
+    public function testAddByAdminDuplicateEmail(): void
     {
         $faker = $this->faker();
 
@@ -172,7 +172,7 @@ class UserCreateTest extends BaseTestCase
 
         $this->expectException(Exception\DuplicateEmail::class);
 
-        User::createByAdmin(
+        User::addByAdmin(
             $userId,
             $email,
             $password,
@@ -185,7 +185,7 @@ class UserCreateTest extends BaseTestCase
         );
     }
 
-    public function testCreateByAdminMinimal(): void
+    public function testAddByAdminMinimal(): void
     {
         $faker = $this->faker();
 
@@ -194,7 +194,7 @@ class UserCreateTest extends BaseTestCase
         $password = $faker->password;
         $role = Role::ROLE_USER();
 
-        $user = User::createByAdminMinimum(
+        $user = User::addByAdminMinimum(
             $userId,
             $email,
             $password,
@@ -207,7 +207,7 @@ class UserCreateTest extends BaseTestCase
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
-            Event\MinimalUserWasCreatedByAdmin::class,
+            Event\MinimalUserWasAddedByAdmin::class,
             [
                 'email'           => $email->toString(),
                 'encodedPassword' => $password,
@@ -223,7 +223,7 @@ class UserCreateTest extends BaseTestCase
         $this->assertTrue($user->active());
     }
 
-    public function testCreateByAdminMinimalDuplicate(): void
+    public function testAddByAdminMinimalDuplicate(): void
     {
         $faker = $this->faker();
 
@@ -234,7 +234,7 @@ class UserCreateTest extends BaseTestCase
 
         $this->expectException(Exception\DuplicateEmail::class);
 
-        User::createByAdminMinimum(
+        User::addByAdminMinimum(
             $userId,
             $email,
             $password,

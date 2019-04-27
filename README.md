@@ -26,7 +26,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
        1. `bin/console event-store:projection:run user_projection -o` 
        2. `bin/console event-store:projection:run user_token_projection -o` 
        3. `bin/console event-store:projection:run enquiry_projection -o` 
-   12. Create a user `bin/console app:user:create` & run user projection: `bin/console event-store:projection:run user_projection -o`
+   12. Create a user `bin/console app:user:add` & run user projection: `bin/console event-store:projection:run user_projection -o`
    13. Copy or recreate the templates in Postmark & update the template IDs (see `@todo-symfony`).
    14. Setup supervisord:
        1. Write supervisord config: `bin/console app:supervisor:write-config`

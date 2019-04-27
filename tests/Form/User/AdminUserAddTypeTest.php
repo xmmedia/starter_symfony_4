@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Form\User;
 
-use App\Form\User\AdminUserCreateType;
+use App\Form\User\AdminUserAddType;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Tests\TypeTestCase;
 use App\Validator\Constraints\UniqueNewUserEmailValidator;
 use Mockery;
 
-class AdminUserCreateTypeTest extends TypeTestCase
+class AdminUserAddTypeTest extends TypeTestCase
 {
     protected function setUp(): void
     {
@@ -42,7 +42,7 @@ class AdminUserCreateTypeTest extends TypeTestCase
             'sendInvite'  => true,
         ];
 
-        $form = $this->factory->create(AdminUserCreateType::class)
+        $form = $this->factory->create(AdminUserAddType::class)
             ->submit($formData);
 
         $this->assertFormIsValid($form);
@@ -64,7 +64,7 @@ class AdminUserCreateTypeTest extends TypeTestCase
             'sendInvite'  => true,
         ];
 
-        $form = $this->factory->create(AdminUserCreateType::class)
+        $form = $this->factory->create(AdminUserAddType::class)
             ->submit($formData);
 
         $this->assertFormIsValid($form);

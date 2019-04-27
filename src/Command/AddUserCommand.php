@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Model\Email;
-use App\Model\User\Command\AdminCreateUserMinimum;
+use App\Model\User\Command\AdminAddUserMinimum;
 use App\Model\User\Role;
 use App\Model\User\User;
 use App\Model\User\UserId;
@@ -21,7 +21,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 use Webmozart\Assert\Assert;
 
-final class CreateUserCommand extends Command
+final class AddUserCommand extends Command
 {
     /** @var MessageBusInterface */
     private $commandBus;
@@ -41,8 +41,8 @@ final class CreateUserCommand extends Command
 
     protected function configure()
     {
-        $this->setName('app:user:create')
-            ->setDescription('Create a user.')
+        $this->setName('app:user:add')
+            ->setDescription('Add a user.')
         ;
     }
 
@@ -59,7 +59,7 @@ final class CreateUserCommand extends Command
 
         $userId = UserId::fromUuid(Uuid::uuid4());
 
-        $this->commandBus->dispatch(AdminCreateUserMinimum::with(
+        $this->commandBus->dispatch(AdminAddUserMinimum::with(
             $userId,
             $email,
             $encodedPassword,

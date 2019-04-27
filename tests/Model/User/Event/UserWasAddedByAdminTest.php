@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Event;
 
-use App\Model\User\Event\MinimalUserWasCreatedByAdmin;
+use App\Model\User\Event\UserWasAddedByAdmin;
+use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
 
-class MinimalUserWasCreatedByAdminTest extends BaseTestCase
+class UserWasAddedByAdminTest extends BaseTestCase
 {
     use CanCreateEventFromArray;
 
@@ -21,13 +22,28 @@ class MinimalUserWasCreatedByAdminTest extends BaseTestCase
         $email = $faker->emailVo;
         $password = $faker->password;
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->firstName);
+        $lastName = Name::fromString($faker->lastName);
 
-        $event = MinimalUserWasCreatedByAdmin::now($userId, $email, $password, $role);
+        $event = UserWasAddedByAdmin::now(
+            $userId,
+            $email,
+            $password,
+            $role,
+            true,
+            $firstName,
+            $lastName,
+            false
+        );
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
         $this->assertEquals($password, $event->encodedPassword());
         $this->assertEquals($role, $event->role());
+        $this->assertTrue($event->active());
+        $this->assertEquals($firstName, $event->firstName());
+        $this->assertEquals($lastName, $event->lastName());
+        $this->assertFalse($event->sendInvite());
     }
 
     public function testFromArray(): void
@@ -38,23 +54,33 @@ class MinimalUserWasCreatedByAdminTest extends BaseTestCase
         $email = $faker->emailVo;
         $password = $faker->password;
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->firstName);
+        $lastName = Name::fromString($faker->lastName);
 
-        /** @var MinimalUserWasCreatedByAdmin $event */
+        /** @var UserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(
-            MinimalUserWasCreatedByAdmin::class,
+            UserWasAddedByAdmin::class,
             $userId->toString(),
             [
                 'email'           => $email->toString(),
                 'encodedPassword' => $password,
                 'role'            => $role->getValue(),
+                'active'          => true,
+                'firstName'       => $firstName->toString(),
+                'lastName'        => $lastName->toString(),
+                'sendInvite'      => false,
             ]
         );
 
-        $this->assertInstanceOf(MinimalUserWasCreatedByAdmin::class, $event);
+        $this->assertInstanceOf(UserWasAddedByAdmin::class, $event);
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
         $this->assertEquals($password, $event->encodedPassword());
         $this->assertEquals($role, $event->role());
+        $this->assertTrue($event->active());
+        $this->assertEquals($firstName, $event->firstName());
+        $this->assertEquals($lastName, $event->lastName());
+        $this->assertFalse($event->sendInvite());
     }
 }

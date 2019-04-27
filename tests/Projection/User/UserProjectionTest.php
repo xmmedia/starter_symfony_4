@@ -15,8 +15,8 @@ class UserProjectionTest extends BaseTestCase
     public function test(): void
     {
         $projectedEvents = [
-            Event\UserWasCreatedByAdmin::class,
-            Event\MinimalUserWasCreatedByAdmin::class,
+            Event\UserWasAddedByAdmin::class,
+            Event\MinimalUserWasAddedByAdmin::class,
             Event\AdminUpdatedUser::class,
             Event\AdminChangedPassword::class,
             Event\UserVerifiedByAdmin::class,

@@ -46,14 +46,14 @@ UserMutation:
                     newPassword: String!
                     repeatPassword: String!
 
-            AdminUserCreate:
+            AdminUserAdd:
                 type: AdminUserMutationPayload!
-                description: 'Admin User create.'
+                description: 'Admin User add.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserCreateMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserAddMutation", [args])'
                 args:
-                    user: AdminUserCreateInput!
+                    user: AdminUserAddInput!
 
             AdminUserUpdate:
                 type: AdminUserMutationPayload!
@@ -115,10 +115,10 @@ UserPasswordInput:
             repeatPassword:
                 type: String!
 
-AdminUserCreateInput:
+AdminUserAddInput:
     type: input-object
     config:
-        description: 'Admin User create mutation input.'
+        description: 'Admin User add mutation input.'
         fields:
             userId:
                 type: UUID!

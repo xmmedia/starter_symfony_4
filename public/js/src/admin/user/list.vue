@@ -1,7 +1,7 @@
 <template>
     <div>
         <portal to="header-actions">
-            <router-link :to="{ name: 'admin-user-create' }"
+            <router-link :to="{ name: 'admin-user-add' }"
                          class="header-action header-action-main">Add User</router-link>
         </portal>
 

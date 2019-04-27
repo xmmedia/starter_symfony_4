@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdminUserCreateType extends AbstractType
+class AdminUserAddType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

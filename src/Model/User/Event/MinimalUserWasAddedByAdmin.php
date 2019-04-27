@@ -9,7 +9,7 @@ use App\Model\Email;
 use App\Model\User\Role;
 use App\Model\User\UserId;
 
-class MinimalUserWasCreatedByAdmin extends AggregateChanged
+class MinimalUserWasAddedByAdmin extends AggregateChanged
 {
     /** @var Email */
     private $email;

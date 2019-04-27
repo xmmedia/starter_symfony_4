@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Model\User\Handler;
 
-use App\Model\User\Command\AdminCreateUserMinimum;
+use App\Model\User\Command\AdminAddUserMinimum;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserList;
 
-class AdminCreateUserMinimumHandler
+class AdminAddUserMinimumHandler
 {
     /** @var UserList */
     private $userRepo;
@@ -25,9 +25,9 @@ class AdminCreateUserMinimumHandler
         $this->checksUniqueUsersEmail = $checksUniqueUsersEmail;
     }
 
-    public function __invoke(AdminCreateUserMinimum $command): void
+    public function __invoke(AdminAddUserMinimum $command): void
     {
-        $user = User::createByAdminMinimum(
+        $user = User::addByAdminMinimum(
             $command->userId(),
             $command->email(),
             $command->encodedPassword(),
