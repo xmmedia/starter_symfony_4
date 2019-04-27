@@ -1,7 +1,14 @@
 <template>
     <div class="field-wrap">
         <label :for="id">Role</label>
+
         <field-errors :errors="serverValidationErrors" />
+        <field-error v-if="v.$error">
+            <template v-if="!v.required">
+                A Role is required.
+            </template>
+        </field-error>
+
         <select :id="id"
                 :value="value"
                 @change="$emit('input', $event.target.value)">
@@ -27,6 +34,10 @@ export default {
             default: function () {
                 return {};
             },
+        },
+        v: {
+            type: Object,
+            required: true,
         },
     },
 

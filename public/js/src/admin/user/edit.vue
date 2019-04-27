@@ -19,7 +19,9 @@
         <form v-else-if="showForm" @submit.prevent="submit">
             <form-error v-if="hasValidationErrors" />
 
-            <field-email v-model="email" :server-validation-errors="serverValidationErrors.email" />
+            <field-email v-model="email"
+                         :server-validation-errors="serverValidationErrors.email"
+                         :v="$v.email" />
 
             <field-password v-model="password"
                             :server-validation-errors="serverValidationErrors.password"
@@ -28,15 +30,16 @@
 
             <field-name v-model="firstName"
                         :server-validation-errors="serverValidationErrors.firstName"
-                        label="First Name"
-                        field="firstName" />
+                        :v="$v.firstName"
+                        label="First Name" />
             <field-name v-model="lastName"
                         :server-validation-errors="serverValidationErrors.lastName"
-                        label="Last Name"
-                        field="lastName" />
+                        :v="$v.firstName"
+                        label="Last Name" />
 
             <field-role v-model="role"
-                        :server-validation-errors="serverValidationErrors.role" />
+                        :server-validation-errors="serverValidationErrors.role"
+                        :v="$v.role" />
 
             <div>
                 <button type="submit" class="button">Update User</button>
@@ -70,11 +73,16 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep';
 import { logError, hasGraphQlValidationError } from '@/common/lib';
+
+import userValidations from './user.validation';
+
 import fieldEmail from './component/email';
 import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
+
 import { GetUserQuery } from '../queries/user.query';
 import {
     AdminUserUpdateMutation,
@@ -109,6 +117,7 @@ export default {
     data () {
         return {
             status: statuses.LOADING,
+            hasLocalValidationErrors: false,
             serverValidationErrors: {},
 
             email: null,
@@ -167,9 +176,25 @@ export default {
         },
     },
 
+    validations () {
+        return cloneDeep(userValidations);
+    },
+
     methods: {
         async submit () {
             if (!this.allowSave) {
+                return;
+            }
+
+            // get validation to be checked and errors displayed
+            this.hasLocalValidationErrors = false;
+
+            this.$v.$touch();
+
+            if (this.$v.$anyError) {
+                this.hasLocalValidationErrors = true;
+                window.scrollTo(0, 0);
+
                 return;
             }
 
