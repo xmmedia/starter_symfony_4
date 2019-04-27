@@ -11,7 +11,7 @@ import toPath from 'lodash/toPath';
 export default {
     props: {
         errors: {
-            type: Object,
+            type: [Object, Array],
             default: function () {
                 return {};
             },
@@ -21,7 +21,7 @@ export default {
         // will used to find the errors using lodash.get()
         field: {
             type: String,
-            required: true,
+            default: null,
         },
     },
 
@@ -35,6 +35,10 @@ export default {
         },
 
         flatErrors () {
+            if (typeof this.errors === 'object' && this.errors.constructor === Array) {
+                return this.errors;
+            }
+
             const errors = [];
 
             const e = get(this.errors, this.errorPaths[0]);
@@ -53,6 +57,10 @@ export default {
         },
 
         errorPaths () {
+            if (null === this.field) {
+                return ['errors'];
+            }
+
             const path = toPath(this.field);
 
             if (path.length === 1) {
