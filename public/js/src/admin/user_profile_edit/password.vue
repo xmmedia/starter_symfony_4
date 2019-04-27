@@ -67,7 +67,7 @@ const statuses = {
 
 export default {
     components: {
-        'profile-tabs': profileTabs,
+        profileTabs,
     },
 
     data () {

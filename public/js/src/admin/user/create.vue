@@ -82,10 +82,10 @@ const statuses = {
 
 export default {
     components: {
-        'field-email': fieldEmail,
-        'field-password': fieldPassword,
-        'field-name': fieldName,
-        'field-role': fieldRole,
+        fieldEmail,
+        fieldPassword,
+        fieldName,
+        fieldRole,
     },
 
     data () {
