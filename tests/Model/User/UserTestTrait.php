@@ -42,34 +42,17 @@ trait UserTestTrait
             ->byDefault();
     }
 
-    private function getUserActive(): User
+    private function getUserActive(bool $sendInvite = false): User
     {
-        $faker = $this->faker();
-
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
-        $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
-
-        $user = User::createByAdmin(
-            $userId,
-            $email,
-            $password,
-            $role,
-            true,
-            $firstName,
-            $lastName,
-            false,
-            $this->userUniquenessCheckerNone
-        );
-        $this->popRecordedEvent($user);
-
-        return $user;
+        return $this->getUser(true, $sendInvite);
     }
 
-    private function getUserInactive(): User
+    private function getUserInactive(bool $sendInvite = false): User
+    {
+        return $this->getUser(false, $sendInvite);
+    }
+
+    private function getUser(bool $active, bool $sendInvite): User
     {
         $faker = $this->faker();
 
@@ -85,10 +68,10 @@ trait UserTestTrait
             $email,
             $password,
             $role,
-            false,
+            $active,
             $firstName,
             $lastName,
-            false,
+            $sendInvite,
             $this->userUniquenessCheckerNone
         );
         $this->popRecordedEvent($user);
