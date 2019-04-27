@@ -38,7 +38,7 @@ CREATE TABLE `$tableName` (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `verified` tinyint(1) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:array)',
+  `roles` json NOT NULL,
   `last_login` datetime DEFAULT NULL,
   `login_count` int(11) NOT NULL,
   `first_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,

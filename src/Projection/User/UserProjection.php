@@ -37,7 +37,7 @@ class UserProjection implements ReadModelProjection
                         'first_name' => $event->firstName()->toString(),
                         'last_name'  => $event->lastName()->toString(),
                     ], [
-                        'roles' => 'array',
+                        'roles' => 'json',
                     ]);
                 },
 
@@ -56,7 +56,7 @@ class UserProjection implements ReadModelProjection
                         'active'     => true,
                         'roles'      => [$event->role()->getValue()],
                     ], [
-                        'roles' => 'array',
+                        'roles' => 'json',
                     ]);
                 },
 
@@ -77,7 +77,7 @@ class UserProjection implements ReadModelProjection
                             'last_name'  => $event->lastName()->toString(),
                         ],
                         [
-                            'roles' => 'array',
+                            'roles' => 'json',
                         ]
                     );
                 },

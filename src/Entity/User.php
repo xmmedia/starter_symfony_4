@@ -52,7 +52,7 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
 
     /**
      * @var array
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private $roles = [];
 
