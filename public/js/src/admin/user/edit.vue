@@ -15,7 +15,6 @@
             There was a problem loading the user. Please try again later.
         </div>
 
-        <!-- @todo vuelidate, etc -->
         <form v-else-if="showForm" @submit.prevent="submit">
             <form-error v-if="hasValidationErrors" />
 
@@ -55,17 +54,17 @@
                     <button v-if="verified"
                             class="button-link form-action"
                             type="button"
-                            @click.prevent="toggleActive"
+                            @click="toggleActive"
                             v-html="activeButtonText"></button>
                     <button v-else
                             class="button-link form-action"
                             type="button"
-                            @click.prevent="verify">Manually Verify User</button>
+                            @click="verify">Manually Verify User</button>
                 </li>
                 <li v-if="active">
                     <button class="button-link form-action"
                             type="button"
-                            @click.prevent="sendReset">Send Password Reset</button>
+                            @click="sendReset">Send Password Reset</button>
                 </li>
             </ul>
         </form>
@@ -139,6 +138,10 @@ export default {
             return [statuses.LOADED, statuses.SAVED].includes(this.status);
         },
         hasValidationErrors () {
+            if (this.hasLocalValidationErrors) {
+                return true;
+            }
+
             return Object.keys(this.serverValidationErrors).length > 0;
         },
 
