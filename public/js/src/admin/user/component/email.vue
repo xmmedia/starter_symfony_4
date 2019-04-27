@@ -1,7 +1,7 @@
 <template>
     <div class="field-wrap">
         <label :for="id">Email (Username)</label>
-        <field-errors :errors="validationErrors" field="email" />
+        <field-errors :errors="serverValidationErrors" />
         <input :id="id"
                :value="value"
                type="email"
@@ -21,8 +21,8 @@ export default {
             type: String,
             default: null,
         },
-        validationErrors: {
-            type: Object,
+        serverValidationErrors: {
+            type: [Object, Array],
             default: function () {
                 return {};
             },

@@ -47,7 +47,7 @@ export default {
     data () {
         return {
             status: statuses.LOADED,
-            validationErrors: {},
+            serverValidationErrors: {},
             notFound: false,
 
             email: null,
@@ -59,7 +59,7 @@ export default {
             return [statuses.LOADED, statuses.SAVING].includes(this.status);
         },
         hasValidationErrors () {
-            return Object.keys(this.validationErrors).length > 0;
+            return Object.keys(this.serverValidationErrors).length > 0;
         },
     },
 
@@ -78,15 +78,15 @@ export default {
                 this.email = null;
 
                 this.status = statuses.SAVED;
-                this.validationErrors = {};
+                this.serverValidationErrors = {};
                 this.notFound = false;
 
             } catch (e) {
-                this.validationErrors = {};
+                this.serverValidationErrors = {};
 
                 if (hasGraphQlError(e)) {
                     if (hasGraphQlValidationError(e)) {
-                        this.validationErrors = e.graphQLErrors[0].validation;
+                        this.serverValidationErrors = e.graphQLErrors[0].validation;
                     } else if (e.graphQLErrors[0].code === 404) {
                         this.notFound = true;
                     } else {

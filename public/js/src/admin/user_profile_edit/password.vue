@@ -23,18 +23,18 @@
                 </div>
 
                 <password-field v-model="currentPassword"
-                                :validation-errors="validationErrors"
+                                :server-validation-errors="serverValidationErrors"
                                 label="Current Password"
                                 field="currentPassword"
                                 autocomplete="current-password" />
 
                 <password-field v-model="newPassword"
-                                :validation-errors="validationErrors"
+                                :server-validation-errors="serverValidationErrors"
                                 label="New Password"
                                 field="newPassword.first"
                                 autocomplete="new-password" />
                 <password-field v-model="repeatPassword"
-                                :validation-errors="validationErrors"
+                                :server-validation-errors="serverValidationErrors"
                                 label="New Password Again"
                                 field="newPassword.second"
                                 autocomplete="new-password" />
@@ -73,7 +73,7 @@ export default {
     data () {
         return {
             status: statuses.LOADED,
-            validationErrors: {},
+            serverValidationErrors: {},
 
             currentPassword: null,
             newPassword: null,
@@ -83,7 +83,7 @@ export default {
 
     computed: {
         hasValidationErrors () {
-            return Object.keys(this.validationErrors).length > 0;
+            return Object.keys(this.serverValidationErrors).length > 0;
         },
     },
 
@@ -108,11 +108,11 @@ export default {
                 this.repeatPassword = null;
 
                 this.status = statuses.SAVED;
-                this.validationErrors = {};
+                this.serverValidationErrors = {};
 
             } catch (e) {
                 if (hasGraphQlValidationError(e)) {
-                    this.validationErrors = e.graphQLErrors[0].validation.user;
+                    this.serverValidationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);
                     alert('There was a problem saving your password. Please try again later.');

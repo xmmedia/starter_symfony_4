@@ -8,7 +8,7 @@
 
                 <div class="field-wrap">
                     <label for="inputEmail">Email Address</label>
-                    <field-errors :errors="validationErrors" field="email" />
+                    <field-errors :errors="serverValidationErrors" field="email" />
                     <input id="inputEmail"
                            v-model="email"
                            type="email"
@@ -20,7 +20,7 @@
                 </div>
                 <div class="field-wrap">
                     <label for="inputFirstName">First Name</label>
-                    <field-errors :errors="validationErrors" field="firstName" />
+                    <field-errors :errors="serverValidationErrors" field="firstName" />
                     <input id="inputFirstName"
                            v-model="firstName"
                            type="text"
@@ -31,7 +31,7 @@
                 </div>
                 <div class="field-wrap">
                     <label for="inputLastName">Last Name</label>
-                    <field-errors :errors="validationErrors" field="lastName" />
+                    <field-errors :errors="serverValidationErrors" field="lastName" />
                     <input id="inputLastName"
                            v-model="lastName"
                            type="text"
@@ -74,7 +74,7 @@ export default {
     data () {
         return {
             status: statuses.LOADED,
-            validationErrors: {},
+            serverValidationErrors: {},
 
             email: this.$store.state.user.email,
             firstName: this.$store.state.user.firstName,
@@ -84,7 +84,7 @@ export default {
 
     computed: {
         hasValidationErrors () {
-            return Object.keys(this.validationErrors).length > 0;
+            return Object.keys(this.serverValidationErrors).length > 0;
         },
     },
 
@@ -117,7 +117,7 @@ export default {
                 });
 
                 this.status = statuses.SAVED;
-                this.validationErrors = {};
+                this.serverValidationErrors = {};
 
                 this.$store.dispatch('updateUser', {
                     ...data,
@@ -132,7 +132,7 @@ export default {
 
             } catch (e) {
                 if (hasGraphQlValidationError(e)) {
-                    this.validationErrors = e.graphQLErrors[0].validation.user;
+                    this.serverValidationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);
                     alert('There was a problem saving your profile. Please try again later.');

@@ -1,7 +1,8 @@
 <template>
     <div class="field-wrap">
         <label :for="id" v-html="label"></label>
-        <field-errors :errors="validationErrors" :field="field" />
+        <field-errors :errors="serverValidationErrors" />
+
         <div class="relative">
             <input :id="id"
                    :name="field"
@@ -21,6 +22,7 @@
                 <svg class="w-6 h-6 fill-current"><use :xlink:href="icon"></use></svg>
             </button>
         </div>
+
         <div v-if="showHelp" class="field-help">
             Must be at least 12 characters long.
         </div>
@@ -40,9 +42,9 @@ export default {
             type: String,
             required: true,
         },
-        // all validation errors
-        validationErrors: {
-            type: Object,
+        // server validation errors for field
+        serverValidationErrors: {
+            type: [Object, Array],
             default: function () {
                 return {};
             },

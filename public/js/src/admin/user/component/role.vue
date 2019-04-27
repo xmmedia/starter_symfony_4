@@ -1,7 +1,7 @@
 <template>
     <div class="field-wrap">
         <label :for="id">Role</label>
-        <field-errors :errors="validationErrors" field="role" />
+        <field-errors :errors="serverValidationErrors" />
         <select :id="id"
                 :value="value"
                 @change="$emit('input', $event.target.value)">
@@ -22,8 +22,8 @@ export default {
             type: String,
             default: null,
         },
-        validationErrors: {
-            type: Object,
+        serverValidationErrors: {
+            type: [Object, Array],
             default: function () {
                 return {};
             },

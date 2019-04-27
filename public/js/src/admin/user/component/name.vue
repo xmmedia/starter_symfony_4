@@ -1,7 +1,7 @@
 <template>
     <div class="field-wrap">
         <label :for="id">{{ label }}</label>
-        <field-errors :errors="validationErrors" :field="field" />
+        <field-errors :errors="serverValidationErrors" />
         <input :id="id"
                :value="value"
                type="text"
@@ -20,16 +20,12 @@ export default {
             type: String,
             required: true,
         },
-        field: {
-            type: String,
-            required: true,
-        },
         value: {
             type: String,
             default: null,
         },
-        validationErrors: {
-            type: Object,
+        serverValidationErrors: {
+            type: [Object, Array],
             default: function () {
                 return {};
             },

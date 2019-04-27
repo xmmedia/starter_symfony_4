@@ -1,14 +1,14 @@
 <template>
     <div>
         <div :class="{ 'mb-2' : setPassword }" class="field-wrap-checkbox">
-            <field-errors :errors="validationErrors" field="setPassword" />
+            <field-errors :errors="serverValidationErrors" />
             <input :id="id" v-model="setPassword" type="checkbox">
             <label :for="id">{{ checkboxLabel }}</label>
         </div>
 
         <password-field v-show="setPassword"
                         :value="value"
-                        :validation-errors="validationErrors"
+                        :server-validation-errors="serverValidationErrors"
                         :show-help="true"
                         :required="setPassword"
                         label="Password"
@@ -32,8 +32,8 @@ export default {
             type: String,
             default: 'Set Password',
         },
-        validationErrors: {
-            type: Object,
+        serverValidationErrors: {
+            type: [Object, Array],
             default: function () {
                 return {};
             },

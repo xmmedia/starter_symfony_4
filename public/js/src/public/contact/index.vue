@@ -8,7 +8,7 @@
 
                 <div class="field-wrap">
                     <label for="name">Your Name</label>
-                    <field-errors :errors="validationErrors" field="name" />
+                    <field-errors :errors="serverValidationErrors" field="name" />
                     <input id="name"
                            v-model="name"
                            type="text"
@@ -19,7 +19,7 @@
 
                 <div class="field-wrap">
                     <label for="email">Email Address</label>
-                    <field-errors :errors="validationErrors" field="email" />
+                    <field-errors :errors="serverValidationErrors" field="email" />
                     <input id="email"
                            v-model="email"
                            type="email"
@@ -29,7 +29,7 @@
 
                 <div class="field-wrap">
                     <label for="message">Message</label>
-                    <field-errors :errors="validationErrors" field="message" />
+                    <field-errors :errors="serverValidationErrors" field="message" />
                     <textarea id="message"
                               v-model="message"
                               required
@@ -69,7 +69,7 @@ export default {
     data () {
         return {
             status: statuses.LOADED,
-            validationErrors: {},
+            serverValidationErrors: {},
 
             name: null,
             email: null,
@@ -82,7 +82,7 @@ export default {
             return [statuses.LOADED, statuses.SENDING].includes(this.status);
         },
         hasValidationErrors () {
-            return Object.keys(this.validationErrors).length > 0;
+            return Object.keys(this.serverValidationErrors).length > 0;
         },
     },
 
@@ -94,20 +94,20 @@ export default {
 
     methods: {
         async submit () {
-            this.validationErrors = {};
+            this.serverValidationErrors = {};
 
             if (!this.name) {
-                this.validationErrors['name'] = {
+                this.serverValidationErrors['name'] = {
                     errors: ['Please enter your name.'],
                 };
             }
             if (!this.email) {
-                this.validationErrors['email'] = {
+                this.serverValidationErrors['email'] = {
                     errors: ['Please enter your email address.'],
                 };
             }
             if (!this.message) {
-                this.validationErrors['message'] = {
+                this.serverValidationErrors['message'] = {
                     errors: ['Please enter a message.'],
                 };
             }
@@ -133,13 +133,13 @@ export default {
                 });
 
                 this.status = statuses.SENT;
-                this.validationErrors = {};
+                this.serverValidationErrors = {};
 
             } catch (e) {
 
 
                 if (hasGraphQlValidationError(e)) {
-                    this.validationErrors = e.graphQLErrors[0].validation['enquiry'];
+                    this.serverValidationErrors = e.graphQLErrors[0].validation['enquiry'];
                 } else {
                     logError(e);
                     alert('There was a problem sending your enquiry. Please try again later.');

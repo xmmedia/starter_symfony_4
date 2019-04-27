@@ -27,13 +27,13 @@
             </div>
 
             <password-field v-model="password"
-                            :validation-errors="validationErrors"
+                            :server-validation-errors="serverValidationErrors.password"
                             :show-help="true"
                             label="Password"
                             field="newPassword.first"
                             autocomplete="new-password" />
             <password-field v-model="repeatPassword"
-                            :validation-errors="validationErrors"
+                            :server-validation-errors="serverValidationErrors.repeatPassword"
                             label="Password Again"
                             field="newPassword.second"
                             autocomplete="new-password" />
@@ -70,7 +70,7 @@ export default {
     data () {
         return {
             status: statuses.LOADED,
-            validationErrors: {},
+            serverValidationErrors: {},
             invalidToken: false,
             tokenExpired: false,
 
@@ -84,7 +84,7 @@ export default {
             return [statuses.LOADED, statuses.SAVING].includes(this.status);
         },
         hasValidationErrors () {
-            return Object.keys(this.validationErrors).length > 0;
+            return Object.keys(this.serverValidationErrors).length > 0;
         },
     },
 
@@ -103,7 +103,7 @@ export default {
                 });
 
                 this.status = statuses.SAVED;
-                this.validationErrors = {};
+                this.serverValidationErrors = {};
                 this.password = null;
                 this.repeatPassword = null;
                 this.invalidToken = false;
@@ -114,11 +114,11 @@ export default {
                 }, 5000);
 
             } catch (e) {
-                this.validationErrors = {};
+                this.serverValidationErrors = {};
 
                 if (hasGraphQlError(e)) {
                     if (hasGraphQlValidationError(e)) {
-                        this.validationErrors = e.graphQLErrors[0].validation;
+                        this.serverValidationErrors = e.graphQLErrors[0].validation;
                     } else if (e.graphQLErrors[0].code === 404) {
                         this.invalidToken = true;
                     } else if (e.graphQLErrors[0].code === 405) {

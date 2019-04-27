@@ -10,32 +10,30 @@
         <form @submit.prevent="submit">
             <form-error v-if="hasValidationErrors" />
 
-            <field-email v-model="email" :validation-errors="validationErrors" />
+            <field-email v-model="email" :server-validation-errors="serverValidationErrors.email" />
 
             <field-password v-model="password"
-                            :validation-errors="validationErrors"
+                            :server-validation-errors="serverValidationErrors.password"
                             checkbox-label="Set Password"
                             @set-password="setPassword = $event" />
 
             <div class="field-wrap-checkbox">
-                <field-errors :errors="validationErrors" field="active" />
+                <field-errors :errors="serverValidationErrors" field="active" />
                 <input id="inputActive" v-model="active" type="checkbox">
                 <label for="inputActive">Active</label>
             </div>
 
             <field-name v-model="firstName"
-                        :validation-errors="validationErrors"
-                        label="First Name"
-                        field="firstName" />
+                        :server-validation-errors="serverValidationErrors.firstName"
+                        label="First Name" />
             <field-name v-model="lastName"
-                        :validation-errors="validationErrors"
-                        label="Last Name"
-                        field="lastName" />
+                        :server-validation-errors="serverValidationErrors.lastName"
+                        label="Last Name" />
 
-            <field-role v-model="role" :validation-errors="validationErrors" />
+            <field-role v-model="role" :server-validation-errors="serverValidationErrors" />
 
             <div v-if="!setPassword && active" class="field-wrap-checkbox">
-                <field-errors :errors="validationErrors" field="sendInvite" />
+                <field-errors :errors="serverValidationErrors" field="sendInvite" />
                 <input id="inputSendInvite" v-model="sendInvite" type="checkbox">
                 <label for="inputSendInvite">Send Invite</label>
                 <div class="field-help">
@@ -82,7 +80,7 @@ export default {
     data () {
         return {
             status: statuses.LOADED,
-            validationErrors: {},
+            serverValidationErrors: {},
 
             email: null,
             setPassword: false,
@@ -100,7 +98,7 @@ export default {
             return [statuses.LOADED, statuses.SAVED].includes(this.status);
         },
         hasValidationErrors () {
-            return Object.keys(this.validationErrors).length > 0;
+            return Object.keys(this.serverValidationErrors).length > 0;
         },
     },
 
@@ -131,7 +129,7 @@ export default {
                 });
 
                 this.status = statuses.SAVED;
-                this.validationErrors = {};
+                this.serverValidationErrors = {};
 
                 setTimeout(() => {
                     this.$router.push({ name: 'admin-user' });
@@ -139,7 +137,7 @@ export default {
 
             } catch (e) {
                 if (hasGraphQlValidationError(e)) {
-                    this.validationErrors = e.graphQLErrors[0].validation.user;
+                    this.serverValidationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);
                     alert('There was a problem saving. Please try again later.');

@@ -19,23 +19,24 @@
         <form v-else-if="showForm" @submit.prevent="submit">
             <form-error v-if="hasValidationErrors" />
 
-            <field-email v-model="email" :validation-errors="validationErrors" />
+            <field-email v-model="email" :server-validation-errors="serverValidationErrors.email" />
 
             <field-password v-model="password"
-                            :validation-errors="validationErrors"
+                            :server-validation-errors="serverValidationErrors.password"
                             checkbox-label="Change Password"
                             @set-password="changePassword = $event" />
 
             <field-name v-model="firstName"
-                        :validation-errors="validationErrors"
+                        :server-validation-errors="serverValidationErrors.firstName"
                         label="First Name"
                         field="firstName" />
             <field-name v-model="lastName"
-                        :validation-errors="validationErrors"
+                        :server-validation-errors="serverValidationErrors.lastName"
                         label="Last Name"
                         field="lastName" />
 
-            <field-role v-model="role" :validation-errors="validationErrors" />
+            <field-role v-model="role"
+                        :server-validation-errors="serverValidationErrors.role" />
 
             <div>
                 <button type="submit" class="button">Update User</button>
@@ -108,7 +109,7 @@ export default {
     data () {
         return {
             status: statuses.LOADING,
-            validationErrors: {},
+            serverValidationErrors: {},
 
             email: null,
             changePassword: false,
@@ -129,7 +130,7 @@ export default {
             return [statuses.LOADED, statuses.SAVED].includes(this.status);
         },
         hasValidationErrors () {
-            return Object.keys(this.validationErrors).length > 0;
+            return Object.keys(this.serverValidationErrors).length > 0;
         },
 
         activeButtonText () {
@@ -191,7 +192,7 @@ export default {
                 });
 
                 this.status = statuses.SAVED;
-                this.validationErrors = {};
+                this.serverValidationErrors = {};
 
                 setTimeout(() => {
                     this.$router.push({ name: 'admin-user' });
@@ -199,7 +200,7 @@ export default {
 
             } catch (e) {
                 if (hasGraphQlValidationError(e)) {
-                    this.validationErrors = e.graphQLErrors[0].validation.user;
+                    this.serverValidationErrors = e.graphQLErrors[0].validation.user;
                 } else {
                     logError(e);
                     alert('There was a problem saving. Please try again later.');
