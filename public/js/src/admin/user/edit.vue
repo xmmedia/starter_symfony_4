@@ -292,7 +292,9 @@ export default {
                 await this.$apollo.mutate({
                     mutation: AdminUserSendResetMutation,
                     variables: {
-                        user: { id: this.userId },
+                        user: {
+                            userId: this.userId,
+                        },
                     },
                 });
 
