@@ -96,6 +96,9 @@ export default {
     },
 
     computed: {
+        allowSave () {
+            return [statuses.LOADED, statuses.SAVED].includes(this.status);
+        },
         hasValidationErrors () {
             return Object.keys(this.validationErrors).length > 0;
         },
@@ -103,6 +106,10 @@ export default {
 
     methods: {
         async submit () {
+            if (!this.allowSave) {
+                return;
+            }
+
             this.status = statuses.SAVING;
 
             try {
