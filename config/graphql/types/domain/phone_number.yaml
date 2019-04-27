@@ -1,0 +1,10 @@
+PhoneNumber:
+    type: object
+    config:
+        description: 'Phone Number containing the phone number in the E164 format and the extension. The phone number should be formatted showing to the user.'
+        fieldsDefaultPublic: '@=isAuthenticated()'
+        fields:
+            phoneNumber:
+                type: String!
+            extension:
+                type: String
