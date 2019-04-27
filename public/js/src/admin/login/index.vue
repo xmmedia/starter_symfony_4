@@ -32,7 +32,7 @@
             </div>
 
             <div>
-                <button class="button">Login</button>
+                <button class="submit">Login</button>
                 <router-link :to="{ name: 'user-recover-initiate' }" class="form-action">
                     Forgot your password?
                 </router-link>
