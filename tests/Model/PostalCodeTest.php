@@ -29,7 +29,6 @@ class PostalCodeTest extends TestCase
         yield ['T9D-8K2', 'T9D 8K2'];
 
         yield ['50301', '50301'];
-        yield [50301, '50301'];
 
         yield ['20521-9000', '20521-9000'];
     }
