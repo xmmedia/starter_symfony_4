@@ -320,7 +320,8 @@ class User extends AggregateRoot implements Entity
         // noop
     }
 
-    protected function whenUserVerifiedByAdmin(Event\UserVerifiedByAdmin $event
+    protected function whenUserVerifiedByAdmin(
+        Event\UserVerifiedByAdmin $event
     ): void {
         $this->verified = true;
     }
@@ -353,7 +354,8 @@ class User extends AggregateRoot implements Entity
         // noop
     }
 
-    protected function whenUserUpdatedProfile(Event\UserUpdatedProfile $event
+    protected function whenUserUpdatedProfile(
+        Event\UserUpdatedProfile $event
     ): void {
         // noop
     }
