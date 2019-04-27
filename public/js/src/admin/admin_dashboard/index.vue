@@ -13,9 +13,9 @@
 </template>
 
 <script>
-    export default {
-        mounted () {
-            this.$store.dispatch('updatePageTitle', 'Admin');
-        },
-    }
+export default {
+    mounted () {
+        this.$store.dispatch('updatePageTitle', 'Admin');
+    },
+}
 </script>
