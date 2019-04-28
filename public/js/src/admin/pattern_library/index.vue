@@ -289,8 +289,8 @@
                 <a href="" class="header-action header-action-main">Action Main</a>
                 <a href="" class="header-action">Secondary Action</a>
                 <div class="button_pair-wrap header-button_pair">
-                    <a href="" class="block py-2 px-5 text-sm text-blue hover:bg-white border border-blue-lighter hover:border-blue rounded hover:no-underline">&lt;</a>
-                    <a href="" class="block py-2 px-5 text-sm text-blue hover:bg-white border border-blue-lighter hover:border-blue rounded hover:no-underline">&gt;</a>
+                    <a href="" class="button_pair-button">&lt;</a>
+                    <a href="" class="button_pair-button">&gt;</a>
                 </div>
                 <div class="header-secondary_actions">
                     <a href="">Less Important</a>
@@ -309,8 +309,8 @@
             <div class="header-actions">
                 <a href="" class="header-action header-action-main">Action Main</a>
                 <div class="button_pair-wrap header-button_pair">
-                    <div class="block py-2 px-5 text-sm text-grey border border-grey rounded">&lt;</div>
-                    <div class="block mr-0 py-2 px-5 text-sm text-grey border border-grey rounded">&gt;</div>
+                    <div class="button_pair-inactive">&lt;</div>
+                    <div class="button_pair-inactive">&gt;</div>
                 </div>
             </div>
         </div>
@@ -319,8 +319,8 @@
             <div class="header-page_title">Both Active</div>
             <div class="header-actions">
                 <div class="button_pair-wrap header-button_pair">
-                    <a href="" class="block py-2 px-5 text-sm text-blue hover:bg-white border border-blue-lighter hover:border-blue rounded hover:no-underline">&lt;</a>
-                    <a href="" class="block py-2 px-5 text-sm text-blue hover:bg-white border border-blue-lighter hover:border-blue rounded hover:no-underline">&gt;</a>
+                    <a href="" class="button_pair-button">&lt;</a>
+                    <a href="" class="button_pair-button">&gt;</a>
                 </div>
             </div>
         </div>
@@ -329,8 +329,8 @@
             <div class="header-page_title">Right Active</div>
             <div class="header-actions">
                 <div class="button_pair-wrap header-button_pair">
-                    <div class="block py-2 px-5 text-sm text-grey border border-grey rounded">&lt;</div>
-                    <a href="" class="block py-2 px-5 text-sm text-blue hover:bg-white border border-blue-lighter hover:border-blue rounded hover:no-underline">&gt;</a>
+                    <div class="button_pair-inactive">&lt;</div>
+                    <a href="" class="button_pair-button">&gt;</a>
                 </div>
             </div>
         </div>
@@ -339,8 +339,8 @@
             <div class="header-page_title">Left Active</div>
             <div class="header-actions">
                 <div class="button_pair-wrap header-button_pair">
-                    <a href="" class="block py-2 px-5 text-sm text-blue hover:bg-white border border-blue-lighter hover:border-blue rounded hover:no-underline">&lt;</a>
-                    <div class="block py-2 px-5 text-sm text-grey border border-grey rounded">&gt;</div>
+                    <a href="" class="button_pair-button">&lt;</a>
+                    <div class="button_pair-inactive">&gt;</div>
                 </div>
             </div>
         </div>

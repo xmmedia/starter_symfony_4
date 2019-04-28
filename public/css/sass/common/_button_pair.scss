@@ -13,3 +13,12 @@
         }
     }
 }
+.button_pair-button {
+    @apply block py-2 px-5 text-sm text-blue border border-blue-lighter rounded;
+    &:hover {
+        @apply bg-white border-blue no-underline;
+    }
+}
+.button_pair-inactive {
+    @apply block py-2 px-5 text-sm text-grey border border-grey rounded;
+}
