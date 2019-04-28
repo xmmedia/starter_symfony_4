@@ -21,7 +21,6 @@ class SecurityController extends AbstractController
     public function login(): Response
     {
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-
             return new RedirectResponse(AppAuthenticator::DEFAULT_REDIRECT);
         }
 
