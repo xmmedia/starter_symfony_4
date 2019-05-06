@@ -47,6 +47,11 @@ export default new Vuex.Store({
             }
 
             for (let r = 0; r < state.user.roles.length; r++) {
+                // ROLE_USER is checked above, so skip
+                if (state.user.roles[r] === 'ROLE_USER') {
+                    continue;
+                }
+
                 if (getters.roleMap[state.user.roles[r]].has(role)) {
                     return true;
                 }
