@@ -146,9 +146,14 @@ export default {
             let delta = this.rangeDelta;
 
             // if at the end of the range
-            if (this.current - this.rangeDelta > this.pageCount - this.pageRange) {
+            if (this.current - delta > this.pageCount - this.pageRange) {
+                let start = this.pageCount - this.pageRange + 1;
+                if (start < 1) {
+                    start = 1;
+                }
+
                 // range doesn't include the end number
-                return range(this.pageCount - this.pageRange + 1, this.pageCount + 1);
+                return range(start, this.pageCount + 1);
             }
 
             if (this.current - delta < 0) {
