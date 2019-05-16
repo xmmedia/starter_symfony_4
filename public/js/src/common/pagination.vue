@@ -5,7 +5,7 @@
                        @keydown.right="goToNext" />
 
         <router-link v-if="current !== 1"
-                     :to="{ name: routeName, query: { offset: 0 } }"
+                     :to="pageRoute(0)"
                      :class="linkClasses"
                      class="inline-block">&lt;&lt;</router-link>
         <span v-else class="inline-block w-12 p-1 text-grey-darker">&lt;&lt;</span>
@@ -21,7 +21,7 @@
 
         <template v-for="page in pagesInRange">
             <router-link v-if="page !== current"
-                         :to="{ name: routeName, query: { offset: (page - 1) * itemsPerPage } }"
+                         :to="pageRoute(page - 1)"
                          :key="page"
                          :class="linkClasses" class="hidden lg:inline-block">{{ page }}</router-link>
             <span v-else
@@ -60,6 +60,12 @@ export default {
         routeName: {
             type: String,
             required: true,
+        },
+        routeQueryAdditions: {
+            type: Object,
+            default() {
+                return {};
+            },
         },
         count: {
             type: Number,
@@ -186,13 +192,19 @@ export default {
         previousRoute () {
             return {
                 name: this.routeName,
-                query: { offset: (this.previous - 1) * this.itemsPerPage },
+                query: {
+                    ...this.routeQueryAdditions,
+                    offset: (this.previous - 1) * this.itemsPerPage,
+                },
             };
         },
         nextRoute () {
             return {
                 name: this.routeName,
-                query: { offset: (this.next - 1) * this.itemsPerPage },
+                query: {
+                    ...this.routeQueryAdditions,
+                    offset: (this.next - 1) * this.itemsPerPage,
+                },
             };
         },
     },
@@ -207,6 +219,16 @@ export default {
             if (this.next) {
                 this.$router.push(this.nextRoute);
             }
+        },
+
+        pageRoute (offset) {
+            return {
+                name: this.routeName,
+                query: {
+                    ...this.routeQueryAdditions,
+                    offset: offset * this.itemsPerPage,
+                },
+            };
         },
     },
 };
