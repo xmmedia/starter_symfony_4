@@ -167,9 +167,13 @@ export default {
             }
 
             const start = this.current - delta + 1;
+            let end = this.pageCount;
+            if (end > this.pageRange) {
+                end = this.pageRange;
+            }
 
             // if anywhere before the end
-            return range(start, start + this.pageRange);
+            return range(start, start + end);
         },
 
         showBeforeEllipsis () {
