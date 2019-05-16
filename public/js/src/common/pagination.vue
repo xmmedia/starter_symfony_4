@@ -1,6 +1,8 @@
 <template>
     <div v-if="pageCount > 1" class="my-4 mx-auto text-center clearfix">
-        <global-events @keydown.left="goToPrevious" @keydown.right="goToNext" />
+        <global-events v-if="arrowEvents"
+                       @keydown.left="goToPrevious"
+                       @keydown.right="goToNext" />
 
         <router-link v-if="current !== 1"
                      :to="{ name: routeName, query: { offset: 0 } }"
@@ -77,6 +79,10 @@ export default {
         pageRange: {
             type: Number,
             default: 5,
+        },
+        arrowEvents: {
+            type: Boolean,
+            default: true,
         },
     },
 
