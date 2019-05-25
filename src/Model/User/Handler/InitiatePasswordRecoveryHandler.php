@@ -50,7 +50,7 @@ class InitiatePasswordRecoveryHandler
         $token = ($this->tokenGenerator)();
 
         $resetUrl = $this->router->generate(
-            'forgot_password',
+            'user_reset',
             ['action' => 'reset', 'token' => $token],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
