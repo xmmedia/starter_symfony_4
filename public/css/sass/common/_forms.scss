@@ -63,12 +63,6 @@ select {
         @apply mb-1;
     }
 }
-/* stylelint-disable-next-line no-duplicate-selectors */
-.field-wrap-radios, .field-wrap-checkboxes {
-    > label:first-of-type {
-        @apply block mb-1;
-    }
-}
 
 .field-errors {
     @apply list-reset mb-1 pl-0;

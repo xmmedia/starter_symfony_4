@@ -126,8 +126,8 @@
                            name="pattern-library-checkbox">
                     <label for="pattern-library-checkbox">Checkbox label</label>
                 </div>
-                <div class="field-wrap-radios">
-                    <label>Horizontal Radios</label>
+                <fieldset class="field-wrap-radios">
+                    <legend>Horizontal Radios</legend>
                     <input id="pattern-library-radio-01"
                            type="radio"
                            name="pattern-library-radio-1">
@@ -140,7 +140,7 @@
                            type="radio"
                            name="pattern-library-radio-1">
                     <label for="pattern-library-radio-03">Option 3</label>
-                </div>
+                </fieldset>
 
                 <div class="field-wrap-radios">
                     <label>Vertical Radios</label>
