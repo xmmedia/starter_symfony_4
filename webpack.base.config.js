@@ -42,7 +42,13 @@ module.exports = function (Encore) {
         })
         .enablePostCssLoader()
         // allow .vue files to be processed
-        .enableVueLoader()
+        .enableVueLoader((options) => {
+            options.transpileOptions = {
+                transforms: {
+                    dangerousTaggedTemplateString: true
+                },
+            };
+        })
 
         .enableSourceMaps(true)
 
