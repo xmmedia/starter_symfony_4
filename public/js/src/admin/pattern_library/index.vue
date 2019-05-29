@@ -229,8 +229,8 @@
                 </div>
 
                 <div class="mt-6 mb-4 p-4 pt-3 border border-grey-light">
-                    <div class="flex">
-                        <h4 class="mt-0">Heading</h4>
+                    <div class="flex leading-none">
+                        <h4 class="mt-0 mb-3">Heading</h4>
                         <div class="ml-auto">
                             <a href="" class="form-action">Action</a>
                         </div>
