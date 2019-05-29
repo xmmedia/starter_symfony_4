@@ -56,6 +56,12 @@ select {
     label {
         @apply inline-block mr-4 mb-0;
     }
+    legend {
+        @apply mb-1;
+    }
+    .field-wrap-checkbox, .field-wrap-radio {
+        @apply mb-1;
+    }
 }
 // for the labels within the vich file uploader widget
 .vich-file, .vich-image {
