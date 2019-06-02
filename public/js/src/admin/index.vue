@@ -33,7 +33,7 @@
                         {{ profileLinkText }}
                     </router-link>
                 </div>
-                <div class="p-1 text-xs">
+                <div v-if="loggedIn" class="p-1 text-xs">
                     <a href="/logout" class="text-inherit">Logout</a>
                 </div>
                 <div class="py-2 text-xs text-grey-darker border-t border-grey-darker">
