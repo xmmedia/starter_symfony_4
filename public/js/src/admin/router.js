@@ -1,8 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store';
+import apolloProvider from '@/common/apollo';
 
 import qs from 'qs';
+
+import { MeSimpleQuery } from '@/admin/queries/user.query';
 
 Vue.use(Router);
 
@@ -130,10 +133,23 @@ const router = new Router({
     },
 });
 
-router.beforeEach( (to, from, next) => {
+router.beforeEach( async (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
     if (requiresAuth) {
+        // check to see if they're still authenticated
+        const result = await apolloProvider.defaultClient.query({
+            query: MeSimpleQuery,
+            fetchPolicy: 'no-cache',
+        });
+        if (!result.data.Me) {
+            await apolloProvider.defaultClient.clearStore();
+
+            next({ name: 'login' });
+
+            return;
+        }
+
         // find the first matched route that has a role
         const routeWithRole = to.matched.find(record => record.meta && record.meta.role);
 

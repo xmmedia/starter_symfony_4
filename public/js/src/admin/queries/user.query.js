@@ -11,6 +11,14 @@ export const MeQuery = gql`query Me {
     }
 }`;
 
+export const MeSimpleQuery = gql`
+    query Me {
+        Me {
+            userId
+        }
+    }
+`;
+
 export const GetUsersQuery = gql`query GetUsers {
     Users {
         userId
