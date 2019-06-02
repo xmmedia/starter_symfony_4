@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store';
 
+import qs from 'qs';
+
 Vue.use(Router);
 
 const router = new Router({
@@ -114,6 +116,17 @@ const router = new Router({
         } else {
             return { x: 0, y: 0 };
         }
+    },
+
+    // set custom query resolver
+    parseQuery (query) {
+        return qs.parse(query);
+    },
+    // set custom query stringifier
+    stringifyQuery (query) {
+        const result = qs.stringify(query);
+
+        return result ? ('?' + result) : '';
     },
 });
 
