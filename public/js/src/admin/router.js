@@ -143,9 +143,7 @@ router.beforeEach( async (to, from, next) => {
             fetchPolicy: 'no-cache',
         });
         if (!result.data.Me) {
-            await apolloProvider.defaultClient.clearStore();
-
-            next({ name: 'login' });
+            window.location = router.resolve({ name: 'login' }).href;
 
             return;
         }
