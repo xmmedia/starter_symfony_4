@@ -6,6 +6,7 @@ namespace App\EventSubscriber;
 
 use App\Exception\FormValidationException;
 use Overblog\GraphQLBundle\Event\ErrorFormattingEvent;
+use Overblog\GraphQLBundle\Event\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class GraphQlErrorSubscriber implements EventSubscriberInterface
@@ -13,7 +14,7 @@ class GraphQlErrorSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'graphql.error_formatting' => ['onGraphqlError', -128],
+            Events::ERROR_FORMATTING => ['onGraphqlError', -128],
         ];
     }
 

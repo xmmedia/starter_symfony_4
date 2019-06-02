@@ -6,6 +6,7 @@ namespace App\EventSubscriber;
 
 use App\Exception\FormValidationException;
 use Overblog\GraphQLBundle\Event\ErrorFormattingEvent;
+use Overblog\GraphQLBundle\Event\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -26,8 +27,8 @@ class FormValidationExceptionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::EXCEPTION    => ['onKernelException', -100],
-            'graphql.error_formatting' => ['onGraphqlError', -100],
+            KernelEvents::EXCEPTION  => ['onKernelException', -100],
+            Events::ERROR_FORMATTING => ['onGraphqlError', -100],
         ];
     }
 
