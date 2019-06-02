@@ -106,7 +106,7 @@ export default {
                 this.tokenExpired = false;
 
                 setTimeout(() => {
-                    window.location = '/login';
+                    window.location = this.$router.resolve({ name: 'login' }).href;
                 }, 5000);
 
             } catch (e) {

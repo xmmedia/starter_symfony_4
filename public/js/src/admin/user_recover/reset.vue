@@ -112,7 +112,7 @@ export default {
                 this.serverValidationErrors = {};
 
                 setTimeout(() => {
-                    window.location = '/login';
+                    window.location = this.$router.resolve({ name: 'login' }).href;
                 }, 5000);
 
             } catch (e) {
