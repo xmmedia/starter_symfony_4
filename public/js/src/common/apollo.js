@@ -18,6 +18,9 @@ const apolloClient = new ApolloClient({
     link: httpLink,
     // Cache implementation
     cache: new InMemoryCache(),
+    defaultOptions: {
+        fetchPolicy: 'cache-and-network',
+    },
 });
 
 export default new VueApollo({
