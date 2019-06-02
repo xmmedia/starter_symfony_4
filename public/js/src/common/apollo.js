@@ -13,17 +13,13 @@ const httpLink = createHttpLink({
     fetch: fetch,
 });
 
-// Cache implementation
-const cache = new InMemoryCache();
-
 // Create the apollo client
 const apolloClient = new ApolloClient({
     link: httpLink,
-    cache,
+    // Cache implementation
+    cache: new InMemoryCache(),
 });
 
-const apolloProvider = new VueApollo({
+export default new VueApollo({
     defaultClient: apolloClient,
 });
-
-export default apolloProvider;
