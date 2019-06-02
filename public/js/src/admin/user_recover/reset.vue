@@ -49,9 +49,9 @@
                 </div>
             </form>
 
-            <div v-if="status === 'saved'" class="alert alert-success" role="alert">
-                Your password has been reset.
-                <router-link :to="{ name: 'login' }" class="pl-4">Login</router-link>
+            <div v-if="status === 'saved'" class="text-center">
+                <div class="mb-4">Your password has been reset.</div>
+                <div><router-link :to="{ name: 'login' }">Login</router-link></div>
             </div>
         </div>
     </div>

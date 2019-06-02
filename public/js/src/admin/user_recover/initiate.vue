@@ -25,9 +25,12 @@
                 </div>
             </form>
 
-            <div v-if="status === 'saved'" class="alert alert-success" role="alert">
-                A password reset link has been sent by email.
-                Please follow the instructions within the email to reset your password.
+            <div v-if="status === 'saved'" class="text-center">
+                <div class="mb-4">
+                    A password reset link has been sent by email.
+                    Please follow the instructions within the email to reset your password.
+                </div>
+                <div><router-link :to="{ name: 'login' }">Return to Login</router-link></div>
             </div>
         </div>
     </div>
