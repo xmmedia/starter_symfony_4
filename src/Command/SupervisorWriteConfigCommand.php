@@ -82,6 +82,7 @@ EOA;
         $programNames = [];
         $programConfigs = [];
         foreach ($config['programs'] as $name => $programConfig) {
+            $io->writeln('Adding: '.$name);
             $programNames[] = $this->supervisordProgramPrefix.'_'.$name;
 
             $programConfigs[] = sprintf(
