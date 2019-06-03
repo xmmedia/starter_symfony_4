@@ -17,18 +17,18 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class SupervisorRestartCommand extends Command
 {
     /** @var Supervisord */
-    private $supervisorClient;
+    private $supervisordClient;
 
     /** @var ContainerInterface */
     private $projectionManagersLocator;
 
     public function __construct(
-        Supervisord $supervisorClient,
+        Supervisord $supervisordClient,
         ContainerInterface $projectionManagersLocator
     ) {
         parent::__construct();
 
-        $this->supervisorClient = $supervisorClient;
+        $this->supervisordClient = $supervisordClient;
         $this->projectionManagersLocator = $projectionManagersLocator;
     }
 
@@ -67,15 +67,15 @@ final class SupervisorRestartCommand extends Command
         $io->text((new \DateTimeImmutable())->format('Y-m-d H:i:s'));
 
         if ($input->getOption('all')) {
-            $this->supervisorClient->client()->reloadConfig();
-            $this->supervisorClient->client()
-                ->stopProcessGroup($this->supervisorClient->programPrefix())
+            $this->supervisordClient->client()->reloadConfig();
+            $this->supervisordClient->client()
+                ->stopProcessGroup($this->supervisordClient->programPrefix())
             ;
-            $this->supervisorClient->client()
-                ->removeProcessGroup($this->supervisorClient->programPrefix())
+            $this->supervisordClient->client()
+                ->removeProcessGroup($this->supervisordClient->programPrefix())
             ;
-            $this->supervisorClient->client()
-                ->addProcessGroup($this->supervisorClient->programPrefix())
+            $this->supervisordClient->client()
+                ->addProcessGroup($this->supervisordClient->programPrefix())
             ;
 
             $io->success('All Supervisor programs have been restarted successfully.');
@@ -118,11 +118,11 @@ final class SupervisorRestartCommand extends Command
         $io->text(sprintf('Restarting projection "%s"', $projection));
 
         try {
-            if ($this->supervisorClient->isRunning($projection)) {
-                $this->supervisorClient->stop($projection);
+            if ($this->supervisordClient->isRunning($projection)) {
+                $this->supervisordClient->stop($projection);
             }
 
-            $this->supervisorClient->start($projection);
+            $this->supervisordClient->start($projection);
         } catch (Fault $e) {
             $io->error(
                 sprintf(

@@ -17,18 +17,18 @@ use Webmozart\Assert\Assert;
 final class SupervisorRunningCheckCommand extends Command
 {
     /** @var Supervisord */
-    private $supervisorClient;
+    private $supervisordClient;
 
     /** @var ContainerInterface */
     private $projectionManagersLocator;
 
     public function __construct(
-        Supervisord $supervisorClient,
+        Supervisord $supervisordClient,
         ContainerInterface $projectionManagersLocator
     ) {
         parent::__construct();
 
-        $this->supervisorClient = $supervisorClient;
+        $this->supervisordClient = $supervisordClient;
         $this->projectionManagersLocator = $projectionManagersLocator;
     }
 
@@ -71,11 +71,11 @@ final class SupervisorRunningCheckCommand extends Command
 
             ++$checked;
 
-            if (!$this->supervisorClient->isRunning($projection)) {
+            if (!$this->supervisordClient->isRunning($projection)) {
                 $io->note(sprintf('Projection "%s" is not running. Attempting to restart.', $projection));
 
                 try {
-                    $this->supervisorClient->start($projection);
+                    $this->supervisordClient->start($projection);
                     ++$started;
                 } catch (Fault $e) {
                     $io->error(sprintf('Failed to restart projection "%s".', $projection));
