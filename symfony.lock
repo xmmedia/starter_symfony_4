@@ -383,6 +383,9 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.0"
+    },
     "psr/http-factory": {
         "version": "1.0.0"
     },
@@ -394,9 +397,6 @@
     },
     "psr/log": {
         "version": "1.0.2"
-    },
-    "psr/simple-cache": {
-        "version": "1.0.1"
     },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
@@ -569,6 +569,9 @@
             "ref": "1717e67afa995e4f01a25ba9ae7aca5b2327bcaa"
         }
     },
+    "symfony/http-client": {
+        "version": "v4.3.0"
+    },
     "symfony/http-foundation": {
         "version": "v4.1.6"
     },
@@ -598,6 +601,9 @@
             "version": "4.1",
             "ref": "f11dfa18618a8a5dd853ea3a302db2e0557e031c"
         }
+    },
+    "symfony/mime": {
+        "version": "v4.3.0"
     },
     "symfony/monolog-bridge": {
         "version": "v4.1.6"
