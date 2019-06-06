@@ -1,4 +1,4 @@
-@tailwind preflight;
+@tailwind base;
 
 @tailwind components;
 
@@ -17,7 +17,7 @@ body {
 }
 
 a, .button-link {
-    @apply text-blue-dark font-light no-underline;
+    @apply text-blue-600 font-light no-underline;
     &:hover, &:active {
         @apply underline;
     }
@@ -28,7 +28,7 @@ b, strong {
 }
 
 h1 {
-    @apply text-blue-darker;
+    @apply text-blue-800;
 }
 
 // load common styles

@@ -1,14 +1,14 @@
 .record_list-wrap {
-    @apply table list-reset min-w-full mt-4;
+    @apply table list-none min-w-full mt-4;
     border-collapse: collapse;
 }
 
 .record_list-item {
-    @apply flex flex-col flex-wrap p-2 border-b border-grey-light;
+    @apply flex flex-col flex-wrap p-2 border-b border-gray-400;
     transition: background 0.15s ease-in-out;
 
     &:hover {
-        @apply bg-blue-lightest;
+        @apply bg-blue-100;
     }
     &:nth-of-type(2) {
         @apply border-t;
@@ -17,7 +17,7 @@
 
 @screen md {
     .record_list-item {
-        @apply table-row border-b border-grey-light;
+        @apply table-row border-b border-gray-400;
 
         &:first-of-type {
             @apply table-row border-none;
@@ -33,7 +33,7 @@
 }
 @screen md {
     .record_list-headers {
-        @apply font-bold border-none bg-grey-light;
+        @apply font-bold border-none bg-gray-400;
         display: table-header-group;
     }
 }
@@ -46,13 +46,13 @@
 }
 @screen md {
     .record_view-item_wrap > .record_list-wrap .record_list-headers {
-        @apply text-grey-dark font-light border-b border-solid border-grey-dark bg-transparent;
+        @apply text-gray-600 font-light border-b border-solid border-gray-600 bg-transparent;
         display: table-header-group;
     }
 }
 
 .record_list-mobile_heading {
-    @apply text-grey;
+    @apply text-gray-500;
 }
 @screen md {
     .record_list-mobile_heading {
@@ -82,7 +82,7 @@
 }
 
 .record_list-record_count {
-    @apply text-xs mb-4 text-center text-grey-darker;
+    @apply text-xs mb-4 text-center text-gray-800;
 }
 
 .record_list-icon {

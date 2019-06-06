@@ -14,29 +14,34 @@
 [type=url],
 [type=color],
 textarea {
-    @apply w-full p-2 text-black border border-grey rounded-sm bg-grey-lightest;
+    @apply w-full p-1 border border-gray-500 rounded-sm bg-gray-100;
 }
 textarea {
     // fixes space below textareas, making it consistent across browsers
-    @apply align-top text-black;
+    @apply align-top;
 }
 select {
-    @apply w-full p-2 text-black border border-grey rounded-sm bg-grey-lightest;
-    height: 2.3rem;
+    @apply w-full p-1 border border-gray-500 rounded-sm bg-gray-100;
+    height: 2.14rem;
 }
 [type=radio], [type=checkbox] {
     @apply mr-1;
 }
+// fixes alignment of radio to label
+[type=radio] {
+    @apply relative;
+    top: -1px;
+}
 // make sure everything shows a pointer on hover
-[type=submit], [type=image], label[for], select {
+[type=submit], [type=image], label, select {
     @apply cursor-pointer;
 }
-[type=file] { width: 100%; }
-// hide the reveal password in IE/Edge; use our own cross browser functionality
-[type=password]::-ms-reveal { @apply hidden; }
+[type=file] {
+    width: 100%;
+}
 
 .form-wrap {
-    @apply w-9/10 max-w-sm mx-auto my-4 p-4 rounded-sm shadow-md;
+    @apply w-11/12 max-w-2xl mx-auto my-4 p-4 rounded-sm shadow-md;
 }
 
 .field-wrap {
@@ -46,11 +51,16 @@ select {
     }
 }
 .field-wrap-checkbox {
-    @apply mb-4;
+    @apply flex items-center mb-4;
     label {
         @apply inline-block mr-4 mb-0;
     }
 }
+
+.field-wrap-radio {
+    @apply mb-1;
+}
+
 .field-wrap-radios, .field-wrap-checkboxes {
     @apply mb-4;
     label {
@@ -59,21 +69,15 @@ select {
     legend {
         @apply mb-1;
     }
-    .field-wrap-checkbox, .field-wrap-radio {
-        @apply mb-1;
-    }
-}
-// for the labels within the vich file uploader widget
-.vich-file, .vich-image {
-    label {
+    .field-wrap-checkbox {
         @apply mb-1;
     }
 }
 
 .field-errors {
-    @apply list-reset mb-1 pl-0;
+    @apply mb-1 pl-0 list-none;
     li {
-        @apply mb-1 p-2 bg-grey-lighter border-l-10 border-red;
+        @apply mb-1 p-2 bg-gray-200 border-l-10 border-red-700;
     }
 }
 
@@ -85,16 +89,16 @@ select {
     }
 
     &:after {
-        @apply absolute pin-r text-xs opacity-50;
-        top: 0.5rem;
+        @apply absolute right-0 text-xs opacity-50;
+        top: 0.5em;
         content: "read-only";
     }
 }
 
 .field-help {
-    @apply mt-px text-xs italic text-grey-dark leading-tight;
-    // the padding helps it align better with field above (looks slightly better than 1px)
-    padding-left: 0.1rem;
+    @apply text-xs italic text-gray-600 leading-tight;
+    // the padding helps it align better with field above
+    padding-left: 0.1em;
 }
 
 .form-action {

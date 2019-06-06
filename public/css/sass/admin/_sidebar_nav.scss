@@ -1,5 +1,5 @@
 .sidebar_nav-wrap {
-    @apply fixed pin-l z-10 w-24 h-full text-center text-white bg-black fill-current;
+    @apply fixed left-0 z-10 w-24 h-full text-center text-white bg-black fill-current;
 }
 
 // .sidebar_nav-submenu-open added to body
@@ -16,7 +16,7 @@
 }
 
 .sidebar_nav-nav {
-    @apply w-24 h-full overflow-y-scroll list-reset;
+    @apply w-24 h-full overflow-y-scroll list-none;
 
     li {
         // so we can control the positioning of the submenu arrow
@@ -25,7 +25,7 @@
 
     // the gradient at the top of the menu when scrolling
     &:after {
-        @apply absolute pin-l w-24 h-6;
+        @apply absolute left-0 w-24 h-6;
         top: $header-height;
         background: linear-gradient(to bottom, config('colors.black'), transparent);
         content: "";
@@ -47,11 +47,11 @@
 }
 
 .sidebar_nav-bottom_wrap {
-    @apply absolute pin-b w-24 pt-2 bg-black text-grey text-center font-thin;
+    @apply absolute bottom-0 w-24 pt-2 bg-black text-gray-500 text-center font-thin;
 
     // the gradient above the profile
     &:before {
-        @apply absolute pin-l w-24 h-10;
+        @apply absolute left-0 w-24 h-10;
         top: -2.5rem;
         background: linear-gradient(to bottom, transparent, config('colors.black'));
         content: "";

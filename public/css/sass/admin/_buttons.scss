@@ -1,8 +1,8 @@
 .button {
-    @apply py-2 px-4 text-white font-thin bg-blue-dark shadow-none border-2 border-blue-dark rounded tracking-wide;
+    @apply py-2 px-4 text-white font-thin bg-blue-600 shadow-none border-2 border-blue-600 rounded tracking-wider;
     transition: all 0.35s ease-in-out;
     &:hover {
-        @apply text-white bg-blue-darker border-blue-darker no-underline;
+        @apply text-white bg-blue-800 border-blue-800 no-underline;
         transition: all 0.25s ease;
     }
     &:disabled {

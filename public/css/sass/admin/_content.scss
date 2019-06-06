@@ -12,7 +12,6 @@
 }
 @screen md {
     .content-wrap {
-        @apply z-auto;
-        margin-left: 6rem;
+        @apply z-auto ml-24;
     }
 }
