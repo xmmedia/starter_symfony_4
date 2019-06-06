@@ -1,5 +1,5 @@
 <template>
-    <ul class="list-reset flex justify-between">
+    <ul class="list-none flex justify-between">
         <li class="flex-grow">
             <router-link :to="{ name: 'user-profile-edit' }"
                          :class="linkActiveClass('user-profile-edit')"
@@ -22,8 +22,8 @@ export default {
     methods: {
         linkActiveClass (linkRoute) {
             return {
-                'bg-blue-lightest hover:bg-blue-lighter' : this.$route.name !== linkRoute,
-                'bg-blue-dark text-white' : this.$route.name === linkRoute,
+                'bg-blue-100 hover:bg-blue-200' : this.$route.name !== linkRoute,
+                'bg-blue-600 text-white' : this.$route.name === linkRoute,
             };
         },
     },

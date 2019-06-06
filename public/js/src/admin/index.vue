@@ -4,7 +4,7 @@
 
         <nav class="sidebar_nav-wrap">
             <router-link :to="{ name: 'admin-dashboard' }"
-                         class="flex items-center justify-center w-24 border-b border-grey-darker"
+                         class="flex items-center justify-center w-24 border-b border-gray-700"
                          style="height: 3.75rem; padding: 0.65rem 0;">
                 <img src="/images/logo.svg"
                      width="80"
@@ -36,7 +36,7 @@
                 <div v-if="loggedIn" class="p-1 text-xs">
                     <a href="/logout" class="text-inherit">Logout</a>
                 </div>
-                <div class="py-2 text-xs text-grey-darker border-t border-grey-darker">
+                <div class="py-2 text-xs text-gray-700 border-t border-gray-700">
                     <!-- @todo-symfony -->
                     ©{{ copyrightYear }} XM Media Inc.
                 </div>

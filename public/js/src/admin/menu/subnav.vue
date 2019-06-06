@@ -6,11 +6,11 @@
         <div ref="submenu"
              :class="{ 'sidebar_nav-submenu-wrap-open' : open }"
              class="sidebar_nav-submenu-wrap">
-            <div class="text-2xl font-thin border-b border-grey-darker sidebar_nav-submenu_header">{{ name }}</div>
-            <ul class="h-full list-reset overflow-y-scroll">
+            <div class="text-2xl font-thin border-b border-gray-700 sidebar_nav-submenu_header">{{ name }}</div>
+            <ul class="h-full list-none overflow-y-scroll">
                 <li v-for="(route, anchor) in items" :key="route">
                     <router-link :to="{ name: route }"
-                                 class="sidebar_nav-link block py-3 px-4 opacity-100 hover:bg-blue-darker"
+                                 class="sidebar_nav-link block py-3 px-4 opacity-100 hover:bg-blue-800"
                                  @click.native="toggleMenu">
                         {{ anchor }}
                     </router-link>

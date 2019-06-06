@@ -8,7 +8,7 @@
                      :to="pageRoute(0)"
                      :class="linkClasses"
                      class="inline-block">&lt;&lt;</router-link>
-        <span v-else class="inline-block w-12 p-1 text-grey-darker">&lt;&lt;</span>
+        <span v-else class="inline-block w-12 p-1 text-gray-800">&lt;&lt;</span>
 
         <router-link v-if="previous !== null"
                      :to="previousRoute"
@@ -17,7 +17,7 @@
         <span v-else :class="spanClasses" class="inline-block">&lt;</span>
 
         <span v-if="showBeforeEllipsis"
-              class="hidden lg:inline-block w-4 p-1 text-grey-darker">…</span>
+              class="hidden lg:inline-block w-4 p-1 text-gray-800">…</span>
 
         <template v-for="page in pagesInRange">
             <router-link v-if="page !== current"
@@ -27,11 +27,11 @@
             <span v-else
                   :key="page"
                   :class="spanClasses"
-                  class="hidden lg:inline-block border border-grey-light rounded">{{ page }}</span>
+                  class="hidden lg:inline-block border border-gray-200 rounded">{{ page }}</span>
         </template>
 
         <span v-if="showAfterEllipsis"
-              class="hidden lg:inline-block w-4 p-1 text-grey-darker">…</span>
+              class="hidden lg:inline-block w-4 p-1 text-gray-800">…</span>
 
         <router-link v-if="next !== null"
                      :to="nextRoute"
@@ -43,7 +43,7 @@
                      :to="{ name: routeName, query: { offset: last } }"
                      :class="linkClasses"
                      class="inline-block">&gt;&gt;</router-link>
-        <span v-else class="inline-block w-12 p-1 text-grey-darker">&gt;&gt;</span>
+        <span v-else class="inline-block w-12 p-1 text-gray-800">&gt;&gt;</span>
     </div>
 </template>
 
@@ -94,8 +94,8 @@ export default {
 
     data () {
         return {
-            linkClasses: 'w-12 p-1 hover:no-underline hover:bg-blue-lightest',
-            spanClasses: 'w-12 p-1 text-grey-darker',
+            linkClasses: 'w-12 p-1 hover:no-underline hover:bg-blue-100',
+            spanClasses: 'w-12 p-1 text-gray-800',
         };
     },
 

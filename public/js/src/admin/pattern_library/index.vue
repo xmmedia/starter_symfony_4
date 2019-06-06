@@ -18,7 +18,7 @@
         <p>Paragraph text – 16px – Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquet tincidunt urna, ac molestie elit viverra sed. Maecenas rhoncus nisl purus, eget finibus mauris venenatis sit amet. Nunc tincidunt sed magna a tincidunt. Maecenas nunc ex, imperdiet in scelerisque in, sodales vel arcu. Pellentesque fringilla mattis est eget egestas. Mauris eu lorem quis nisl sagittis euismod. Sed ultricies, augue in condimentum venenatis, turpis lectus sagittis elit, vitae porttitor eros eros quis ipsum. Quisque sagittis enim quis nulla pretium, vel accumsan magna ullamcorper. Donec vitae sollicitudin libero.</p>
         <p>Donec facilisis egestas nulla vel condimentum. Praesent quis lectus nec velit rhoncus ultricies ac quis mi. Mauris mattis lacus magna, venenatis faucibus nisi rhoncus non. Aenean ut facilisis nisl. Nam ullamcorper nunc augue, at dignissim neque cursus nec. Nunc ut lorem at tortor malesuada tempus ac sed felis. Mauris egestas leo eget justo vehicula iaculis. Cras rutrum malesuada pulvinar. Fusce porta augue quis feugiat consectetur. Nam pharetra erat eu efficitur placerat. Phasellus non placerat sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
 
-        <div class="max-w-sm mx-auto">
+        <div class="max-w-lg mx-auto">
             <p>Narrow content... Donec facilisis egestas nulla vel condimentum. Praesent quis lectus nec velit rhoncus ultricies ac quis mi. Mauris mattis lacus magna, venenatis faucibus nisi rhoncus non. Aenean ut facilisis nisl. Nam ullamcorper nunc augue, at dignissim neque cursus nec. Nunc ut lorem at tortor malesuada tempus ac sed felis. Mauris egestas leo eget justo vehicula iaculis. Cras rutrum malesuada pulvinar. Fusce porta augue quis feugiat consectetur. Nam pharetra erat eu efficitur placerat. Phasellus non placerat sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
         </div>
 
@@ -56,12 +56,12 @@
         <h2>Buttons</h2>
         <button class="button">Button Button</button>
         <a href="" class="button">Link Button</a>
-        <a href="" class="button text-red-dark hover:text-white border-2 border-solid border-red-dark hover:border-red-dark bg-white hover:bg-red-dark">Delete Button</a>
+        <a href="" class="button text-red-600 hover:text-white border-2 border-solid border-red-600 hover:border-red-600 bg-white hover:bg-red-600">Delete Button</a>
         <div style="background: grey; margin-top: 1rem; padding: 1rem;">
             <h2>Buttons on Dark Background</h2>
             <button class="button">Button Button</button>
             <a href="" class="button">Link Button</a>
-            <a href="" class="button text-red-dark hover:text-white border-2 border-solid border-red-dark hover:border-red-dark bg-white hover:bg-red-dark">Delete Button</a>
+            <a href="" class="button text-red-600 hover:text-white border-2 border-solid border-red-600 hover:border-red-600 bg-white hover:bg-red-600">Delete Button</a>
         </div>
 
         <!-- ############################# -->
@@ -109,7 +109,7 @@
                     <input id="pattern-library-prefix-suffix" type="text" class="w-auto">
                     <span class="ml-2">Suffix</span>
                 </div>
-                <div class="field-wrap"> 
+                <div class="field-wrap">
                     <label for="pattern-library-textarea">Text Area</label>
                     <textarea id="pattern-library-textarea" class="h-32"></textarea>
                 </div>
@@ -215,7 +215,7 @@
                     </div>
                 </div>
 
-                <div class="mt-6 mb-4 p-4 border border-grey-light">
+                <div class="mt-6 mb-4 p-4 border border-gray-400">
                     <div class="field-wrap">
                         <label for="pattern-library-fieldset-1">Fieldset Field 1</label>
                         <select id="pattern-library-fieldset-1">
@@ -228,7 +228,7 @@
                     </div>
                 </div>
 
-                <div class="mt-6 mb-4 p-4 pt-3 border border-grey-light">
+                <div class="mt-6 mb-4 p-4 pt-3 border border-gray-400">
                     <div class="flex leading-none">
                         <h4 class="mt-0 mb-3">Heading</h4>
                         <div class="ml-auto">
@@ -366,7 +366,7 @@
                     Value 2-{{ i }}
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon text-green-dark">
+                    <svg class="record_list-icon text-green-600">
                         <use xlink:href="#check"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
@@ -385,7 +385,7 @@
                     Nullam quis risus eget urna mollis ornare vel eu leo. Nullam quis risus eget urna mollis ornare vel eu leo.
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon fill-current text-green-dark">
+                    <svg class="record_list-icon fill-current text-green-600">
                         <use xlink:href="#check"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
@@ -404,7 +404,7 @@
                     Inactive Value 2
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon fill-current text-grey-darker">
+                    <svg class="record_list-icon fill-current text-gray-700">
                         <use xlink:href="#check"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
@@ -430,7 +430,7 @@
                 <div class="record_view-item_label">Is True</div>
                 <div class="record_view-item_value">
                     <span title="A Checkmark">
-                        <svg class="record_view-icon text-green-dark">
+                        <svg class="record_view-icon text-green-600">
                             <use xlink:href="#check"></use>
                         </svg>
                     </span>
@@ -447,7 +447,7 @@
             <div class="record_view-item">
                 <div class="record_view-item_label">List</div>
                 <div class="record_view-item_value">
-                    <ul class="pl-4">
+                    <ul>
                         <li>Item 1</li>
                         <li>Item 2</li>
                         <li>Item 3</li>
