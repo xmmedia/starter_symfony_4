@@ -24,7 +24,7 @@
                         This cannot be undone.
                     </div>
                     <div class="mb-4">
-                        <button class="button bg-red-dark border-red-dark hover:bg-red hover:border-red"
+                        <button class="button bg-red-600 border-red-600 hover:bg-red hover:border-red-500"
                                 type="button"
                                 @click="deleteRecord">Delete</button>
                         <button ref="cancel"

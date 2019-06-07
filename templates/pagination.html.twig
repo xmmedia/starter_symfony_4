@@ -3,36 +3,36 @@
 {% if pageCount > 1 %}
     <div class="my-4 mx-auto text-center clearfix">
         {% if first is defined and current != first %}
-            <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-lightest">&lt;&lt;</a>
+            <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-100">&lt;&lt;</a>
         {% else %}
-            <span class="inline-block w-12 p-1 text-grey-darker">&lt;&lt;</span>
+            <span class="inline-block w-12 p-1 text-gray-700">&lt;&lt;</span>
         {% endif %}
 
         {% if previous is defined %}
-            <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-lightest">&lt;</a>
+            <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-100">&lt;</a>
         {% else %}
-            <span class="inline-block w-12 p-1 text-grey-darker">&lt;</span>
+            <span class="inline-block w-12 p-1 text-gray-700">&lt;</span>
         {% endif %}
 
         {% for page in pagesInRange %}
             {% if page != current %}
-                <a href="{{ path(route, query|merge({(pageParameterName): page})) }}" class="hidden lg:inline-block w-12 p-1 hover:no-underline hover:bg-blue-lightest">{{ page }}</a>
+                <a href="{{ path(route, query|merge({(pageParameterName): page})) }}" class="hidden lg:inline-block w-12 p-1 hover:no-underline hover:bg-blue-100">{{ page }}</a>
             {% else %}
-                <span class="hidden lg:inline-block w-12 p-1 text-black border border-grey-light rounded">{{ page }}</span>
+                <span class="hidden lg:inline-block w-12 p-1 text-black border border-gray-400 rounded">{{ page }}</span>
             {% endif %}
 
         {% endfor %}
 
         {% if next is defined %}
-            <a href="{{ path(route, query|merge({(pageParameterName): next})) }}" class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-lightest">&gt;</a>
+            <a href="{{ path(route, query|merge({(pageParameterName): next})) }}" class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-100">&gt;</a>
         {% else %}
-            <span class="inline-block w-12 p-1 text-grey-darker">&gt;</span>
+            <span class="inline-block w-12 p-1 text-gray-700">&gt;</span>
         {% endif %}
 
         {% if last is defined and current != last %}
-            <a href="{{ path(route, query|merge({(pageParameterName): last})) }}" class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-lightest">&gt;&gt;</a>
+            <a href="{{ path(route, query|merge({(pageParameterName): last})) }}" class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-100">&gt;&gt;</a>
         {% else %}
-            <span class="inline-block w-12 p-1 text-grey-darker">&gt;&gt;</span>
+            <span class="inline-block w-12 p-1 text-gray-700">&gt;&gt;</span>
         {% endif %}
     </div>
 {% endif %}

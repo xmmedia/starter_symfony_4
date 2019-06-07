@@ -16,7 +16,7 @@
 }
 
 .sidebar_nav-nav {
-    @apply w-24 h-full overflow-y-scroll list-none;
+    @apply w-24 h-full p-0 overflow-y-scroll list-none;
 
     li {
         // so we can control the positioning of the submenu arrow
