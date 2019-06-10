@@ -90,3 +90,11 @@ cypress/integration/examples
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> vscode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+###< vscode ###
