@@ -5,4 +5,5 @@
 // the actions here may or may not be inside a form
 .form-extra_actions {
     @apply flex flex-col flex-wrap items-end justify-end list-none;
+    line-height: 1.15;
 }
