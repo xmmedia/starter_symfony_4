@@ -12,6 +12,12 @@ use App\Model\User\UserId;
 
 class InviteSent extends AggregateChanged
 {
+    /** @var Token */
+    private $token;
+
+    /** @var NotificationGatewayId */
+    private $messageId;
+
     public static function now(
         UserId $userId,
         Token $token,
@@ -21,6 +27,9 @@ class InviteSent extends AggregateChanged
             'token'     => $token->toString(),
             'messageId' => $messageId->toString(),
         ]);
+
+        $event->token = $token;
+        $event->messageId = $messageId;
 
         return $event;
     }
@@ -32,11 +41,21 @@ class InviteSent extends AggregateChanged
 
     public function token(): Token
     {
-        return Token::fromString($this->payload()['token']);
+        if (null === $this->token) {
+            $this->token = Token::fromString($this->payload()['token']);
+        }
+
+        return $this->token;
     }
 
     public function messageId(): NotificationGatewayId
     {
-        return EmailGatewayMessageId::fromString($this->payload()['messageId']);
+        if (null === $this->messageId) {
+            $this->messageId = EmailGatewayMessageId::fromString(
+                $this->payload()['messageId']
+            );
+        }
+
+        return $this->messageId;
     }
 }
