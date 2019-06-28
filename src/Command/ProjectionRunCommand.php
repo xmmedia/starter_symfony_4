@@ -91,6 +91,7 @@ final class ProjectionRunCommand extends Command
                 sprintf('ProjectionManager for "%s" not found', $this->projectionName)
             );
         }
+        /** @var \Prooph\EventStore\Projection\ProjectionManager $projectionManager */
         $projectionManager = $this->projectionManagerForProjectionsLocator
             ->get($this->projectionName);
 
@@ -99,6 +100,7 @@ final class ProjectionRunCommand extends Command
                 sprintf('Projection "%s" not found', $this->projectionName)
             );
         }
+        /** @var \Prooph\Bundle\EventStore\Projection\ReadModelProjection $projection */
         $projection = $this->projectionsLocator->get($this->projectionName);
 
         if (!$this->projectionReadModelLocator->has($this->projectionName)) {
@@ -106,6 +108,7 @@ final class ProjectionRunCommand extends Command
                 sprintf('ReadModel for "%s" not found', $this->projectionName)
             );
         }
+        /** @var \Prooph\EventStore\Projection\ReadModel $readModel */
         $readModel = $this->projectionReadModelLocator->get($this->projectionName);
 
         $this->projector = $projection->project(
