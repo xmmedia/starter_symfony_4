@@ -10,7 +10,10 @@ html {
 }
 
 a, .button-link {
-    //&:hover, &:active { }
+    @apply text-blue-600 no-underline;
+    &:hover, &:active {
+        @apply underline;
+    }
 }
 
 h1, h2, h3, h4, h5, h6 {
