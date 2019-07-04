@@ -11,6 +11,8 @@ class StringUtilTest extends BaseTestCase
 {
     /**
      * @dataProvider dataProvider
+     * @param mixed $input
+     * @param mixed $expected
      */
     public function test($input, $expected): void
     {
