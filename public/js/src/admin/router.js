@@ -20,7 +20,7 @@ const router = new Router({
         },
         {
             path: '/recover',
-            component: () => import(/* webpackChunkName: "user-recover" */ './user_recover/index'),
+            component: () => import(/* webpackChunkName: "user-recover" */ './user_recover'),
             children: [
                 { path: '', redirect: '/recover/initiate' },
                 {
@@ -38,11 +38,11 @@ const router = new Router({
         {
             name: 'user-verify',
             path: '/activate/:token',
-            component: () => import(/* webpackChunkName: "user-verify" */ './user_verify/index'),
+            component: () => import(/* webpackChunkName: "user-verify" */ './user_verify'),
         },
         {
             path: '/profile/edit',
-            component: () => import(/* webpackChunkName: "user-profile-edit" */ './user_profile_edit/index'),
+            component: () => import(/* webpackChunkName: "user-profile-edit" */ './user_profile_edit'),
             children: [
                 {
                     name: 'user-profile-edit',
@@ -63,7 +63,7 @@ const router = new Router({
         {
             name: 'admin-dashboard',
             path: '/admin',
-            component: () => import(/* webpackChunkName: "admin-dashboard" */ './admin_dashboard/index'),
+            component: () => import(/* webpackChunkName: "admin-dashboard" */ './admin_dashboard'),
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_ADMIN',
@@ -71,7 +71,7 @@ const router = new Router({
         },
         {
             path: '/admin/user',
-            component: () => import(/* webpackChunkName: "admin-user" */ './user/index'),
+            component: () => import(/* webpackChunkName: "admin-user" */ './user'),
             children: [
                 {
                     name: 'admin-user',
@@ -99,7 +99,7 @@ const router = new Router({
         {
             path: '/admin/pattern-library',
             name: 'pattern-library',
-            component: () => import(/* webpackChunkName: "admin-pattern_library" */ './pattern_library/index'),
+            component: () => import(/* webpackChunkName: "admin-pattern_library" */ './pattern_library'),
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_SUPER_ADMIN',
