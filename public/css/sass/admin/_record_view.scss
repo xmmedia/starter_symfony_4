@@ -28,14 +28,13 @@
 .record_view-item_label {
     @apply text-gray-600;
     min-width: 5rem;
-}
-@screen md {
-    .record_view-item_label {
+    @screen md {
         @apply w-1/5;
     }
 }
-@screen md {
-    .record_view-item_value {
+
+.record_view-item_value {
+    @screen md {
         @apply w-4/5 pl-4;
     }
 }

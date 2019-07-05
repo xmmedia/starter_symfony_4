@@ -15,8 +15,9 @@
     }
 }
 
-@screen md {
-    .record_list-item {
+
+.record_list-item {
+    @screen md {
         @apply table-row border-b border-gray-400;
 
         &:first-of-type {
@@ -31,8 +32,9 @@
 .record_list-headers {
     @apply hidden;
 }
-@screen md {
-    .record_list-headers {
+
+.record_list-headers {
+    @screen md {
         @apply font-bold border-none bg-gray-400;
         display: table-header-group;
     }
@@ -44,8 +46,8 @@
         @apply hidden;
     }
 }
-@screen md {
-    .record_view-item_wrap > .record_list-wrap .record_list-headers {
+.record_view-item_wrap > .record_list-wrap .record_list-headers {
+    @screen md {
         @apply text-gray-600 font-light border-b border-solid border-gray-600 bg-transparent;
         display: table-header-group;
     }
@@ -54,8 +56,9 @@
 .record_list-mobile_heading {
     @apply text-gray-500;
 }
-@screen md {
-    .record_list-mobile_heading {
+
+.record_list-mobile_heading {
+    @screen md {
         @apply hidden;
     }
 }
