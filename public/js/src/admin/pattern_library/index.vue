@@ -58,6 +58,10 @@
             <button class="button">Button Button</button>
             <a href="" class="button">Link Button</a>
             <a href="" class="button text-red-600 hover:text-white border-2 border-solid border-red-600 hover:border-red-600 bg-white hover:bg-red-600">Delete Button</a>
+            <div class="flex my-4">
+                <button class="button-link">Button Link</button>
+                <a href="" class="ml-4">Link</a>
+            </div>
             <div class="bg-gray-500 mt-4 p-4">
                 <h2>Buttons on Dark Background</h2>
                 <button class="button">Button Button</button>
