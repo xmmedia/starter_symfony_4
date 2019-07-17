@@ -33,7 +33,7 @@ public/service-worker.js
 !var/uploads/.gitkeep
 /vendor/
 # ignore everything in bin, except...
-/bin/
+/bin/*
 !/bin/console
 !/bin/symfony_requirements
 ###< symfony/framework-bundle ###
