@@ -137,6 +137,12 @@ router.beforeEach( async (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
     if (requiresAuth) {
+        if (!store.getters.loggedIn) {
+            window.location = router.resolve({ name: 'login' }).href;
+
+            return;
+        }
+
         // check to see if they're still authenticated
         const result = await apolloProvider.defaultClient.query({
             query: MeSimpleQuery,
@@ -151,9 +157,8 @@ router.beforeEach( async (to, from, next) => {
         // find the first matched route that has a role
         const routeWithRole = to.matched.find(record => record.meta && record.meta.role);
 
-        // this route requires auth, check if logged in
-        // and check if they have the right role
-        if (store.getters.loggedIn && store.getters.hasRole(routeWithRole.meta.role)) {
+        // this route requires auth, therefore check if they have the right role
+        if (store.getters.hasRole(routeWithRole.meta.role)) {
             next();
         } else {
             next({ name: 'login' });
