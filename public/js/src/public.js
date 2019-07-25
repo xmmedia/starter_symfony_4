@@ -8,7 +8,7 @@ import svgIcons from './common/svg_icons';
 import fieldErrors from './common/field_errors';
 
 // SASS/CSS
-import '../../css/sass/public.scss';
+import '../../css/public.scss';
 
 // images
 // import '../../images/icons-public.svg';

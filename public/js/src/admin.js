@@ -17,7 +17,7 @@ import passwordField from './common/password_field';
 import { MeQuery } from './admin/queries/user.query';
 
 // SASS/CSS
-import '../../css/sass/admin.scss';
+import '../../css/admin.scss';
 
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
