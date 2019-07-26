@@ -4,28 +4,12 @@ declare(strict_types=1);
 
 namespace App\Projection\User;
 
-use App\Projection\IsDeletableReadModel;
-use App\Projection\IsInitializableReadModel;
-use App\Projection\IsResetableReadModel;
+use App\EventStore\Projection\AbstractReadModel;
 use App\Projection\Table;
-use Doctrine\DBAL\Connection;
-use Prooph\EventStore\Projection\AbstractReadModel;
 
 final class UserTokenReadModel extends AbstractReadModel
 {
-    use IsInitializableReadModel;
-    use IsResetableReadModel;
-    use IsDeletableReadModel;
-
     protected const TABLE = Table::USER_TOKEN;
-
-    /** @var Connection */
-    private $connection;
-
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-    }
 
     public function init(): void
     {
