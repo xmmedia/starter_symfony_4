@@ -27,8 +27,8 @@ before_script:
   # Install packages
   - apt-get install gnupg2 build-essential libssl-dev -yqq
   - curl -sL https://deb.nodesource.com/setup_10.x | bash -
-  # Install git, the php image doesn't have installed
-  - apt-get install git zip unzip gcc g++ make nodejs -yqq
+  # Install libs the php image doesn't have installed
+  - apt-get install git zip unzip gcc g++ make nodejs rsync -yqq
   - alias nodejs=node
   # add package key for yarn
   - curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
