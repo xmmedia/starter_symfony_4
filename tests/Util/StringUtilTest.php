@@ -11,12 +11,10 @@ class StringUtilTest extends BaseTestCase
 {
     /**
      * @dataProvider dataProvider
-     * @param mixed $input
-     * @param mixed $expected
      */
     public function test($input, $expected): void
     {
-        $this->assertEquals($expected, StringUtil::trim($input));
+        $this->assertSame($expected, StringUtil::trim($input));
     }
 
     public function dataProvider(): \Generator
@@ -30,15 +28,24 @@ class StringUtilTest extends BaseTestCase
         yield ["  \n   string  \n   ", 'string'];
         yield ["  \t   string  \t   ", 'string'];
         yield ["st\nring", "st\nring"];
+        yield ["st\n   ring", "st\n   ring"];
         yield [null, null];
+        yield ['', null];
+        yield ['    ', null];
         yield [1, 1];
         yield ['  1', '1'];
         yield ['  1   ', '1'];
         yield ['1   ', '1'];
         yield [[], []];
+        yield [123, 123];
         yield [1.23, 1.23];
-        yield [new \stdClass(), new \stdClass()];
-        yield [function () {}, function () {}];
+
+        $class = new \stdClass();
+        yield [$class, $class];
+
+        $function = function () {
+        };
+        yield [$function, $function];
 
         $symbol = mb_convert_encoding(pack('H*', '2003'), 'UTF-8', 'UCS-2BE');
         yield [$symbol.'string'.$symbol, 'string'];

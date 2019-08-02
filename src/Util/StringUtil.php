@@ -20,6 +20,12 @@ class StringUtil
             return $string;
         }
 
-        return \Symfony\Component\Form\Util\StringUtil::trim($string);
+        $trimmed = \Symfony\Component\Form\Util\StringUtil::trim($string);
+
+        if ('' === $trimmed) {
+            return null;
+        }
+
+        return $trimmed;
     }
 }
