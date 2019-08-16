@@ -23,18 +23,18 @@
                 </div>
 
                 <password-field v-model="currentPassword"
-                                :server-validation-errors="serverValidationErrors"
+                                :server-validation-errors="getServerValidationErrors('currentPassword')"
                                 label="Current Password"
                                 field="currentPassword"
                                 autocomplete="current-password" />
 
                 <password-field v-model="newPassword"
-                                :server-validation-errors="serverValidationErrors"
+                                :server-validation-errors="getServerValidationErrors('newPassword.children.first')"
                                 label="New Password"
                                 field="newPassword.first"
                                 autocomplete="new-password" />
                 <password-field v-model="repeatPassword"
-                                :server-validation-errors="serverValidationErrors"
+                                :server-validation-errors="getServerValidationErrors('newPassword.children.second')"
                                 label="New Password Again"
                                 field="newPassword.second"
                                 autocomplete="new-password" />
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import get from 'lodash/get';
 import { logError, hasGraphQlValidationError } from '@/common/lib';
 import profileTabs from './component/tabs';
 import { ChangePassword } from '../queries/user.mutation';
@@ -122,6 +123,10 @@ export default {
 
                 this.status = statuses.LOADED;
             }
+        },
+
+        getServerValidationErrors (path) {
+            return get(this.serverValidationErrors, path);
         },
     },
 }
