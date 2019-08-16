@@ -1,10 +1,10 @@
 programs:
-    user_projection:
-        # every 1/2 second
-        command: 'php72 bin/console app:projection:run user_projection --sleep 500000'
-    user_token_projection:
-        # every 1 second
-        command: 'php72 bin/console app:projection:run user_token_projection --sleep 1000000'
-    enquiry_projection:
-        # every 10 seconds
-        command: 'php72 bin/console app:projection:run enquiry_projection --sleep 10000000'
+#    user_projection:
+#        # every 1/2 second
+#        command: 'php72 bin/console app:projection:run user_projection --sleep 500000'
+#    user_token_projection:
+#        # every 1 second
+#        command: 'php72 bin/console app:projection:run user_token_projection --sleep 1000000'
+#    enquiry_projection:
+#        # every 10 seconds
+#        command: 'php72 bin/console app:projection:run enquiry_projection --sleep 10000000'
