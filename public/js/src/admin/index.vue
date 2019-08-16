@@ -16,12 +16,12 @@
 
             <ul class="sidebar_nav-nav">
                 <template v-if="loggedIn">
-                    <li class="hover:bg-gray-800">
+                    <!--<li class="hover:bg-gray-800">
                         <router-link :to="{ name: 'admin-dashboard' }"
                                      class="sidebar_nav-link">
-                            <menu-link label="Members" icon="users" />
+                            <menu-link label="Name" icon="users" />
                         </router-link>
-                    </li>
+                    </li>-->
 
                     <li v-if="hasRole('ROLE_ADMIN')" class="hover:bg-gray-800">
                         <menu-subnav :items="adminMenuItems" label="Admin" icon="gear" />
