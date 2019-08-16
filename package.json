@@ -10,7 +10,7 @@
   "//private": true,
   "scripts": {
     "dev": "encore dev",
-    "dev-server": "encore dev-server --config webpack.dev-server.config.js --hot --port 9008 --public dev.example:443",
+    "dev-server": "encore dev-server --config webpack.dev-server.config.js --hot --port 9008 --public symfonystarter.dev2.xmmedia.com:443",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "cypress open",
     "lint:js": "vue-cli-service lint --ext .js,.vue public/js",
@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^4.0.2",
-    "@symfony/webpack-encore": "^0.27.0",
+    "@symfony/webpack-encore": "^0.28.0",
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-plugin-e2e-cypress": "^3.0.5",
     "@vue/cli-plugin-eslint": "^3.0.5",
