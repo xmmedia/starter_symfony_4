@@ -17,7 +17,7 @@ trait UsesFaker
      */
     protected function faker(): Faker\Generator
     {
-        return is_null($this->faker) ? $this->makeFaker() : $this->faker;
+        return null === $this->faker ? $this->makeFaker() : $this->faker;
     }
 
     private function makeFaker(): Faker\Generator

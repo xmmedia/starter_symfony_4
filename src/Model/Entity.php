@@ -6,5 +6,5 @@ namespace App\Model;
 
 interface Entity
 {
-    public function sameIdentityAs(Entity $other): bool;
+    public function sameIdentityAs(self $other): bool;
 }

@@ -50,7 +50,7 @@ class RunProjectionMiddleware implements MiddlewareInterface
     private function getProjectionName(AggregateChanged $message): array
     {
         $className = \get_class($message);
-        $namespace = \substr($className, 0, strrpos($className, '\\'));
+        $namespace = substr($className, 0, strrpos($className, '\\'));
 
         if (!\array_key_exists($namespace, $this->namespaceToProjection)) {
             return [];

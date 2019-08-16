@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Validator\Constraints;
 
+use App\Tests\BaseTestCase;
 use App\Tests\Model\PhoneNumberDataProvider;
 use App\Validator\Constraints\PhoneNumber;
 use App\Validator\Constraints\PhoneNumberValidator;
-use App\Tests\BaseTestCase;
 use Mockery;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;

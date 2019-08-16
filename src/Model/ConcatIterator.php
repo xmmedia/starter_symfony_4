@@ -23,7 +23,7 @@ class ConcatIterator extends \AppendIterator implements \ArrayAccess, \Countable
     public function __construct()
     {
         parent::__construct();
-        foreach (func_get_args() as $i => $iterator) {
+        foreach (\func_get_args() as $i => $iterator) {
             if (
                 $iterator instanceof \ArrayAccess &&
                 $iterator instanceof \Countable
@@ -36,13 +36,13 @@ class ConcatIterator extends \AppendIterator implements \ArrayAccess, \Countable
                 } else {
                     $this->append($iterator);
                 }
-                $this->count += count($iterator);
+                $this->count += \count($iterator);
             } else {
                 throw new \InvalidArgumentException(
                     'Argument '.$i.
                     ' passed to '.__METHOD__.
                     ' must be of type ArrayAccess, Countable, and Traversable. '.
-                    gettype($iterator).' given.'
+                    \gettype($iterator).' given.'
                 );
             }
         }
@@ -111,7 +111,7 @@ class ConcatIterator extends \AppendIterator implements \ArrayAccess, \Countable
     {
         $runningCount = 0;
         foreach ($this->getArrayIterator() as $innerIt) {
-            $count = count($innerIt);
+            $count = \count($innerIt);
             if ($index < $runningCount + $count) {
                 return [$innerIt, $index - $runningCount];
             }

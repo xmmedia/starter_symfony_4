@@ -111,18 +111,18 @@ class ProvinceProvider
             return $abbreviations;
         }
 
-        return call_user_func_array('array_merge', $abbreviations);
+        return \call_user_func_array('array_merge', $abbreviations);
     }
 
     public static function name(string $province): string
     {
-        return array_search($province, ProvinceProvider::all(false));
+        return array_search($province, self::all(false));
     }
 
     public static function country(string $province): Country
     {
         foreach (self::$provincesByCountry as $country => $provinces) {
-            if (in_array($province, $provinces)) {
+            if (\in_array($province, $provinces)) {
                 return Country::fromString($country);
             }
         }

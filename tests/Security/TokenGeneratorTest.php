@@ -15,7 +15,7 @@ class TokenGeneratorTest extends TestCase
 
         $this->assertEquals(
             43,
-            strlen($token->toString()),
+            \strlen($token->toString()),
             'The token length is not 43.'
         );
     }

@@ -15,7 +15,7 @@ class Json
     {
         $options = \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRESERVE_ZERO_FRACTION | \JSON_THROW_ON_ERROR;
 
-        return \json_encode($value, $options);
+        return json_encode($value, $options);
     }
 
     /**
@@ -25,6 +25,6 @@ class Json
      */
     public static function decode(string $json)
     {
-        return \json_decode($json, true, 512, \JSON_BIGINT_AS_STRING | \JSON_THROW_ON_ERROR);
+        return json_decode($json, true, 512, \JSON_BIGINT_AS_STRING | \JSON_THROW_ON_ERROR);
     }
 }

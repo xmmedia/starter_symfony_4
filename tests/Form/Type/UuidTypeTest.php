@@ -35,7 +35,7 @@ class UuidTypeTest extends TypeTestCase
         $faker = $this->faker();
 
         $formData = [
-            'uuid' => substr($faker->uuid, 0, strlen($faker->uuid) - 1),
+            'uuid' => substr($faker->uuid, 0, \strlen($faker->uuid) - 1),
         ];
 
         $form = $this->factory->create(UuidTypeTestForm::class)

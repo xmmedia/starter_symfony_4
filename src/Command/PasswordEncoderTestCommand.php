@@ -76,7 +76,7 @@ final class PasswordEncoderTestCommand extends Command
         }
 
         $io->writeln(
-            sprintf('Average time: %d ms', array_sum($times) / count($times))
+            sprintf('Average time: %d ms', array_sum($times) / \count($times))
         );
         $io->writeln(
             sprintf('Low time: %d ms', min($times))
@@ -87,7 +87,7 @@ final class PasswordEncoderTestCommand extends Command
         $io->writeln(
             sprintf(
                 'Average memory: %d MB',
-                array_sum($memories) / count($memories) / 1024 / 1024
+                array_sum($memories) / \count($memories) / 1024 / 1024
             )
         );
     }

@@ -65,7 +65,7 @@ final class SupervisorRunningCheckCommand extends Command
         $started = 0;
 
         foreach ($projections as $projection) {
-            if (in_array($projection, Supervisord::$notInSupervisor)) {
+            if (\in_array($projection, Supervisord::$notInSupervisor)) {
                 continue;
             }
 

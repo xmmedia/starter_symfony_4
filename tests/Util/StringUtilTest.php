@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Util;
 
-use App\Util\StringUtil;
 use App\Tests\BaseTestCase;
+use App\Util\StringUtil;
 
 class StringUtilTest extends BaseTestCase
 {

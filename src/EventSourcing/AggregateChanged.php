@@ -55,7 +55,7 @@ class AggregateChanged extends DomainEvent
         return $this->metadata['_aggregate_version'];
     }
 
-    public function withVersion(int $version): AggregateChanged
+    public function withVersion(int $version): self
     {
         $self = clone $this;
         $self->setVersion($version);

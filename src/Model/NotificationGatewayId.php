@@ -38,6 +38,6 @@ class NotificationGatewayId implements ValueObject
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->id === $other->id;
+        return \get_class($this) === \get_class($other) && $this->id === $other->id;
     }
 }

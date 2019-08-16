@@ -58,7 +58,7 @@ class Enquiry extends AggregateRoot implements Entity
      */
     public function sameIdentityAs(Entity $other): bool
     {
-        if (get_class($this) !== get_class($other)) {
+        if (\get_class($this) !== \get_class($other)) {
             return false;
         }
 

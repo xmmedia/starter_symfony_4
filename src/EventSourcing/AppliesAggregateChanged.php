@@ -13,7 +13,7 @@ trait AppliesAggregateChanged
             throw new \RuntimeException(sprintf(
                 'Missing event handler method %s for aggregate root %s',
                 $handler,
-                get_class($this)
+                \get_class($this)
             ));
         }
 
@@ -22,6 +22,6 @@ trait AppliesAggregateChanged
 
     protected function determineEventHandlerMethodFor(AggregateChanged $e): string
     {
-        return 'when'.implode(array_slice(explode('\\', get_class($e)), -1));
+        return 'when'.implode('', \array_slice(explode('\\', \get_class($e)), -1));
     }
 }

@@ -31,12 +31,12 @@ class UserTokenProjectionTest extends BaseTestCase
 
         $projector->shouldReceive('when')
             ->withArgs(function ($eventHandlers) use ($projectedEvents) {
-                if (!is_array($eventHandlers)) {
+                if (!\is_array($eventHandlers)) {
                     return false;
                 }
 
                 foreach ($projectedEvents as $event) {
-                    if (!array_key_exists($event, $eventHandlers)) {
+                    if (!\array_key_exists($event, $eventHandlers)) {
                         return false;
                     }
                 }

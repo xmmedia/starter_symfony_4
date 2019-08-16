@@ -26,7 +26,7 @@ abstract class Collection implements \Iterator, \ArrayAccess, \Countable, \JsonS
     {
         // We can only do it this way if we can count it
         if ($arr instanceof \Countable) {
-            $items = new \SplFixedArray(count($arr));
+            $items = new \SplFixedArray(\count($arr));
             foreach ($arr as $i => $el) {
                 // Apply a mapping function if available
                 if ($cb) {
@@ -60,7 +60,7 @@ abstract class Collection implements \Iterator, \ArrayAccess, \Countable, \JsonS
 
     public function map(callable $cb): self
     {
-        $count = count($this);
+        $count = \count($this);
         $items = new \SplFixedArray($count);
 
         for ($i = 0; $i < $count; ++$i) {
@@ -101,7 +101,7 @@ abstract class Collection implements \Iterator, \ArrayAccess, \Countable, \JsonS
 
     public function concat(): self
     {
-        $args = func_get_args();
+        $args = \func_get_args();
         array_unshift($args, $this->items);
 
         // Concat this iterator, and variadic args
@@ -134,11 +134,11 @@ abstract class Collection implements \Iterator, \ArrayAccess, \Countable, \JsonS
 
     public function sameValuesAs(self $other): bool
     {
-        if (get_class($this) !== get_class($other)) {
+        if (\get_class($this) !== \get_class($other)) {
             return false;
         }
 
-        if (count($this->items) !== count($other->items)) {
+        if (\count($this->items) !== \count($other->items)) {
             return false;
         }
 
@@ -147,7 +147,7 @@ abstract class Collection implements \Iterator, \ArrayAccess, \Countable, \JsonS
 
     public function count()
     {
-        return count($this->items);
+        return \count($this->items);
     }
 
     public function current()

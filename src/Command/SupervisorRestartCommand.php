@@ -95,11 +95,11 @@ final class SupervisorRestartCommand extends Command
                 'A projection name is required or --all.'
             );
         }
-        if (!in_array($projection, $projections)) {
+        if (!\in_array($projection, $projections)) {
             // try again after adding "_projection"
             $projection = $projection.'_projection';
 
-            if (!in_array($projection, $projections)) {
+            if (!\in_array($projection, $projections)) {
                 throw new \InvalidArgumentException(
                     sprintf(
                         'The projection "%s" cannot be found. Available projections are: %s',
@@ -109,7 +109,7 @@ final class SupervisorRestartCommand extends Command
                 );
             }
         }
-        if (in_array($projection, Supervisord::$notInSupervisor)) {
+        if (\in_array($projection, Supervisord::$notInSupervisor)) {
             throw new \InvalidArgumentException(
                 sprintf('The projection "%s" is not run by Supervisor.', $projection)
             );

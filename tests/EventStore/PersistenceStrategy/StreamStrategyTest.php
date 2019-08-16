@@ -26,12 +26,12 @@ class StreamStrategyTest extends BaseTestCase
 
         $result = $strategy->prepareData(new \ArrayIterator($events));
 
-        $this->assertCount(count($strategy->columnNames()), $result);
+        $this->assertCount(\count($strategy->columnNames()), $result);
 
         $this->assertUuid($result[0]);
         $this->assertEquals(AggregateChanged::class, $result[1]);
         $this->assertEquals('[]', $result[2]);
-        $this->assertEquals(\json_encode(['_aggregate_id' => $uuid, '_aggregate_version' => 1]), $result[3]);
+        $this->assertEquals(json_encode(['_aggregate_id' => $uuid, '_aggregate_version' => 1]), $result[3]);
         new \DateTimeImmutable($result[4]);
     }
 

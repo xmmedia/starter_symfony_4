@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\EventSourcing\Aggregate;
 
-use App\Messaging\Message;
 use App\EventSourcing\Aggregate\AggregateTranslatorInterface as EventStoreAggregateTranslator;
+use App\Messaging\Message;
 
 final class AggregateTranslator implements EventStoreAggregateTranslator
 {

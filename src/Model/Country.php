@@ -61,6 +61,6 @@ class Country implements ValueObject
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->abbreviation === $other->abbreviation;
+        return \get_class($this) === \get_class($other) && $this->abbreviation === $other->abbreviation;
     }
 }

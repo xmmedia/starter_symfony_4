@@ -49,7 +49,7 @@ final class Credentials implements ValueObject
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other)
+        return \get_class($this) === \get_class($other)
             && $this->email === $other->email
             && $this->password === $other->password;
     }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User;
 
+use App\Model\User\Event;
+use App\Model\User\Exception;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\User;
-use App\Model\User\Event;
-use App\Model\User\Exception;
 use App\Tests\BaseTestCase;
 
 class UserAddTest extends BaseTestCase

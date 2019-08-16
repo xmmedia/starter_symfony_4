@@ -6,8 +6,8 @@ namespace App\Messaging;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Prooph\Common\Messaging\Message as BaseMessage;
 use Prooph\Common\Messaging\DomainMessage as BaseDomainMessage;
+use Prooph\Common\Messaging\Message as BaseMessage;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;

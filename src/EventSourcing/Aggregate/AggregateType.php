@@ -19,11 +19,11 @@ class AggregateType
      *
      * @throws Exception\AggregateTypeException
      */
-    public static function fromAggregateRoot($eventSourcedAggregateRoot): AggregateType
+    public static function fromAggregateRoot($eventSourcedAggregateRoot): self
     {
         if (!\is_object($eventSourcedAggregateRoot)) {
             throw new Exception\AggregateTypeException(
-                \sprintf('Aggregate root must be an object but type of %s given', \gettype($eventSourcedAggregateRoot))
+                sprintf('Aggregate root must be an object but type of %s given', \gettype($eventSourcedAggregateRoot))
             );
         }
 
@@ -43,10 +43,10 @@ class AggregateType
      *
      * @throws Exception\InvalidArgumentException
      */
-    public static function fromAggregateRootClass(string $aggregateRootClass): AggregateType
+    public static function fromAggregateRootClass(string $aggregateRootClass): self
     {
-        if (!\class_exists($aggregateRootClass)) {
-            throw new Exception\InvalidArgumentException(\sprintf('Aggregate root class %s can not be found', $aggregateRootClass));
+        if (!class_exists($aggregateRootClass)) {
+            throw new Exception\InvalidArgumentException(sprintf('Aggregate root class %s can not be found', $aggregateRootClass));
         }
 
         $self = new static();
@@ -60,7 +60,7 @@ class AggregateType
      *
      * @throws Exception\InvalidArgumentException
      */
-    public static function fromString(string $aggregateTypeString): AggregateType
+    public static function fromString(string $aggregateTypeString): self
     {
         if (empty($aggregateTypeString)) {
             throw new Exception\InvalidArgumentException('AggregateType must be a non empty string');
@@ -72,7 +72,7 @@ class AggregateType
         return $self;
     }
 
-    public static function fromMapping(array $mapping): AggregateType
+    public static function fromMapping(array $mapping): self
     {
         $self = new static();
         $self->mapping = $mapping;
@@ -86,12 +86,12 @@ class AggregateType
 
     public function mappedClass(): ?string
     {
-        return empty($this->mapping) ? null : \current($this->mapping);
+        return empty($this->mapping) ? null : current($this->mapping);
     }
 
     public function toString(): string
     {
-        return empty($this->mapping) ? $this->aggregateType : \key($this->mapping);
+        return empty($this->mapping) ? $this->aggregateType : key($this->mapping);
     }
 
     public function __toString(): string
@@ -110,12 +110,12 @@ class AggregateType
 
         if (!$this->equals($otherAggregateType)) {
             throw new Exception\AggregateTypeException(
-                \sprintf('Aggregate types must be equal. %s != %s', $this->toString(), $otherAggregateType->toString())
+                sprintf('Aggregate types must be equal. %s != %s', $this->toString(), $otherAggregateType->toString())
             );
         }
     }
 
-    public function equals(AggregateType $other): bool
+    public function equals(self $other): bool
     {
         if (!$aggregateTypeString = $this->mappedClass()) {
             $aggregateTypeString = $this->toString();

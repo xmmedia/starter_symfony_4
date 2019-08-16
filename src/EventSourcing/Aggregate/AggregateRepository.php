@@ -51,7 +51,7 @@ class AggregateRepository
         $aggregateId = $this->aggregateTranslator->extractAggregateId($eventSourcedAggregateRoot);
         $streamName = $this->determineStreamName($aggregateId);
 
-        $firstEvent = \reset($domainEvents);
+        $firstEvent = reset($domainEvents);
 
         if (false === $firstEvent) {
             return;
