@@ -1,28 +1,28 @@
-.sidebar_nav-submenu_arrow {
-    // half the height minus half the height of the arrow element, plus 0.2em for visual weight of element
-    top: calc(50% - 0.8rem);
-    padding: 0 0.1rem;
-    border: none;
-    border-left: 1px solid config('colors.gray-700');
-}
-
 .sidebar_nav-submenu-wrap {
-    @apply fixed top-0 z-0 w-64 h-full opacity-0 invisible text-left bg-gray-800;
-    left: 6rem;
+    @apply fixed top-0 z-0 w-40 h-full opacity-0 invisible text-left bg-gray-800;
+    left: 0;
+    right: 0;
     margin-top: $header-height;
-    transition: left 0.15s ease-out;
-}
-@screen md {
-    .sidebar_nav-submenu-wrap {
-        @apply mt-0;
+    // hide scrollbar in IE
+    -ms-overflow-style: none;
+    @screen md {
+        @apply w-64 mt-0;
     }
 }
-.sidebar_nav-submenu_arrow-open {
-    + .sidebar_nav-submenu-wrap {
-        @apply z-10 opacity-100 visible;
+.sidebar_nav-submenu-wrap-open {
+    @apply opacity-100 visible;
+    left: 10rem;
+    transition:  opacity 0.3s ease-in;
+    @screen lg {
+        left: 16rem;
     }
 }
 .sidebar_nav-submenu_header {
+    @apply text-lg font-thin border-b border-gray-600;
     min-height: $header-height;
-    padding: 0.7rem 0 0.7rem 1rem;
+    padding: 1.25rem 0 1rem 1rem;
+    @screen lg {
+        @apply text-2xl;
+        padding: 0.7rem 0 0.7rem 1rem;
+    }
 }

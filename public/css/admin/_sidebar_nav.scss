@@ -1,59 +1,34 @@
 .sidebar_nav-wrap {
-    @apply fixed left-0 z-10 w-24 h-full text-center text-white bg-black fill-current;
+    @apply fixed left-0 z-10 w-40 h-full text-white bg-gray-900 fill-current text-sm;
+    @screen lg {
+        @apply w-64 text-base;
+    }
 }
 
 // .sidebar_nav-submenu-open added to body
 .sidebar_nav-submenu-open .sidebar_nav-wrap {
-    // side bar width (6rem) + sub menu width (16rem)
-    width: 22rem;
+    width: 28rem;
+    @screen lg {
+        // side bar width (16rem) + sub menu width (16rem)
+        width: 32rem;
+    }
 }
 
 .sidebar_nav-link {
-    @apply text-inherit opacity-75 fill-current;
+    @apply w-full text-gray-500 fill-current;
     &:hover {
-        @apply opacity-100;
+        @apply text-white no-underline;
+        transition: none;
     }
 }
 
 .sidebar_nav-nav {
-    @apply w-24 h-full p-0 overflow-y-scroll list-none;
-
+    @apply w-40 pt-3 pl-0 list-none;
+    @screen lg {
+        @apply w-64;
+    }
     li {
         // so we can control the positioning of the submenu arrow
         @apply relative;
-    }
-
-    // the gradient at the top of the menu when scrolling
-    &:after {
-        @apply absolute left-0 w-24 h-6;
-        top: $header-height;
-        background: linear-gradient(to bottom, config('colors.black'), transparent);
-        content: "";
-    }
-
-    // hide the scroll bar (in webkit based browsers)
-    &::-webkit-scrollbar {
-        @apply bg-transparent;
-        width: 0;
-    }
-}
-
-.sidebar_nav-nav_item {
-    @apply block text-xs my-6 text-center;
-
-    svg {
-        @apply block w-8 h-8 mt-0 mx-auto mb-1;
-    }
-}
-
-.sidebar_nav-bottom_wrap {
-    @apply absolute bottom-0 w-24 pt-2 bg-black text-gray-500 text-center font-thin;
-
-    // the gradient above the profile
-    &:before {
-        @apply absolute left-0 w-24 h-10;
-        top: -2.5rem;
-        background: linear-gradient(to bottom, transparent, config('colors.black'));
-        content: "";
     }
 }
