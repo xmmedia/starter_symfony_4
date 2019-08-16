@@ -29,7 +29,7 @@ class UserChangePasswordTypeTest extends TypeTestCase
     {
         $faker = $this->faker();
 
-        $newPassword = $faker->password;
+        $newPassword = $faker->password(12, 250);
 
         $formData = [
             'currentPassword' => $faker->password,

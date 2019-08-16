@@ -13,7 +13,7 @@ class UserVerifyTypeTest extends TypeTestCase
     {
         $faker = $this->faker();
 
-        $newPassword = $faker->password;
+        $newPassword = $faker->password(12, 250);
 
         $formData = [
             'token'       => $faker->password,
