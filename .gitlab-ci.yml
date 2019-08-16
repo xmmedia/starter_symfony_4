@@ -25,7 +25,7 @@ before_script:
   # the following line is optional (likely remove previous line)
   #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
-  - # Taken from here: https://gist.github.com/kwk/55bb5b6a4b7457bef38d
+  # Taken from here: https://gist.github.com/kwk/55bb5b6a4b7457bef38d
   # This forces dpkg not to call sync() after package extraction and speeds up install
   - echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
   # We don't need and apt cache in a container or recommendations
@@ -56,7 +56,7 @@ deploy:
     - TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
     - echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
     - echo "Remote:"; echo $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PORT
-    - # create partial .env file
+    # create partial .env file
     - printf "APP_ENV=$APP_ENV\nREQUEST_CONTEXT_HOST=$REQUEST_CONTEXT_HOST\nREQUEST_CONTEXT_SCHEME=$REQUEST_CONTEXT_SCHEME\n" > .env.local
     # install php dependencies
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs
