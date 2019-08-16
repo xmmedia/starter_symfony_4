@@ -86,7 +86,7 @@ import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
 
-import { GetUserQuery } from '@/admin/queries/admin/user.query';
+import { GetUserQuery } from '@/admin/queries/user.query';
 import {
     AdminUserUpdateMutation,
     AdminUserActivateMutation,
