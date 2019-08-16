@@ -11,11 +11,7 @@ final class TokenHasExpired extends \InvalidArgumentException
     public static function before(Token $token, string $ttl): self
     {
         return new self(
-            sprintf(
-                'The token %s has expired (ttl: %s).',
-                $token->toString(),
-                $ttl
-            )
+            sprintf('The token %s has expired (ttl: %s).', $token, $ttl)
         );
     }
 }

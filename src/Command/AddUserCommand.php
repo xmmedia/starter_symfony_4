@@ -71,7 +71,7 @@ final class AddUserCommand extends Command
                 'Created new active user %s with role %s with ID: %s.',
                 $email,
                 $role->getValue(),
-                $userId->toString()
+                $userId
             )
         );
     }

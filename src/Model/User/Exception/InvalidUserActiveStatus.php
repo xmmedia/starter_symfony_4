@@ -12,7 +12,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
     {
         return new self(sprintf(
             'Tried to activate the user "%s" that\'s already active.',
-            $userId->toString()
+            $userId
         ));
     }
 
@@ -20,7 +20,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
     {
         return new self(sprintf(
             'Tried to deactivate the user "%s" that\'s already inactive.',
-            $userId->toString()
+            $userId
         ));
     }
 
@@ -28,7 +28,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
     {
         return new self(sprintf(
             'Tried to verify the user "%s" that\'s currently inactive.',
-            $userId->toString()
+            $userId
         ));
     }
 
@@ -36,7 +36,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
     {
         return new self(sprintf(
             'Tried to request a password reset for user "%s" that\'s currently inactive.',
-            $userId->toString()
+            $userId
         ));
     }
 
@@ -44,7 +44,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
     {
         return new self(sprintf(
             'User "%s" tried to update their profile but their user is inactive.',
-            $userId->toString()
+            $userId
         ));
     }
 
@@ -52,7 +52,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
     {
         return new self(sprintf(
             'User "%s" tried to change their password but their currently inactive.',
-            $userId->toString()
+            $userId
         ));
     }
 
@@ -60,7 +60,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
     {
         return new self(sprintf(
             'User "%s" tried to login but their currently inactive.',
-            $userId->toString()
+            $userId
         ));
     }
 }

@@ -10,11 +10,6 @@ final class UserNotFound extends \InvalidArgumentException
 {
     public static function withUserId(UserId $userId): self
     {
-        return new self(
-            sprintf(
-                'User with id "%s" cannot be found.',
-                $userId->toString()
-            )
-        );
+        return new self(sprintf('User with id "%s" cannot be found.', $userId));
     }
 }
