@@ -78,9 +78,9 @@ deploy:
     # clear opcache
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; echo '<?php opcache_reset();' > html/opcache_reset.php; curl $HTTP_ROOT/opcache_reset.php; rm html/opcache_reset.php" || echo -e "\033[0;31mFAILURE unable to reset OPcache"
     # supervisord: write config & restart all
-    - php bin/console app:supervisor:write-config; php bin/console app:supervisor:restart --all
+    #- ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; php bin/console app:supervisor:write-config; php bin/console app:supervisor:restart --all"
     # cloudflare: purge cache
-    #- php bin/console app:cloudflare:purge-cache
+    #- ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; php bin/console app:cloudflare:purge-cache"
     # remove >3 releases
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ls -1d $RELEASES/* | sort -rg | tail -n +4 | xargs /bin/rm -rf"
     # success message
