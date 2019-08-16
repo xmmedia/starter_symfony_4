@@ -73,7 +73,7 @@
 
 <script>
 import cloneDeep from 'lodash/cloneDeep';
-import { logError, hasGraphQlValidationError } from '@/common/lib';
+import { hasGraphQlValidationError } from '@/common/lib';
 
 import userValidations from './user.validation';
 
@@ -167,7 +167,6 @@ export default {
                 this.active = data.User.active;
             },
             error (e) {
-                logError(e);
                 this.status = statuses.ERROR;
             },
             watchLoading (isLoading) {
@@ -230,7 +229,6 @@ export default {
                 if (hasGraphQlValidationError(e)) {
                     this.serverValidationErrors = e.graphQLErrors[0].validation.user;
                 } else {
-                    logError(e);
                     alert('There was a problem saving. Please try again later.');
                 }
 
@@ -267,7 +265,6 @@ export default {
                 }, 3000);
 
             } catch (e) {
-                logError(e);
                 alert('There was a problem toggling the active state. Please try again later.');
 
                 window.scrollTo(0, 0);
@@ -301,7 +298,6 @@ export default {
                 }, 3000);
 
             } catch (e) {
-                logError(e);
                 alert('There was a problem verifying the user. Please try again later.');
 
                 window.scrollTo(0, 0);
@@ -334,7 +330,6 @@ export default {
                 }, 3000);
 
             } catch (e) {
-                logError(e);
                 alert('There was a problem sending the reset. Please try again later.');
 
                 window.scrollTo(0, 0);

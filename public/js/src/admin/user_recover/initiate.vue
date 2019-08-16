@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { logError, hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
+import { hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
 import { UserRecoverInitiate } from '../queries/user.mutation';
 
 const statuses = {
@@ -105,8 +105,7 @@ export default {
             }
         },
 
-        showError (e) {
-            logError(e);
+        showError () {
             alert('There was a problem requesting a password reset. Please try again later.');
         },
     },

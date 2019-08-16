@@ -63,7 +63,7 @@
 <script>
 import uuid4 from 'uuid/v4';
 import cloneDeep from 'lodash/cloneDeep';
-import { logError, hasGraphQlValidationError } from '@/common/lib';
+import { hasGraphQlValidationError } from '@/common/lib';
 
 import userValidations from './user.validation';
 
@@ -171,7 +171,6 @@ export default {
                 if (hasGraphQlValidationError(e)) {
                     this.serverValidationErrors = e.graphQLErrors[0].validation.user;
                 } else {
-                    logError(e);
                     alert('There was a problem saving. Please try again later.');
                 }
 

@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { logError, hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
+import { hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
 import { UserRecoverReset } from '../queries/user.mutation';
 
 const statuses = {
@@ -138,8 +138,7 @@ export default {
             }
         },
 
-        showError (e) {
-            logError(e);
+        showError () {
             alert('There was a problem saving your password. Please try again later.');
         },
     },

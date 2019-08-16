@@ -58,7 +58,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { logError } from '@/common/lib';
 import { GetUsersQuery } from '../queries/user.query';
 
 const statuses = {
@@ -97,8 +96,7 @@ export default {
         users: {
             query: GetUsersQuery,
             update: data => data.Users,
-            error (e) {
-                logError(e);
+            error () {
                 this.status = statuses.ERROR;
             },
             watchLoading (isLoading) {

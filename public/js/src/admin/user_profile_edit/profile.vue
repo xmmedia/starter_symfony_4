@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { logError, hasGraphQlValidationError } from '@/common/lib';
+import { hasGraphQlValidationError } from '@/common/lib';
 import profileTabs from './component/tabs';
 import { UserUpdateProfile } from '../queries/user.mutation';
 
@@ -134,7 +134,6 @@ export default {
                 if (hasGraphQlValidationError(e)) {
                     this.serverValidationErrors = e.graphQLErrors[0].validation.user;
                 } else {
-                    logError(e);
                     alert('There was a problem saving your profile. Please try again later.');
                 }
 

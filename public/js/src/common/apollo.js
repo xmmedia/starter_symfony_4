@@ -4,6 +4,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import VueApollo from 'vue-apollo';
 import fetch from 'unfetch';
+import { logError } from './lib';
 
 Vue.use(VueApollo);
 
@@ -25,4 +26,7 @@ const apolloClient = new ApolloClient({
 
 export default new VueApollo({
     defaultClient: apolloClient,
+    errorHandler (e) {
+        logError(e);
+    },
 });

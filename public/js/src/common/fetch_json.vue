@@ -56,7 +56,6 @@ export default {
                 this.loading = false;
                 this.error = false;
             } catch (e) {
-                logError(e);
                 this.error = true;
                 this.loading = false;
             }

@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { logError, hasGraphQlValidationError } from '@/common/lib';
+import { hasGraphQlValidationError } from '@/common/lib';
 import { SendEnquiry } from '../queries/enquiry.mutation';
 
 const statuses = {
@@ -126,12 +126,9 @@ export default {
                 this.serverValidationErrors = {};
 
             } catch (e) {
-
-
                 if (hasGraphQlValidationError(e)) {
                     this.serverValidationErrors = e.graphQLErrors[0].validation['enquiry'];
                 } else {
-                    logError(e);
                     alert('There was a problem sending your enquiry. Please try again later.');
                 }
 
