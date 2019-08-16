@@ -20,7 +20,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
    5. Install NVM: https://github.com/creationix/nvm#install-script
    6. Run `. ./node_setup.sh` (this will setup node & install the JS packages).
    7. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
-   9. Create event streams & projections tables from: https://github.com/prooph/pdo-event-store/tree/master/scripts/mysql
+   9. Create event streams & projections tables from `db_create.sql`
    10. Create one or more event streams with the command `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (and if using enquiry: `bin/console event-store:event-stream:create enquiry`)
    11. Run all projections once:
        1. `bin/console event-store:projection:run user_projection -o` 
