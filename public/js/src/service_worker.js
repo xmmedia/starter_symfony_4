@@ -1,9 +1,8 @@
 /*global workbox*/
 // to enable debugging in dev
-// @todo-symfony disable before going into production
-workbox.setConfig({
-    debug: true,
-});
+// workbox.setConfig({
+//     debug: true,
+// });
 
 // these calls encourage the ServiceWorkers to get in there fast
 // and not allow any straggling "old" SWs to hang around
