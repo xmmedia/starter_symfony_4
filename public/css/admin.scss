@@ -2,8 +2,9 @@
 
 @tailwind components;
 
-@import "admin/vars",
-    "common/common";
+$header-height: 3.72rem;
+
+@import "common/common";
 
 // global styles on the most common elements
 html {
@@ -17,18 +18,13 @@ body {
 }
 
 a, .button-link {
-    @apply text-blue-600 no-underline font-light;
+    @apply text-blue-600 no-underline;
     &:hover, &:active {
         @apply underline;
     }
 }
-
-b, strong {
-    @apply font-bold;
-}
-
-h1 {
-    @apply text-blue-800;
+.button-link {
+    @apply font-light;
 }
 
 // load common styles
@@ -40,14 +36,12 @@ h1 {
 
 // admin only styles
 @import "admin/content",
-    "admin/forms",
     "admin/buttons",
     "admin/header",
     "admin/record_list",
     "admin/record_view",
     "admin/sidebar_nav",
     "admin/sidebar_nav_submenu",
-    "admin/dashboard",
-    "admin/user_list";
+    "admin/dashboard";
 
 @tailwind utilities;

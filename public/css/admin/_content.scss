@@ -1,16 +1,24 @@
 .content-wrap {
     @apply relative bg-white z-10;
     transition: all 0.15s ease;
-
     @screen lg {
-        @apply z-auto ml-24;
+        @apply z-auto ml-64;
     }
-
     // the following are for the admin menu when closed and then open
     .sidebar_nav-visible & {
-        transform: translateX(6rem);
+        transform: translateX(10rem);
+        @screen lg {
+            transform: translateX(16rem);
+        }
     }
     .sidebar_nav-submenu-open & {
-        transform: translateX(16rem);
+        transform: translateX(20rem);
+        @screen lg {
+            transform: translateX(16rem);
+        }
     }
+}
+
+.box {
+    @apply p-4 border border-gray-400 shadow-md;
 }

@@ -6,29 +6,25 @@
 
 // global styles on the most common elements
 html {
-    @apply font-sans leading-normal text-black;
+    @apply font-sans leading-normal text-gray-800;
 }
 
 a, .button-link {
-    @apply text-blue-600 no-underline font-light;
+    @apply text-blue-500 no-underline;
     &:hover, &:active {
-        @apply underline;
+        @apply underline text-blue-700;
     }
 }
-
-h1, h2, h3, h4, h5, h6 {
-    @apply leading-tight;
-}
-
-b, strong {
-    @apply font-bold;
+.button-link {
+    @apply font-light;
 }
 
 // common styles
 @import "common/alerts",
     "common/content_alignment",
     "common/forms",
-    "common/modal";
+    "common/modal",
+    "common/loading";
 
 // public only styles
 @import "public/buttons",
