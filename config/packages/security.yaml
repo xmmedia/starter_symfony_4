@@ -23,9 +23,9 @@ security:
         harsh:
             algorithm: 'auto'
             # see above
-            # values are targeted at ~4s
+            # values are targeted at ~3s
             memory_cost: 128000
-            time_cost: 60
+            time_cost: 45
 
     firewalls:
         dev:
