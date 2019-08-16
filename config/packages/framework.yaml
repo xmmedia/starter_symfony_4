@@ -11,6 +11,12 @@ framework:
         save_path: '%kernel.project_dir%/var/sessions'
         cookie_secure: true
         cookie_samesite: 'lax'
+        # configures the length of the string used for the session ID
+        # integer; default = 32; valid values = from 22 to 256 (both inclusive)
+        sid_length: 128
+        # configures the number of bits in encoded session ID character
+        # integer; default = 4; valid values: 4, 5, or 6.
+        sid_bits_per_character: 6
 
     #esi: true
     #fragments: true
