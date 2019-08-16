@@ -10,6 +10,8 @@ parameters:
     locale: 'en'
     router.request_context.host: '%env(REQUEST_CONTEXT_HOST)%'
     router.request_context.scheme: '%env(REQUEST_CONTEXT_SCHEME)%'
+    # @todo-symfony
+    user_timezone: 'America/Edmonton'
 
 services:
     # default configuration for services in *this* file
