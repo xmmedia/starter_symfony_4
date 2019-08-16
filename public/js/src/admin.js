@@ -14,6 +14,7 @@ import formError from './common/form_error';
 import fieldErrors from './common/field_errors';
 import fieldError from './common/field_error';
 import passwordField from './common/password_field';
+import adminButton from './common/admin_button';
 import { MeQuery } from './admin/queries/user.query';
 
 import * as filters from './common/filters';
@@ -33,6 +34,7 @@ Vue.component('loading-spinner', loadingSpinner);
 Vue.component('form-error', formError);
 Vue.component('field-errors', fieldErrors);
 Vue.component('field-error', fieldError);
+Vue.component('admin-button', adminButton);
 Vue.component('admin-delete', () => import(/* webpackChunkName: "admin-delete" */ './admin/admin_delete/index'));
 Vue.component('local-time', () => import(/* webpackChunkName: "local-time" */ './common/local_time'));
 Vue.component('password-field', passwordField);
