@@ -24,7 +24,7 @@
                         This cannot be undone.
                     </div>
                     <div class="mb-4">
-                        <button class="button bg-red-600 border-red-600 hover:bg-red hover:border-red-500"
+                        <button class="button bg-red-600 border-red-600 hover:bg-red-500 hover:border-red-500"
                                 type="button"
                                 @click="deleteRecord">Delete</button>
                         <button ref="cancel"
@@ -41,35 +41,35 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            recordDesc: {
-                type: String,
-                required: true,
-            },
+export default {
+    props: {
+        recordDesc: {
+            type: String,
+            required: true,
         },
+    },
 
-        data () {
-            return {
-                deleting: false,
-            };
-        },
+    data () {
+        return {
+            deleting: false,
+        };
+    },
 
-        methods: {
-            open () {
-                this.$modal.show('admin-delete');
-            },
-            opened () {
-                this.$refs.cancel.focus();
-            },
-            deleteRecord () {
-                this.deleting = true;
-                this.$emit('delete');
-            },
-            close () {
-                this.$modal.hide('admin-delete');
-                this.$refs.link.focus();
-            },
+    methods: {
+        open () {
+            this.$modal.show('admin-delete');
         },
-    }
+        opened () {
+            this.$refs.cancel.focus();
+        },
+        deleteRecord () {
+            this.deleting = true;
+            this.$emit('delete');
+        },
+        close () {
+            this.$modal.hide('admin-delete');
+            this.$refs.link.focus();
+        },
+    },
+}
 </script>
