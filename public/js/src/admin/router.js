@@ -1,3 +1,4 @@
+/*global ga*/
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store';
@@ -166,10 +167,17 @@ router.beforeEach( async (to, from, next) => {
         if (store.getters.hasRole(routeWithRole.meta.role)) {
             next();
         } else {
-            next({ name: 'login' });
+            next({ name: '403' });
         }
     } else {
         next();
+    }
+});
+
+router.afterEach((to) => {
+    if (window.ga) {
+        ga('set', 'page', to.fullPath);
+        ga('send', 'pageview');
     }
 });
 
