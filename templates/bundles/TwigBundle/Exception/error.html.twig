@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.getLocale()[:2] }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>An Error Occurred: {{ status_text }}</title>
+
+        {% block head %}{% endblock %}
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('public') }}
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,400">
+        {% endblock %}
+        {% block favicons %}
+            {% include 'favicons.html.twig' %}
+        {% endblock %}
+    </head>
+    <body>
+        <div id="app">
+            <h1>Oops! An Error Occurred</h1>
+            <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+
+            {% include 'flash_messages.html.twig' %}
+
+            <p>
+                Something is broken. Please let us know what you were doing when this error occurred.
+                We will fix it as soon as possible. Sorry for any inconvenience caused.
+            </p>
+        </div>
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('public') }}
+        {% endblock %}
+    </body>
+</html>
