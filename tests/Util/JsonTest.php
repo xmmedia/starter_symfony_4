@@ -29,7 +29,7 @@ class JsonTest extends TestCase
     {
         yield ['😱', '"😱"'];
         yield ['/', '"/"'];
-        yield [(float) (-1), '-1.0'];
+        yield [(float) -1, '-1.0'];
         yield [-1.0, '-1.0'];
         yield [-1, '-1'];
         yield [0, '0'];

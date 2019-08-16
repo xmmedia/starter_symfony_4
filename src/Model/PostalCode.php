@@ -29,8 +29,11 @@ class PostalCode implements ValueObject
         $postalCode = strtoupper(str_replace(' ', '', $postalCode));
 
         try {
-            Assert::minLength($postalCode, self::MIN_LENGTH);
-            Assert::maxLength($postalCode, self::MAX_LENGTH);
+            Assert::lengthBetween(
+                $postalCode,
+                self::MIN_LENGTH,
+                self::MAX_LENGTH
+            );
         } catch (\InvalidArgumentException $e) {
             throw InvalidPostalCode::invalid($postalCode);
         }

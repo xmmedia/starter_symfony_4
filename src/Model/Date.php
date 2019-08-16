@@ -6,7 +6,6 @@ namespace App\Model;
 
 use Carbon\Carbon;
 
-// @todo switch to CarbonImmutable?
 class Date implements ValueObject, \JsonSerializable
 {
     public const STRING_FORMAT = 'Y-m-d';

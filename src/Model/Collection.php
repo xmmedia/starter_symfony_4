@@ -14,9 +14,6 @@ abstract class Collection implements \Iterator, \ArrayAccess, \Countable, \JsonS
 
     // @todo add some way of check that all items are of correct type
 
-    /**
-     * @return static
-     */
     public static function fromArray(array $items)
     {
         return new static(\SplFixedArray::fromArray($items));

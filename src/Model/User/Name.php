@@ -54,6 +54,10 @@ class Name implements ValueObject, \JsonSerializable
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        return \get_class($this) === \get_class($other) && $this->name === $other->name;
+        if (\get_class($this) !== \get_class($other)) {
+            return false;
+        }
+
+        return $this->name === $other->name;
     }
 }
