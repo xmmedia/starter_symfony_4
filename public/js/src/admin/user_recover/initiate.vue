@@ -1,37 +1,39 @@
 <template>
-    <div class="form-wrap p-0">
-        <div class="p-4">
-            <form v-if="showForm" @submit.prevent="submit">
-                <form-error v-if="hasValidationErrors" />
-                <ul v-if="notFound" class="field-errors mb-4" role="alert">
-                    <li>An account with that email cannot be found.</li>
-                </ul>
+    <div>
+        <form v-if="showForm"
+              class="form-wrap p-4"
+              method="post"
+              @submit.prevent="submit">
+            <form-error v-if="hasValidationErrors" />
+            <ul v-if="notFound" class="field-errors mb-4" role="alert">
+                <li>An account with that email cannot be found.</li>
+            </ul>
 
-                <div class="field-wrap">
-                    <label for="inputEmail">Please enter your email address to search for your account.</label>
-                    <input id="inputEmail"
-                           v-model="email"
-                           type="email"
-                           required
-                           autofocus
-                           autocomplete="username email">
-                </div>
-
-                <div>
-                    <button type="submit" class="button">Search</button>
-                    <router-link :to="{ name: 'login' }" class="form-action">Return to Login</router-link>
-
-                    <span v-if="status === 'saving'" class="ml-4 text-sm italic">Requesting...</span>
-                </div>
-            </form>
-
-            <div v-if="status === 'saved'" class="text-center">
-                <div class="mb-4">
-                    A password reset link has been sent by email.
-                    Please follow the instructions within the email to reset your password.
-                </div>
-                <div><router-link :to="{ name: 'login' }">Return to Login</router-link></div>
+            <div class="field-wrap">
+                <label for="inputEmail">Please enter your email address to search for your account.</label>
+                <input id="inputEmail"
+                       v-model="email"
+                       type="email"
+                       required
+                       autofocus
+                       autocomplete="username email">
             </div>
+
+            <admin-button :status="status">
+                Search
+                <router-link slot="cancel"
+                             :to="{ name: 'login' }"
+                             class="form-action">Return to Login</router-link>
+                <template slot="saving">Requesting...</template>
+            </admin-button>
+        </form>
+
+        <div v-if="status === 'saved'" class="text-center">
+            <div class="max-w-lg mx-auto mb-4">
+                A password reset link has been sent by email.
+                Please follow the instructions within the email to reset your password.
+            </div>
+            <div><router-link :to="{ name: 'login' }">Return to Login</router-link></div>
         </div>
     </div>
 </template>

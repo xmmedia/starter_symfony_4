@@ -1,6 +1,9 @@
 <template>
-    <div class="form-wrap">
-        <form v-if="showForm" @submit.prevent="submit">
+    <div>
+        <form v-if="showForm"
+              class="form-wrap"
+              method="post"
+              @submit.prevent="submit">
             <form-error v-if="hasValidationErrors" />
             <ul v-if="invalidToken" class="field-errors mb-4" role="alert">
                 <li>
@@ -38,11 +41,13 @@
                             field="newPassword.second"
                             autocomplete="new-password" />
 
-            <div>
-                <button type="submit" class="button">Activate</button>
-
-                <span v-if="status === 'saving'" class="ml-4 text-sm italic">Activating...</span>
-            </div>
+            <admin-button :status="status" :cancel-to="{ name: 'login' }">
+                Activate
+                <router-link slot="cancel"
+                             :to="{ name: 'login' }"
+                             class="form-action">Login</router-link>
+                <template slot="saving">Activating...</template>
+            </admin-button>
         </form>
 
         <div v-if="status === 'saved'" class="alert alert-success" role="alert">

@@ -1,58 +1,58 @@
 <template>
-    <div class="form-wrap p-0">
-        <div class="p-4">
-            <form v-if="showForm" @submit.prevent="submit">
-                <form-error v-if="hasValidationErrors" />
-                <ul v-if="invalidToken" class="field-errors mb-4" role="alert">
-                    <li>
-                        Your reset link is invalid.
-                        Please try clicking the button again or copying the link.
-                    </li>
-                </ul>
-                <ul v-if="tokenExpired" class="field-errors mb-4" role="alert">
-                    <li>
-                        Your link has expired.
-                        Please try
-                        <router-link :to="{ name: 'user-recover-initiate' }">
-                            requesting a new password reset link
-                        </router-link>.
-                    </li>
-                </ul>
+    <div>
+        <form v-if="showForm"
+              class="form-wrap p-4"
+              method="post"
+              @submit.prevent="submit">
+            <form-error v-if="hasValidationErrors" />
+            <ul v-if="invalidToken" class="field-errors mb-4" role="alert">
+                <li>
+                    Your reset link is invalid.
+                    Please try clicking the button again or copying the link.
+                </li>
+            </ul>
+            <ul v-if="tokenExpired" class="field-errors mb-4" role="alert">
+                <li>
+                    Your link has expired.
+                    Please try
+                    <router-link :to="{ name: 'user-recover-initiate' }">
+                        requesting a new password reset link
+                    </router-link>.
+                </li>
+            </ul>
 
-                <div class="hidden">
-                    <label for="inputEmail">Email</label>
-                    <input id="inputEmail"
-                           value=""
-                           type="email"
-                           name="email"
-                           autocomplete="username email">
-                </div>
-
-                <password-field v-model="newPassword"
-                                :server-validation-errors="serverValidationErrors"
-                                :show-help="true"
-                                label="New Password"
-                                field="newPassword.first"
-                                autocomplete="new-password" />
-                <password-field v-model="repeatPassword"
-                                :server-validation-errors="serverValidationErrors"
-                                label="New Password Again"
-                                field="newPassword.second"
-                                autocomplete="new-password" />
-
-                <div>
-                    <button type="submit" class="button">Set Password</button>
-                    <router-link :to="{ name: 'login' }" class="form-action">Return to Login</router-link>
-
-                    <span v-if="status === 'saving'" class="ml-4 text-sm italic">Saving...</span>
-                    <span v-else-if="status === 'saved'" class="ml-4 text-sm italic">Saved</span>
-                </div>
-            </form>
-
-            <div v-if="status === 'saved'" class="text-center">
-                <div class="mb-4">Your password has been reset.</div>
-                <div><router-link :to="{ name: 'login' }">Login</router-link></div>
+            <div class="hidden">
+                <label for="inputEmail">Email</label>
+                <input id="inputEmail"
+                       value=""
+                       type="email"
+                       name="email"
+                       autocomplete="username email">
             </div>
+
+            <password-field v-model="newPassword"
+                            :server-validation-errors="serverValidationErrors"
+                            :show-help="true"
+                            label="New Password"
+                            field="newPassword.first"
+                            autocomplete="new-password" />
+            <password-field v-model="repeatPassword"
+                            :server-validation-errors="serverValidationErrors"
+                            label="New Password Again"
+                            field="newPassword.second"
+                            autocomplete="new-password" />
+
+            <admin-button :status="status">
+                Set Password
+                <router-link slot="cancel"
+                             :to="{ name: 'login' }"
+                             class="form-action">Return to Login</router-link>
+            </admin-button>
+        </form>
+
+        <div v-if="status === 'saved'" class="text-center">
+            <div class="mb-4">Your password has been reset.</div>
+            <div><router-link :to="{ name: 'login' }">Login</router-link></div>
         </div>
     </div>
 </template>
