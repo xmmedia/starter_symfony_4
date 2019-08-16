@@ -16,6 +16,11 @@ final class MoneyFactory
         return new Money($cents, new Currency(self::$currency));
     }
 
+    public static function fromString(string $cents): Money
+    {
+        return new Money($cents, new Currency(self::$currency));
+    }
+
     public static function zero(): Money
     {
         return self::fromInt(0);
