@@ -12,3 +12,5 @@ parameters:
         - tests
     symfony:
         container_xml_path: '%rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml'
+    ignoreErrors:
+        - '#Static call to instance method Carbon\\CarbonInterval::[a-zA-Z]+\(\)#'
