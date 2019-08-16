@@ -38,7 +38,6 @@ class AdminUserAddType extends AbstractType
             ->add('setPassword', CheckboxType::class, [
                 'label' => 'Set Password',
             ])
-            // @todo additional validation: check common passwords
             ->add('password', PasswordType::class, [
                 'label'       => 'Password',
                 'constraints' => [
@@ -47,6 +46,9 @@ class AdminUserAddType extends AbstractType
                         'min'    => User::PASSWORD_MIN_LENGTH,
                         'max'    => BasePasswordEncoder::MAX_PASSWORD_LENGTH,
                         'groups' => ['password'],
+                    ]),
+                    new Assert\NotCompromisedPassword([
+                        'threshold' => 3,
                     ]),
                 ],
             ])

@@ -32,6 +32,9 @@ class UserVerifyType extends AbstractType
                         'min' => User::PASSWORD_MIN_LENGTH,
                         'max' => BasePasswordEncoder::MAX_PASSWORD_LENGTH,
                     ]),
+                    new Assert\NotCompromisedPassword([
+                        'threshold' => 3,
+                    ]),
                 ],
             ])
         ;

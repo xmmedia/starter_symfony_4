@@ -39,8 +39,6 @@ class UserUpdateProfileMutation implements MutationInterface
 
     public function __invoke(Argument $args): array
     {
-        // @todo check what else FOS User does
-
         $form = $this->formFactory
             ->create(UserProfileType::class)
             ->submit($args['user']);
