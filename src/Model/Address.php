@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Exception\InvalidAddress;
+use App\Util\StringUtil;
 use Webmozart\Assert\Assert;
 
 class Address implements ValueObject
@@ -78,36 +79,40 @@ class Address implements ValueObject
         Country $country
     ) {
         try {
-            Assert::stringNotEmpty($line1);
-            Assert::minLength($line1, self::LINE_MIN_LENGTH);
-            Assert::maxLength($line1, self::LINE_MAX_LENGTH);
+            Assert::lengthBetween(
+                $line1,
+                self::LINE_MIN_LENGTH,
+                self::LINE_MAX_LENGTH
+            );
         } catch (\InvalidArgumentException $e) {
             throw InvalidAddress::line1($line1, $e->getMessage());
         }
 
-        if ('' === $line2) {
-            $line2 = null;
-        }
-
+        $line2 = StringUtil::trim($line2);
         if (null !== $line2) {
             try {
-                Assert::minLength($line2, self::LINE_MIN_LENGTH);
-                Assert::maxLength($line2, self::LINE_MAX_LENGTH);
+                Assert::nullOrLengthBetween(
+                    $line2,
+                    self::LINE_MIN_LENGTH,
+                    self::LINE_MAX_LENGTH
+                );
             } catch (\InvalidArgumentException $e) {
                 throw InvalidAddress::line2($line2, $e->getMessage());
             }
         }
 
         try {
-            Assert::stringNotEmpty($city);
-            Assert::minLength($city, self::CITY_MIN_LENGTH);
-            Assert::maxLength($city, self::CITY_MAX_LENGTH);
+            Assert::lengthBetween(
+                $city,
+                self::CITY_MIN_LENGTH,
+                self::CITY_MAX_LENGTH
+            );
         } catch (\InvalidArgumentException $e) {
             throw InvalidAddress::city($city, $e->getMessage());
         }
 
         $this->line1 = $line1;
-        $this->line2 = $line2 ?: null;
+        $this->line2 = $line2;
         $this->city = $city;
         $this->province = $province;
         $this->postalCode = $postalCode;
@@ -142,6 +147,19 @@ class Address implements ValueObject
     public function country(): Country
     {
         return $this->country;
+    }
+
+    public function toString(): string
+    {
+        $str = $this->line1;
+        if (null !== $this->line2) {
+            $str .= "\n".$this->line2;
+        }
+        $str .= "\n".$this->city.', '.$this->province->name();
+        $str .= '  '.$this->postalCode;
+        $str .= "\n".$this->country->name();
+
+        return $str;
     }
 
     public function toArray(): array
