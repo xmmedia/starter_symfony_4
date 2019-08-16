@@ -28,9 +28,6 @@ class WebTestCase extends BaseWebTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->fixtures = $this->loadFixtures($this->fixtureList)
-            ->getReferenceRepository();
     }
 
     protected function logIn($userRef = 'user-regular')
