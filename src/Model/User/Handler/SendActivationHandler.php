@@ -11,6 +11,7 @@ use App\Model\User\Command\SendActivation;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 use App\Security\TokenGeneratorInterface;
+use App\Util\StringUtil;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -47,7 +48,7 @@ class SendActivationHandler
             throw UserNotFound::withUserId($command->userId());
         }
 
-        $name = trim(sprintf(
+        $name = StringUtil::trim(sprintf(
             '%s %s',
             $command->firstName(),
             $command->lastName()

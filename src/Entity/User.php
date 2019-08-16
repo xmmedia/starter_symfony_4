@@ -8,6 +8,7 @@ use App\Model\Email;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\UserId;
+use App\Util\StringUtil;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
@@ -185,7 +186,9 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
 
     public function name(): string
     {
-        return trim(sprintf('%s %s', $this->firstName, $this->lastName));
+        return StringUtil::trim(
+            sprintf('%s %s', $this->firstName, $this->lastName)
+        );
     }
 
     public function getEncoderName()
