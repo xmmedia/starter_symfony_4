@@ -20,6 +20,7 @@ const apolloClient = new ApolloClient({
     // Cache implementation
     cache: new InMemoryCache(),
     defaultOptions: {
+        // docs: https://www.apollographql.com/docs/react/api/react-apollo/#optionsfetchpolicy
         fetchPolicy: 'no-cache',
     },
 });

@@ -27,7 +27,7 @@
             <span v-else
                   :key="page"
                   :class="spanClasses"
-                  class="hidden lg:inline-block border border-gray-200 rounded">{{ page }}</span>
+                  class="hidden lg:inline-block border border-gray-400 rounded">{{ page }}</span>
         </template>
 
         <span v-if="showAfterEllipsis"
