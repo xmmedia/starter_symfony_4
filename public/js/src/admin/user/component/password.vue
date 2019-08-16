@@ -15,7 +15,7 @@
                         field="password"
                         class="ml-6"
                         autocomplete="new-password"
-                        @input="$emit('input', $event)"/>
+                        @input="$emit('input', $event)" />
     </div>
 </template>
 
