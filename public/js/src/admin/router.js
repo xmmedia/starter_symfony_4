@@ -109,7 +109,7 @@ const router = new Router({
         {
             path: '*',
             name: '404',
-            component: () => import(/* webpackChunkName: "admin-404" */ './error/404.vue'),
+            component: () => import(/* webpackChunkName: "admin-error" */ './error/404.vue'),
         },
         {
             path: '*',
