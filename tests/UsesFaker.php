@@ -13,7 +13,7 @@ trait UsesFaker
     private $faker;
 
     /**
-     * @return Faker\Generator|Provider\AddressFakerProvider|Provider\EmailFakerProvider|Provider\GenderFakerProvider|Provider\InternetFakerProvider|Provider\NameFakerProvider|Provider\PhoneNumberFakerProvider|Provider\StringFakerProvider|Provider\UuidFakerProvider
+     * @return Faker\Generator|Provider\AddressFakerProvider|Provider\DateFakerProvider|Provider\EmailFakerProvider|Provider\GenderFakerProvider|Provider\InternetFakerProvider|Provider\NameFakerProvider|Provider\PhoneNumberFakerProvider|Provider\StringFakerProvider|Provider\UuidFakerProvider
      */
     protected function faker(): Faker\Generator
     {
@@ -26,6 +26,7 @@ trait UsesFaker
 
         $this->faker = Faker\Factory::create($locales[array_rand($locales)]);
         $this->faker->addProvider(new Provider\AddressFakerProvider($this->faker));
+        $this->faker->addProvider(new Provider\DateFakerProvider($this->faker));
         $this->faker->addProvider(new Provider\EmailFakerProvider($this->faker));
         $this->faker->addProvider(new Provider\GenderFakerProvider($this->faker));
         $this->faker->addProvider(new Provider\InternetFakerProvider($this->faker));
