@@ -1,90 +1,90 @@
 <template>
-    <div>
-        <div class="max-w-3xl">
-            <!-- ############################# -->
-            <!-- ####### Headings ######### -->
-            <!-- ############################# -->
-            <h2>Headings</h2>
-            <h1>Heading 1</h1>
-            <h2>Heading 2</h2>
-            <h3>Heading 3</h3>
-            <h4>Heading 4</h4>
-            <h5>Heading 5</h5>
-            <h6>Heading 6</h6>
+    <div class="max-w-3xl">
+        <!-- ############################# -->
+        <!-- ####### Headings ######### -->
+        <!-- ############################# -->
+        <h2>Headings</h2>
+        <h1>Heading 1</h1>
+        <h2>Heading 2</h2>
+        <h3>Heading 3</h3>
+        <h4>Heading 4</h4>
+        <h5>Heading 5</h5>
+        <h6>Heading 6</h6>
 
-            <!-- ############################# -->
-            <!-- ########## Text ############# -->
-            <!-- ############################# -->
-            <h2>Text</h2>
-            <p>Paragraph text – 16px – Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquet tincidunt
-            urna, ac molestie elit viverra sed. Maecenas rhoncus nisl purus, eget finibus mauris venenatis sit amet.
-            Nunc tincidunt sed magna a tincidunt. Maecenas nunc ex, imperdiet in scelerisque in, sodales vel arcu.
-            Pellentesque fringilla mattis est eget egestas. Mauris eu lorem quis nisl sagittis euismod. Sed
-            ultricies, augue in condimentum venenatis, turpis lectus sagittis elit, vitae porttitor eros eros quis
-            ipsum. Quisque sagittis enim quis nulla pretium, vel accumsan magna ullamcorper. Donec vitae
-            sollicitudin libero.</p>
-            <p>Donec facilisis egestas nulla vel condimentum. Praesent quis lectus nec velit rhoncus ultricies ac quis
-            mi. Mauris mattis lacus magna, venenatis faucibus nisi rhoncus non. Aenean ut facilisis nisl. Nam
-            ullamcorper nunc augue, at dignissim neque cursus nec. Nunc ut lorem at tortor malesuada tempus ac sed
-            felis. Mauris egestas leo eget justo vehicula iaculis. Cras rutrum malesuada pulvinar. Fusce porta augue
-            quis feugiat consectetur. Nam pharetra erat eu efficitur placerat. Phasellus non placerat sapien.
-            Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+        <!-- ############################# -->
+        <!-- ########## Text ############# -->
+        <!-- ############################# -->
+        <h2>Text</h2>
+        <p>Paragraph text – 16px – Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquet tincidunt urna,
+        ac molestie elit viverra sed. Maecenas rhoncus nisl purus, eget finibus mauris venenatis sit amet. Nunc
+        tincidunt sed magna a tincidunt. Maecenas nunc ex, imperdiet in scelerisque in, sodales vel arcu.
+        Pellentesque fringilla mattis est eget egestas. Mauris eu lorem quis nisl sagittis euismod.
+        Sed ultricies, augue in condimentum venenatis, turpis lectus sagittis elit, vitae porttitor eros eros quis
+        ipsum. Quisque sagittis enim quis nulla pretium, vel accumsan magna ullamcorper.
+        Donec vitae sollicitudin libero.
+        </p>
+        <p>Donec facilisis egestas nulla vel condimentum. Praesent quis lectus nec velit rhoncus ultricies ac quis mi.
+        Mauris mattis lacus magna, venenatis faucibus nisi rhoncus non. Aenean ut facilisis nisl. Nam ullamcorper
+        nunc augue, at dignissim neque cursus nec. Nunc ut lorem at tortor malesuada tempus ac sed felis. Mauris
+        egestas leo eget justo vehicula iaculis. Cras rutrum malesuada pulvinar. Fusce porta augue quis feugiat
+        consectetur. Nam pharetra erat eu efficitur placerat. Phasellus non placerat sapien. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus.
+        </p>
 
-            <div class="max-w-lg mx-auto">
-                <p>Narrow content... Donec facilisis egestas nulla vel condimentum. Praesent quis lectus nec velit
-                rhoncus ultricies ac quis mi. Mauris mattis lacus magna, venenatis faucibus nisi rhoncus non. Aenean
-                ut facilisis nisl. Nam ullamcorper nunc augue, at dignissim neque cursus nec. Nunc ut lorem at
-                tortor malesuada tempus ac sed felis. Mauris egestas leo eget justo vehicula iaculis. Cras rutrum
-                malesuada pulvinar. Fusce porta augue quis feugiat consectetur. Nam pharetra erat eu efficitur
-                placerat. Phasellus non placerat sapien. Interdum et malesuada fames ac ante ipsum primis in
-                faucibus.</p>
-            </div>
+        <div class="max-w-lg mx-auto">
+            <p>Narrow content... Donec facilisis egestas nulla vel condimentum. Praesent quis lectus nec velit rhoncus
+            ultricies ac quis mi. Mauris mattis lacus magna, venenatis faucibus nisi rhoncus non. Aenean ut
+            facilisis nisl. Nam ullamcorper nunc augue, at dignissim neque cursus nec. Nunc ut lorem at tortor
+            malesuada tempus ac sed felis. Mauris egestas leo eget justo vehicula iaculis. Cras rutrum malesuada
+            pulvinar. Fusce porta augue quis feugiat consectetur. Nam pharetra erat eu efficitur placerat.
+            Phasellus non placerat sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+            </p>
+        </div>
 
-            <strong>Bold Text</strong><br>
-            <em>Italic Text</em><br>
+        <strong>Bold Text</strong><br>
+        <em>Italic Text</em><br>
 
-            <a href="">Link</a><br>
-            <a href=""><strong>Bold Link</strong></a><br>
+        <a href="">Link</a><br>
+        <a href=""><strong>Bold Link</strong></a><br>
 
-            <!-- ############################# -->
-            <!-- ##### Unordered List ######## -->
-            <!-- ############################# -->
-            <h2>Unordered List</h2>
-            <ul>
-                <li>List item 1</li>
-                <li>List item 2</li>
-                <li>List item 3</li>
-                <li>List item 4</li>
-            </ul>
+        <!-- ############################# -->
+        <!-- ##### Unordered List ######## -->
+        <!-- ############################# -->
+        <h2>Unordered List</h2>
+        <ul>
+            <li>List item 1</li>
+            <li>List item 2</li>
+            <li>List item 3</li>
+            <li>List item 4</li>
+        </ul>
 
-            <!-- ############################# -->
-            <!-- ###### Ordered List ######### -->
-            <!-- ############################# -->
-            <h2>Ordered List</h2>
-            <ol>
-                <li>List item 1</li>
-                <li>List item 2</li>
-                <li>List item 3</li>
-                <li>List item 4</li>
-            </ol>
+        <!-- ############################# -->
+        <!-- ###### Ordered List ######### -->
+        <!-- ############################# -->
+        <h2>Ordered List</h2>
+        <ol>
+            <li>List item 1</li>
+            <li>List item 2</li>
+            <li>List item 3</li>
+            <li>List item 4</li>
+        </ol>
 
-            <!-- ############################# -->
-            <!-- ######### Buttons ########### -->
-            <!-- ############################# -->
-            <h2>Buttons</h2>
+        <!-- ############################# -->
+        <!-- ######### Buttons ########### -->
+        <!-- ############################# -->
+        <h2>Buttons</h2>
+        <button class="button">Button Button</button>
+        <a href="" class="button">Link Button</a>
+        <a href="" class="button button-critical">Delete Button</a>
+        <div class="flex my-4">
+            <button class="button-link">Button Link</button>
+            <a href="" class="ml-4">Link</a>
+        </div>
+        <div style="background: grey; margin-top: 1rem; padding: 1rem;">
+            <h2>Buttons on Dark Background</h2>
             <button class="button">Button Button</button>
             <a href="" class="button">Link Button</a>
             <a href="" class="button button-critical">Delete Button</a>
-            <div class="flex my-4">
-                <button class="button-link">Button Link</button>
-                <a href="" class="ml-4">Link</a>
-            </div>
-            <div class="bg-gray-500 mt-4 p-4">
-                <h2>Buttons on Dark Background</h2>
-                <button class="button">Button Button</button>
-                <a href="" class="button">Link Button</a>
-                <a href="" class="button button-critical">Delete Button</a>
-            </div>
         </div>
 
         <!-- ############################# -->
@@ -106,7 +106,7 @@
                     <ul class="field-errors">
                         <li>Error</li>
                     </ul>
-                    <input id="pattern-library-text" type="text">
+                    <input id="pattern-library-text" type="text" placeholder="Placeholder">
                     <div class="field-help">Use at least 8 characters.</div>
                 </div>
 
@@ -179,7 +179,7 @@
                                name="pattern-library-radio-2">
                         <label for="pattern-library-radio-05">Radio Button</label>
                     </div>
-                    <div class="field-wrap-radio">
+                    <div>
                         <input id="pattern-library-radio-06"
                                type="radio"
                                name="pattern-library-radio-2">
@@ -238,7 +238,8 @@
                     </div>
                 </div>
 
-                <div class="mt-6 mb-4 p-4 border border-gray-400">
+                <fieldset class="mt-6 mb-4 p-4 border border-gray-400">
+                    <legend>Fieldset with border</legend>
                     <div class="field-wrap">
                         <label for="pattern-library-fieldset-1">Fieldset Field 1</label>
                         <select id="pattern-library-fieldset-1">
@@ -249,12 +250,12 @@
                     <div class="text-right">
                         <a href="" class="form-action">× Remove</a>
                     </div>
-                </div>
+                </fieldset>
 
                 <div class="mt-6 mb-4 p-4 pt-3 border border-gray-400">
-                    <div class="flex leading-none">
+                    <div class="flex">
                         <h4 class="mt-0 mb-3">Heading</h4>
-                        <div class="ml-auto">
+                        <div class="ml-auto leading-none">
                             <a href="" class="form-action">Action</a>
                         </div>
                     </div>
@@ -428,7 +429,7 @@
                     Inactive Value 2
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon fill-current text-gray-700">
+                    <svg class="record_list-icon fill-current text-gray-800">
                         <use xlink:href="#check"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
@@ -471,7 +472,7 @@
             <div class="record_view-item">
                 <div class="record_view-item_label">List</div>
                 <div class="record_view-item_value">
-                    <ul>
+                    <ul class="pl-4">
                         <li>Item 1</li>
                         <li>Item 2</li>
                         <li>Item 3</li>
@@ -483,8 +484,8 @@
                 <div class="record_view-item_label">Multiline</div>
                 <div class="record_view-item_value">
                     Nullam id dolor id nibh ultricies vehicula ut id elit.<br>
-                    Fusce dapibus, tellus ac cursus commodo,
-                    tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.<br>
+                    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+                    ut fermentum massa justo sit amet risus.<br>
                     Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
                 </div>
             </div>
@@ -541,29 +542,27 @@
         <!-- ############################# -->
         <!-- ######### Alerts ############ -->
         <!-- ############################# -->
-        <div class="max-w-2xl mx-auto">
-            <h2>Alerts</h2>
-            <div class="alert alert-success">
-                <div>Success Message!</div>
-                <a href="" class="pl-4">×</a>
-            </div>
-            <div class="alert alert-info">
-                <div>Information Message<br>With two lines</div>
-                <a href="" class="pl-4">×</a>
-            </div>
-            <div class="alert alert-warning">
-                <div>Warning Message<br>Don't do that</div>
-                <a href="" class="pl-4">×</a>
-            </div>
-            <div class="alert alert-danger">
-                <div>Danger Warning – You are going to break something. Donec ullamcorper nulla non metus auctor
-                fringilla. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec ullamcorper nulla non
-                metus auctor fringilla. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-                </div>
-                <a href="" class="pl-4">×</a>
-            </div>
-
-            <admin-delete action="test" record-desc="test" csrf-token="test" />
+        <h2>Alerts</h2>
+        <div class="alert alert-success">
+            <div>Success Message!</div>
+            <a href="" class="pl-4">×</a>
         </div>
+        <div class="alert alert-info">
+            <div>Information Message<br>With two lines</div>
+            <a href="" class="pl-4">×</a>
+        </div>
+        <div class="alert alert-warning">
+            <div>Warning Message<br>Don't do that</div>
+            <a href="" class="pl-4">×</a>
+        </div>
+        <div class="alert alert-danger">
+            <div>Danger Warning – You are going to break something. Donec ullamcorper nulla non metus auctor fringilla.
+            Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec ullamcorper nulla non metus auctor
+            fringilla. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+            </div>
+            <a href="" class="pl-4">×</a>
+        </div>
+
+        <admin-delete action="test" record-desc="test" csrf-token="test" />
     </div>
 </template>
