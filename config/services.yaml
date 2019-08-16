@@ -90,8 +90,9 @@ services:
             $devEmail: '%env(DEV_EMAIL)%'
     App\Infrastructure\Email\EmailGatewayInterface: '@App\Infrastructure\Email\EmailGateway'
 
-    App\Command\ProjectionRunCommand:
+    App\Infrastructure\Service\ProjectionRunner:
         arguments:
+            $projectionsManager: '@prooph_event_store.projection_manager.app'
             $projectionManagerForProjectionsLocator: '@prooph_event_store.projection_manager_for_projections_locator'
             $projectionsLocator: '@prooph_event_store.projections_locator'
             $projectionReadModelLocator: '@prooph_event_store.projection_read_models_locator'
