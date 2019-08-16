@@ -1,5 +1,6 @@
 <template>
-    <button class="button-link text-white ml-4 -m-4"
+    <button class="button-link text-white ml-4"
+            style="margin-top: -1rem;"
             @click.stop="toggleMenu">Menu</button>
 </template>
 
@@ -26,6 +27,7 @@ export default {
                 this.$store.dispatch('adminMenu/closeMobileMenu');
             } else {
                 this.$store.dispatch('adminMenu/openMobileMenu');
+                document.documentElement.addEventListener('click', this.htmlClick);
             }
         },
         windowResize() {
@@ -42,6 +44,11 @@ export default {
                 g = d.body;
 
             return window.innerHeight || e.clientHeight || g.clientHeight;
+        },
+
+        htmlClick () {
+            this.$store.dispatch('adminMenu/closeMobileMenu');
+            document.documentElement.removeEventListener('click', this.htmlClick);
         },
     },
 }

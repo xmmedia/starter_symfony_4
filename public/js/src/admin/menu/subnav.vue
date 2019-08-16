@@ -1,36 +1,48 @@
 <template>
-    <span>
-        <button :class="buttonClasses" @click.stop="toggleMenu">
-            <svg class="w-3 h-3"><use xlink:href="#gt"></use></svg>
+    <div class="flex justify-between w-full">
+        <button :class="{ 'bg-gray-800' : open }"
+                class="sidebar_nav-link w-full mb-0"
+                @click.stop="toggleMenu">
+            <menu-link :label="label" :icon="icon" :has-subnav="true" />
         </button>
+
         <div ref="submenu"
              :class="{ 'sidebar_nav-submenu-wrap-open' : open }"
              class="sidebar_nav-submenu-wrap">
-            <div class="text-2xl font-thin border-b border-gray-700 sidebar_nav-submenu_header">{{ name }}</div>
-            <ul class="h-full list-none overflow-y-scroll">
-                <li v-for="(route, anchor) in items" :key="route">
+            <div class="sidebar_nav-submenu_header">{{ label }}</div>
+            <ul class="h-full pt-2 list-none pl-0 overflow-y-scroll">
+                <li v-for="(route, anchor) in items" :key="route" class="mb-1">
                     <router-link :to="{ name: route }"
-                                 class="sidebar_nav-link block py-3 px-4 opacity-100 hover:bg-blue-800"
-                                 @click.native="toggleMenu">
+                                 class="sidebar_nav-link block py-2 px-4 hover:bg-blue-800"
+                                 @click.native="subnavItemClicked">
                         {{ anchor }}
                     </router-link>
                 </li>
             </ul>
         </div>
-    </span>
+    </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import menuLink from './link';
 
 export default {
+    components: {
+        'menu-link': menuLink,
+    },
+
     props: {
-        name: {
+        label: {
             type: String,
             required: true,
         },
         items: {
             type: Object,
+            required: true,
+        },
+        icon: {
+            type: String,
             required: true,
         },
     },
@@ -47,17 +59,6 @@ export default {
             mobileMenuIsOpen: 'mobileMenuIsOpen',
             subNavOpen: 'subNavOpen',
         }),
-
-        buttonClasses () {
-            let str = 'button absolute right-0 z-100 rounded-none bg-transparent '
-                +'hover:bg-blue-600 sidebar_nav-link sidebar_nav-submenu_arrow';
-
-            if (this.open) {
-                str += ' opacity-100 bg-gray-800 sidebar_nav-submenu_arrow-open';
-            }
-
-            return str;
-        },
     },
 
     watch: {
@@ -82,7 +83,13 @@ export default {
                 document.documentElement.addEventListener('click', this.htmlClick);
             } else {
                 this.$store.dispatch('adminMenu/subNavClosed');
+                this.close();
             }
+        },
+
+        subnavItemClicked () {
+            this.toggleMenu();
+            this.$store.dispatch('adminMenu/closeAllMenus');
         },
 
         close () {
@@ -91,9 +98,8 @@ export default {
 
         htmlClick (e) {
             if (!this.$refs.submenu.contains(e.target)) {
+                this.$store.dispatch('adminMenu/subNavClosed');
                 this.close();
-                this.$store.dispatch('adminMenu/closeAllMenus');
-                document.documentElement.removeEventListener('click', this.htmlClick);
             }
         },
     },

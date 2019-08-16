@@ -4,39 +4,44 @@
 
         <nav class="sidebar_nav-wrap">
             <router-link :to="{ name: 'admin-dashboard' }"
-                         class="flex items-center justify-center w-24 border-b border-gray-700"
+                         class="flex items-center w-40 lg:w-64 border-b border-gray-600"
                          style="height: 3.75rem; padding: 0.65rem 0;">
+                <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
                      width="80"
-                     class="block my-0 mx-auto"
+                     class="block my-0 ml-4"
                      style="max-width: 5rem; max-height: 2.3rem;"
-                     alt="Battery Analytics">
+                     alt="Logo">
             </router-link>
+
             <ul class="sidebar_nav-nav">
                 <template v-if="loggedIn">
-                    <li>
+                    <li class="hover:bg-gray-800">
                         <router-link :to="{ name: 'admin-dashboard' }"
-                                     class="sidebar_nav-link sidebar_nav-nav_item">
-                            <svg><use xlink:href="#gear"></use></svg>
-                            Admin
+                                     class="sidebar_nav-link">
+                            <menu-link label="Members" icon="users" />
                         </router-link>
+                    </li>
 
-                        <menu-subnav :items="adminMenuItems" name="Admin" />
+                    <li v-if="hasRole('ROLE_ADMIN')" class="hover:bg-gray-800">
+                        <menu-subnav :items="adminMenuItems" label="Admin" icon="gear" />
                     </li>
                 </template>
             </ul>
 
-            <div class="sidebar_nav-bottom_wrap">
-                <div v-if="loggedIn" class="text-sm">
-                    <router-link :to="{ name: 'user-profile-edit' }"
-                                 class="text-inherit">
-                        {{ profileLinkText }}
-                    </router-link>
+            <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-500 font-thin">
+                <div class="flex items-end justify-between px-4">
+                    <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap:break-word;">
+                        <router-link :to="{ name: 'user-profile-edit' }"
+                                     class="text-inherit hover:no-underline hover:text-white">
+                            {{ profileLinkText }}
+                        </router-link>
+                    </div>
+                    <div v-if="loggedIn" class="pb-2 pl-4 text-xs">
+                        <a href="/logout" class="text-inherit hover:no-underline hover:text-white">Logout</a>
+                    </div>
                 </div>
-                <div v-if="loggedIn" class="p-1 text-xs">
-                    <a href="/logout" class="text-inherit">Logout</a>
-                </div>
-                <div class="py-2 text-xs text-gray-700 border-t border-gray-700">
+                <div class="py-2 pl-4 text-xs text-gray-600 border-t border-gray-600">
                     <!-- @todo-symfony -->
                     ©{{ copyrightYear }} XM Media Inc.
                 </div>
@@ -45,13 +50,15 @@
 
         <header class="header-wrap-small">
             <menu-small />
-            <router-link :to="{ name: 'admin-dashboard' }" class="mr-4" style="width: 2rem;">
-                <img src="/images/logo.svg" width="80" alt="Battery Analytics">
+            <router-link :to="{ name: 'admin-dashboard' }" class="w-8 mb-4 mr-4">
+                <img src="/images/logo.svg" width="80" alt="Logo">
             </router-link>
         </header>
         <div class="content-wrap js-content-wrap">
             <header class="header-wrap">
-                <portal-target name="header-page-title" class="header-page_title" />
+                <h1 class="header-page_title font-thin">
+                    <portal-target name="header-page-title" slim />
+                </h1>
                 <portal-target name="header-actions" class="header-actions" />
             </header>
 
@@ -71,15 +78,17 @@
 import { mapState, mapGetters } from 'vuex';
 import menuSubnav from './menu/subnav';
 import menuSmall from './menu/small';
+import menuLink from './menu/link';
 import svgIcons from '@/common/svg_icons';
 
 import iconsPath from '../../../images/icons-admin.svg';
 
 export default {
     components: {
-        'svg-icons': svgIcons,
-        'menu-subnav': menuSubnav,
-        'menu-small': menuSmall,
+        menuSubnav,
+        menuSmall,
+        menuLink,
+        svgIcons,
     },
 
     data () {
@@ -100,6 +109,7 @@ export default {
         ]),
         ...mapGetters([
             'loggedIn',
+            'hasRole',
         ]),
 
         profileLinkText () {

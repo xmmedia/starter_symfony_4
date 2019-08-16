@@ -2,7 +2,7 @@ const state = {
     mobileMenuIsOpen: false,
     // the unique ID of the subnav that's open
     subNavOpen: null,
-    classes: {
+    bodyClasses: {
         mobileOpen: 'sidebar_nav-visible',
         sideBarOpen: 'sidebar_nav-submenu-open',
     },
@@ -13,23 +13,26 @@ const getters = {};
 const actions = {
     openMobileMenu ({ commit, state }) {
         commit('setAdminMobileMenuStatus', true);
-        document.body.classList.add(state.classes.mobileOpen);
+        document.body.classList.add(state.bodyClasses.mobileOpen);
     },
     closeMobileMenu ({ dispatch }) {
         dispatch('closeAllMenus');
     },
     subNavOpened ({ commit, state }, id) {
         commit('setAdminSubMenuOpen', id);
-        document.body.classList.add(state.classes.sideBarOpen);
+        document.body.classList.add(state.bodyClasses.sideBarOpen);
     },
     subNavClosed ({ commit, state }) {
         commit('setAdminSubMenuOpen', null);
-        document.body.classList.remove(state.classes.sideBarOpen);
+        document.body.classList.remove(state.bodyClasses.sideBarOpen);
     },
     closeAllMenus ({ commit }) {
         commit('setAdminMobileMenuStatus', false);
         commit('setAdminSubMenuOpen', null);
-        document.body.classList.remove(state.classes.mobileOpen, state.classes.sideBarOpen);
+        document.body.classList.remove(
+            state.bodyClasses.mobileOpen,
+            state.bodyClasses.sideBarOpen,
+        );
     },
 };
 
