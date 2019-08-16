@@ -1,11 +1,13 @@
 /* this file is for public and private/admin pages */
 
 a, .button-link {
-    @apply text-blue-500 underline;
     transition: color 0.25s ease;
     &:hover, &:active {
-        @apply text-blue-600;
     }
+}
+
+b, strong {
+    @apply font-bold;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -34,7 +36,7 @@ h5 {
 }
 h6 {
     @apply text-xs;
-    margin: 2.33rem 0;
+    margin: 1.45rem 0;
 }
 
 // make anchors that are inside headers look like the header, but underline when hovered
@@ -49,7 +51,7 @@ h1, h2, h3, h4 {
 
 // re-add margin to p as it's reset in tailwind's normalize
 p {
-    margin: 1em 0;
+    @apply my-4;
 }
 //re-add list styles as tailwind removes them
 ul, ol {
@@ -67,4 +69,8 @@ address {
 
 td {
     @apply align-top;
+}
+
+.transition {
+    transition: all 0.25s ease;
 }
