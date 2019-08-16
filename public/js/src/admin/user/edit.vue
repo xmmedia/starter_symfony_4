@@ -166,7 +166,7 @@ export default {
                 this.verified = data.User.verified;
                 this.active = data.User.active;
             },
-            error (e) {
+            error () {
                 this.status = statuses.ERROR;
             },
             watchLoading (isLoading) {

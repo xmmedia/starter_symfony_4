@@ -2,7 +2,7 @@ import {
     email,
     minLength,
     maxLength,
-    required,
+    required
 } from 'vuelidate/lib/validators';
 
 export default {

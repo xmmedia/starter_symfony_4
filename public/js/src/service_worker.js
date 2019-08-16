@@ -1,3 +1,4 @@
+/*global workbox*/
 // to enable debugging in dev
 // @todo-symfony disable before going into production
 workbox.setConfig({
