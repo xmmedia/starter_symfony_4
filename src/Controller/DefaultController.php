@@ -19,6 +19,10 @@ class DefaultController extends AbstractController
      */
     public function index(): Response
     {
+        // if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        //     return $this->redirectToRoute('app_login');
+        // }
+
         return $this->render('default/index.html.twig');
     }
 
