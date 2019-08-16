@@ -7,8 +7,11 @@ namespace App\Tests;
 use App\EventSourcing\Aggregate\AggregateRoot;
 use App\EventSourcing\Aggregate\AggregateTranslator;
 use App\EventSourcing\Aggregate\AggregateType;
+use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class BaseTestCase extends \PHPUnit\Framework\TestCase
 {
@@ -110,5 +113,20 @@ class BaseTestCase extends \PHPUnit\Framework\TestCase
         }
 
         return $this->aggregateTranslator;
+    }
+
+    protected function getCommandBusMock(
+        ?string $commandClass
+    ): MessageBusInterface {
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        if (null !== $commandClass) {
+            $commandBus->shouldReceive('dispatch')
+                ->once()
+                ->with(Mockery::type($commandClass))
+                ->andReturn(new Envelope(new \stdClass()));
+        }
+
+        return $commandBus;
     }
 }
