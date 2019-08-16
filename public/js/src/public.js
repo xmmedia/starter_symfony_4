@@ -1,3 +1,5 @@
+import 'es6-promise/auto';
+
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
 import PortalVue from 'portal-vue';
