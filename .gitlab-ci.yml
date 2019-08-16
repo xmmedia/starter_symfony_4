@@ -7,8 +7,8 @@ image: php:7.3-cli
 # Select what we should cache
 cache:
   paths:
-  - vendor/
-  - node_modules/
+    - vendor/
+    - node_modules/
 
 variables:
   RELEASES: "$REMOTE_BASE/releases"
