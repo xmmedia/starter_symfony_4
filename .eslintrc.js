@@ -1,6 +1,7 @@
 module.exports = {
     root: true,
     env: {
+        node: true,
         browser: true,
         "cypress/globals": true,
     },
@@ -17,9 +18,9 @@ module.exports = {
         "comma-dangle": ["error", {
             "arrays": "always-multiline",
             "objects": "always-multiline",
-            "imports": "never",
+            "imports": "always-multiline",
             "exports": "never",
-            "functions": "never",
+            "functions": "only-multiline",
         }],
         "vue/max-attributes-per-line": [3, {
             "singleline": 3,
@@ -29,15 +30,17 @@ module.exports = {
             },
         }],
         "vue/html-indent": ["error", 4],
-        "vue/html-self-closing": ["error", {
-            "html": {
-                "void": "never",
-                "normal": "never",
-                "component": "always",
+        "vue/html-self-closing": [
+            "error", {
+                "html": {
+                    "void": "any",
+                    "normal": "any",
+                    "component": "always",
+                },
+                "svg": "any",
+                "math": "always",
             },
-            "svg": "any",
-            "math": "always",
-        }],
+        ],
     },
     parserOptions: {
         parser: "babel-eslint",

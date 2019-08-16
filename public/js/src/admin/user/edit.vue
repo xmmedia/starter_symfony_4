@@ -87,7 +87,7 @@ import {
     AdminUserUpdateMutation,
     AdminUserActivateMutation,
     AdminUserVerifyMutation,
-    AdminUserSendResetMutation
+    AdminUserSendResetMutation,
 } from '../queries/admin/user.mutation';
 
 const statuses = {
