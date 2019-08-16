@@ -16,6 +16,8 @@ import fieldError from './common/field_error';
 import passwordField from './common/password_field';
 import { MeQuery } from './admin/queries/user.query';
 
+import * as filters from './common/filters';
+
 // SASS/CSS
 import '../../css/admin.scss';
 
@@ -34,6 +36,12 @@ Vue.component('field-error', fieldError);
 Vue.component('admin-delete', () => import(/* webpackChunkName: "admin-delete" */ './admin/admin_delete/index'));
 Vue.component('local-time', () => import(/* webpackChunkName: "local-time" */ './common/local_time'));
 Vue.component('password-field', passwordField);
+
+Vue.filter('formatPhone', filters.formatPhone);
+Vue.filter('nl2br', filters.nl2br);
+Vue.filter('date', filters.date);
+Vue.filter('money', filters.money);
+Vue.filter('pluralize', filters.pluralize);
 
 // run gql query to see if the user is logged in, set state to ready
 // and then initialize
