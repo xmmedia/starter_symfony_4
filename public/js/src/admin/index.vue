@@ -9,7 +9,6 @@
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
                      width="80"
-                     class="block my-0 ml-4"
                      style="max-width: 5rem; max-height: 2.3rem;"
                      alt="Logo">
             </router-link>
