@@ -85,7 +85,7 @@ class Address implements ValueObject
                 self::LINE_MAX_LENGTH
             );
         } catch (\InvalidArgumentException $e) {
-            throw InvalidAddress::line1($line1, $e->getMessage());
+            throw InvalidAddress::line1($line1, $e);
         }
 
         $line2 = StringUtil::trim($line2);
@@ -97,7 +97,7 @@ class Address implements ValueObject
                     self::LINE_MAX_LENGTH
                 );
             } catch (\InvalidArgumentException $e) {
-                throw InvalidAddress::line2($line2, $e->getMessage());
+                throw InvalidAddress::line2($line2, $e);
             }
         }
 
@@ -108,7 +108,7 @@ class Address implements ValueObject
                 self::CITY_MAX_LENGTH
             );
         } catch (\InvalidArgumentException $e) {
-            throw InvalidAddress::city($city, $e->getMessage());
+            throw InvalidAddress::city($city, $e);
         }
 
         $this->line1 = $line1;

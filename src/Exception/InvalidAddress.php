@@ -6,36 +6,36 @@ namespace App\Exception;
 
 final class InvalidAddress extends \InvalidArgumentException
 {
-    public static function line1(string $line1, string $message): self
+    public static function line1(string $line1, \Throwable $previous): self
     {
         return new self(
             sprintf(
                 'The address line 1 ("%s") is invalid: %s',
                 $line1,
-                $message
-            )
+                $previous->getMessage()
+            ), 0, $previous
         );
     }
 
-    public static function line2(string $line2, string $message): self
+    public static function line2(string $line2, \Throwable $previous): self
     {
         return new self(
             sprintf(
                 'The address line 2 ("%s") is invalid: %s',
                 $line2,
-                $message
-            )
+                $previous->getMessage()
+            ), 0, $previous
         );
     }
 
-    public static function city(string $city, string $message): self
+    public static function city(string $city, \Throwable $previous): self
     {
         return new self(
             sprintf(
                 'The address city ("%s") is invalid: %s',
                 $city,
-                $message
-            )
+                $previous->getMessage()
+            ), 0, $previous
         );
     }
 }
