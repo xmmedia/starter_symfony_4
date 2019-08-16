@@ -66,6 +66,15 @@ final class GraphQlDumpSchemaCommand extends Command
             Email::fromString($this->userEmail)
         );
 
+        if (!$user) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The user with email %s cannot be found.',
+                    $this->userEmail
+                )
+            );
+        }
+
         return new PostAuthenticationGuardToken(
             $user,
             'app_provider',
