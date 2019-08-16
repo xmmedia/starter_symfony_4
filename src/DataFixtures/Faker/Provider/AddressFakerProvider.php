@@ -6,6 +6,7 @@ namespace App\DataFixtures\Faker\Provider;
 
 use App\Model\Address;
 use Faker;
+use Faker\Provider\en_CA\Address as FakerAddress;
 
 /**
  * @property Address $addressVo
@@ -13,7 +14,7 @@ use Faker;
  *
  * @codeCoverageIgnore
  */
-class AddressFakerProvider extends Faker\Provider\Base
+class AddressFakerProvider extends FakerAddress
 {
     public function addressVo(): Address
     {
@@ -22,13 +23,13 @@ class AddressFakerProvider extends Faker\Provider\Base
 
     public function addressArray(): array
     {
-        $faker = Faker\Factory::create();
+        $faker = Faker\Factory::create('en_CA');
 
         return [
             'line1'      => $faker->streetAddress,
             'line2'      => $faker->streetAddress,
             'city'       => $faker->city,
-            'province'   => $faker->stateAbbr,
+            'province'   => $faker->provinceAbbr,
             'postalCode' => $faker->postcode,
             'country'    => 'CA',
         ];
