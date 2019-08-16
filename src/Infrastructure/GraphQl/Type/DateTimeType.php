@@ -16,7 +16,7 @@ final class DateTimeType extends ScalarType implements AliasedInterface
     {
         parent::__construct([
             'name'        => self::NAME,
-            'description' => 'Date & time represented as string. The serialized date will be in teh RFC3339 format and will include the server timezone (UTC). The input should be a string in a format understood by PHP DateTime constructors and containing the user\'s timezone.',
+            'description' => 'Date & time represented as string. The serialized date will be in the RFC3339 format and will include the server timezone (UTC). The input should be a string in a format understood by PHP DateTime constructors and containing the user\'s timezone. If the input timezone is not included, UTC will be assumed.',
         ]);
     }
 
