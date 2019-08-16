@@ -24,8 +24,9 @@ final class GraphQlDumpSchemaCommand extends Command
     /**
      * @var string the email of the user to use for the fake login (typically
      *             an admin)
+     * @todo-symfony change to super admin user
      */
-    private $userEmail = 'admin@xmmedia.com';
+    private $userEmail = 'admin@example.com';
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
