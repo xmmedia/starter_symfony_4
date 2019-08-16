@@ -2,6 +2,7 @@ import Vue from 'vue';
 import PortalVue from 'portal-vue';
 import VueModal from 'vue-js-modal';
 import Vuelidate from 'vuelidate';
+import AsyncComputed from 'vue-async-computed';
 
 import router from './admin/router';
 import store from './admin/store';
@@ -28,6 +29,7 @@ Vue.config.productionTip = false;
 Vue.use(PortalVue);
 Vue.use(VueModal);
 Vue.use(Vuelidate);
+Vue.use(AsyncComputed);
 
 // global components
 Vue.component('loading-spinner', loadingSpinner);
