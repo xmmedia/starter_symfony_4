@@ -27,7 +27,7 @@ class CommandEnricherMiddleware implements MiddlewareInterface
             $this->issuerProvider->getIssuer()
         );
 
-        // @todo this seems wrong to not pass any stamps, but atm there are no
+        // @todo this seems wrong to not pass any stamps, but atm there are none
         $newEnvelope = new Envelope($message);
 
         return $stack->next()->handle($newEnvelope, $stack);

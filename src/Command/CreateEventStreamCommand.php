@@ -24,7 +24,7 @@ final class CreateEventStreamCommand extends Command
         $this->eventStore = $eventStore;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('event-store:event-stream:create')
             ->setDescription('Create event_stream.')
@@ -37,7 +37,7 @@ final class CreateEventStreamCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $this->eventStore->create(
             new Stream(
