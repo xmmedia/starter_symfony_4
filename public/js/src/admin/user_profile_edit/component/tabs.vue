@@ -1,5 +1,5 @@
 <template>
-    <ul class="list-none flex justify-between">
+    <ul class="list-none flex justify-between pl-0">
         <li class="flex-grow">
             <router-link :to="{ name: 'user-profile-edit' }"
                          :class="linkActiveClass('user-profile-edit')"

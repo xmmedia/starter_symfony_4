@@ -2,55 +2,51 @@
     <div class="form-wrap p-0">
         <profile-tabs />
 
-        <div class="p-4">
-            <form @submit.prevent="submit">
-                <form-error v-if="hasValidationErrors" />
+        <form class="p-4" method="post" @submit.prevent="submit">
+            <form-error v-if="hasValidationErrors" />
 
-                <div class="field-wrap">
-                    <label for="inputEmail">Email Address</label>
-                    <field-errors :errors="serverValidationErrors" field="email" />
-                    <input id="inputEmail"
-                           v-model="email"
-                           type="email"
-                           maxlength="150"
-                           required
-                           autofocus
-                           autocomplete="username email"
-                           @input="changed">
-                </div>
-                <div class="field-wrap">
-                    <label for="inputFirstName">First Name</label>
-                    <field-errors :errors="serverValidationErrors" field="firstName" />
-                    <input id="inputFirstName"
-                           v-model="firstName"
-                           type="text"
-                           required
-                           maxlength="50"
-                           autocomplete="given-name"
-                           @input="changed">
-                </div>
-                <div class="field-wrap">
-                    <label for="inputLastName">Last Name</label>
-                    <field-errors :errors="serverValidationErrors" field="lastName" />
-                    <input id="inputLastName"
-                           v-model="lastName"
-                           type="text"
-                           required
-                           maxlength="50"
-                           autocomplete="family-name"
-                           @input="changed">
-                </div>
+            <div class="field-wrap">
+                <label for="inputEmail">Email Address</label>
+                <field-errors :errors="serverValidationErrors" field="email" />
+                <input id="inputEmail"
+                       v-model="email"
+                       type="email"
+                       maxlength="150"
+                       required
+                       autofocus
+                       autocomplete="username email"
+                       @input="changed">
+            </div>
+            <div class="field-wrap">
+                <label for="inputFirstName">First Name</label>
+                <field-errors :errors="serverValidationErrors" field="firstName" />
+                <input id="inputFirstName"
+                       v-model="firstName"
+                       type="text"
+                       required
+                       maxlength="50"
+                       autocomplete="given-name"
+                       @input="changed">
+            </div>
+            <div class="field-wrap">
+                <label for="inputLastName">Last Name</label>
+                <field-errors :errors="serverValidationErrors" field="lastName" />
+                <input id="inputLastName"
+                       v-model="lastName"
+                       type="text"
+                       required
+                       maxlength="50"
+                       autocomplete="family-name"
+                       @input="changed">
+            </div>
 
-                <div>
-                    <button type="submit" class="button">Save Profile</button>
-                    <button class="form-action button-link"
-                            @click.prevent="reset">Reset</button>
-
-                    <span v-if="status === 'saving'" class="ml-4 text-sm italic">Saving...</span>
-                    <span v-else-if="status === 'saved'" class="ml-4 text-sm italic">Saved</span>
-                </div>
-            </form>
-        </div>
+            <admin-button :status="status">
+                Save Profile
+                <button slot="cancel"
+                        class="form-action button-link"
+                        @click.prevent="reset">Reset</button>
+            </admin-button>
+        </form>
     </div>
 </template>
 

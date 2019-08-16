@@ -2,55 +2,50 @@
     <div class="form-wrap p-0">
         <profile-tabs />
 
-        <div class="p-4">
-            <form @submit.prevent="submit">
-                <form-error v-if="hasValidationErrors" />
-                <div v-if="status === 'saved'" class="alert alert-success mb-4" role="alert">
-                    <div>
-                        Your password has been updated.<br>
-                        You will need to login again.
-                    </div>
-                    <router-link :to="{ name: 'login' }" class="pl-4">Go to Login</router-link>
-                </div>
-
-                <div class="hidden">
-                    <label for="inputEmail">Email</label>
-                    <input id="inputEmail"
-                           :value="$store.state.user.email"
-                           type="email"
-                           name="email"
-                           autocomplete="username email">
-                </div>
-
-                <password-field v-model="currentPassword"
-                                :server-validation-errors="getServerValidationErrors('currentPassword')"
-                                label="Current Password"
-                                field="currentPassword"
-                                autocomplete="current-password" />
-
-                <password-field v-model="newPassword"
-                                :server-validation-errors="getServerValidationErrors('newPassword.children.first')"
-                                label="New Password"
-                                field="newPassword.first"
-                                autocomplete="new-password" />
-                <password-field v-model="repeatPassword"
-                                :server-validation-errors="getServerValidationErrors('newPassword.children.second')"
-                                label="New Password Again"
-                                field="newPassword.second"
-                                autocomplete="new-password" />
-
-                <div class="mb-4 text-sm">After changing your password, you will need to login again.</div>
-
+        <form class="p-4" method="post" @submit.prevent="submit">
+            <form-error v-if="hasValidationErrors" />
+            <div v-if="status === 'saved'" class="alert alert-success mb-4" role="alert">
                 <div>
-                    <button type="submit" class="button">Change Password</button>
-                    <router-link :to="{ name: 'user-profile-edit' }"
-                                 class="form-action">Cancel</router-link>
-
-                    <span v-if="status === 'saving'" class="ml-4 text-sm italic">Saving...</span>
-                    <span v-else-if="status === 'saved'" class="ml-4 text-sm italic">Saved</span>
+                    Your password has been updated.<br>
+                    You will need to login again.
                 </div>
-            </form>
-        </div>
+                <a :href="loginUrl" class="pl-4">Go to Login</a>
+            </div>
+
+            <div class="hidden">
+                <label for="inputEmail">Email</label>
+                <input id="inputEmail"
+                       :value="$store.state.user.email"
+                       type="email"
+                       name="email"
+                       autocomplete="username email">
+            </div>
+
+            <password-field v-model="currentPassword"
+                            :server-validation-errors="getServerValidationErrors('currentPassword')"
+                            label="Current Password"
+                            field="currentPassword"
+                            autocomplete="current-password" />
+
+            <password-field v-model="newPassword"
+                            :server-validation-errors="getServerValidationErrors('newPassword.children.first')"
+                            :show-help="true"
+                            label="New Password"
+                            field="newPassword.first"
+                            autocomplete="new-password" />
+            <password-field v-model="repeatPassword"
+                            :server-validation-errors="getServerValidationErrors('newPassword.children.second')"
+                            label="New Password Again"
+                            field="newPassword.second"
+                            autocomplete="new-password" />
+
+            <div class="mb-4 text-sm">After changing your password, you will need to login again.</div>
+
+            <admin-button :status="status"
+                          :cancel-to="{ name: 'user-profile-edit' }">
+                Change Password
+            </admin-button>
+        </form>
     </div>
 </template>
 
@@ -86,6 +81,10 @@ export default {
         hasValidationErrors () {
             return Object.keys(this.serverValidationErrors).length > 0;
         },
+
+        loginUrl () {
+            return this.$router.resolve({ name: 'login' }).href;
+        },
     },
 
     methods: {
@@ -112,7 +111,7 @@ export default {
                 this.serverValidationErrors = {};
 
                 setTimeout(() => {
-                    window.location = this.$router.resolve({ name: 'login' }).href;
+                    window.location = this.loginUrl;
                 }, 30000);
 
             } catch (e) {
