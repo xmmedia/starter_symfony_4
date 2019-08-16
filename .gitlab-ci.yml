@@ -68,7 +68,7 @@ deploy:
     # switch to new version; run composer on server; db migrations
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -f $REMOTE_BASE/current; ln -s $RELEASE $REMOTE_BASE/current; cd $REMOTE_BASE/current; export APP_ENV=prod; php composer.phar run-script post-update-cmd"
     # clear opcache
-    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; echo '<?php opcache_reset();' > html/opcache_reset.php; curl $HTTP_ROOT/opcache_reset.php; rm html/opcache_reset.php" || echo -e "\033[0;31mFAILURE unable to reset OPcache"
+    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; echo '<?php opcache_reset();' > html/opcache_reset.php; curl $HTTP_ROOT/opcache_reset.php; rm html/opcache_reset.php" || echo -e "\033[0;31mFAILURE unable to reset OPcache"
     # supervisord: write config & restart all
     - php bin/console app:supervisor:write-config; php bin/console app:supervisor:restart --all
     # cloudflare: purge cache
