@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Messaging;
 
-use DateTimeImmutable;
-use DateTimeZone;
 use Prooph\Common\Messaging\DomainMessage as BaseDomainMessage;
 use Prooph\Common\Messaging\Message as BaseMessage;
 use Ramsey\Uuid\Uuid;
@@ -29,7 +27,7 @@ abstract class DomainMessage extends BaseDomainMessage implements Message
     protected $uuid;
 
     /**
-     * @var DateTimeImmutable
+     * @var \DateTimeImmutable
      */
     protected $createdAt;
 
@@ -69,7 +67,7 @@ abstract class DomainMessage extends BaseDomainMessage implements Message
         }
 
         if (null === $this->createdAt) {
-            $this->createdAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+            $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
         }
     }
 
@@ -78,7 +76,7 @@ abstract class DomainMessage extends BaseDomainMessage implements Message
         return $this->uuid;
     }
 
-    public function createdAt(): DateTimeImmutable
+    public function createdAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Messaging;
 
-use DateTimeImmutable;
 use Prooph\Common\Messaging\Message as BaseMessage;
 use Ramsey\Uuid\UuidInterface;
 
@@ -17,7 +16,7 @@ interface Message extends BaseMessage
 
     public function uuid(): UuidInterface;
 
-    public function createdAt(): DateTimeImmutable;
+    public function createdAt(): \DateTimeImmutable;
 
     public function payload(): array;
 
