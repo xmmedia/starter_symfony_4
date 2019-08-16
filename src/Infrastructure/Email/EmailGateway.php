@@ -24,17 +24,23 @@ class EmailGateway implements EmailGatewayInterface
     /** @var RouterInterface|\Symfony\Bundle\FrameworkBundle\Routing\Router */
     private $router;
 
+    /** @var string|null */
+    private $devEmail;
+
     public function __construct(
         string $postmarkApiKey,
         string $emailFrom,
         string $emailFromName,
         string $kernelEnv,
-        RouterInterface $router
+        RouterInterface $router,
+        ?string $devEmail = null
     ) {
         $this->client = new PostmarkClient($postmarkApiKey);
         $this->kernelEnv = $kernelEnv;
         $this->from = Email::fromString($emailFrom, $emailFromName);
         $this->router = $router;
+
+        $this->devEmail = $devEmail;
     }
 
     public function send(
@@ -47,8 +53,7 @@ class EmailGateway implements EmailGatewayInterface
         if (!$this->isProduction() && !$this->isWhitelistedAddress($to)) {
             $headers['X-Original-To'] = $to->withName();
 
-            // @todo-symfony
-            $to = Email::fromString('admin@xmmedia.com');
+            $to = Email::fromString($this->devEmail);
         }
 
         $templateData = $this->setGlobalTemplateData($templateData);

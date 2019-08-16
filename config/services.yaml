@@ -85,6 +85,7 @@ services:
             $emailFrom: '%env(FROM_EMAIL)%'
             $emailFromName: '%env(FROM_EMAIL_NAME)%'
             $kernelEnv: '%kernel.environment%'
+            $devEmail: '%env(DEV_EMAIL)%'
     App\Infrastructure\Email\EmailGatewayInterface: '@App\Infrastructure\Email\EmailGateway'
 
     App\Command\ProjectionRunCommand:
