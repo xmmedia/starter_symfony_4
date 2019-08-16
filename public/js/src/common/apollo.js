@@ -20,7 +20,7 @@ const apolloClient = new ApolloClient({
     // Cache implementation
     cache: new InMemoryCache(),
     defaultOptions: {
-        fetchPolicy: 'cache-and-network',
+        fetchPolicy: 'no-cache',
     },
 });
 

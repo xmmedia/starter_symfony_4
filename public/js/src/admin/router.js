@@ -152,7 +152,6 @@ router.beforeEach( async (to, from, next) => {
         // check to see if they're still authenticated
         const result = await apolloProvider.defaultClient.query({
             query: MeSimpleQuery,
-            fetchPolicy: 'no-cache',
         });
         if (!result.data.Me) {
             window.location = router.resolve({ name: 'login' }).href;
