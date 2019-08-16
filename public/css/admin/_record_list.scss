@@ -13,10 +13,7 @@
     &:nth-of-type(2) {
         @apply border-t;
     }
-}
 
-
-.record_list-item {
     @screen md {
         @apply table-row border-b border-gray-400;
 
@@ -31,9 +28,7 @@
 
 .record_list-headers {
     @apply hidden;
-}
 
-.record_list-headers {
     @screen md {
         @apply font-bold border-none bg-gray-400;
         display: table-header-group;
@@ -46,6 +41,7 @@
         @apply hidden;
     }
 }
+
 .record_view-item_wrap > .record_list-wrap .record_list-headers {
     @screen md {
         @apply text-gray-600 font-light border-b border-solid border-gray-600 bg-transparent;
@@ -55,9 +51,7 @@
 
 .record_list-mobile_heading {
     @apply text-gray-500;
-}
 
-.record_list-mobile_heading {
     @screen md {
         @apply hidden;
     }
@@ -85,7 +79,7 @@
 }
 
 .record_list-record_count {
-    @apply text-xs mb-4 text-center text-gray-800;
+    @apply text-xs mb-4 text-center text-gray-700;
 }
 
 .record_list-icon {
