@@ -11,6 +11,7 @@ cache:
     - node_modules/
 
 variables:
+  APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
 
@@ -47,7 +48,6 @@ deploy:
   when: manual
   allow_failure: false
   script:
-    - export APP_ENV=prod
     - php -v
     - php composer.phar --version
     - node --version
@@ -56,6 +56,8 @@ deploy:
     - TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
     - echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
     - echo "Remote:"; echo $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PORT
+    - # create partial .env file
+    - printf "APP_ENV=$APP_ENV\nREQUEST_CONTEXT_HOST=$REQUEST_CONTEXT_HOST\nREQUEST_CONTEXT_SCHEME=$REQUEST_CONTEXT_SCHEME\n" > .env.local
     # install php dependencies
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins
     # Install node/JS dependencies
