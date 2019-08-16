@@ -1,43 +1,45 @@
 <template>
-    <div class="form-wrap">
+    <div>
         <portal to="header-page-title">Login</portal>
 
-        <h1 class="mt-0 leading-none">Login</h1>
+        <div class="form-wrap">
+            <h1 class="mt-0 leading-none">Login</h1>
 
-        <div v-if="errorMsg" class="alert alert-warning alert-type-warning">{{ errorMsg }}</div>
+            <div v-if="errorMsg" class="alert alert-warning alert-type-warning">{{ errorMsg }}</div>
 
-        <form method="post">
-            <div class="field-wrap">
-                <label for="inputEmail">Email Address</label>
-                <input id="inputEmail"
-                       v-model="email"
-                       type="email"
-                       name="email"
-                       required
-                       autofocus
-                       autocomplete="username email">
-            </div>
+            <form method="post">
+                <div class="field-wrap">
+                    <label for="inputEmail">Email Address</label>
+                    <input id="inputEmail"
+                           v-model="email"
+                           type="email"
+                           name="email"
+                           required
+                           autofocus
+                           autocomplete="username email">
+                </div>
 
-            <password-field v-model="password"
-                            label="Password"
-                            field="password"
-                            autocomplete="current-password"/>
+                <password-field v-model="password"
+                                label="Password"
+                                field="password"
+                                autocomplete="current-password" />
 
-            <div class="field-wrap-checkbox">
-                <input id="remember_me"
-                       type="checkbox"
-                       name="_remember_me"
-                       value="on">
-                <label for="remember_me">Remember Me</label>
-            </div>
+                <div class="field-wrap-checkbox">
+                    <input id="remember_me"
+                           type="checkbox"
+                           name="_remember_me"
+                           value="on">
+                    <label for="remember_me">Remember Me</label>
+                </div>
 
-            <div>
-                <button class="button">Login</button>
-                <router-link :to="{ name: 'user-recover-initiate' }" class="form-action">
-                    Forgot your password?
-                </router-link>
-            </div>
-        </form>
+                <div>
+                    <button class="button">Login</button>
+                    <router-link :to="{ name: 'user-recover-initiate' }" class="form-action">
+                        Forgot your password?
+                    </router-link>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
