@@ -15,7 +15,7 @@
         "lstrojny/fxmlrpc": "^0.15.0",
         "marc-mabe/php-enum": "^4.0",
         "misd/phone-number-bundle": "^1.3",
-        "money/money": "^2.0",
+        "moneyphp/money": "^3.2",
         "nelmio/security-bundle": "^2.5",
         "nesbot/carbon": "^2.4",
         "overblog/graphql-bundle": "^0.11.10",
