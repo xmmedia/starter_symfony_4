@@ -1,10 +1,11 @@
 .header-wrap {
-    @apply flex justify-between items-center bg-gray-200 border-b border-gray-500;
+    @apply flex justify-between items-center py-2 bg-gray-200 border-b border-gray-500;
     min-height: $header-height + 3.5;
-}
-.header-wrap {
     @screen xs {
         min-height: $header-height;
+    }
+    @screen md {
+        @apply py-0;
     }
 }
 
@@ -14,17 +15,14 @@
         @apply w-auto max-w-xs;
     }
     @screen md {
-        @apply text-3xl max-w-3/5;
-    }
-    @screen xl {
-        @apply max-w-lg;
+        @apply text-3xl max-w-full;
     }
 }
 
 // the order of the HTML elements should match how the elements
 // appear on mobile (mobile first)
 .header-actions {
-    @apply flex flex-wrap justify-end items-start pt-3 px-4 pb-2 text-right;
+    @apply flex flex-wrap justify-end items-center px-4 text-right;
     @screen md {
         @apply pb-0;
     }
@@ -33,42 +31,37 @@
 // for actions that should show as buttons
 // this styling is similar to buttons
 .header-action {
-    @apply block mb-3 ml-4 py-2 px-5 text-xs border border-blue-600 border-solid rounded;
+    @apply block ml-4 py-2 px-5 text-xs border border-blue-600 border-solid rounded;
     transition: background-color 0.15s ease-in-out;
-
-    @media (min-width: 880px) {
-        @apply order-2;
-    }
-
     &:hover {
         @apply no-underline bg-white;
+    }
+
+    @media (min-width: 880px) {
+        order: 2;
     }
 }
 
 // for the main action(s)
 .header-action-main {
-    @apply text-center text-white bg-blue-500 border-blue-500;
-
-    @media (min-width: 880px) {
-        @apply-order-3;
-    }
-
+    @apply text-sm text-center text-white bg-blue-500 border-blue-500;
     &:hover {
         @apply bg-blue-600 border-blue-600;
+    }
+
+    @media (min-width: 880px) {
+        order: 3;
     }
 }
 
 .header-secondary_actions {
     @apply text-xs leading-loose;
-
     @media (min-width: 560px) {
         @apply mt-0 leading-none;
     }
-    @media (min-width: 784px) {
-        @apply mb-2;
-    }
     @media (min-width: 880px) {
-        @apply order-1 mt-3;
+        @apply mt-1;
+        order: 1;
     }
 
     a {
@@ -77,21 +70,20 @@
 }
 
 .header-button_pair {
-    @apply mb-3 ml-4;
+    @apply ml-4;
     @media (min-width: 880px) {
-        @apply order-4;
+        order: 4;
     }
 }
 
 .header-wrap-small {
-    @apply flex justify-between relative z-10 pt-4 text-white bg-black border-b border-gray-500;
+    @apply flex justify-between items-center relative z-10 pt-4 text-white bg-black border-b border-gray-500;
     height: $header-height;
+    @screen lg {
+        @apply hidden;
+    }
 
     a {
         @apply text-white;
-    }
-
-    @screen md {
-        @apply hidden;
     }
 }
