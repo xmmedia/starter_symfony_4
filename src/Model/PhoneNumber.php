@@ -11,7 +11,7 @@ use libphonenumber\PhoneNumberUtil;
 
 class PhoneNumber implements ValueObject
 {
-    public static $defaultRegion = 'CA';
+    private static $defaultRegion = 'CA';
 
     /** @var LibPhoneNumber */
     private $phoneNumber;
@@ -79,9 +79,21 @@ class PhoneNumber implements ValueObject
         return $this->e164();
     }
 
+    public function national(): string
+    {
+        $util = PhoneNumberUtil::getInstance();
+
+        return $util->format($this->phoneNumber, PhoneNumberFormat::NATIONAL);
+    }
+
     public function extension(): ?string
     {
         return $this->phoneNumber->getExtension();
+    }
+
+    public function obj(): LibPhoneNumber
+    {
+        return $this->phoneNumber;
     }
 
     public function toArray(): array
