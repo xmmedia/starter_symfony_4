@@ -79,7 +79,9 @@ module.exports = function (Encore) {
             'vue$': 'vue/dist/vue.esm.js',
         })
 
-        .addPlugin(new Dotenv())
+        .addPlugin(new Dotenv({
+            path: './.env.local',
+        }))
 
         .addPlugin(new BundleAnalyzerPlugin({
             analyzerMode: 'static',
