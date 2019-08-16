@@ -29,7 +29,7 @@ import menuLink from './link';
 
 export default {
     components: {
-        'menu-link': menuLink,
+        menuLink,
     },
 
     props: {
