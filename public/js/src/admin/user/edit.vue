@@ -15,7 +15,7 @@
             There was a problem loading the user. Please try again later.
         </div>
 
-        <form v-else-if="showForm" @submit.prevent="submit">
+        <form v-else-if="showForm" method="post" @submit.prevent="submit">
             <form-error v-if="hasValidationErrors" />
 
             <field-email v-model="email"
@@ -48,6 +48,10 @@
                 <span v-if="status === 'saving'" class="ml-4 text-sm italic">Saving...</span>
                 <span v-else-if="status === 'saved'" class="ml-4 text-sm italic">Saved</span>
             </div>
+
+            <admin-button :status="status" :cancel-to="{ name: 'admin-user' }">
+                Update User
+            </admin-button>
 
             <ul class="form-extra_actions">
                 <li>
@@ -82,7 +86,7 @@ import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
 
-import { GetUserQuery } from '../queries/user.query';
+import { GetUserQuery } from '@/admin/queries/admin/user.query';
 import {
     AdminUserUpdateMutation,
     AdminUserActivateMutation,
@@ -165,16 +169,14 @@ export default {
                 this.lastName = data.User.lastName;
                 this.verified = data.User.verified;
                 this.active = data.User.active;
+
+                if (this.status === statuses.LOADING) {
+                    this.status = statuses.LOADED;
+                }
             },
             error () {
                 this.status = statuses.ERROR;
             },
-            watchLoading (isLoading) {
-                if (!isLoading && this.status === statuses.LOADING) {
-                    this.status = statuses.LOADED;
-                }
-            },
-            fetchPolicy: 'network-only',
         },
     },
 

@@ -58,7 +58,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { GetUsersQuery } from '../queries/user.query';
+import { GetUsersQuery } from '@/admin/queries/admin/user.query';
 
 const statuses = {
     LOADING: 'loading',
@@ -95,16 +95,16 @@ export default {
     apollo: {
         users: {
             query: GetUsersQuery,
-            update: data => data.Users,
+            update ({ Users }) {
+                if (this.status === statuses.LOADING) {
+                    this.status = statuses.LOADED;
+                }
+
+                return Users;
+            },
             error () {
                 this.status = statuses.ERROR;
             },
-            watchLoading (isLoading) {
-                if (!isLoading && this.status === statuses.LOADING) {
-                    this.status = statuses.LOADED;
-                }
-            },
-            fetchPolicy: 'network-only',
         },
     },
 }
