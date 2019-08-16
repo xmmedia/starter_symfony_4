@@ -31,11 +31,16 @@ class ProjectionRunner
     /** @var ReadModelProjector */
     private $projector;
 
+    /** @var ProjectionManager */
+    private $projectionsManager;
+
     public function __construct(
+        ProjectionManager $projectionsManager,
         ContainerInterface $projectionManagerForProjectionsLocator,
         ContainerInterface $projectionsLocator,
         ContainerInterface $projectionReadModelLocator
     ) {
+        $this->projectionsManager = $projectionsManager;
         $this->projectionManagerForProjectionsLocator = $projectionManagerForProjectionsLocator;
         $this->projectionsLocator = $projectionsLocator;
         $this->projectionReadModelLocator = $projectionReadModelLocator;
@@ -125,5 +130,10 @@ class ProjectionRunner
         return $this->projectionManager->fetchProjectionStatus(
             $this->projectionName
         );
+    }
+
+    public function getAllProjectionNames(int $limit = 20): array
+    {
+        return $this->projectionsManager->fetchProjectionNames(null, $limit);
     }
 }
