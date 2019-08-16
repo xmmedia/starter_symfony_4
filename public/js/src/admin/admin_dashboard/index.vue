@@ -5,7 +5,7 @@
 
         <li>
             <router-link :to="{ name: 'admin-user' }" class="dashboard-link">
-                <svg><use xlink:href="#users"></use></svg>
+                <svg width="96" height="96"><use xlink:href="#users"></use></svg>
                 Users
             </router-link>
         </li>

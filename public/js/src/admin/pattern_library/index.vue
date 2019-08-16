@@ -390,7 +390,7 @@
                     Value 2-{{ i }}
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon text-green-600">
+                    <svg class="record_list-icon text-green-600" width="20" height="20">
                         <use xlink:href="#check"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
@@ -410,7 +410,7 @@
                     Nullam quis risus eget urna mollis ornare vel eu leo.
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon fill-current text-green-600">
+                    <svg class="record_list-icon fill-current text-green-600" width="20" height="20">
                         <use xlink:href="#check"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
@@ -429,7 +429,7 @@
                     Inactive Value 2
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon fill-current text-gray-800">
+                    <svg class="record_list-icon fill-current text-gray-800" width="20" height="20">
                         <use xlink:href="#check"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
@@ -455,7 +455,7 @@
                 <div class="record_view-item_label">Is True</div>
                 <div class="record_view-item_value">
                     <span title="A Checkmark">
-                        <svg class="record_view-icon text-green-600">
+                        <svg class="record_view-icon text-green-600" width="20" height="20">
                             <use xlink:href="#check"></use>
                         </svg>
                     </span>

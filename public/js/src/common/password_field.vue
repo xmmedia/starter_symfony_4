@@ -24,7 +24,9 @@
                     class="absolute button-link block top-0 right-0 w-6 h-6 mr-2 text-gray-600 hover:text-gray-800"
                     style="margin-top: 0.3rem;"
                     @click.prevent="visible = !visible">
-                <svg class="w-6 h-6 fill-current"><use :xlink:href="icon"></use></svg>
+                <svg class="w-6 h-6 fill-current" width="24" height="24">
+                    <use :xlink:href="icon"></use>
+                </svg>
             </button>
         </div>
 
