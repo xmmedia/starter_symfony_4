@@ -17,6 +17,7 @@ if (!Encore.isDevServer()) {
         swDest: path.join(__dirname, 'public/service-worker.js'),
         importWorkboxFrom: 'local',
         // @todo-symfony customize these lists depending on if the sw is for admins only or for public and admin; these are used to determine what's put in the precache manifest; by default, NOTHING IS PRECACHED; see: https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin#full_injectmanifest_config
+        // by default, we only cache the icon files, favicon, and manifest
         chunks: [''],
         // excludeChunks: [],
         maximumFileSizeToCacheInBytes: 20 * 1024 * 1024, // 20mb
@@ -30,13 +31,13 @@ if (!Encore.isDevServer()) {
         // list of files that are generated outside of webpack
         // the array will be used to generate a revision for the file
         // that will be included as part of the precache manifest
-        templatedURLs: {
-            '/admin': [
-                'js/src/**/*.js',
-                'js/src/**/*.vue',
-                'css/**/*.scss',
-            ],
-        },
+        // templatedURLs: {
+        //     '/admin': [
+        //         'js/src/**/*.js',
+        //         'js/src/**/*.vue',
+        //         'css/**/*.scss',
+        //     ],
+        // },
     }));
 }
 
