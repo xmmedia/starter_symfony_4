@@ -111,6 +111,11 @@ const router = new Router({
             name: '404',
             component: () => import(/* webpackChunkName: "admin-404" */ './error/404.vue'),
         },
+        {
+            path: '*',
+            name: '403',
+            component: () => import(/* webpackChunkName: "admin-error" */ './error/403.vue'),
+        },
     ],
 
     scrollBehavior (to, from, savedPosition) {
