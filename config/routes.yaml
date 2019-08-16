@@ -1,3 +1,12 @@
+#public_default:
+#    path: /public{path}
+#    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+#    defaults:
+#        template: public.html.twig
+#    methods: [GET]
+#    requirements:
+#        path: '.*'
+
 admin_default:
     path: /admin{path}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
