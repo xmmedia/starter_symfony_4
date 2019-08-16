@@ -9,23 +9,25 @@
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('public') }}
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,400">
         {% endblock %}
         {% block favicons %}
             {% include 'favicons.html.twig' %}
         {% endblock %}
     </head>
     <body>
-        <div id="app">
-            <h1>Oops! An Error Occurred</h1>
-            <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+        <div id="app" class="relative pt-8 pb-24 min-h-screen bg-gray-800" style="background-image: url('/images/bkg.png');">
+            <div class="relative max-w-11/12 md:max-w-2xl h-full mx-auto bg-white p-8">
+                <img src="/images/logo-full.svg" width="150" alt="FLC Seniors">
+                <h1 class="mt-8">Oops! An Error Occurred</h1>
+                <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
 
-            {% include 'flash_messages.html.twig' %}
+                {% include 'flash_messages.html.twig' %}
 
-            <p>
-                Something is broken. Please let us know what you were doing when this error occurred.
-                We will fix it as soon as possible. Sorry for any inconvenience caused.
-            </p>
+                <p>
+                    Something is broken. Please let us know what you were doing when this error occurred.
+                    We will fix it as soon as possible. Sorry for any inconvenience caused.
+                </p>
+            </div>
         </div>
 
         {% block javascripts %}
