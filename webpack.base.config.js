@@ -36,7 +36,7 @@ module.exports = function (Encore) {
         .addEntry('public', './public/js/src/public.js')
 
         // allow sass/scss files to be processed
-        .enableSassLoader(function(sassOptions) {}, {
+        .enableSassLoader(function() {}, {
             // see: http://symfony.com/doc/current/frontend/encore/bootstrap.html#importing-bootstrap-sass
             resolveUrlLoader: false,
         })
@@ -45,7 +45,7 @@ module.exports = function (Encore) {
         .enableVueLoader((options) => {
             options.transpileOptions = {
                 transforms: {
-                    dangerousTaggedTemplateString: true
+                    dangerousTaggedTemplateString: true,
                 },
             };
         })
