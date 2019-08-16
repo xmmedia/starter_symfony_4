@@ -111,6 +111,10 @@ export default {
                 this.status = statuses.SAVED;
                 this.serverValidationErrors = {};
 
+                setTimeout(() => {
+                    window.location = this.$router.resolve({ name: 'login' }).href;
+                }, 30000);
+
             } catch (e) {
                 if (hasGraphQlValidationError(e)) {
                     this.serverValidationErrors = e.graphQLErrors[0].validation.user;
