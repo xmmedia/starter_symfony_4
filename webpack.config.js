@@ -34,7 +34,7 @@ if (!Encore.isDevServer()) {
             '/admin': [
                 'js/src/**/*.js',
                 'js/src/**/*.vue',
-                'css/sass/**/*.scss',
+                'css/**/*.scss',
             ],
         },
     }));
