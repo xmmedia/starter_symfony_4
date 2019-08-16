@@ -30,7 +30,7 @@ abstract class AbstractReadModel extends \Prooph\EventStore\Projection\AbstractR
         $this->connection = $connection;
 
         if (null === $this->tables) {
-            $this->tables = [self::TABLE];
+            $this->tables = [static::TABLE];
         }
     }
 
