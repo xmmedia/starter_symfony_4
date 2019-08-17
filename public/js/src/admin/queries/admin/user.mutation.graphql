@@ -1,0 +1,29 @@
+mutation AdminUserAddMutation($user: AdminUserAddInput!) {
+    AdminUserAdd(user: $user) {
+        userId
+    }
+}
+
+mutation AdminUserUpdateMutation($user: AdminUserUpdateInput!) {
+    AdminUserUpdate(user: $user) {
+        userId
+    }
+}
+
+mutation AdminUserActivateMutation($user: AdminUserActivateInput!) {
+    AdminUserActivate(user: $user) {
+        userId
+    }
+}
+
+mutation AdminUserVerifyMutation($user: AdminUserInput!) {
+    AdminUserVerify(user: $user) {
+        userId
+    }
+}
+
+mutation AdminUserSendResetMutation($user: AdminUserInput!) {
+    AdminUserSendReset(user: $user) {
+        userId
+    }
+}

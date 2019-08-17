@@ -6,7 +6,7 @@ import apolloProvider from '@/common/apollo';
 
 import qs from 'qs';
 
-import { MeSimpleQuery } from '@/admin/queries/user.query';
+import { MeSimpleQuery } from './queries/user.query.graphql';
 
 Vue.use(Router);
 

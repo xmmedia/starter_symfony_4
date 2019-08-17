@@ -40,7 +40,7 @@
 
 <script>
 import { hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
-import { UserRecoverInitiate } from '../queries/user.mutation';
+import { UserRecoverInitiate } from '../queries/user.mutation.graphql';
 
 const statuses = {
     LOADED: 'loaded',

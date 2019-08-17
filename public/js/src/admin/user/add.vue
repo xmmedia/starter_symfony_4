@@ -67,7 +67,7 @@ import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
 
-import { AdminUserAddMutation } from '../queries/admin/user.mutation';
+import { AdminUserAddMutation } from '../queries/admin/user.mutation.graphql';
 
 const statuses = {
     LOADED: 'loaded',

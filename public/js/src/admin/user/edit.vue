@@ -86,13 +86,13 @@ import fieldPassword from './component/password';
 import fieldName from './component/name';
 import fieldRole from './component/role';
 
-import { GetUserQuery } from '@/admin/queries/user.query';
+import { GetUserQuery } from '../queries/user.query.graphql';
 import {
     AdminUserUpdateMutation,
     AdminUserActivateMutation,
     AdminUserVerifyMutation,
     AdminUserSendResetMutation,
-} from '../queries/admin/user.mutation';
+} from '../queries/admin/user.mutation.graphql';
 
 const statuses = {
     LOADING: 'loading',

@@ -1,0 +1,41 @@
+query MeQuery {
+    Me {
+        userId
+        email
+        name
+        firstName
+        lastName
+        roles
+    }
+}
+
+query MeSimpleQuery {
+    Me {
+        userId
+    }
+}
+
+query GetUsersQuery {
+    Users {
+        userId
+        email
+        name
+        lastLogin
+        loginCount
+        roles
+        verified
+        active
+    }
+}
+
+query GetUserQuery($userId: UUID!) {
+    User(userId: $userId) {
+        userId
+        email
+        roles
+        firstName
+        lastName
+        verified
+        active
+    }
+}

@@ -53,7 +53,7 @@
 
 <script>
 import { hasGraphQlValidationError } from '@/common/lib';
-import { SendEnquiry } from '../queries/enquiry.mutation';
+import { SendEnquiry } from '../queries/enquiry.mutation.graphql';
 
 const statuses = {
     LOADED: 'loaded',

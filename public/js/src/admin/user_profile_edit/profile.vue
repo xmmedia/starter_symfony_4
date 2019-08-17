@@ -53,7 +53,7 @@
 <script>
 import { hasGraphQlValidationError } from '@/common/lib';
 import profileTabs from './component/tabs';
-import { UserUpdateProfile } from '../queries/user.mutation';
+import { UserUpdateProfile } from '../queries/user.mutation.graphql';
 
 const statuses = {
     LOADED: 'loaded',

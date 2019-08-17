@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { AuthLast } from '../queries/auth.query';
+import { AuthLast } from '../queries/auth.query.graphql';
 
 export default {
     data () {

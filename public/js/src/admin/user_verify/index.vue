@@ -59,7 +59,7 @@
 
 <script>
 import { hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
-import { UserVerify } from '../queries/user.mutation';
+import { UserVerify } from '../queries/user.mutation.graphql';
 
 const statuses = {
     LOADED: 'loaded',

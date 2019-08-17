@@ -58,7 +58,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { GetUsersQuery } from '@/admin/queries/user.query';
+import { GetUsersQuery } from '../queries/user.query.graphql';
 
 const statuses = {
     LOADING: 'loading',

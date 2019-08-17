@@ -1,0 +1,6 @@
+query AuthLast {
+    AuthLast {
+        email
+        error
+    }
+}

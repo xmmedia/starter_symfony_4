@@ -1,0 +1,17 @@
+query CountriesQuery {
+    Countries {
+        name
+        abbreviation
+    },
+}
+
+query ProvincesQuery {
+    Provinces {
+        country {
+            name
+            abbreviation
+          }
+          name
+          abbreviation
+    },
+}

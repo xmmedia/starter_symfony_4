@@ -53,7 +53,7 @@
 import get from 'lodash/get';
 import { hasGraphQlValidationError } from '@/common/lib';
 import profileTabs from './component/tabs';
-import { ChangePassword } from '../queries/user.mutation';
+import { ChangePassword } from '../queries/user.mutation.graphql';
 
 const statuses = {
     LOADED: 'loaded',

@@ -18,7 +18,7 @@ import fieldErrors from './common/field_errors';
 import fieldError from './common/field_error';
 import passwordField from './common/password_field';
 import adminButton from './common/admin_button';
-import { MeQuery } from './admin/queries/user.query';
+import { MeQuery } from './admin/queries/user.query.graphql';
 
 import * as filters from './common/filters';
 
