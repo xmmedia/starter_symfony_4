@@ -184,7 +184,7 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
         return Name::fromString($this->lastName);
     }
 
-    public function name(): string
+    public function name(): ?string
     {
         return StringUtil::trim(
             sprintf('%s %s', $this->firstName, $this->lastName)
