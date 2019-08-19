@@ -56,7 +56,7 @@
         <div class="content-wrap js-content-wrap">
             <header class="header-wrap">
                 <h1 class="header-page_title font-thin">
-                    <portal-target name="header-page-title" slim />
+                    <portal-target name="header-page-title" />
                 </h1>
                 <portal-target name="header-actions" class="header-actions" />
             </header>
