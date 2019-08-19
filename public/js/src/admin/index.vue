@@ -3,14 +3,11 @@
         <svg-icons :src="iconsPath" />
 
         <nav class="sidebar_nav-wrap">
-            <router-link :to="{ name: 'admin-dashboard' }"
+            <router-link :to="logoLinkRoute"
                          class="flex items-center w-40 lg:w-64 border-b border-gray-600"
                          style="height: 3.75rem; padding: 0.65rem 0;">
                 <!-- @todo-symfony alt -->
-                <img src="/images/logo.svg"
-                     width="80"
-                     style="max-width: 5rem; max-height: 2.3rem;"
-                     alt="Logo">
+                <img src="/images/logo.svg" width="80" alt="Logo">
             </router-link>
 
             <ul class="sidebar_nav-nav">
@@ -49,8 +46,8 @@
 
         <header class="header-wrap-small">
             <menu-small />
-            <router-link :to="{ name: 'admin-dashboard' }" class="w-8 mb-4 mr-4">
-                <img src="/images/logo.svg" width="80" alt="Logo">
+            <router-link :to="logoLinkRoute">
+                <img src="/images/logo.svg" width="80" class="w-8 -mt-4 mr-4" alt="Logo">
             </router-link>
         </header>
         <div class="content-wrap js-content-wrap">
@@ -111,6 +108,13 @@ export default {
             'hasRole',
         ]),
 
+        logoLinkRoute () {
+            if (this.loggedIn) {
+                return { name: 'admin-dashboard' };
+            }
+
+            return { name: 'login' };
+        },
         profileLinkText () {
             if (this.loggedIn && this.$store.state.user.name) {
                 return this.$store.state.user.name;

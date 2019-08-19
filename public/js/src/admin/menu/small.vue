@@ -1,6 +1,5 @@
 <template>
-    <button class="button-link text-white ml-4"
-            style="margin-top: -1rem;"
+    <button class="button-link text-white -mt-4 ml-4"
             @click.stop="toggleMenu">Menu</button>
 </template>
 
