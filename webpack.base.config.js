@@ -76,7 +76,7 @@ module.exports = function (Encore) {
 
         .addLoader({
             test: /\.(graphql|gql)$/,
-            // exclude: /node_modules/,
+            exclude: /node_modules/,
             loader: 'graphql-tag/loader',
         })
 
