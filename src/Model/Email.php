@@ -63,7 +63,7 @@ final class Email implements ValueObject
     }
 
     /**
-     * @param Email|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {

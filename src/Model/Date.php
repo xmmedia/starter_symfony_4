@@ -63,7 +63,7 @@ class Date implements ValueObject, \JsonSerializable
     /**
      * Compares up to milliseconds. Ignores microseconds.
      *
-     * @param Date|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {

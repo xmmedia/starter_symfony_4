@@ -40,7 +40,7 @@ class Token implements ValueObject
     }
 
     /**
-     * @param Token|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {

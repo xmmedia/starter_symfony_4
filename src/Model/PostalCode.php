@@ -68,7 +68,7 @@ class PostalCode implements ValueObject
     }
 
     /**
-     * @param PostalCode|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {

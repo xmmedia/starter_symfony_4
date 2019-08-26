@@ -57,7 +57,7 @@ class Country implements ValueObject
     }
 
     /**
-     * @param Country|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {

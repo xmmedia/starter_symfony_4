@@ -50,7 +50,7 @@ class Name implements ValueObject, \JsonSerializable
     }
 
     /**
-     * @param Name|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {

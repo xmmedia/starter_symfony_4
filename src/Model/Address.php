@@ -175,7 +175,7 @@ class Address implements ValueObject
     }
 
     /**
-     * @param Address|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {

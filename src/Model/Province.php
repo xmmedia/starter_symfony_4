@@ -69,7 +69,7 @@ class Province implements ValueObject
     }
 
     /**
-     * @param Province|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {

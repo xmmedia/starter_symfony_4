@@ -45,7 +45,7 @@ final class Credentials implements ValueObject
     }
 
     /**
-     * @param Credentials|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {

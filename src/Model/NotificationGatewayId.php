@@ -34,7 +34,7 @@ class NotificationGatewayId implements ValueObject
     }
 
     /**
-     * @param NotificationGatewayId|ValueObject $other
+     * @param self|ValueObject $other
      */
     public function sameValueAs(ValueObject $other): bool
     {
