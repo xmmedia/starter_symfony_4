@@ -56,7 +56,15 @@ class ProjectionRunner
         $this->configure($projectionName, $readModelProjectionOptions);
 
         try {
-            $state = $this->state();
+            $attempts = 0;
+            do {
+                if ($attempts > 0) {
+                    usleep(500000);
+                }
+
+                $state = $this->state();
+                ++$attempts;
+            } while (!$state->is(ProjectionStatus::IDLE()) && $attempts < 10);
 
             if ($state->is(ProjectionStatus::IDLE())) {
                 $this->projector->run($keepRunning);
