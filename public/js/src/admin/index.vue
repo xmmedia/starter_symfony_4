@@ -12,7 +12,7 @@
 
             <ul class="sidebar_nav-nav">
                 <template v-if="loggedIn">
-                    <!--<li class="hover:bg-gray-800">
+                    <!--<li class="mb-2 lg:mb-0 hover:bg-gray-800">
                         <router-link :to="{ name: 'admin-dashboard' }"
                                      class="sidebar_nav-link">
                             <menu-link label="Name" icon="users" />
