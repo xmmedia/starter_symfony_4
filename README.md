@@ -4,7 +4,10 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
 
 ## Setting Up a New Site
 
-1. Download a copy of this repo (probably as a ZIP).
+1. Create a new project:
+    ```sh
+    composer create-project xm/starter_symfony_4 project-name --stability=dev --no-install --remove-vcs
+    ```
 2. Remove or update the `LICENSE` file.
 3. [Install Composer](https://getcomposer.org/download/) locally.
 4. Update `composer.json`: `name`, `license` (likely `private`) and `description`
