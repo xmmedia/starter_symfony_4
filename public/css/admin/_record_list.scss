@@ -39,13 +39,11 @@
     @apply mt-0;
     .record_list-headers {
         @apply hidden;
-    }
-}
 
-.record_view-item_wrap > .record_list-wrap .record_list-headers {
-    @screen md {
-        @apply text-gray-600 font-light border-b border-solid border-gray-600 bg-transparent;
-        display: table-header-group;
+        @screen md {
+            @apply text-gray-600 font-light border-b border-solid border-gray-600 bg-transparent;
+            display: table-header-group;
+        }
     }
 }
 
