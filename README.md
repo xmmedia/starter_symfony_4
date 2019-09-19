@@ -28,13 +28,14 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
        3. `bin/console event-store:projection:run enquiry_projection -o` 
    12. Create a user `bin/console app:user:add` & run user projection: `bin/console event-store:projection:run user_projection -o`
    13. Copy or recreate the templates in Postmark & update the template IDs (see `@todo-symfony`).
-   14. Setup supervisord:
+   14. Setup supervisord (if using):
        1. Write supervisord config: `bin/console app:supervisor:write-config`
        2. Add site supervisord config to main config, for example `files = /etc/supervisord/*.conf /home/user/supervisord.conf` (as root)
        3. Tell supervisord to read the config: `supervisorctl reread && supervisorctl update` (as root)
        4. Ensure programs are running: `supervisorctl status` 
-   15. Setup mail spool: add cron task similar to: `*/15 * * * * cd /home/user/example.com/current && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1` (this only sends error emails, runs every 15 minutes)
-   13. Add logrotate cron: `30 4 * * 1 cd /home/user/example.com/current && logrotate app/config/packages/logrotate.conf --state var/logrotate-state` (runs Mondays at 04:30 UTC)
+   15. Give executable perms to bin dir: `chmod u+x bin/*`
+   16. Setup mail spool: add cron task similar to: `*/15 * * * * cd /home/user/example.com/current && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1` (this only sends error emails, runs every 15 minutes)
+   17. Add logrotate cron: `30 4 * * 1 cd /home/user/example.com/current && logrotate app/config/packages/logrotate.conf --state var/logrotate-state` (runs Mondays at 04:30 UTC)
 10. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
 11. Run `composer test` – will install PHPUnit & run PHP tests
 12. Create new favicons: [realfavicongenerator.net](https://realfavicongenerator.net)
