@@ -12,22 +12,9 @@ class ProvinceResolverTest extends BaseTestCase
 {
     public function test(): void
     {
-        $all = (new ProvinceResolver())->all();
+        $all = (new ProvinceResolver())();
 
         $this->assertCount(64, $all);
         $this->assertInstanceOf(Province::class, $all[0]);
-    }
-
-    public function testAliases(): void
-    {
-        $result = ProvinceResolver::getAliases();
-
-        $expected = [
-            'all' => 'app.graphql.resolver.province.all',
-        ];
-
-        $this->assertEquals($expected, $result);
-
-        $this->assertHasAllResolverMethods(new ProvinceResolver());
     }
 }

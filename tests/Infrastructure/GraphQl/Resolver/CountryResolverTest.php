@@ -12,22 +12,9 @@ class CountryResolverTest extends BaseTestCase
 {
     public function test(): void
     {
-        $all = (new CountryResolver())->all();
+        $all = (new CountryResolver())();
 
         $this->assertCount(2, $all);
         $this->assertInstanceOf(Country::class, $all[0]);
-    }
-
-    public function testAliases(): void
-    {
-        $result = CountryResolver::getAliases();
-
-        $expected = [
-            'all' => 'app.graphql.resolver.country.all',
-        ];
-
-        $this->assertEquals($expected, $result);
-
-        $this->assertHasAllResolverMethods(new CountryResolver());
     }
 }

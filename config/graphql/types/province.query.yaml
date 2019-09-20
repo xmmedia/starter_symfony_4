@@ -8,4 +8,4 @@ ProvinceQuery:
                 description: 'Retrieve all Provinces.'
                 public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
-                resolve: '@=resolver("app.graphql.resolver.province.all")'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\ProvinceResolver")'
