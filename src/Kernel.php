@@ -92,7 +92,7 @@ class Kernel extends BaseKernel implements CompilerPassInterface
             $container->setDefinition(
                 $repository['repository_class'],
                 new ChildDefinition(AggregateRepository::class)
-                )
+            )
                 ->setArguments([
                     $repository['repository_class'],
                     new Reference('prooph_event_store.default'),

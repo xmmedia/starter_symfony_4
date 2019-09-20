@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Util;
 
-use App\Util\Utils;
 use App\Tests\BaseTestCase;
+use App\Util\Utils;
 
 class UtilsTest extends BaseTestCase
 {
@@ -56,7 +56,11 @@ class UtilsTest extends BaseTestCase
     public function printSafeProvider(): \Generator
     {
         yield [new \stdClass(), 'instance of stdClass'];
-        yield [function () {}, 'instance of Closure'];
+        yield [
+            function () {
+            },
+            'instance of Closure',
+        ];
         yield [[], 'array'];
         yield ['', '(empty string)'];
         yield [null, 'NULL'];

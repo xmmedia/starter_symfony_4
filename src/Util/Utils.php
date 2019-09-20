@@ -20,19 +20,19 @@ class Utils
             return null;
         }
 
-        if (is_scalar($var) || is_array($var)) {
+        if (is_scalar($var) || \is_array($var)) {
             return $var;
         }
 
-        if (is_object($var) && method_exists($var, '__toString')) {
+        if (\is_object($var) && method_exists($var, '__toString')) {
             return (string) $var;
         }
 
-        if (is_object($var) && method_exists($var, 'getValue')) {
+        if (\is_object($var) && method_exists($var, 'getValue')) {
             return $var->getValue();
         }
 
-        if (is_object($var) && method_exists($var, 'toArray')) {
+        if (\is_object($var) && method_exists($var, 'toArray')) {
             return $var->toArray();
         }
 
@@ -46,10 +46,10 @@ class Utils
      */
     public static function printSafe($var): string
     {
-        if (is_object($var)) {
-            return 'instance of '.get_class($var);
+        if (\is_object($var)) {
+            return 'instance of '.\get_class($var);
         }
-        if (is_array($var)) {
+        if (\is_array($var)) {
             return 'array';
         }
         if ('' === $var) {
@@ -64,13 +64,13 @@ class Utils
         if (true === $var) {
             return 'true (boolean)';
         }
-        if (is_string($var)) {
+        if (\is_string($var)) {
             return $var;
         }
         if (is_scalar($var)) {
             return (string) $var;
         }
 
-        return gettype($var);
+        return \gettype($var);
     }
 }

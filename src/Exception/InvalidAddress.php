@@ -13,7 +13,9 @@ final class InvalidAddress extends \InvalidArgumentException
                 'The address line 1 ("%s") is invalid: %s',
                 $line1,
                 $previous->getMessage()
-            ), 0, $previous
+            ),
+            0,
+            $previous
         );
     }
 
@@ -24,7 +26,9 @@ final class InvalidAddress extends \InvalidArgumentException
                 'The address line 2 ("%s") is invalid: %s',
                 $line2,
                 $previous->getMessage()
-            ), 0, $previous
+            ),
+            0,
+            $previous
         );
     }
 
@@ -35,7 +39,9 @@ final class InvalidAddress extends \InvalidArgumentException
                 'The address city ("%s") is invalid: %s',
                 $city,
                 $previous->getMessage()
-            ), 0, $previous
+            ),
+            0,
+            $previous
         );
     }
 }
