@@ -50,7 +50,7 @@
             </admin-button>
         </form>
 
-        <div v-if="status === 'saved'" class="alert alert-success" role="alert">
+        <div v-if="status === 'saved'" class="alert alert-success max-w-lg" role="alert">
             Your account is now active.
             <router-link :to="{ name: 'login' }" class="pl-4">Login</router-link>
         </div>
