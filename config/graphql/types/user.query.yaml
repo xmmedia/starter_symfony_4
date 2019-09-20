@@ -8,14 +8,14 @@ UserQuery:
                 description: 'Retrieve all Users.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=resolver("app.graphql.resolver.user.all")'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UsersResolver")'
 
             User:
                 type: User
                 description: 'Retrieve a single User.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=resolver("app.graphql.resolver.user.by.userId", [args["userId"]])'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserResolver", [args["userId"]])'
                 args:
                     userId:
                         type: UUID!
