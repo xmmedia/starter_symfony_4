@@ -23,4 +23,28 @@ class UserFinder extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
+
+    /**
+     * @return User[]
+     */
+    public function findByUserFilters(UserFilters $filters): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->addOrderBy('u.email', 'ASC')
+            ->addOrderBy('u.firstName', 'ASC')
+            ->addOrderBy('u.lastName', 'ASC');
+
+        if ($filters->applied(UserFilters::EMAIL)) {
+            $qb->andWhere('u.email LIKE :email')
+                ->setParameter('email', '%'.$filters->get(UserFilters::EMAIL).'%');
+        }
+
+        if ($filters->applied(UserFilters::ACTIVE)) {
+            $qb->andWhere('u.active = true')
+                ->andWhere('u.verified = true');
+        }
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Resolver\User;
 
 use App\Entity\User;
+use App\Projection\User\UserFilters;
 use App\Projection\User\UserFinder;
 use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
 
@@ -21,8 +22,10 @@ class UsersResolver implements ResolverInterface
     /**
      * @return User[]
      */
-    public function __invoke(): array
+    public function __invoke(?array $filters): array
     {
-        return $this->userFinder->findBy([], ['email' => 'ASC']);
+        return $this->userFinder->findByUserFilters(
+            UserFilters::fromArray($filters)
+        );
     }
 }

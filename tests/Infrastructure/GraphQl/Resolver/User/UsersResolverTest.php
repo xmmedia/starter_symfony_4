@@ -12,31 +12,31 @@ use Mockery;
 
 class UsersResolverTest extends BaseTestCase
 {
-    public function testAll(): void
+    public function test(): void
     {
         $user = Mockery::mock(User::class);
 
         $userFinder = Mockery::mock(UserFinder::class);
-        $userFinder->shouldReceive('findBy')
+        $userFinder->shouldReceive('findByUserFilters')
             ->once()
             ->andReturn([$user]);
 
         $resolver = new UsersResolver($userFinder);
 
-        $result = $resolver();
+        $result = $resolver([]);
 
         $this->assertEquals([$user], $result);
     }
 
-    public function testAllNoneFound(): void
+    public function testNoneFound(): void
     {
         $userFinder = Mockery::mock(UserFinder::class);
-        $userFinder->shouldReceive('findBy')
+        $userFinder->shouldReceive('findByUserFilters')
             ->once()
             ->andReturn([]);
 
         $resolver = new UsersResolver($userFinder);
 
-        $this->assertEquals([], $resolver());
+        $this->assertEquals([], $resolver([]));
     }
 }

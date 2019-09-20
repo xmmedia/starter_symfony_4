@@ -15,8 +15,8 @@ query MeSimpleQuery {
     }
 }
 
-query GetUsersQuery {
-    Users {
+query GetUsersQuery($filters: UserFilterInput) {
+    Users(filters: $filters) {
         userId
         email
         name
