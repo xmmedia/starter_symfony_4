@@ -39,7 +39,7 @@ class AuthLastResolverTest extends BaseTestCase
 
         $resolver = new AuthLastResolver($authUtils, $translator);
 
-        $result = $resolver->get();
+        $result = $resolver();
 
         $expected = [
             'email' => 'email@email.com',
@@ -63,7 +63,7 @@ class AuthLastResolverTest extends BaseTestCase
 
         $resolver = new AuthLastResolver($authUtils, $translator);
 
-        $result = $resolver->get();
+        $result = $resolver();
 
         $expected = [
             'email' => null,
@@ -87,7 +87,7 @@ class AuthLastResolverTest extends BaseTestCase
 
         $resolver = new AuthLastResolver($authUtils, $translator);
 
-        $result = $resolver->get();
+        $result = $resolver();
 
         $expected = [
             'email' => 'email@email.com',
@@ -95,23 +95,5 @@ class AuthLastResolverTest extends BaseTestCase
         ];
 
         $this->assertEquals($expected, $result);
-    }
-
-    public function testAliases(): void
-    {
-        $result = AuthLastResolver::getAliases();
-
-        $expected = [
-            'get' => 'app.graphql.resolver.auth_last',
-        ];
-
-        $this->assertEquals($expected, $result);
-
-        $resolver = new AuthLastResolver(
-            Mockery::mock(AuthenticationUtils::class),
-            Mockery::mock(TranslatorInterface::class)
-        );
-
-        $this->assertHasAllResolverMethods($resolver);
     }
 }
