@@ -1,5 +1,5 @@
 <template>
-    <ul class="flex flex-wrap list-none">
+    <ul class="flex flex-wrap pl-0 list-none">
         <portal to="header-page-title">Admin</portal>
         <portal to="header-actions" />
 
