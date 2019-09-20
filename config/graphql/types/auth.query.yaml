@@ -6,7 +6,7 @@ AuthQuery:
             AuthLast:
                 type: AuthLast!
                 description: 'Retrieves the last email used on the login form and the last error from the last auth attempt (from session).'
-                resolve: '@=resolver("app.graphql.resolver.auth_last")'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\AuthLastResolver")'
 
 AuthLast:
     type: object

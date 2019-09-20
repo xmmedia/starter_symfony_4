@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\GraphQl\Resolver;
 
-use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AuthLastResolver implements ResolverInterface, AliasedInterface
+class AuthLastResolver implements ResolverInterface
 {
     /** @var AuthenticationUtils */
     private $authenticationUtils;
@@ -25,7 +24,7 @@ class AuthLastResolver implements ResolverInterface, AliasedInterface
         $this->trans = $trans;
     }
 
-    public function get(): array
+    public function __invoke(): array
     {
         $errorMsg = null;
         if ($error = $this->authenticationUtils->getLastAuthenticationError()) {
@@ -39,13 +38,6 @@ class AuthLastResolver implements ResolverInterface, AliasedInterface
         return [
             'email' => $this->authenticationUtils->getLastUsername(),
             'error' => $errorMsg,
-        ];
-    }
-
-    public static function getAliases(): array
-    {
-        return [
-            'get' => 'app.graphql.resolver.auth_last',
         ];
     }
 }
