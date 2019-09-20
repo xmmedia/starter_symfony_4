@@ -25,12 +25,10 @@ trait CanCreateSecurityTrait
         if (false !== $user) {
             $token = Mockery::mock(TokenInterface::class);
             $token->shouldReceive('getUser')
-                ->andReturn($user)
-            ;
+                ->andReturn($user);
 
             $tokenStorage->shouldReceive('getToken')
-                ->andReturn($token)
-            ;
+                ->andReturn($token);
         }
 
         $container = $this->createContainer('security.token_storage', $tokenStorage);
