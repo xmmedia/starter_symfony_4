@@ -7,7 +7,7 @@
                          class="flex items-center w-40 lg:w-64 border-b border-gray-600"
                          style="height: 3.75rem; padding: 0.65rem 0;">
                 <!-- @todo-symfony alt -->
-                <img src="/images/logo.svg" width="40" class="w-8 ml-4" alt="Logo">
+                <img src="/images/logo.svg" height="70" class="h-10 ml-4" alt="Logo">
             </router-link>
 
             <ul class="sidebar_nav-nav">
@@ -47,7 +47,8 @@
         <header class="header-wrap-small">
             <menu-small />
             <router-link :to="logoLinkRoute">
-                <img src="/images/logo.svg" width="40" class="w-8 -mt-4 mr-4" alt="Logo">
+                <!-- @todo-symfony alt -->
+                <img src="/images/logo.svg" height="70" class="h-10 -mt-4 mr-4" alt="Logo">
             </router-link>
         </header>
         <div class="content-wrap js-content-wrap">
