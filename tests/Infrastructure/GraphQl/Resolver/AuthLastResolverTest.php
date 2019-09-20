@@ -9,7 +9,7 @@ use App\Tests\BaseTestCase;
 use Mockery;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AuthLastResolverTest extends BaseTestCase
 {
