@@ -6,14 +6,13 @@ namespace App\DataFixtures\Faker\Provider;
 
 use App\Model\Date;
 use Faker;
-use Faker\Provider\en_CA\Address as FakerAddress;
 
 /**
  * @property Date $dateVoBetween
  *
  * @codeCoverageIgnore
  */
-class DateFakerProvider extends FakerAddress
+class DateFakerProvider extends Faker\Provider\Base
 {
     public function dateVoBetween(
         string $min = '-30 years',
