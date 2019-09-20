@@ -5,10 +5,12 @@ UserQuery:
         fields:
             Users:
                 type: '[User!]'
-                description: 'Retrieve all Users.'
+                description: 'Retrieve all Users or a subset based on the passed filters.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UsersResolver")'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UsersResolver", [args["filters"]])'
+                args:
+                    filters: UserFilterInput
 
             User:
                 type: User
@@ -19,3 +21,15 @@ UserQuery:
                 args:
                     userId:
                         type: UUID!
+
+UserFilterInput:
+    type: input-object
+    config:
+        description: 'Available filters for querying users. Any passed fields will be applied. Exclude the key/field to skip that filter.'
+        fields:
+            email:
+                type: String
+            emailExact:
+                type: String
+            active:
+                type: Boolean

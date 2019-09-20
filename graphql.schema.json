@@ -53,7 +53,17 @@
                         },
                         {
                             "name": "Users",
-                            "args": [],
+                            "args": [
+                                {
+                                    "name": "filters",
+                                    "type": {
+                                        "kind": "INPUT_OBJECT",
+                                        "name": "UserFilterInput",
+                                        "ofType": null
+                                    },
+                                    "defaultValue": null
+                                }
+                            ],
                             "type": {
                                 "kind": "LIST",
                                 "name": null,
@@ -272,6 +282,52 @@
                     "possibleTypes": null
                 },
                 {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UserFilterInput",
+                    "fields": null,
+                    "inputFields": [
+                        {
+                            "name": "email",
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "emailExact",
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "active",
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        }
+                    ],
+                    "interfaces": null,
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "fields": null,
+                    "inputFields": null,
+                    "interfaces": null,
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
                     "kind": "OBJECT",
                     "name": "User",
                     "fields": [
@@ -414,15 +470,6 @@
                 {
                     "kind": "SCALAR",
                     "name": "UUID",
-                    "fields": null,
-                    "inputFields": null,
-                    "interfaces": null,
-                    "enumValues": null,
-                    "possibleTypes": null
-                },
-                {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
