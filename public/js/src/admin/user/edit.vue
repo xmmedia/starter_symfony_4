@@ -40,15 +40,6 @@
                         :server-validation-errors="serverValidationErrors.role"
                         :v="$v.role" />
 
-            <div>
-                <button type="submit" class="button">Update User</button>
-                <router-link :to="{ name: 'admin-user' }"
-                             class="form-action">Cancel</router-link>
-
-                <span v-if="status === 'saving'" class="ml-4 text-sm italic">Saving...</span>
-                <span v-else-if="status === 'saved'" class="ml-4 text-sm italic">Saved</span>
-            </div>
-
             <admin-button :status="status" :cancel-to="{ name: 'admin-user' }">
                 Update User
             </admin-button>
