@@ -14,7 +14,9 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
         graphQLErrors.map((error) => {
             console.error(
-                `[GraphQL error]: Message: ${error.message}, Location: ${JSON.stringify(error.locations)}, Path: ${error.path}`
+                `[GraphQL error]: Message: ${error.message}, 
+                  Location: ${JSON.stringify(error.locations)}, 
+                  Path: ${error.path}`,
             );
             if (error.debugMessage) {
                 console.error(error.debugMessage);
