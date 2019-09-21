@@ -37,7 +37,7 @@ class User extends AggregateRoot implements Entity
         bool $sendInvite,
         ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ): self {
-        if ($duplicateUserId = ($checksUniqueUsersEmail)($email)) {
+        if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
             throw Exception\DuplicateEmail::withEmail(
                 $email,
                 $duplicateUserId
@@ -73,7 +73,7 @@ class User extends AggregateRoot implements Entity
         Role $role,
         ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ): self {
-        if ($duplicateUserId = ($checksUniqueUsersEmail)($email)) {
+        if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
             throw Exception\DuplicateEmail::withEmail(
                 $email,
                 $duplicateUserId
@@ -100,7 +100,7 @@ class User extends AggregateRoot implements Entity
         Name $lastName,
         ChecksUniqueUsersEmail $checksUniqueUsersEmail
     ): void {
-        if ($duplicateUserId = ($checksUniqueUsersEmail)($email)) {
+        if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
             if (!$this->userId->sameValueAs($duplicateUserId)) {
                 throw Exception\DuplicateEmail::withEmail(
                     $email,
@@ -223,7 +223,7 @@ class User extends AggregateRoot implements Entity
             );
         }
 
-        if ($duplicateUserId = ($checksUniqueUsersEmail)($email)) {
+        if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
             if (!$this->userId->sameValueAs($duplicateUserId)) {
                 throw Exception\DuplicateEmail::withEmail(
                     $email,
