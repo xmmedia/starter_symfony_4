@@ -45,7 +45,7 @@ class AdminUserAddMutation implements MutationInterface
             $password = ($this->tokenGenerator)()->toString();
         } else {
             $password = $args['user']['password'];
-            // password checked here because it's encoded in the command
+            // password checked here because it's encoded prior to the command
             Assert::passwordLength($password);
         }
         // check both generated & user entered,

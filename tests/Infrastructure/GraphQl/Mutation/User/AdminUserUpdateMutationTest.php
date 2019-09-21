@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\GraphQl\Mutation\User;
 
-use App\Exception\FormValidationException;
-use App\Form\User\AdminUserUpdateType;
 use App\Infrastructure\GraphQl\Mutation\User\AdminUserUpdateMutation;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
@@ -14,23 +12,21 @@ use App\Security\PasswordEncoder;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserUpdateMutationTest extends BaseTestCase
 {
-    public function testValid(): void
+    public function test(): void
     {
         $faker = $this->faker();
         $data = [
-            'userId'         => $faker->uuid,
-            'email'          => $faker->email,
-            'changePassword' => false,
-            'firstName'      => $faker->name,
-            'lastName'       => $faker->name,
-            'role'           => 'ROLE_USER',
+            'userId'      => $faker->uuid,
+            'email'       => $faker->email,
+            'setPassword' => false,
+            'firstName'   => $faker->name,
+            'lastName'    => $faker->name,
+            'role'        => 'ROLE_USER',
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -38,21 +34,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             ->once()
             ->with(Mockery::type(AdminUpdateUser::class))
             ->andReturn(new Envelope(new \stdClass()));
-
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnTrue();
-        $form->shouldReceive('getData')
-            ->andReturn($data);
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(AdminUserUpdateType::class)
-            ->andReturn($form);
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
@@ -62,7 +43,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
 
         $result = (new AdminUserUpdateMutation(
             $commandBus,
-            $formFactory,
             $passwordEncoder
         ))($args);
 
@@ -73,17 +53,17 @@ class AdminUserUpdateMutationTest extends BaseTestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testValidChangePassword(): void
+    public function testChangePassword(): void
     {
         $faker = $this->faker();
         $data = [
-            'userId'         => $faker->uuid,
-            'email'          => $faker->email,
-            'changePassword' => true,
-            'password'       => $faker->password,
-            'firstName'      => $faker->name,
-            'lastName'       => $faker->name,
-            'role'           => 'ROLE_USER',
+            'userId'      => $faker->uuid,
+            'email'       => $faker->email,
+            'setPassword' => true,
+            'password'    => $faker->password,
+            'firstName'   => $faker->name,
+            'lastName'    => $faker->name,
+            'role'        => 'ROLE_USER',
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -95,21 +75,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             ->once()
             ->with(Mockery::type(AdminChangePassword::class))
             ->andReturn(new Envelope(new \stdClass()));
-
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnTrue();
-        $form->shouldReceive('getData')
-            ->andReturn($data);
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(AdminUserUpdateType::class)
-            ->andReturn($form);
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
         $passwordEncoder->shouldReceive('__invoke')
@@ -123,7 +88,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
 
         $result = (new AdminUserUpdateMutation(
             $commandBus,
-            $formFactory,
             $passwordEncoder
         ))(
             $args
@@ -136,35 +100,30 @@ class AdminUserUpdateMutationTest extends BaseTestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testInvalid(): void
+    public function testPasswordTooLong(): void
     {
-        $commandBus = Mockery::mock(MessageBusInterface::class);
-
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnFalse();
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(AdminUserUpdateType::class)
-            ->andReturn($form);
-
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $faker = $this->faker();
+        $data = [
+            'userId'      => $faker->uuid,
+            'email'       => $faker->email,
+            'setPassword' => true,
+            'password'    => $faker->string(4097),
+            'firstName'   => $faker->name,
+            'lastName'    => $faker->name,
+            'role'        => 'ROLE_USER',
+        ];
 
         $args = new Argument([
-            'user' => [],
+            'user' => $data,
         ]);
 
-        $this->expectException(FormValidationException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         (new AdminUserUpdateMutation(
-            $commandBus,
-            $formFactory,
-            $passwordEncoder
-        ))($args);
+            Mockery::mock(MessageBusInterface::class),
+            Mockery::mock(PasswordEncoder::class)
+        ))(
+            $args
+        );
     }
 }

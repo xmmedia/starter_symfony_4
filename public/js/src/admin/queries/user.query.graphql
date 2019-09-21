@@ -39,3 +39,9 @@ query GetUserQuery($userId: UUID!) {
         active
     }
 }
+
+query GetDuplicateUsers($filters: UserFilterInput) {
+    Users(filters: $filters) {
+        userId
+    }
+}

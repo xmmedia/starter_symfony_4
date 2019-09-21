@@ -16,29 +16,20 @@
         </div>
 
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
-            <form-error v-if="hasValidationErrors" />
+            <form-error v-if="$v.$anyError" />
 
             <field-email v-model="email"
-                         :server-validation-errors="serverValidationErrors.email"
                          :v="$v.email" />
 
             <field-password v-model="password"
-                            :server-validation-errors="serverValidationErrors.password"
+                            :v="$v.password"
                             checkbox-label="Change Password"
-                            @set-password="changePassword = $event" />
+                            @set-password="setPassword = $event" />
 
-            <field-name v-model="firstName"
-                        :server-validation-errors="serverValidationErrors.firstName"
-                        :v="$v.firstName"
-                        label="First Name" />
-            <field-name v-model="lastName"
-                        :server-validation-errors="serverValidationErrors.lastName"
-                        :v="$v.firstName"
-                        label="Last Name" />
+            <field-name v-model="firstName" :v="$v.firstName" label="First Name" />
+            <field-name v-model="lastName" :v="$v.lastName" label="Last Name" />
 
-            <field-role v-model="role"
-                        :server-validation-errors="serverValidationErrors.role"
-                        :v="$v.role" />
+            <field-role v-model="role" :v="$v.role" />
 
             <admin-button :status="status" :cancel-to="{ name: 'admin-user' }">
                 Update User
@@ -68,7 +59,6 @@
 
 <script>
 import cloneDeep from 'lodash/cloneDeep';
-import { hasGraphQlValidationError } from '@/common/lib';
 
 import userValidations from './user.validation';
 
@@ -111,11 +101,9 @@ export default {
     data () {
         return {
             status: statuses.LOADING,
-            hasLocalValidationErrors: false,
-            serverValidationErrors: {},
 
             email: null,
-            changePassword: false,
+            setPassword: false,
             password: null,
             role: 'ROLE_USER',
             firstName: null,
@@ -131,13 +119,6 @@ export default {
         },
         allowSave () {
             return [statuses.LOADED, statuses.SAVED].includes(this.status);
-        },
-        hasValidationErrors () {
-            if (this.hasLocalValidationErrors) {
-                return true;
-            }
-
-            return Object.keys(this.serverValidationErrors).length > 0;
         },
 
         activeButtonText () {
@@ -181,13 +162,9 @@ export default {
                 return;
             }
 
-            // get validation to be checked and errors displayed
-            this.hasLocalValidationErrors = false;
-
             this.$v.$touch();
 
-            if (this.$v.$anyError) {
-                this.hasLocalValidationErrors = true;
+            if (this.$v.$invalid) {
                 window.scrollTo(0, 0);
 
                 return;
@@ -202,7 +179,7 @@ export default {
                         user: {
                             userId: this.userId,
                             email: this.email,
-                            changePassword: this.changePassword,
+                            setPassword: this.setPassword,
                             password: this.password,
                             role: this.role,
                             firstName: this.firstName,
@@ -212,18 +189,13 @@ export default {
                 });
 
                 this.status = statuses.SAVED;
-                this.serverValidationErrors = {};
 
                 setTimeout(() => {
                     this.$router.push({ name: 'admin-user' });
                 }, 1500);
 
             } catch (e) {
-                if (hasGraphQlValidationError(e)) {
-                    this.serverValidationErrors = e.graphQLErrors[0].validation.user;
-                } else {
-                    alert('There was a problem saving. Please try again later.');
-                }
+                alert('There was a problem saving. Please try again later.');
 
                 window.scrollTo(0, 0);
 

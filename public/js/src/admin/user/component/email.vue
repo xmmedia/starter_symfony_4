@@ -10,7 +10,7 @@
             <template v-else-if="!v.email">
                 This email is invalid.
             </template>
-            <template v-else-if="!v.duplicate">
+            <template v-else-if="!v.unique">
                 This email has already been used.
             </template>
         </field-error>

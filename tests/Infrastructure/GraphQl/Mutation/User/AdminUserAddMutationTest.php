@@ -41,7 +41,7 @@ class AdminUserAddMutationTest extends BaseTestCase
         $tokenGenerator = Mockery::mock(TokenGenerator::class);
         $tokenGenerator->shouldReceive('__invoke')
             ->once()
-            ->andReturn(new Token('string'));
+            ->andReturn(new Token($faker->password));
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
         $passwordEncoder->shouldReceive('__invoke')
@@ -88,7 +88,7 @@ class AdminUserAddMutationTest extends BaseTestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        $result = (new AdminUserAddMutation(
+        (new AdminUserAddMutation(
             Mockery::mock(MessageBusInterface::class),
             Mockery::mock(TokenGenerator::class),
             Mockery::mock(PasswordEncoder::class)

@@ -148,7 +148,7 @@ AdminUserUpdateInput:
                 type: UUID!
             email:
                 type: String!
-            changePassword:
+            setPassword:
                 type: Boolean!
             password:
                 type: String

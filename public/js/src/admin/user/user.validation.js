@@ -6,31 +6,42 @@ import {
     requiredIf,
 } from 'vuelidate/lib/validators';
 import { pwnedPassword } from 'hibp';
-import { GetUsersQuery } from '../queries/user.query.graphql';
+import { GetDuplicateUsers } from '../queries/user.query.graphql';
 
 export default {
     email: {
         required,
         email,
-        // @todo deal with existing user
-        async duplicate (value) {
-            if (email(value)) {
+        async unique (value) {
+            if (!email(value)) {
                 return true;
             }
 
-            const { data } = await this.$apollo.query({
-                query: GetUsersQuery,
-                variables () {
-                    return {
-                        filters: {
-                            emailExact: value,
-                        },
-                    };
+            const { data: { Users: foundUsers } } = await this.$apollo.query({
+                query: GetDuplicateUsers,
+                variables: {
+                    filters: {
+                        emailExact: value,
+                    },
                 },
-                fetchPolicy: 'no-cache',
             });
 
-            return data.Users && data.Users.length > 0;
+            // something went wrong, can't do much
+            if (!foundUsers) {
+                return true;
+            }
+
+            if (0 === foundUsers.length) {
+                return true;
+            }
+
+            if (typeof this.userId === undefined) {
+                return 0 < foundUsers.length;
+            }
+
+            return 0 === foundUsers.filter(
+                ({ userId }) => this.userId !== userId
+            ).length;
         },
     },
     password: {
@@ -40,7 +51,7 @@ export default {
         // there's no real point other than security to the check in the backend
         maxLength: maxLength(1000),
         async compromised (value) {
-            if (value.length < 12) {
+            if (null === value || value.length < 12) {
                 return false;
             }
 
