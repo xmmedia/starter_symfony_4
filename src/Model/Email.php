@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Util\StringUtil;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\NoRFCWarningsValidation;
 use Webmozart\Assert\Assert;
@@ -23,6 +24,8 @@ final class Email implements ValueObject
 
     private function __construct(string $email, ?string $name = null)
     {
+        $email = StringUtil::trim($email);
+
         Assert::notEmpty($email);
         Assert::true(
             (new EmailValidator())->isValid($email, new NoRFCWarningsValidation()),
@@ -30,7 +33,7 @@ final class Email implements ValueObject
         );
 
         $this->email = $email;
-        $this->name = $name;
+        $this->name = StringUtil::trim($name);
     }
 
     public function email(): string
