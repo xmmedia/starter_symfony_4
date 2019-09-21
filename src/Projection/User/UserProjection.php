@@ -26,7 +26,7 @@ class UserProjection implements ReadModelProjection
                     $readModel = $this->readModel();
                     $readModel->stack('insert', [
                         'user_id'    => $event->aggregateId(),
-                        'email'      => $event->email()->toString(),
+                        'email'      => mb_strtolower($event->email()->toString()),
                         'password'   => $event->encodedPassword(),
                         // if sent an invite, then account is not verified
                         // if they didn't send an invite, then account is verified
@@ -50,7 +50,7 @@ class UserProjection implements ReadModelProjection
                     $readModel = $this->readModel();
                     $readModel->stack('insert', [
                         'user_id'    => $event->aggregateId(),
-                        'email'      => $event->email()->toString(),
+                        'email'      => mb_strtolower($event->email()->toString()),
                         'password'   => $event->encodedPassword(),
                         'verified'   => true,
                         'active'     => true,
@@ -71,7 +71,7 @@ class UserProjection implements ReadModelProjection
                         'update',
                         $event->userId()->toString(),
                         [
-                            'email'      => $event->email()->toString(),
+                            'email'      => mb_strtolower($event->email()->toString()),
                             'roles'      => [$event->role()->getValue()],
                             'first_name' => $event->firstName()->toString(),
                             'last_name'  => $event->lastName()->toString(),
@@ -157,7 +157,7 @@ class UserProjection implements ReadModelProjection
                         'update',
                         $event->userId()->toString(),
                         [
-                            'email'      => $event->email()->toString(),
+                            'email'      => mb_strtolower($event->email()->toString()),
                             'first_name' => $event->firstName()->toString(),
                             'last_name'  => $event->lastName()->toString(),
                         ]
