@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\GraphQl\Mutation\User;
 
-use App\Exception\FormValidationException;
-use App\Form\User\AdminUserAddType;
 use App\Infrastructure\GraphQl\Mutation\User\AdminUserAddMutation;
 use App\Model\User\Command\AdminAddUser;
 use App\Model\User\Role;
@@ -15,14 +13,12 @@ use App\Security\TokenGenerator;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserAddMutationTest extends BaseTestCase
 {
-    public function testValidGeneratePassword(): void
+    public function testGeneratePassword(): void
     {
         $faker = $this->faker();
         $data = [
@@ -42,21 +38,6 @@ class AdminUserAddMutationTest extends BaseTestCase
             ->with(Mockery::type(AdminAddUser::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnTrue();
-        $form->shouldReceive('getData')
-            ->andReturn($data);
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(AdminUserAddType::class)
-            ->andReturn($form);
-
         $tokenGenerator = Mockery::mock(TokenGenerator::class);
         $tokenGenerator->shouldReceive('__invoke')
             ->once()
@@ -73,7 +54,6 @@ class AdminUserAddMutationTest extends BaseTestCase
 
         $result = (new AdminUserAddMutation(
             $commandBus,
-            $formFactory,
             $tokenGenerator,
             $passwordEncoder
         ))($args);
@@ -87,7 +67,35 @@ class AdminUserAddMutationTest extends BaseTestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testValidSetPassword(): void
+    public function testPasswordTooLong(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'userId'      => $faker->uuid,
+            'email'       => $faker->email,
+            'setPassword' => true,
+            'password'    => $faker->string(4097),
+            'firstName'   => $faker->name,
+            'lastName'    => $faker->name,
+            'role'        => 'ROLE_USER',
+            'active'      => true,
+            'sendInvite'  => true,
+        ];
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $result = (new AdminUserAddMutation(
+            Mockery::mock(MessageBusInterface::class),
+            Mockery::mock(TokenGenerator::class),
+            Mockery::mock(PasswordEncoder::class)
+        ))($args);
+    }
+
+    public function testSetPassword(): void
     {
         $faker = $this->faker();
         $data = [
@@ -108,21 +116,6 @@ class AdminUserAddMutationTest extends BaseTestCase
             ->with(Mockery::type(AdminAddUser::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnTrue();
-        $form->shouldReceive('getData')
-            ->andReturn($data);
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(AdminUserAddType::class)
-            ->andReturn($form);
-
         $tokenGenerator = Mockery::mock(TokenGenerator::class);
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
@@ -137,7 +130,6 @@ class AdminUserAddMutationTest extends BaseTestCase
 
         $result = (new AdminUserAddMutation(
             $commandBus,
-            $formFactory,
             $tokenGenerator,
             $passwordEncoder
         ))($args);
@@ -149,39 +141,5 @@ class AdminUserAddMutationTest extends BaseTestCase
         ];
 
         $this->assertEquals($expected, $result);
-    }
-
-    public function testInvalid(): void
-    {
-        $commandBus = Mockery::mock(MessageBusInterface::class);
-
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnFalse();
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(AdminUserAddType::class)
-            ->andReturn($form);
-
-        $tokenGenerator = Mockery::mock(TokenGenerator::class);
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
-
-        $args = new Argument([
-            'user' => [],
-        ]);
-
-        $this->expectException(FormValidationException::class);
-
-        (new AdminUserAddMutation(
-            $commandBus,
-            $formFactory,
-            $tokenGenerator,
-            $passwordEncoder
-        ))($args);
     }
 }

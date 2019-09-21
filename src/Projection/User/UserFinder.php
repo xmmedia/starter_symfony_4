@@ -39,6 +39,11 @@ class UserFinder extends ServiceEntityRepository
                 ->setParameter('email', '%'.$filters->get(UserFilters::EMAIL).'%');
         }
 
+        if ($filters->applied(UserFilters::EMAIL_EXACT)) {
+            $qb->andWhere('u.email LIKE :email')
+                ->setParameter('email', $filters->get(UserFilters::EMAIL_EXACT));
+        }
+
         if ($filters->applied(UserFilters::ACTIVE)) {
             $qb->andWhere('u.active = true')
                 ->andWhere('u.verified = true');

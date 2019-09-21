@@ -8,38 +8,26 @@
 
         <h2 class="mt-0">Add User</h2>
         <form method="post" @submit.prevent="submit">
-            <form-error v-if="hasValidationErrors" />
+            <form-error v-if="$v.$anyError" />
 
-            <field-email v-model="email"
-                         :server-validation-errors="serverValidationErrors.email"
-                         :v="$v.email" />
+            <field-email v-model="email" :v="$v.email" />
 
             <field-password v-model="password"
-                            :server-validation-errors="serverValidationErrors.password"
+                            :v="$v.password"
                             checkbox-label="Set Password"
                             @set-password="setPassword = $event" />
 
             <div class="field-wrap-checkbox">
-                <field-errors :errors="serverValidationErrors" field="active" />
                 <input id="inputActive" v-model="active" type="checkbox">
                 <label for="inputActive">Active</label>
             </div>
 
-            <field-name v-model="firstName"
-                        :server-validation-errors="serverValidationErrors.firstName"
-                        :v="$v.firstName"
-                        label="First Name" />
-            <field-name v-model="lastName"
-                        :server-validation-errors="serverValidationErrors.lastName"
-                        :v="$v.lastName"
-                        label="Last Name" />
+            <field-name v-model="firstName" :v="$v.firstName" label="First Name" />
+            <field-name v-model="lastName" :v="$v.lastName" label="Last Name" />
 
-            <field-role v-model="role"
-                        :server-validation-errors="serverValidationErrors"
-                        :v="$v.role" />
+            <field-role v-model="role" :v="$v.role" />
 
             <div v-if="!setPassword && active" class="field-wrap-checkbox">
-                <field-errors :errors="serverValidationErrors" field="sendInvite" />
                 <input id="inputSendInvite" v-model="sendInvite" type="checkbox">
                 <label for="inputSendInvite">Send Invite</label>
                 <div class="field-help">
@@ -58,7 +46,6 @@
 <script>
 import uuid4 from 'uuid/v4';
 import cloneDeep from 'lodash/cloneDeep';
-import { hasGraphQlValidationError } from '@/common/lib';
 
 import userValidations from './user.validation';
 
@@ -86,8 +73,6 @@ export default {
     data () {
         return {
             status: statuses.LOADED,
-            hasLocalValidationErrors: false,
-            serverValidationErrors: {},
 
             email: null,
             setPassword: false,
@@ -104,13 +89,6 @@ export default {
         allowSave () {
             return [statuses.LOADED, statuses.SAVED].includes(this.status);
         },
-        hasValidationErrors () {
-            if (this.hasLocalValidationErrors) {
-                return true;
-            }
-
-            return Object.keys(this.serverValidationErrors).length > 0;
-        },
     },
 
     validations () {
@@ -123,13 +101,9 @@ export default {
                 return;
             }
 
-            // get validation to be checked and errors displayed
-            this.hasLocalValidationErrors = false;
-
             this.$v.$touch();
 
-            if (this.$v.$anyError) {
-                this.hasLocalValidationErrors = true;
+            if (this.$v.$invalid) {
                 window.scrollTo(0, 0);
 
                 return;
@@ -156,18 +130,13 @@ export default {
                 });
 
                 this.status = statuses.SAVED;
-                this.serverValidationErrors = {};
 
                 setTimeout(() => {
                     this.$router.push({ name: 'admin-user' });
                 }, 1500);
 
             } catch (e) {
-                if (hasGraphQlValidationError(e)) {
-                    this.serverValidationErrors = e.graphQLErrors[0].validation.user;
-                } else {
-                    alert('There was a problem saving. Please try again later.');
-                }
+                alert('There was a problem saving. Please try again later.');
 
                 window.scrollTo(0, 0);
 

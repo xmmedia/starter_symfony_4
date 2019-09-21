@@ -5,10 +5,13 @@
         <field-errors :errors="serverValidationErrors" />
         <field-error v-if="v.$error">
             <template v-if="!v.required">
-                A Email is required.
+                A email is required.
             </template>
             <template v-else-if="!v.email">
-                This Email is invalid.
+                This email is invalid.
+            </template>
+            <template v-else-if="!v.duplicate">
+                This email has already been used.
             </template>
         </field-error>
 

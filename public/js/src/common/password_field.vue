@@ -2,6 +2,7 @@
     <div class="field-wrap">
         <label :for="id" v-html="label"></label>
         <field-errors :errors="serverValidationErrors" />
+        <slot name="errors"></slot>
 
         <field-error v-if="hackedPassword">
             It appears that this password was part of a data breach

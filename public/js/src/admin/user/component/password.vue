@@ -1,21 +1,33 @@
 <template>
     <div>
         <div :class="{ 'mb-2' : setPassword }" class="field-wrap-checkbox">
-            <field-errors :errors="serverValidationErrors" />
             <input :id="id" v-model="setPassword" type="checkbox">
             <label :for="id">{{ checkboxLabel }}</label>
         </div>
 
         <password-field v-show="setPassword"
                         :value="value"
-                        :server-validation-errors="serverValidationErrors"
                         :show-help="true"
                         :required="setPassword"
                         label="Password"
                         field="password"
                         class="ml-6"
                         autocomplete="new-password"
-                        @input="$emit('input', $event)" />
+                        @input="$emit('input', $event)">
+            <template #errors>
+                <field-error v-if="v.$error">
+                    <template v-if="!v.required">
+                        A password is required.
+                    </template>
+                    <template v-else-if="!v.minLength">
+                        Passwords must more than {{ v.$params.minLength.min }} characters.
+                    </template>
+                    <template v-else-if="!v.maxLength">
+                        The password is too long.
+                    </template>
+                </field-error>
+            </template>
+        </password-field>
     </div>
 </template>
 
@@ -32,11 +44,9 @@ export default {
             type: String,
             default: 'Set Password',
         },
-        serverValidationErrors: {
-            type: [Object, Array],
-            default: function () {
-                return {};
-            },
+        v: {
+            type: Object,
+            required: true,
         },
     },
 
