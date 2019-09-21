@@ -25,6 +25,9 @@
                     <template v-else-if="!v.maxLength">
                         The password is too long.
                     </template>
+                    <template v-else-if="!v.compromised">
+                        This password has been compromised and is not allowed.
+                    </template>
                 </field-error>
             </template>
         </password-field>

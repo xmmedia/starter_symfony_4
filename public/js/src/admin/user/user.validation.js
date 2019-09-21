@@ -5,6 +5,7 @@ import {
     required,
     requiredIf,
 } from 'vuelidate/lib/validators';
+import { pwnedPassword } from 'hibp';
 import { GetUsersQuery } from '../queries/user.query.graphql';
 
 export default {
@@ -38,6 +39,14 @@ export default {
         // this is different than the backend:
         // there's no real point other than security to the check in the backend
         maxLength: maxLength(1000),
+        async compromised (value) {
+            if (value.length < 12) {
+                return false;
+            }
+
+            // reject if in more than 3 breaches
+            return await pwnedPassword(value) < 3;
+        },
     },
     firstName: {
         required,

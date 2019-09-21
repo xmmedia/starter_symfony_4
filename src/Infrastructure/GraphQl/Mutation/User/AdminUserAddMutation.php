@@ -48,6 +48,9 @@ class AdminUserAddMutation implements MutationInterface
             // password checked here because it's encoded in the command
             Assert::passwordLength($password);
         }
+        // check both generated & user entered,
+        // though unlikely generated will be compromised
+        Assert::compromisedPassword($password);
 
         $email = Email::fromString($args['user']['email']);
         $role = Role::byValue($args['user']['role']);
