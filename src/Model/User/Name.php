@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\User;
 
 use App\Model\ValueObject;
+use App\Util\StringUtil;
 use Webmozart\Assert\Assert;
 
 class Name implements ValueObject, \JsonSerializable
@@ -22,6 +23,8 @@ class Name implements ValueObject, \JsonSerializable
 
     private function __construct(string $name)
     {
+        $name = StringUtil::trim($name);
+
         Assert::notEmpty($name);
         Assert::minLength($name, self::MIN_LENGTH);
         Assert::maxLength($name, self::MAX_LENGTH);
