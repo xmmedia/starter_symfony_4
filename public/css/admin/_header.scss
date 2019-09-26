@@ -44,12 +44,13 @@
 
 // for the main action(s)
 .header-action-main {
-    @apply text-sm text-center text-white bg-blue-500 border-blue-500;
+    @apply my-4 text-sm text-center text-white bg-blue-500 border-blue-500;
     &:hover {
         @apply bg-blue-600 border-blue-600;
     }
 
     @media (min-width: 880px) {
+        @apply my-0;
         order: 3;
     }
 }
