@@ -45,8 +45,8 @@
         </nav>
 
         <header class="header-wrap-small">
-            <menu-small />
-            <router-link :to="logoLinkRoute">
+            <menu-small v-if="loggedIn" />
+            <router-link :to="logoLinkRoute" class="ml-auto">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg" height="70" class="h-10 -mt-4 mr-4" alt="Logo">
             </router-link>
