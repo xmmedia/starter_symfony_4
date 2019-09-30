@@ -39,7 +39,9 @@ class Assert extends \Webmozart\Assert\Assert
                 sprintf(
                     'Unable to check for compromised password. HTTP error: %s',
                     $e->getMessage()
-                ), 0, $e
+                ),
+                0,
+                $e
             );
         }
 
