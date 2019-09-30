@@ -52,7 +52,7 @@ export default {
         maxLength: maxLength(1000),
         async compromised (value) {
             if (null === value || value.length < 12) {
-                return false;
+                return true;
             }
 
             // reject if in more than 3 breaches
