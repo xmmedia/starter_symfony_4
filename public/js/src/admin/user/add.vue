@@ -46,6 +46,7 @@
 <script>
 import uuid4 from 'uuid/v4';
 import cloneDeep from 'lodash/cloneDeep';
+import { waitForValidation } from '@/common/lib';
 
 import userValidations from './user.validation';
 
@@ -96,20 +97,23 @@ export default {
     },
 
     methods: {
+        waitForValidation,
+
         async submit () {
             if (!this.allowSave) {
                 return;
             }
 
+            this.status = statuses.SAVING;
+
             this.$v.$touch();
 
-            if (this.$v.$invalid) {
+            if (!await this.waitForValidation()) {
+                this.status = statuses.LOADED;
                 window.scrollTo(0, 0);
 
                 return;
             }
-
-            this.status = statuses.SAVING;
 
             try {
                 await this.$apollo.mutate({
