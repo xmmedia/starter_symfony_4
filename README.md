@@ -135,4 +135,3 @@ running multiple sites on one server.
   - Dev Tools
     - [Vue Devtools](https://github.com/vuejs/vue-devtools)
     - [Apollo Devtools](https://github.com/apollographql/apollo-client-devtools)
-    - [GraphQiL](https://github.com/graphql/graphiql) is available at `/graphiql`
