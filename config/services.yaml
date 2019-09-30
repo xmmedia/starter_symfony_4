@@ -12,6 +12,10 @@ parameters:
     router.request_context.scheme: '%env(REQUEST_CONTEXT_SCHEME)%'
     # @todo-symfony
     user_timezone: 'America/Edmonton'
+    email.product_name: 'XM Symfony Starter'
+    email.company_name: 'XM Media Inc.'
+    email.company_address: '123 Street, Big City'
+    email.whitelist: ['/@xmmedia\.com$/']
 
 services:
     # default configuration for services in *this* file
@@ -25,7 +29,7 @@ services:
         bind:
             $commandBus: '@messenger.bus.commands'
             $eventBus: '@messenger.bus.events'
-            $adminEmail: '%env(FROM_EMAIL)%'
+            string $adminEmail: '%env(FROM_EMAIL)%'
 
     _instanceof:
         GraphQL\Type\Definition\Type:
@@ -88,6 +92,10 @@ services:
             $emailFrom: '%env(FROM_EMAIL)%'
             $emailFromName: '%env(FROM_EMAIL_NAME)%'
             $kernelEnv: '%kernel.environment%'
+            $productName: '%email.product_name%'
+            $companyName: '%email.company_name%'
+            $companyAddress: '%email.company_address%'
+            $whitelist: '%email.whitelist%'
             $devEmail: '%env(DEV_EMAIL)%'
     Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface: '@Xm\SymfonyBundle\Infrastructure\Email\EmailGateway'
 
