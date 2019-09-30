@@ -309,7 +309,7 @@ class User extends AggregateRoot implements Entity
         $this->active = true;
     }
 
-    protected function whenAdminUpdatedUser(Event\UserWasUpdatedByAdmin $event): void
+    protected function whenUserWasUpdatedByAdmin(Event\UserWasUpdatedByAdmin $event): void
     {
         // noop
     }
