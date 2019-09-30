@@ -134,13 +134,13 @@ export default {
                     userId: this.userId,
                 };
             },
-            update (data) {
-                this.email = data.User.email;
-                this.role = data.User.roles[0];
-                this.firstName = data.User.firstName;
-                this.lastName = data.User.lastName;
-                this.verified = data.User.verified;
-                this.active = data.User.active;
+            update ({ User }) {
+                this.email = User.email;
+                this.role = User.roles[0];
+                this.firstName = User.firstName;
+                this.lastName = User.lastName;
+                this.verified = User.verified;
+                this.active = User.active;
 
                 if (this.status === statuses.LOADING) {
                     this.status = statuses.LOADED;
