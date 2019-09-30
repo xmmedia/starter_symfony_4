@@ -134,6 +134,7 @@ final class ProjectionRunCommand extends Command
 
         $this->projector->run($keepRunning);
 
+        $this->io->text((new \DateTimeImmutable())->format('Y-m-d H:i:s'));
         $this->io->success(
             sprintf('Projection %s completed.', $this->projectionName)
         );
