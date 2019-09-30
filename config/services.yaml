@@ -66,6 +66,22 @@ services:
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
+    Xm\SymfonyBundle\Model\User\Handler\SendActivationHandler:
+        arguments:
+            $templateIdOrAlias: 'auth-user_invite'
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+    Xm\SymfonyBundle\Model\User\Handler\InitiatePasswordRecoveryHandler:
+        arguments:
+            $templateIdOrAlias: 'auth-password_reset'
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+    App\Model\Enquiry\Handler\SendEnquiryEmailHandler:
+        arguments:
+            $templateIdOrAlias: 'enquiry-received'
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+
     Xm\SymfonyBundle\Infrastructure\Email\EmailGateway:
         arguments:
             $postmarkApiKey: '%env(POSTMARK_API_KEY)%'

@@ -8664,16 +8664,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.8",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "275a8c8d1bdfef9dac5242032d0e5a3efcfe25cf"
+                "reference": "fe96afc64f9b9d8ef741a97baa132abd35aff974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/275a8c8d1bdfef9dac5242032d0e5a3efcfe25cf",
-                "reference": "275a8c8d1bdfef9dac5242032d0e5a3efcfe25cf",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/fe96afc64f9b9d8ef741a97baa132abd35aff974",
+                "reference": "fe96afc64f9b9d8ef741a97baa132abd35aff974",
                 "shasum": ""
             },
             "require": {
@@ -8746,7 +8746,7 @@
             ],
             "description": "Provides classes & services typically used in XM Media Symfony projects.",
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
-            "time": "2019-09-30T06:40:23+00:00"
+            "time": "2019-09-30T21:32:13+00:00"
         },
         {
             "name": "zendframework/zend-code",
@@ -10019,16 +10019,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.2.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031"
+                "reference": "b3453f75fd23d9fd41685f2148f4abeacabc6405"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/4eff936d83eb809bde2c57a3cea0ee9643769031",
-                "reference": "4eff936d83eb809bde2c57a3cea0ee9643769031",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/b3453f75fd23d9fd41685f2148f4abeacabc6405",
+                "reference": "b3453f75fd23d9fd41685f2148f4abeacabc6405",
                 "shasum": ""
             },
             "require": {
@@ -10042,7 +10042,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -10080,7 +10080,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2019-08-07T15:01:07+00:00"
+            "time": "2019-09-30T08:30:27+00:00"
         },
         {
             "name": "myclabs/deep-copy",
