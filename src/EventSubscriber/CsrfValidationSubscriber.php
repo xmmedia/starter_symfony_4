@@ -6,8 +6,7 @@ namespace App\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -43,7 +42,7 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function validateCsrf(GetResponseEvent $event): void
+    public function validateCsrf(RequestEvent $event): void
     {
         $request = $event->getRequest();
 
@@ -70,7 +69,7 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function addCsrfCookie(FilterResponseEvent $event): void
+    public function addCsrfCookie(RequestEvent $event): void
     {
         $token = $this->csrfTokenManager->getToken($this->tokenName)->getValue();
 
