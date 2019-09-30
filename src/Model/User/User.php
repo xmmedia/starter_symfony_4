@@ -110,7 +110,7 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            Event\AdminUpdatedUser::now(
+            Event\UserWasUpdatedByAdmin::now(
                 $this->userId,
                 $email,
                 $role,
@@ -309,7 +309,7 @@ class User extends AggregateRoot implements Entity
         $this->active = true;
     }
 
-    protected function whenAdminUpdatedUser(Event\AdminUpdatedUser $event): void
+    protected function whenAdminUpdatedUser(Event\UserWasUpdatedByAdmin $event): void
     {
         // noop
     }

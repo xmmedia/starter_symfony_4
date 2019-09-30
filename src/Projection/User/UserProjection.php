@@ -60,9 +60,9 @@ class UserProjection implements ReadModelProjection
                     ]);
                 },
 
-                Event\AdminUpdatedUser::class => function (
+                Event\UserWasUpdatedByAdmin::class => function (
                     array $state,
-                    Event\AdminUpdatedUser $event
+                    Event\UserWasUpdatedByAdmin $event
                 ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */

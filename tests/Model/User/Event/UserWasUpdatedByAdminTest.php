@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Event;
 
-use App\Model\User\Event\AdminUpdatedUser;
+use App\Model\User\Event\UserWasUpdatedByAdmin;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use App\Tests\CanCreateEventFromArray;
 
-class AdminUpdatedUserTest extends BaseTestCase
+class UserWasUpdatedByAdminTest extends BaseTestCase
 {
     use CanCreateEventFromArray;
 
@@ -24,7 +24,7 @@ class AdminUpdatedUserTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        $event = AdminUpdatedUser::now($userId, $email, $role, $firstName, $lastName);
+        $event = UserWasUpdatedByAdmin::now($userId, $email, $role, $firstName, $lastName);
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
@@ -43,9 +43,9 @@ class AdminUpdatedUserTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
 
-        /** @var AdminUpdatedUser $event */
+        /** @var UserWasUpdatedByAdmin $event */
         $event = $this->createEventFromArray(
-            AdminUpdatedUser::class,
+            UserWasUpdatedByAdmin::class,
             $userId->toString(),
             [
                 'email'     => $email->toString(),
@@ -55,7 +55,7 @@ class AdminUpdatedUserTest extends BaseTestCase
             ]
         );
 
-        $this->assertInstanceOf(AdminUpdatedUser::class, $event);
+        $this->assertInstanceOf(UserWasUpdatedByAdmin::class, $event);
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());

@@ -36,7 +36,7 @@ class UserUpdateTest extends BaseTestCase
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
-            Event\AdminUpdatedUser::class,
+            Event\UserWasUpdatedByAdmin::class,
             [
                 'email'     => $email->toString(),
                 'role'      => $role->getValue(),
