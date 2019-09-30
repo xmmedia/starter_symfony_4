@@ -16,6 +16,9 @@ parameters:
     email.company_name: 'XM Media Inc.'
     email.company_address: '123 Street, Big City'
     email.whitelist: ['/@xmmedia\.com$/']
+    email.template.auth.user_invite: 'auth-user_invite'
+    email.template.auth.password_reset: 'auth-password_reset'
+    email.template.enquiry_received: 'enquiry-received'
 
 services:
     # default configuration for services in *this* file
@@ -72,17 +75,17 @@ services:
 
     Xm\SymfonyBundle\Model\User\Handler\SendActivationHandler:
         arguments:
-            $templateIdOrAlias: 'auth-user_invite'
+            $templateIdOrAlias: '%email.template.auth.user_invite%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
     Xm\SymfonyBundle\Model\User\Handler\InitiatePasswordRecoveryHandler:
         arguments:
-            $templateIdOrAlias: 'auth-password_reset'
+            $templateIdOrAlias: '%email.template.auth.password_reset%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
     App\Model\Enquiry\Handler\SendEnquiryEmailHandler:
         arguments:
-            $templateIdOrAlias: 'enquiry-received'
+            $templateIdOrAlias: '%email.template.enquiry_received%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
