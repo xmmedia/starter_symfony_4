@@ -1,11 +1,22 @@
+event_sourcing:
+    repositories:
+        auth_list:
+            repository_class:     App\Infrastructure\Repository\AuthRepository
+            aggregate_type:       App\Model\Auth\Auth
+            aggregate_translator: App\EventSourcing\Aggregate\AggregateTranslator
+            stream_name:          'auth'
+        user_list:
+            repository_class:     App\Infrastructure\Repository\UserRepository
+            aggregate_type:       App\Model\User\User
+            aggregate_translator: App\EventSourcing\Aggregate\AggregateTranslator
+            stream_name:          'user'
+
 services:
+    App\Model\Auth\AuthList: '@auth_list'
+    App\Model\User\UserList: '@user_list'
+
     App\EventSourcing\Aggregate\RepositoryFactory:
-        autowire: true
 
     App\EventSourcing\Aggregate\AggregateRepository:
         abstract: true
         factory: 'App\EventSourcing\Aggregate\RepositoryFactory:create'
-
-    App\Model\Auth\AuthList: '@App\Infrastructure\Repository\AuthRepository'
-    App\Model\Enquiry\EnquiryList: '@App\Infrastructure\Repository\EnquiryRepository'
-    App\Model\User\UserList: '@App\Infrastructure\Repository\UserRepository'
