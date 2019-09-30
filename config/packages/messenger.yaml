@@ -7,14 +7,14 @@ framework:
         buses:
             messenger.bus.commands:
                 middleware:
-                    - App\Messenger\CommandEnricherMiddleware
-                    - App\Messenger\CommandRecorderMiddleware
-                    - App\Messenger\FailureCatcherMiddleware
+                    - Xm\SymfonyBundle\Messenger\CommandEnricherMiddleware
+                    - Xm\SymfonyBundle\Messenger\CommandRecorderMiddleware
+                    - Xm\SymfonyBundle\Messenger\FailureCatcherMiddleware
             messenger.bus.events:
                 default_middleware: 'allow_no_handlers'
                 middleware:
                     - App\Messenger\RunProjectionMiddleware
-                    - App\Messenger\FailureCatcherMiddleware
+                    - Xm\SymfonyBundle\Messenger\FailureCatcherMiddleware
 
         transports:
             # Uncomment the following line to enable a transport named "amqp"

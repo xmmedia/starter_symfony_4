@@ -55,48 +55,34 @@ services:
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.events' }
 
-    # only needed to tell it which bus to use
-    App\Model\User\Handler\:
-        resource: '../src/Model/User/Handler/*Handler.php'
+    command_handlers:
+        namespace: App\Model\
+        resource: '../src/Model/*/Handler/*Handler.php'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
-    App\Model\Auth\Handler\:
-        resource: '../src/Model/Auth/Handler/*Handler.php'
-        tags:
-            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
-    App\Model\Enquiry\Handler\:
-        resource: '../src/Model/Enquiry/Handler/*Handler.php'
+    command_handlers_xm:
+        namespace: Xm\SymfonyBundle\Model\
+        resource: '../vendor/xm/symfony-bundle/Model/*/Handler/*Handler.php'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
-    App\EventStore\MetadataIssuedByEnricher:
-        tags:
-            - { name: 'prooph_event_store.metadata_enricher' }
-
-    App\EventStore\EventStoreMessengerPlugin:
-        tags:
-            - { name: 'prooph_event_store.plugin' }
-
-    App\Model\User\Service\ChecksUniqueUsersEmail: '@App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel'
-
-    App\Security\TokenGeneratorInterface: '@App\Security\TokenGenerator'
-
-    App\Infrastructure\Email\EmailGateway:
+    Xm\SymfonyBundle\Infrastructure\Email\EmailGateway:
         arguments:
             $postmarkApiKey: '%env(POSTMARK_API_KEY)%'
             $emailFrom: '%env(FROM_EMAIL)%'
             $emailFromName: '%env(FROM_EMAIL_NAME)%'
             $kernelEnv: '%kernel.environment%'
             $devEmail: '%env(DEV_EMAIL)%'
-    App\Infrastructure\Email\EmailGatewayInterface: '@App\Infrastructure\Email\EmailGateway'
+    Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface: '@Xm\SymfonyBundle\Infrastructure\Email\EmailGateway'
 
-    App\Infrastructure\Service\ProjectionRunner:
+    Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner:
         arguments:
             $projectionsManager: '@prooph_event_store.projection_manager.app'
             $projectionManagerForProjectionsLocator: '@prooph_event_store.projection_manager_for_projections_locator'
             $projectionsLocator: '@prooph_event_store.projections_locator'
             $projectionReadModelLocator: '@prooph_event_store.projection_read_models_locator'
 
+    # @todo-symfony delete if not using
     App\Command\SupervisorWriteConfigCommand:
         arguments:
             $kernelEnv: '%kernel.environment%'
@@ -104,12 +90,14 @@ services:
             $logDir: '%kernel.logs_dir%'
             $supervisordProgramPrefix: '%env(SUPERVISORD_PROGRAM_PREFIX)%'
 
-    App\Infrastructure\Service\Cloudflare:
+    # @todo-symfony delete if not using
+    Xm\SymfonyBundle\Infrastructure\Service\Cloudflare:
         arguments:
             $cloudflareZone: '%env(CLOUDFLARE_ZONE)%'
             $cloudflareUsername: '%env(CLOUDFLARE_USERNAME)%'
             $cloudflareApiKey: '%env(CLOUDFLARE_API_KEY)%'
 
+    # @todo-symfony delete if not using
     App\Infrastructure\Service\Supervisord:
         arguments:
             $supervisordAddress: '%env(SUPERVISORD_ADDRESS)%'

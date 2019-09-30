@@ -7,7 +7,7 @@ namespace App\Tests\Model\Enquiry;
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\Tests\BaseTestCase;
-use App\Tests\FakeAr;
+use Xm\SymfonyBundle\Tests\FakeAr;
 
 class EnquiryTest extends BaseTestCase
 {

@@ -8,7 +8,7 @@ UserQuery:
                 description: 'Retrieve all Users or a subset based on the passed filters.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UsersResolver", [args["filters"]])'
+                resolve: '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\User\\UsersResolver", [args["filters"]])'
                 args:
                     filters: UserFilterInput
 
@@ -17,7 +17,7 @@ UserQuery:
                 description: 'Retrieve a single User.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserResolver", [args["userId"]])'
+                resolve: '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\User\\UserResolver", [args["userId"]])'
                 args:
                     userId:
                         type: UUID!

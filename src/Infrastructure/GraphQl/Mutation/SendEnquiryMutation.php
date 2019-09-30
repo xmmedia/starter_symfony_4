@@ -6,7 +6,6 @@ namespace App\Infrastructure\GraphQl\Mutation;
 
 use App\Exception\FormValidationException;
 use App\Form\EnquiryType;
-use App\Model\Email;
 use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\EnquiryId;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -14,6 +13,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Xm\SymfonyBundle\Model\Email;
 
 // @todo test; other updates?
 class SendEnquiryMutation implements MutationInterface

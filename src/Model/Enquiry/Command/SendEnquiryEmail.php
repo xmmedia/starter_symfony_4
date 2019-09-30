@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Model\Enquiry\Command;
 
-use App\Messaging\Command;
-use App\Model\Email;
 use Webmozart\Assert\Assert;
+use Xm\SymfonyBundle\Messaging\Command;
+use Xm\SymfonyBundle\Model\Email;
 
 final class SendEnquiryEmail extends Command
 {

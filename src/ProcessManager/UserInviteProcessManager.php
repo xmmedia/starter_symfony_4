@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\ProcessManager;
 
-use App\Model\User\Command\SendActivation;
-use App\Model\User\Event\UserWasAddedByAdmin;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Xm\SymfonyBundle\Model\User\Command\SendActivation;
+use Xm\SymfonyBundle\Model\User\Event\UserWasAddedByAdmin;
 
 class UserInviteProcessManager
 {

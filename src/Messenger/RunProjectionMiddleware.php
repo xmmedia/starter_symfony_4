@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Messenger;
 
-use App\EventSourcing\AggregateChanged;
-use App\Infrastructure\Service\ProjectionRunner;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
+use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
+use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
 
 class RunProjectionMiddleware implements MiddlewareInterface
 {
@@ -21,7 +21,7 @@ class RunProjectionMiddleware implements MiddlewareInterface
      * @var array
      */
     private $namespaceToProjection = [
-        'App\Model\User\Event' => [
+        'Xm\SymfonyBundle\Model\User\Event' => [
             'user_projection',
             'user_token_projection',
         ],

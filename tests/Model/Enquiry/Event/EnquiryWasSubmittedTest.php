@@ -6,7 +6,7 @@ namespace App\Tests\Model\Enquiry\Event;
 
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\Tests\BaseTestCase;
-use App\Tests\CanCreateEventFromArray;
+use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
 
 class EnquiryWasSubmittedTest extends BaseTestCase
 {

@@ -8,4 +8,4 @@ CountryQuery:
                 description: 'Retrieve all Countries.'
                 public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
-                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\CountryResolver")'
+                resolve: '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\CountryResolver")'

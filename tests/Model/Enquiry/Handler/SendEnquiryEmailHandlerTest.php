@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\Enquiry\Handler;
 
-use App\Infrastructure\Email\EmailGatewayInterface;
-use App\Model\EmailGatewayMessageId;
 use App\Model\Enquiry\Command\SendEnquiryEmail;
 use App\Model\Enquiry\Handler\SendEnquiryEmailHandler;
 use App\Tests\BaseTestCase;
 use Mockery;
+use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
+use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
 
 class SendEnquiryEmailHandlerTest extends BaseTestCase
 {

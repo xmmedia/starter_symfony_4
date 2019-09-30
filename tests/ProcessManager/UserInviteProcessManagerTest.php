@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Tests\ProcessManager;
 
-use App\Model\User\Command\SendActivation;
-use App\Model\User\Event\UserWasAddedByAdmin;
-use App\Model\User\Name;
 use App\Model\User\Role;
 use App\ProcessManager\UserInviteProcessManager;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Xm\SymfonyBundle\Model\User\Command\SendActivation;
+use Xm\SymfonyBundle\Model\User\Event\UserWasAddedByAdmin;
+use Xm\SymfonyBundle\Model\User\Name;
 
 class UserInviteProcessManagerTest extends BaseTestCase
 {

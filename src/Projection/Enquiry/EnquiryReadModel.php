@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Projection\Enquiry;
 
-use App\EventStore\Projection\AbstractReadModel;
 use App\Projection\Table;
+use Xm\SymfonyBundle\EventStore\Projection\AbstractReadModel;
 
 final class EnquiryReadModel extends AbstractReadModel
 {

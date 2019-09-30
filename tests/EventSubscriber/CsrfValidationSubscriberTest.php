@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -54,7 +54,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         ]);
         $request->setMethod('POST');
 
-        $event = Mockery::mock(GetResponseEvent::class);
+        $event = Mockery::mock(RequestEvent::class);
         $event->shouldReceive('getRequest')
             ->atLeast()
             ->once()
@@ -94,7 +94,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         ]);
         $request->setMethod('POST');
 
-        $event = Mockery::mock(GetResponseEvent::class);
+        $event = Mockery::mock(RequestEvent::class);
         $event->shouldReceive('getRequest')
             ->atLeast()
             ->once()
@@ -125,7 +125,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         ]);
         $request->setMethod('POST');
 
-        $event = Mockery::mock(GetResponseEvent::class);
+        $event = Mockery::mock(RequestEvent::class);
         $event->shouldReceive('getRequest')
             ->atLeast()
             ->once()
@@ -153,7 +153,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         ]);
         $request->setMethod('POST');
 
-        $event = Mockery::mock(GetResponseEvent::class);
+        $event = Mockery::mock(RequestEvent::class);
         $event->shouldReceive('getRequest')
             ->atLeast()
             ->once()
@@ -177,7 +177,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         $request = new Request();
         $request->setMethod('GET');
 
-        $event = Mockery::mock(GetResponseEvent::class);
+        $event = Mockery::mock(RequestEvent::class);
         $event->shouldReceive('getRequest')
             ->atLeast()
             ->once()
@@ -200,7 +200,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
 
         $request = new Request();
 
-        $event = Mockery::mock(GetResponseEvent::class);
+        $event = Mockery::mock(RequestEvent::class);
         $event->shouldReceive('getRequest')
             ->atLeast()
             ->once()
@@ -249,7 +249,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
                 return true;
             });
 
-        $event = Mockery::mock(FilterResponseEvent::class);
+        $event = Mockery::mock(ResponseEvent::class);
         $event->shouldReceive('getResponse')
             ->atLeast()
             ->once()

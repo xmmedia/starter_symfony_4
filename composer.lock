@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7006dcbf3fbaf048ca58228cdd2fed41",
+    "content-hash": "752a0c878db04a96e509041c36fc09af",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -4768,28 +4768,6 @@
             "time": "2019-04-21T09:21:45+00:00"
         },
         {
-            "name": "symfony/apache-pack",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/apache-pack.git",
-                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/apache-pack/zipball/3aa5818d73ad2551281fc58a75afd9ca82622e6c",
-                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c",
-                "shasum": ""
-            },
-            "type": "symfony-pack",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A pack for Apache support in Symfony",
-            "time": "2017-12-12T01:46:35+00:00"
-        },
-        {
             "name": "symfony/asset",
             "version": "v4.3.4",
             "source": {
@@ -8685,6 +8663,92 @@
             "time": "2017-05-14T17:21:12+00:00"
         },
         {
+            "name": "xm/symfony-bundle",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
+                "reference": "275a8c8d1bdfef9dac5242032d0e5a3efcfe25cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/275a8c8d1bdfef9dac5242032d0e5a3efcfe25cf",
+                "reference": "275a8c8d1bdfef9dac5242032d0e5a3efcfe25cf",
+                "shasum": ""
+            },
+            "require": {
+                "cloudflare/sdk": "^1.1",
+                "doctrine/doctrine-bundle": "^1.11",
+                "doctrine/orm": "~2.5",
+                "egulias/email-validator": "^2.1",
+                "ext-json": "*",
+                "friendsofsymfony/rest-bundle": "^2.5",
+                "marc-mabe/php-enum": "^4.1",
+                "misd/phone-number-bundle": "^1.3",
+                "moneyphp/money": "^3.2",
+                "nesbot/carbon": "^2.24",
+                "overblog/graphql-bundle": "^0.12.3",
+                "php": "^7.3",
+                "prooph/event-store-bus-bridge": "^3.3",
+                "prooph/event-store-symfony-bundle": "^0.6.0",
+                "prooph/pdo-event-store": "^1.11",
+                "ramsey/uuid": "^3.7.3",
+                "ramsey/uuid-doctrine": "^1.5",
+                "symfony/form": "*",
+                "symfony/framework-bundle": "*",
+                "symfony/http-client": "*",
+                "symfony/messenger": "*",
+                "symfony/security-bundle": "*",
+                "symfony/validator": "*",
+                "wildbit/postmark-php": "^2.8"
+            },
+            "conflict": {
+                "symfony/symfony": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "fzaninotto/faker": "^1.8",
+                "mockery/mockery": "^1.2",
+                "phpstan/phpstan": "^0.11",
+                "phpstan/phpstan-mockery": "^0.11",
+                "phpstan/phpstan-phpunit": "^0.11",
+                "phpstan/phpstan-symfony": "^0.11",
+                "phpstan/phpstan-webmozart-assert": "^0.11",
+                "phpunit/phpunit": "^8.0",
+                "symfony/debug-pack": "*",
+                "symfony/phpunit-bridge": "*",
+                "symfony/test-pack": "*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "symfony": {
+                    "allow-contrib": true,
+                    "require": "4.3.*"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Xm\\SymfonyBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Darryl Hein",
+                    "email": "dhein@xmmedia.com"
+                }
+            ],
+            "description": "Provides classes & services typically used in XM Media Symfony projects.",
+            "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
+            "time": "2019-09-30T06:40:23+00:00"
+        },
+        {
             "name": "zendframework/zend-code",
             "version": "3.3.2",
             "source": {
@@ -10133,7 +10197,7 @@
                     "email": "shelburt02@gmail.com"
                 },
                 {
-                    "name": "Théo FIDRY",
+                    "name": "Théo Fidry",
                     "email": "theo.fidry@gmail.com"
                 }
             ],
@@ -10404,7 +10468,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🍸 Nette NEON: encodes and decodes NEON file format.",
+            "description": "? Nette NEON: encodes and decodes NEON file format.",
             "homepage": "http://ne-on.org",
             "keywords": [
                 "export",
@@ -12307,6 +12371,28 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2016-10-03T07:35:21+00:00"
+        },
+        {
+            "name": "symfony/apache-pack",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/apache-pack.git",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/apache-pack/zipball/3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "shasum": ""
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for Apache support in Symfony",
+            "time": "2017-12-12T01:46:35+00:00"
         },
         {
             "name": "symfony/browser-kit",

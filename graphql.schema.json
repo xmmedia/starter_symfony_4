@@ -1317,7 +1317,7 @@
                             "defaultValue": null
                         },
                         {
-                            "name": "changePassword",
+                            "name": "setPassword",
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,

@@ -3,7 +3,7 @@ security:
     providers:
         app_provider:
             entity:
-                class: App\Entity\User
+                class: Xm\SymfonyBundle\Entity\User
                 property: email
 
     # also in Vuex & \App\Model\User\Role
@@ -12,7 +12,7 @@ security:
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     encoders:
-        App\Entity\User:
+        Xm\SymfonyBundle\Entity\User:
             algorithm: 'auto'
             # values below are meant to take ~2 seconds on 4 core machine
             # use the app:security:password-encode-test to determine what this should be
@@ -36,7 +36,7 @@ security:
             guard:
                 authenticators:
                     - App\Security\AppAuthenticator
-            user_checker: App\Security\UserChecker
+            user_checker: Xm\SymfonyBundle\Security\UserChecker
             logout:
                 path: app_logout
 

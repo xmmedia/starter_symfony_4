@@ -6,6 +6,7 @@ namespace App\Tests;
 
 use App\DataFixtures\Faker\Provider;
 use Faker;
+use Xm\SymfonyBundle\DataFixtures\Faker\Provider as BundleProviders;
 
 trait UsesFaker
 {
@@ -13,7 +14,7 @@ trait UsesFaker
     private $faker;
 
     /**
-     * @return Faker\Generator|Provider\AddressFakerProvider|Provider\DateFakerProvider|Provider\EmailFakerProvider|Provider\GenderFakerProvider|Provider\InternetFakerProvider|Provider\NameFakerProvider|Provider\PhoneNumberFakerProvider|Provider\StringFakerProvider|Provider\UuidFakerProvider
+     * @return Faker\Generator|BundleProviders\AddressFakerProvider|BundleProviders\DateFakerProvider|BundleProviders\EmailFakerProvider|BundleProviders\GenderFakerProvider|BundleProviders\InternetFakerProvider|BundleProviders\NameFakerProvider|BundleProviders\PhoneNumberFakerProvider|BundleProviders\StringFakerProvider|BundleProviders\UuidFakerProvider|Provider\UuidFakerProvider
      */
     protected function faker(): Faker\Generator
     {
@@ -25,14 +26,15 @@ trait UsesFaker
         $locales = ['en_CA', 'en_US'];
 
         $this->faker = Faker\Factory::create($locales[array_rand($locales)]);
-        $this->faker->addProvider(new Provider\AddressFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\DateFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\EmailFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\GenderFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\InternetFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\NameFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\PhoneNumberFakerProvider($this->faker));
-        $this->faker->addProvider(new Provider\StringFakerProvider($this->faker));
+        $this->faker->addProvider(new BundleProviders\AddressFakerProvider($this->faker));
+        $this->faker->addProvider(new BundleProviders\DateFakerProvider($this->faker));
+        $this->faker->addProvider(new BundleProviders\EmailFakerProvider($this->faker));
+        $this->faker->addProvider(new BundleProviders\GenderFakerProvider($this->faker));
+        $this->faker->addProvider(new BundleProviders\InternetFakerProvider($this->faker));
+        $this->faker->addProvider(new BundleProviders\NameFakerProvider($this->faker));
+        $this->faker->addProvider(new BundleProviders\PhoneNumberFakerProvider($this->faker));
+        $this->faker->addProvider(new BundleProviders\StringFakerProvider($this->faker));
+        $this->faker->addProvider(new BundleProviders\UuidFakerProvider($this->faker));
         $this->faker->addProvider(new Provider\UuidFakerProvider($this->faker));
 
         return $this->faker;

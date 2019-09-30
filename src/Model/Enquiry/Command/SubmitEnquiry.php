@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model\Enquiry\Command;
 
-use App\Messaging\Command;
-use App\Model\Email;
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\EnquiryId;
 use Webmozart\Assert\Assert;
+use Xm\SymfonyBundle\Messaging\Command;
+use Xm\SymfonyBundle\Model\Email;
 
 final class SubmitEnquiry extends Command
 {

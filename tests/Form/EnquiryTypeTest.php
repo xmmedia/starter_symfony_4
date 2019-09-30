@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Form;
 
 use App\Form\EnquiryType;
-use App\Tests\TypeTestCase;
+use Xm\SymfonyBundle\Tests\TypeTestCase;
 
 class EnquiryTypeTest extends TypeTestCase
 {

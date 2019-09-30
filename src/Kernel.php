@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\DependencyInjection\EventSourcingExtension;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -28,10 +27,10 @@ class Kernel extends BaseKernel
         }
     }
 
-    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
-    {
-        $container->registerExtension(new EventSourcingExtension());
-
+    protected function configureContainer(
+        ContainerBuilder $container,
+        LoaderInterface $loader
+    ): void {
         $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));
         $confDir = $this->getProjectDir().'/config';
 

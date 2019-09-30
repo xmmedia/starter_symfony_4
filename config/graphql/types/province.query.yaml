@@ -8,4 +8,4 @@ ProvinceQuery:
                 description: 'Retrieve all Provinces.'
                 public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
-                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\ProvinceResolver")'
+                resolve: '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\ProvinceResolver")'

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Model\Enquiry\Handler;
 
-use App\Infrastructure\Email\EmailGatewayInterface;
 use App\Infrastructure\Email\EmailTemplate;
-use App\Model\Email;
 use App\Model\Enquiry\Command\SendEnquiryEmail;
+use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
+use Xm\SymfonyBundle\Model\Email;
 
 class SendEnquiryEmailHandler
 {
-    /** @var EmailGatewayInterface|\App\Infrastructure\Email\EmailGateway */
+    /** @var EmailGatewayInterface|\Xm\SymfonyBundle\Infrastructure\Email\EmailGateway */
     private $emailGateway;
 
     /** @var string */
