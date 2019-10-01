@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use App\Exception\FormValidationException;
 use Overblog\GraphQLBundle\Event\ErrorFormattingEvent;
 use Overblog\GraphQLBundle\Event\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Xm\SymfonyBundle\Exception\FormValidationException;
 
 class GraphQlErrorSubscriber implements EventSubscriberInterface
 {

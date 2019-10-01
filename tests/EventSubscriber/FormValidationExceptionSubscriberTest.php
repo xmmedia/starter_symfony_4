@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\EventSubscriber;
 
 use App\EventSubscriber\FormValidationExceptionSubscriber;
-use App\Exception\FormValidationException;
 use App\Tests\BaseTestCase;
 use Exception;
 use Mockery;
@@ -13,6 +12,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\Serializer\SerializerInterface;
+use Xm\SymfonyBundle\Exception\FormValidationException;
 
 class FormValidationExceptionSubscriberTest extends BaseTestCase
 {
