@@ -89,11 +89,6 @@ module.exports = function (Encore) {
         .addPlugin(new Dotenv({
             path: './.env.local',
         }))
-
-        .addPlugin(new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            openAnalyzer: false,
-        }))
     ;
 
     if (Encore.isProduction()) {
@@ -129,6 +124,12 @@ module.exports = function (Encore) {
                 ],
             }))
 
-            .addPlugin(new LodashModuleReplacementPlugin());
+            .addPlugin(new LodashModuleReplacementPlugin())
+
+            .addPlugin(new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                openAnalyzer: false,
+            }))
+        ;
     }
 };
