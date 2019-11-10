@@ -3,6 +3,7 @@ const path = require('path');
 const glob = require('glob-all');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function resolve (dir) {
@@ -126,6 +127,8 @@ module.exports = function (Encore) {
                     /-enter/,
                     /-leave/,
                 ],
-            }));
+            }))
+
+            .addPlugin(new LodashModuleReplacementPlugin());
     }
 };
