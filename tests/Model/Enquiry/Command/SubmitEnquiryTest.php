@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Model\Enquiry\Command;
 
 use App\Model\Enquiry\Command\SubmitEnquiry;
+use App\Model\Enquiry\Name;
 use App\Tests\BaseTestCase;
 
 class SubmitEnquiryTest extends BaseTestCase
@@ -14,7 +15,7 @@ class SubmitEnquiryTest extends BaseTestCase
         $faker = $this->faker();
 
         $enquiryId = $faker->enquiryId;
-        $name = $faker->name;
+        $name = Name::fromString($faker->name);
         $email = $faker->emailVo;
         $message = $faker->asciify(str_repeat('*', 100));
 

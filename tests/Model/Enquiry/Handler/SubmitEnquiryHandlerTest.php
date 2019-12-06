@@ -8,6 +8,7 @@ use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\EnquiryList;
 use App\Model\Enquiry\Handler\SubmitEnquiryHandler;
+use App\Model\Enquiry\Name;
 use App\Tests\BaseTestCase;
 use Mockery;
 
@@ -18,7 +19,7 @@ class SubmitEnquiryHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $enquiryId = $faker->enquiryId;
-        $name = $faker->name;
+        $name = Name::fromString($faker->name);
         $email = $faker->emailVo;
         $message = $faker->asciify(str_repeat('*', 100));
 
