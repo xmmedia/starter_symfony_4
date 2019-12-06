@@ -5,7 +5,7 @@ module.exports = {
         browser: true,
         "cypress/globals": true,
     },
-    'extends': ['plugin:vue/recommended', 'eslint:recommended'],
+    extends: ['plugin:vue/recommended', 'eslint:recommended'],
     rules: {
         "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
@@ -22,7 +22,7 @@ module.exports = {
             "exports": "never",
             "functions": "only-multiline",
         }],
-        "vue/max-attributes-per-line": [3, {
+        "vue/max-attributes-per-line": ["error", {
             "singleline": 3,
             "multiline": {
                 "max": 1,
@@ -41,6 +41,12 @@ module.exports = {
                 "math": "always",
             },
         ],
+        "vue/html-closing-bracket-newline": ["error", {
+            "singleline": "never",
+            "multiline": "never"
+        }],
+        "vue/multiline-html-element-content-newline": "off",
+        "vue/singleline-html-element-content-newline": "off",
     },
     parserOptions: {
         parser: "babel-eslint",
