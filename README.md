@@ -19,7 +19,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
    1. Upload the files (exclude files that are OS dependent like `node_modules` & `.env` or that are only for editing like `.idea` and a lot of what's in `.gitignore`).
    2. [Install Composer](https://getcomposer.org/download/)
    3. Install PHP packages/vendors: `php composer.phar install`
-   4. Update `.env`.
+   4. Add `.env.local` (copy `.env` and update).
    5. Install NVM: https://github.com/creationix/nvm#install-script
    6. Run `. ./node_setup.sh` (this will setup node & install the JS packages).
    7. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
