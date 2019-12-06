@@ -21,9 +21,10 @@
 
         <template v-for="page in pagesInRange">
             <router-link v-if="page !== current"
-                         :to="pageRoute(page - 1)"
                          :key="page"
-                         :class="linkClasses" class="hidden lg:inline-block">{{ page }}</router-link>
+                         :to="pageRoute(page - 1)"
+                         :class="linkClasses"
+                         class="hidden lg:inline-block">{{ page }}</router-link>
             <span v-else
                   :key="page"
                   :class="spanClasses"
