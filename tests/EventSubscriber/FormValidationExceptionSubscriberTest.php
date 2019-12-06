@@ -10,7 +10,9 @@ use Exception;
 use Mockery;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Xm\SymfonyBundle\Exception\FormValidationException;
 
@@ -42,17 +44,16 @@ class FormValidationExceptionSubscriberTest extends BaseTestCase
 
         $subscriber = new FormValidationExceptionSubscriber($serializer);
 
-        $event = Mockery::mock(GetResponseForExceptionEvent::class);
-
-        $event->shouldReceive('getException')
-            ->once()
-            ->andReturn($exception);
-
-        $event->shouldReceive('setResponse')
-            ->once()
-            ->with(JsonResponse::class);
+        $event = new ExceptionEvent(
+            Mockery::mock(HttpKernelInterface::class),
+            Request::create(''),
+            HttpKernelInterface::MASTER_REQUEST,
+            $exception
+        );
 
         $subscriber->{$method}($event);
+
+        $this->assertInstanceOf(JsonResponse::class, $event->getResponse());
     }
 
     public function testOnKernelExceptionOtherException(): void
@@ -64,14 +65,15 @@ class FormValidationExceptionSubscriberTest extends BaseTestCase
 
         $subscriber = new FormValidationExceptionSubscriber($serializer);
 
-        $event = Mockery::mock(GetResponseForExceptionEvent::class);
-
-        $exception = new Exception();
-
-        $event->shouldReceive('getException')
-            ->once()
-            ->andReturn($exception);
+        $event = new ExceptionEvent(
+            Mockery::mock(HttpKernelInterface::class),
+            Request::create(''),
+            HttpKernelInterface::MASTER_REQUEST,
+            new Exception()
+        );
 
         $subscriber->{$method}($event);
+
+        $this->assertNull($event->getResponse());
     }
 }

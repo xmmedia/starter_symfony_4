@@ -8,7 +8,7 @@ use Overblog\GraphQLBundle\Event\ErrorFormattingEvent;
 use Overblog\GraphQLBundle\Event\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -38,10 +38,10 @@ class FormValidationExceptionSubscriber implements EventSubscriberInterface
      *
      * @see \FOS\RestBundle\Serializer\Normalizer\FormErrorNormalizer
      */
-    public function onKernelException(GetResponseForExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
         /** @var FormValidationException $exception */
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
         if ($exception instanceof FormValidationException) {
             $json = $this->serializer
