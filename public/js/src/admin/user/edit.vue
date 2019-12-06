@@ -40,8 +40,7 @@
                     <button v-if="verified"
                             class="button-link form-action"
                             type="button"
-                            @click="toggleActive"
-                            v-html="activeButtonText"></button>
+                            @click="toggleActive">{{ activeButtonText }}</button>
                     <button v-else
                             class="button-link form-action"
                             type="button"

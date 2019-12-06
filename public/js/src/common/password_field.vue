@@ -1,6 +1,6 @@
 <template>
     <div class="field-wrap">
-        <label :for="id" v-html="label"></label>
+        <label :for="id">{{ label }}</label>
         <field-errors :errors="serverValidationErrors" />
         <slot name="errors"></slot>
 
