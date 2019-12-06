@@ -67,14 +67,11 @@ export default new Vuex.Store({
                 const roles = state.roleHierarchy[main];
                 map[main] = new Set([...roles]);
                 map[main].add(main);
-                let visited = [];
 
                 roles.forEach((role) => {
                     if (!Object.prototype.hasOwnProperty.call(map, role)) {
                         return;
                     }
-
-                    visited.push(role);
 
                     state.roleHierarchy[role].forEach((roleToAdd) => {
                         map[main].add(roleToAdd);
