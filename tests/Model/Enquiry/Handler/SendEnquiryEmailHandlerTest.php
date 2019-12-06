@@ -17,18 +17,20 @@ class SendEnquiryEmailHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
+        $templateIdOrAlias = $faker->string(15);
         $adminEmail = $faker->email;
 
         $command = SendEnquiryEmail::with(
             $faker->name,
             $faker->emailVo,
-            $faker->asciify(str_repeat('*', 25))
+            $faker->string(25)
         );
 
         $emailGateway = Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
             ->once()
-            ->withArgs(function ($templateId, $email, $payload) use ($adminEmail): bool {
+            ->withArgs(function ($template, $email, $payload) use ($templateIdOrAlias, $adminEmail): bool {
+                $this->assertSame($templateIdOrAlias, $template);
                 $this->assertEquals($adminEmail, $email->toString());
 
                 return true;
@@ -38,6 +40,7 @@ class SendEnquiryEmailHandlerTest extends BaseTestCase
 
         (new SendEnquiryEmailHandler(
             $emailGateway,
+            $templateIdOrAlias,
             $adminEmail
         ))(
             $command
