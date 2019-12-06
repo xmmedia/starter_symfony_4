@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee2559d1e37b2cd86e5f34f61050dd3d",
+    "content-hash": "4d61d1db430e77a0ffb1220999416486",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3594,16 +3594,16 @@
         },
         {
             "name": "prooph/event-store-symfony-bundle",
-            "version": "v0.6.0",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prooph/event-store-symfony-bundle.git",
-                "reference": "bf93ffa0997fc130567bbfe8a07de560f6e0b332"
+                "reference": "46ea0a534d953d058c399dee48e6a94901146133"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prooph/event-store-symfony-bundle/zipball/bf93ffa0997fc130567bbfe8a07de560f6e0b332",
-                "reference": "bf93ffa0997fc130567bbfe8a07de560f6e0b332",
+                "url": "https://api.github.com/repos/prooph/event-store-symfony-bundle/zipball/46ea0a534d953d058c399dee48e6a94901146133",
+                "reference": "46ea0a534d953d058c399dee48e6a94901146133",
                 "shasum": ""
             },
             "require": {
@@ -3625,6 +3625,7 @@
                 "prooph/pdo-event-store": "^1.0",
                 "prooph/php-cs-fixer-config": "^0.2.1",
                 "prooph/snapshot-store": "^1.0",
+                "symfony/messenger": "^4.3",
                 "symfony/yaml": "^3.3 || ^4.0"
             },
             "suggest": {
@@ -3648,25 +3649,24 @@
             ],
             "authors": [
                 {
+                    "name": "Alexander Miertsch",
+                    "email": "kontakt@codeliner.ws"
+                },
+                {
                     "name": "Sascha-Oliver Prolic",
                     "email": "saschaprolic@googlemail.com"
                 },
                 {
-                    "name": "Alexander Miertsch",
-                    "email": "contact@prooph.de",
-                    "homepage": "http://www.prooph.de"
-                },
-                {
-                    "name": "Oskar Pfeifer-Bley",
-                    "email": "oskar@programming-php.net"
+                    "name": "Malte Blättermann",
+                    "email": "malte.blaettermann@googlemail.com"
                 },
                 {
                     "name": "Ralf Junghanns",
                     "email": "ralf.junghanns@gmail.com"
                 },
                 {
-                    "name": "Malte Blättermann",
-                    "email": "malte.blaettermann@googlemail.com"
+                    "name": "Oskar Pfeifer-Bley",
+                    "email": "oskar@programming-php.net"
                 }
             ],
             "homepage": "http://getprooph.org/",
@@ -3679,7 +3679,7 @@
                 "prooph",
                 "symfony"
             ],
-            "time": "2019-05-22T09:13:39+00:00"
+            "time": "2019-10-07T22:18:04+00:00"
         },
         {
             "name": "prooph/pdo-event-store",

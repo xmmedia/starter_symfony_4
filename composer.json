@@ -25,7 +25,7 @@
         "php-http/httplug": "^2.0",
         "php-http/message": "^1.7",
         "prooph/event-store-bus-bridge": "^3.3",
-        "prooph/event-store-symfony-bundle": "^0.6.0",
+        "prooph/event-store-symfony-bundle": "^0.7.0",
         "prooph/pdo-event-store": "^1.10",
         "ramsey/uuid": "^3.8",
         "ramsey/uuid-doctrine": "^1.5",
