@@ -42,12 +42,14 @@ class SendEnquiryMutation implements MutationInterface
             throw FormValidationException::fromForm($form, 'enquiry');
         }
 
-        $this->commandBus->dispatch(SubmitEnquiry::with(
-            EnquiryId::fromUuid(Uuid::uuid4()),
-            $form->getData()['name'],
-            Email::fromString($form->getData()['email']),
-            $form->getData()['message']
-        ));
+        $this->commandBus->dispatch(
+            SubmitEnquiry::with(
+                EnquiryId::fromUuid(Uuid::uuid4()),
+                $form->getData()['name'],
+                Email::fromString($form->getData()['email']),
+                $form->getData()['message']
+            )
+        );
 
         return [
             'success' => true,
