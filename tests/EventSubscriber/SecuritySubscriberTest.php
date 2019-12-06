@@ -7,7 +7,6 @@ namespace App\Tests\EventSubscriber;
 use App\EventSubscriber\SecuritySubscriber;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Nelmio\Alice\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Messenger\Envelope;
@@ -30,8 +29,14 @@ class SecuritySubscriberTest extends BaseTestCase
     {
         $subscribed = SecuritySubscriber::getSubscribedEvents();
 
-        $this->assertArrayHasKey(SecurityEvents::INTERACTIVE_LOGIN, $subscribed);
-        $this->assertArrayHasKey(AuthenticationEvents::AUTHENTICATION_FAILURE, $subscribed);
+        $this->assertArrayHasKey(
+            SecurityEvents::INTERACTIVE_LOGIN,
+            $subscribed
+        );
+        $this->assertArrayHasKey(
+            AuthenticationEvents::AUTHENTICATION_FAILURE,
+            $subscribed
+        );
     }
 
     public function testSuccessfulLogin(): void
@@ -45,10 +50,16 @@ class SecuritySubscriberTest extends BaseTestCase
             ->with(Mockery::type(UserLoggedInSuccessfully::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $request = Mockery::mock(Request::class);
-        $request->headers = new ParameterBag(['User-Agent' => $faker->userAgent]);
-        $request->shouldReceive('getClientIp')
-            ->andReturn($faker->ipv4);
+        $request = Request::create(
+            '',
+            'GET',
+            [],
+            [],
+            [],
+            [
+                'REMOTE_ADDR' => $faker->ipv4,
+            ]
+        );
         $requestStack = Mockery::mock(RequestStack::class);
 
         $user = Mockery::mock(User::class);
@@ -79,10 +90,17 @@ class SecuritySubscriberTest extends BaseTestCase
             ->with(Mockery::type(UserLoginFailed::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $request = Mockery::mock(Request::class);
-        $request->headers = new ParameterBag(['User-Agent' => $faker->userAgent]);
-        $request->shouldReceive('getClientIp')
-            ->andReturn($faker->ipv4);
+        $request = Request::create(
+            '',
+            'GET',
+            [],
+            [],
+            [],
+            [
+                'REMOTE_ADDR'     => $faker->ipv4,
+                'HTTP_USER_AGENT' => $faker->userAgent,
+            ]
+        );
         $requestStack = Mockery::mock(RequestStack::class);
         $requestStack->shouldReceive('getCurrentRequest')
             ->andReturn($request);
@@ -97,9 +115,10 @@ class SecuritySubscriberTest extends BaseTestCase
         $token->shouldReceive('getCredentials')
             ->andReturn(Credentials::build($faker->email, $faker->password));
 
-        $exception = Mockery::mock(AuthenticationException::class);
-
-        $event = new AuthenticationFailureEvent($token, $exception);
+        $event = new AuthenticationFailureEvent(
+            $token,
+            new AuthenticationException()
+        );
 
         $listener = new SecuritySubscriber($commandBus, $requestStack);
 

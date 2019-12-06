@@ -7,10 +7,8 @@ namespace App\Tests\EventSubscriber;
 use App\EventSubscriber\CsrfValidationSubscriber;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -221,39 +219,16 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
         $method = $subscribed[KernelEvents::RESPONSE][0];
 
-        $response = Mockery::mock(Response::class);
-        $response->headers = Mockery::mock(ResponseHeaderBag::class);
-        $response->headers->shouldReceive('setCookie')
-            ->once()
-            ->withArgs(function ($args): bool {
-                if (!$args instanceof Cookie) {
-                    return false;
-                }
+        $kernel = Mockery::mock(HttpKernelInterface::class);
+        $request = Request::create('/', 'POST');
+        $response = Response::create();
 
-                if ('CSRF-TOKEN' !== $args->getName()) {
-                    return false;
-                }
-
-                if ('token' !== $args->getValue()) {
-                    return false;
-                }
-
-                if (0 !== $args->getExpiresTime()) {
-                    return false;
-                }
-
-                if (!$args->isSecure()) {
-                    return false;
-                }
-
-                return true;
-            });
-
-        $event = Mockery::mock(ResponseEvent::class);
-        $event->shouldReceive('getResponse')
-            ->atLeast()
-            ->once()
-            ->andReturn($response);
+        $event = new ResponseEvent(
+            $kernel,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            $response
+        );
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
         $tokenManager->shouldReceive('getToken')
@@ -263,5 +238,13 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         $subscriber = new CsrfValidationSubscriber($tokenManager);
 
         $subscriber->{$method}($event);
+
+        $cookies = $response->headers->getCookies();
+        $this->assertCount(1, $cookies);
+
+        $this->assertSame('CSRF-TOKEN', $cookies[0]->getName());
+        $this->assertSame('token', $cookies[0]->getValue());
+        $this->assertSame(0, $cookies[0]->getExpiresTime());
+        $this->assertTrue($cookies[0]->isSecure());
     }
 }
