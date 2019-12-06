@@ -70,7 +70,7 @@ export default new Vuex.Store({
                 let visited = [];
 
                 roles.forEach((role) => {
-                    if (!map.hasOwnProperty(role)) {
+                    if (!Object.prototype.hasOwnProperty.call(map, role)) {
                         return;
                     }
 
