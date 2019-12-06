@@ -6,21 +6,23 @@ namespace App\Model\Enquiry\Command;
 
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\EnquiryId;
+use App\Model\Enquiry\Name;
 use Webmozart\Assert\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 use Xm\SymfonyBundle\Model\Email;
+use Xm\SymfonyBundle\Util\Utils;
 
 final class SubmitEnquiry extends Command
 {
     public static function with(
         EnquiryId $enquiryId,
-        string $name,
+        Name $name,
         Email $email,
         string $message
     ): self {
         return new self([
             'enquiryId' => $enquiryId->toString(),
-            'name'      => $name,
+            'name'      => $name->toString(),
             'email'     => $email->toString(),
             'message'   => $message,
         ]);
@@ -52,18 +54,12 @@ final class SubmitEnquiry extends Command
         Assert::uuid($payload['enquiryId']);
 
         Assert::keyExists($payload, 'name');
-        Assert::notEmpty($payload['name']);
         Assert::string($payload['name']);
-        Assert::minLength($payload['name'], Enquiry::NAME_MIN_LENGTH);
-        Assert::maxLength($payload['name'], Enquiry::NAME_MAX_LENGTH);
 
         Assert::keyExists($payload, 'email');
 
         Assert::keyExists($payload, 'message');
-        Assert::notEmpty($payload['message']);
         Assert::string($payload['message']);
-        Assert::minLength($payload['message'], Enquiry::MESSAGE_MIN_LENGTH);
-        Assert::maxLength($payload['message'], Enquiry::MESSAGE_MAX_LENGTH);
 
         parent::setPayload($payload);
     }

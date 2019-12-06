@@ -8,13 +8,12 @@ use Xm\SymfonyBundle\EventSourcing\Aggregate\AggregateRoot;
 use Xm\SymfonyBundle\EventSourcing\AppliesAggregateChanged;
 use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Model\Entity;
+use Xm\SymfonyBundle\Util\Assert;
 
 class Enquiry extends AggregateRoot implements Entity
 {
     use AppliesAggregateChanged;
 
-    public const NAME_MIN_LENGTH = 3;
-    public const NAME_MAX_LENGTH = 50;
     public const MESSAGE_MIN_LENGTH = 10;
     public const MESSAGE_MAX_LENGTH = 5000;
 
@@ -27,6 +26,9 @@ class Enquiry extends AggregateRoot implements Entity
         Email $email,
         string $message
     ): self {
+        Assert::minLength($message, self::MESSAGE_MIN_LENGTH);
+        Assert::maxLength($message, self::MESSAGE_MAX_LENGTH);
+
         $self = new self();
         $self->recordThat(
             Event\EnquiryWasSubmitted::now($enquiryId, $name, $email, $message)
