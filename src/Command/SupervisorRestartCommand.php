@@ -91,28 +91,18 @@ final class SupervisorRestartCommand extends Command
         $projection = $input->getArgument('projection');
 
         if (empty($projection)) {
-            throw new \InvalidArgumentException(
-                'A projection name is required or --all.'
-            );
+            throw new \InvalidArgumentException('A projection name is required or --all.');
         }
         if (!\in_array($projection, $projections)) {
             // try again after adding "_projection"
             $projection = $projection.'_projection';
 
             if (!\in_array($projection, $projections)) {
-                throw new \InvalidArgumentException(
-                    sprintf(
-                        'The projection "%s" cannot be found. Available projections are: %s',
-                        $projection,
-                        implode(', ', $projections)
-                    )
-                );
+                throw new \InvalidArgumentException(sprintf('The projection "%s" cannot be found. Available projections are: %s', $projection, implode(', ', $projections)));
             }
         }
         if (\in_array($projection, Supervisord::$notInSupervisor)) {
-            throw new \InvalidArgumentException(
-                sprintf('The projection "%s" is not run by Supervisor.', $projection)
-            );
+            throw new \InvalidArgumentException(sprintf('The projection "%s" is not run by Supervisor.', $projection));
         }
 
         $io->text(sprintf('Restarting projection "%s"', $projection));
