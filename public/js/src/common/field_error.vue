@@ -1,5 +1,8 @@
 <template>
-    <ul v-if="hasErrors" class="field-errors" role="alert" aria-live="polite">
+    <ul v-if="hasErrors"
+        class="field-errors"
+        role="alert"
+        aria-live="polite">
         <li><slot></slot></li>
     </ul>
 </template>

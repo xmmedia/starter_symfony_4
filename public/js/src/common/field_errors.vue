@@ -1,5 +1,8 @@
 <template>
-    <ul v-if="hasErrors" class="field-errors" role="alert" aria-live="polite">
+    <ul v-if="hasErrors"
+        class="field-errors"
+        role="alert"
+        aria-live="polite">
         <li v-for="(error, i) in flatErrors" :key="i">{{ error }}</li>
     </ul>
 </template>

@@ -6,7 +6,10 @@
             </svg>
             <span class="leading-none">{{ label }}</span>
         </span>
-        <svg v-if="hasSubnav" class="w-3 h-3" width="12" height="12">
+        <svg v-if="hasSubnav"
+             class="w-3 h-3"
+             width="12"
+             height="12">
             <use xlink:href="#gt"></use>
         </svg>
     </span>
