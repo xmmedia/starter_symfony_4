@@ -110,24 +110,8 @@ services:
             $projectionReadModelLocator: '@prooph_event_store.projection_read_models_locator'
 
     # @todo-symfony delete if not using
-    App\Command\SupervisorWriteConfigCommand:
-        arguments:
-            $kernelEnv: '%kernel.environment%'
-            $kernelProjectDir: '%kernel.project_dir%'
-            $logDir: '%kernel.logs_dir%'
-            $supervisordProgramPrefix: '%env(SUPERVISORD_PROGRAM_PREFIX)%'
-
-    # @todo-symfony delete if not using
     Xm\SymfonyBundle\Infrastructure\Service\Cloudflare:
         arguments:
             $cloudflareZone: '%env(CLOUDFLARE_ZONE)%'
             $cloudflareUsername: '%env(CLOUDFLARE_USERNAME)%'
             $cloudflareApiKey: '%env(CLOUDFLARE_API_KEY)%'
-
-    # @todo-symfony delete if not using
-    App\Infrastructure\Service\Supervisord:
-        arguments:
-            $supervisordAddress: '%env(SUPERVISORD_ADDRESS)%'
-            $supervisordUsername: '%env(SUPERVISORD_USERNAME)%'
-            $supervisordPassword: '%env(SUPERVISORD_PASSWORD)%'
-            $supervisordProgramPrefix: '%env(SUPERVISORD_PROGRAM_PREFIX)%'
