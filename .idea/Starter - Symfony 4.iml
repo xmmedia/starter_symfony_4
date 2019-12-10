@@ -10,9 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/beberlei/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bin/.phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cloudflare/sdk" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/clue/stream-filter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/container-interop/container-interop" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/collections" />
@@ -20,7 +18,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/data-fixtures" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-cache-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/event-manager" />
@@ -46,7 +43,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-components" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-paginator-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/liip/functional-test-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/lstrojny/fxmlrpc" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/marc-mabe/php-enum" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/misd/phone-number-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mockery/mockery" />
@@ -64,12 +60,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/version" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-cs-fixer/diff" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/discovery" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/guzzle6-adapter" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/httplug" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/message" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/message-factory" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/promise" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
@@ -94,8 +84,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/prooph/service-bus" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-client" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-factory" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/link" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
@@ -116,7 +104,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sensio/framework-extra-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sensiolabs/security-checker" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/supervisorphp/supervisor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/apache-pack" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/asset" />
@@ -197,18 +184,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/willdurand/negotiation" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/xm/symfony-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-code" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-diactoros" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-escaper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-eventmanager" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-http" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-loader" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-math" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-server" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-stdlib" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-uri" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-validator" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-xmlrpc" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zendxml" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
