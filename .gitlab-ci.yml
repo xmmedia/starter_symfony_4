@@ -26,7 +26,7 @@ before_script:
   #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
   # Taken from here: https://gist.github.com/kwk/55bb5b6a4b7457bef38d
-  # This forces dpkg not to call sync() after package extraction and speeds up install
+  # This forces dpkg to not call sync() after package extraction and speeds up install
   - echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
   # We don't need and apt cache in a container or recommendations
   - echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
