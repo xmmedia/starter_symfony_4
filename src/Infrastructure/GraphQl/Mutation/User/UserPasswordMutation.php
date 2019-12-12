@@ -6,21 +6,21 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Model\User\Command\ChangePassword;
 use App\Security\PasswordEncoder;
+use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
-use Xm\SymfonyBundle\Exception\FormValidationException;
-use Xm\SymfonyBundle\Form\User\UserChangePasswordType;
+use Xm\SymfonyBundle\Util\StringUtil;
 
 class UserPasswordMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;
 
-    /** @var FormFactoryInterface */
-    private $formFactory;
+    /** @var UserPasswordEncoderInterface */
+    private $userPasswordEncoder;
 
     /** @var PasswordEncoder */
     private $passwordEncoder;
@@ -30,46 +30,62 @@ class UserPasswordMutation implements MutationInterface
 
     public function __construct(
         MessageBusInterface $commandBus,
-        FormFactoryInterface $formFactory,
+        UserPasswordEncoderInterface $userPasswordEncoder,
         PasswordEncoder $passwordEncoder,
         Security $security
     ) {
         $this->commandBus = $commandBus;
-        $this->formFactory = $formFactory;
+        $this->userPasswordEncoder = $userPasswordEncoder;
         $this->passwordEncoder = $passwordEncoder;
         $this->security = $security;
     }
 
     public function __invoke(Argument $args): array
     {
-        $form = $this->formFactory
-            ->create(UserChangePasswordType::class)
-            ->submit([
-                'currentPassword' => $args['user']['currentPassword'],
-                'newPassword'     => [
-                    'first'  => $args['user']['newPassword'],
-                    'second' => $args['user']['repeatPassword'],
-                ],
-            ]);
+        $user = $this->security->getUser();
 
-        if (!$form->isValid()) {
-            throw FormValidationException::fromForm($form, 'user');
-        }
+        $currentPassword = $args['user']['currentPassword'];
+        $newPassword = $args['user']['newPassword'];
+
+        // check current password
+        Assert::notEmpty(
+            // trim to check for empty, but keep for check
+            StringUtil::trim($currentPassword),
+            'Current password cannot be empty.'
+        );
+        Assert::true(
+            $this->userPasswordEncoder->isPasswordValid($user, $currentPassword),
+            'Current password does not match.'
+        );
+
+        // check new password
+        // trim to check for empty, but don't trim for storage
+        Assert::notEmpty(
+            StringUtil::trim($newPassword),
+            'The new password is empty.'
+        );
+        Assert::passwordLength(StringUtil::trim($newPassword));
+        Assert::same(
+            $newPassword,
+            $args['user']['repeatPassword'],
+            'The new passwords should match.'
+        );
+        Assert::compromisedPassword($newPassword);
 
         $encodedPassword = ($this->passwordEncoder)(
-            $this->security->getUser()->firstRole(),
-            $form->getData()['newPassword']
+            $user->firstRole(),
+            $newPassword
         );
 
         $this->commandBus->dispatch(
             ChangePassword::forUser(
-                $this->security->getUser()->userId(),
+                $user->userId(),
                 $encodedPassword
             )
         );
 
         return [
-            'userId' => $this->security->getUser()->userId(),
+            'success' => true,
         ];
     }
 }

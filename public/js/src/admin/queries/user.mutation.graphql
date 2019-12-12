@@ -18,12 +18,12 @@ mutation UserVerify($token: String!, $newPassword: String!, $repeatPassword: Str
 
 mutation UserUpdateProfile($user: UserUpdateProfileInput!) {
     UserUpdateProfile(user: $user) {
-        userId
+        success
     }
 }
 
 mutation ChangePassword($user: UserPasswordInput!) {
     ChangePassword(user: $user) {
-        userId
+        success
     }
 }

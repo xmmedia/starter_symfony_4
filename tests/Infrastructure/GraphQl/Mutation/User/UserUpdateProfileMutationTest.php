@@ -38,25 +38,9 @@ class UserUpdateProfileMutationTest extends BaseTestCase
             ->with(Mockery::type(UpdateUserProfile::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnTrue();
-        $form->shouldReceive('getData')
-            ->andReturn($data);
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(UserProfileType::class)
-            ->andReturn($form);
-
         $user = Mockery::mock(UserInterface::class);
         $user->shouldReceive('userId')
-            ->atLeast()
-            ->times(2)
+            ->once()
             ->andReturn($userId);
         $security = $this->createSecurity($user);
 
@@ -64,49 +48,8 @@ class UserUpdateProfileMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $result = (new UserUpdateProfileMutation(
-            $commandBus,
-            $formFactory,
-            $security
-        ))($args);
+        $result = (new UserUpdateProfileMutation($commandBus, $security))($args);
 
-        $expected = [
-            'userId' => $userId->toString(),
-        ];
-
-        $this->assertEquals($expected, $result);
-    }
-
-    public function testInvalid(): void
-    {
-        $commandBus = Mockery::mock(MessageBusInterface::class);
-
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnFalse();
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(UserProfileType::class)
-            ->andReturn($form);
-
-        $user = Mockery::mock(UserInterface::class);
-        $security = $this->createSecurity($user);
-
-        $args = new Argument([
-            'user' => [],
-        ]);
-
-        $this->expectException(FormValidationException::class);
-
-        (new UserUpdateProfileMutation(
-            $commandBus,
-            $formFactory,
-            $security
-        ))($args);
+        $this->assertEquals(['success' => true], $result);
     }
 }

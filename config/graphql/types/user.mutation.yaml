@@ -182,8 +182,8 @@ UserMutationPayload:
     config:
         description: 'User mutation payload.'
         fields:
-            userId:
-                type: UUID!
+            success:
+                type: Boolean!
 
 UserResultPayload:
     type: object

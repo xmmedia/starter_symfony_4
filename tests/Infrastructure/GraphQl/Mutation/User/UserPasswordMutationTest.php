@@ -7,17 +7,16 @@ namespace App\Tests\Infrastructure\GraphQl\Mutation\User;
 use App\Infrastructure\GraphQl\Mutation\User\UserPasswordMutation;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Role;
+use App\Model\User\User;
 use App\Security\PasswordEncoder;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Xm\SymfonyBundle\Exception\FormValidationException;
-use Xm\SymfonyBundle\Form\User\UserChangePasswordType;
 use Xm\SymfonyBundle\Tests\CanCreateSecurityTrait;
 
 class UserPasswordMutationTest extends BaseTestCase
@@ -28,10 +27,11 @@ class UserPasswordMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $userId = $faker->userId;
+        $newPassword = $faker->password;
         $data = [
             'currentPassword' => $faker->password,
-            'newPassword'     => $faker->password,
-            'repeatPassword'  => $faker->password,
+            'newPassword'     => $newPassword,
+            'repeatPassword'  => $newPassword,
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -40,20 +40,9 @@ class UserPasswordMutationTest extends BaseTestCase
             ->with(Mockery::type(ChangePassword::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
+        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordEncoder->shouldReceive('isPasswordValid')
             ->andReturnTrue();
-        $form->shouldReceive('getData')
-            ->andReturn($data);
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(UserChangePasswordType::class)
-            ->andReturn($form);
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
         $passwordEncoder->shouldReceive('__invoke')
@@ -62,8 +51,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $user = Mockery::mock(UserInterface::class);
         $user->shouldReceive('userId')
-            ->atLeast()
-            ->times(2)
+            ->once()
             ->andReturn($userId);
         $user->shouldReceive('firstRole')
             ->once()
@@ -76,41 +64,30 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $result = (new UserPasswordMutation(
             $commandBus,
-            $formFactory,
+            $userPasswordEncoder,
             $passwordEncoder,
             $security
         ))($args);
 
-        $expected = [
-            'userId' => $userId->toString(),
-        ];
-
-        $this->assertEquals($expected, $result);
+        $this->assertEquals(['success' => true], $result);
     }
 
-    public function testInvalid(): void
+    /**
+     * @dataProvider emptyProvider
+     */
+    public function testInvalidCurrentEmpty(?string $empty): void
     {
         $faker = $this->faker();
+        $newPassword = $faker->password;
         $data = [
-            'currentPassword' => $faker->password,
-            'newPassword'     => $faker->password,
-            'repeatPassword'  => $faker->password,
+            'currentPassword' => $empty,
+            'newPassword'     => $newPassword,
+            'repeatPassword'  => $newPassword,
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnFalse();
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(UserChangePasswordType::class)
-            ->andReturn($form);
+        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
@@ -121,13 +98,230 @@ class UserPasswordMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $this->expectException(FormValidationException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         (new UserPasswordMutation(
             $commandBus,
-            $formFactory,
+            $userPasswordEncoder,
             $passwordEncoder,
             $security
         ))($args);
+    }
+
+    public function testInvalidCurrentPassword(): void
+    {
+        $faker = $this->faker();
+        $newPassword = $faker->password;
+        $data = [
+            'currentPassword' => $faker->password,
+            'newPassword'     => $newPassword,
+            'repeatPassword'  => $newPassword,
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnFalse();
+
+        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+
+        $user = Mockery::mock(UserInterface::class);
+        $security = $this->createSecurity($user);
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        (new UserPasswordMutation(
+            $commandBus,
+            $userPasswordEncoder,
+            $passwordEncoder,
+            $security
+        ))($args);
+    }
+
+    /**
+     * @dataProvider emptyProvider
+     */
+    public function testInvalidNewEmpty(?string $empty): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'currentPassword' => $faker->password,
+            'newPassword'     => $empty,
+            'repeatPassword'  => $empty,
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnTrue();
+
+        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+
+        $user = Mockery::mock(UserInterface::class);
+        $security = $this->createSecurity($user);
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        (new UserPasswordMutation(
+            $commandBus,
+            $userPasswordEncoder,
+            $passwordEncoder,
+            $security
+        ))($args);
+    }
+
+    public function testInvalidNewTooShort(): void
+    {
+        $faker = $this->faker();
+        $newPassword = $faker->string(User::PASSWORD_MIN_LENGTH - 1);
+        $data = [
+            'currentPassword' => $faker->password,
+            'newPassword'     => $newPassword,
+            'repeatPassword'  => $newPassword,
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnTrue();
+
+        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+
+        $user = Mockery::mock(UserInterface::class);
+        $security = $this->createSecurity($user);
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        (new UserPasswordMutation(
+            $commandBus,
+            $userPasswordEncoder,
+            $passwordEncoder,
+            $security
+        ))($args);
+    }
+
+    public function testInvalidNewTooLong(): void
+    {
+        $faker = $this->faker();
+        $newPassword = $faker->string(BasePasswordEncoder::MAX_PASSWORD_LENGTH + 1);
+        $data = [
+            'currentPassword' => $faker->password,
+            'newPassword'     => $newPassword,
+            'repeatPassword'  => $newPassword,
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnTrue();
+
+        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+
+        $user = Mockery::mock(UserInterface::class);
+        $security = $this->createSecurity($user);
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        (new UserPasswordMutation(
+            $commandBus,
+            $userPasswordEncoder,
+            $passwordEncoder,
+            $security
+        ))($args);
+    }
+
+    public function testInvalidNewNotSame(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'currentPassword' => $faker->password,
+            'newPassword'     => $faker->password,
+            'repeatPassword'  => $faker->password,
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnTrue();
+
+        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+
+        $user = Mockery::mock(UserInterface::class);
+        $security = $this->createSecurity($user);
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        (new UserPasswordMutation(
+            $commandBus,
+            $userPasswordEncoder,
+            $passwordEncoder,
+            $security
+        ))($args);
+    }
+
+    public function testInvalidNewCompromised(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'currentPassword' => $faker->password,
+            'newPassword'     => '123456',
+            'repeatPassword'  => '123456',
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnTrue();
+
+        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+
+        $user = Mockery::mock(UserInterface::class);
+        $security = $this->createSecurity($user);
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        (new UserPasswordMutation(
+            $commandBus,
+            $userPasswordEncoder,
+            $passwordEncoder,
+            $security
+        ))($args);
+    }
+
+    public function emptyProvider(): \Generator
+    {
+        yield [''];
+        yield ['   '];
+        yield [null];
     }
 }
