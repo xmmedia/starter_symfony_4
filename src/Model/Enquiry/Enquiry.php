@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model\Enquiry;
 
+use App\Util\Assert;
 use Xm\SymfonyBundle\EventSourcing\Aggregate\AggregateRoot;
 use Xm\SymfonyBundle\EventSourcing\AppliesAggregateChanged;
 use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Model\Entity;
-use Xm\SymfonyBundle\Util\Assert;
 
 class Enquiry extends AggregateRoot implements Entity
 {

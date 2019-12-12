@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Security;
 
+use App\Entity\User;
+use App\Model\User\Credentials;
 use App\Security\AppAuthenticator;
 use App\Tests\BaseTestCase;
 use Mockery;
@@ -16,8 +18,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Security;
-use Xm\SymfonyBundle\Entity\User;
-use Xm\SymfonyBundle\Model\User\Credentials;
 
 class AppAuthenticatorTest extends BaseTestCase
 {

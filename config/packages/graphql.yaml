@@ -13,3 +13,12 @@ overblog_graphql:
 
     security:
         enable_introspection: '%kernel.debug%'
+
+services:
+    Xm\SymfonyBundle\Infrastructure\GraphQl\Type\:
+        resource: '../vendor/xm/symfony-bundle/Infrastructure/GraphQl/Type/*Type.php'
+        tags: [ 'overblog_graphql.type' ]
+
+    Xm\SymfonyBundle\Infrastructure\GraphQl\Resolver\:
+        resource: '../vendor/xm/symfony-bundle/Infrastructure/GraphQl/Resolver/*/*Resolver.php'
+        tags: [ 'overblog_graphql.resolver' ]

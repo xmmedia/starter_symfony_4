@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Model\User;
 
+use Xm\SymfonyBundle\Model\Enum;
+
 /**
  * Also in Vuex & security.yaml.
  *
@@ -11,6 +13,9 @@ namespace App\Model\User;
  * @method static Role ROLE_ADMIN();
  * @method static Role ROLE_SUPER_ADMIN();
  */
-class Role extends \Xm\SymfonyBundle\Model\User\Role
+class Role extends Enum
 {
+    public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 }

@@ -21,7 +21,7 @@ class RunProjectionMiddleware implements MiddlewareInterface
      * @var array
      */
     private $namespaceToProjection = [
-        'Xm\SymfonyBundle\Model\User\Event' => [
+        'App\Model\User\Event' => [
             'user_projection',
             'user_token_projection',
         ],

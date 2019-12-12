@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use App\Model\Auth\AuthId;
+use App\Model\Auth\Command\UserLoggedInSuccessfully;
+use App\Model\Auth\Command\UserLoginFailed;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -12,9 +15,6 @@ use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
-use Xm\SymfonyBundle\Model\Auth\AuthId;
-use Xm\SymfonyBundle\Model\Auth\Command\UserLoggedInSuccessfully;
-use Xm\SymfonyBundle\Model\Auth\Command\UserLoginFailed;
 
 class SecuritySubscriber implements EventSubscriberInterface
 {

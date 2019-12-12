@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Model\Enquiry;
 
+use App\Util\Assert;
 use Xm\SymfonyBundle\Model\ValueObject;
-use Xm\SymfonyBundle\Util\Assert;
 use Xm\SymfonyBundle\Util\StringUtil;
 
 class Name implements ValueObject, \JsonSerializable

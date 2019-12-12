@@ -62,23 +62,17 @@ services:
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.events' }
 
-    command_handlers:
-        namespace: App\Model\
+    App\Model\:
         resource: '../src/Model/*/Handler/*Handler.php'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
-    command_handlers_xm:
-        namespace: Xm\SymfonyBundle\Model\
-        resource: '../vendor/xm/symfony-bundle/Model/{Auth,User}/Handler/*Handler.php'
-        tags:
-            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
-    Xm\SymfonyBundle\Model\User\Handler\SendActivationHandler:
+    App\Model\User\Handler\SendActivationHandler:
         arguments:
             $templateIdOrAlias: '%email.template.auth.user_invite%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
-    Xm\SymfonyBundle\Model\User\Handler\InitiatePasswordRecoveryHandler:
+    App\Model\User\Handler\InitiatePasswordRecoveryHandler:
         arguments:
             $templateIdOrAlias: '%email.template.auth.password_reset%'
         tags:
@@ -88,6 +82,11 @@ services:
             $templateIdOrAlias: '%email.template.enquiry_received%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+
+    App\Model\User\Service\ChecksUniqueUsersEmail: '@App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel'
+
+    Xm\SymfonyBundle\EventStore\EventStoreMessengerPlugin:
+        tags: [ 'prooph_event_store.plugin' ]
 
     Xm\SymfonyBundle\Infrastructure\Email\EmailGateway:
         arguments:

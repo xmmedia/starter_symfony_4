@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\ProcessManager;
 
+use App\Model\Auth\Event\UserLoggedIn;
+use App\Model\User\Command\UserLoggedIn as UserLoggedInCommand;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xm\SymfonyBundle\Model\Auth\Event\UserLoggedIn;
-use Xm\SymfonyBundle\Model\User\Command\UserLoggedIn as UserLoggedInCommand;
 
 class UserLoggedInProcessManager
 {

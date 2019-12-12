@@ -8,7 +8,7 @@ UserMutation:
                 description: 'Update User profile.'
                 public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\UserUpdateProfileMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserUpdateProfileMutation", [args])'
                 args:
                     user: UserUpdateProfileInput!
 
@@ -17,21 +17,21 @@ UserMutation:
                 description: 'Change User password.'
                 public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\UserPasswordMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserPasswordMutation", [args])'
                 args:
                     user: UserPasswordInput!
 
             UserRecoverInitiate:
                 type: UserResultPayload!
                 description: 'Initiate User account recovery.'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverInitiateMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverInitiateMutation", [args])'
                 args:
                     email: String!
 
             UserRecoverReset:
                 type: UserResultPayload!
                 description: 'Set User password with User token.'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", [args])'
                 args:
                     token: String!
                     newPassword: String!
@@ -40,7 +40,7 @@ UserMutation:
             UserVerify:
                 type: UserResultPayload!
                 description: 'Verify (activate) User account with password and User token.'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", [args])'
                 args:
                     token: String!
                     newPassword: String!
@@ -51,7 +51,7 @@ UserMutation:
                 description: 'Admin User add.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserAddMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserAddMutation", [args])'
                 args:
                     user: AdminUserAddInput!
 
@@ -60,7 +60,7 @@ UserMutation:
                 description: 'Admin User update.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserUpdateMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserUpdateMutation", [args])'
                 args:
                     user: AdminUserUpdateInput!
 
@@ -69,7 +69,7 @@ UserMutation:
                 description: 'Activate User by Admin.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserActivateMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserActivateMutation", [args])'
                 args:
                     user: AdminUserActivateInput!
 
@@ -78,7 +78,7 @@ UserMutation:
                 description: 'Verify User by Admin.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", [args])'
                 args:
                     user: AdminUserInput!
 
@@ -87,7 +87,7 @@ UserMutation:
                 description: 'Send User a password reset link.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", [args])'
                 args:
                     user: AdminUserInput!
 

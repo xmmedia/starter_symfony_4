@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\EventSubscriber;
 
+use App\Entity\User;
 use App\EventSubscriber\SecuritySubscriber;
+use App\Model\Auth\Command\UserLoggedInSuccessfully;
+use App\Model\Auth\Command\UserLoginFailed;
+use App\Model\User\Credentials;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +21,7 @@ use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
-use Xm\SymfonyBundle\Entity\User;
-use Xm\SymfonyBundle\Model\Auth\Command\UserLoggedInSuccessfully;
-use Xm\SymfonyBundle\Model\Auth\Command\UserLoginFailed;
 use Xm\SymfonyBundle\Model\Email;
-use Xm\SymfonyBundle\Model\User\Credentials;
 
 class SecuritySubscriberTest extends BaseTestCase
 {

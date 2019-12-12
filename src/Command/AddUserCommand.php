@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Model\User\Command\AdminAddUserMinimum;
 use App\Model\User\Role;
+use App\Model\User\User;
+use App\Model\User\UserId;
+use App\Security\PasswordEncoder;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use Ramsey\Uuid\Uuid;
@@ -16,10 +20,6 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 use Webmozart\Assert\Assert;
 use Xm\SymfonyBundle\Model\Email;
-use Xm\SymfonyBundle\Model\User\Command\AdminAddUserMinimum;
-use Xm\SymfonyBundle\Model\User\User;
-use Xm\SymfonyBundle\Model\User\UserId;
-use Xm\SymfonyBundle\Security\PasswordEncoder;
 
 final class AddUserCommand extends Command
 {

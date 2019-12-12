@@ -9,11 +9,11 @@ prooph_event_store:
             connection: '@app.event_store.pdo_connection.mysql'
             projections:
                 user_projection:
-                    read_model: Xm\SymfonyBundle\Projection\User\UserReadModel
-                    projection: Xm\SymfonyBundle\Projection\User\UserProjection
+                    read_model: App\Projection\User\UserReadModel
+                    projection: App\Projection\User\UserProjection
                 user_token_projection:
-                    read_model: Xm\SymfonyBundle\Projection\User\UserTokenReadModel
-                    projection: Xm\SymfonyBundle\Projection\User\UserTokenProjection
+                    read_model: App\Projection\User\UserTokenReadModel
+                    projection: App\Projection\User\UserTokenProjection
                 enquiry_projection:
                     read_model: App\Projection\Enquiry\EnquiryReadModel
                     projection: App\Projection\Enquiry\EnquiryProjection
@@ -25,9 +25,9 @@ services:
         public: false
 
     # projections & read models
-    #    Xm\SymfonyBundle\Projection\User\UserProjection: ~
-    Xm\SymfonyBundle\Projection\User\UserReadModel: ~
-    #    Xm\SymfonyBundle\Projection\User\UserTokenProjection: ~
-    Xm\SymfonyBundle\Projection\User\UserTokenReadModel: ~
-    #    App\Projection\Enquiry\EnquiryProjection: ~
+    # App\Projection\User\UserProjection: ~
+    App\Projection\User\UserReadModel: ~
+    # App\Projection\User\UserTokenProjection: ~
+    App\Projection\User\UserTokenReadModel: ~
+    # App\Projection\Enquiry\EnquiryProjection: ~
     App\Projection\Enquiry\EnquiryReadModel: ~
