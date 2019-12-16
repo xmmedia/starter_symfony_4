@@ -9,13 +9,9 @@ use App\Model\User\Command\UpdateUserProfile;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Xm\SymfonyBundle\Exception\FormValidationException;
-use Xm\SymfonyBundle\Form\User\UserProfileType;
 use Xm\SymfonyBundle\Tests\CanCreateSecurityTrait;
 
 class UserUpdateProfileMutationTest extends BaseTestCase
