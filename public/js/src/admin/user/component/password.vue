@@ -9,11 +9,10 @@
                         :value="value"
                         :show-help="true"
                         :required="setPassword"
-                        label="Password"
-                        field="password"
                         class="ml-6"
                         autocomplete="new-password"
                         @input="$emit('input', $event)">
+            <template #default><slot></slot></template>
             <template #errors>
                 <field-error v-if="v.$error">
                     <template v-if="!v.required">
@@ -26,7 +25,8 @@
                         The password is too long.
                     </template>
                     <template v-else-if="!v.compromised">
-                        This password has been compromised and is not allowed.
+                        It appears that this password was part of a data breach
+                        and may not be accepted. Consider using a different password.
                     </template>
                 </field-error>
             </template>

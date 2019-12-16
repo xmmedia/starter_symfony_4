@@ -1,8 +1,7 @@
 <template>
     <div class="field-wrap">
-        <label :for="id">Email (Username)</label>
+        <label :for="id"><slot>Email (Username)</slot></label>
 
-        <field-errors :errors="serverValidationErrors" />
         <field-error v-if="v.$error">
             <template v-if="!v.required">
                 A email is required.
@@ -17,9 +16,10 @@
 
         <input :id="id"
                :value="value"
+               :autofocus="autofocus"
+               :autocomplete="autocomplete"
                type="email"
                maxlength="150"
-               autofocus
                @input="$emit('input', $event.target.value)">
     </div>
 </template>
@@ -33,11 +33,13 @@ export default {
             type: String,
             default: null,
         },
-        serverValidationErrors: {
-            type: [Object, Array],
-            default: function () {
-                return {};
-            },
+        autofocus: {
+            type: Boolean,
+            default: false,
+        },
+        autocomplete: {
+            type: String,
+            default: null,
         },
         v: {
             type: Object,

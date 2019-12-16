@@ -30,16 +30,10 @@
             </div>
 
             <password-field v-model="password"
-                            :server-validation-errors="serverValidationErrors.password"
                             :show-help="true"
-                            label="Password"
-                            field="newPassword.first"
                             autocomplete="new-password" />
             <password-field v-model="repeatPassword"
-                            :server-validation-errors="serverValidationErrors.repeatPassword"
-                            label="Password Again"
-                            field="newPassword.second"
-                            autocomplete="new-password" />
+                            autocomplete="new-password">Password Again</password-field>
 
             <admin-button :status="status" :cancel-to="{ name: 'login' }">
                 Activate

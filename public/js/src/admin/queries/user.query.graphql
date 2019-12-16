@@ -15,6 +15,18 @@ query MeSimpleQuery {
     }
 }
 
+query UserEmailUnique($email: String!) {
+    UserEmailUnique(email: $email) {
+        unique
+    }
+}
+
+query UserPasswordValid($password: String!) {
+    UserPasswordValid(password: $password) {
+        valid
+    }
+}
+
 query GetUsersQuery($filters: UserFilterInput) {
     Users(filters: $filters) {
         userId

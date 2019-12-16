@@ -1,7 +1,6 @@
 <template>
     <div class="field-wrap">
-        <label :for="id">{{ label }}</label>
-        <field-errors :errors="serverValidationErrors" />
+        <label :for="id"><slot>Password</slot></label>
         <slot name="errors"></slot>
 
         <field-error v-if="hackedPassword">
@@ -11,11 +10,11 @@
 
         <div class="relative">
             <input :id="id"
-                   :name="field"
                    :value="value"
                    :type="fieldType"
                    :required="required"
                    :autocomplete="autocomplete"
+                   :name="name"
                    class="pr-10"
                    autocapitalize="off"
                    autocorrect="off"
@@ -47,21 +46,9 @@ export default {
             type: String,
             default: null,
         },
-        label: {
+        name: {
             type: String,
-            required: true,
-        },
-        // server validation errors for field
-        serverValidationErrors: {
-            type: [Object, Array],
-            default: function () {
-                return {};
-            },
-        },
-        // used to find the validation errors
-        field: {
-            type: String,
-            required: true,
+            default: null,
         },
         required: {
             type: Boolean,

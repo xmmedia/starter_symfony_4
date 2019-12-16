@@ -20,8 +20,7 @@
                 </div>
 
                 <password-field v-model="password"
-                                label="Password"
-                                field="password"
+                                name="password"
                                 autocomplete="current-password" />
 
                 <div class="field-wrap-checkbox">

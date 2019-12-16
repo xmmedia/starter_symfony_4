@@ -2,7 +2,6 @@
     <div class="field-wrap">
         <label :for="id">Role</label>
 
-        <field-errors :errors="serverValidationErrors" />
         <field-error v-if="v.$error">
             <template v-if="!v.required">
                 A Role is required.
@@ -28,12 +27,6 @@ export default {
         value: {
             type: String,
             default: null,
-        },
-        serverValidationErrors: {
-            type: [Object, Array],
-            default: function () {
-                return {};
-            },
         },
         v: {
             type: Object,

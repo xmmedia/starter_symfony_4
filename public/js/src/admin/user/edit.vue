@@ -19,15 +19,16 @@
             <form-error v-if="$v.$anyError" />
 
             <field-email v-model="email"
-                         :v="$v.email" />
+                         :v="$v.email"
+                         autofocus />
 
             <field-password v-model="password"
                             :v="$v.password"
                             checkbox-label="Change Password"
                             @set-password="setPassword = $event" />
 
-            <field-name v-model="firstName" :v="$v.firstName" label="First Name" />
-            <field-name v-model="lastName" :v="$v.lastName" label="Last Name" />
+            <field-name v-model="firstName" :v="$v.firstName">First Name</field-name>
+            <field-name v-model="lastName" :v="$v.lastName">Last Name</field-name>
 
             <field-role v-model="role" :v="$v.role" />
 
@@ -62,9 +63,9 @@ import { waitForValidation } from '@/common/lib';
 
 import userValidations from './user.validation';
 
-import fieldEmail from './component/email';
-import fieldPassword from './component/password';
-import fieldName from './component/name';
+import fieldEmail from '@/common/field_email';
+import fieldPassword from '@/admin/user/component/password';
+import fieldName from '@/common/field_name';
 import fieldRole from './component/role';
 
 import { GetUserQuery } from '../queries/user.query.graphql';

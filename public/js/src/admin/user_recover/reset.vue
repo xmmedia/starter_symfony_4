@@ -33,14 +33,10 @@
             <password-field v-model="newPassword"
                             :server-validation-errors="serverValidationErrors"
                             :show-help="true"
-                            label="New Password"
-                            field="newPassword.first"
-                            autocomplete="new-password" />
+                            autocomplete="new-password">New Password</password-field>
             <password-field v-model="repeatPassword"
                             :server-validation-errors="serverValidationErrors"
-                            label="New Password Again"
-                            field="newPassword.second"
-                            autocomplete="new-password" />
+                            autocomplete="new-password">New Password Again</password-field>
 
             <admin-button :status="status">
                 Set Password

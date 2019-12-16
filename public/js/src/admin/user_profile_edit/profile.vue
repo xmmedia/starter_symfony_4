@@ -3,42 +3,24 @@
         <profile-tabs />
 
         <form class="p-4" method="post" @submit.prevent="submit">
-            <form-error v-if="hasValidationErrors" />
+            <form-error v-if="$v.$anyError" />
 
-            <div class="field-wrap">
-                <label for="inputEmail">Email Address</label>
-                <field-errors :errors="serverValidationErrors" field="email" />
-                <input id="inputEmail"
-                       v-model="email"
-                       type="email"
-                       maxlength="150"
-                       required
-                       autofocus
-                       autocomplete="username email"
-                       @input="changed">
-            </div>
-            <div class="field-wrap">
-                <label for="inputFirstName">First Name</label>
-                <field-errors :errors="serverValidationErrors" field="firstName" />
-                <input id="inputFirstName"
-                       v-model="firstName"
-                       type="text"
-                       required
-                       maxlength="50"
-                       autocomplete="given-name"
-                       @input="changed">
-            </div>
-            <div class="field-wrap">
-                <label for="inputLastName">Last Name</label>
-                <field-errors :errors="serverValidationErrors" field="lastName" />
-                <input id="inputLastName"
-                       v-model="lastName"
-                       type="text"
-                       required
-                       maxlength="50"
-                       autocomplete="family-name"
-                       @input="changed">
-            </div>
+            <field-email v-model="email"
+                         :v="$v.email"
+                         autofocus
+                         autocomplete="username email"
+                         @input="changed">
+                Email Address
+            </field-email>
+
+            <field-name v-model="firstName"
+                        :v="$v.firstName"
+                        autocomplete="given-name"
+                        @input="changed">First Name</field-name>
+            <field-name v-model="lastName"
+                        :v="$v.lastName"
+                        autocomplete="family-name"
+                        @input="changed">Last Name</field-name>
 
             <admin-button :status="status">
                 Save Profile
@@ -51,9 +33,14 @@
 </template>
 
 <script>
-import { hasGraphQlValidationError } from '@/common/lib';
+import cloneDeep from 'lodash/cloneDeep';
+import { waitForValidation } from '@/common/lib';
+import fieldEmail from '@/common/field_email';
+import fieldName from '@/common/field_name';
 import profileTabs from './component/tabs';
 import { UserUpdateProfile } from '../queries/user.mutation.graphql';
+
+import userValidations from './user.validation';
 
 const statuses = {
     LOADED: 'loaded',
@@ -65,23 +52,18 @@ const statuses = {
 export default {
     components: {
         profileTabs,
+        fieldEmail,
+        fieldName,
     },
 
     data () {
         return {
             status: statuses.LOADED,
-            serverValidationErrors: {},
 
             email: this.$store.state.user.email,
             firstName: this.$store.state.user.firstName,
             lastName: this.$store.state.user.lastName,
         };
-    },
-
-    computed: {
-        hasValidationErrors () {
-            return Object.keys(this.serverValidationErrors).length > 0;
-        },
     },
 
     beforeRouteLeave (to, from, next) {
@@ -94,30 +76,46 @@ export default {
         next();
     },
 
+    validations () {
+        return {
+            email: cloneDeep(userValidations.email),
+            firstName: cloneDeep(userValidations.firstName),
+            lastName: cloneDeep(userValidations.lastName),
+        };
+    },
+
     methods: {
+        waitForValidation,
+
         async submit () {
             this.status = statuses.SAVING;
 
-            try {
-                const data = {
-                    email: this.email,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                };
+            this.$v.$touch();
 
+            if (!await this.waitForValidation()) {
+                this.status = statuses.LOADED;
+                window.scrollTo(0, 0);
+
+                return;
+            }
+
+            try {
                 await this.$apollo.mutate({
                     mutation: UserUpdateProfile,
                     variables: {
-                        user: data,
+                        user: {
+                            email: this.email,
+                            firstName: this.firstName,
+                            lastName: this.lastName,
+                        },
                     },
                 });
 
                 this.status = statuses.SAVED;
-                this.serverValidationErrors = {};
 
                 this.$store.dispatch('updateUser', {
-                    ...data,
-                    name: data.firstName + ' ' + data.lastName,
+                    email: this.email,
+                    name: this.firstName + ' ' + this.lastName,
                 });
 
                 setTimeout(() => {
@@ -127,12 +125,7 @@ export default {
                 }, 5000);
 
             } catch (e) {
-                if (hasGraphQlValidationError(e)) {
-                    this.serverValidationErrors = e.graphQLErrors[0].validation.user;
-                } else {
-                    alert('There was a problem saving your profile. Please try again later.');
-                }
-
+                alert('There was a problem saving your profile. Please try again later.');
                 window.scrollTo(0, 0);
 
                 this.status = statuses.EDITED;
