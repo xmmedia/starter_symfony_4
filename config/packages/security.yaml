@@ -19,13 +19,11 @@ security:
             # maximum memory (in KiB) that may be used to compute the Argon2 hash
             memory_cost: 128000
             #  number of times the Argon2 hash algorithm will be run
-            time_cost: 37
+            time_cost: 10
         harsh:
             algorithm: 'auto'
-            # see above
-            # values are targeted at ~3s
             memory_cost: 128000
-            time_cost: 45
+            time_cost: 15
 
     firewalls:
         dev:
