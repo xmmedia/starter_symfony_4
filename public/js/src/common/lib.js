@@ -18,7 +18,9 @@ export const waitForValidation = function () {
             () => !this.$v.$pending,
             (isNotPending) => {
                 if (isNotPending) {
-                    unwatch();
+                    if (unwatch) {
+                        unwatch();
+                    }
                     resolve(!this.$v.$invalid);
                 }
             },
