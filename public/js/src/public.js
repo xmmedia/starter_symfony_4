@@ -2,6 +2,7 @@ import 'es6-promise/auto';
 
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
+import Vuelidate from 'vuelidate';
 import PortalVue from 'portal-vue';
 
 import apolloProvider from './common/apollo';
@@ -23,6 +24,7 @@ import '../../css/public.scss';
 Vue.config.productionTip = false;
 
 Vue.use(VueApollo);
+Vue.use(Vuelidate);
 Vue.use(PortalVue);
 
 Vue.component('loading-spinner', loadingSpinner);

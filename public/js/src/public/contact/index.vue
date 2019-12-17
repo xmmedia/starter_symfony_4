@@ -2,48 +2,60 @@
     <div class="form-wrap p-0">
         <div class="p-4">
             <form v-if="showForm" @submit.prevent="submit">
-                <ul v-if="hasValidationErrors" class="field-errors mb-4" role="alert">
-                    <li>Please fix the errors below.</li>
-                </ul>
+                <form-error v-if="$v.$anyError" />
 
                 <div class="field-wrap">
                     <label for="name">Your Name</label>
-                    <field-errors :errors="serverValidationErrors" field="name" />
+
+                    <field-error v-if="$v.name.$error">
+                        <template v-if="!$v.name.required">
+                            A name is required.
+                        </template>
+                        <template v-else-if="!$v.name.minLength || !$v.name.maxLength">
+                            Please enter between {{ $v.name.$params.minLength.min }}
+                            and {{ $v.name.$params.maxLength.max }} characters.
+                        </template>
+                    </field-error>
+
                     <input id="name"
                            v-model="name"
+                           :maxlength="$v.name.$params.maxLength.max"
                            type="text"
-                           required
                            autofocus
                            autocomplete="name">
                 </div>
 
-                <div class="field-wrap">
-                    <label for="email">Email Address</label>
-                    <field-errors :errors="serverValidationErrors" field="email" />
-                    <input id="email"
-                           v-model="email"
-                           type="email"
-                           required
-                           autocomplete="email">
-                </div>
+                <field-email v-model="email"
+                             :v="$v.email"
+                             autocomplete="email">Email address</field-email>
 
                 <div class="field-wrap">
                     <label for="message">Message</label>
-                    <field-errors :errors="serverValidationErrors" field="message" />
+
+                    <field-error v-if="$v.message.$error">
+                        <template v-if="!$v.message.required">
+                            A message is required.
+                        </template>
+                        <template v-else-if="!$v.message.minLength || !$v.message.maxLength">
+                            Please enter more than {{ $v.message.$params.minLength.min }} characters.
+                        </template>
+                    </field-error>
+
                     <textarea id="message"
                               v-model="message"
-                              required
-                              class="h-32"></textarea>
+                              :maxlength="$v.message.$params.maxLength.max"
+                              class="h-32" />
                 </div>
 
                 <div>
                     <button type="submit" class="button">Send</button>
 
-                    <span v-if="status === 'sending'" class="ml-4 text-sm italic">Sending...</span>
+                    <span v-if="state.matches('sending')"
+                          class="ml-4 text-sm italic">Sending...</span>
                 </div>
             </form>
 
-            <div v-if="status === 'sent'" class="alert alert-success" role="alert">
+            <div v-if="state.matches('sent')" class="alert alert-success" role="alert">
                 Thank you for your enquiry.
                 We'll be in touch within 2 business days.
             </div>
@@ -52,20 +64,52 @@
 </template>
 
 <script>
-import { hasGraphQlValidationError } from '@/common/lib';
+import { Machine, interpret } from 'xstate';
+import {
+    email,
+    minLength,
+    maxLength,
+    required,
+} from 'vuelidate/lib/validators';
+import stateMixin from '@/common/state_mixin';
+import fieldEmail from '@/common/field_email';
 import { SendEnquiry } from '../queries/enquiry.mutation.graphql';
 
-const statuses = {
-    LOADED: 'loaded',
-    SENDING: 'sending',
-    SENT: 'sent',
-};
+const stateMachine = Machine({
+    id: 'component',
+    initial: 'ready',
+    strict: true,
+    states: {
+        ready: {
+            on: {
+                SEND: 'sending',
+            },
+        },
+        sending: {
+            on: {
+                SENT: 'sent',
+                ERROR: 'ready',
+            },
+        },
+        sent: {
+            type: 'final',
+        },
+    },
+});
 
 export default {
+    components: {
+        fieldEmail,
+    },
+
+    mixins: [
+        stateMixin,
+    ],
+
     data () {
         return {
-            status: statuses.LOADED,
-            serverValidationErrors: {},
+            stateService: interpret(stateMachine),
+            state: stateMachine.initialState,
 
             name: null,
             email: null,
@@ -75,40 +119,40 @@ export default {
 
     computed: {
         showForm () {
-            return [statuses.LOADED, statuses.SENDING].includes(this.status);
+            return !this.state.done;
         },
-        hasValidationErrors () {
-            return Object.keys(this.serverValidationErrors).length > 0;
-        },
+    },
+
+    validations () {
+        return {
+            name: {
+                required,
+                minLength: minLength(3),
+                maxLength: maxLength(50),
+            },
+            email: {
+                required,
+                email,
+            },
+            message: {
+                required,
+                minLength: minLength(10),
+                maxLength: maxLength(10000),
+            },
+        };
     },
 
     methods: {
         async submit () {
-            this.serverValidationErrors = {};
+            this.stateEvent('SEND');
 
-            if (!this.name) {
-                this.serverValidationErrors['name'] = {
-                    errors: ['Please enter your name.'],
-                };
-            }
-            if (!this.email) {
-                this.serverValidationErrors['email'] = {
-                    errors: ['Please enter your email address.'],
-                };
-            }
-            if (!this.message) {
-                this.serverValidationErrors['message'] = {
-                    errors: ['Please enter a message.'],
-                };
-            }
-
-            if (this.hasValidationErrors) {
+            this.$v.$touch();
+            if (this.$v.$anyError) {
+                this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
                 return;
             }
-
-            this.status = statuses.SENDING;
 
             try {
                 await this.$apollo.mutate({
@@ -122,19 +166,13 @@ export default {
                     },
                 });
 
-                this.status = statuses.SENT;
-                this.serverValidationErrors = {};
+                this.stateEvent('SENT');
 
             } catch (e) {
-                if (hasGraphQlValidationError(e)) {
-                    this.serverValidationErrors = e.graphQLErrors[0].validation['enquiry'];
-                } else {
-                    alert('There was a problem sending your enquiry. Please try again later.');
-                }
+                alert('There was a problem sending your enquiry. Please try again later.');
 
+                this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
-
-                this.status = statuses.LOADED;
             }
         },
     },
