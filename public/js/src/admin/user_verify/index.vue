@@ -124,14 +124,17 @@ export default {
         waitForValidation,
 
         async submit () {
+            this.stateEvent('SUBMIT');
+
             this.$v.$touch();
             if (!await this.waitForValidation()) {
+                this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
                 return;
             }
 
-            this.stateEvent('SUBMIT');
+
 
             try {
                 await this.$apollo.mutate({

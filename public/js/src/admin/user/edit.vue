@@ -199,15 +199,15 @@ export default {
                 return;
             }
 
-            this.$v.$touch();
+            this.stateEvent('SAVE');
 
+            this.$v.$touch();
             if (!await this.waitForValidation()) {
+                this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
                 return;
             }
-
-            this.stateEvent('SAVE');
 
             try {
                 await this.$apollo.mutate({

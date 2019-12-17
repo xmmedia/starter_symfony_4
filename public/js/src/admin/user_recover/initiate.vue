@@ -100,16 +100,16 @@ export default {
 
     methods: {
         async submit () {
+            this.stateEvent('SUBMIT');
             this.notFound = false;
 
             this.$v.$touch();
             if (this.$v.$anyError) {
+                this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
                 return;
             }
-
-            this.stateEvent('SUBMIT');
 
             try {
                 await this.$apollo.mutate({
