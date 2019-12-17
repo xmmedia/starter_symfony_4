@@ -11,21 +11,17 @@ use App\Model\User\Exception\TokenHasExpired;
 use App\Model\User\Token;
 use App\Security\PasswordEncoder;
 use App\Security\TokenValidator;
+use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xm\SymfonyBundle\Exception\FormValidationException;
-use Xm\SymfonyBundle\Form\User\UserRecoverResetType;
+use Symfony\Component\Security\Core\Security;
 
 class UserRecoverResetMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;
-
-    /** @var FormFactoryInterface */
-    private $formFactory;
 
     /** @var PasswordEncoder */
     private $passwordEncoder;
@@ -33,37 +29,30 @@ class UserRecoverResetMutation implements MutationInterface
     /** @var TokenValidator */
     private $tokenValidator;
 
+    /** @var Security */
+    private $security;
+
     public function __construct(
         MessageBusInterface $commandBus,
-        FormFactoryInterface $formFactory,
         PasswordEncoder $passwordEncoder,
-        TokenValidator $tokenValidator
+        TokenValidator $tokenValidator,
+        Security $security
     ) {
         $this->commandBus = $commandBus;
-        $this->formFactory = $formFactory;
         $this->passwordEncoder = $passwordEncoder;
         $this->tokenValidator = $tokenValidator;
+        $this->security = $security;
     }
 
     public function __invoke(Argument $args): array
     {
-        $form = $this->formFactory
-            ->create(UserRecoverResetType::class)
-            ->submit([
-                'token'       => $args['token'],
-                'newPassword' => [
-                    'first'  => $args['newPassword'],
-                    'second' => $args['repeatPassword'],
-                ],
-            ]);
-
-        if (!$form->isValid()) {
-            throw FormValidationException::fromForm($form);
+        if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new UserError('Logged in users cannot change their password this way.', 404);
         }
 
         try {
             $user = $this->tokenValidator->validate(
-                Token::fromString($form->getData()['token'])
+                Token::fromString($args['token'])
             );
         } catch (InvalidToken $e) {
             // 404 -> not found
@@ -73,6 +62,17 @@ class UserRecoverResetMutation implements MutationInterface
             throw new UserError('The link has expired.', 405);
         }
 
+        $newPassword = $args['newPassword'];
+
+        // check new password
+        Assert::passwordLength($newPassword);
+        Assert::same(
+            $newPassword,
+            $args['repeatPassword'],
+            'The new passwords should match.'
+        );
+        Assert::compromisedPassword($newPassword);
+
         if (!$user->verified()) {
             $this->commandBus->dispatch(
                 VerifyUser::now($user->userId())
@@ -81,7 +81,7 @@ class UserRecoverResetMutation implements MutationInterface
 
         $encodedPassword = ($this->passwordEncoder)(
             $user->firstRole(),
-            $form->getData()['newPassword']
+            $newPassword
         );
         $this->commandBus->dispatch(
             ChangePassword::forUser($user->userId(), $encodedPassword)

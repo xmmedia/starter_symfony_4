@@ -4,20 +4,18 @@
               class="form-wrap p-4"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="hasValidationErrors" />
+            <form-error v-if="$v.$anyError" />
             <ul v-if="notFound" class="field-errors mb-4" role="alert">
                 <li>An account with that email cannot be found.</li>
             </ul>
 
-            <div class="field-wrap">
-                <label for="inputEmail">Please enter your email address to search for your account.</label>
-                <input id="inputEmail"
-                       v-model="email"
-                       type="email"
-                       required
-                       autofocus
-                       autocomplete="username email">
-            </div>
+            <field-email v-model="email"
+                         :v="$v.email"
+                         autofocus
+                         autocomplete="username email"
+                         @input="changed">
+                Please enter your email address to search for your account:
+            </field-email>
 
             <admin-button :status="status">
                 Search
@@ -39,7 +37,9 @@
 </template>
 
 <script>
-import { hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
+import { email, required } from 'vuelidate/lib/validators';
+import { hasGraphQlError } from '@/common/lib';
+import fieldEmail from '@/common/field_email';
 import { UserRecoverInitiate } from '../queries/user.mutation.graphql';
 
 const statuses = {
@@ -49,10 +49,13 @@ const statuses = {
 };
 
 export default {
+    components: {
+        fieldEmail,
+    },
+
     data () {
         return {
             status: statuses.LOADED,
-            serverValidationErrors: {},
             notFound: false,
 
             email: null,
@@ -63,14 +66,29 @@ export default {
         showForm () {
             return [statuses.LOADED, statuses.SAVING].includes(this.status);
         },
-        hasValidationErrors () {
-            return Object.keys(this.serverValidationErrors).length > 0;
-        },
+    },
+
+    validations () {
+        return {
+            email: {
+                required,
+                email,
+            },
+        };
     },
 
     methods: {
         async submit () {
             this.status = statuses.SAVING;
+            this.notFound = false;
+
+            this.$v.$touch();
+            if (this.$v.$anyError) {
+                this.status = statuses.LOADED;
+                window.scrollTo(0, 0);
+
+                return;
+            }
 
             try {
                 await this.$apollo.mutate({
@@ -81,24 +99,20 @@ export default {
                 });
 
                 this.email = null;
+                this.$v.$reset();
 
                 this.status = statuses.SAVED;
-                this.serverValidationErrors = {};
                 this.notFound = false;
 
             } catch (e) {
-                this.serverValidationErrors = {};
-
                 if (hasGraphQlError(e)) {
-                    if (hasGraphQlValidationError(e)) {
-                        this.serverValidationErrors = e.graphQLErrors[0].validation;
-                    } else if (e.graphQLErrors[0].code === 404) {
+                    if (e.graphQLErrors[0].code === 404) {
                         this.notFound = true;
                     } else {
-                        this.showError(e);
+                        this.showError();
                     }
                 } else {
-                    this.showError(e);
+                    this.showError();
                 }
 
                 window.scrollTo(0, 0);
@@ -109,6 +123,10 @@ export default {
 
         showError () {
             alert('There was a problem requesting a password reset. Please try again later.');
+        },
+
+        changed () {
+            this.notFound = false;
         },
     },
 }

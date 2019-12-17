@@ -59,12 +59,7 @@ class UserPasswordMutation implements MutationInterface
         );
 
         // check new password
-        // trim to check for empty, but don't trim for storage
-        Assert::notEmpty(
-            StringUtil::trim($newPassword),
-            'The new password is empty.'
-        );
-        Assert::passwordLength(StringUtil::trim($newPassword));
+        Assert::passwordLength($newPassword);
         Assert::same(
             $newPassword,
             $args['user']['repeatPassword'],

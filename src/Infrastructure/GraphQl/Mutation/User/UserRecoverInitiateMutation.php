@@ -9,10 +9,8 @@ use App\Projection\User\UserFinder;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xm\SymfonyBundle\Exception\FormValidationException;
-use Xm\SymfonyBundle\Form\User\UserRecoverInitiateType;
+use Symfony\Component\Security\Core\Security;
 use Xm\SymfonyBundle\Model\Email;
 
 class UserRecoverInitiateMutation implements MutationInterface
@@ -20,34 +18,30 @@ class UserRecoverInitiateMutation implements MutationInterface
     /** @var MessageBusInterface */
     private $commandBus;
 
-    /** @var FormFactoryInterface */
-    private $formFactory;
-
     /** @var UserFinder */
     private $userFinder;
 
+    /** @var Security */
+    private $security;
+
     public function __construct(
         MessageBusInterface $commandBus,
-        FormFactoryInterface $formFactory,
-        UserFinder $userFinder
+        UserFinder $userFinder,
+        Security $security
     ) {
         $this->commandBus = $commandBus;
-        $this->formFactory = $formFactory;
         $this->userFinder = $userFinder;
+        $this->security = $security;
     }
 
     public function __invoke(Argument $args): array
     {
-        $form = $this->formFactory
-            ->create(UserRecoverInitiateType::class)
-            ->submit(['email' => $args['email']]);
-
-        if (!$form->isValid()) {
-            throw FormValidationException::fromForm($form);
+        if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new UserError('Logged in users cannot change their password this way.', 404);
         }
 
         $user = $this->userFinder->findOneByEmail(
-            Email::fromString($form->getData()['email'])
+            Email::fromString(mb_strtolower($args['email']))
         );
 
         if (!$user || !$user->active()) {

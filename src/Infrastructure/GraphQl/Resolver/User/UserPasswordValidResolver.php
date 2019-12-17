@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\GraphQl\Resolver\User;
 
-use App\Projection\User\UserFinder;
 use App\Security\Security;
-use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Xm\SymfonyBundle\Model\Email;
-use Xm\SymfonyBundle\Util\StringUtil;
 
 class UserPasswordValidResolver implements ResolverInterface
 {

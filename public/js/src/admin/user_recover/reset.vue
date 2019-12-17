@@ -4,11 +4,12 @@
               class="form-wrap p-4"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="hasValidationErrors" />
+            <form-error v-if="$v.$anyError" />
             <ul v-if="invalidToken" class="field-errors mb-4" role="alert">
                 <li>
-                    Your reset link is invalid.
+                    Your reset link is invalid or has expired.
                     Please try clicking the button again or copying the link.
+                    Or you can <router-link :to="{ name: 'user-recover-initiate' }">try again</router-link>.
                 </li>
             </ul>
             <ul v-if="tokenExpired" class="field-errors mb-4" role="alert">
@@ -30,13 +31,13 @@
                        autocomplete="username email">
             </div>
 
-            <password-field v-model="newPassword"
-                            :server-validation-errors="serverValidationErrors"
+            <field-password v-model="newPassword"
+                            :v="$v.newPassword"
                             :show-help="true"
-                            autocomplete="new-password">New Password</password-field>
-            <password-field v-model="repeatPassword"
-                            :server-validation-errors="serverValidationErrors"
-                            autocomplete="new-password">New Password Again</password-field>
+                            autocomplete="new-password">New Password</field-password>
+            <field-password v-model="repeatPassword"
+                            :v="$v.repeatPassword"
+                            autocomplete="new-password">New Password Again</field-password>
 
             <admin-button :status="status">
                 Set Password
@@ -54,7 +55,10 @@
 </template>
 
 <script>
-import { hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
+import { hasGraphQlError, waitForValidation } from '@/common/lib';
+import { maxLength, minLength, required, sameAs } from 'vuelidate/lib/validators';
+import { pwnedPassword } from 'hibp';
+import fieldPassword from '@/common/field_password_with_errors';
 import { UserRecoverReset } from '../queries/user.mutation.graphql';
 
 const statuses = {
@@ -64,10 +68,13 @@ const statuses = {
 };
 
 export default {
+    components: {
+        fieldPassword,
+    },
+
     data () {
         return {
             status: statuses.LOADED,
-            serverValidationErrors: {},
             invalidToken: false,
             tokenExpired: false,
 
@@ -80,14 +87,45 @@ export default {
         showForm () {
             return [statuses.LOADED, statuses.SAVING].includes(this.status);
         },
-        hasValidationErrors () {
-            return Object.keys(this.serverValidationErrors).length > 0;
-        },
+    },
+
+    validations () {
+        return {
+            newPassword: {
+                required,
+                minLength: minLength(12),
+                // this is different than the backend:
+                // there's no real point other than security to the check in the backend
+                maxLength: maxLength(1000),
+                sameAs: sameAs('repeatPassword'),
+                async compromised (value) {
+                    if (null === value || value.length < 12) {
+                        return true;
+                    }
+
+                    // reject if in more than 3 breaches
+                    return await pwnedPassword(value) < 3;
+                },
+            },
+            repeatPassword: {
+                required,
+            },
+        };
     },
 
     methods: {
+        waitForValidation,
+
         async submit () {
             this.status = statuses.SAVING;
+
+            this.$v.$touch();
+            if (!await this.waitForValidation()) {
+                this.status = statuses.LOADED;
+                window.scrollTo(0, 0);
+
+                return;
+            }
 
             try {
                 await this.$apollo.mutate({
@@ -103,29 +141,25 @@ export default {
                 this.repeatPassword = null;
                 this.invalidToken = false;
                 this.tokenExpired = false;
+                this.$v.$reset();
 
                 this.status = statuses.SAVED;
-                this.serverValidationErrors = {};
 
                 setTimeout(() => {
                     window.location = this.$router.resolve({ name: 'login' }).href;
                 }, 5000);
 
             } catch (e) {
-                this.serverValidationErrors = {};
-
                 if (hasGraphQlError(e)) {
-                    if (hasGraphQlValidationError(e)) {
-                        this.serverValidationErrors = e.graphQLErrors[0].validation;
-                    } else if (e.graphQLErrors[0].code === 404) {
+                    if (e.graphQLErrors[0].code === 404) {
                         this.invalidToken = true;
                     } else if (e.graphQLErrors[0].code === 405) {
                         this.tokenExpired = true;
                     } else {
-                        this.showError(e);
+                        this.showError();
                     }
                 } else {
-                    this.showError(e);
+                    this.showError();
                 }
 
                 window.scrollTo(0, 0);
