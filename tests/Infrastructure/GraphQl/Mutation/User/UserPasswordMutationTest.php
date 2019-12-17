@@ -24,11 +24,9 @@ class UserPasswordMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $userId = $faker->userId;
-        $newPassword = $faker->password;
         $data = [
             'currentPassword' => $faker->password,
-            'newPassword'     => $newPassword,
-            'repeatPassword'  => $newPassword,
+            'newPassword'     => $faker->password,
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -77,11 +75,9 @@ class UserPasswordMutationTest extends BaseTestCase
     public function testInvalidCurrentEmpty(?string $empty): void
     {
         $faker = $this->faker();
-        $newPassword = $faker->password;
         $data = [
             'currentPassword' => $empty,
-            'newPassword'     => $newPassword,
-            'repeatPassword'  => $newPassword,
+            'newPassword'     => $faker->password,
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -112,11 +108,9 @@ class UserPasswordMutationTest extends BaseTestCase
     public function testInvalidCurrentPassword(): void
     {
         $faker = $this->faker();
-        $newPassword = $faker->password;
         $data = [
             'currentPassword' => $faker->password,
-            'newPassword'     => $newPassword,
-            'repeatPassword'  => $newPassword,
+            'newPassword'     => $faker->password,
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -155,7 +149,6 @@ class UserPasswordMutationTest extends BaseTestCase
         $data = [
             'currentPassword' => $faker->password,
             'newPassword'     => $empty,
-            'repeatPassword'  => $empty,
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -188,11 +181,9 @@ class UserPasswordMutationTest extends BaseTestCase
     public function testInvalidNewTooShort(): void
     {
         $faker = $this->faker();
-        $newPassword = $faker->string(\App\Model\User\User::PASSWORD_MIN_LENGTH - 1);
         $data = [
             'currentPassword' => $faker->password,
-            'newPassword'     => $newPassword,
-            'repeatPassword'  => $newPassword,
+            'newPassword'     => $faker->string(\App\Model\User\User::PASSWORD_MIN_LENGTH - 1),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -225,47 +216,9 @@ class UserPasswordMutationTest extends BaseTestCase
     public function testInvalidNewTooLong(): void
     {
         $faker = $this->faker();
-        $newPassword = $faker->string(BasePasswordEncoder::MAX_PASSWORD_LENGTH + 1);
         $data = [
             'currentPassword' => $faker->password,
-            'newPassword'     => $newPassword,
-            'repeatPassword'  => $newPassword,
-        ];
-
-        $commandBus = Mockery::mock(MessageBusInterface::class);
-
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
-            ->andReturnTrue();
-
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
-
-        $user = Mockery::mock(User::class);
-        $security = Mockery::mock(Security::class);
-        $security->shouldReceive('getUser')
-            ->andReturn($user);
-
-        $args = new Argument([
-            'user' => $data,
-        ]);
-
-        $this->expectException(\InvalidArgumentException::class);
-
-        (new UserPasswordMutation(
-            $commandBus,
-            $userPasswordEncoder,
-            $passwordEncoder,
-            $security
-        ))($args);
-    }
-
-    public function testInvalidNewNotSame(): void
-    {
-        $faker = $this->faker();
-        $data = [
-            'currentPassword' => $faker->password,
-            'newPassword'     => $faker->password,
-            'repeatPassword'  => $faker->password,
+            'newPassword'     => $faker->string(BasePasswordEncoder::MAX_PASSWORD_LENGTH + 1),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -301,7 +254,6 @@ class UserPasswordMutationTest extends BaseTestCase
         $data = [
             'currentPassword' => $faker->password,
             'newPassword'     => '123456',
-            'repeatPassword'  => '123456',
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);

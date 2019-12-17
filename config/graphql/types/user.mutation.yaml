@@ -35,7 +35,6 @@ UserMutation:
                 args:
                     token: String!
                     newPassword: String!
-                    repeatPassword: String!
 
             UserVerify:
                 type: UserResultPayload!
@@ -44,7 +43,6 @@ UserMutation:
                 args:
                     token: String!
                     newPassword: String!
-                    repeatPassword: String!
 
             AdminUserAdd:
                 type: AdminUserMutationPayload!
@@ -111,8 +109,6 @@ UserPasswordInput:
             currentPassword:
                 type: String!
             newPassword:
-                type: String!
-            repeatPassword:
                 type: String!
 
 AdminUserAddInput:

@@ -120,7 +120,6 @@ export default {
                         user: {
                             currentPassword: this.currentPassword,
                             newPassword: this.newPassword,
-                            repeatPassword: this.repeatPassword,
                         },
                     },
                 });

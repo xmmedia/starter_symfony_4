@@ -120,7 +120,6 @@ export default {
                     variables: {
                         token: this.$route.params.token,
                         newPassword: this.password,
-                        repeatPassword: this.repeatPassword,
                     },
                 });
 

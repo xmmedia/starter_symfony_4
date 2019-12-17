@@ -775,19 +775,6 @@
                                         }
                                     },
                                     "defaultValue": null
-                                },
-                                {
-                                    "name": "repeatPassword",
-                                    "type": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "SCALAR",
-                                            "name": "String",
-                                            "ofType": null
-                                        }
-                                    },
-                                    "defaultValue": null
                                 }
                             ],
                             "type": {
@@ -820,19 +807,6 @@
                                 },
                                 {
                                     "name": "newPassword",
-                                    "type": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "SCALAR",
-                                            "name": "String",
-                                            "ofType": null
-                                        }
-                                    },
-                                    "defaultValue": null
-                                },
-                                {
-                                    "name": "repeatPassword",
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -1191,19 +1165,6 @@
                         },
                         {
                             "name": "newPassword",
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        },
-                        {
-                            "name": "repeatPassword",
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,

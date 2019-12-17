@@ -66,11 +66,6 @@ class UserRecoverResetMutation implements MutationInterface
 
         // check new password
         Assert::passwordLength($newPassword);
-        Assert::same(
-            $newPassword,
-            $args['repeatPassword'],
-            'The new passwords should match.'
-        );
         Assert::compromisedPassword($newPassword);
 
         if (!$user->verified()) {

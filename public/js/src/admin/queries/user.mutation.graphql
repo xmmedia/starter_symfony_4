@@ -4,14 +4,14 @@ mutation UserRecoverInitiate($email: String!) {
     }
 }
 
-mutation UserRecoverReset($token: String!, $newPassword: String!, $repeatPassword: String!) {
-    UserRecoverReset(token: $token, newPassword: $newPassword, repeatPassword: $repeatPassword) {
+mutation UserRecoverReset($token: String!, $newPassword: String!) {
+    UserRecoverReset(token: $token, newPassword: $newPassword) {
         success
     }
 }
 
-mutation UserVerify($token: String!, $newPassword: String!, $repeatPassword: String!) {
-    UserVerify(token: $token, newPassword: $newPassword, repeatPassword: $repeatPassword) {
+mutation UserVerify($token: String!, $newPassword: String!) {
+    UserVerify(token: $token, newPassword: $newPassword) {
         success
     }
 }

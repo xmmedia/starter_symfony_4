@@ -72,11 +72,6 @@ class UserVerifyMutation implements MutationInterface
 
         // check new password
         Assert::passwordLength($password);
-        Assert::same(
-            $password,
-            $args['repeatPassword'],
-            'The new passwords should match.'
-        );
         Assert::compromisedPassword($password);
 
         $this->commandBus->dispatch(

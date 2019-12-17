@@ -121,7 +121,6 @@ export default {
                     variables: {
                         token: this.$route.params.token,
                         newPassword: this.newPassword,
-                        repeatPassword: this.repeatPassword,
                     },
                 });
 
