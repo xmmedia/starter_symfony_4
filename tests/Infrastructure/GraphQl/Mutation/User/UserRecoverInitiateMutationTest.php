@@ -8,16 +8,13 @@ use App\Entity\User;
 use App\Infrastructure\GraphQl\Mutation\User\UserRecoverInitiateMutation;
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Projection\User\UserFinder;
+use App\Security\Security;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xm\SymfonyBundle\Exception\FormValidationException;
-use Xm\SymfonyBundle\Form\User\UserRecoverInitiateType;
 use Xm\SymfonyBundle\Model\Email;
 
 class UserRecoverInitiateMutationTest extends BaseTestCase
@@ -34,21 +31,6 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->once()
             ->with(Mockery::type(InitiatePasswordRecovery::class))
             ->andReturn(new Envelope(new \stdClass()));
-
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnTrue();
-        $form->shouldReceive('getData')
-            ->andReturn($data);
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(UserRecoverInitiateType::class)
-            ->andReturn($form);
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
@@ -67,12 +49,65 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->with(Mockery::type(Email::class))
             ->andReturn($user);
 
+        $security = $this->createSecurity(false);
+
         $args = new Argument($data);
 
         $result = (new UserRecoverInitiateMutation(
             $commandBus,
-            $formFactory,
-            $userFinder
+            $userFinder,
+            $security
+        ))($args);
+
+        $this->assertEquals(['success' => true], $result);
+    }
+
+    public function testValidCapitalEmail(): void
+    {
+        $faker = $this->faker();
+        $email = strtoupper($faker->email);
+        $data = [
+            'email' => $email,
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldReceive('dispatch')
+            ->once()
+            ->with(Mockery::type(InitiatePasswordRecovery::class))
+            ->andReturn(new Envelope(new \stdClass()));
+
+        $user = Mockery::mock(User::class);
+        $user->shouldReceive('userId')
+            ->once()
+            ->andReturn($faker->userId);
+        $user->shouldReceive('email')
+            ->once()
+            ->andReturn(Email::fromString($data['email']));
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
+
+        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findOneByEmail')
+            ->once()->with(
+                Mockery::on(
+                    function (Email $passedEmail) use ($email): bool {
+                        return $passedEmail->toString() === mb_strtolower(
+                            $email
+                        );
+                    }
+                )
+            )
+            ->andReturn($user);
+
+        $security = $this->createSecurity(false);
+
+        $args = new Argument($data);
+
+        $result = (new UserRecoverInitiateMutation(
+            $commandBus,
+            $userFinder,
+            $security
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -87,21 +122,6 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnTrue();
-        $form->shouldReceive('getData')
-            ->andReturn($data);
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(UserRecoverInitiateType::class)
-            ->andReturn($form);
-
         $user = Mockery::mock(User::class);
         $user->shouldReceive('active')
             ->once()
@@ -113,6 +133,8 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->with(Mockery::type(Email::class))
             ->andReturn($user);
 
+        $security = $this->createSecurity(false);
+
         $args = new Argument($data);
 
         $this->expectException(UserError::class);
@@ -120,8 +142,8 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         (new UserRecoverInitiateMutation(
             $commandBus,
-            $formFactory,
-            $userFinder
+            $userFinder,
+            $security
         ))($args);
     }
 
@@ -134,26 +156,13 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnTrue();
-        $form->shouldReceive('getData')
-            ->andReturn($data);
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(UserRecoverInitiateType::class)
-            ->andReturn($form);
-
         $userFinder = Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findOneByEmail')
             ->once()
             ->with(Mockery::type(Email::class))
             ->andReturnNull();
+
+        $security = $this->createSecurity(false);
 
         $args = new Argument($data);
 
@@ -162,8 +171,8 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         (new UserRecoverInitiateMutation(
             $commandBus,
-            $formFactory,
-            $userFinder
+            $userFinder,
+            $security
         ))($args);
     }
 
@@ -171,34 +180,60 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'email' => $faker->email,
+            'email' => $faker->string(5),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $form = Mockery::mock(FormInterface::class);
-        $form->shouldReceive('submit')
-            ->once()
-            ->with(Mockery::type('array'))
-            ->andReturnSelf();
-        $form->shouldReceive('isValid')
-            ->once()
-            ->andReturnFalse();
-        $formFactory = Mockery::mock(FormFactoryInterface::class);
-        $formFactory->shouldReceive('create')
-            ->with(UserRecoverInitiateType::class)
-            ->andReturn($form);
-
         $userFinder = Mockery::mock(UserFinder::class);
+
+        $security = $this->createSecurity(false);
 
         $args = new Argument($data);
 
-        $this->expectException(FormValidationException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         (new UserRecoverInitiateMutation(
             $commandBus,
-            $formFactory,
-            $userFinder
+            $userFinder,
+            $security
         ))($args);
+    }
+
+    public function testLoggedIn(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'email' => $faker->string(5),
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        $userFinder = Mockery::mock(UserFinder::class);
+
+        $security = $this->createSecurity(true);
+
+        $args = new Argument($data);
+
+        $this->expectException(UserError::class);
+        $this->expectExceptionCode(404);
+
+        (new UserRecoverInitiateMutation(
+            $commandBus,
+            $userFinder,
+            $security
+        ))($args);
+    }
+
+    private function createSecurity(bool $isGrantedResult): Security
+    {
+        $symfonySecurity = Mockery::mock(
+            \Symfony\Component\Security\Core\Security::class
+        );
+        $symfonySecurity->shouldReceive('isGranted')
+            ->once()
+            ->andReturn($isGrantedResult);
+
+        return new Security($symfonySecurity);
     }
 }
