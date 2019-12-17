@@ -364,13 +364,11 @@ class UserVerifyMutationTest extends BaseTestCase
 
     private function createSecurity(bool $isGrantedResult): Security
     {
-        $symfonySecurity = Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class
-        );
-        $symfonySecurity->shouldReceive('isGranted')
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('isGranted')
             ->once()
             ->andReturn($isGrantedResult);
 
-        return new Security($symfonySecurity);
+        return $security;
     }
 }
