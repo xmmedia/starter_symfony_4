@@ -36,7 +36,9 @@
                 </div>
             </div>
 
-            <admin-button :status="status" :cancel-to="{ name: 'admin-user' }">
+            <admin-button :saving="state.matches('submitting')"
+                          :saved="state.matches('saved')"
+                          :cancel-to="{ name: 'admin-user' }">
                 Add User
             </admin-button>
         </form>
@@ -44,9 +46,11 @@
 </template>
 
 <script>
+import { Machine, interpret } from 'xstate';
 import uuid4 from 'uuid/v4';
 import cloneDeep from 'lodash/cloneDeep';
 import { waitForValidation } from '@/common/lib';
+import stateMixin from '@/common/state_mixin';
 
 import userValidations from './user.validation';
 
@@ -57,11 +61,27 @@ import fieldRole from './component/role';
 
 import { AdminUserAddMutation } from '../queries/admin/user.mutation.graphql';
 
-const statuses = {
-    LOADED: 'loaded',
-    SAVING: 'saving',
-    SAVED: 'saved',
-};
+const stateMachine = Machine({
+    id: 'component',
+    initial: 'ready',
+    strict: true,
+    states: {
+        ready: {
+            on: {
+                SUBMIT: 'submitting',
+            },
+        },
+        submitting: {
+            on: {
+                SUBMITTED: 'saved',
+                ERROR: 'ready',
+            },
+        },
+        saved: {
+            type: 'final',
+        },
+    },
+});
 
 export default {
     components: {
@@ -71,9 +91,14 @@ export default {
         fieldRole,
     },
 
+    mixins: [
+        stateMixin,
+    ],
+
     data () {
         return {
-            status: statuses.LOADED,
+            stateService: interpret(stateMachine),
+            state: stateMachine.initialState,
 
             email: null,
             setPassword: false,
@@ -86,12 +111,6 @@ export default {
         };
     },
 
-    computed: {
-        allowSave () {
-            return [statuses.LOADED, statuses.SAVED].includes(this.status);
-        },
-    },
-
     validations () {
         return cloneDeep(userValidations);
     },
@@ -100,20 +119,19 @@ export default {
         waitForValidation,
 
         async submit () {
-            if (!this.allowSave) {
+            if (this.state.matches('submitting')) {
                 return;
             }
-
-            this.status = statuses.SAVING;
 
             this.$v.$touch();
 
             if (!await this.waitForValidation()) {
-                this.status = statuses.LOADED;
                 window.scrollTo(0, 0);
 
                 return;
             }
+
+            this.stateEvent('SUBMIT');
 
             try {
                 await this.$apollo.mutate({
@@ -133,7 +151,7 @@ export default {
                     },
                 });
 
-                this.status = statuses.SAVED;
+                this.stateEvent('SUBMITTED');
 
                 setTimeout(() => {
                     this.$router.push({ name: 'admin-user' });
@@ -144,7 +162,7 @@ export default {
 
                 window.scrollTo(0, 0);
 
-                this.status = statuses.LOADED;
+                this.stateEvent('ERROR');
             }
         },
     },

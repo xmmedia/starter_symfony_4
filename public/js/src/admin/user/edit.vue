@@ -8,10 +8,10 @@
 
         <h2 class="mt-0">Edit User</h2>
 
-        <loading-spinner v-if="status === 'loading'">
+        <loading-spinner v-if="state.matches('loading')">
             Loading user...
         </loading-spinner>
-        <div v-else-if="status === 'error'" class="italic text-center">
+        <div v-else-if="state.matches('error')" class="italic text-center">
             There was a problem loading the user. Please try again later.
         </div>
 
@@ -32,25 +32,24 @@
 
             <field-role v-model="role" :v="$v.role" />
 
-            <admin-button :status="status" :cancel-to="{ name: 'admin-user' }">
+            <admin-button :saving="state.matches('ready.saving')"
+                          :saved="state.matches('ready.saved')"
+                          :cancel-to="{ name: 'admin-user' }">
                 Update User
             </admin-button>
 
             <ul class="form-extra_actions">
                 <li>
-                    <button v-if="verified"
-                            class="button-link form-action"
-                            type="button"
-                            @click="toggleActive">{{ activeButtonText }}</button>
-                    <button v-else
-                            class="button-link form-action"
-                            type="button"
-                            @click="verify">Manually Verify User</button>
+                    <activate-verify :user-id="userId"
+                                     :verified="verified"
+                                     :active="active"
+                                     :allow="allowSave"
+                                     @activated="active = true"
+                                     @deactivated="active = false"
+                                     @verified="verified = true" />
                 </li>
                 <li v-if="active">
-                    <button class="button-link form-action"
-                            type="button"
-                            @click="sendReset">Send Password Reset</button>
+                    <send-reset :user-id="userId" :allow="allowSave" />
                 </li>
             </ul>
         </form>
@@ -58,8 +57,10 @@
 </template>
 
 <script>
+import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
 import { waitForValidation } from '@/common/lib';
+import stateMixin from '@/common/state_mixin';
 
 import userValidations from './user.validation';
 
@@ -67,22 +68,50 @@ import fieldEmail from '@/common/field_email';
 import fieldPassword from '@/admin/user/component/password';
 import fieldName from '@/common/field_name';
 import fieldRole from './component/role';
+import activateVerify from '@/admin/user/component/activate_verify';
+import sendReset from '@/admin/user/component/send_reset';
 
 import { GetUserQuery } from '../queries/user.query.graphql';
-import {
-    AdminUserUpdateMutation,
-    AdminUserActivateMutation,
-    AdminUserVerifyMutation,
-    AdminUserSendResetMutation,
-} from '../queries/admin/user.mutation.graphql';
+import { AdminUserUpdateMutation } from '../queries/admin/user.mutation.graphql';
 
-const statuses = {
-    LOADING: 'loading',
-    ERROR: 'error',
-    LOADED: 'loaded',
-    SAVING: 'saving',
-    SAVED: 'saved',
-};
+const stateMachine = Machine({
+    id: 'component',
+    initial: 'loading',
+    strict: true,
+    states: {
+        loading: {
+            on: {
+                LOADED: 'ready',
+                ERROR: 'error',
+            },
+        },
+        ready: {
+            initial: 'ready',
+            states: {
+                ready: {
+                    on: {
+                        SAVE: 'saving',
+                    },
+                },
+                saving: {
+                    on: {
+                        SAVED: 'saved',
+                        ERROR: 'ready',
+                    },
+                },
+                saved: {
+                    type: 'final',
+                },
+            },
+        },
+        saved: {
+            type: 'final',
+        },
+        error: {
+            type: 'final',
+        },
+    },
+});
 
 export default {
     components: {
@@ -90,7 +119,13 @@ export default {
         fieldPassword,
         fieldName,
         fieldRole,
+        activateVerify,
+        sendReset,
     },
+
+    mixins: [
+        stateMixin,
+    ],
 
     props: {
         userId: {
@@ -101,7 +136,8 @@ export default {
 
     data () {
         return {
-            status: statuses.LOADING,
+            stateService: interpret(stateMachine),
+            state: stateMachine.initialState,
 
             email: null,
             setPassword: false,
@@ -116,14 +152,14 @@ export default {
 
     computed: {
         showForm () {
-            return [statuses.LOADED, statuses.SAVING, statuses.SAVED].includes(this.status);
+            return this.state.matches('ready') && !this.state.done;
         },
         allowSave () {
-            return [statuses.LOADED, statuses.SAVED].includes(this.status);
-        },
+            if (!this.showForm) {
+                return false;
+            }
 
-        activeButtonText () {
-            return this.active ? 'Deactivate User' : 'Activate User';
+            return !this.state.matches('ready.saving') && !this.state.matches('ready.saved');
         },
     },
 
@@ -143,12 +179,10 @@ export default {
                 this.verified = User.verified;
                 this.active = User.active;
 
-                if (this.status === statuses.LOADING) {
-                    this.status = statuses.LOADED;
-                }
+                this.stateEvent('LOADED');
             },
             error () {
-                this.status = statuses.ERROR;
+                this.stateEvent('ERROR');
             },
         },
     },
@@ -165,16 +199,15 @@ export default {
                 return;
             }
 
-            this.status = statuses.SAVING;
-
             this.$v.$touch();
 
             if (!await this.waitForValidation()) {
-                this.status = statuses.LOADED;
                 window.scrollTo(0, 0);
 
                 return;
             }
+
+            this.stateEvent('SAVE');
 
             try {
                 await this.$apollo.mutate({
@@ -192,7 +225,7 @@ export default {
                     },
                 });
 
-                this.status = statuses.SAVED;
+                this.stateEvent('SAVED');
 
                 setTimeout(() => {
                     this.$router.push({ name: 'admin-user' });
@@ -203,107 +236,7 @@ export default {
 
                 window.scrollTo(0, 0);
 
-                this.status = statuses.LOADED;
-            }
-        },
-
-        async toggleActive () {
-            if (!this.allowSave) {
-                return;
-            }
-
-            this.status = statuses.SAVING;
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: AdminUserActivateMutation,
-                    variables: {
-                        user: {
-                            userId: this.userId,
-                            action: this.active ? 'deactivate' : 'activate',
-                        },
-                    },
-                });
-
-                this.active = !this.active;
-
-                this.status = statuses.SAVED;
-
-                setTimeout(() => {
-                    this.status = statuses.LOADED;
-                }, 3000);
-
-            } catch (e) {
-                alert('There was a problem toggling the active state. Please try again later.');
-
-                window.scrollTo(0, 0);
-
-                this.status = statuses.LOADED;
-            }
-        },
-
-        async verify () {
-            if (!this.allowSave) {
-                return;
-            }
-
-            this.status = statuses.SAVING;
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: AdminUserVerifyMutation,
-                    variables: {
-                        user: {
-                            userId: this.userId,
-                        },
-                    },
-                });
-
-                this.verified = true;
-                this.status = statuses.SAVED;
-
-                setTimeout(() => {
-                    this.status = statuses.LOADED;
-                }, 3000);
-
-            } catch (e) {
-                alert('There was a problem verifying the user. Please try again later.');
-
-                window.scrollTo(0, 0);
-
-                this.status = statuses.LOADED;
-            }
-        },
-
-        async sendReset () {
-            if (!this.allowSave) {
-                return;
-            }
-
-            this.status = statuses.SAVING;
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: AdminUserSendResetMutation,
-                    variables: {
-                        user: {
-                            userId: this.userId,
-                        },
-                    },
-                });
-
-                this.status = statuses.SAVED;
-
-                setTimeout(() => {
-                    this.status = statuses.LOADED;
-                }, 3000);
-
-            } catch (e) {
-                alert('There was a problem sending the reset. Please try again later.');
-
-                window.scrollTo(0, 0);
-
-                this.status = statuses.LOADED;
+                this.stateEvent('ERROR');
             }
         },
     },
