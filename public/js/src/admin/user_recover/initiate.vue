@@ -40,6 +40,7 @@ import { Machine, interpret } from 'xstate';
 import { email, required } from 'vuelidate/lib/validators';
 import { hasGraphQlError } from '@/common/lib';
 import fieldEmail from '@/common/field_email';
+import stateMixin from '@/common/state_mixin';
 import { UserRecoverInitiate } from '../queries/user.mutation.graphql';
 
 const stateMachine = Machine({
@@ -69,6 +70,10 @@ export default {
         fieldEmail,
     },
 
+    mixins: [
+        stateMixin,
+    ],
+
     data () {
         return {
             stateService: interpret(stateMachine),
@@ -94,17 +99,7 @@ export default {
         };
     },
 
-    created () {
-        this.stateService.onTransition((state) => {
-            this.state = state;
-        }).start();
-    },
-
     methods: {
-        stateEvent (event) {
-            this.stateService.send(event);
-        },
-
         async submit () {
             this.notFound = false;
 
