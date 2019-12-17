@@ -58,7 +58,7 @@ import { required } from 'vuelidate/lib/validators';
 import fieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '../queries/user.mutation.graphql';
 import stateMixin from '@/common/state_mixin';
-import userValidation from '@/common/validation/user';
+import userValidation from '@/admin/validation/user';
 
 const stateMachine = Machine({
     id: 'component',

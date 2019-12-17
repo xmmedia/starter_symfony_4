@@ -5,7 +5,7 @@ import {
     maxLength,
     required,
 } from 'vuelidate/lib/validators';
-import userValidation from '@/common/validation/user';
+import userValidation from '@/admin/validation/user';
 import { UserEmailUnique, UserPasswordValid } from '../queries/user.query.graphql';
 
 export default {

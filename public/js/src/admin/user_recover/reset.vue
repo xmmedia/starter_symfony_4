@@ -55,7 +55,7 @@ import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
 import { hasGraphQlError, waitForValidation } from '@/common/lib';
 import { required } from 'vuelidate/lib/validators';
-import userValidation from '@/common/validation/user';
+import userValidation from '@/admin/validation/user';
 import fieldPassword from '@/common/field_password_with_errors';
 import stateMixin from '@/common/state_mixin';
 import { UserRecoverReset } from '../queries/user.mutation.graphql';
