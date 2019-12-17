@@ -5,10 +5,10 @@
                          class="header-action header-action-main">Add User</router-link>
         </portal>
 
-        <loading-spinner v-if="status === 'loading'">
+        <loading-spinner v-if="state.matches('loading')">
             Loading users...
         </loading-spinner>
-        <div v-else-if="status === 'error'" class="italic text-center">
+        <div v-else-if="state.matches('error')" class="italic text-center">
             There was a problem loading the user list. Please try again later.
         </div>
 
@@ -57,14 +57,30 @@
 </template>
 
 <script>
+import { Machine, interpret } from 'xstate';
 import { mapState } from 'vuex';
+import stateMixin from '@/common/state_mixin';
 import { GetUsersQuery } from '../queries/user.query.graphql';
 
-const statuses = {
-    LOADING: 'loading',
-    ERROR: 'error',
-    LOADED: 'loaded',
-};
+const stateMachine = Machine({
+    id: 'component',
+    initial: 'loading',
+    strict: true,
+    states: {
+        loading: {
+            on: {
+                LOADED: 'loaded',
+                ERROR: 'error',
+            },
+        },
+        loaded: {
+            type: 'final',
+        },
+        error: {
+            type: 'final',
+        },
+    },
+});
 
 export default {
     filters: {
@@ -79,9 +95,15 @@ export default {
         },
     },
 
+    mixins: [
+        stateMixin,
+    ],
+
     data () {
         return {
-            status: statuses.LOADING,
+            stateService: interpret(stateMachine),
+            state: stateMachine.initialState,
+
             users: null,
         };
     },
@@ -96,14 +118,12 @@ export default {
         users: {
             query: GetUsersQuery,
             update ({ Users }) {
-                if (this.status === statuses.LOADING) {
-                    this.status = statuses.LOADED;
-                }
+                this.stateEvent('LOADED');
 
                 return Users;
             },
             error () {
-                this.status = statuses.ERROR;
+                this.stateEvent('ERROR');
             },
         },
     },
