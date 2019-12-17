@@ -5,17 +5,13 @@
               method="post"
               @submit.prevent="submit">
             <form-error v-if="$v.$anyError" />
-            <ul v-if="invalidToken" class="field-errors mb-4" role="alert">
-                <li>
-                    Your activation link is invalid.
-                    Please try clicking the button again or copying the link.
-                </li>
-            </ul>
-            <ul v-if="tokenExpired" class="field-errors mb-4" role="alert">
-                <li>
-                    Your link has expired. Please contact an administrator.
-                </li>
-            </ul>
+            <field-error v-if="invalidToken" class="mb-4">
+                Your activation link is invalid.
+                Please try clicking the button again or copying the link.
+            </field-error>
+            <field-error v-if="tokenExpired" class="mb-4">
+                Your link has expired. Please contact an administrator.
+            </field-error>
 
             <p :class="{ 'mt-0' : !$v.$anyError && !invalidToken && !tokenExpired }">
                 To activate your account, enter a password below.

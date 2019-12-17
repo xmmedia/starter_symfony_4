@@ -5,9 +5,9 @@
               method="post"
               @submit.prevent="submit">
             <form-error v-if="$v.$anyError" />
-            <ul v-if="notFound" class="field-errors mb-4" role="alert">
-                <li>An account with that email cannot be found.</li>
-            </ul>
+            <field-error v-if="notFound" class="mb-4">
+                An account with that email cannot be found.
+            </field-error>
 
             <field-email v-model="email"
                          :v="$v.email"

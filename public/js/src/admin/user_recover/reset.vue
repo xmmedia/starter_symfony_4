@@ -5,22 +5,18 @@
               method="post"
               @submit.prevent="submit">
             <form-error v-if="$v.$anyError" />
-            <ul v-if="invalidToken" class="field-errors mb-4" role="alert">
-                <li>
-                    Your reset link is invalid or has expired.
-                    Please try clicking the button again or copying the link.
-                    Or you can <router-link :to="{ name: 'user-recover-initiate' }">try again</router-link>.
-                </li>
-            </ul>
-            <ul v-if="tokenExpired" class="field-errors mb-4" role="alert">
-                <li>
-                    Your link has expired.
-                    Please try
-                    <router-link :to="{ name: 'user-recover-initiate' }">
-                        requesting a new password reset link
-                    </router-link>.
-                </li>
-            </ul>
+            <field-error v-if="invalidToken" class="mb-4">
+                Your reset link is invalid or has expired.
+                Please try clicking the button again or copying the link.
+                Or you can <router-link :to="{ name: 'user-recover-initiate' }">try again</router-link>.
+            </field-error>
+            <field-error v-if="tokenExpired" class="mb-4">
+                Your link has expired.
+                Please try
+                <router-link :to="{ name: 'user-recover-initiate' }">
+                    requesting a new password reset link
+                </router-link>.
+            </field-error>
 
             <div class="hidden">
                 <label for="inputEmail">Email</label>
