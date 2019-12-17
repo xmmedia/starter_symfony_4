@@ -7,6 +7,13 @@
 #    requirements:
 #        path: '.*'
 
+contact:
+    path: /contact
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        template: contact/index.html.twig
+    methods: [GET]
+
 admin_default:
     path: /admin{path}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
