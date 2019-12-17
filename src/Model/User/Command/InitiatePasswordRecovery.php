@@ -35,6 +35,7 @@ final class InitiatePasswordRecovery extends Command
         Assert::uuid($payload['userId']);
 
         Assert::keyExists($payload, 'email');
+        Assert::string($payload['email']);
 
         parent::setPayload($payload);
     }
