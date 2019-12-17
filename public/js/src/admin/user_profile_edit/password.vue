@@ -57,7 +57,7 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { waitForValidation } from '@/common/lib';
 import profileTabs from './component/tabs';
-import fieldPassword from './component/password';
+import fieldPassword from '@/common/field_password_with_errors';
 import { ChangePassword } from '../queries/user.mutation.graphql';
 
 import userValidations from './user.validation';

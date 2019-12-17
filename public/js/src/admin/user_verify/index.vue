@@ -29,11 +29,11 @@
                        autocomplete="username email">
             </div>
 
-            <password-field v-model="password"
+            <field-password v-model="password"
                             :show-help="true"
                             autocomplete="new-password" />
-            <password-field v-model="repeatPassword"
-                            autocomplete="new-password">Password Again</password-field>
+            <field-password v-model="repeatPassword"
+                            autocomplete="new-password">Password Again</field-password>
 
             <admin-button :status="status" :cancel-to="{ name: 'login' }">
                 Activate

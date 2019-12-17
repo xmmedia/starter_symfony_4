@@ -5,7 +5,7 @@
             <label :for="id">{{ checkboxLabel }}</label>
         </div>
 
-        <password-field v-show="setPassword"
+        <field-password v-show="setPassword"
                         :value="value"
                         :show-help="true"
                         :required="setPassword"
@@ -30,7 +30,7 @@
                     </template>
                 </field-error>
             </template>
-        </password-field>
+        </field-password>
     </div>
 </template>
 

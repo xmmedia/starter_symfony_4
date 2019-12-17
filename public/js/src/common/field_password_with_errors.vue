@@ -1,5 +1,5 @@
 <template>
-    <password-field :value="value"
+    <field-password :value="value"
                     :show-help="showHelp"
                     :required="false"
                     :autocomplete="autocomplete"
@@ -28,7 +28,7 @@
                 </template>
             </field-error>
         </template>
-    </password-field>
+    </field-password>
 </template>
 
 <script>

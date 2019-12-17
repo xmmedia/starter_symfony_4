@@ -19,7 +19,7 @@
                            autocomplete="username email">
                 </div>
 
-                <password-field v-model="password"
+                <field-password v-model="password"
                                 name="password"
                                 autocomplete="current-password" />
 
