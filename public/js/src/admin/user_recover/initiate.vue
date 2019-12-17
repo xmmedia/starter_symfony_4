@@ -26,12 +26,10 @@
             </admin-button>
         </form>
 
-        <div v-if="status === 'saved'" class="text-center">
-            <div class="max-w-lg mx-auto mb-4">
-                A password reset link has been sent by email.
-                Please follow the instructions within the email to reset your password.
-            </div>
-            <div><router-link :to="{ name: 'login' }">Return to Login</router-link></div>
+        <div v-if="status === 'saved'" class="alert alert-success max-w-lg" role="alert">
+            A password reset link has been sent by email.
+            Please follow the instructions within the email to reset your password.
+            <router-link :to="{ name: 'login' }" class="w-64 pl-4 text-sm">Return to Login</router-link>
         </div>
     </div>
 </template>

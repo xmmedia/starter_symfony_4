@@ -4,7 +4,7 @@
               class="form-wrap"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="hasValidationErrors" />
+            <form-error v-if="$v.$anyError" />
             <ul v-if="invalidToken" class="field-errors mb-4" role="alert">
                 <li>
                     Your activation link is invalid.
@@ -17,7 +17,7 @@
                 </li>
             </ul>
 
-            <p :class="{ 'mt-0' : !hasValidationErrors && !invalidToken && !tokenExpired }">
+            <p :class="{ 'mt-0' : !$v.$anyError && !invalidToken && !tokenExpired }">
                 To activate your account, enter a password below.
             </p>
 
@@ -30,9 +30,11 @@
             </div>
 
             <field-password v-model="password"
+                            :v="$v.password"
                             :show-help="true"
                             autocomplete="new-password" />
             <field-password v-model="repeatPassword"
+                            :v="$v.repeatPassword"
                             autocomplete="new-password">Password Again</field-password>
 
             <admin-button :status="status" :cancel-to="{ name: 'login' }">
@@ -52,8 +54,12 @@
 </template>
 
 <script>
-import { hasGraphQlError, hasGraphQlValidationError } from '@/common/lib';
+import { hasGraphQlError, waitForValidation } from '@/common/lib';
+import { required } from 'vuelidate/lib/validators';
+import fieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '../queries/user.mutation.graphql';
+import cloneDeep from 'lodash/cloneDeep';
+import userValidation from '@/common/validation/user';
 
 const statuses = {
     LOADED: 'loaded',
@@ -62,10 +68,13 @@ const statuses = {
 };
 
 export default {
+    components: {
+        fieldPassword,
+    },
+
     data () {
         return {
             status: statuses.LOADED,
-            serverValidationErrors: {},
             invalidToken: false,
             tokenExpired: false,
 
@@ -78,14 +87,32 @@ export default {
         showForm () {
             return [statuses.LOADED, statuses.SAVING].includes(this.status);
         },
-        hasValidationErrors () {
-            return Object.keys(this.serverValidationErrors).length > 0;
-        },
+    },
+
+    validations () {
+        return {
+            password: {
+                ...cloneDeep(userValidation.password),
+            },
+            repeatPassword: {
+                required,
+            },
+        };
     },
 
     methods: {
+        waitForValidation,
+
         async submit () {
             this.status = statuses.SAVING;
+
+            this.$v.$touch();
+            if (!await this.waitForValidation()) {
+                this.status = statuses.LOADED;
+                window.scrollTo(0, 0);
+
+                return;
+            }
 
             try {
                 await this.$apollo.mutate({
@@ -98,7 +125,6 @@ export default {
                 });
 
                 this.status = statuses.SAVED;
-                this.serverValidationErrors = {};
                 this.password = null;
                 this.repeatPassword = null;
                 this.invalidToken = false;
@@ -109,20 +135,16 @@ export default {
                 }, 5000);
 
             } catch (e) {
-                this.serverValidationErrors = {};
-
                 if (hasGraphQlError(e)) {
-                    if (hasGraphQlValidationError(e)) {
-                        this.serverValidationErrors = e.graphQLErrors[0].validation;
-                    } else if (e.graphQLErrors[0].code === 404) {
+                    if (e.graphQLErrors[0].code === 404) {
                         this.invalidToken = true;
                     } else if (e.graphQLErrors[0].code === 405) {
                         this.tokenExpired = true;
                     } else {
-                        this.showError(e);
+                        this.showError();
                     }
                 } else {
-                    this.showError(e);
+                    this.showError();
                 }
 
                 window.scrollTo(0, 0);
@@ -132,7 +154,7 @@ export default {
         },
 
         showError () {
-            alert('There was a problem saving your password. Please try again later.');
+            alert('There was a problem activating your account. Please try again later.');
         },
     },
 }

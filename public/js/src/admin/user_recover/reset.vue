@@ -47,17 +47,18 @@
             </admin-button>
         </form>
 
-        <div v-if="status === 'saved'" class="text-center">
-            <div class="mb-4">Your password has been reset.</div>
-            <div><router-link :to="{ name: 'login' }">Login</router-link></div>
+        <div v-if="status === 'saved'" class="alert alert-success max-w-lg" role="alert">
+            Your password has been reset.
+            <router-link :to="{ name: 'login' }" class="pl-4">Login</router-link>
         </div>
     </div>
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep';
 import { hasGraphQlError, waitForValidation } from '@/common/lib';
-import { maxLength, minLength, required, sameAs } from 'vuelidate/lib/validators';
-import { pwnedPassword } from 'hibp';
+import { required } from 'vuelidate/lib/validators';
+import userValidation from '@/common/validation/user';
 import fieldPassword from '@/common/field_password_with_errors';
 import { UserRecoverReset } from '../queries/user.mutation.graphql';
 
@@ -92,20 +93,7 @@ export default {
     validations () {
         return {
             newPassword: {
-                required,
-                minLength: minLength(12),
-                // this is different than the backend:
-                // there's no real point other than security to the check in the backend
-                maxLength: maxLength(1000),
-                sameAs: sameAs('repeatPassword'),
-                async compromised (value) {
-                    if (null === value || value.length < 12) {
-                        return true;
-                    }
-
-                    // reject if in more than 3 breaches
-                    return await pwnedPassword(value) < 3;
-                },
+                ...cloneDeep(userValidation.password),
             },
             repeatPassword: {
                 required,

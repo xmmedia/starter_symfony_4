@@ -11,21 +11,17 @@ use App\Model\User\Exception\TokenHasExpired;
 use App\Model\User\Token;
 use App\Security\PasswordEncoder;
 use App\Security\TokenValidator;
+use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xm\SymfonyBundle\Exception\FormValidationException;
-use Xm\SymfonyBundle\Form\User\UserVerifyType;
+use Symfony\Component\Security\Core\Security;
 
 class UserVerifyMutation implements MutationInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;
-
-    /** @var FormFactoryInterface */
-    private $formFactory;
 
     /** @var PasswordEncoder */
     private $passwordEncoder;
@@ -33,38 +29,31 @@ class UserVerifyMutation implements MutationInterface
     /** @var TokenValidator */
     private $tokenValidator;
 
+    /** @var Security */
+    private $security;
+
     public function __construct(
         MessageBusInterface $commandBus,
-        FormFactoryInterface $formFactory,
         PasswordEncoder $passwordEncoder,
-        TokenValidator $tokenValidator
+        TokenValidator $tokenValidator,
+        Security $security
     ) {
         $this->commandBus = $commandBus;
-        $this->formFactory = $formFactory;
         $this->passwordEncoder = $passwordEncoder;
         $this->tokenValidator = $tokenValidator;
+        $this->security = $security;
     }
 
     public function __invoke(Argument $args): array
     {
-        $form = $this->formFactory
-            ->create(UserVerifyType::class)
-            ->submit([
-                'token'    => $args['token'],
-                'password' => [
-                    'first'  => $args['password'],
-                    'second' => $args['repeatPassword'],
-                ],
-            ]);
-
-        if (!$form->isValid()) {
-            throw FormValidationException::fromForm($form);
+        if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new UserError('Cannot activate account if logged in.', 404);
         }
 
         try {
             // checks if the token is valid & user is active
             $user = $this->tokenValidator->validate(
-                Token::fromString($form->getData()['token'])
+                Token::fromString($args['token'])
             );
         } catch (InvalidToken $e) {
             // 404 -> not found
@@ -79,13 +68,24 @@ class UserVerifyMutation implements MutationInterface
             throw new UserError('Your account has already been activated.', 404);
         }
 
+        $password = $args['password'];
+
+        // check new password
+        Assert::passwordLength($password);
+        Assert::same(
+            $password,
+            $args['repeatPassword'],
+            'The new passwords should match.'
+        );
+        Assert::compromisedPassword($password);
+
         $this->commandBus->dispatch(
             VerifyUser::now($user->userId())
         );
 
         $encodedPassword = ($this->passwordEncoder)(
             $user->firstRole(),
-            $form->getData()['password']
+            $password
         );
         $this->commandBus->dispatch(
             ChangePassword::forUser($user->userId(), $encodedPassword)
