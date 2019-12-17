@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Util;
 
-use App\Util\Assert;
 use App\Tests\BaseTestCase;
-use Mockery;
+use App\Util\Assert;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 
 class AssertTest extends BaseTestCase

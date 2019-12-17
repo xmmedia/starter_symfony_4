@@ -6,12 +6,12 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Model\User\Command\ChangePassword;
 use App\Security\PasswordEncoder;
+use App\Security\Security;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Security;
 use Xm\SymfonyBundle\Util\StringUtil;
 
 class UserPasswordMutation implements MutationInterface

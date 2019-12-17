@@ -6,11 +6,11 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Projection\User\UserFinder;
+use App\Security\Security;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Security;
 use Xm\SymfonyBundle\Model\Email;
 
 class UserRecoverInitiateMutation implements MutationInterface

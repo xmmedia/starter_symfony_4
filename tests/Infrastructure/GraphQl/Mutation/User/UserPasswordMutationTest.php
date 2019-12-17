@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\GraphQl\Mutation\User;
 
+use App\Entity\User;
 use App\Infrastructure\GraphQl\Mutation\User\UserPasswordMutation;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Role;
-use App\Model\User\User;
 use App\Security\PasswordEncoder;
+use App\Security\Security;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -16,13 +17,9 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Xm\SymfonyBundle\Tests\CanCreateSecurityTrait;
 
 class UserPasswordMutationTest extends BaseTestCase
 {
-    use CanCreateSecurityTrait;
-
     public function testValid(): void
     {
         $faker = $this->faker();
@@ -49,14 +46,16 @@ class UserPasswordMutationTest extends BaseTestCase
             ->once()
             ->andReturn('string');
 
-        $user = Mockery::mock(UserInterface::class);
+        $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
             ->andReturn($userId);
         $user->shouldReceive('firstRole')
             ->once()
             ->andReturn(Role::ROLE_USER());
-        $security = $this->createSecurity($user);
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->andReturn($user);
 
         $args = new Argument([
             'user' => $data,
@@ -91,8 +90,10 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(UserInterface::class);
-        $security = $this->createSecurity($user);
+        $user = Mockery::mock(User::class);
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->andReturn($user);
 
         $args = new Argument([
             'user' => $data,
@@ -126,8 +127,10 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(UserInterface::class);
-        $security = $this->createSecurity($user);
+        $user = Mockery::mock(User::class);
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->andReturn($user);
 
         $args = new Argument([
             'user' => $data,
@@ -163,8 +166,10 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(UserInterface::class);
-        $security = $this->createSecurity($user);
+        $user = Mockery::mock(User::class);
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->andReturn($user);
 
         $args = new Argument([
             'user' => $data,
@@ -183,7 +188,7 @@ class UserPasswordMutationTest extends BaseTestCase
     public function testInvalidNewTooShort(): void
     {
         $faker = $this->faker();
-        $newPassword = $faker->string(User::PASSWORD_MIN_LENGTH - 1);
+        $newPassword = $faker->string(\App\Model\User\User::PASSWORD_MIN_LENGTH - 1);
         $data = [
             'currentPassword' => $faker->password,
             'newPassword'     => $newPassword,
@@ -198,8 +203,10 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(UserInterface::class);
-        $security = $this->createSecurity($user);
+        $user = Mockery::mock(User::class);
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->andReturn($user);
 
         $args = new Argument([
             'user' => $data,
@@ -233,8 +240,10 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(UserInterface::class);
-        $security = $this->createSecurity($user);
+        $user = Mockery::mock(User::class);
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->andReturn($user);
 
         $args = new Argument([
             'user' => $data,
@@ -267,8 +276,10 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(UserInterface::class);
-        $security = $this->createSecurity($user);
+        $user = Mockery::mock(User::class);
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->andReturn($user);
 
         $args = new Argument([
             'user' => $data,
@@ -301,8 +312,10 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(UserInterface::class);
-        $security = $this->createSecurity($user);
+        $user = Mockery::mock(User::class);
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->andReturn($user);
 
         $args = new Argument([
             'user' => $data,
