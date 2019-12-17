@@ -17,8 +17,7 @@
                 Please enter your email address to search for your account:
             </field-email>
 
-            <admin-button :saving="state.matches('submitting')"
-                          :saved="state.matches('requested')">
+            <admin-button :saving="state.matches('submitting')">
                 Search
                 <router-link slot="cancel"
                              :to="{ name: 'login' }"

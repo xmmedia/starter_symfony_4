@@ -37,7 +37,8 @@
                             :v="$v.repeatPassword"
                             autocomplete="new-password">Password Again</field-password>
 
-            <admin-button :status="status" :cancel-to="{ name: 'login' }">
+            <admin-button :saving="state.matches('submitting')"
+                          :cancel-to="{ name: 'login' }">
                 Activate
                 <router-link slot="cancel"
                              :to="{ name: 'login' }"
@@ -46,7 +47,7 @@
             </admin-button>
         </form>
 
-        <div v-if="status === 'saved'" class="alert alert-success max-w-lg" role="alert">
+        <div v-if="state.matches('verified')" class="alert alert-success max-w-lg" role="alert">
             Your account is now active.
             <router-link :to="{ name: 'login' }" class="pl-4">Login</router-link>
         </div>
@@ -54,27 +55,50 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep';
+import { Machine, interpret } from 'xstate';
 import { hasGraphQlError, waitForValidation } from '@/common/lib';
 import { required } from 'vuelidate/lib/validators';
 import fieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '../queries/user.mutation.graphql';
-import cloneDeep from 'lodash/cloneDeep';
+import stateMixin from '@/common/state_mixin';
 import userValidation from '@/common/validation/user';
 
-const statuses = {
-    LOADED: 'loaded',
-    SAVING: 'saving',
-    SAVED: 'saved',
-};
+const stateMachine = Machine({
+    id: 'component',
+    initial: 'ready',
+    strict: true,
+    states: {
+        ready: {
+            on: {
+                SUBMIT: 'submitting',
+            },
+        },
+        submitting: {
+            on: {
+                SUBMITTED: 'verified',
+                ERROR: 'ready',
+            },
+        },
+        verified: {
+            type: 'final',
+        },
+    },
+});
 
 export default {
     components: {
         fieldPassword,
     },
 
+    mixins: [
+        stateMixin,
+    ],
+
     data () {
         return {
-            status: statuses.LOADED,
+            stateService: interpret(stateMachine),
+            state: stateMachine.initialState,
             invalidToken: false,
             tokenExpired: false,
 
@@ -85,7 +109,7 @@ export default {
 
     computed: {
         showForm () {
-            return [statuses.LOADED, statuses.SAVING].includes(this.status);
+            return !this.state.done;
         },
     },
 
@@ -104,15 +128,14 @@ export default {
         waitForValidation,
 
         async submit () {
-            this.status = statuses.SAVING;
-
             this.$v.$touch();
             if (!await this.waitForValidation()) {
-                this.status = statuses.LOADED;
                 window.scrollTo(0, 0);
 
                 return;
             }
+
+            this.stateEvent('SUBMIT');
 
             try {
                 await this.$apollo.mutate({
@@ -123,7 +146,8 @@ export default {
                     },
                 });
 
-                this.status = statuses.SAVED;
+                this.stateEvent('SUBMITTED');
+
                 this.password = null;
                 this.repeatPassword = null;
                 this.invalidToken = false;
@@ -148,7 +172,7 @@ export default {
 
                 window.scrollTo(0, 0);
 
-                this.status = statuses.LOADED;
+                this.stateEvent('ERROR');
             }
         },
 
