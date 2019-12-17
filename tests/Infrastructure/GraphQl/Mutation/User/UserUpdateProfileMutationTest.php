@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\GraphQl\Mutation\User;
 
+use App\Entity\User;
 use App\Infrastructure\GraphQl\Mutation\User\UserUpdateProfileMutation;
 use App\Model\User\Command\UpdateUserProfile;
+use App\Security\Security;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Xm\SymfonyBundle\Tests\CanCreateSecurityTrait;
 
 class UserUpdateProfileMutationTest extends BaseTestCase
 {
-    use CanCreateSecurityTrait;
-
     public function testValid(): void
     {
         $faker = $this->faker();
@@ -34,11 +32,14 @@ class UserUpdateProfileMutationTest extends BaseTestCase
             ->with(Mockery::type(UpdateUserProfile::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $user = Mockery::mock(UserInterface::class);
+        $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
             ->andReturn($userId);
-        $security = $this->createSecurity($user);
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->once()
+            ->andReturn($user);
 
         $args = new Argument([
             'user' => $data,
