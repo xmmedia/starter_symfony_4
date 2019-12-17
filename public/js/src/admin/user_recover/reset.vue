@@ -124,6 +124,10 @@ export default {
         waitForValidation,
 
         async submit () {
+            if (!this.state.matches('ready')) {
+                return;
+            }
+
             this.stateEvent('SUBMIT');
 
             this.$v.$touch();

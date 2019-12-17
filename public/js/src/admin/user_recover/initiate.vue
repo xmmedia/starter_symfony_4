@@ -100,6 +100,10 @@ export default {
 
     methods: {
         async submit () {
+            if (!this.state.matches('ready')) {
+                return;
+            }
+
             this.stateEvent('SUBMIT');
             this.notFound = false;
 
