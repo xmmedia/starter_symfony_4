@@ -22,19 +22,24 @@
                         autocomplete="family-name"
                         @input="changed">Last Name</field-name>
 
-            <admin-button :status="status">
+            <admin-button :saving="state.matches('saving')"
+                          :saved="state.matches('saved')">
                 Save Profile
-                <button slot="cancel"
-                        class="form-action button-link"
-                        @click.prevent="reset">Reset</button>
+                <template #cancel>
+                    <button v-if="state.matches('edited')"
+                            class="form-action button-link"
+                            @click.prevent="reset">Reset</button>
+                </template>
             </admin-button>
         </form>
     </div>
 </template>
 
 <script>
+import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
 import { waitForValidation } from '@/common/lib';
+import stateMixin from '@/common/state_mixin';
 import fieldEmail from '@/common/field_email';
 import fieldName from '@/common/field_name';
 import profileTabs from './component/tabs';
@@ -42,12 +47,37 @@ import { UserUpdateProfile } from '../queries/user.mutation.graphql';
 
 import userValidations from './user.validation';
 
-const statuses = {
-    LOADED: 'loaded',
-    EDITED: 'edited',
-    SAVING: 'saving',
-    SAVED: 'saved',
-};
+const stateMachine = Machine({
+    id: 'component',
+    initial: 'ready',
+    strict: true,
+    states: {
+        ready: {
+            on: {
+                SAVE: 'saving',
+                EDITED: 'edited',
+            },
+        },
+        edited: {
+            on: {
+                SAVE: 'saving',
+                RESET: 'ready',
+            },
+        },
+        saving: {
+            on: {
+                SAVED: 'saved',
+                ERROR: 'ready',
+            },
+        },
+        saved: {
+            on: {
+                RESET: 'ready',
+                EDITED: 'edited',
+            },
+        },
+    },
+});
 
 export default {
     components: {
@@ -56,9 +86,14 @@ export default {
         fieldName,
     },
 
+    mixins: [
+        stateMixin,
+    ],
+
     data () {
         return {
-            status: statuses.LOADED,
+            stateService: interpret(stateMachine),
+            state: stateMachine.initialState,
 
             email: this.$store.state.user.email,
             firstName: this.$store.state.user.firstName,
@@ -67,7 +102,7 @@ export default {
     },
 
     beforeRouteLeave (to, from, next) {
-        if (this.status === statuses.EDITED) {
+        if (this.state.matches('edited')) {
             if (!confirm('You have unsaved changes. Are you sure you want to leave?')) {
                 return
             }
@@ -88,12 +123,15 @@ export default {
         waitForValidation,
 
         async submit () {
-            this.status = statuses.SAVING;
+            if (!this.state.matches('ready') && !this.state.matches('edited')) {
+                return;
+            }
+
+            this.stateEvent('SAVE');
 
             this.$v.$touch();
-
             if (!await this.waitForValidation()) {
-                this.status = statuses.LOADED;
+                this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
                 return;
@@ -111,29 +149,29 @@ export default {
                     },
                 });
 
-                this.status = statuses.SAVED;
-
                 this.$store.dispatch('updateUser', {
                     email: this.email,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
                     name: this.firstName + ' ' + this.lastName,
                 });
 
+                this.stateEvent('SAVED');
+
                 setTimeout(() => {
-                    if (this.status === statuses.SAVED) {
-                        this.status = statuses.LOADED;
-                    }
+                    this.stateEvent('RESET');
                 }, 5000);
 
             } catch (e) {
                 alert('There was a problem saving your profile. Please try again later.');
-                window.scrollTo(0, 0);
 
-                this.status = statuses.EDITED;
+                this.stateEvent('ERROR');
+                window.scrollTo(0, 0);
             }
         },
 
         changed () {
-            this.status = statuses.EDITED;
+            this.stateEvent('EDITED');
         },
 
         reset () {
@@ -141,7 +179,7 @@ export default {
             this.firstName = this.$store.state.user.firstName;
             this.lastName = this.$store.state.user.lastName;
 
-            this.status = statuses.LOADED;
+            this.stateEvent('RESET');
         },
     },
 }

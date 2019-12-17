@@ -4,7 +4,9 @@
 
         <form class="p-4" method="post" @submit.prevent="submit">
             <form-error v-if="$v.$anyError" />
-            <div v-if="status === 'saved'" class="alert alert-success mb-4" role="alert">
+            <div v-if="state.matches('saved')"
+                 class="alert alert-success mb-4"
+                 role="alert">
                 <div>
                     Your password has been updated.<br>
                     You will need to login again.
@@ -45,7 +47,7 @@
 
             <div class="mb-4 text-sm">After changing your password, you will need to login again.</div>
 
-            <admin-button :status="status"
+            <admin-button :saving="state.matches('saving')"
                           :cancel-to="{ name: 'user-profile-edit' }">
                 Change Password
             </admin-button>
@@ -54,19 +56,39 @@
 </template>
 
 <script>
+import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
 import { waitForValidation } from '@/common/lib';
+import stateMixin from '@/common/state_mixin';
 import profileTabs from './component/tabs';
 import fieldPassword from '@/common/field_password_with_errors';
 import { ChangePassword } from '../queries/user.mutation.graphql';
 
 import userValidations from './user.validation';
 
-const statuses = {
-    LOADED: 'loaded',
-    SAVING: 'saving',
-    SAVED: 'saved',
-};
+const stateMachine = Machine({
+    id: 'component',
+    initial: 'ready',
+    strict: true,
+    states: {
+        ready: {
+            on: {
+                SAVE: 'saving',
+            },
+        },
+        saving: {
+            on: {
+                SAVED: 'saved',
+                ERROR: 'ready',
+            },
+        },
+        saved: {
+            on: {
+                RESET: 'ready',
+            },
+        },
+    },
+});
 
 export default {
     components: {
@@ -74,9 +96,14 @@ export default {
         fieldPassword,
     },
 
+    mixins: [
+        stateMixin,
+    ],
+
     data () {
         return {
-            status: statuses.LOADED,
+            stateService: interpret(stateMachine),
+            state: stateMachine.initialState,
 
             currentPassword: null,
             newPassword: null,
@@ -102,12 +129,15 @@ export default {
         waitForValidation,
 
         async submit () {
-            this.status = statuses.SAVING;
+            if (!this.state.matches('ready')) {
+                return;
+            }
+
+            this.stateEvent('SAVE');
 
             this.$v.$touch();
-
             if (!await this.waitForValidation()) {
-                this.status = statuses.LOADED;
+                this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
                 return;
@@ -129,7 +159,7 @@ export default {
                 this.repeatPassword = null;
                 this.$v.$reset();
 
-                this.status = statuses.SAVED;
+                this.stateEvent('SAVED');
 
                 setTimeout(() => {
                     window.location = this.loginUrl;
@@ -137,9 +167,9 @@ export default {
 
             } catch (e) {
                 alert('There was a problem saving your password. Please try again later.');
-                window.scrollTo(0, 0);
 
-                this.status = statuses.LOADED;
+                this.stateEvent('ERROR');
+                window.scrollTo(0, 0);
             }
         },
     },
