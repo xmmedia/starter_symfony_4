@@ -2,7 +2,7 @@ import 'es6-promise/auto';
 
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
-// import PortalVue from 'portal-vue';
+import PortalVue from 'portal-vue';
 
 import apolloProvider from './common/apollo';
 // import * as filters from './common/filters';
@@ -23,7 +23,7 @@ import '../../css/public.scss';
 Vue.config.productionTip = false;
 
 Vue.use(VueApollo);
-// Vue.use(PortalVue);
+Vue.use(PortalVue);
 
 Vue.component('loading-spinner', loadingSpinner);
 Vue.component('form-error', formError);
