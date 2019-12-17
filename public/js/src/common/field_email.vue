@@ -4,7 +4,7 @@
 
         <field-error v-if="v.$error">
             <template v-if="!v.required">
-                A email is required.
+                An email is required.
             </template>
             <template v-else-if="!v.email">
                 This email is invalid.
