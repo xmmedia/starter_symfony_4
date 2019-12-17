@@ -10,13 +10,13 @@ use App\Model\User\Exception\InvalidToken;
 use App\Model\User\Exception\TokenHasExpired;
 use App\Model\User\Token;
 use App\Security\PasswordEncoder;
+use App\Security\Security;
 use App\Security\TokenValidator;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Security;
 
 class UserVerifyMutation implements MutationInterface
 {
