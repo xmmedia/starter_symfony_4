@@ -10,7 +10,7 @@ use Xm\SymfonyBundle\Util\StringUtil;
 
 class Assert extends \Xm\SymfonyBundle\Util\Assert
 {
-    public static function passwordLength(string $password): void
+    public static function passwordLength(?string $password): void
     {
         self::notEmpty(
             StringUtil::trim($password),
