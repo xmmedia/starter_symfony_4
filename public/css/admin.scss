@@ -25,6 +25,12 @@ a, .button-link {
 }
 .button-link {
     @apply font-light;
+    &:disabled {
+        @apply text-blue-300;
+        &:hover {
+            @apply no-underline;
+        }
+    }
 }
 
 // load common styles
