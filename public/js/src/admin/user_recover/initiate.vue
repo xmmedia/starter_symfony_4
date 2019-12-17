@@ -17,7 +17,8 @@
                 Please enter your email address to search for your account:
             </field-email>
 
-            <admin-button :status="status">
+            <admin-button :saving="state.matches('submitting')"
+                          :saved="state.matches('requested')">
                 Search
                 <router-link slot="cancel"
                              :to="{ name: 'login' }"
@@ -26,7 +27,7 @@
             </admin-button>
         </form>
 
-        <div v-if="status === 'saved'" class="alert alert-success max-w-lg" role="alert">
+        <div v-if="state.matches('requested')" class="alert alert-success max-w-lg" role="alert">
             A password reset link has been sent by email.
             Please follow the instructions within the email to reset your password.
             <router-link :to="{ name: 'login' }" class="w-64 pl-4 text-sm">Return to Login</router-link>
@@ -35,16 +36,33 @@
 </template>
 
 <script>
+import { Machine, interpret } from 'xstate';
 import { email, required } from 'vuelidate/lib/validators';
 import { hasGraphQlError } from '@/common/lib';
 import fieldEmail from '@/common/field_email';
 import { UserRecoverInitiate } from '../queries/user.mutation.graphql';
 
-const statuses = {
-    LOADED: 'loaded',
-    SAVING: 'saving',
-    SAVED: 'saved',
-};
+const stateMachine = Machine({
+    id: 'component',
+    initial: 'ready',
+    strict: true,
+    states: {
+        ready: {
+            on: {
+                SUBMIT: 'submitting',
+            },
+        },
+        submitting: {
+            on: {
+                SUBMITTED: 'requested',
+                ERROR: 'ready',
+            },
+        },
+        requested: {
+            type: 'final',
+        },
+    },
+});
 
 export default {
     components: {
@@ -53,7 +71,8 @@ export default {
 
     data () {
         return {
-            status: statuses.LOADED,
+            stateService: interpret(stateMachine),
+            state: stateMachine.initialState,
             notFound: false,
 
             email: null,
@@ -62,7 +81,7 @@ export default {
 
     computed: {
         showForm () {
-            return [statuses.LOADED, statuses.SAVING].includes(this.status);
+            return !this.state.done;
         },
     },
 
@@ -75,18 +94,28 @@ export default {
         };
     },
 
+    created () {
+        this.stateService.onTransition((state) => {
+            this.state = state;
+        }).start();
+    },
+
     methods: {
+        stateEvent (event) {
+            this.stateService.send(event);
+        },
+
         async submit () {
-            this.status = statuses.SAVING;
             this.notFound = false;
 
             this.$v.$touch();
             if (this.$v.$anyError) {
-                this.status = statuses.LOADED;
                 window.scrollTo(0, 0);
 
                 return;
             }
+
+            this.stateEvent('SUBMIT');
 
             try {
                 await this.$apollo.mutate({
@@ -99,8 +128,7 @@ export default {
                 this.email = null;
                 this.$v.$reset();
 
-                this.status = statuses.SAVED;
-                this.notFound = false;
+                this.stateEvent('SUBMITTED');
 
             } catch (e) {
                 if (hasGraphQlError(e)) {
@@ -115,7 +143,7 @@ export default {
 
                 window.scrollTo(0, 0);
 
-                this.status = statuses.LOADED;
+                this.stateEvent('ERROR');
             }
         },
 
