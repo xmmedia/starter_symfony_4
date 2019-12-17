@@ -50,6 +50,12 @@ class UserRecoverResetMutation implements MutationInterface
             throw new UserError('Logged in users cannot change their password this way.', 404);
         }
 
+        $newPassword = $args['newPassword'];
+
+        // check new password
+        Assert::passwordLength($newPassword);
+        Assert::compromisedPassword($newPassword);
+
         try {
             $user = $this->tokenValidator->validate(
                 Token::fromString($args['token'])
@@ -61,12 +67,6 @@ class UserRecoverResetMutation implements MutationInterface
             // 405 -> method not allowed
             throw new UserError('The link has expired.', 405);
         }
-
-        $newPassword = $args['newPassword'];
-
-        // check new password
-        Assert::passwordLength($newPassword);
-        Assert::compromisedPassword($newPassword);
 
         if (!$user->verified()) {
             $this->commandBus->dispatch(

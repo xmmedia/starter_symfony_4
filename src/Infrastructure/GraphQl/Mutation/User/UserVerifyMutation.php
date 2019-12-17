@@ -50,6 +50,12 @@ class UserVerifyMutation implements MutationInterface
             throw new UserError('Cannot activate account if logged in.', 404);
         }
 
+        $password = $args['password'];
+
+        // check new password
+        Assert::passwordLength($password);
+        Assert::compromisedPassword($password);
+
         try {
             // checks if the token is valid & user is active
             $user = $this->tokenValidator->validate(
@@ -67,12 +73,6 @@ class UserVerifyMutation implements MutationInterface
             // 404 -> not found
             throw new UserError('Your account has already been activated.', 404);
         }
-
-        $password = $args['password'];
-
-        // check new password
-        Assert::passwordLength($password);
-        Assert::compromisedPassword($password);
 
         $this->commandBus->dispatch(
             VerifyUser::now($user->userId())
