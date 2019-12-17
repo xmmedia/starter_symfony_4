@@ -6,6 +6,7 @@ namespace App\Model\User;
 
 use Webmozart\Assert\Assert;
 use Xm\SymfonyBundle\Model\ValueObject;
+use Xm\SymfonyBundle\Util\StringUtil;
 
 class Token implements ValueObject
 {
@@ -19,6 +20,8 @@ class Token implements ValueObject
 
     public function __construct(string $token)
     {
+        $token = StringUtil::trim($token);
+
         Assert::notEmpty($token);
 
         $this->token = $token;
