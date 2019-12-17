@@ -135,9 +135,8 @@ export default {
                     this.showError();
                 }
 
-                window.scrollTo(0, 0);
-
                 this.stateEvent('ERROR');
+                window.scrollTo(0, 0);
             }
         },
 

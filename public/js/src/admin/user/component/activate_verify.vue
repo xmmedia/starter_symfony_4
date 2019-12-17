@@ -157,9 +157,8 @@ export default {
             } catch (e) {
                 alert('There was a problem toggling the active state. Please try again later.');
 
-                window.scrollTo(0, 0);
-
                 this.stateEvent('ERROR');
+                window.scrollTo(0, 0);
             }
         },
 
@@ -188,9 +187,8 @@ export default {
             } catch (e) {
                 alert('There was a problem verifying the user. Please try again later.');
 
-                window.scrollTo(0, 0);
-
                 this.stateEvent('ERROR');
+                window.scrollTo(0, 0);
             }
         },
 

@@ -160,9 +160,8 @@ export default {
             } catch (e) {
                 alert('There was a problem saving. Please try again later.');
 
-                window.scrollTo(0, 0);
-
                 this.stateEvent('ERROR');
+                window.scrollTo(0, 0);
             }
         },
     },
