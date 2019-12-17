@@ -321,6 +321,7 @@ class UserPasswordMutationTest extends BaseTestCase
     public function emptyProvider(): \Generator
     {
         yield [''];
+        yield [' '];
         yield ['   '];
         yield [null];
     }
