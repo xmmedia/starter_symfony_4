@@ -104,9 +104,6 @@ const stateMachine = Machine({
                 },
             },
         },
-        saved: {
-            type: 'final',
-        },
         error: {
             type: 'final',
         },
