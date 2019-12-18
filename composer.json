@@ -12,7 +12,6 @@
         "ext-pdo": "*",
         "cloudflare/sdk": "^1.1",
         "egulias/email-validator": "^2.1",
-        "friendsofsymfony/rest-bundle": "^2.4",
         "guzzlehttp/guzzle": "^6.3",
         "knplabs/knp-paginator-bundle": "^5.0",
         "moneyphp/money": "^3.2",

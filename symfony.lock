@@ -110,15 +110,6 @@
             "ref": "81dee417d2cc60cd1c9d6208dff2ec22a1103e93"
         }
     },
-    "friendsofsymfony/rest-bundle": {
-        "version": "2.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "2.2",
-            "ref": "258300d52be6ad59b32a888d5ddafbf9638540ff"
-        }
-    },
     "fzaninotto/faker": {
         "version": "v1.8.0"
     },
@@ -771,12 +762,6 @@
     },
     "wildbit/postmark-php": {
         "version": "2.6.0"
-    },
-    "willdurand/jsonp-callback-validator": {
-        "version": "v1.1.0"
-    },
-    "willdurand/negotiation": {
-        "version": "v2.3.1"
     },
     "xm/symfony-bundle": {
         "version": "1.0.0"
