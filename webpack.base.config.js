@@ -55,6 +55,7 @@ module.exports = function (Encore) {
         .configureBabel(() => {}, {
             includeNodeModules: [
                 'vue-apollo', // Object.entries()
+                'hibp', // Object.assign()
             ],
         })
 
