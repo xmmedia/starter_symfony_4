@@ -45,6 +45,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
 
   - PHP 7.3+
   - MySQL 5.7+
+  - Node 10
   - [Yarn](https://yarnpkg.com/en/docs/install)
 
 ## Commands
