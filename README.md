@@ -8,7 +8,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
     ```sh
     composer create-project xm/starter_symfony_4 project-name --stability=dev --no-install --remove-vcs
     ```
-2. Setup server:
+2. Setup dev server:
    1. Upload the files (exclude files that are OS dependent like `node_modules` & `.env` or that are only for editing like `.idea` and a lot of what's in `.gitignore`).
    2. [Install Composer](https://getcomposer.org/download/)
    3. Install PHP packages/vendors: `php composer.phar install`
@@ -23,7 +23,6 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
        2. `bin/console event-store:projection:run user_token_projection -o` 
        3. `bin/console event-store:projection:run enquiry_projection -o` 
    12. Create a user `bin/console app:user:add` & run user projection: `bin/console event-store:projection:run user_projection -o`
-   13. Copy or recreate the templates in Postmark & update the template IDs (see `@todo-symfony`). 
    15. Give executable perms to bin dir: `chmod u+x bin/*`
    16. Setup mail spool: add cron task similar to: `*/15 * * * * cd /home/user/example.com/current && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1` (this only sends error emails, runs every 15 minutes)
    17. Add logrotate cron: `30 4 * * 1 cd /home/user/example.com/current && logrotate app/config/packages/logrotate.conf --state var/logrotate-state` (runs Mondays at 04:30 UTC)
@@ -37,6 +36,8 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
 10. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
 11. Run `composer test` – will install PHPUnit & run PHP tests
 12. Create new favicons: [realfavicongenerator.net](https://realfavicongenerator.net)
+13. Copy or recreate the templates in Postmark & update the template IDs (see `@todo-symfony`).
+14. Run `bin/console app:graphql:dump-schema username` to update the GraphQL schema file where `username` is the email of an admin user.
 
 **Dev site can be accessed at https://[domain]/**
 
