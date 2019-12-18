@@ -8,14 +8,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
     ```sh
     composer create-project xm/starter_symfony_4 project-name --stability=dev --no-install --remove-vcs
     ```
-2. Remove or update the `LICENSE` file.
-3. [Install Composer](https://getcomposer.org/download/) locally.
-4. Update `composer.json`: `name`, `license` (likely `private`) and `description`
-5. Update `package.json`: `name`, `version`, `git.url`, `license`, `private`, `script.dev-server`
-6. Composer install & update (locally): `composer install && composer update` (or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
-7. Run `yarn && yarn upgrade` locally.
-8. Find and make changes near `@todo-symfony` comments throughout the site.
-9. Setup server:
+2. Setup server:
    1. Upload the files (exclude files that are OS dependent like `node_modules` & `.env` or that are only for editing like `.idea` and a lot of what's in `.gitignore`).
    2. [Install Composer](https://getcomposer.org/download/)
    3. Install PHP packages/vendors: `php composer.phar install`
@@ -34,6 +27,13 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
    15. Give executable perms to bin dir: `chmod u+x bin/*`
    16. Setup mail spool: add cron task similar to: `*/15 * * * * cd /home/user/example.com/current && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1` (this only sends error emails, runs every 15 minutes)
    17. Add logrotate cron: `30 4 * * 1 cd /home/user/example.com/current && logrotate app/config/packages/logrotate.conf --state var/logrotate-state` (runs Mondays at 04:30 UTC)
+3. Remove or update the `LICENSE` file.
+4. [Install Composer](https://getcomposer.org/download/) locally.
+5. Update `composer.json`: `name`, `license` (likely `private`) and `description`
+6. Update `package.json`: `name`, `version`, `git.url`, `license`, `private`, `script.dev-server`
+7. Composer install & update (locally): `composer install && composer update` (or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
+8. Run `yarn && yarn upgrade` locally.
+9. Find and make changes near `@todo-symfony` comments throughout the site.
 10. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
 11. Run `composer test` – will install PHPUnit & run PHP tests
 12. Create new favicons: [realfavicongenerator.net](https://realfavicongenerator.net)
