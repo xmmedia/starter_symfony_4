@@ -21,11 +21,11 @@ final class AdminUpdateUser extends Command
         Name $lastName
     ): self {
         return new self([
-            'userId'          => $userId->toString(),
-            'email'           => $email->toString(),
-            'role'            => $role->getValue(),
-            'firstName'       => $firstName->toString(),
-            'lastName'        => $lastName->toString(),
+            'userId'    => $userId->toString(),
+            'email'     => $email->toString(),
+            'role'      => $role->getValue(),
+            'firstName' => $firstName->toString(),
+            'lastName'  => $lastName->toString(),
         ]);
     }
 
