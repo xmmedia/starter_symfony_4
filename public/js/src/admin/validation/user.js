@@ -23,4 +23,14 @@ export default {
             return await pwnedPassword(value) < 3;
         },
     },
+    firstName: {
+        required,
+        minLength: minLength(2),
+        maxLength: maxLength(50),
+    },
+    lastName: {
+        required,
+        minLength: minLength(2),
+        maxLength: maxLength(50),
+    },
 };

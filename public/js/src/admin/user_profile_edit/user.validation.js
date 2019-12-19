@@ -1,10 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
-import {
-    email,
-    minLength,
-    maxLength,
-    required,
-} from 'vuelidate/lib/validators';
+import { email, required } from 'vuelidate/lib/validators';
 import userValidation from '@/admin/validation/user';
 import { UserEmailUnique, UserPasswordValid } from '../queries/user.query.graphql';
 
@@ -51,13 +46,9 @@ export default {
         required,
     },
     firstName: {
-        required,
-        minLength: minLength(2),
-        maxLength: maxLength(50),
+        ...cloneDeep(userValidation.firstName),
     },
     lastName: {
-        required,
-        minLength: minLength(2),
-        maxLength: maxLength(50),
+        ...cloneDeep(userValidation.lastName),
     },
 };

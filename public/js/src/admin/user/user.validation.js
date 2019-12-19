@@ -1,11 +1,6 @@
-import {
-    email,
-    minLength,
-    maxLength,
-    required,
-    requiredIf,
-} from 'vuelidate/lib/validators';
-import { pwnedPassword } from 'hibp';
+import cloneDeep from 'lodash/cloneDeep';
+import { email, required } from 'vuelidate/lib/validators';
+import userValidation from '../validation/user';
 import { GetDuplicateUsers } from '../queries/user.query.graphql';
 
 export default {
@@ -45,29 +40,13 @@ export default {
         },
     },
     password: {
-        required: requiredIf('setPassword'),
-        minLength: minLength(12),
-        // this is different than the backend:
-        // there's no real point other than security to the check in the backend
-        maxLength: maxLength(1000),
-        async compromised (value) {
-            if (null === value || value.length < 12) {
-                return true;
-            }
-
-            // reject if in more than 3 breaches
-            return await pwnedPassword(value) < 3;
-        },
+        ...cloneDeep(userValidation.password),
     },
     firstName: {
-        required,
-        minLength: minLength(2),
-        maxLength: maxLength(50),
+        ...cloneDeep(userValidation.firstName),
     },
     lastName: {
-        required,
-        minLength: minLength(2),
-        maxLength: maxLength(50),
+        ...cloneDeep(userValidation.lastName),
     },
     role: {
         required,
