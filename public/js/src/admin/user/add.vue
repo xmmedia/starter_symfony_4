@@ -55,7 +55,7 @@ import stateMixin from '@/common/state_mixin';
 import userValidations from './user.validation';
 
 import fieldEmail from '@/common/field_email';
-import fieldPassword from '@/admin/user/component/password';
+import fieldPassword from './component/password';
 import fieldName from '@/common/field_name';
 import fieldRole from './component/role';
 

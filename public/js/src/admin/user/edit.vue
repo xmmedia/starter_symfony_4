@@ -65,11 +65,11 @@ import stateMixin from '@/common/state_mixin';
 import userValidations from './user.validation';
 
 import fieldEmail from '@/common/field_email';
-import fieldPassword from '@/admin/user/component/password';
+import fieldPassword from './component/password';
 import fieldName from '@/common/field_name';
 import fieldRole from './component/role';
-import activateVerify from '@/admin/user/component/activate_verify';
-import sendReset from '@/admin/user/component/send_reset';
+import activateVerify from './component/activate_verify';
+import sendReset from './component/send_reset';
 
 import { GetUserQuery } from '../queries/user.query.graphql';
 import { AdminUserUpdateMutation } from '../queries/admin/user.mutation.graphql';
