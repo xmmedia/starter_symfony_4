@@ -103,8 +103,6 @@ export default {
         return {
             stateService: interpret(stateMachine),
             state: stateMachine.initialState,
-
-            users: null,
         };
     },
 
