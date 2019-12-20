@@ -3,7 +3,7 @@
         <button v-if="showButton"
                 type="submit"
                 class="button"
-                :disabled="isSaving || isSaved">
+                :disabled="isSaving || isSaved || disableButton">
             <slot>Save</slot>
         </button>
         <slot name="cancel">
@@ -44,6 +44,10 @@ export default {
         showButton: {
             type: Boolean,
             default: true,
+        },
+        disableButton: {
+            type: Boolean,
+            default: false,
         },
     },
 
