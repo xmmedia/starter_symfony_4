@@ -19,8 +19,7 @@ UserQuery:
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserResolver", [args["userId"]])'
                 args:
-                    userId:
-                        type: UUID!
+                    userId: UUID!
 
             UserEmailUnique:
                 type: UserEmailUnique!
