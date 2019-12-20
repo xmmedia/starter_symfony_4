@@ -7,6 +7,9 @@
     }
     &:disabled {
         @apply opacity-75;
+        &:hover {
+            @apply cursor-default;
+        }
     }
 }
 .button-critical {

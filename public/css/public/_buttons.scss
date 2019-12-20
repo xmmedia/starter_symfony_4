@@ -1,4 +1,14 @@
 // Resets tailwinds default line-height
 .button {
     @apply leading-tight;
+    transition: all 0.35s ease-in-out;
+    &:hover {
+        transition: all 0.25s ease;
+    }
+    &:disabled {
+        @apply opacity-75;
+        &:hover {
+            @apply cursor-default;
+        }
+    }
 }
