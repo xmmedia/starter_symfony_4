@@ -96,7 +96,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
 class InitiatePasswordRecoveryHandlerTestEmailGateway implements EmailGatewayInterface
 {
     public function send(
-        $templateIdOrAlias,
+        $template,
         $to,
         array $templateData,
         ?array $attachments = null,

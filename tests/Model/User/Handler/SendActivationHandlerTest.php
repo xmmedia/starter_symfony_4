@@ -101,7 +101,7 @@ class SendActivationHandlerTest extends BaseTestCase
 class SendActivationHandlerTestEmailGateway implements EmailGatewayInterface
 {
     public function send(
-        $templateIdOrAlias,
+        $template,
         $to,
         array $templateData,
         ?array $attachments = null,

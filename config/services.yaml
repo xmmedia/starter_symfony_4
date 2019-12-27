@@ -69,17 +69,17 @@ services:
 
     App\Model\User\Handler\SendActivationHandler:
         arguments:
-            $templateIdOrAlias: '%email.template.auth.user_invite%'
+            $template: '%email.template.auth.user_invite%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
     App\Model\User\Handler\InitiatePasswordRecoveryHandler:
         arguments:
-            $templateIdOrAlias: '%email.template.auth.password_reset%'
+            $template: '%email.template.auth.password_reset%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
     App\Model\Enquiry\Handler\SendEnquiryEmailHandler:
         arguments:
-            $templateIdOrAlias: '%email.template.enquiry_received%'
+            $template: '%email.template.enquiry_received%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 

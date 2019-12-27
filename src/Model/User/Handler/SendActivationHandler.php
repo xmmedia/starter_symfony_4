@@ -22,8 +22,8 @@ class SendActivationHandler
     /** @var EmailGatewayInterface|\Xm\SymfonyBundle\Infrastructure\Email\EmailGateway */
     private $emailGateway;
 
-    /** @var string|int */
-    private $templateIdOrAlias;
+    /** @var string */
+    private $template;
 
     /** @var RouterInterface|\Symfony\Bundle\FrameworkBundle\Routing\Router */
     private $router;
@@ -34,13 +34,13 @@ class SendActivationHandler
     public function __construct(
         UserList $userRepo,
         EmailGatewayInterface $emailGateway,
-        $templateIdOrAlias,
+        string $template,
         RouterInterface $router,
         TokenGeneratorInterface $tokenGenerator
     ) {
         $this->userRepo = $userRepo;
         $this->emailGateway = $emailGateway;
-        $this->templateIdOrAlias = $templateIdOrAlias;
+        $this->template = $template;
         $this->router = $router;
         $this->tokenGenerator = $tokenGenerator;
     }
@@ -66,7 +66,7 @@ class SendActivationHandler
         );
 
         $messageId = $this->emailGateway->send(
-            $this->templateIdOrAlias,
+            $this->template,
             Email::fromString($command->email()->toString(), $name),
             [
                 'verifyUrl' => $verifyUrl,
