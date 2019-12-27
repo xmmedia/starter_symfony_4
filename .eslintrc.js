@@ -48,6 +48,7 @@ module.exports = {
         "vue/multiline-html-element-content-newline": "off",
         "vue/singleline-html-element-content-newline": "off",
     },
+    reportUnusedDisableDirectives: true,
     parserOptions: {
         parser: "babel-eslint",
     },
