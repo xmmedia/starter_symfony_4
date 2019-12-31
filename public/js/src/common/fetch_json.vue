@@ -1,5 +1,6 @@
 <script>
 import fetch from 'unfetch';
+import { logError } from '@/common/lib';
 
 export default {
     props: {
@@ -55,6 +56,7 @@ export default {
                 this.loading = false;
                 this.error = false;
             } catch (e) {
+                logError(e);
                 this.error = true;
                 this.loading = false;
             }
