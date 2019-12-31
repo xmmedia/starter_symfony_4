@@ -102,7 +102,7 @@ export default {
                 'Users': 'admin-user',
             },
 
-            copyrightYear: (new Date()).getFullYear(),
+            copyrightYear: new Date().getFullYear(),
         };
     },
 
