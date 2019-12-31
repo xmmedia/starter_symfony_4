@@ -53,7 +53,7 @@
 <script>
 import cloneDeep from 'lodash/cloneDeep';
 import { Machine, interpret } from 'xstate';
-import { hasGraphQlError, waitForValidation } from '@/common/lib';
+import { hasGraphQlError, logError, waitForValidation } from '@/common/lib';
 import { required } from 'vuelidate/lib/validators';
 import fieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '../queries/user.mutation.graphql';
@@ -163,9 +163,11 @@ export default {
                     } else if (e.graphQLErrors[0].code === 405) {
                         this.tokenExpired = true;
                     } else {
+                        logError(e);
                         this.showError();
                     }
                 } else {
+                    logError(e);
                     this.showError();
                 }
 

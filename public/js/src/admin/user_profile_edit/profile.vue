@@ -38,7 +38,7 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
-import { waitForValidation } from '@/common/lib';
+import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import fieldEmail from '@/common/field_email';
 import fieldName from '@/common/field_name';
@@ -163,6 +163,7 @@ export default {
                 }, 5000);
 
             } catch (e) {
+                logError(e);
                 alert('There was a problem saving your profile. Please try again later.');
 
                 this.stateEvent('ERROR');

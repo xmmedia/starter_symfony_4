@@ -41,6 +41,7 @@ import {
     AdminUserActivateMutation,
     AdminUserVerifyMutation,
 } from '@/admin/queries/admin/user.mutation.graphql';
+import { logError } from '@/common/lib';
 
 const stateMachine = Machine({
     id: 'component',
@@ -155,6 +156,7 @@ export default {
                 this.delayedReset();
 
             } catch (e) {
+                logError(e);
                 alert('There was a problem toggling the active state. Please try again later.');
 
                 this.stateEvent('ERROR');
@@ -185,6 +187,7 @@ export default {
                 this.delayedReset();
 
             } catch (e) {
+                logError(e);
                 alert('There was a problem verifying the user. Please try again later.');
 
                 this.stateEvent('ERROR');

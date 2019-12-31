@@ -16,6 +16,7 @@
 
 <script>
 import { Machine, interpret } from 'xstate';
+import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import { AdminUserSendResetMutation } from '@/admin/queries/admin/user.mutation.graphql';
 
@@ -91,6 +92,7 @@ export default {
                 }, 3000);
 
             } catch (e) {
+                logError(e);
                 alert('There was a problem sending the reset. Please try again later.');
 
                 this.stateEvent('ERROR');

@@ -37,7 +37,7 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import { email, required } from 'vuelidate/lib/validators';
-import { hasGraphQlError } from '@/common/lib';
+import { hasGraphQlError, logError } from '@/common/lib';
 import fieldEmail from '@/common/field_email';
 import stateMixin from '@/common/state_mixin';
 import { UserRecoverInitiate } from '../queries/user.mutation.graphql';
@@ -133,9 +133,11 @@ export default {
                     if (e.graphQLErrors[0].code === 404) {
                         this.notFound = true;
                     } else {
+                        logError(e);
                         this.showError();
                     }
                 } else {
+                    logError(e);
                     this.showError();
                 }
 

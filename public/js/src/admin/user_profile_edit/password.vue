@@ -58,7 +58,7 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
-import { waitForValidation } from '@/common/lib';
+import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import profileTabs from './component/tabs';
 import fieldPassword from '@/common/field_password_with_errors';
@@ -166,6 +166,7 @@ export default {
                 }, 30000);
 
             } catch (e) {
+                logError(e);
                 alert('There was a problem saving your password. Please try again later.');
 
                 this.stateEvent('ERROR');

@@ -59,7 +59,7 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
-import { waitForValidation } from '@/common/lib';
+import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 
 import userValidations from './user.validation';
@@ -229,6 +229,7 @@ export default {
                 }, 1500);
 
             } catch (e) {
+                logError(e);
                 alert('There was a problem saving. Please try again later.');
 
                 this.stateEvent('ERROR');

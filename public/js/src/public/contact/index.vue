@@ -71,6 +71,7 @@ import {
     maxLength,
     required,
 } from 'vuelidate/lib/validators';
+import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import fieldEmail from '@/common/field_email';
 import { SendEnquiry } from '../queries/enquiry.mutation.graphql';
@@ -169,6 +170,7 @@ export default {
                 this.stateEvent('SENT');
 
             } catch (e) {
+                logError(e);
                 alert('There was a problem sending your enquiry. Please try again later.');
 
                 this.stateEvent('ERROR');
