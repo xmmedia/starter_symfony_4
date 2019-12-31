@@ -2,7 +2,6 @@ import {
     minLength,
     maxLength,
     required,
-    sameAs,
 } from 'vuelidate/lib/validators';
 import { pwnedPassword } from 'hibp';
 
