@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { email, required } from 'vuelidate/lib/validators';
+import { email, required, requiredIf } from 'vuelidate/lib/validators';
 import userValidation from '../validation/user';
 import { GetDuplicateUsers } from '../queries/user.query.graphql';
 
@@ -41,6 +41,7 @@ export default {
     },
     password: {
         ...cloneDeep(userValidation.password),
+        required: requiredIf('setPassword'),
     },
     firstName: {
         ...cloneDeep(userValidation.firstName),

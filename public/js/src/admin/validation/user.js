@@ -13,7 +13,6 @@ export default {
         // this is different than the backend:
         // there's no real point other than security to the check in the backend
         maxLength: maxLength(1000),
-        sameAs: sameAs('repeatPassword'),
         async compromised (value) {
             if (null === value || value.length < 12) {
                 return true;
