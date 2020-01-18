@@ -106,6 +106,7 @@ module.exports = function (Encore) {
                     path.join(__dirname, 'templates/**/*.html.twig'),
                     path.join(__dirname, 'public/js/src/**/*.vue'),
                     path.join(__dirname, 'public/js/src/**/*.js'),
+                    path.join(__dirname, 'node_modules/vue-router/dist/vue-router.js'),
                     path.join(__dirname, 'node_modules/vue-js-modal/dist/index.js'),
                     // path.join(__dirname, 'node_modules/vue-multiselect/dist/vue-multiselect.min.js'),
                     // path.join(__dirname, 'node_modules/flatpickr/dist/flatpickr.js'),
