@@ -193,10 +193,9 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
 
     public function getEncoderName()
     {
-        foreach (['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'] as $role) {
-            if (\in_array($role, $this->roles, true)) {
-                return 'harsh';
-            }
+        $adminRoles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
+        if (\count(array_intersect($adminRoles, $this->roles)) > 0) {
+            return 'harsh';
         }
 
         return null;
