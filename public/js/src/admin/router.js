@@ -110,12 +110,12 @@ const router = new Router({
         {
             path: '*',
             name: '404',
-            component: () => import(/* webpackChunkName: "admin-error" */ './error/404.vue'),
+            component: () => import(/* webpackChunkName: "admin-error" */ './error/404'),
         },
         {
             path: '*',
             name: '403',
-            component: () => import(/* webpackChunkName: "admin-error" */ './error/403.vue'),
+            component: () => import(/* webpackChunkName: "admin-error" */ './error/403'),
         },
     ],
 
