@@ -139,7 +139,11 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
 
     public function roles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = Role::ROLE_USER()->getValue();
+
+        return array_unique($this->roles);
     }
 
     public function getRoles(): array
