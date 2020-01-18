@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\EventSubscriber;
 
 use App\Entity\User;
-use App\EventSubscriber\SecuritySubscriber;
+use App\EventSubscriber\LoginLoggerSubscriber;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Command\UserLoginFailed;
 use App\Model\User\Credentials;
@@ -23,11 +23,11 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 use Xm\SymfonyBundle\Model\Email;
 
-class SecuritySubscriberTest extends BaseTestCase
+class LoginLoggerSubscriberTest extends BaseTestCase
 {
     public function testSubscribedEvents(): void
     {
-        $subscribed = SecuritySubscriber::getSubscribedEvents();
+        $subscribed = LoginLoggerSubscriber::getSubscribedEvents();
 
         $this->assertArrayHasKey(
             SecurityEvents::INTERACTIVE_LOGIN,
@@ -43,7 +43,7 @@ class SecuritySubscriberTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $method = SecuritySubscriber::getSubscribedEvents()[SecurityEvents::INTERACTIVE_LOGIN];
+        $method = LoginLoggerSubscriber::getSubscribedEvents()[SecurityEvents::INTERACTIVE_LOGIN];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -74,7 +74,7 @@ class SecuritySubscriberTest extends BaseTestCase
 
         $event = new InteractiveLoginEvent($request, $token);
 
-        $listener = new SecuritySubscriber($commandBus, $requestStack);
+        $listener = new LoginLoggerSubscriber($commandBus, $requestStack);
 
         $listener->{$method}($event);
     }
@@ -83,7 +83,7 @@ class SecuritySubscriberTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $method = SecuritySubscriber::getSubscribedEvents()[AuthenticationEvents::AUTHENTICATION_FAILURE];
+        $method = LoginLoggerSubscriber::getSubscribedEvents()[AuthenticationEvents::AUTHENTICATION_FAILURE];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -120,7 +120,7 @@ class SecuritySubscriberTest extends BaseTestCase
             new AuthenticationException()
         );
 
-        $listener = new SecuritySubscriber($commandBus, $requestStack);
+        $listener = new LoginLoggerSubscriber($commandBus, $requestStack);
 
         $listener->{$method}($event);
     }

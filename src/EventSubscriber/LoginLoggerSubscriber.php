@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
-class SecuritySubscriber implements EventSubscriberInterface
+class LoginLoggerSubscriber implements EventSubscriberInterface
 {
     /** @var MessageBusInterface */
     private $commandBus;
