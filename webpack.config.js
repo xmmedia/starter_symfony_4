@@ -6,6 +6,8 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 const merge = require('webpack-merge');
 const path = require('path');
 
+process.env.NODE_ENV = process.env.NODE_ENV || (Encore.isProduction() ? 'production' : 'development');
+
 encoreConfigure(Encore);
 
 if (!Encore.isDevServer()) {
