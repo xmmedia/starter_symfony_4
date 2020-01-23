@@ -46,16 +46,16 @@
 import { AuthLast } from '../queries/auth.query.graphql';
 
 export default {
+    metaInfo: {
+        title: 'Login',
+    },
+
     data () {
         return {
             email: null,
             password: null,
             errorMsg: null,
         };
-    },
-
-    mounted () {
-        this.$store.dispatch('updatePageTitle', 'Login');
     },
 
     apollo: {

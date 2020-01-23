@@ -3,6 +3,7 @@ import 'es6-promise/auto';
 import Vue from 'vue';
 import PortalVue from 'portal-vue';
 import VueModal from 'vue-js-modal';
+import VueMeta from 'vue-meta';
 import Vuelidate from 'vuelidate';
 import AsyncComputed from 'vue-async-computed';
 
@@ -30,6 +31,7 @@ Vue.config.productionTip = false;
 
 Vue.use(PortalVue);
 Vue.use(VueModal);
+Vue.use(VueMeta);
 Vue.use(Vuelidate);
 Vue.use(AsyncComputed);
 
@@ -67,5 +69,10 @@ apolloProvider.defaultClient.query({ query: MeQuery })
             apolloProvider,
 
             render: h => h(app),
+
+            metaInfo: {
+                // @todo-symfony
+                title: 'Symfony Starter',
+            },
         });
     });

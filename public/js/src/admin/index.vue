@@ -87,6 +87,12 @@ import svgIcons from '@/common/svg_icons';
 import iconsPath from '../../../images/icons-admin.svg';
 
 export default {
+    metaInfo: {
+        title: 'Dashboard',
+        // @todo-symfony
+        titleTemplate: '%s | Symfony Starter',
+    },
+
     components: {
         menuSubnav,
         menuSmall,

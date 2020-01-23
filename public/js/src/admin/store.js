@@ -12,8 +12,6 @@ export default new Vuex.Store({
     state: {
         ready: false,
         user: null,
-        // @todo-symfony
-        pageTitleSuffix: 'XM Media Inc.',
 
         // also in Symfony security config
         roleHierarchy: {
@@ -86,14 +84,6 @@ export default new Vuex.Store({
     actions: {
         updateUser ({ commit }, user) {
             commit('setUser', user);
-        },
-
-        updatePageTitle ({ state }, pageTitle) {
-            if (pageTitle) {
-                document.title = pageTitle + ' | ' + state.pageTitleSuffix;
-            } else {
-                document.title = state.pageTitleSuffix;
-            }
         },
     },
 

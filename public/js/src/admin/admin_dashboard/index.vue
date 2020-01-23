@@ -11,11 +11,3 @@
         </li>
     </ul>
 </template>
-
-<script>
-export default {
-    mounted () {
-        this.$store.dispatch('updatePageTitle', 'Admin');
-    },
-}
-</script>

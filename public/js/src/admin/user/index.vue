@@ -8,8 +8,8 @@
 
 <script>
 export default {
-    mounted () {
-        this.$store.dispatch('updatePageTitle', 'Users | Admin');
+    metaInfo: {
+        title: 'Users | Admin',
     },
 }
 </script>

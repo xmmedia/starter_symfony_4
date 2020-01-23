@@ -8,8 +8,8 @@
 
 <script>
 export default {
-    mounted () {
-        this.$store.dispatch('updatePageTitle', 'Account Recovery');
+    metaInfo: {
+        title: 'Account Recovery',
     },
 }
 </script>
