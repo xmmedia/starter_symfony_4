@@ -33,7 +33,12 @@
                     :key="user.userId"
                     :class="{ 'record_list-item-inactive' : (!user.active || !user.verified) }"
                     class="record_list-item">
-                    <div class="record_list-col">{{ user.email }}</div>
+                    <div class="record_list-col">
+                        {{ user.email }}
+                        <span v-if="user.userId === $store.state.user.userId" class="pl-3 italic">
+                            You
+                        </span>
+                    </div>
                     <div class="record_list-col">{{ user.name }}</div>
                     <div class="record_list-col">{{ user|accountStatus }}</div>
                     <div class="record_list-col user_list-last_login">
