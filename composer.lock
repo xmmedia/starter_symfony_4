@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a269546501eef5b13c29416aec42f6b2",
+    "content-hash": "b2848e78a65e0f93ec4a99e4474577d7",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2412,28 +2412,29 @@
         },
         {
             "name": "overblog/graphql-bundle",
-            "version": "v0.13.1",
+            "version": "v0.12.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overblog/GraphQLBundle.git",
-                "reference": "ffdbd5a24d3de50629d52bc8ee9656dcf6884efa"
+                "reference": "a60e4f6c554a0f23095e6d1638243fb6d9f68d25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/ffdbd5a24d3de50629d52bc8ee9656dcf6884efa",
-                "reference": "ffdbd5a24d3de50629d52bc8ee9656dcf6884efa",
+                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/a60e4f6c554a0f23095e6d1638243fb6d9f68d25",
+                "reference": "a60e4f6c554a0f23095e6d1638243fb6d9f68d25",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=7.2",
+                "php": ">=7.1",
                 "psr/log": "^1.0",
-                "symfony/config": "^4.3 || ^5.0",
-                "symfony/dependency-injection": "^4.3 || ^5.0",
-                "symfony/event-dispatcher": "^4.3 || ^5.0",
-                "symfony/expression-language": "^4.3 || ^5.0",
-                "symfony/framework-bundle": "^4.3 || ^5.0",
-                "symfony/options-resolver": "^4.3 || ^5.0",
+                "symfony/config": "^3.4 || ^4.0 || ^5.0",
+                "symfony/dependency-injection": "^3.4 || ^4.0 || ^5.0",
+                "symfony/event-dispatcher": "^3.4 || ^4.0 || ^5.0",
+                "symfony/expression-language": "^3.4 || ^4.0 || ^5.0",
+                "symfony/framework-bundle": "^3.4 || ^4.0 || ^5.0",
+                "symfony/options-resolver": "^3.4 || ^4.0 || ^5.0",
+                "symfony/property-access": "^3.4 || ^4.0 || ^5.0",
                 "webonyx/graphql-php": "^0.13.5"
             },
             "replace": {
@@ -2441,32 +2442,27 @@
             },
             "require-dev": {
                 "doctrine/orm": "^2.5",
-                "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan-phpunit": "^0.11",
-                "phpstan/phpstan-shim": "^0.11.19",
-                "phpstan/phpstan-symfony": "^0.11",
                 "phpunit/phpunit": "<8.3",
                 "react/promise": "^2.5",
-                "symfony/asset": "^4.3 || ^5.0",
-                "symfony/browser-kit": "^4.3 || ^5.0",
-                "symfony/console": "^4.3 || ^5.0",
-                "symfony/css-selector": "^4.3 || ^5.0",
-                "symfony/phpunit-bridge": "^4.3 || ^5.0",
-                "symfony/process": "^4.3 || ^5.0",
-                "symfony/security-bundle": "^4.3 || ^5.0",
-                "symfony/validator": "^4.3 || ^5.0",
-                "symfony/yaml": "^4.3 || ^5.0"
+                "symfony/asset": "^3.4 || ^4.0 || ^5.0",
+                "symfony/browser-kit": "^3.4 || ^4.0 || ^5.0",
+                "symfony/console": "^3.4 || ^4.0 || ^5.0",
+                "symfony/css-selector": "^3.4 || ^4.0 || ^5.0",
+                "symfony/phpunit-bridge": "^3.4 || ^4.0 || ^5.0",
+                "symfony/process": "^3.4 || ^4.0 || ^5.0",
+                "symfony/security-bundle": "^3.4 || ^4.0 || ^5.0",
+                "symfony/validator": "^3.4 || ^4.0 || ^5.0",
+                "symfony/yaml": "^3.4 || ^4.0 || ^5.0"
             },
             "suggest": {
                 "nelmio/cors-bundle": "For more flexibility when using CORS prefight",
                 "overblog/graphiql-bundle": "If you want to use graphiQL.",
-                "react/promise": "To use ReactPHP promise adapter",
-                "symfony/translation": "If you want validation error messages to be translated."
+                "react/promise": "To use ReactPHP promise adapter"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.13-dev"
+                    "dev-master": "0.12-dev"
                 }
             },
             "autoload": {
@@ -2490,7 +2486,7 @@
                 "Relay",
                 "graphql"
             ],
-            "time": "2020-01-13T18:13:49+00:00"
+            "time": "2020-01-13T18:11:42+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
