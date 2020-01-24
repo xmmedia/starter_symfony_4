@@ -10,8 +10,8 @@ mutation UserRecoverReset($token: String!, $newPassword: String!) {
     }
 }
 
-mutation UserVerify($token: String!, $newPassword: String!) {
-    UserVerify(token: $token, newPassword: $newPassword) {
+mutation UserVerify($token: String!, $password: String!) {
+    UserVerify(token: $token, password: $password) {
         success
     }
 }

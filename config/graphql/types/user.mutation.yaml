@@ -39,10 +39,10 @@ UserMutation:
             UserVerify:
                 type: UserResultPayload!
                 description: 'Verify (activate) User account with password and User token.'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserVerifyMutation", [args])'
                 args:
                     token: String!
-                    newPassword: String!
+                    password: String!
 
             AdminUserAdd:
                 type: AdminUserMutationPayload!

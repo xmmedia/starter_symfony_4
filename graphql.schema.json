@@ -806,7 +806,7 @@
                                     "defaultValue": null
                                 },
                                 {
-                                    "name": "newPassword",
+                                    "name": "password",
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,

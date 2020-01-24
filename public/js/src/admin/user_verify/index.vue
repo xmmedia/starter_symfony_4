@@ -134,14 +134,12 @@ export default {
                 return;
             }
 
-
-
             try {
                 await this.$apollo.mutate({
                     mutation: UserVerify,
                     variables: {
                         token: this.$route.params.token,
-                        newPassword: this.password,
+                        password: this.password,
                     },
                 });
 
