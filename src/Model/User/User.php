@@ -21,10 +21,10 @@ class User extends AggregateRoot implements Entity
     private $userId;
 
     /** @var bool */
-    private $verified;
+    private $verified = false;
 
     /** @var bool */
-    private $active;
+    private $active = false;
 
     public static function addByAdmin(
         UserId $userId,
