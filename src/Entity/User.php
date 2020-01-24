@@ -229,6 +229,11 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
             return false;
         }
 
+        // check if roles are different
+        if (\count(array_diff($this->roles(), $user->roles())) > 0) {
+            return false;
+        }
+
         return true;
     }
 }
