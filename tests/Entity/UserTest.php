@@ -76,6 +76,7 @@ class UserTest extends BaseTestCase
         $property->setAccessible(true);
         $property->setValue($user2, $faker->password);
 
+        // password has changed
         yield [$user1, $user2, false];
 
         $password = $faker->password;
@@ -98,6 +99,7 @@ class UserTest extends BaseTestCase
         $property->setAccessible(true);
         $property->setValue($user2, $faker->email);
 
+        // email (username) has changed
         yield [$user1, $user2, false];
 
         $password = $faker->password;
@@ -124,6 +126,7 @@ class UserTest extends BaseTestCase
         $property->setAccessible(true);
         $property->setValue($user2, false);
 
+        // no longer active
         yield [$user1, $user2, false];
 
         $password = $faker->password;
@@ -153,6 +156,115 @@ class UserTest extends BaseTestCase
         $property->setAccessible(true);
         $property->setValue($user2, false);
 
+        // no longer verified
+        yield [$user1, $user2, false];
+
+        $password = $faker->password;
+        $email = $faker->email;
+
+        $user1 = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('password');
+        $property->setAccessible(true);
+        $property->setValue($user1, $password);
+        $property = $reflection->getProperty('email');
+        $property->setAccessible(true);
+        $property->setValue($user1, $email);
+        $property = $reflection->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($user1, ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
+
+        $user2 = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('password');
+        $property->setAccessible(true);
+        $property->setValue($user2, $password);
+        $property = $reflection->getProperty('email');
+        $property->setAccessible(true);
+        $property->setValue($user2, $email);
+        $property = $reflection->getProperty('active');
+        $property->setAccessible(true);
+        $property->setValue($user2, true);
+        $property = $reflection->getProperty('verified');
+        $property->setAccessible(true);
+        $property->setValue($user2, true);
+        $property = $reflection->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($user2, ['ROLE_ADMIN']);
+
+        // roles have changed (no longer has super admin)
+        yield [$user1, $user2, false];
+
+        $password = $faker->password;
+        $email = $faker->email;
+
+        $user1 = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('password');
+        $property->setAccessible(true);
+        $property->setValue($user1, $password);
+        $property = $reflection->getProperty('email');
+        $property->setAccessible(true);
+        $property->setValue($user1, $email);
+        $property = $reflection->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($user1, ['ROLE_ADMIN']);
+
+        $user2 = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('password');
+        $property->setAccessible(true);
+        $property->setValue($user2, $password);
+        $property = $reflection->getProperty('email');
+        $property->setAccessible(true);
+        $property->setValue($user2, $email);
+        $property = $reflection->getProperty('active');
+        $property->setAccessible(true);
+        $property->setValue($user2, true);
+        $property = $reflection->getProperty('verified');
+        $property->setAccessible(true);
+        $property->setValue($user2, true);
+        $property = $reflection->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($user2, ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
+
+        // roles have changed (gained super admin)
+        yield [$user1, $user2, false];
+
+        $password = $faker->password;
+        $email = $faker->email;
+
+        $user1 = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('password');
+        $property->setAccessible(true);
+        $property->setValue($user1, $password);
+        $property = $reflection->getProperty('email');
+        $property->setAccessible(true);
+        $property->setValue($user1, $email);
+        $property = $reflection->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($user1, ['ROLE_USER']);
+
+        $user2 = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('password');
+        $property->setAccessible(true);
+        $property->setValue($user2, $password);
+        $property = $reflection->getProperty('email');
+        $property->setAccessible(true);
+        $property->setValue($user2, $email);
+        $property = $reflection->getProperty('active');
+        $property->setAccessible(true);
+        $property->setValue($user2, true);
+        $property = $reflection->getProperty('verified');
+        $property->setAccessible(true);
+        $property->setValue($user2, true);
+        $property = $reflection->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($user2, ['ROLE_ADMIN']);
+
+        // roles have changed (switched from user to admin)
         yield [$user1, $user2, false];
 
         $password = $faker->password;
@@ -182,6 +294,7 @@ class UserTest extends BaseTestCase
         $property->setAccessible(true);
         $property->setValue($user2, true);
 
+        // equal
         yield [$user1, $user2, true];
     }
 }
