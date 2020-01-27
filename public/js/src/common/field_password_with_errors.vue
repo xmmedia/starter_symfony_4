@@ -16,11 +16,19 @@
                 <template v-else-if="!v.maxLength">
                     The password is too long.
                 </template>
-                <template v-else-if="!v.sameAs">
+                <template v-else-if="!sameAs">
                     The passwords must match.
                 </template>
-                <template v-else-if="!v.valid">
+                <template v-else-if="!valid">
                     This password does not match your current password.
+                </template>
+                <template v-else-if="!strength">
+                    This password is not complex enough.
+                    Consider adding numbers and special characters.
+                </template>
+                <template v-else-if="!containsRequired">
+                    Ensure the password contains all the requirements:
+                    1 capital letter, 1 number, and 1 special character.
                 </template>
                 <template v-else-if="!v.compromised">
                     It appears that this password was part of a data breach
@@ -51,5 +59,30 @@ export default {
             required: true,
         },
     },
+    computed: {
+        sameAs () {
+            return this.vuelidateValue('sameAs');
+        },
+        valid () {
+            return this.vuelidateValue('valid');
+        },
+        strength () {
+            return this.vuelidateValue('strength');
+        },
+        containsRequired () {
+            return this.vuelidateValue('containsRequired');
+        },
+    },
+
+    methods: {
+        vuelidateValue (key) {
+            if (!Object.prototype.hasOwnProperty.call(this.v, key)) {
+                return true;
+            }
+
+            return this.v[key];
+        },
+    },
+
 }
 </script>

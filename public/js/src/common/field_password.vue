@@ -14,7 +14,8 @@
                    autocapitalize="off"
                    autocorrect="off"
                    spellcheck="false"
-                   @input="$emit('input', $event.target.value)">
+                   @input="$emit('input', $event.target.value)"
+                   @focus="showMeter = true">
             <button type="button"
                     class="absolute button-link block top-0 right-0 w-6 h-6 mr-2 text-gray-600 hover:text-gray-800"
                     style="margin-top: 0.3rem;"
@@ -25,16 +26,26 @@
             </button>
         </div>
 
-        <div v-if="showHelp" class="field-help">
-            Must be at least {{ minLength }} characters long.
+        <!-- @todo slide out/scale up -->
+        <password-score v-if="showHelp && showMeter" :password="value" />
+
+        <div v-if="showHelp" class="field-help mt-0">
+            Must be at least {{ minLength }} characters long
+            and contain 1 capital letter, 1 number, and 1 special character.
         </div>
     </div>
 </template>
 
 <script>
 import cuid from 'cuid';
+import passwordScore from './password_score';
+
 
 export default {
+    components: {
+        passwordScore,
+    },
+
     props: {
         value: {
             type: String,
@@ -62,6 +73,7 @@ export default {
         return {
             id: cuid(),
             visible: false,
+            showMeter: false,
             minLength: 12,
         };
     },
