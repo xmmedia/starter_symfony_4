@@ -86,15 +86,15 @@ td {
     transition: all 0.25s ease;
 }
 
+.w-content, .w-content-narrow, .w-content-copy {
+    @apply max-w-11/12 mx-auto clearfix;
+}
 .w-content {
-    @apply max-w-11/12 mx-auto;
     @screen xl {
         @apply max-w-6xl;
     }
 }
-
 .w-content-narrow {
-    @apply max-w-11/12 mx-auto;
     @screen md {
         @apply max-w-lg;
     }
@@ -102,9 +102,7 @@ td {
         @apply max-w-3xl;
     }
 }
-
 .w-content-copy {
-    @apply max-w-11/12 mx-auto;
     @screen md {
         @apply max-w-md;
     }
