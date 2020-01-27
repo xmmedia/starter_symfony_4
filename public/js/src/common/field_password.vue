@@ -3,11 +3,6 @@
         <label :for="id"><slot>Password</slot></label>
         <slot name="errors"></slot>
 
-        <field-error v-if="hackedPassword">
-            It appears that this password was part of a data breach
-            and may not be accepted. Consider using a different password.
-        </field-error>
-
         <div class="relative">
             <input :id="id"
                    :value="value"
@@ -38,7 +33,6 @@
 
 <script>
 import cuid from 'cuid';
-import { pwnedPassword } from 'hibp';
 
 export default {
     props: {
@@ -78,23 +72,6 @@ export default {
         },
         icon () {
             return this.visible ? '#visible' : '#invisible';
-        },
-    },
-
-    asyncComputed: {
-        hackedPassword: {
-            async get () {
-                if (this.autocomplete !== 'new-password') {
-                    return false;
-                }
-
-                if (null === this.value || this.value.length < this.minLength) {
-                    return false;
-                }
-
-                return await pwnedPassword(this.value) > 0;
-            },
-            default: false,
         },
     },
 }
