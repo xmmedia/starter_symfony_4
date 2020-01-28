@@ -8,6 +8,7 @@
         <field-password v-show="setPassword"
                         :value="value"
                         :v="v"
+                        :user-data="userData"
                         :show-help="true"
                         :required="setPassword"
                         class="ml-6"
@@ -37,6 +38,12 @@ export default {
         v: {
             type: Object,
             required: true,
+        },
+        userData: {
+            type: Array,
+            default () {
+                return [];
+            },
         },
     },
 

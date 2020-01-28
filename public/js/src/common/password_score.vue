@@ -21,11 +21,17 @@
                 type: String,
                 default: undefined,
             },
+            userData: {
+                type: Array,
+                default () {
+                    return [];
+                },
+            },
         },
 
         computed: {
             zxcvbn () {
-                return zxcvbn(this.password || '');
+                return zxcvbn(this.password || '', this.userDataCompiled);
             },
             score () {
                 if (!userValidation.password.minLength(this.password)) {
@@ -54,6 +60,12 @@
                 }
 
                 return 'w-1 bg-red-700';
+            },
+            userDataCompiled () {
+                return [
+                    ...this.userData,
+                    ...document.title.split(/[\s|]+/),
+                ].filter(Boolean);
             },
         },
     };

@@ -14,6 +14,7 @@
 
             <field-password v-model="password"
                             :v="$v.password"
+                            :user-data="userDataForPassword"
                             checkbox-label="Set Password"
                             @set-password="setPassword = $event" />
 
@@ -109,6 +110,16 @@ export default {
             lastName: null,
             sendInvite: true,
         };
+    },
+
+    computed: {
+        userDataForPassword () {
+            return [
+                this.email,
+                this.firstName,
+                this.lastName,
+            ];
+        },
     },
 
     validations () {

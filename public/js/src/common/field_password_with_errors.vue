@@ -1,5 +1,6 @@
 <template>
     <field-password :value="value"
+                    :user-data="userData"
                     :show-help="showHelp"
                     :required="false"
                     :autocomplete="autocomplete"
@@ -57,6 +58,12 @@ export default {
         v: {
             type: Object,
             required: true,
+        },
+        userData: {
+            type: Array,
+            default () {
+                return [];
+            },
         },
     },
     computed: {

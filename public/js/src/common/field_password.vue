@@ -27,7 +27,9 @@
         </div>
 
         <!-- @todo slide out/scale up -->
-        <password-score v-if="showHelp && showMeter" :password="value" />
+        <password-score v-if="showHelp && showMeter"
+                        :password="value"
+                        :user-data="userData" />
 
         <div v-if="showHelp" class="field-help mt-0">
             Must be at least {{ minLength }} characters long
@@ -66,6 +68,12 @@ export default {
         showHelp: {
             type: Boolean,
             default: false,
+        },
+        userData: {
+            type: Array,
+            default () {
+                return [];
+            },
         },
     },
 
