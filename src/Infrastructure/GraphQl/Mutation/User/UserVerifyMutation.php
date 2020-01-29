@@ -71,7 +71,7 @@ class UserVerifyMutation implements MutationInterface
 
         // done here because we need the user entity
         Assert::passwordComplexity($password, [
-            $user->getUsername(),
+            $user->email(),
             $user->firstName(),
             $user->lastName(),
         ]);

@@ -70,7 +70,7 @@ class UserRecoverResetMutation implements MutationInterface
 
         // done here because we need the user entity
         Assert::passwordComplexity($newPassword, [
-            $user->getUsername(),
+            $user->email(),
             $user->firstName(),
             $user->lastName(),
         ]);
