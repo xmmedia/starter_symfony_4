@@ -40,6 +40,11 @@ class AdminUserUpdateMutation implements MutationInterface
             $password = $args['user']['password'];
             // password checked here because it's encoded prior to the command
             Assert::passwordLength($password);
+            Assert::passwordComplexity($password, [
+                $args['user']['email'],
+                $args['user']['firstName'],
+                $args['user']['lastName'],
+            ]);
             Assert::compromisedPassword($password);
         }
 

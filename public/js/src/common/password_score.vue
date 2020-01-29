@@ -13,7 +13,7 @@
 
 <script>
     import zxcvbn from 'zxcvbn';
-    import userValidation from '@/validation/user';
+    import userValidation from '@/admin/validation/user';
 
     export default {
         props: {

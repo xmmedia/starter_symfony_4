@@ -60,6 +60,11 @@ class UserPasswordMutation implements MutationInterface
 
         // check new password
         Assert::passwordLength($newPassword);
+        Assert::passwordComplexity($newPassword, [
+            $user->getUsername(),
+            $user->firstName(),
+            $user->lastName(),
+        ]);
         Assert::compromisedPassword($newPassword);
 
         $encodedPassword = ($this->passwordEncoder)(

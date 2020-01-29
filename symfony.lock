@@ -146,6 +146,9 @@
     "marc-mabe/php-enum": {
         "version": "v3.0.2"
     },
+    "mkopinsky/zxcvbn-php": {
+            "version": "4.4.2"
+    },
     "mockery/mockery": {
         "version": "1.2.0"
     },

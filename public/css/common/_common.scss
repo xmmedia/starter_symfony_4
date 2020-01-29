@@ -87,7 +87,7 @@ td {
 }
 
 .w-content, .w-content-narrow, .w-content-copy {
-    @apply max-w-11/12 mx-auto clearfix;
+    @apply max-w-11/12 mx-auto;
 }
 .w-content {
     @screen xl {

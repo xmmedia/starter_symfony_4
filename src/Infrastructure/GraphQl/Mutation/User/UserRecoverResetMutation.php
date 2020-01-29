@@ -68,6 +68,13 @@ class UserRecoverResetMutation implements MutationInterface
             throw new UserError('The link has expired.', 405);
         }
 
+        // done here because we need the user entity
+        Assert::passwordComplexity($newPassword, [
+            $user->getUsername(),
+            $user->firstName(),
+            $user->lastName(),
+        ]);
+
         if (!$user->verified()) {
             $this->commandBus->dispatch(
                 VerifyUser::now($user->userId())

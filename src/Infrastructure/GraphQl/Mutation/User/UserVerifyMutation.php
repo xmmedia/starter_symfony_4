@@ -69,6 +69,14 @@ class UserVerifyMutation implements MutationInterface
             throw new UserError('The link has expired.', 405, $e);
         }
 
+        // done here because we need the user entity
+        Assert::passwordComplexity($password, [
+            $user->getUsername(),
+            $user->firstName(),
+            $user->lastName(),
+        ]);
+
+
         if ($user->verified()) {
             // 404 -> not found
             throw new UserError('Your account has already been activated.', 404);
