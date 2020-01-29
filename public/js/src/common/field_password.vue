@@ -26,12 +26,11 @@
             </button>
         </div>
 
-        <!-- @todo slide out/scale up -->
         <password-score v-if="showHelp && showMeter"
                         :password="value"
                         :user-data="userData" />
 
-        <div v-if="showHelp" class="field-help mt-0">
+        <div v-if="showHelp" class="field-help relative">
             Must be at least {{ minLength }} characters long
             and contain 1 capital letter, 1 number, and 1 special character.
         </div>

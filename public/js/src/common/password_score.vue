@@ -1,14 +1,16 @@
 <template>
-    <div class="my-2 text-xs">
-        <div class="w-full bg-gray-500">
-            <span class="float-left py-1 pl-2 text-white">
-                Strength<template v-if="passwordWarning">:
-                    {{ passwordWarning }}
-                </template>
-            </span>
-            <div :class="scoreBackgroundClasses" class="h-6"></div>
+    <transition appear name="password-slide">
+        <div class="text-xs password-slide">
+            <div class="flex items-center w-full bg-gray-500">
+                <div :class="scoreBackgroundClasses" class="h-6"></div>
+                <span class="absolute py-1 pl-2 text-white">
+                    Strength<template v-if="passwordWarning">:
+                        {{ passwordWarning }}
+                    </template>
+                </span>
+            </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
