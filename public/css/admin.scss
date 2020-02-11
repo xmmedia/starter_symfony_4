@@ -1,6 +1,5 @@
 /* purgecss start ignore */
 @tailwind base;
-
 @tailwind components;
 /* purgecss end ignore */
 
@@ -38,6 +37,8 @@ a, .button-link {
 // load common styles
 @import "common/forms",
     "common/alerts",
+    "common/content",
+    "common/headings",
     "common/modal",
     "common/button_pair",
     "common/loading";

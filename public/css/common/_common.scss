@@ -10,54 +10,6 @@ b, strong {
     @apply font-bold;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    @apply leading-tight font-bold;
-}
-
-// reset margins and text size on headings as tailwind removes them
-h1 {
-    @apply text-3xl;
-    margin: 0.67rem 0;
-}
-h2 {
-    @apply text-2xl;
-    margin: 0.83rem 0;
-}
-h3 {
-    @apply text-xl;
-    margin: 1rem 0 0.5rem;
-}
-h4 {
-    margin: 1.33rem 0 0.5rem;
-}
-h5 {
-    @apply text-sm;
-    margin: 1.67rem 0;
-}
-h6 {
-    @apply text-xs;
-    margin: 1.45rem 0;
-}
-
-// make anchors that are inside headers look like the header, but underline when hovered
-h1, h2, h3, h4 {
-    a {
-        @apply no-underline text-inherit;
-        &:hover, &:active {
-            @apply underline text-inherit;
-        }
-    }
-}
-
-// re-add margin to p as it's reset in tailwind's normalize
-p {
-    @apply my-4;
-}
-// reduce margin between headings and paragraphs
-h3 + p, h4 + p {
-    @apply mt-0;
-}
-
 // re-add list styles as tailwind removes them
 ul, ol {
     @apply pl-10;
@@ -84,29 +36,4 @@ td {
 
 .transition {
     transition: all 0.25s ease;
-}
-
-.w-content, .w-content-narrow, .w-content-copy {
-    @apply max-w-11/12 mx-auto;
-}
-.w-content {
-    @screen xl {
-        @apply max-w-6xl;
-    }
-}
-.w-content-narrow {
-    @screen md {
-        @apply max-w-lg;
-    }
-    @screen xl {
-        @apply max-w-3xl;
-    }
-}
-.w-content-copy {
-    @screen md {
-        @apply max-w-md;
-    }
-    @screen xl {
-        @apply max-w-xl;
-    }
 }

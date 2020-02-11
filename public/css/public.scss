@@ -1,7 +1,5 @@
 /* purgecss start ignore */
-
 @tailwind base;
-
 @tailwind components;
 /* purgecss end ignore */
 
@@ -31,6 +29,8 @@ a, .button-link {
 // common styles
 @import "common/alerts",
     "common/content_alignment",
+    "common/content",
+    "common/headings",
     "common/forms",
     "common/modal",
     "common/loading";
