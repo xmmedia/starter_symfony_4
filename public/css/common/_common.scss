@@ -1,8 +1,16 @@
 /* this file is for public and private/admin pages */
 
 a, .button-link {
-    transition: color 0.25s ease;
+    @apply text-blue-500 no-underline font-light;
+    transition: color 0.25s ease-in-out;
     &:hover, &:active {
+        @apply underline text-blue-700;
+    }
+    &:disabled {
+        @apply opacity-75;
+        &:hover {
+            @apply no-underline cursor-default;
+        }
     }
 }
 

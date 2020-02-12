@@ -10,26 +10,9 @@ html {
     @apply font-sans leading-normal text-gray-800;
 }
 
-a, .button-link {
-    @apply text-blue-500 no-underline;
-    &:hover, &:active {
-        @apply underline text-blue-700;
-    }
-}
-.button-link {
-    @apply font-light;
-    &:disabled {
-        @apply opacity-75;
-        &:hover {
-            @apply no-underline cursor-default;
-        }
-    }
-}
-
 // common styles
 @import "common/alerts",
     "common/content_alignment",
-    "common/content",
     "common/headings",
     "common/forms",
     "common/modal",
@@ -37,6 +20,7 @@ a, .button-link {
 
 // public only styles
 @import "public/buttons",
+    "public/content",
     "public/header";
 
 // page specific

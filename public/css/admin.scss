@@ -18,26 +18,9 @@ body {
     overflow-x: hidden;
 }
 
-a, .button-link {
-    @apply text-blue-600 no-underline;
-    &:hover, &:active {
-        @apply underline;
-    }
-}
-.button-link {
-    @apply font-light;
-    &:disabled {
-        @apply opacity-75;
-        &:hover {
-            @apply no-underline cursor-default;
-        }
-    }
-}
-
 // load common styles
 @import "common/forms",
     "common/alerts",
-    "common/content",
     "common/headings",
     "common/modal",
     "common/button_pair",
