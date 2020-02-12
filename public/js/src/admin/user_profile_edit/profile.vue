@@ -10,17 +10,17 @@
                          autofocus
                          autocomplete="username email"
                          @input="changed">
-                Email Address
+                Email address
             </field-email>
 
             <field-name v-model="firstName"
                         :v="$v.firstName"
                         autocomplete="given-name"
-                        @input="changed">First Name</field-name>
+                        @input="changed">First name</field-name>
             <field-name v-model="lastName"
                         :v="$v.lastName"
                         autocomplete="family-name"
-                        @input="changed">Last Name</field-name>
+                        @input="changed">Last name</field-name>
 
             <admin-button :saving="state.matches('saving')"
                           :saved="state.matches('saved')">

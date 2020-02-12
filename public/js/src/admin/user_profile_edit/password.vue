@@ -27,7 +27,7 @@
             <field-password v-model="currentPassword"
                             :v="$v.currentPassword"
                             autocomplete="current-password">
-                Current Password
+                Current password
                 <template #required-msg>Your current password is required.</template>
             </field-password>
 
@@ -35,13 +35,13 @@
                             :v="$v.newPassword"
                             :show-help="true"
                             autocomplete="new-password">
-                New Password
+                New password
                 <template #required-msg>A new password is required.</template>
             </field-password>
             <field-password v-model="repeatPassword"
                             :v="$v.repeatPassword"
                             autocomplete="new-password">
-                New Password Again
+                New password again
                 <template #required-msg>Re-enter your new password.</template>
             </field-password>
 
