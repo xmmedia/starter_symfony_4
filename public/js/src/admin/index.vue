@@ -37,7 +37,7 @@
                         </router-link>
                     </div>
                     <div v-if="loggedIn" class="pb-2 pl-4 text-xs">
-                        <a href="/logout" class="text-inherit hover:no-underline hover:text-white">Logout</a>
+                        <a href="/logout" class="text-inherit hover:no-underline hover:text-white">Sign Out</a>
                     </div>
                 </div>
                 <div class="py-2 pl-4 text-xs text-gray-600 border-t border-gray-600">

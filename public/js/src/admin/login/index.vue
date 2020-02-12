@@ -1,15 +1,15 @@
 <template>
     <div>
-        <portal to="header-page-title">Login</portal>
+        <portal to="header-page-title">Sign In</portal>
 
         <div class="form-wrap">
-            <h1 class="mt-0 leading-none">Login</h1>
+            <h1 class="mt-0 leading-none">Sign In</h1>
 
             <div v-if="errorMsg" class="alert alert-warning alert-type-warning">{{ errorMsg }}</div>
 
             <form method="post">
                 <div class="field-wrap">
-                    <label for="inputEmail">Email Address</label>
+                    <label for="inputEmail">Email address</label>
                     <input id="inputEmail"
                            v-model="email"
                            type="email"
@@ -28,11 +28,11 @@
                            type="checkbox"
                            name="_remember_me"
                            value="on">
-                    <label for="remember_me">Remember Me</label>
+                    <label for="remember_me">Remember me</label>
                 </div>
 
                 <div>
-                    <button class="button">Login</button>
+                    <button class="button">Sign In</button>
                     <router-link :to="{ name: 'user-recover-initiate' }" class="form-action">
                         Forgot your password?
                     </router-link>
