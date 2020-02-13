@@ -17,8 +17,7 @@
 .sidebar_nav-link {
     @apply w-full text-gray-500 fill-current;
     &:hover {
-        @apply text-white no-underline;
-        transition: none;
+        @apply text-white no-underline transition-none;
     }
 }
 

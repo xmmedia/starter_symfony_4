@@ -1,7 +1,5 @@
 .sidebar_nav-submenu-wrap {
-    @apply fixed top-0 z-0 w-40 h-full opacity-0 invisible text-left bg-gray-800;
-    left: 0;
-    right: 0;
+    @apply fixed top-0 left-0 right-0 z-0 w-40 h-full opacity-0 invisible text-left bg-gray-800;
     margin-top: $header-height;
     // hide scrollbar in IE
     -ms-overflow-style: none;
@@ -10,9 +8,8 @@
     }
 }
 .sidebar_nav-submenu-wrap-open {
-    @apply opacity-100 visible;
+    @apply opacity-100 visible transition-opacity duration-300 ease-in;
     left: 10rem;
-    transition:  opacity 0.3s ease-in;
     @screen lg {
         left: 16rem;
     }
