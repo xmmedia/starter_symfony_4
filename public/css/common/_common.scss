@@ -1,7 +1,7 @@
 /* this file is for public and private/admin pages */
 
 a, .button-link {
-    @apply text-blue-500 no-underline font-light transition-colors duration-300 ease-in-out;
+    @apply text-blue-500 no-underline transition-colors duration-300 ease-in-out;
     &:hover, &:active {
         @apply underline text-blue-700;
     }
@@ -13,6 +13,10 @@ a, .button-link {
     }
 }
 
+.button-link {
+    @apply font-light;
+}
+
 b, strong {
     @apply font-bold;
 }
@@ -20,12 +24,6 @@ b, strong {
 // re-add list styles as tailwind removes them
 ul, ol {
     @apply pl-10;
-    li {
-        @apply mb-4;
-        &:last-of-type {
-            @apply mb-0;
-        }
-    }
 }
 ul {
     @apply list-disc;
