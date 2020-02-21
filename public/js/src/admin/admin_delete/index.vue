@@ -5,7 +5,7 @@
                 type="button"
                 @click="show = true">Delete</button>
 
-        <admin-modal v-if="show" @closed="show = false">
+        <admin-modal v-if="show" @closed="show = false" @opened="opened">
             <div v-if="!deleting" class="text-center">
                 <div class="my-4">
                     Are you sure you want to delete this {{ recordDesc }}?
@@ -52,6 +52,7 @@ export default {
             this.$emit('delete');
         },
         close () {
+            this.show = false;
             this.$refs.link.focus();
         },
     },
