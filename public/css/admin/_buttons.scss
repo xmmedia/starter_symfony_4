@@ -13,7 +13,7 @@
 .button-critical {
     @apply text-red-600 bg-transparent border-red-600;
     &:hover {
-        @apply bg-red-600 border-red-500;
+        @apply bg-red-600 border-red-600;
     }
 }
 
