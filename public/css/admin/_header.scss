@@ -45,7 +45,7 @@
 .header-action-main {
     @apply my-4 text-sm text-center text-white bg-blue-500 border-blue-500;
     &:hover {
-        @apply bg-blue-600 border-blue-600;
+        @apply bg-blue-600 border-blue-600 text-white;
     }
 
     @media (min-width: 880px) {
