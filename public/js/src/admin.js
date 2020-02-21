@@ -30,7 +30,7 @@ import '../../css/admin.scss';
 Vue.config.productionTip = false;
 
 Vue.use(PortalVue);
-Vue.use(VueModal);
+Vue.use(VueModal, { componentName: 'vue-modal' });
 Vue.use(VueMeta);
 Vue.use(Vuelidate);
 Vue.use(AsyncComputed);
@@ -42,6 +42,7 @@ Vue.component('field-errors', fieldErrors);
 Vue.component('field-error', fieldError);
 Vue.component('field-password', fieldPassword);
 Vue.component('admin-button', adminButton);
+Vue.component('admin-modal', () => import(/* webpackChunkName: "admin-modal" */ './common/modal'));
 Vue.component('admin-delete', () => import(/* webpackChunkName: "admin-delete" */ './admin/admin_delete/index'));
 Vue.component('local-time', () => import(/* webpackChunkName: "local-time" */ './common/local_time'));
 
