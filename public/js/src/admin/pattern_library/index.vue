@@ -84,7 +84,7 @@
             <h2>Buttons on Dark Background</h2>
             <button class="button">Button Button</button>
             <a href="" class="button">Link Button</a>
-            <a href="" class="button button-critical">Delete Button</a>
+            <a href="" class="button button-critical bg-gray-300">Delete Button</a>
         </div>
 
         <!-- ############################# -->
