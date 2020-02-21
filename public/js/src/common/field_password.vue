@@ -31,8 +31,7 @@
                         :user-data="userData" />
 
         <div v-if="showHelp" class="field-help relative">
-            Must be at least {{ minLength }} characters long
-            and contain 1 capital letter, 1 number, and 1 special character.
+            Must be at least {{ minLength }} characters long.
         </div>
     </div>
 </template>
