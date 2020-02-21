@@ -22,7 +22,9 @@
                 </div>
             </div>
 
-            <loading-spinner v-else class="p-8 text-center">Deleting {{ recordDesc }}...</loading-spinner>
+            <loading-spinner v-else class="p-12 text-center">
+                Deleting {{ recordDesc }}...
+            </loading-spinner>
         </admin-modal>
     </span>
 </template>
