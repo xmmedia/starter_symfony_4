@@ -563,6 +563,6 @@
             <a href="" class="pl-4">×</a>
         </div>
 
-        <admin-delete action="test" record-desc="test" />
+        <admin-delete record-desc="test" />
     </div>
 </template>
