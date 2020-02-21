@@ -38,12 +38,10 @@
 
 <script>
 import cuid from 'cuid';
-import passwordScore from './password_score';
-
 
 export default {
     components: {
-        passwordScore,
+        'password-score': () => import(/* webpackChunkName: "password-score" */ './password_score'),
     },
 
     props: {
