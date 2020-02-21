@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="1">
                 <source>An authentication exception occurred.</source>
-                <target>There was a problem while checking your login. Please try again.</target>
+                <target>There was a problem while checking your credentials. Please try again.</target>
             </trans-unit>
             <trans-unit id="2">
                 <source>Authentication credentials could not be found.</source>
