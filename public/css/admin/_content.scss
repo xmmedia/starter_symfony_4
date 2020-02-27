@@ -1,5 +1,5 @@
 .content-wrap {
-    @apply relative bg-white z-10 transition-all duration-150 ease-in-out;
+    @apply relative z-10 transition-all duration-150 ease-in-out;
     @screen lg {
         @apply z-auto ml-64;
     }
