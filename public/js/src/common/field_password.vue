@@ -3,14 +3,14 @@
         <label :for="id"><slot>Password</slot></label>
         <slot name="errors"></slot>
 
-        <div class="relative">
+        <div class="relative z-20">
             <input :id="id"
                    :value="value"
                    :type="fieldType"
                    :required="required"
                    :autocomplete="autocomplete"
                    :name="name"
-                   class="pr-10"
+                   class="pr-10 mb-1"
                    autocapitalize="off"
                    autocorrect="off"
                    spellcheck="false"
