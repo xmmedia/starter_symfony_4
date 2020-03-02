@@ -48,7 +48,7 @@
 
 <script>
 import { Machine, interpret } from 'xstate';
-import uuid4 from 'uuid/v4';
+import { v4 as uuid4 } from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
 import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
