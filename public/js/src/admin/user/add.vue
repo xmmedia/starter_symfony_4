@@ -15,7 +15,7 @@
             <field-password v-model="password"
                             :v="$v.password"
                             :user-data="userDataForPassword"
-                            checkbox-label="Set Password"
+                            checkbox-label="Set password"
                             @set-password="setPassword = $event" />
 
             <div class="field-wrap-checkbox">
@@ -23,14 +23,14 @@
                 <label for="inputActive">Active</label>
             </div>
 
-            <field-name v-model="firstName" :v="$v.firstName">First Name</field-name>
-            <field-name v-model="lastName" :v="$v.lastName">Last Name</field-name>
+            <field-name v-model="firstName" :v="$v.firstName">First name</field-name>
+            <field-name v-model="lastName" :v="$v.lastName">Last name</field-name>
 
             <field-role v-model="role" :v="$v.role" />
 
             <div v-if="!setPassword && active" class="field-wrap-checkbox">
                 <input id="inputSendInvite" v-model="sendInvite" type="checkbox">
-                <label for="inputSendInvite">Send Invite</label>
+                <label for="inputSendInvite">Send invite</label>
                 <div class="field-help">
                     The user will need to follow the link in the invite email
                     before their account will be fully activated.
