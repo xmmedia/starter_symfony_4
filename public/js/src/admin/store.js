@@ -31,11 +31,11 @@ export default new Vuex.Store({
                 return false;
             }
 
-            return null !== state.user;
+            return !!state.user;
         },
 
         hasRole: (state, getters) => (role) => {
-            if (!getters.loggedIn) {
+            if (!state.user) {
                 return false;
             }
 
