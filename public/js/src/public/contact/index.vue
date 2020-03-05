@@ -51,7 +51,7 @@
                     <button type="submit" class="button">Send</button>
 
                     <span v-if="state.matches('sending')"
-                          class="ml-4 text-sm italic">Sending...</span>
+                          class="ml-4 text-sm italic">Sending…</span>
                 </div>
             </form>
 

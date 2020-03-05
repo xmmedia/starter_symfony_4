@@ -6,7 +6,7 @@
                 type="button"
                 @click="sendReset">Send Password Reset</button>
         <div v-if="state.matches('sending')" class="form-action">
-            Sending...
+            Sending…
         </div>
         <div v-if="state.matches('sent')" class="form-action">
             Sent

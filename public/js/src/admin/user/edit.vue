@@ -9,7 +9,7 @@
         <h2 class="mt-0">Edit User</h2>
 
         <loading-spinner v-if="state.matches('loading')">
-            Loading user...
+            Loading user…
         </loading-spinner>
         <div v-else-if="state.matches('error')" class="italic text-center">
             There was a problem loading the user. Please try again later.

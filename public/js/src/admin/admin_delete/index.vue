@@ -23,7 +23,7 @@
             </div>
 
             <loading-spinner v-else class="p-12 text-center">
-                Deleting {{ recordDesc }}...
+                Deleting {{ recordDesc }}…
             </loading-spinner>
         </admin-modal>
     </span>

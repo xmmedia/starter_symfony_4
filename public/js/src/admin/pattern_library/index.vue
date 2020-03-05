@@ -32,7 +32,7 @@
         </p>
 
         <div class="max-w-lg mx-auto">
-            <p>Narrow content... Donec facilisis egestas nulla vel condimentum. Praesent quis lectus nec velit rhoncus
+            <p>Narrow content… Donec facilisis egestas nulla vel condimentum. Praesent quis lectus nec velit rhoncus
                 ultricies ac quis mi. Mauris mattis lacus magna, venenatis faucibus nisi rhoncus non. Aenean ut
                 facilisis nisl. Nam ullamcorper nunc augue, at dignissim neque cursus nec. Nunc ut lorem at tortor
                 malesuada tempus ac sed felis. Mauris egestas leo eget justo vehicula iaculis. Cras rutrum malesuada
@@ -98,7 +98,7 @@
         -->
         <div class="form-wrap">
             <h2 class="-mt-2">Forms</h2>
-            <p>Some instructions...</p>
+            <p>Some instructions…</p>
             <form>
 
                 <div class="field-wrap">
@@ -185,7 +185,7 @@
                                name="pattern-library-radio-2">
                         <label for="pattern-library-radio-06">Radio button</label>
                     </div>
-                    <div class="field-help">Some help...</div>
+                    <div class="field-help">Some help…</div>
                 </fieldset>
 
                 <fieldset class="field-wrap-checkboxes">
@@ -208,7 +208,7 @@
                                name="pattern-library-checkbox1[]">
                         <label for="pattern-library-checkbox-03">Checkbox</label>
                     </div>
-                    <div class="field-help">Some help...</div>
+                    <div class="field-help">Some help…</div>
                 </fieldset>
 
                 <div class="field-wrap">
@@ -217,7 +217,7 @@
                     <select id="pattern-library-two-fields-2" class="w-auto">
                         <option value="1">January</option>
                         <option value="2">February</option>
-                        <option value="3">....</option>
+                        <option value="3">…</option>
                     </select>
                 </div>
 
@@ -280,7 +280,7 @@
                                    name="pattern-library-checkbox2[]">
                             <label for="pattern-library-checkbox-06">Checkbox</label>
                         </div>
-                        <div class="field-help">Some help...</div>
+                        <div class="field-help">Some help…</div>
                     </fieldset>
                 </div>
 

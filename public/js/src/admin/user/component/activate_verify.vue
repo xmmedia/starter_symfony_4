@@ -14,19 +14,19 @@
         </template>
 
         <div v-if="state.matches('activating')" class="form-action">
-            Activating...
+            Activating…
         </div>
         <div v-if="state.matches('activated')" class="form-action">
             Activated
         </div>
         <div v-if="state.matches('deactivating')" class="form-action">
-            Deactivating...
+            Deactivating…
         </div>
         <div v-if="state.matches('deactivated')" class="form-action">
             Deactivated
         </div>
         <div v-if="state.matches('verifying')" class="form-action">
-            Verifying...
+            Verifying…
         </div>
         <div v-if="state.matches('verified')" class="form-action">
             Verified

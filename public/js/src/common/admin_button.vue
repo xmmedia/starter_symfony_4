@@ -14,7 +14,7 @@
 
         <span v-if="isSaving" class="ml-4 text-sm italic">
             <span class="loading" aria-hidden="true" />
-            <slot name="saving">Saving...</slot>
+            <slot name="saving">Saving…</slot>
         </span>
         <span v-else-if="isSaved" class="ml-4 text-sm italic">
             <slot name="saved">Saved</slot>

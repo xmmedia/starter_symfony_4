@@ -39,7 +39,7 @@
                 <router-link slot="cancel"
                              :to="{ name: 'login' }"
                              class="form-action">Login</router-link>
-                <template slot="saving">Activating...</template>
+                <template slot="saving">Activating…</template>
             </admin-button>
         </form>
 

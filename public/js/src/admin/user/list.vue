@@ -9,7 +9,7 @@
         </portal>
 
         <loading-spinner v-if="state.matches('loading')">
-            Loading users...
+            Loading users…
         </loading-spinner>
         <div v-if="state.matches('error')" class="italic text-center">
             There was a problem loading the user list. Please try again later.
