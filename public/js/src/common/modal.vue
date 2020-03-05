@@ -3,7 +3,7 @@
         <vue-modal :adaptive="true"
                    :scrollable="true"
                    :name="name"
-                   height="auto"
+                   :height="height"
                    transition="md"
                    @opened="$emit('opened')"
                    @closed="$emit('closed')">
@@ -24,6 +24,13 @@
 import cuid from 'cuid';
 
 export default {
+    props: {
+        height: {
+            type: [String, Number],
+            default: 'auto',
+        },
+    },
+
     data () {
         return {
             name: cuid(),
