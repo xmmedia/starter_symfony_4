@@ -1,6 +1,7 @@
 <template>
     <portal to="modal">
-        <vue-modal :adaptive="true"
+        <vue-modal :key="name"
+                   :adaptive="true"
                    :scrollable="true"
                    :name="name"
                    :height="height"
