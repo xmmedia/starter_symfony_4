@@ -60,6 +60,8 @@ deploy:
     - printf "APP_ENV=$APP_ENV\nREQUEST_CONTEXT_HOST=$REQUEST_CONTEXT_HOST\nREQUEST_CONTEXT_SCHEME=$REQUEST_CONTEXT_SCHEME\n" > .env.local && cat .env.local
     # install php dependencies
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs
+    # check for security issues in PHP code
+    - php bin/console security:check
     # Install node/JS dependencies
     - yarn install --non-interactive --frozen-lockfile
     - yarn build
