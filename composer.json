@@ -56,7 +56,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.13",
         "fzaninotto/faker": "^1.8",
-        "liip/functional-test-bundle": "^3.1",
+        "liip/functional-test-bundle": "^4.1",
         "mockery/mockery": "^1.2",
         "overblog/graphiql-bundle": "^0.2.0",
         "phpstan/phpstan": "^0.12",

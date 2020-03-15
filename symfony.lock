@@ -147,7 +147,7 @@
         "version": "v3.0.2"
     },
     "mkopinsky/zxcvbn-php": {
-            "version": "4.4.2"
+        "version": "4.4.2"
     },
     "mockery/mockery": {
         "version": "1.2.0"
@@ -334,6 +334,9 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/event-dispatcher": {
+        "version": "1.0.0"
+    },
     "psr/http-message": {
         "version": "1.0.1"
     },
@@ -452,9 +455,6 @@
         }
     },
     "symfony/css-selector": {
-        "version": "v4.1.6"
-    },
-    "symfony/debug": {
         "version": "v4.1.6"
     },
     "symfony/debug-bundle": {
@@ -616,9 +616,6 @@
             "ref": "5f514d9d3b8a8aac3d62ae6a86b18b90ed0c7826"
         }
     },
-    "symfony/security": {
-        "version": "v4.1.6"
-    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -627,6 +624,18 @@
             "version": "3.3",
             "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
+    },
+    "symfony/security-core": {
+        "version": "v5.0.5"
+    },
+    "symfony/security-csrf": {
+        "version": "v5.0.5"
+    },
+    "symfony/security-guard": {
+        "version": "v5.0.5"
+    },
+    "symfony/security-http": {
+        "version": "v5.0.5"
     },
     "symfony/serializer": {
         "version": "v4.1.6"
