@@ -1,5 +1,6 @@
 overblog_graphql:
     definitions:
+        default_field_resolver: Xm\SymfonyBundle\Infrastructure\GraphQl\Resolver\FieldResolver
         schema:
             query: Query
             mutation: Mutation
