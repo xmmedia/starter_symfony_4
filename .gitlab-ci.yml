@@ -47,6 +47,9 @@ deploy:
   stage: deploy
   when: manual
   allow_failure: false
+  only:
+    refs:
+      - master
   script:
     - php -v
     - php composer.phar --version
