@@ -24,7 +24,7 @@
 
             <field-password v-model="password"
                             :v="$v.password"
-                            checkbox-label="Change Password"
+                            checkbox-label="Change password"
                             @set-password="setPassword = $event" />
 
             <field-name v-model="firstName" :v="$v.firstName">First name</field-name>
