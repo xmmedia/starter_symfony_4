@@ -27,10 +27,6 @@
                     This password is not complex enough.
                     Consider adding numbers and special characters.
                 </template>
-                <template v-else-if="!containsRequired">
-                    Ensure the password contains all the requirements:
-                    1 capital letter, 1 number, and 1 special character.
-                </template>
                 <template v-else-if="!v.compromised">
                     It appears that this password was part of a data breach
                     and may not be accepted. Consider using a different password.
@@ -75,9 +71,6 @@ export default {
         },
         strength () {
             return this.vuelidateValue('strength');
-        },
-        containsRequired () {
-            return this.vuelidateValue('containsRequired');
         },
     },
 

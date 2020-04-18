@@ -14,15 +14,6 @@ export default {
         // this is different than the backend:
         // there's no real point other than security to the check in the backend
         maxLength: maxLength(1000),
-        containsRequired (value) {
-            if (null === value || value.length < 12) {
-                return true;
-            }
-
-            // 1 capital, 1 number, 1 special character
-            // eslint-disable-next-line max-len
-            return /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{}|;':"<>?\/])[A-Za-z\d!@#$%^&*()_+\-=\[\]{}|;':"<>?\/]{8,}$/.test(value);
-        },
         strength (value) {
             if (null === value || value.length < 8) {
                 return true;
