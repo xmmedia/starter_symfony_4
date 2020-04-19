@@ -76,7 +76,6 @@ class UserVerifyMutation implements MutationInterface
             $user->lastName(),
         ]);
 
-
         if ($user->verified()) {
             // 404 -> not found
             throw new UserError('Your account has already been activated.', 404);
