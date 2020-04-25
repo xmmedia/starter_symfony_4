@@ -1,37 +1,15 @@
-<!DOCTYPE html>
-<html lang="{{ app.request.getLocale()[:2] }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>An Error Occurred: {{ status_text }}</title>
+{% extends 'public.html.twig' %}
 
-        {% block head %}{% endblock %}
+{% block content %}
+    {{ parent() }}
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('public') }}
-        {% endblock %}
-        {% block favicons %}
-            {% include 'favicons.html.twig' %}
-        {% endblock %}
-    </head>
-    <body>
-        <div id="app" class="relative pt-8 pb-24 min-h-screen bg-gray-800" style="background-image: url('/images/bkg.png');">
-            <div class="relative max-w-11/12 md:max-w-2xl h-full mx-auto bg-white p-8">
-                <img src="/images/logo-full.svg" width="150" alt="FLC Seniors">
-                <h1 class="mt-8">Oops! An Error Occurred</h1>
-                <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+    <div class="w-content-copy mx-auto">
+        <h1 class="mt-8">Oops! An Error Occurred</h1>
+        <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
 
-                {% include 'flash_messages.html.twig' %}
-
-                <p>
-                    Something is broken. Please let us know what you were doing when this error occurred.
-                    We will fix it as soon as possible. Sorry for any inconvenience caused.
-                </p>
-            </div>
-        </div>
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('public') }}
-        {% endblock %}
-    </body>
-</html>
+        <p>
+            Something is broken. Please let us know what you were doing when this error occurred.
+            We will fix it as soon as possible. Sorry for any inconvenience caused.
+        </p>
+    </div>
+{% endblock content %}
