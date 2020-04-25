@@ -2,7 +2,7 @@
     "name": "xm/starter_symfony_4",
     "license": "MIT",
     "type": "project",
-    "description": "Starter for creating Symfony 4 sites at XM Media",
+    "description": "Starter for creating Symfony 4/5 sites at XM Media",
     "require": {
         "php": "7.3.*",
         "ext-ctype": "*",
