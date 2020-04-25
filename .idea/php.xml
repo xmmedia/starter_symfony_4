@@ -186,6 +186,11 @@
       <path value="$PROJECT_DIR$/vendor/brick/math" />
       <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/vendor/phpcr/phpcr" />
+      <path value="$PROJECT_DIR$/vendor/jackalope/jackalope" />
+      <path value="$PROJECT_DIR$/vendor/phpcr/phpcr-utils" />
+      <path value="$PROJECT_DIR$/vendor/jackalope/jackalope-doctrine-dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/phpcr-odm" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
