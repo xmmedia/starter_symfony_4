@@ -179,13 +179,13 @@
       <path value="$PROJECT_DIR$/vendor/odolbeau/phone-number-bundle" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
       <path value="$PROJECT_DIR$/vendor/mkopinsky/zxcvbn-php" />
-      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-core" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-csrf" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-guard" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
       <path value="$PROJECT_DIR$/vendor/brick/math" />
       <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
