@@ -20,6 +20,12 @@
         <!-- ###+ symfony/messenger ### -->
         <!-- MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages -->
         <!-- ###- symfony/messenger ### -->
+
+        <!-- ###+ doctrine/phpcr-bundle ### -->
+        <env name="PHPCR_USER" value="admin"/>
+        <env name="PHPCR_PASSWORD" value="admin"/>
+        <env name="PHPCR_WORKSPACE" value="default"/>
+        <!-- ###- doctrine/phpcr-bundle ### -->
     </php>
 
     <testsuites>
