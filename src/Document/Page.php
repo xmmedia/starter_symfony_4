@@ -106,6 +106,12 @@ class Page implements
      * @var string|null
      * @PHPCR\Field(type="string", translated=true, nullable=true)
      */
+    private $metaDescription;
+
+    /**
+     * @var string|null
+     * @PHPCR\Field(type="string", translated=true, nullable=true)
+     */
     private $content;
 
     /**
@@ -315,6 +321,18 @@ class Page implements
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function metaDescription(): ?string
+    {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription(?string $metaDescription): self
+    {
+        $this->metaDescription = $metaDescription;
 
         return $this;
     }
