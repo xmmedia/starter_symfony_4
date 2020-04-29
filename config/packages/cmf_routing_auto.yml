@@ -3,5 +3,5 @@ cmf_routing_auto:
     mapping:
         resources:
             -
-                path: '%kernel.project_dir%/config/cmf/app.yaml'
+                path: '%kernel.project_dir%/config/cmf/page.yaml'
                 type: yaml
