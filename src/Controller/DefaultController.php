@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Document\Page;
+use Doctrine\ODM\PHPCR\DocumentManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,16 +16,46 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DefaultController extends AbstractController
 {
+    /** @var string */
+    private $defaultTemplate;
+
+    public function __construct(string $defaultTemplate)
+    {
+        $this->defaultTemplate = $defaultTemplate;
+    }
+
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(DocumentManagerInterface $dm): Response
     {
+        // @todo-symfony use if only an admin site
         // if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
         //     return $this->redirectToRoute('app_login');
         // }
 
-        return $this->render('default/index.html.twig');
+        $contentBasePath = $this->getParameter('cmf_content.persistence.phpcr.content_basepath');
+        $homePage = $dm->find(Page::class, $contentBasePath);
+        if (!$homePage) {
+            throw $this->createNotFoundException('No homepage configured');
+        }
+
+        return $this->page($homePage);
+    }
+
+    /**
+     * The main action that shows the pages.
+     *
+     * @param object $contentDocument
+     */
+    public function page($contentDocument): Response
+    {
+        $template = $contentDocument->template();
+        $template = $template ?: $this->defaultTemplate;
+
+        return $this->render($template, [
+            'content' => $contentDocument,
+        ]);
     }
 
     /**

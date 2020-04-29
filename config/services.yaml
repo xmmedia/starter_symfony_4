@@ -87,6 +87,10 @@ services:
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
+    App\Controller\DefaultController:
+        arguments:
+            $defaultTemplate: '%cmf_content.default_template%'
+
     App\Model\User\Service\ChecksUniqueUsersEmail: '@App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel'
 
     App\Infrastructure\Cmf\HomepageUrlGuesser:

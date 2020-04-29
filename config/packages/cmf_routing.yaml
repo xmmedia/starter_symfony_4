@@ -4,6 +4,7 @@ cmf_routing:
             router.default: 200
             cmf_routing.dynamic_router: 100
     dynamic:
+        default_controller: 'App\Controller\DefaultController::page'
         controllers_by_class:
             Symfony\Cmf\Component\Routing\RedirectRouteInterface: cmf_routing.redirect_controller:redirectAction
 #        templates_by_class:
