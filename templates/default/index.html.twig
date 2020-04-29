@@ -5,7 +5,7 @@
 {% block head %}
     {# @todo-symfony #}
     {% include 'meta.html.twig' with {
-        'description' : '',
+        'description' : content.metaDescription,
         'title' : 'app.parameter.name'|trans,
         'url' : path('index'),
     } only %}

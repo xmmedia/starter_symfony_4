@@ -1,6 +1,14 @@
 {% extends 'public.html.twig' %}
 
-{% block page_title_wrap %}{{ 'app.parameter.name'|trans }}{% endblock %}
+{% block page_title_wrap %}{{ page_title(content) }}{% endblock %}
+
+{% block head %}
+    {% include 'meta.html.twig' with {
+        'description' : content.metaDescription,
+        'title' : page_title(content),
+        'url' : path(content),
+    } only %}
+{% endblock head %}
 
 {% block content %}
     <h1>{{ content.title }}</h1>
