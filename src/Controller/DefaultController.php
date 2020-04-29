@@ -19,9 +19,15 @@ class DefaultController extends AbstractController
     /** @var string */
     private $defaultTemplate;
 
-    public function __construct(string $defaultTemplate)
-    {
+    /** @var string */
+    private $contentBasePath;
+
+    public function __construct(
+        string $defaultTemplate,
+        string $contentBasePath
+    ) {
         $this->defaultTemplate = $defaultTemplate;
+        $this->contentBasePath = $contentBasePath;
     }
 
     /**
@@ -34,8 +40,10 @@ class DefaultController extends AbstractController
         //     return $this->redirectToRoute('app_login');
         // }
 
-        $contentBasePath = $this->getParameter('cmf_content.persistence.phpcr.content_basepath');
-        $homePage = $dm->find(Page::class, $contentBasePath);
+        $homePage = $dm->find(
+            Page::class,
+            sprintf('%s/home', $this->contentBasePath)
+        );
         if (!$homePage) {
             throw $this->createNotFoundException('No homepage configured');
         }

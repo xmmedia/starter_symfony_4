@@ -37,6 +37,7 @@ services:
             $commandBus: '@messenger.bus.commands'
             $eventBus: '@messenger.bus.events'
             string $adminEmail: '%env(FROM_EMAIL)%'
+            string $contentBasePath: '%cmf_content.persistence.phpcr.content_basepath%'
 
     _instanceof:
         GraphQL\Type\Definition\Type:
