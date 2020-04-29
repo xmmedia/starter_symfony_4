@@ -89,6 +89,14 @@ services:
 
     App\Model\User\Service\ChecksUniqueUsersEmail: '@App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel'
 
+    App\Infrastructure\Cmf\HomepageUrlGuesser:
+        tags:
+            - { name: 'cmf_seo.sitemap.guesser', priority: 10 }
+
+    App\EventSubscriber\CreatedUpdatedBySubscriber:
+        tags:
+            - { name: 'doctrine_phpcr.event_subscriber' }
+
     Xm\SymfonyBundle\EventStore\EventStoreMessengerPlugin:
         tags: [ 'prooph_event_store.plugin' ]
 

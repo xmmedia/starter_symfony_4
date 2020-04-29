@@ -1,0 +1,6 @@
+App\Document\Page:
+    definitions:
+        main:
+            uri_schema: /{path}
+    token_providers:
+        path: [content_method, { method: fullPath, slugify: false }]

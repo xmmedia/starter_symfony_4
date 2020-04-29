@@ -191,6 +191,24 @@
       <path value="$PROJECT_DIR$/vendor/symfony/web-profiler-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
+      <path value="$PROJECT_DIR$/vendor/theofidry/alice-data-fixtures" />
+      <path value="$PROJECT_DIR$/vendor/nelmio/alice" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/jms/metadata" />
+      <path value="$PROJECT_DIR$/vendor/aferrandini/urlizer" />
+      <path value="$PROJECT_DIR$/vendor/symfony-cmf/routing-auto-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony-cmf/slugifier-api" />
+      <path value="$PROJECT_DIR$/vendor/symfony-cmf/routing-auto" />
+      <path value="$PROJECT_DIR$/vendor/symfony-cmf/content-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony-cmf/menu-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony-cmf/core-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-menu" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-menu-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony-cmf/seo-bundle" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/sonata-project/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sonata-project/seo-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

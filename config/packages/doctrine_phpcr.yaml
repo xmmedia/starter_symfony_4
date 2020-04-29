@@ -1,17 +1,30 @@
 doctrine_phpcr:
     session:
         backend:
-            type: jackrabbit
-            url: 'localhost'
-            # connection: default
+            type: doctrinedbal
             # requires DoctrineCacheBundle
-            # caches:
-            #     meta: doctrine_cache.providers.phpcr_meta
-            #     nodes: doctrine_cache.providers.phpcr_nodes
+#            caches:
+#                meta: doctrine_cache.providers.phpcr_meta
+#                nodes: doctrine_cache.providers.phpcr_nodes
             # enable logging
-            # logging: true
-            # enable profiling in the debug toolbar.
-            # profiling: true
+            logging: '%kernel.debug%'
+            # enable profiling in the debug toolbar
+            profiling: '%kernel.debug%'
         workspace: '%env(PHPCR_WORKSPACE)%'
         username: '%env(PHPCR_USER)%'
         password: '%env(PHPCR_PASSWORD)%'
+    odm:
+        auto_mapping: true
+        auto_generate_proxy_classes: '%kernel.debug%'
+        mappings:
+            App:
+                mapping: true
+                type: annotation
+                dir: '%kernel.root_dir%/Document'
+                alias: App
+                prefix: App\Document\
+                is_bundle: false
+        locales:
+            '%locale%': []
+        locale_fallback: hardcoded
+        default_locale: en

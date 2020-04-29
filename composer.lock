@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f8c6e63df87f63a16f3e8532cc1a2d8",
+    "content-hash": "0074557d6e8a6b234c8c3ebf37d37096",
     "packages": [
+        {
+            "name": "aferrandini/urlizer",
+            "version": "1.0.0",
+            "target-dir": "Ferrandini",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aferrandini/Urlizer.git",
+                "reference": "9223a883ac24981385cf3ea41bff526c95a3547a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aferrandini/Urlizer/zipball/9223a883ac24981385cf3ea41bff526c95a3547a",
+                "reference": "9223a883ac24981385cf3ea41bff526c95a3547a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ferrandini": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ariel Ferrandini",
+                    "email": "arielferrandini@gmail.com",
+                    "homepage": "http://www.ferrandini.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Library for urlizer",
+            "homepage": "https://github.com/aferrandini/urlizer",
+            "keywords": [
+                "url",
+                "urlizer"
+            ],
+            "time": "2012-11-15T19:49:27+00:00"
+        },
         {
             "name": "beberlei/assert",
             "version": "v3.2.7",
@@ -2200,6 +2244,61 @@
             "time": "2014-01-12T16:20:24+00:00"
         },
         {
+            "name": "jms/metadata",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/metadata.git",
+                "reference": "e5854ab1aa643623dc64adde718a8eec32b957a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/metadata/zipball/e5854ab1aa643623dc64adde718a8eec32b957a8",
+                "reference": "e5854ab1aa643623dc64adde718a8eec32b957a8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "doctrine/cache": "~1.0",
+                "symfony/cache": "~3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Metadata\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Asmir Mustafic",
+                    "email": "goetas@gmail.com"
+                },
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Class/method/property metadata management in PHP",
+            "keywords": [
+                "annotations",
+                "metadata",
+                "xml",
+                "yaml"
+            ],
+            "time": "2018-10-26T12:40:10+00:00"
+        },
+        {
             "name": "knplabs/knp-components",
             "version": "v2.3.4",
             "source": {
@@ -2275,6 +2374,132 @@
             "time": "2020-04-24T07:13:34+00:00"
         },
         {
+            "name": "knplabs/knp-menu",
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpMenu.git",
+                "reference": "b6aade272c345b6fbd07fce5929a761cba0909b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenu/zipball/b6aade272c345b6fbd07fce5929a761cba0909b8",
+                "reference": "b6aade272c345b6fbd07fce5929a761cba0909b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "conflict": {
+                "twig/twig": "<1.40|>=2,<2.9"
+            },
+            "require-dev": {
+                "psr/container": "^1.0",
+                "symfony/http-foundation": "~2.4|~3.0|^4.0",
+                "symfony/phpunit-bridge": "~3.3|^4.0",
+                "symfony/routing": "~2.3|~3.0|^4.0",
+                "twig/twig": "^1.40|^2.9"
+            },
+            "suggest": {
+                "twig/twig": "for the TwigRenderer and the integration with your templates"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Menu\\": "src/Knp/Menu"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "KnpLabs",
+                    "homepage": "https://knplabs.com"
+                },
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/KnpLabs/KnpMenu/contributors"
+                }
+            ],
+            "description": "An object oriented menu library",
+            "homepage": "https://knplabs.com",
+            "keywords": [
+                "menu",
+                "tree"
+            ],
+            "time": "2019-09-02T10:16:14+00:00"
+        },
+        {
+            "name": "knplabs/knp-menu-bundle",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
+                "reference": "78b0cebf8e1490f12ba6555511282954de83f627"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/78b0cebf8e1490f12ba6555511282954de83f627",
+                "reference": "78b0cebf8e1490f12ba6555511282954de83f627",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-menu": "~2.3",
+                "php": "^7.1",
+                "symfony/framework-bundle": "^3.4 | ^4.0"
+            },
+            "require-dev": {
+                "symfony/expression-language": "^3.4 | ^4.0",
+                "symfony/phpunit-bridge": "^3.4 | ^4.0",
+                "symfony/templating": "^3.4 | ^4.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Bundle\\MenuBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Knplabs",
+                    "homepage": "http://knplabs.com"
+                },
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/KnpLabs/KnpMenuBundle/contributors"
+                }
+            ],
+            "description": "This bundle provides an integration of the KnpMenu library",
+            "keywords": [
+                "menu"
+            ],
+            "time": "2019-09-19T08:51:48+00:00"
+        },
+        {
             "name": "knplabs/knp-paginator-bundle",
             "version": "v5.1.2",
             "source": {
@@ -2345,16 +2570,16 @@
         },
         {
             "name": "marc-mabe/php-enum",
-            "version": "v4.2.0",
+            "version": "v4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/marc-mabe/php-enum.git",
-                "reference": "e6113cfec06ae1a6580812f4ea442fa696330988"
+                "reference": "29b5b7d8fc7b03a63d6af798847ad23146851e80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/e6113cfec06ae1a6580812f4ea442fa696330988",
-                "reference": "e6113cfec06ae1a6580812f4ea442fa696330988",
+                "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/29b5b7d8fc7b03a63d6af798847ad23146851e80",
+                "reference": "29b5b7d8fc7b03a63d6af798847ad23146851e80",
                 "shasum": ""
             },
             "require": {
@@ -2362,13 +2587,15 @@
                 "php": ">=7.1"
             },
             "require-dev": {
-                "phpbench/phpbench": "^0.16.1",
-                "phpunit/phpunit": "^6.0"
+                "phpbench/phpbench": "^0.16.10",
+                "phpstan/phpstan": "^0.12.19",
+                "phpunit/phpunit": "^7.5.20",
+                "vimeo/psalm": "^3.11.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev",
+                    "dev-master": "4.3-dev",
                     "dev-3.x": "3.1-dev",
                     "dev-2.x": "2.3-dev",
                     "dev-1.x": "1.3-dev"
@@ -2407,7 +2634,7 @@
                 "type-hint",
                 "typehint"
             ],
-            "time": "2019-12-18T09:03:05+00:00"
+            "time": "2020-04-27T09:55:52+00:00"
         },
         {
             "name": "mkopinsky/zxcvbn-php",
@@ -2880,22 +3107,25 @@
         },
         {
             "name": "odolbeau/phone-number-bundle",
-            "version": "v3.0.0",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/odolbeau/phone-number-bundle.git",
-                "reference": "aa996f8fc45677d8ec9e518af895161e0428efce"
+                "reference": "7e89b82ccf8e0fc64ce5dda5e4c7111ea0d54592"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/odolbeau/phone-number-bundle/zipball/aa996f8fc45677d8ec9e518af895161e0428efce",
-                "reference": "aa996f8fc45677d8ec9e518af895161e0428efce",
+                "url": "https://api.github.com/repos/odolbeau/phone-number-bundle/zipball/7e89b82ccf8e0fc64ce5dda5e4c7111ea0d54592",
+                "reference": "7e89b82ccf8e0fc64ce5dda5e4c7111ea0d54592",
                 "shasum": ""
             },
             "require": {
                 "giggsey/libphonenumber-for-php": "^8.0",
                 "php": "^7.2",
                 "symfony/framework-bundle": "^3.4|^4.3|^5.0"
+            },
+            "conflict": {
+                "misd/phone-number-bundle": "*"
             },
             "require-dev": {
                 "doctrine/doctrine-bundle": "^1.12|^2.0",
@@ -2915,16 +3145,13 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0.x-dev"
+                    "dev-master": "3.1.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Misd\\PhoneNumberBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
+                    "Misd\\PhoneNumberBundle\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2939,7 +3166,7 @@
                 "phonenumber",
                 "telephone number"
             ],
-            "time": "2019-11-26T16:42:13+00:00"
+            "time": "2020-04-27T20:34:27+00:00"
         },
         {
             "name": "overblog/graphql-bundle",
@@ -3159,33 +3386,35 @@
         },
         {
             "name": "phpdocumentor/reflection-common",
-            "version": "2.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a"
+                "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/63a995caa1ca9e5590304cd845c15ad6d482a62a",
-                "reference": "63a995caa1ca9e5590304cd845c15ad6d482a62a",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
+                "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=5.5"
             },
             "require-dev": {
-                "phpunit/phpunit": "~6"
+                "phpunit/phpunit": "^4.6"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "phpDocumentor\\Reflection\\": "src/"
+                    "phpDocumentor\\Reflection\\": [
+                        "src"
+                    ]
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3207,42 +3436,38 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2018-08-07T13:53:10+00:00"
+            "time": "2017-09-11T18:02:19+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "5.1.0",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "cd72d394ca794d3466a3b2fc09d5a6c1dc86b47e"
+                "reference": "bf329f6c1aadea3299f08ee804682b7c45b326a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/cd72d394ca794d3466a3b2fc09d5a6c1dc86b47e",
-                "reference": "cd72d394ca794d3466a3b2fc09d5a6c1dc86b47e",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/bf329f6c1aadea3299f08ee804682b7c45b326a2",
+                "reference": "bf329f6c1aadea3299f08ee804682b7c45b326a2",
                 "shasum": ""
             },
             "require": {
-                "ext-filter": "^7.1",
-                "php": "^7.2",
-                "phpdocumentor/reflection-common": "^2.0",
-                "phpdocumentor/type-resolver": "^1.0",
-                "webmozart/assert": "^1"
+                "php": "^5.6 || ^7.0",
+                "phpdocumentor/reflection-common": "^1.0.0",
+                "phpdocumentor/type-resolver": "^0.4.0",
+                "webmozart/assert": "^1.0"
             },
             "require-dev": {
-                "doctrine/instantiator": "^1",
-                "mockery/mockery": "^1"
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.4"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "phpDocumentor\\Reflection\\": "src"
+                    "phpDocumentor\\Reflection\\": [
+                        "src/"
+                    ]
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3253,46 +3478,44 @@
                 {
                     "name": "Mike van Riel",
                     "email": "me@mikevanriel.com"
-                },
-                {
-                    "name": "Jaap van Otterdijk",
-                    "email": "account@ijaap.nl"
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2020-02-22T12:28:44+00:00"
+            "time": "2017-11-10T14:09:06+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.1.0",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "7462d5f123dfc080dfdf26897032a6513644fc95"
+                "reference": "9c977708995954784726e25d0cd1dddf4e65b0f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/7462d5f123dfc080dfdf26897032a6513644fc95",
-                "reference": "7462d5f123dfc080dfdf26897032a6513644fc95",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/9c977708995954784726e25d0cd1dddf4e65b0f7",
+                "reference": "9c977708995954784726e25d0cd1dddf4e65b0f7",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2",
-                "phpdocumentor/reflection-common": "^2.0"
+                "php": "^5.5 || ^7.0",
+                "phpdocumentor/reflection-common": "^1.0"
             },
             "require-dev": {
-                "ext-tokenizer": "^7.2",
-                "mockery/mockery": "~1"
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^5.2||^4.8.24"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "phpDocumentor\\Reflection\\": "src"
+                    "phpDocumentor\\Reflection\\": [
+                        "src/"
+                    ]
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3305,8 +3528,7 @@
                     "email": "me@mikevanriel.com"
                 }
             ],
-            "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
-            "time": "2020-02-18T18:59:58+00:00"
+            "time": "2017-07-14T14:27:02+00:00"
         },
         {
             "name": "prooph/common",
@@ -3366,16 +3588,16 @@
         },
         {
             "name": "prooph/event-store",
-            "version": "v7.5.6",
+            "version": "v7.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prooph/event-store.git",
-                "reference": "654e0230a4fd6cb2466ac145171b5062547a7b21"
+                "reference": "e8cc75e74b9caf325da358750c7375e08620f59b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prooph/event-store/zipball/654e0230a4fd6cb2466ac145171b5062547a7b21",
-                "reference": "654e0230a4fd6cb2466ac145171b5062547a7b21",
+                "url": "https://api.github.com/repos/prooph/event-store/zipball/e8cc75e74b9caf325da358750c7375e08620f59b",
+                "reference": "e8cc75e74b9caf325da358750c7375e08620f59b",
                 "shasum": ""
             },
             "require": {
@@ -3392,7 +3614,7 @@
                 "phpunit/php-invoker": "^2.0",
                 "phpunit/phpunit": "^7.1.4",
                 "prooph/bookdown-template": "^0.2.3",
-                "prooph/php-cs-fixer-config": "^0.3",
+                "prooph/php-cs-fixer-config": "v0.3.1",
                 "psr/container": "^1.0",
                 "sandrokeil/interop-config": "^2.0.1",
                 "satooshi/php-coveralls": "^1.0"
@@ -3438,7 +3660,7 @@
                 "ddd",
                 "prooph"
             ],
-            "time": "2019-10-24T16:59:00+00:00"
+            "time": "2020-04-26T21:31:51+00:00"
         },
         {
             "name": "prooph/event-store-bus-bridge",
@@ -3826,6 +4048,55 @@
                 "psr"
             ],
             "time": "2017-02-14T16:28:37+00:00"
+        },
+        {
+            "name": "psr/http-client",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-client.git",
+                "reference": "496a823ef742b632934724bf769560c2a5c7c44e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/496a823ef742b632934724bf769560c2a5c7c44e",
+                "reference": "496a823ef742b632934724bf769560c2a5c7c44e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP clients",
+            "homepage": "https://github.com/php-fig/http-client",
+            "keywords": [
+                "http",
+                "http-client",
+                "psr",
+                "psr-18"
+            ],
+            "time": "2018-10-30T23:29:13+00:00"
         },
         {
             "name": "psr/http-message",
@@ -4599,6 +4870,157 @@
             "time": "2019-11-01T13:20:14+00:00"
         },
         {
+            "name": "sonata-project/exporter",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sonata-project/exporter.git",
+                "reference": "ed2b6e43982eec5c267b3ff3bc0e3c97ab98b849"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sonata-project/exporter/zipball/ed2b6e43982eec5c267b3ff3bc0e3c97ab98b849",
+                "reference": "ed2b6e43982eec5c267b3ff3bc0e3c97ab98b849",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^2.5",
+                "doctrine/orm": "^2.4.5",
+                "matthiasnoback/symfony-config-test": "^4.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+                "propel/propel1": "^1.6",
+                "symfony/config": "^3.4 || ^4.3 || ^5.0",
+                "symfony/dependency-injection": "^3.4 || ^4.3 || ^5.0",
+                "symfony/http-foundation": "^3.4 || ^4.3 || ^5.0",
+                "symfony/http-kernel": "^3.4 || ^4.3 || ^5.0",
+                "symfony/phpunit-bridge": "^4.3.8 || ^5.0",
+                "symfony/property-access": "^3.4 || ^4.3 || ^5.0",
+                "symfony/routing": "^3.4 || ^4.3 || ^5.0"
+            },
+            "suggest": {
+                "propel/propel1": "To export propel collections",
+                "symfony/property-access": "To be able to export from database entities",
+                "symfony/routing": "To be able to export the routes of a Symfony app"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sonata\\Exporter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas Rabaix",
+                    "email": "thomas.rabaix@gmail.com",
+                    "homepage": "https://sonata-project.org/"
+                }
+            ],
+            "description": "Lightweight Exporter library",
+            "homepage": "https://github.com/sonata-project/Exporter",
+            "keywords": [
+                "client",
+                "csv",
+                "data",
+                "export",
+                "xls"
+            ],
+            "time": "2020-03-17T17:59:38+00:00"
+        },
+        {
+            "name": "sonata-project/seo-bundle",
+            "version": "2.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sonata-project/SonataSeoBundle.git",
+                "reference": "6d346f5fe90661aaea2a2445ae2168a982d30df7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sonata-project/SonataSeoBundle/zipball/6d346f5fe90661aaea2a2445ae2168a982d30df7",
+                "reference": "6d346f5fe90661aaea2a2445ae2168a982d30df7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "psr/http-client": "^1.0",
+                "psr/http-message": "^1.0",
+                "sonata-project/exporter": "^1.11 || ^2.0",
+                "symfony/config": "^3.4 || ^4.2 || ^5.0",
+                "symfony/dependency-injection": "^3.4 || ^4.2 || ^5.0",
+                "symfony/form": "^3.4 || ^4.2 || ^5.0",
+                "symfony/framework-bundle": "^3.4 || ^4.2 || ^5.0",
+                "symfony/http-foundation": "^3.4 || ^4.2 || ^5.0",
+                "symfony/http-kernel": "^3.4 || ^4.2 || ^5.0",
+                "symfony/options-resolver": "^3.4 || ^4.2 || ^5.0",
+                "twig/twig": "^1.40 || ^2.9 || ^3.0"
+            },
+            "conflict": {
+                "sonata-project/block-bundle": "<3.11"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.0",
+                "nyholm/psr7": "^1.2",
+                "sonata-project/admin-bundle": "^3.31",
+                "sonata-project/block-bundle": "^3.11",
+                "sonata-project/core-bundle": "^3.9",
+                "symfony/console": "^3.4 || ^4.2 || ^5.0",
+                "symfony/filesystem": "^3.4 || ^4.2 || ^5.0",
+                "symfony/finder": "^3.4 || ^4.2 || ^5.0",
+                "symfony/http-client": "^4.4 || ^5.0",
+                "symfony/phpunit-bridge": "^4.1 || ^5.0",
+                "symfony/yaml": "^3.4 || ^4.2 || ^5.0"
+            },
+            "suggest": {
+                "knplabs/knp-menu-bundle": "Used by the BreadcrumbMenuBuilder",
+                "symfony/http-client": "Symfony client implementation for TwitterEmbedTweetBlockService"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sonata\\SeoBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas Rabaix",
+                    "email": "thomas.rabaix@sonata-project.org",
+                    "homepage": "https://sonata-project.org"
+                },
+                {
+                    "name": "Sonata Community",
+                    "homepage": "https://github.com/sonata-project/SonataSeoBundle/contributors"
+                }
+            ],
+            "description": "Symfony SonataSeoBundle",
+            "homepage": "https://sonata-project.org/bundles/seo",
+            "keywords": [
+                "seo",
+                "sonata"
+            ],
+            "time": "2020-01-12T18:13:11+00:00"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v6.2.3",
             "source": {
@@ -4661,6 +5083,204 @@
             "time": "2019-11-12T09:31:26+00:00"
         },
         {
+            "name": "symfony-cmf/content-bundle",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony-cmf/content-bundle.git",
+                "reference": "5e9cd70449ad8313a85a58f2a3afaf334c56b15e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony-cmf/content-bundle/zipball/5e9cd70449ad8313a85a58f2a3afaf334c56b15e",
+                "reference": "5e9cd70449ad8313a85a58f2a3afaf334c56b15e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "symfony-cmf/core-bundle": "^2.1",
+                "symfony-cmf/menu-bundle": "^2.1",
+                "symfony-cmf/routing-bundle": "^2.1",
+                "symfony/framework-bundle": "^2.8 || ^3.3 || ^4.0",
+                "symfony/templating": "^2.8 || ^3.3 || ^4.0",
+                "symfony/twig-bundle": "^2.8 || ^3.3 || ^4.0",
+                "symfony/validator": "^2.8 || ^3.3 || ^4.0"
+            },
+            "require-dev": {
+                "doctrine/phpcr-odm": "^1.4|^2.0",
+                "symfony-cmf/testing": "^2.1.8",
+                "symfony/phpunit-bridge": "^3.3 || ^4.0"
+            },
+            "suggest": {
+                "doctrine/phpcr-bundle": "To integrate PHPCR-ODM with Symfony",
+                "doctrine/phpcr-odm": "To persist content with the PHP content repository",
+                "friendsofsymfony/rest-bundle": "Improved handling for different output formats",
+                "symfony-cmf/sonata-admin-integration-bundle": "To provide admin interfaces for the content"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Cmf\\Bundle\\ContentBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony CMF Community",
+                    "homepage": "https://github.com/symfony-cmf/ContentBundle/contributors"
+                }
+            ],
+            "description": "Symfony CMF Content Bundle",
+            "homepage": "http://cmf.symfony.com",
+            "keywords": [
+                "Symfony CMF"
+            ],
+            "time": "2018-08-18T07:35:57+00:00"
+        },
+        {
+            "name": "symfony-cmf/core-bundle",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony-cmf/core-bundle.git",
+                "reference": "4638e204ca4cf9fee1ccf4d198b1479006edfb79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony-cmf/core-bundle/zipball/4638e204ca4cf9fee1ccf4d198b1479006edfb79",
+                "reference": "4638e204ca4cf9fee1ccf4d198b1479006edfb79",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "symfony/framework-bundle": "^2.8 || ^3.3 || ^4.0",
+                "symfony/security-core": "^2.8 || ^3.3 || ^4.0"
+            },
+            "require-dev": {
+                "doctrine/dbal": "2.5.*",
+                "doctrine/phpcr-odm": "^1.4|^2.0 ",
+                "mockery/mockery": "^0.9.4",
+                "symfony-cmf/routing-bundle": "^2.1.0",
+                "symfony-cmf/testing": "^2.1.11",
+                "symfony/asset": "^2.8 || ^3.3 || ^4.0",
+                "symfony/browser-kit": "^2.8 || ^3.3 || ^4.0",
+                "symfony/form": "^2.8 || ^3.3 || ^4.0",
+                "symfony/phpunit-bridge": "^4.2.2",
+                "symfony/security-bundle": "^2.8 || ^3.3 || ^4.0",
+                "symfony/templating": "^2.8 || ^3.3 || ^4.0",
+                "symfony/translation": "^2.8 || ^3.3 || ^4.0",
+                "symfony/validator": "^2.8 || ^3.3 || ^4.0"
+            },
+            "suggest": {
+                "doctrine/phpcr-bundle": "To be able to use the CMF twig extension (^1.0)",
+                "doctrine/phpcr-odm": "To be able to use the CMF twig extension (^1.0)",
+                "symfony-cmf/routing": "To be able to use the CMF twig extension functions cmf_prev_linkable/cmf_next_linkable (^2.1)",
+                "symfony-cmf/routing-bundle": "To be able to enable the publish_workflow_listener (^2.1)",
+                "symfony-cmf/sonata-admin-integration-bundle": "To provide an admin interface for the PHPCR ODM documents.",
+                "symfony/security-bundle": "To be able to use the publish workflow system (^2.8 || ^3.3 || ^4.0)",
+                "symfony/twig-bundle": "To get access to the CMF twig extension (^2.8 || ^3.3 || ^4.0)"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Cmf\\Bundle\\CoreBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony CMF Community",
+                    "homepage": "https://github.com/symfony-cmf/CoreBundle/contributors"
+                }
+            ],
+            "description": "Symfony CMF Core Bundle",
+            "homepage": "http://cmf.symfony.com",
+            "keywords": [
+                "Symfony CMF"
+            ],
+            "time": "2019-03-12T15:00:25+00:00"
+        },
+        {
+            "name": "symfony-cmf/menu-bundle",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony-cmf/menu-bundle.git",
+                "reference": "7508e133e77048bfbcd641b86aa1034c98964e26"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony-cmf/menu-bundle/zipball/7508e133e77048bfbcd641b86aa1034c98964e26",
+                "reference": "7508e133e77048bfbcd641b86aa1034c98964e26",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-menu": "^2.0.0",
+                "knplabs/knp-menu-bundle": "^2.2.0",
+                "php": "^7.1",
+                "symfony/framework-bundle": "^2.8 || ^3.3 || ^4.0",
+                "symfony/validator": "^2.8 || ^3.3 || ^4.0"
+            },
+            "require-dev": {
+                "doctrine/phpcr-odm": "^1.4.2 || ^2.0",
+                "symfony-cmf/core-bundle": "^2.1",
+                "symfony-cmf/routing-bundle": "^1.4 || ^2.0",
+                "symfony-cmf/testing": "^2.1.8",
+                "symfony/monolog-bundle": "~3.1",
+                "symfony/phpunit-bridge": "^3.3 || ^4.0",
+                "twig/twig": "^1.35 || ^2.4.4"
+            },
+            "suggest": {
+                "doctrine/phpcr-bundle": "To enable support for the PHPCR ODM documents",
+                "doctrine/phpcr-odm": "To enable support for the PHPCR ODM documents (^1.4)",
+                "symfony-cmf/core-bundle": "To enable support for publishing workflow"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Cmf\\Bundle\\MenuBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony CMF Community",
+                    "homepage": "https://github.com/symfony-cmf/MenuBundle/contributors"
+                }
+            ],
+            "description": "Symfony CMF Menu Bundle",
+            "homepage": "http://cmf.symfony.com",
+            "keywords": [
+                "Symfony CMF",
+                "menu"
+            ],
+            "time": "2018-08-18T06:45:10+00:00"
+        },
+        {
             "name": "symfony-cmf/routing",
             "version": "2.2.0",
             "source": {
@@ -4718,6 +5338,130 @@
                 "routing"
             ],
             "time": "2019-12-10T10:45:30+00:00"
+        },
+        {
+            "name": "symfony-cmf/routing-auto",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony-cmf/routing-auto.git",
+                "reference": "51876228bf013cf76fe5b14655680e5a7a0f6517"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony-cmf/routing-auto/zipball/51876228bf013cf76fe5b14655680e5a7a0f6517",
+                "reference": "51876228bf013cf76fe5b14655680e5a7a0f6517",
+                "shasum": ""
+            },
+            "require": {
+                "jms/metadata": "^1.5",
+                "php": "^7.1",
+                "symfony-cmf/routing": "^1.2 || ^2.0",
+                "symfony-cmf/slugifier-api": "^1.0 || ^2.0",
+                "symfony/config": "^2.8 || ^3.3 || ^4.0",
+                "symfony/options-resolver": "^2.8 || ^3.3 || ^4.0"
+            },
+            "require-dev": {
+                "symfony-cmf/testing": "^2.1",
+                "symfony/dependency-injection": "^2.8 || ^3.3 || ^4.0",
+                "symfony/event-dispatcher": "^2.8 || ^3.3 || ^4.0",
+                "symfony/phpunit-bridge": "^3.3 || ^4.0",
+                "symfony/yaml": "^2.8 || ^3.3 || ^4.0"
+            },
+            "suggest": {
+                "symfony-cmf/routing-auto-bundle": "To integrate this libary with Symfony and the CMF",
+                "symfony/event-dispatcher": "To use the EventDispatchingAdapter, allowing to edit the AutoRoute documents (^2.8 || ^3.3 || ^4.0)",
+                "symfony/yaml": "To be able to load Yaml configuration files (^2.8 || ^3.3 || ^4.0)"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Cmf\\Component\\RoutingAuto\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony CMF Community",
+                    "homepage": "https://github.com/symfony-cmf/symfony-cmf/contributors"
+                }
+            ],
+            "description": "Component for automatically creating and managing routes for persisted objects",
+            "homepage": "http://cmf.symfony.com",
+            "time": "2018-06-22T13:31:54+00:00"
+        },
+        {
+            "name": "symfony-cmf/routing-auto-bundle",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony-cmf/routing-auto-bundle.git",
+                "reference": "4b9713c4601c5db49b488234192b519938278a68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony-cmf/routing-auto-bundle/zipball/4b9713c4601c5db49b488234192b519938278a68",
+                "reference": "4b9713c4601c5db49b488234192b519938278a68",
+                "shasum": ""
+            },
+            "require": {
+                "aferrandini/urlizer": "1.0.*",
+                "php": "^7.1",
+                "phpdocumentor/reflection-docblock": "^3.1, !=3.2.0",
+                "symfony-cmf/routing-auto": "^2.0",
+                "symfony-cmf/routing-bundle": "^2.0",
+                "symfony/framework-bundle": "^2.8 || ^3.3 || ^4.0"
+            },
+            "conflict": {
+                "phpcr/phpcr-utils": "<1.3.2",
+                "phpunit/phpunit": "<5.7",
+                "sebastian/exporter": "<2.0"
+            },
+            "require-dev": {
+                "doctrine/phpcr-odm": "^1.4.2 || ^2.0",
+                "matthiasnoback/symfony-config-test": "^2.2",
+                "matthiasnoback/symfony-dependency-injection-test": "^1.0",
+                "symfony-cmf/testing": "^2.1",
+                "symfony/phpunit-bridge": "^3.3 || ^4.0",
+                "symfony/yaml": "^2.8 || ^3.3 || ^4.0"
+            },
+            "suggest": {
+                "doctrine/phpcr-bundle": "To enable support for the PHPCR ODM documents",
+                "doctrine/phpcr-odm": "To enable support for the PHPCR ODM documents",
+                "symfony/yaml": "To be able to load Yaml configuration files (^2.1)"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Cmf\\Bundle\\RoutingAutoBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony CMF Community",
+                    "homepage": "https://github.com/symfony-cmf/routing-auto-bundle/contributors"
+                }
+            ],
+            "description": "Bundle which automatically creates and manages routes for persisted objects",
+            "homepage": "http://cmf.symfony.com",
+            "time": "2018-06-22T13:49:46+00:00"
         },
         {
             "name": "symfony-cmf/routing-bundle",
@@ -4788,6 +5532,132 @@
                 "routing"
             ],
             "time": "2020-02-25T10:25:49+00:00"
+        },
+        {
+            "name": "symfony-cmf/seo-bundle",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony-cmf/seo-bundle.git",
+                "reference": "9808641be67ab7a2b9ab371844a451ef187aa24f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony-cmf/seo-bundle/zipball/9808641be67ab7a2b9ab371844a451ef187aa24f",
+                "reference": "9808641be67ab7a2b9ab371844a451ef187aa24f",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/collections": "^1.0",
+                "php": "^7.1",
+                "sonata-project/seo-bundle": "^2.2",
+                "symfony/framework-bundle": "^2.8 || ^3.3 || ^4.0"
+            },
+            "conflict": {
+                "phpcr/phpcr-utils": "<1.3.0",
+                "sebastian/exporter": "<2.0.0"
+            },
+            "require-dev": {
+                "burgov/key-value-form-bundle": "^1.0",
+                "doctrine/orm": "^2.4",
+                "doctrine/phpcr-odm": "^1.4.2 || ^2.0",
+                "matthiasnoback/symfony-config-test": "^2.1",
+                "matthiasnoback/symfony-dependency-injection-test": "^1.1",
+                "symfony-cmf/core-bundle": "^2.1",
+                "symfony-cmf/routing-bundle": "^1.4.0 || ^2.1",
+                "symfony-cmf/testing": "^2.1.9",
+                "symfony/asset": "^2.8 || ^3.3 || ^4.0",
+                "symfony/browser-kit": "^2.8 || ^3.3 || ^4.0",
+                "symfony/css-selector": "^2.8 || ^3.3 || ^4.0",
+                "symfony/phpunit-bridge": "^3.3 || ^4.0",
+                "symfony/security-bundle": "^2.8 || ^3.3 || ^4.0",
+                "symfony/templating": "^2.8 || ^3.3 || ^4.0",
+                "symfony/translation": "^2.8 || ^3.3 || ^4.0",
+                "symfony/validator": "^2.8 || ^3.3 || ^4.0"
+            },
+            "suggest": {
+                "burgov/key-value-form-bundle": "To have advanced editing options in the SEO form type, ^1.0",
+                "doctrine/doctrine-bundle": "To persist the metadata in ORM entities",
+                "doctrine/orm": "To persist the metadata in ORM entities, ~2.4",
+                "doctrine/phpcr-bundle": "To persist the metadata in PHPCR ODM documents",
+                "symfony-cmf/core-bundle": "When using the provided PHPCR-ODM document",
+                "symfony-cmf/routing-bundle": "To make use of the alternate locale provider.",
+                "symfony-cmf/sonata-admin-integration-bundle": "To provide an admin interface for the PHPCR ODM documents."
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Cmf\\Bundle\\SeoBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony CMF Community",
+                    "homepage": "https://github.com/symfony-cmf/SeoBundle/contributors"
+                }
+            ],
+            "description": "Symfony CMF Search Engine Optimization Bundle",
+            "homepage": "http://cmf.symfony.com",
+            "keywords": [
+                "Symfony CMF",
+                "seo"
+            ],
+            "time": "2018-08-17T11:36:58+00:00"
+        },
+        {
+            "name": "symfony-cmf/slugifier-api",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony-cmf/slugifier-api.git",
+                "reference": "5132aff25ad950ee897df4ae98d4ae2a4bc25f52"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony-cmf/slugifier-api/zipball/5132aff25ad950ee897df4ae98d4ae2a4bc25f52",
+                "reference": "5132aff25ad950ee897df4ae98d4ae2a4bc25f52",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Cmf\\Api\\Slugifier\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony CMF Community",
+                    "homepage": "https://github.com/symfony-cmf/slugifier-api/contributors"
+                }
+            ],
+            "description": "Provides a basic slugifier interface to transform text into strings suitable for URLs",
+            "homepage": "http://cmf.symfony.com",
+            "keywords": [
+                "slugify",
+                "urlize"
+            ],
+            "time": "2017-02-18T23:11:17+00:00"
         },
         {
             "name": "symfony/asset",
@@ -5012,32 +5882,32 @@
         },
         {
             "name": "symfony/config",
-            "version": "v5.0.7",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "3e633c31a34738f7f4ed7a225c43fc45ca74c986"
+                "reference": "3f4a3de1af498ed0ea653d4dc2317794144e6ca4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/3e633c31a34738f7f4ed7a225c43fc45ca74c986",
-                "reference": "3e633c31a34738f7f4ed7a225c43fc45ca74c986",
+                "url": "https://api.github.com/repos/symfony/config/zipball/3f4a3de1af498ed0ea653d4dc2317794144e6ca4",
+                "reference": "3f4a3de1af498ed0ea653d4dc2317794144e6ca4",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5",
-                "symfony/filesystem": "^4.4|^5.0",
+                "php": "^7.1.3",
+                "symfony/filesystem": "^3.4|^4.0|^5.0",
                 "symfony/polyfill-ctype": "~1.8"
             },
             "conflict": {
-                "symfony/finder": "<4.4"
+                "symfony/finder": "<3.4"
             },
             "require-dev": {
-                "symfony/event-dispatcher": "^4.4|^5.0",
-                "symfony/finder": "^4.4|^5.0",
-                "symfony/messenger": "^4.4|^5.0",
+                "symfony/event-dispatcher": "^3.4|^4.0|^5.0",
+                "symfony/finder": "^3.4|^4.0|^5.0",
+                "symfony/messenger": "^4.1|^5.0",
                 "symfony/service-contracts": "^1.1|^2",
-                "symfony/yaml": "^4.4|^5.0"
+                "symfony/yaml": "^3.4|^4.0|^5.0"
             },
             "suggest": {
                 "symfony/yaml": "To use the yaml reference dumper"
@@ -5045,7 +5915,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.0-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -5086,7 +5956,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-03-27T16:56:45+00:00"
+            "time": "2020-03-27T16:54:36+00:00"
         },
         {
             "name": "symfony/console",
@@ -5250,37 +6120,37 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v5.0.7",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "4e48dc44680d8efa357410c78093a04753196981"
+                "reference": "755b18859be26b90f4bf63753432d3387458bf31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/4e48dc44680d8efa357410c78093a04753196981",
-                "reference": "4e48dc44680d8efa357410c78093a04753196981",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/755b18859be26b90f4bf63753432d3387458bf31",
+                "reference": "755b18859be26b90f4bf63753432d3387458bf31",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5",
+                "php": "^7.1.3",
                 "psr/container": "^1.0",
                 "symfony/service-contracts": "^1.1.6|^2"
             },
             "conflict": {
-                "symfony/config": "<5.0",
-                "symfony/finder": "<4.4",
-                "symfony/proxy-manager-bridge": "<4.4",
-                "symfony/yaml": "<4.4"
+                "symfony/config": "<4.3|>=5.0",
+                "symfony/finder": "<3.4",
+                "symfony/proxy-manager-bridge": "<3.4",
+                "symfony/yaml": "<3.4"
             },
             "provide": {
                 "psr/container-implementation": "1.0",
                 "symfony/service-implementation": "1.0"
             },
             "require-dev": {
-                "symfony/config": "^5.0",
-                "symfony/expression-language": "^4.4|^5.0",
-                "symfony/yaml": "^4.4|^5.0"
+                "symfony/config": "^4.3",
+                "symfony/expression-language": "^3.4|^4.0|^5.0",
+                "symfony/yaml": "^3.4|^4.0|^5.0"
             },
             "suggest": {
                 "symfony/config": "",
@@ -5292,7 +6162,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.0-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -5333,7 +6203,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-03-30T11:42:42+00:00"
+            "time": "2020-03-30T10:09:30+00:00"
         },
         {
             "name": "symfony/doctrine-bridge",
@@ -6993,25 +7863,25 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v5.0.7",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "09dccfffd24b311df7f184aa80ee7b61ad61ed8d"
+                "reference": "9072131b5e6e21203db3249c7db26b52897bc73e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/09dccfffd24b311df7f184aa80ee7b61ad61ed8d",
-                "reference": "09dccfffd24b311df7f184aa80ee7b61ad61ed8d",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/9072131b5e6e21203db3249c7db26b52897bc73e",
+                "reference": "9072131b5e6e21203db3249c7db26b52897bc73e",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5"
+                "php": "^7.1.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.0-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -7057,7 +7927,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-03-27T16:56:45+00:00"
+            "time": "2020-03-27T16:54:36+00:00"
         },
         {
             "name": "symfony/orm-pack",

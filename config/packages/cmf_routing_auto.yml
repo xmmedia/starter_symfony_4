@@ -1,0 +1,7 @@
+cmf_routing_auto:
+    auto_mapping: false
+    mapping:
+        resources:
+            -
+                path: '%kernel.project_dir%/config/cmf/app.yaml'
+                type: yaml

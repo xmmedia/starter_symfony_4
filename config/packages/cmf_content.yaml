@@ -1,0 +1,2 @@
+cmf_content:
+    default_template: static.html.twig

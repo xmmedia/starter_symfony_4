@@ -1,0 +1,9 @@
+cmf_seo:
+    title: '%%content_title%% | Insert your base Title'
+    description: '%%content_description%% Insert you base description here.'
+    sitemap:
+        enabled: true
+        defaults:
+            default_change_frequency: monthly
+            templates:
+                xml: 'CmfSeoBundle:Sitemap:index.xml.twig'

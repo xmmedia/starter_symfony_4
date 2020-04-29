@@ -1,0 +1,7 @@
+cmf_core:
+    persistence:
+        phpcr:
+            translation_strategy: attribute
+    multilang:
+        locales:
+            - '%locale%'

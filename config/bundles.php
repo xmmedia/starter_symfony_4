@@ -25,4 +25,11 @@ return [
     Xm\SymfonyBundle\XmSymfonyBundle::class => ['all' => true],
     Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle::class => ['all' => true],
     Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true],
+    Symfony\Cmf\Bundle\RoutingAutoBundle\CmfRoutingAutoBundle::class => ['all' => true],
+    Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
+    Symfony\Cmf\Bundle\MenuBundle\CmfMenuBundle::class => ['all' => true],
+    Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle::class => ['all' => true],
+    Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle::class => ['all' => true],
+    Sonata\SeoBundle\SonataSeoBundle::class => ['all' => true],
+    Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle::class => ['all' => true],
 ];

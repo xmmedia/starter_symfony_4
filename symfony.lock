@@ -1,4 +1,7 @@
 {
+    "aferrandini/urlizer": {
+        "version": "1.0.0"
+    },
     "beberlei/assert": {
         "version": "v3.1.0"
     },
@@ -149,8 +152,17 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "jms/metadata": {
+        "version": "1.7.0"
+    },
     "knplabs/knp-components": {
         "version": "v1.3.10"
+    },
+    "knplabs/knp-menu": {
+        "version": "2.6.0"
+    },
+    "knplabs/knp-menu-bundle": {
+        "version": "v2.3.0"
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v2.8.0"
@@ -346,6 +358,9 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.0"
+    },
     "psr/http-message": {
         "version": "1.0.1"
     },
@@ -430,14 +445,50 @@
             "ref": "421933bf8f0e75546ac8e00cb3eb12904fa2ac1a"
         }
     },
+    "sonata-project/exporter": {
+        "version": "2.2.0"
+    },
+    "sonata-project/seo-bundle": {
+        "version": "2.10.0"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.1.3"
+    },
+    "symfony-cmf/content-bundle": {
+        "version": "2.1.0"
+    },
+    "symfony-cmf/core-bundle": {
+        "version": "2.1.1"
+    },
+    "symfony-cmf/menu-bundle": {
+        "version": "2.2.0"
     },
     "symfony-cmf/routing": {
         "version": "2.2.0"
     },
+    "symfony-cmf/routing-auto": {
+        "version": "2.1.0"
+    },
+    "symfony-cmf/routing-auto-bundle": {
+        "version": "2.1.0"
+    },
     "symfony-cmf/routing-bundle": {
         "version": "2.3.0"
+    },
+    "symfony-cmf/seo-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "9f3367a79fd9018c0448edbde4a36d5b2730747c"
+        },
+        "files": [
+            "config/packages/cmf_seo_bundle.yaml"
+        ]
+    },
+    "symfony-cmf/slugifier-api": {
+        "version": "2.0.0"
     },
     "symfony/apache-pack": {
         "version": "1.0",

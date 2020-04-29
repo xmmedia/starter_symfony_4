@@ -15,6 +15,9 @@
 
 # ErrorDocument 403 /maintenance.html
 
+# Because the backend has to have a /home
+Redirect 301 /home /
+
 # ######################################################################
 # # SYMFONY + DEFAULT REDIRECTS                                        #
 # ######################################################################

@@ -1,0 +1,10 @@
+cmf_routing:
+    chain:
+        routers_by_id:
+            router.default: 200
+            cmf_routing.dynamic_router: 100
+    dynamic:
+        controllers_by_class:
+            Symfony\Cmf\Component\Routing\RedirectRouteInterface: cmf_routing.redirect_controller:redirectAction
+#        templates_by_class:
+#            App\Document\Page: 'static.html.twig'
