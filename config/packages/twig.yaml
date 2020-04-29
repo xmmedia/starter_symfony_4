@@ -7,3 +7,7 @@ twig:
         form_themes:
             - 'Form/fields.html.twig'
 #            - 'VichUploaderBundle:Form:fields.html.twig'
+
+# @todo remove after Symfony 5 upgrade
+framework:
+    templating: { engines: ['twig'] }
