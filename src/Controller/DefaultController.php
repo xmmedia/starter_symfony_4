@@ -45,13 +45,10 @@ class DefaultController extends AbstractController
 
     /**
      * The main action that shows the pages.
-     *
-     * @param object $contentDocument
      */
-    public function page($contentDocument): Response
+    public function page(Page $contentDocument): Response
     {
-        $template = $contentDocument->template();
-        $template = $template ?: $this->defaultTemplate;
+        $template = $contentDocument->template() ?: $this->defaultTemplate;
 
         return $this->render($template, [
             'content' => $contentDocument,
