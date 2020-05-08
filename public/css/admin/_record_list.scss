@@ -1,67 +1,9 @@
-.record_list-wrap {
-    @apply table list-none min-w-full mt-4;
-    border-collapse: collapse;
-}
-
-.record_list-item {
-    @apply flex flex-col flex-wrap p-2 border-b border-gray-400 transition-colors duration-150 ease-in-out;
-
-    &:hover {
-        @apply bg-blue-100;
-    }
-    &:nth-of-type(2) {
-        @apply border-t;
-    }
-
-    @screen md {
-        @apply table-row border-b border-gray-400;
-
-        &:first-of-type {
-            @apply table-row border-none;
-        }
-        &:nth-of-type(2) {
-            border-top: none;
-        }
-    }
-}
-
-.record_list-headers {
-    @apply hidden;
-
-    @screen md {
-        @apply font-bold border-none bg-gray-400;
-        display: table-header-group;
-    }
-}
-
-.record_view-item_wrap > .record_list-wrap {
-    @apply mt-0;
-    .record_list-headers {
-        @apply hidden;
-
-        @screen md {
-            @apply text-gray-600 font-light border-b border-solid border-gray-600 bg-transparent;
-            display: table-header-group;
-        }
-    }
-}
-
 .record_list-mobile_heading {
     @apply text-gray-500;
 
     @screen md {
         @apply hidden;
     }
-}
-
-.record_list-col {
-    @apply table-cell py-1 px-2 transition-opacity duration-300 ease-in-out;
-}
-.record_list-item-inactive > .record_list-col {
-    @apply opacity-50;
-}
-.record_list-item-inactive:hover > .record_list-col {
-    @apply opacity-100;
 }
 
 .record_list-col-actions {
@@ -80,4 +22,95 @@
 
 .record_list-icon {
     @apply w-5 h-5 align-text-top fill-current;
+}
+
+
+.record_list-wrap {
+    @apply list-none pl-0;
+
+    @screen md {
+        display: flex;
+        flex-wrap: wrap;
+        display: grid;
+        margin: 0 auto;
+        grid-template-columns: 100%;
+        grid-auto-rows: auto;
+        > div {
+            @apply py-1 pl-2 border-b border-gray-400;
+        }
+    }
+}
+
+.record_list-item, .record_list-headers {
+    @apply mb-4 w-full;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    border-right: solid 1px #ccc;
+}
+
+.record_list-col {
+    @apply py-1 pr-4;
+    @screen md {
+        @apply py-0;
+    }
+
+}
+
+.grid-cols-3 .record_list-col:nth-of-type(3n) {
+    @apply pb-1 mb-1 border-b border-gray-400;
+    @screen md {
+        @apply mb-0 pb-0;
+    }
+}
+.grid-cols-4 .record_list-col:nth-of-type(4n) {
+    @apply pb-1 mb-1 border-b border-gray-400;
+    @screen md {
+        @apply mb-0 pb-0;
+    }
+}
+.grid-cols-5 .record_list-col:nth-of-type(5n) {
+    @apply pb-1 mb-1 border-b border-gray-400;
+    @screen md {
+        @apply mb-0 pb-0;
+    }
+}
+.grid-cols-6 .record_list-col:nth-of-type(6n) {
+    @apply pb-1 mb-1 border-b border-gray-400;
+    @screen md {
+        @apply mb-0 pb-0;
+    }
+}
+.grid-cols-7 .record_list-col:nth-of-type(7n) {
+    @apply pb-1 mb-1 border-b border-gray-400;
+    @screen md {
+        @apply mb-0 pb-0;
+    }
+}
+.record_list-users {
+    grid-template-columns: 18rem repeat(6, minmax(1rem, auto));
+    .record_list-col:nth-of-type(7n) {
+        @apply pb-1 mb-1 border-b border-gray-400;
+        @screen md {
+            @apply mb-0 pb-0;
+        }
+    }
+}
+
+.record_list-col-heading {
+    @apply font-bold border-none bg-gray-400;
+}
+
+.record_list-col {
+    @apply px-2 transition-opacity duration-300 ease-in-out;
+
+}
+.record_list-col-inactive {
+    @apply opacity-50;
+}
+
+.record_list-col-break {
+    word-break: break-all;
+}
+
+.record_list-col-view_heading {
+    @apply text-gray-500;
 }
