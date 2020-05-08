@@ -2,7 +2,7 @@
     <div class="form-wrap">
         <portal to="header-actions">
             <div class="header-secondary_actions">
-                <router-link :to="{ name: 'admin-user' }">Return to list</router-link>
+                <router-link :to="{ name: 'admin-user' }" class="header-actions-link">Return to list</router-link>
             </div>
         </portal>
 

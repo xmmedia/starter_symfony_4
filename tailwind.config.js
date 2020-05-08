@@ -7,6 +7,9 @@ module.exports = {
             borderWidth: {
                 '10': '10px',
             },
+            minWidth: {
+                'xs': '20em',
+            },
             maxWidth: {
                 '1/2': '50%',
                 '3/5': '60%',

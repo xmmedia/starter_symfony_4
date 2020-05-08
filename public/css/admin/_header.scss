@@ -1,72 +1,141 @@
 .header-wrap {
-    @apply flex justify-between items-center py-2 bg-gray-200 border-b border-gray-500;
+    //@apply flex justify-between items-center py-2 bg-gray-200 border-b border-gray-500;
+    //min-height: $header-height + 3.5;
+    //@screen xs {
+    //    min-height: $header-height;
+    //}
+    //@screen md {
+    //    @apply py-0;
+    //}
+    @apply py-4 px-4 bg-gray-200 border-b border-gray-500;
     min-height: $header-height + 3.5;
     @screen xs {
         min-height: $header-height;
     }
+    @screen sm {
+       @apply flex items-center justify-between;
+    }
+}
+
+.header-page_title-wrap {
+    @apply flex-1 min-w-xs;
     @screen md {
-        @apply py-0;
+        @apply min-w-0;
     }
 }
 
 .header-page_title {
-    @apply flex-grow flex-shrink-0 w-40 max-w-1/2 px-4 text-xl text-blue-600 font-headings font-thin truncate;
+    //@apply flex-grow flex-shrink-0 w-40 max-w-1/2 px-4 text-xl text-blue-600 font-headings font-thin truncate;
+    //@screen sm {
+    //    @apply w-auto max-w-xs;
+    //}
+    //@screen md {
+    //    @apply text-3xl max-w-full;
+    //}
+    @apply text-xl my-0 font-thin leading-7 text-blue-600;
     @screen sm {
-        @apply w-auto max-w-xs;
+        @apply leading-9;
     }
     @screen md {
-        @apply text-3xl max-w-full;
+        @apply text-3xl truncate;
     }
 }
 
 // the order of the HTML elements should match how the elements
 // appear on mobile (mobile first)
 .header-actions {
-    @apply flex flex-wrap justify-end items-center px-4 text-right;
+    //@apply flex flex-wrap justify-end items-center px-4 text-right;
+    //@screen md {
+    //    @apply pb-0;
+    //}
+    @apply flex flex-wrap items-center mt-4;
+    @screen sm {
+        @apply justify-end;
+    }
     @screen md {
-        @apply pb-0;
+        @apply mt-0 ml-4;
     }
 }
 
 // for actions that should show as buttons
 // this styling is similar to buttons
 .header-action {
-    @apply block ml-4 py-2 px-5 text-xs border border-blue-600 border-solid rounded transition-colors duration-150 ease-in-out;
-    &:hover {
-        @apply no-underline bg-white;
-    }
+    //@apply block ml-4 py-2 px-5 text-xs border border-blue-600 border-solid rounded transition-colors duration-150 ease-in-out;
+    //&:hover {
+    //    @apply no-underline bg-white;
+    //}
+    //
+    //@media (min-width: 880px) {
+    //    order: 2;
+    //}
 
-    @media (min-width: 880px) {
-        order: 2;
+    @apply inline-flex items-center px-4 py-2 border border-gray-500 text-sm leading-5
+    font-medium rounded-md text-gray-600 bg-white
+    transition-all duration-150 ease-in-out my-1 mr-3 shadow-sm rounded-md order-1;
+    &:hover {
+        @apply text-gray-800 border-gray-800 no-underline;
+    }
+    &:focus {
+        @apply outline-none border-blue-300;
+    }
+    &:active {
+        @apply bg-gray-100 text-gray-800;
     }
 }
 
 // for the main action(s)
 .header-action-main {
-    @apply my-4 text-sm text-center text-white bg-blue-500 border-blue-500;
+    @apply mr-0 border-transparent text-white bg-blue-600 order-2;
     &:hover {
-        @apply bg-blue-600 border-blue-600 text-white;
+         @apply border-blue-800 bg-blue-500 text-gray-100;
+    }
+    &:focus {
+         @apply border-blue-700;
+    }
+    &:active {
+        @apply bg-blue-700;
+    }
+    @screen lg {
+        @apply mr-0 order-2;
     }
 
-    @media (min-width: 880px) {
-        @apply my-0;
-        order: 3;
-    }
+     //@apply my-4 text-sm text-center text-white bg-blue-500 border-blue-500;
+    //&:hover {
+    //    @apply bg-blue-600 border-blue-600 text-white;
+    //}
+    //
+    //@media (min-width: 880px) {
+    //    @apply my-0;
+    //    order: 3;
+    //}
 }
 
 .header-secondary_actions {
-    @apply text-xs leading-loose;
-    @media (min-width: 560px) {
-        @apply mt-0 leading-none;
-    }
-    @media (min-width: 880px) {
-        @apply mt-1;
-        order: 1;
-    }
+    //@apply text-xs leading-loose;
+    //@media (min-width: 560px) {
+    //    @apply mt-0 leading-none;
+    //}
+    //@media (min-width: 880px) {
+    //    @apply mt-1;
+    //    order: 1;
+    //}
+    //
+    //a {
+    //    @apply inline-block ml-4;
+    //}
+}
 
-    a {
-        @apply inline-block ml-4;
+.header-actions-links {
+    @apply flex items-center w-full my-2 order-3;
+    @screen sm {
+        @apply justify-end;
     }
+    @screen lg {
+        @apply w-auto my-0 order-1;
+    }
+}
+.header-actions-link {
+    @apply inline-block mr-4 text-xs;
 }
 
 .header-button_pair {
