@@ -20,10 +20,9 @@ class Content implements ValueObject
     public static function createDefaultContent(): self
     {
         return self::fromArray([
-            'template'           => null,
-            'isPublishable'      => true,
-            'isVisibleInSitemap' => true,
-            'metaDescription'    => null,
+            'template'         => null,
+            'visibleInSitemap' => true,
+            'metaDescription'  => null,
         ]);
     }
 
@@ -35,8 +34,8 @@ class Content implements ValueObject
         Assert::keyExists($content, 'isPublishable', 'Content must have "isPublishable" key.');
         Assert::boolean($content['isPublishable'], '"isPublishable" must be a boolean.');
 
-        Assert::keyExists($content, 'isVisibleInSitemap', 'Content must have "isVisibleInSitemap" key.');
-        Assert::boolean($content['isVisibleInSitemap'], '"isVisibleInSitemap" must be a boolean.');
+        Assert::keyExists($content, 'visibleInSitemap', 'Content must have "visibleInSitemap" key.');
+        Assert::boolean($content['visibleInSitemap'], '"visibleInSitemap" must be a boolean.');
 
         Assert::keyExists($content, 'metaDescription', 'Content must have "metaDescription" key.');
         Assert::nullOrString($content['metaDescription'], '"metaDescription" must be a string or null.');
