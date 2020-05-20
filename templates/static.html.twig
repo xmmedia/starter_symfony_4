@@ -1,6 +1,6 @@
 {% extends 'public.html.twig' %}
 
-{% block page_title_wrap %}{{ page_title(page) }}{% endblock %}
+{% block page_title %}{{ page.title }} | {% endblock %}
 
 {% block head %}
     {% include 'meta.html.twig' with {
