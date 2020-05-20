@@ -1,9 +1,12 @@
 cmf_seo:
-    title: '%%content_title%% | Insert your base Title'
-    description: '%%content_description%% Insert you base description here.'
+#    title: '%%content_title%% | Insert your base Title'
+#    description: '%%content_description%% Insert you base description here.'
+    content_listener:
+        enabled: false
     sitemap:
         enabled: true
         defaults:
             default_change_frequency: monthly
             templates:
+                # configure only the XML sitemap so only it exists
                 xml: 'CmfSeoBundle:Sitemap:index.xml.twig'
