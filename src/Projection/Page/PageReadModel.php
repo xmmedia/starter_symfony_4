@@ -54,5 +54,8 @@ EOT;
         );
     }
 
-    // @todo delete
+    protected function remove(string $pageId): void
+    {
+        $this->connection->delete(self::TABLE, ['page_id' => $pageId]);
+    }
 }

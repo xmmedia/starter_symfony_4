@@ -16,6 +16,9 @@ class Page extends AggregateRoot implements Entity
     /** @var PageId */
     private $pageId;
 
+    /** @var Path */
+    private $path;
+
     /** @var bool */
     private $deleted = false;
 
@@ -43,6 +46,45 @@ class Page extends AggregateRoot implements Entity
         return $self;
     }
 
+    public function update(Title $title, Content $content): void
+    {
+        if ($this->deleted) {
+            throw Exception\PageIsDeleted::triedTo($this->pageId, 'update');
+        }
+
+        $this->recordThat(Event\PageWasUpdated::now($this->pageId, $title, $content));
+    }
+
+    public function changePath(
+        Path $newPath,
+        ChecksUniquePath $checksUniquePath
+    ): void {
+        if ($this->deleted) {
+            throw Exception\PageIsDeleted::triedTo($this->pageId, 'change path');
+        }
+
+        if ($newPath->sameValueAs($this->path)) {
+            return;
+        }
+
+        // we don't check for matching the current page
+        // if the path is the same, it won't make it here
+        if (null !== $checksUniquePath($newPath)) {
+            throw new \InvalidArgumentException(sprintf('The path "%s" is not unique', $newPath));
+        }
+
+        $this->recordThat(Event\PagePathWasChanged::now($this->pageId, $newPath, $this->path));
+    }
+
+    public function delete(): void
+    {
+        if ($this->deleted) {
+            throw Exception\PageIsDeleted::triedTo($this->pageId, 'delete');
+        }
+
+        $this->recordThat(Event\PageWasDeleted::now($this->pageId));
+    }
+
     protected function aggregateId(): string
     {
         return $this->pageId->toString();
@@ -51,6 +93,22 @@ class Page extends AggregateRoot implements Entity
     protected function whenPageWasAdded(Event\PageWasAdded $event): void
     {
         $this->pageId = $event->pageId();
+        $this->path = $event->path();
+    }
+
+    protected function whenPageWasUpdated(Event\PageWasUpdated $event): void
+    {
+        // noop
+    }
+
+    protected function whenPagePathWasChanged(Event\PagePathWasChanged $event): void
+    {
+        $this->path = $event->newPath();
+    }
+
+    protected function whenPageWasDeleted(Event\PageWasDeleted $event): void
+    {
+        $this->deleted = true;
     }
 
     /**
