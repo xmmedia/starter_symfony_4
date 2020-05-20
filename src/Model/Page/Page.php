@@ -20,6 +20,9 @@ class Page extends AggregateRoot implements Entity
     private $path;
 
     /** @var bool */
+    private $published = false;
+
+    /** @var bool */
     private $deleted = false;
 
     public static function add(
@@ -44,6 +47,32 @@ class Page extends AggregateRoot implements Entity
         );
 
         return $self;
+    }
+
+    public function publish(): void
+    {
+        if ($this->deleted) {
+            throw Exception\PageIsDeleted::triedTo($this->pageId, 'publish');
+        }
+
+        if ($this->published) {
+            return;
+        }
+
+        $this->recordThat(Event\PageWasPublished::now($this->pageId));
+    }
+
+    public function unpublish(): void
+    {
+        if ($this->deleted) {
+            throw Exception\PageIsDeleted::triedTo($this->pageId, 'unpublish');
+        }
+
+        if (!$this->published) {
+            return;
+        }
+
+        $this->recordThat(Event\PageWasUnpublished::now($this->pageId));
     }
 
     public function update(Title $title, Content $content): void
@@ -94,6 +123,16 @@ class Page extends AggregateRoot implements Entity
     {
         $this->pageId = $event->pageId();
         $this->path = $event->path();
+    }
+
+    protected function whenPageWasPublished(Event\PageWasPublished $event): void
+    {
+        $this->published = true;
+    }
+
+    protected function whenPageWasUnpublished(Event\PageWasUnpublished $event): void
+    {
+        $this->published = false;
     }
 
     protected function whenPageWasUpdated(Event\PageWasUpdated $event): void

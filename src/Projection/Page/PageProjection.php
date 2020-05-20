@@ -39,6 +39,34 @@ class PageProjection implements ReadModelProjection
                         $types
                     );
                 },
+
+                Event\PageWasPublished::class => function (
+                    array $state,
+                    Event\PageWasPublished $event
+                ): void {
+                    /** @var PageReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->aggregateId(),
+                        ['published' => true]
+                    );
+                },
+                Event\PageWasUnpublished::class => function (
+                    array $state,
+                    Event\PageWasUnpublished $event
+                ): void {
+                    /** @var PageReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->aggregateId(),
+                        ['published' => false]
+                    );
+                },
+
                 Event\PageWasUpdated::class => function (
                     array $state,
                     Event\PageWasUpdated $event
@@ -48,9 +76,8 @@ class PageProjection implements ReadModelProjection
                     $readModel = $this->readModel();
                     $readModel->stack(
                         'update',
-                        [
-                            'page_id' => $event->aggregateId(),
-                        ] + self::parseEvent($event),
+                        $event->aggregateId(),
+                        self::parseEvent($event),
                         $types
                     );
                 },
@@ -63,13 +90,14 @@ class PageProjection implements ReadModelProjection
                     $readModel = $this->readModel();
                     $readModel->stack(
                         'update',
+                        $event->aggregateId(),
                         [
-                            'page_id' => $event->aggregateId(),
-                            'path'    => $event->newPath()->toString(),
+                            'path' => $event->newPath()->toString(),
                         ] + self::generateLastModified($event),
                         $types
                     );
                 },
+
                 Event\PageWasDeleted::class => function (
                     array $state,
                     Event\PageWasDeleted $event
@@ -79,7 +107,7 @@ class PageProjection implements ReadModelProjection
                     $readModel = $this->readModel();
                     $readModel->stack(
                         'remove',
-                        ['page_id' => $event->aggregateId()],
+                        $event->aggregateId()
                     );
                 },
             ]);

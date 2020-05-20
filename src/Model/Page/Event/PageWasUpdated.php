@@ -44,7 +44,7 @@ class PageWasUpdated extends AggregateChanged
             $this->title = Title::fromString($this->payload()['title']);
         }
 
-        return $this->payload()['title'];
+        return $this->title;
     }
 
     public function content(): Content
@@ -53,6 +53,6 @@ class PageWasUpdated extends AggregateChanged
             $this->content = Content::fromArray($this->payload()['content']);
         }
 
-        return $this->payload()['content'];
+        return $this->content;
     }
 }

@@ -43,7 +43,7 @@ class PagePathWasChanged extends AggregateChanged
             $this->newPath = Path::fromString($this->payload()['newPath']);
         }
 
-        return $this->payload()['newPath'];
+        return $this->newPath;
     }
 
     public function oldPath(): Path
@@ -52,6 +52,6 @@ class PagePathWasChanged extends AggregateChanged
             $this->oldPath = Path::fromString($this->payload()['oldPath']);
         }
 
-        return $this->payload()['oldPath'];
+        return $this->oldPath;
     }
 }

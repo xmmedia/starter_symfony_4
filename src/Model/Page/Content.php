@@ -31,9 +31,6 @@ class Content implements ValueObject
         Assert::keyExists($content, 'template', 'Content must have "template" key.');
         Assert::nullOrString($content['template'], '"template" must be a string or null.');
 
-        Assert::keyExists($content, 'isPublishable', 'Content must have "isPublishable" key.');
-        Assert::boolean($content['isPublishable'], '"isPublishable" must be a boolean.');
-
         Assert::keyExists($content, 'visibleInSitemap', 'Content must have "visibleInSitemap" key.');
         Assert::boolean($content['visibleInSitemap'], '"visibleInSitemap" must be a boolean.');
 

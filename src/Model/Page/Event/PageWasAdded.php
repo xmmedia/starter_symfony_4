@@ -51,7 +51,7 @@ class PageWasAdded extends AggregateChanged
             $this->path = Path::fromString($this->payload()['path']);
         }
 
-        return $this->payload()['path'];
+        return $this->path;
     }
 
     public function title(): Title
@@ -60,7 +60,7 @@ class PageWasAdded extends AggregateChanged
             $this->title = Title::fromString($this->payload()['title']);
         }
 
-        return $this->payload()['title'];
+        return $this->title;
     }
 
     public function content(): Content
@@ -69,6 +69,6 @@ class PageWasAdded extends AggregateChanged
             $this->content = Content::fromArray($this->payload()['content']);
         }
 
-        return $this->payload()['content'];
+        return $this->content;
     }
 }
