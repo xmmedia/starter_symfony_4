@@ -93,7 +93,7 @@ deploy:
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; php -d memory_limit=2048M bin/console app:projection:run --run-all"
     # cloudflare: purge cache
     #- ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; php bin/console app:cloudflare:purge-cache"
-    # remove >3 releases
-    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ls -1d $RELEASES/* | sort -rg | tail -n +4 | xargs /bin/rm -rf"
+    # remove >2 releases
+    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ls -1d $RELEASES/* | sort -rg | tail -n +3 | xargs /bin/rm -rf"
     # success message
     - echo "Deployment completed successfully. Release at $RELEASE"
