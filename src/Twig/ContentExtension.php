@@ -43,9 +43,11 @@ class ContentExtension extends AbstractExtension
             $titleParts[] = $parent->title();
         }
 
-        $parent2 = $parent->parentDocument();
-        if ($parent2 instanceof Page) {
-            $titleParts[] = $parent2->title();
+        if ($parent instanceof Page) {
+            $parent2 = $parent->parentDocument();
+            if ($parent2 instanceof Page) {
+                $titleParts[] = $parent2->title();
+            }
         }
 
         $titleParts[] = $this->translator->trans('app.parameter.name');
