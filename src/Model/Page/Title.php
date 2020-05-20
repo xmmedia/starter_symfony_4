@@ -24,8 +24,8 @@ class Title implements ValueObject
     {
         $title = StringUtil::trim($title);
 
-        Assert::notEmpty($title, 'The page title cannot be empty');
-        Assert::maxLength($title, self::MAX_LENGTH, 'The page title cannot be longer than 191 characters');
+        Assert::notEmpty($title, 'The page title cannot be empty.');
+        Assert::maxLength($title, self::MAX_LENGTH, 'The page title cannot be longer than 191 characters.');
 
         $this->title = $title;
     }

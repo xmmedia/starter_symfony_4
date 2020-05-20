@@ -23,4 +23,9 @@ class PageFinder extends ServiceEntityRepository
     {
         parent::__construct($registry, Page::class);
     }
+
+    public function findHomepage(): Page
+    {
+        return $this->findOneByPath(Path::fromString('/'));
+    }
 }

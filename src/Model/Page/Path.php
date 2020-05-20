@@ -24,9 +24,9 @@ class Path implements ValueObject
     {
         $path = StringUtil::trim($path);
 
-        Assert::notEmpty($path, 'The path cannot be empty');
-        Assert::startsWith($path, '/', 'The path must start with a slash (%2$s)');
-        Assert::maxLength($path, self::MAX_LENGTH, 'The path cannot be longer than 191 characters');
+        Assert::notEmpty($path, 'The path cannot be empty.');
+        Assert::startsWith($path, '/', 'The path must start with a slash (%2$s).');
+        Assert::maxLength($path, self::MAX_LENGTH, 'The path cannot be longer than 191 characters.');
 
         $this->path = $path;
     }

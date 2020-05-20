@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Page;
+use App\Projection\Page\PageFinder;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,13 +19,22 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(PageFinder $pageFinder): Response
     {
         // if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
         //     return $this->redirectToRoute('app_login');
         // }
 
-        return $this->render('default/index.html.twig');
+        return $this->page($pageFinder->findHomepage());
+    }
+
+    public function page(Page $page): Response
+    {
+        $template = $page->content()['template'] ?: 'static.html.twig';
+
+        return $this->render($template, [
+            'page' => $page,
+        ]);
     }
 
     /**

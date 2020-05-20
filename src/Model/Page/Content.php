@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Page;
 
+use App\Util\Assert;
 use Xm\SymfonyBundle\Model\ValueObject;
 
 class Content implements ValueObject
@@ -16,8 +17,30 @@ class Content implements ValueObject
         return new self($content);
     }
 
+    public static function createDefaultContent(): self
+    {
+        return self::fromArray([
+            'template'           => null,
+            'isPublishable'      => true,
+            'isVisibleInSitemap' => true,
+            'metaDescription'    => null,
+        ]);
+    }
+
     private function __construct(array $content)
     {
+        Assert::keyExists($content, 'template', 'Content must have "template" key.');
+        Assert::nullOrString($content['template'], '"template" must be a string or null.');
+
+        Assert::keyExists($content, 'isPublishable', 'Content must have "isPublishable" key.');
+        Assert::boolean($content['isPublishable'], '"isPublishable" must be a boolean.');
+
+        Assert::keyExists($content, 'isVisibleInSitemap', 'Content must have "isVisibleInSitemap" key.');
+        Assert::boolean($content['isVisibleInSitemap'], '"isVisibleInSitemap" must be a boolean.');
+
+        Assert::keyExists($content, 'metaDescription', 'Content must have "metaDescription" key.');
+        Assert::nullOrString($content['metaDescription'], '"metaDescription" must be a string or null.');
+
         $this->content = $content;
     }
 
