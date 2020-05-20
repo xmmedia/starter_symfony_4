@@ -67,9 +67,10 @@ deploy:
     - php bin/console security:check
     # Install node/JS dependencies
     - yarn install --non-interactive --frozen-lockfile
-    - yarn build
     # check for JS security issues in libs
-    - yarn audit --level moderate
+    # see error codes here: https://classic.yarnpkg.com/en/docs/cli/audit/
+    - yarn audit --level moderate --groups dependencies || [ $? -ge 8 ] exit $?
+    - yarn build
     # add .revision file
     - git rev-parse --verify --short HEAD > .revision
     # ensure based paths exist
