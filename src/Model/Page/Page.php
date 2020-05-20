@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Page;
 
+use App\Model\Page\Service\ChecksUniquePath;
 use Xm\SymfonyBundle\EventSourcing\Aggregate\AggregateRoot;
 use Xm\SymfonyBundle\EventSourcing\AppliesAggregateChanged;
 use Xm\SymfonyBundle\Model\Entity;
@@ -15,30 +16,31 @@ class Page extends AggregateRoot implements Entity
     /** @var PageId */
     private $pageId;
 
-    /** @var ParentId */
-    private $parentId;
-
     /** @var bool */
     private $deleted = false;
 
-    public static function addTo(
+    public static function add(
         PageId $page,
-        ParentId $parentId
+        Path $path,
+        Title $title,
+        Content $content,
+        ChecksUniquePath $checksUniquePath
     ): self {
+        if (null !== $checksUniquePath($path)) {
+            throw new \InvalidArgumentException(sprintf('The path "%s" is not unique', $path));
+        }
+
         $self = new self();
         $self->recordThat(
-            Event\PageWasAdded::toPage(
+            Event\PageWasAdded::now(
                 $page,
-                $parentId,
+                $path,
+                $title,
+                $content
             )
         );
 
         return $self;
-    }
-
-    public function parentId(): ParentId
-    {
-        return $this->parentId;
     }
 
     protected function aggregateId(): string
@@ -49,7 +51,6 @@ class Page extends AggregateRoot implements Entity
     protected function whenPageWasAdded(Event\PageWasAdded $event): void
     {
         $this->pageId = $event->pageId();
-        $this->parentId = $event->parentId();
     }
 
     /**

@@ -46,7 +46,7 @@ class Page
     /**
      * @var User|null
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(referencedColumnName="user_id", nullable=true)
+     * @ORM\JoinColumn(name="last_modified_by", referencedColumnName="user_id", nullable=true)
      */
     private $lastModifiedBy;
 

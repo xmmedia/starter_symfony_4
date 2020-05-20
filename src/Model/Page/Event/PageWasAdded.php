@@ -4,24 +4,30 @@ declare(strict_types=1);
 
 namespace App\Model\Page\Event;
 
+use App\Model\Page\Content;
 use App\Model\Page\PageId;
-use App\Model\Page\ParentId;
+use App\Model\Page\Path;
+use App\Model\Page\Title;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
 class PageWasAdded extends AggregateChanged
 {
-    /** @var ParentId */
-    private $parentId;
+    /** @var string */
+    private $path;
 
-    public static function to(
+    public static function now(
         PageId $page,
-        ParentId $parentId
+        Path $path,
+        Title $title,
+        Content $content
     ): self {
         $event = self::occur($page->toString(), [
-            'parentId' => $parentId->toString(),
+            'path'    => $path->toString(),
+            'title'   => $title->toString(),
+            'content' => $content->toArray(),
         ]);
 
-        $event->parentId = $parentId;
+        $event->path = $path;
 
         return $event;
     }
@@ -31,12 +37,18 @@ class PageWasAdded extends AggregateChanged
         return PageId::fromString($this->aggregateId());
     }
 
-    public function parentId(): ParentId
+    public function path(): Path
     {
-        if (null === $this->parentId) {
-            $this->parentId = ParentId::fromString($this->payload()['parentId']);
-        }
+        return Path::fromString($this->payload()['path']);
+    }
 
-        return $this->parentId;
+    public function title(): Title
+    {
+        return Title::fromString($this->payload()['title']);
+    }
+
+    public function content(): Content
+    {
+        return Content::fromArray($this->payload()['content']);
     }
 }

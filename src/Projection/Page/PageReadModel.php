@@ -17,7 +17,7 @@ final class PageReadModel extends AbstractReadModel
 
         $sql = <<<EOT
 CREATE TABLE `$tableName` (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
+  `page_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
   `path` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `content` json NOT NULL,
@@ -31,7 +31,7 @@ EOT;
 
         $sql = <<<EOT
 ALTER TABLE `$tableName`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`page_id`),
   ADD UNIQUE KEY `path` (`path`);
 EOT;
 

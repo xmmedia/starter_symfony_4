@@ -6,13 +6,14 @@ namespace App\Projection\Page;
 
 use App\Entity\Page;
 use App\Model\Page\PageId;
+use App\Model\Page\Path;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method Page|null find(PageId|string $id, $lockMode = null, $lockVersion = null)
  * @method Page|null findOneBy(array $criteria, array $orderBy = null)
- * @method Page|null findOneByPath(string $path, array $orderBy = null)
+ * @method Page|null findOneByPath(Path $path, array $orderBy = null)
  * @method Page[]    findAll()
  * @method Page[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
