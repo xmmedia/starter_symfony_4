@@ -80,7 +80,7 @@ class Page implements
 
     /**
      * @var bool
-     * @PHPCR\Field(type="boolean", property="visible_in_sitemap")
+     * @PHPCR\Field(type="boolean", property="visible_for_sitemap")
      */
     private $isVisibleInSitemap;
 
