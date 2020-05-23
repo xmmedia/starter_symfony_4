@@ -31,14 +31,9 @@ class Path implements ValueObject
         $this->path = $path;
     }
 
-    public function path(): string
-    {
-        return $this->path;
-    }
-
     public function toString(): string
     {
-        return $this->path();
+        return $this->path;
     }
 
     public function __toString(): string

@@ -30,14 +30,9 @@ class Title implements ValueObject
         $this->title = $title;
     }
 
-    public function title(): string
-    {
-        return $this->title;
-    }
-
     public function toString(): string
     {
-        return $this->title();
+        return $this->title;
     }
 
     public function __toString(): string

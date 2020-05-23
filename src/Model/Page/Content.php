@@ -40,14 +40,9 @@ class Content implements ValueObject
         $this->content = $content;
     }
 
-    public function content(): array
-    {
-        return $this->content;
-    }
-
     public function toArray(): array
     {
-        return $this->content();
+        return $this->content;
     }
 
     /**
