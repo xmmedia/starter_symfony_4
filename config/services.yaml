@@ -118,3 +118,7 @@ services:
             $cloudflareZone: '%env(CLOUDFLARE_ZONE)%'
             $cloudflareUsername: '%env(CLOUDFLARE_USERNAME)%'
             $cloudflareApiKey: '%env(CLOUDFLARE_API_KEY)%'
+
+    App\Infrastructure\Service\CmsPageContentValidator:
+        arguments:
+            $templates: '%cms.templates%'

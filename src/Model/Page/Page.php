@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\Page;
 
 use App\Model\Page\Service\ChecksUniquePath;
+use App\Model\Page\Service\PageContentValidator;
 use Xm\SymfonyBundle\EventSourcing\Aggregate\AggregateRoot;
 use Xm\SymfonyBundle\EventSourcing\AppliesAggregateChanged;
 use Xm\SymfonyBundle\Model\Entity;
@@ -30,11 +31,14 @@ class Page extends AggregateRoot implements Entity
         Path $path,
         Title $title,
         Content $content,
-        ChecksUniquePath $checksUniquePath
+        ChecksUniquePath $checksUniquePath,
+        PageContentValidator $pageContentValidator
     ): self {
         if (null !== $checksUniquePath($path)) {
             throw new \InvalidArgumentException(sprintf('The path "%s" is not unique', $path));
         }
+
+        $pageContentValidator($content);
 
         $self = new self();
         $self->recordThat(

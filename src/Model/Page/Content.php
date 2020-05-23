@@ -40,6 +40,11 @@ class Content implements ValueObject
         $this->content = $content;
     }
 
+    public function template(): ?string
+    {
+        return $this->content['template'];
+    }
+
     public function toArray(): array
     {
         return $this->content;

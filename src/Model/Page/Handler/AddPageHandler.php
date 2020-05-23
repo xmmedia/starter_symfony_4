@@ -8,6 +8,7 @@ use App\Model\Page\Command\AddPage;
 use App\Model\Page\Page;
 use App\Model\Page\PageList;
 use App\Model\Page\Service\ChecksUniquePath;
+use App\Model\Page\Service\PageContentValidator;
 
 class AddPageHandler
 {
@@ -17,12 +18,17 @@ class AddPageHandler
     /** @var ChecksUniquePath */
     private $checksUniquePath;
 
+    /** @var PageContentValidator */
+    private $pageContentValidator;
+
     public function __construct(
         PageList $pageRepo,
-        ChecksUniquePath $checksUniquePath
+        ChecksUniquePath $checksUniquePath,
+        PageContentValidator $pageContentValidator
     ) {
         $this->pageRepo = $pageRepo;
         $this->checksUniquePath = $checksUniquePath;
+        $this->pageContentValidator = $pageContentValidator;
     }
 
     public function __invoke(AddPage $command): void
@@ -32,7 +38,8 @@ class AddPageHandler
             $command->path(),
             $command->title(),
             $command->content(),
-            $this->checksUniquePath
+            $this->checksUniquePath,
+            $this->pageContentValidator
         );
 
         $this->pageRepo->save($page);
