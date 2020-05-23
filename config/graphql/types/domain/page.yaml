@@ -1,0 +1,15 @@
+Page:
+    type: object
+    config:
+        description: 'The Page object.'
+        fieldsDefaultPublic: '@=hasRole("ROLE_ADMIN")'
+        fields:
+            pageId:
+                type: UUID!
+            path:
+                type: String!
+            title:
+                type: String!
+            content:
+                type: String!
+                description: 'JSON string'

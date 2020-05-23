@@ -1,0 +1,70 @@
+PageMutation:
+    decorator: true
+    heirs: [Mutation]
+    config:
+        fields:
+            PageAdd:
+                type: PageMutationPayload!
+                description: 'Add a page.'
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\Page\\PageAddMutation", [args["page"]])'
+                args:
+                    page: PageAddInput!
+
+            PageUpdate:
+                type: PageMutationPayload!
+                description: 'Update a page.'
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\Page\\PageUpdateMutation", [args["page"]])'
+                args:
+                    page: PageUpdateInput!
+
+            # @todo change path
+            # @todo publish
+            # @todo unpublish
+            # @todo delete
+
+PageAddInput:
+    type: input-object
+    config:
+        description: 'Page add mutation input.'
+        fields:
+            pageId:
+                type: UUID!
+            path:
+                type: String!
+            title:
+                type: String!
+            content:
+                type: String!
+                description: 'JSON string'
+
+PageUpdateInput:
+    type: input-object
+    config:
+        description: 'Page update mutation input.'
+        fields:
+            pageId:
+                type: UUID!
+            title:
+                type: String!
+            content:
+                type: String!
+                description: 'JSON string'
+
+PageMutationPayload:
+    type: object
+    config:
+        description: 'Admin User mutation payload.'
+        fields:
+            pageId:
+                type: UUID!
+            path:
+                type: String!
+            title:
+                type: String!
+            content:
+                type: String!
+                description: 'JSON string'
