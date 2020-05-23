@@ -30,6 +30,10 @@ class DefaultController extends AbstractController
 
     public function page(Page $page): Response
     {
+        if (!$this->isGranted('VIEW', $page)) {
+            throw $this->createNotFoundException();
+        }
+
         $template = $page->content()['template'] ?: 'static.html.twig';
 
         return $this->render($template, [

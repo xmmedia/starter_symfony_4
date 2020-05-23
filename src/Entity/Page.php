@@ -26,6 +26,12 @@ class Page
     private $path;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $published;
+
+    /**
      * @var string
      * @ORM\Column(type="string", length=191)
      */
@@ -58,6 +64,11 @@ class Page
     public function path(): string
     {
         return $this->path;
+    }
+
+    public function published(): bool
+    {
+        return $this->published;
     }
 
     public function title(): string
