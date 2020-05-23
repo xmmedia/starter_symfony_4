@@ -21,6 +21,7 @@ class DefaultController extends AbstractController
      */
     public function index(PageFinder $pageFinder): Response
     {
+        // @todo-symfony if building an admin only app
         // if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
         //     return $this->redirectToRoute('app_login');
         // }
