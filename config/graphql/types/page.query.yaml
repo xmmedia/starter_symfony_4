@@ -1,0 +1,22 @@
+PageQuery:
+    decorator: true
+    heirs: [Query]
+    config:
+        fields:
+            Pages:
+                type: '[Page!]'
+                description: 'Retrieve all Pages in a path.'
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Page\\PagesResolver", [args["path"]])'
+                args:
+                    path: String!
+
+            Page:
+                type: Page
+                description: 'Retrieve a single Page.'
+                public: '@=hasRole("ROLE_ADMIN")'
+                access: '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Page\\PageResolver", [args["pageId"]])'
+                args:
+                    pageId: UUID!

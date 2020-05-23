@@ -9,6 +9,7 @@ use App\Model\Page\Content;
 use App\Model\Page\PageId;
 use App\Model\Page\Path;
 use App\Model\Page\Title;
+use App\Projection\Page\PageFinder;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -19,9 +20,15 @@ class PageAddMutation implements MutationInterface
     /** @var MessageBusInterface */
     private $commandBus;
 
-    public function __construct(MessageBusInterface $commandBus)
-    {
+    /** @var PageFinder */
+    private $pageFinder;
+
+    public function __construct(
+        MessageBusInterface $commandBus,
+        PageFinder $pageFinder
+    ) {
         $this->commandBus = $commandBus;
+        $this->pageFinder = $pageFinder;
     }
 
     public function __invoke(Argument $args): array
@@ -36,10 +43,7 @@ class PageAddMutation implements MutationInterface
         );
 
         return [
-            'pageId'  => $pageId->toString(),
-            'path'    => $path->toString(),
-            'title'   => $title->toString(),
-            'content' => Json::encode($content->toArray()),
+            'page' => $this->pageFinder->find($pageId),
         ];
     }
 }

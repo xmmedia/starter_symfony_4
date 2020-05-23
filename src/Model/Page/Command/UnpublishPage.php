@@ -10,7 +10,7 @@ use Xm\SymfonyBundle\Messaging\Command;
 
 final class UnpublishPage extends Command
 {
-    public static function to(PageId $pageId): self
+    public static function now(PageId $pageId): self
     {
         return new self([
             'pageId' => $pageId->toString(),

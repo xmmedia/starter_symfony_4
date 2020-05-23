@@ -8,8 +8,14 @@ Page:
                 type: UUID!
             path:
                 type: String!
+            published:
+                type: Boolean!
             title:
                 type: String!
             content:
                 type: String!
                 description: 'JSON string'
+            lastModified:
+                type: DateTime!
+            lastModifiedBy:
+                type: User
