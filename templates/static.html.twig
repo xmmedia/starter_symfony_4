@@ -5,7 +5,7 @@
 {% block head %}
     {% include 'meta.html.twig' with {
         'description' : page.content.metaDescription,
-        'title' : page_title(page),
+        'title' : page.title,
         'url' : page.path,
     } only %}
 {% endblock head %}

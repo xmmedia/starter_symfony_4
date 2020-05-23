@@ -11,6 +11,13 @@ Usage:
     } only %}
 {% endblock head %}
 #}
+
+{% if titie is defined and title is not empty %}
+    {% set title = title ~ ' | ' ~ 'app.parameter.name'|trans %}
+{% else %}
+    {% set title = 'app.parameter.name'|trans %}
+{% endif %}
+
 {% if description %}
     <meta name="description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
 {% endif %}
