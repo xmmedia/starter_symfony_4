@@ -6,6 +6,7 @@ namespace App\Model\Page;
 
 use App\Util\Assert;
 use Xm\SymfonyBundle\Model\ValueObject;
+use Xm\SymfonyBundle\Util\StringUtil;
 
 class Content implements ValueObject
 {
@@ -37,7 +38,7 @@ class Content implements ValueObject
         Assert::keyExists($content, 'metaDescription', 'Content must have "metaDescription" key.');
         Assert::nullOrString($content['metaDescription'], '"metaDescription" must be a string or null.');
 
-        $this->content = $content;
+        $this->content = self::trimStringValues($content);
     }
 
     public function template(): ?string
@@ -60,5 +61,16 @@ class Content implements ValueObject
         }
 
         return $this->content === $other->content;
+    }
+
+    public static function trimStringValues(array $content): array
+    {
+        foreach ($content as $key => $value) {
+            if (\is_string($value)) {
+                $content[$key] = StringUtil::trim($value);
+            }
+        }
+
+        return $content;
     }
 }
