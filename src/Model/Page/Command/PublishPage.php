@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Model\Page\Command;
 
 use App\Model\Page\PageId;
-use App\Model\Page\Path;
 use Webmozart\Assert\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 
