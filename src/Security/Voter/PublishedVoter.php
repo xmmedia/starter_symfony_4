@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Security\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -24,7 +26,7 @@ class PublishedVoter extends Voter
 
     protected function supports($attribute, $subject): bool
     {
-        return in_array($attribute, [self::VIEW])
+        return \in_array($attribute, [self::VIEW])
             && $subject instanceof \App\Entity\Page;
     }
 
