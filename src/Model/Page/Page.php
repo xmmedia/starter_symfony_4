@@ -79,11 +79,16 @@ class Page extends AggregateRoot implements Entity
         $this->recordThat(Event\PageWasUnpublished::now($this->pageId));
     }
 
-    public function update(Title $title, Content $content): void
-    {
+    public function update(
+        Title $title,
+        Content $content,
+        PageContentValidator $pageContentValidator
+    ): void {
         if ($this->deleted) {
             throw Exception\PageIsDeleted::triedTo($this->pageId, 'update');
         }
+
+        $pageContentValidator($content);
 
         $this->recordThat(Event\PageWasUpdated::now($this->pageId, $title, $content));
     }
