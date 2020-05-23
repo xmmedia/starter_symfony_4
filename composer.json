@@ -42,6 +42,7 @@
         "symfony/process": "*",
         "symfony/security-bundle": "*",
         "symfony/serializer-pack": "^1.0",
+        "symfony/string": "*",
         "symfony/swiftmailer-bundle": "^3.4",
         "symfony/templating": "*",
         "symfony/twig-bundle": "*",

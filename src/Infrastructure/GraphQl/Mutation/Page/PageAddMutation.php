@@ -27,7 +27,7 @@ class PageAddMutation implements MutationInterface
     public function __invoke(Argument $args): array
     {
         $pageId = PageId::fromString($args['pageId']);
-        $path = Path::fromString($args['path']);
+        $path = Path::fromUserString($args['path']);
         $title = Title::fromString($args['title']);
         $content = Content::fromArray(Json::decode($args['content']));
 
