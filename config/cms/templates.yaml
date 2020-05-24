@@ -7,8 +7,9 @@ cms:
                 pageTitle:
                     type: text
                     required: true
-                    min: 3
-                    max: 25
+                    params:
+                        - [min, 3]
+                        - [max, 25]
                 content:
                     type: html
 

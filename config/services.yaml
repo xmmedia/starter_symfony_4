@@ -122,3 +122,7 @@ services:
     App\Infrastructure\Service\CmsPageContentValidator:
         arguments:
             $templates: '%cms.templates%'
+
+    App\Infrastructure\GraphQl\Resolver\Template\TemplatesResolver:
+        arguments:
+            $templates: '%cms.templates%'

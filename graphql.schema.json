@@ -29,6 +29,29 @@
                             "deprecationReason": null
                         },
                         {
+                            "name": "Provinces",
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "OBJECT",
+                                            "name": "Province",
+                                            "ofType": null
+                                        }
+                                    }
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
                             "name": "Templates",
                             "args": [],
                             "type": {
@@ -72,29 +95,6 @@
                                 "kind": "OBJECT",
                                 "name": "Template",
                                 "ofType": null
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
-                            "name": "Provinces",
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "OBJECT",
-                                            "name": "Province",
-                                            "ofType": null
-                                        }
-                                    }
-                                }
                             },
                             "isDeprecated": false,
                             "deprecationReason": null
@@ -352,17 +352,17 @@
                 },
                 {
                     "kind": "OBJECT",
-                    "name": "Template",
+                    "name": "Province",
                     "fields": [
                         {
-                            "name": "key",
+                            "name": "country",
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
                                 "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
+                                    "kind": "OBJECT",
+                                    "name": "Country",
                                     "ofType": null
                                 }
                             },
@@ -450,7 +450,7 @@
                     "name": "Template",
                     "fields": [
                         {
-                            "name": "key",
+                            "name": "template",
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -556,6 +556,21 @@
                                 "ofType": {
                                     "kind": "SCALAR",
                                     "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "required",
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "Boolean",
                                     "ofType": null
                                 }
                             },
