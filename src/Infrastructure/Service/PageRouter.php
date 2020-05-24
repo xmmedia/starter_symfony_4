@@ -38,7 +38,7 @@ class PageRouter implements RouteProviderInterface
         $page = $this->pageFinder->findOneByPath($path);
         if ($page) {
             $collection->add(
-                str_replace('/', '-', $page->path()),
+                'page-'.str_replace('/', '-', trim($page->path(), '/')),
                 new Route($page->path(), ['page' => $page])
             );
         }
