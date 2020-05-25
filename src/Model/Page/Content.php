@@ -76,8 +76,8 @@ class Content implements ValueObject
     public static function trimStringValues(array $content): array
     {
         foreach ($content as $key => $value) {
-            if (\is_string($value)) {
-                $content[$key] = StringUtil::trim($value);
+            if (\is_array($value) && \array_key_exists('value', $value) && \is_string($value['value'])) {
+                $content[$key]['value'] = StringUtil::trim($value['value']);
             }
         }
 
