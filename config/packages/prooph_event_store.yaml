@@ -8,15 +8,18 @@ prooph_event_store:
             event_store: '@Prooph\EventStore\EventStore'
             connection: '@app.event_store.pdo_connection.mysql'
             projections:
+                enquiry_projection:
+                    read_model: App\Projection\Enquiry\EnquiryReadModel
+                    projection: App\Projection\Enquiry\EnquiryProjection
+                page_projection:
+                    read_model: App\Projection\Page\PageReadModel
+                    projection: App\Projection\Page\PageProjection
                 user_projection:
                     read_model: App\Projection\User\UserReadModel
                     projection: App\Projection\User\UserProjection
                 user_token_projection:
                     read_model: App\Projection\User\UserTokenReadModel
                     projection: App\Projection\User\UserTokenProjection
-                enquiry_projection:
-                    read_model: App\Projection\Enquiry\EnquiryReadModel
-                    projection: App\Projection\Enquiry\EnquiryProjection
 
 services:
     _defaults:
@@ -25,6 +28,8 @@ services:
         public: false
 
     # projections & read models
+    # App\Projection\Page\PageProjection: ~
+    App\Projection\Page\PageReadModel: ~
     # App\Projection\User\UserProjection: ~
     App\Projection\User\UserReadModel: ~
     # App\Projection\User\UserTokenProjection: ~

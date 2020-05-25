@@ -1,0 +1,16 @@
+{% extends 'public.html.twig' %}
+
+{% block page_title %}{{ page.title }} | {% endblock %}
+
+{% block head %}
+    {% include 'meta.html.twig' with {
+        'description' : content_item('metaDescription'),
+        'title' : page.title,
+        'url' : page.path,
+    } only %}
+{% endblock head %}
+
+{% block content %}
+    <h1>{{ content_item('pageTitle') }}</h1>
+    {{ content_item('content')|raw }}
+{% endblock content %}

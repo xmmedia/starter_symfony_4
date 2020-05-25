@@ -10,6 +10,11 @@ xm_symfony:
             aggregate_type:       App\Model\Enquiry\Enquiry
             aggregate_translator: Xm\SymfonyBundle\EventSourcing\Aggregate\AggregateTranslator
             stream_name:          'enquiry'
+        page_list:
+            repository_class:     App\Infrastructure\Repository\PageRepository
+            aggregate_type:       App\Model\Page\Page
+            aggregate_translator: Xm\SymfonyBundle\EventSourcing\Aggregate\AggregateTranslator
+            stream_name:          'page'
         user_list:
             repository_class:     App\Infrastructure\Repository\UserRepository
             aggregate_type:       App\Model\User\User
@@ -19,4 +24,5 @@ xm_symfony:
 services:
     App\Model\Auth\AuthList: '@auth_list'
     App\Model\Enquiry\EnquiryList: '@enquiry_list'
+    App\Model\Page\PageList: '@page_list'
     App\Model\User\UserList: '@user_list'

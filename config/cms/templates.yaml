@@ -1,0 +1,17 @@
+cms:
+    templates:
+        static.html.twig:
+            name: 'Default'
+            default: true
+            items:
+                pageTitle:
+                    type: text
+                    required: true
+                    params:
+                        - [min, 3]
+                        - [max, 25]
+                content:
+                    type: html
+
+        default/index.html.twig:
+            name: 'Home Page'

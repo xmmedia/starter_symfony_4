@@ -11,7 +11,16 @@ Usage:
     } only %}
 {% endblock head %}
 #}
-<meta name="description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+
+{% if titie is defined and title is not empty %}
+    {% set title = title ~ ' | ' ~ 'app.parameter.name'|trans %}
+{% else %}
+    {% set title = 'app.parameter.name'|trans %}
+{% endif %}
+
+{% if description %}
+    <meta name="description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+{% endif %}
 
 <meta property="og:title" content="{{ title }}">
 <meta property="og:type"  content="website">
@@ -23,12 +32,16 @@ Usage:
 {% endif %}
 <meta property="og:image" content="{{ absolute_url('/images/logo-og.png') }}">
 <meta property="og:image:alt" content="{{ 'app.parameter.name'|trans }} Logo">
-<meta property="og:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+{% if description %}
+    <meta property="og:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+{% endif %}
 
 <meta name="twitter:card"  content="summary_large_image">
 <meta name="twitter:site"  content="<twitter-username>">
 <meta name="twitter:title" content="{{ title }}">
-<meta name="twitter:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+{% if description %}
+    <meta name="twitter:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+{% endif %}
 {% if image is defined %}
     <meta name="twitter:image" content="{{ absolute_url(image) }}">
 {% endif %}

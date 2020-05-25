@@ -1,0 +1,30 @@
+Template:
+    type: object
+    config:
+        description: 'The Template object.'
+        fieldsDefaultPublic: '@=hasRole("ROLE_USER")'
+        fields:
+            template:
+                type: String!
+            name:
+                type: String!
+            default:
+                type: Boolean!
+            items:
+                type: '[ContentItem!]'
+
+ContentItem:
+    type: object
+    config:
+        description: 'The configuration for a content item.'
+        fieldsDefaultPublic: '@=hasRole("ROLE_USER")'
+        fields:
+            name:
+                type: String!
+            type:
+                type: String!
+            required:
+                type: Boolean!
+            config:
+                type: String!
+                description: 'JSON string. Includes the field settings, such as min and max.'

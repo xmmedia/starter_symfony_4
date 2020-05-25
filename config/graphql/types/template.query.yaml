@@ -1,0 +1,20 @@
+CmsQuery:
+    decorator: true
+    heirs: [Query]
+    config:
+        fields:
+            Templates:
+                type: '[Template!]!'
+                description: 'Retrieve all configured Templates.'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Template\\TemplatesResolver")'
+
+            Template:
+                type: Template
+                description: 'Retrieve a single Template.'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Template\\TemplateResolver", [args["template"]])'
+                args:
+                    template: String!
