@@ -38,6 +38,16 @@ class Content implements ValueObject
         Assert::keyExists($content, 'metaDescription', 'Content must have "metaDescription" key.');
         Assert::nullOrString($content['metaDescription'], '"metaDescription" must be a string or null.');
 
+        foreach ($content as $item => $value) {
+            if (\in_array($item, ['template', 'visibleInSitemap', 'metaDescription'])) {
+                continue;
+            }
+
+            Assert::isArray($value, 'All values in content must be arrays. "'.$item.'" is a %1$s.');
+            Assert::keyExists($value, 'type', 'The type key must exist. Missing on "'.$item.'".');
+            Assert::keyExists($value, 'value', 'The value key must exist. Missing on "'.$item.'".');
+        }
+
         $this->content = self::trimStringValues($content);
     }
 

@@ -40,14 +40,17 @@ class CmsPageContentValidator implements PageContentValidator
             try {
                 if ($item['required'] ?? false) {
                     Assert::keyExists($data, $itemKey);
-                    Assert::notEmpty($data[$itemKey]);
+                    Assert::isArray($data[$itemKey]);
+                    Assert::keyExists($data[$itemKey], 'type');
+                    Assert::keyExists($data[$itemKey], 'value');
+                    Assert::notEmpty($data[$itemKey]['value']);
                 }
 
                 if ($item['min'] ?? false) {
-                    Assert::minLength($data[$itemKey], $item['min']);
+                    Assert::minLength($data[$itemKey]['value'], $item['min']);
                 }
                 if ($item['max'] ?? false) {
-                    Assert::maxLength($data[$itemKey], $item['max']);
+                    Assert::maxLength($data[$itemKey]['value'], $item['max']);
                 }
             } catch (\InvalidArgumentException $e) {
                 throw new \InvalidArgumentException(sprintf('The content item "%s" is invalid: %s', $itemKey, $e->getMessage()));

@@ -4,13 +4,13 @@
 
 {% block head %}
     {% include 'meta.html.twig' with {
-        'description' : page.content.metaDescription,
+        'description' : content_item('metaDescription'),
         'title' : page.title,
         'url' : page.path,
     } only %}
 {% endblock head %}
 
 {% block content %}
-    <h1>{{ page.content.pageTitle }}</h1>
-    {{ page.content.content|raw }}
+    <h1>{{ content_item('pageTitle') }}</h1>
+    {{ content_item('content')|raw }}
 {% endblock content %}
