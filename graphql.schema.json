@@ -78,7 +78,7 @@
                             "name": "Template",
                             "args": [
                                 {
-                                    "name": "key",
+                                    "name": "template",
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -101,21 +101,7 @@
                         },
                         {
                             "name": "Pages",
-                            "args": [
-                                {
-                                    "name": "path",
-                                    "type": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "SCALAR",
-                                            "name": "String",
-                                            "ofType": null
-                                        }
-                                    },
-                                    "defaultValue": null
-                                }
-                            ],
+                            "args": [],
                             "type": {
                                 "kind": "LIST",
                                 "name": null,

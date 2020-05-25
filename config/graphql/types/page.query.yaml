@@ -5,12 +5,10 @@ PageQuery:
         fields:
             Pages:
                 type: '[Page!]'
-                description: 'Retrieve all Pages in a path.'
+                description: 'Retrieve all Pages.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Page\\PagesResolver", [args["path"]])'
-                args:
-                    path: String!
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Page\\PagesResolver")'
 
             Page:
                 type: Page
