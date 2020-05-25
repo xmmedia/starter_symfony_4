@@ -50,7 +50,7 @@ module.exports = function (Encore) {
 
         .enableSourceMaps(true)
 
-        .configureBabel(() => {}, {
+        .configureBabel(null, {
             includeNodeModules: [
                 'vue-apollo', // Object.entries()
                 'hibp', // Object.assign()
