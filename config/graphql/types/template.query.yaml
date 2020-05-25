@@ -6,15 +6,15 @@ CmsQuery:
             Templates:
                 type: '[Template!]!'
                 description: 'Retrieve all configured Templates.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Template\\TemplatesResolver")'
 
             Template:
                 type: Template
                 description: 'Retrieve a single Template.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Template\\TemplateResolver", [args["template"]])'
                 args:
                     template: String!

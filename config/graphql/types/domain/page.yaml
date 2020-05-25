@@ -2,7 +2,7 @@ Page:
     type: object
     config:
         description: 'The Page object.'
-        fieldsDefaultPublic: '@=hasRole("ROLE_ADMIN")'
+        fieldsDefaultPublic: '@=hasRole("ROLE_USER")'
         fields:
             pageId:
                 type: UUID!

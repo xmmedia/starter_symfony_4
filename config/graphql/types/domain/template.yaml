@@ -2,7 +2,7 @@ Template:
     type: object
     config:
         description: 'The Template object.'
-        fieldsDefaultPublic: '@=hasRole("ROLE_ADMIN")'
+        fieldsDefaultPublic: '@=hasRole("ROLE_USER")'
         fields:
             template:
                 type: String!
@@ -17,7 +17,7 @@ ContentItem:
     type: object
     config:
         description: 'The configuration for a content item.'
-        fieldsDefaultPublic: '@=hasRole("ROLE_ADMIN")'
+        fieldsDefaultPublic: '@=hasRole("ROLE_USER")'
         fields:
             name:
                 type: String!

@@ -6,15 +6,15 @@ PageQuery:
             Pages:
                 type: '[Page!]'
                 description: 'Retrieve all Pages.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Page\\PagesResolver")'
 
             Page:
                 type: Page
                 description: 'Retrieve a single Page.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Page\\PageResolver", [args["pageId"]])'
                 args:
                     pageId: UUID!

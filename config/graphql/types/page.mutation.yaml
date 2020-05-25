@@ -6,8 +6,8 @@ PageMutation:
             PageAdd:
                 type: PageMutationPayload!
                 description: 'Add a Page.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\Page\\PageAddMutation", [args["page"]])'
                 args:
                     page: PageAddInput!
@@ -15,8 +15,8 @@ PageMutation:
             PageUpdate:
                 type: PageMutationPayload!
                 description: 'Update a Page.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\Page\\PageUpdateMutation", [args["page"]])'
                 args:
                     page: PageUpdateInput!
@@ -24,8 +24,8 @@ PageMutation:
             PageChangePath:
                 type: PageMutationPayload!
                 description: 'Change the path to a Page.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\Page\\PageChangePathMutation", [args["pageId"], args["newPath"]])'
                 args:
                     pageId: String!
@@ -34,8 +34,8 @@ PageMutation:
             PagePublish:
                 type: PageMutationPayload!
                 description: 'Publish a Page.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\Page\\PagePublishMutation", [args["pageId"]])'
                 args:
                     pageId: String!
@@ -43,8 +43,8 @@ PageMutation:
             PageUnpublish:
                 type: PageMutationPayload!
                 description: 'Unpublish a Page.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\Page\\PageUnpublishMutation", [args["pageId"]])'
                 args:
                     pageId: String!
@@ -52,8 +52,8 @@ PageMutation:
             PageDelete:
                 type: PageDeleteMutationPayload!
                 description: 'Delete a Page.'
-                public: '@=hasRole("ROLE_ADMIN")'
-                access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
                 resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\Page\\PageDeleteMutation", [args["pageId"]])'
                 args:
                     pageId: String!
