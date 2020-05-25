@@ -15,6 +15,6 @@ CmsQuery:
                 description: 'Retrieve a single Template.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Template\\TemplateResolver", [args["key"]])'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Template\\TemplateResolver", [args["template"]])'
                 args:
-                    key: String!
+                    template: String!

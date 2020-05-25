@@ -123,6 +123,6 @@ services:
         arguments:
             $templates: '%cms.templates%'
 
-    App\Infrastructure\GraphQl\Resolver\Template\TemplatesResolver:
+    App\DataProvider\TemplateProvider:
         arguments:
             $templates: '%cms.templates%'
