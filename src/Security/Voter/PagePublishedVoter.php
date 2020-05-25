@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Xm\SymfonyBundle\Security\Voter\IsAdminTrait;
 
-class PublishedVoter extends Voter
+class PagePublishedVoter extends Voter
 {
     use IsAdminTrait;
 
