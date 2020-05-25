@@ -1,4 +1,18 @@
 module.exports = {
+    purge: {
+        content: [
+            './templates/**/*.html.twig',
+            './public/js/src/**/*.vue',
+            './public/js/src/**/*.js',
+        ],
+        options: {
+            whitelist: [
+                // vue transition classes: https://vuejs.org/v2/guide/transitions.html#Transition-Classes
+                /-enter/,
+                /-leave/,
+            ],
+        },
+    },
     theme: {
         extend: {
             colors: {
