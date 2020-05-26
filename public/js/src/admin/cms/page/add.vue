@@ -96,7 +96,7 @@ export default {
             state: stateMachine.initialState,
 
             page: {
-                template: null,
+                template: this.$store.getters['cms/defaultTemplate'],
                 path: '/',
                 title: null,
             },

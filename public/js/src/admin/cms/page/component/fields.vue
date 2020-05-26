@@ -1,30 +1,50 @@
 <template>
     <div>
         <div class="field-wrap">
-            <input v-model="page.title" type="text" @blur="updatePathFromTitle">
+            <label for="page-title">Title</label>
+            <input id="page-title"
+                   v-model="page.title"
+                   type="text"
+                   @blur="updatePathFromTitle">
         </div>
 
         <div class="field-wrap">
+            <label for="page-path">Path</label>
             <div class="flex">
                 <div class="mr-1">/</div>
-                <input v-model="page.path" type="text" @input="pathChanged = true">
+                <input id="page-path"
+                       v-model="page.path"
+                       type="text"
+                       @input="pathChanged = true">
             </div>
         </div>
 
-        <!-- @todo move directly into this component? then we can have a more properly deal with the loading state -->
-        <field-template v-model="page.template" :templates="templates" />
+        <div class="field-wrap">
+            <label for="page-template">Template</label>
+
+            <!--<field-error v-if="v.$error">
+                <template v-if="!v.required">
+                    An template is required.
+                </template>
+            </field-error>-->
+
+            <select id="page-template" v-model="page.template">
+                <option v-for="template in templates"
+                        :key="template.template"
+                        :value="template.template">
+                    {{ template.name }}
+                </option>
+            </select>
+        </div>
     </div>
 </template>
 
 <script>
 import slugify from 'slugify';
-import fieldTemplate from './field_template';
-
-import { GetTemplatesQuery } from '@/admin/queries/template.query.graphql';
+import { mapState } from 'vuex';
 
 export default {
     components: {
-        fieldTemplate,
     },
 
     props: {
@@ -49,28 +69,8 @@ export default {
         };
     },
 
-    apollo: {
-        templates: {
-            query: GetTemplatesQuery,
-            update ({ Templates }) {
-                const templates = Templates.map((template) => {
-                    return {
-                        ...template,
-                        items: template.items.map((item) => {
-                            return {
-                                ...item,
-                                config: JSON.parse(item.config),
-                            };
-                        }),
-                    };
-                });
-
-                return templates;
-            },
-            error () {
-                // @todo
-            },
-        },
+    computed: {
+        ...mapState('cms', ['templates']),
     },
 
     watch: {
@@ -96,7 +96,7 @@ export default {
                     { lower: true, strict: true }
                 );
 
-                this.page.path = this.parentPath + '/' + slug;
+                this.page.path = this.parentPath.substring(1) + '/' + slug;
             }
         },
     },
