@@ -16,9 +16,9 @@
         </div>
 
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
-            <h3 v-if="parentPage">{{ parentPage.title }}</h3>
-
             <form-error v-if="$v.$anyError" />
+
+            <fields v-model="page" :parent-path="parentPage.path" />
 
             <admin-button :saving="state.matches('ready.saving')"
                           :saved="state.matches('ready.saved')"
@@ -33,9 +33,10 @@
 import { Machine, interpret } from 'xstate';
 import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
+import fields from './component/fields';
 
-import { GetPageQuery } from '../queries/page.query.graphql';
-import { AdminUserUpdateMutation } from '../queries/admin/user.mutation.graphql';
+import { GetPageQuery } from '@/admin/queries/page.query.graphql';
+import { AdminUserUpdateMutation } from '@/admin/queries/admin/user.mutation.graphql';
 
 const stateMachine = Machine({
     id: 'component',
@@ -75,6 +76,7 @@ const stateMachine = Machine({
 
 export default {
     components: {
+        fields,
     },
 
     mixins: [
@@ -92,6 +94,12 @@ export default {
         return {
             stateService: interpret(stateMachine),
             state: stateMachine.initialState,
+
+            page: {
+                template: null,
+                path: '/',
+                title: null,
+            },
         };
     },
 
@@ -117,7 +125,7 @@ export default {
                 };
             },
             update ({ Page }) {
-                // @todo copy values into local vars
+                this.page.path = Page.path.substring(1)+'/';
 
                 this.stateEvent('LOADED');
 

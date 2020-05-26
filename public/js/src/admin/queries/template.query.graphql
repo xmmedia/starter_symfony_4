@@ -1,0 +1,13 @@
+query GetTemplatesQuery {
+    Templates {
+        template
+        name
+        default
+        items {
+            name
+            type
+            required
+            config
+        }
+    }
+}

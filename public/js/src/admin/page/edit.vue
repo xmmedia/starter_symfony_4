@@ -14,9 +14,11 @@
         </div>
 
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
+            <h2 class="mt-0">{{ page.title }}</h2>
+
             <form-error v-if="$v.$anyError" />
 
-            <h2 class="mt-0">{{ page.title }}</h2>
+            <field-template v-model="template" :edit="true" />
 
             <admin-button :saving="state.matches('ready.saving')"
                           :saved="state.matches('ready.saved')"
@@ -31,9 +33,10 @@
 import { Machine, interpret } from 'xstate';
 import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
+import fieldTemplate from './component/field_template';
 
-import { GetPageQuery } from '../queries/page.query.graphql';
-import { AdminUserUpdateMutation } from '../queries/admin/user.mutation.graphql';
+import { GetPageQuery } from '@/admin/queries/page.query.graphql';
+import { AdminUserUpdateMutation } from '@/admin/queries/admin/user.mutation.graphql';
 
 const stateMachine = Machine({
     id: 'component',
@@ -73,6 +76,7 @@ const stateMachine = Machine({
 
 export default {
     components: {
+        fieldTemplate,
     },
 
     mixins: [
@@ -90,6 +94,11 @@ export default {
         return {
             stateService: interpret(stateMachine),
             state: stateMachine.initialState,
+
+            page: {
+                template: null,
+                page: '/',
+            },
         };
     },
 
@@ -115,7 +124,11 @@ export default {
                 };
             },
             update ({ Page }) {
+                Page.content = JSON.parse(Page.content);
+
                 // @todo copy values into local vars
+                this.page.template = Page.content.template;
+                this.page.path = Page.path.substring(1);
 
                 this.stateEvent('LOADED');
 

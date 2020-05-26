@@ -9,6 +9,7 @@ query GetPagesQuery {
 query GetPageQuery($pageId: UUID!) {
     Page(pageId: $pageId) {
         pageId
+        path
         title
         published
         content
