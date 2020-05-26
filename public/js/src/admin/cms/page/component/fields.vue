@@ -10,13 +10,14 @@
 
         <div class="field-wrap">
             <label for="page-path">Path</label>
-            <div class="flex">
+            <div v-if="!edit" class="flex">
                 <div class="mr-1">/</div>
                 <input id="page-path"
                        v-model="page.path"
                        type="text"
                        @input="pathChanged = true">
             </div>
+            <div v-else>/{{ page.path }}</div>
         </div>
 
         <div class="field-wrap">
