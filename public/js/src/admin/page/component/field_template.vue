@@ -10,8 +10,8 @@
 
         <select :id="id" v-model="template">
             <option v-for="_template in templates"
-                    :value="_template.template"
-                    :key="_template.template">
+                    :key="_template.template"
+                    :value="_template.template">
                 {{ _template.name }}
             </option>
         </select>

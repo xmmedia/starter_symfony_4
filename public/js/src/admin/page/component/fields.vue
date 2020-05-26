@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="field-wrap">
-            <input type="text" v-model="page.title" @blur="updatePathFromTitle">
+            <input v-model="page.title" type="text" @blur="updatePathFromTitle">
         </div>
 
         <div class="field-wrap">
             <div class="flex">
                 <div class="mr-1">/</div>
-                <input type="text" v-model="page.path" @input="pathChanged = true">
+                <input v-model="page.path" type="text" @input="pathChanged = true">
             </div>
         </div>
 
