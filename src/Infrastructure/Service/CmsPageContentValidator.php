@@ -6,6 +6,7 @@ namespace App\Infrastructure\Service;
 
 use App\Model\Page\Content;
 use App\Model\Page\Service\PageContentValidator;
+use App\Model\Page\Template;
 use App\Util\Assert;
 
 class CmsPageContentValidator implements PageContentValidator
@@ -13,30 +14,20 @@ class CmsPageContentValidator implements PageContentValidator
     /** @var array */
     private $templates;
 
-    /** @var string */
-    private $defaultTemplate;
-
     public function __construct(array $templates)
     {
         $this->templates = $templates;
-
-        foreach ($this->templates as $templateName => $template) {
-            if ($template['default']) {
-                $this->defaultTemplate = $templateName;
-            }
-        }
     }
 
-    public function __invoke(Content $content): void
+    public function __invoke(Template $template, Content $content): void
     {
         $data = $content->toArray();
 
-        $template = $content->template() ?: $this->defaultTemplate;
-        if (!\array_key_exists($template, $this->templates)) {
+        if (!\array_key_exists($template->toString(), $this->templates)) {
             throw new \InvalidArgumentException(sprintf('The config for template "%s" doesn\'t exist.', $template));
         }
 
-        foreach ($this->templates[$template]['items'] as $itemKey => $item) {
+        foreach ($this->templates[$template->toString()]['items'] as $itemKey => $item) {
             try {
                 if ($item['required'] ?? false) {
                     Assert::keyExists($data, $itemKey);

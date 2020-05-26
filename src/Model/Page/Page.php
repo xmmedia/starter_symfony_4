@@ -20,6 +20,9 @@ class Page extends AggregateRoot implements Entity
     /** @var Path */
     private $path;
 
+    /** @var Template */
+    private $template;
+
     /** @var bool */
     private $published = false;
 
@@ -29,6 +32,7 @@ class Page extends AggregateRoot implements Entity
     public static function add(
         PageId $page,
         Path $path,
+        Template $template,
         Title $title,
         Content $content,
         ChecksUniquePath $checksUniquePath,
@@ -38,13 +42,14 @@ class Page extends AggregateRoot implements Entity
             throw new \InvalidArgumentException(sprintf('The path "%s" is not unique', $path));
         }
 
-        $pageContentValidator($content);
+        $pageContentValidator($template, $content);
 
         $self = new self();
         $self->recordThat(
             Event\PageWasAdded::now(
                 $page,
                 $path,
+                $template,
                 $title,
                 $content
             )
@@ -88,7 +93,7 @@ class Page extends AggregateRoot implements Entity
             throw Exception\PageIsDeleted::triedTo($this->pageId, 'update');
         }
 
-        $pageContentValidator($content);
+        $pageContentValidator($this->template, $content);
 
         $this->recordThat(Event\PageWasUpdated::now($this->pageId, $title, $content));
     }
@@ -132,6 +137,7 @@ class Page extends AggregateRoot implements Entity
     {
         $this->pageId = $event->pageId();
         $this->path = $event->path();
+        $this->template = $event->template();
     }
 
     protected function whenPageWasPublished(Event\PageWasPublished $event): void

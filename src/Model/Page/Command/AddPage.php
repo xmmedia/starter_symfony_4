@@ -7,6 +7,7 @@ namespace App\Model\Page\Command;
 use App\Model\Page\Content;
 use App\Model\Page\PageId;
 use App\Model\Page\Path;
+use App\Model\Page\Template;
 use App\Model\Page\Title;
 use Webmozart\Assert\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
@@ -16,14 +17,16 @@ final class AddPage extends Command
     public static function to(
         PageId $pageId,
         Path $path,
+        Template $template,
         Title $title,
         Content $content
     ): self {
         return new self([
-            'pageId'  => $pageId->toString(),
-            'path'    => $path->toString(),
-            'title'   => $title->toString(),
-            'content' => $content->toArray(),
+            'pageId'   => $pageId->toString(),
+            'path'     => $path->toString(),
+            'template' => $template->toString(),
+            'title'    => $title->toString(),
+            'content'  => $content->toArray(),
         ]);
     }
 
@@ -35,6 +38,11 @@ final class AddPage extends Command
     public function path(): Path
     {
         return Path::fromString($this->payload()['path']);
+    }
+
+    public function template(): Template
+    {
+        return Template::fromString($this->payload()['template']);
     }
 
     public function title(): Title
@@ -54,6 +62,9 @@ final class AddPage extends Command
 
         Assert::keyExists($payload, 'path');
         Assert::string($payload['path']);
+
+        Assert::keyExists($payload, 'template');
+        Assert::string($payload['template']);
 
         Assert::keyExists($payload, 'title');
         Assert::string($payload['title']);

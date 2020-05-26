@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataProvider;
 
-use App\Model\Page\Template;
+use App\Model\Page\TemplateConfig;
 
 class TemplateProvider
 {
@@ -17,14 +17,14 @@ class TemplateProvider
     }
 
     /**
-     * @return Template[]
+     * @return TemplateConfig[]
      */
     public function __invoke(): array
     {
         $templates = [];
 
         foreach ($this->templates as $template => $config) {
-            $templates[$template] = Template::fromArray($template, $config);
+            $templates[$template] = TemplateConfig::fromArray($template, $config);
         }
 
         return $templates;

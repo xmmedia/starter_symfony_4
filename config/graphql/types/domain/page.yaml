@@ -8,6 +8,9 @@ Page:
                 type: UUID!
             path:
                 type: String!
+            template:
+                type: Template!
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\Template\\TemplateResolver", [value.template()])'
             published:
                 type: Boolean!
             title:

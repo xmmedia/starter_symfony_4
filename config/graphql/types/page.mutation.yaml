@@ -67,6 +67,8 @@ PageAddInput:
                 type: UUID!
             path:
                 type: String!
+            template:
+                type: String!
             title:
                 type: String!
             content:

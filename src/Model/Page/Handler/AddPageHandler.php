@@ -36,6 +36,7 @@ class AddPageHandler
         $page = Page::add(
             $command->pageId(),
             $command->path(),
+            $command->template(),
             $command->title(),
             $command->content(),
             $this->checksUniquePath,

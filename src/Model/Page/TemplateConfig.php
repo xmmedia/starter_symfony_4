@@ -7,7 +7,7 @@ namespace App\Model\Page;
 use Xm\SymfonyBundle\Model\ValueObject;
 use Xm\SymfonyBundle\Util\Json;
 
-class Template implements ValueObject
+class TemplateConfig implements ValueObject
 {
     /** @var string */
     private $template;

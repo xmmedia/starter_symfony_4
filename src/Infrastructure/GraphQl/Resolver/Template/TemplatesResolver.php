@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\GraphQl\Resolver\Template;
 
 use App\DataProvider\TemplateProvider;
-use App\Model\Page\Template;
+use App\Model\Page\TemplateConfig;
 use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
 
 class TemplatesResolver implements ResolverInterface
@@ -21,7 +21,7 @@ class TemplatesResolver implements ResolverInterface
     public function __invoke(): array
     {
         return array_map(
-            function (Template $template): array {
+            function (TemplateConfig $template): array {
                 return $template->toArray();
             },
             ($this->templateProvider)()

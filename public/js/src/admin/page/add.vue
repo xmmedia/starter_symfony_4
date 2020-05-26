@@ -18,7 +18,7 @@
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
             <form-error v-if="$v.$anyError" />
 
-            <fields v-model="page" :parent-path="parentPage.path" />
+            <page-fields v-model="page" :parent-path="parentPage.path" />
 
             <admin-button :saving="state.matches('ready.saving')"
                           :saved="state.matches('ready.saved')"
@@ -33,7 +33,7 @@
 import { Machine, interpret } from 'xstate';
 import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
-import fields from './component/fields';
+import pageFields from './component/fields';
 
 import { GetPageQuery } from '@/admin/queries/page.query.graphql';
 import { AdminUserUpdateMutation } from '@/admin/queries/admin/user.mutation.graphql';
@@ -76,7 +76,7 @@ const stateMachine = Machine({
 
 export default {
     components: {
-        fields,
+        pageFields,
     },
 
     mixins: [

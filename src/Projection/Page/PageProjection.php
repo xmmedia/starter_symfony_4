@@ -33,8 +33,9 @@ class PageProjection implements ReadModelProjection
                     $readModel->stack(
                         'insert',
                         [
-                            'path'    => $event->path()->toString(),
-                            'page_id' => $event->aggregateId(),
+                            'path'     => $event->path()->toString(),
+                            'template' => $event->template()->toString(),
+                            'page_id'  => $event->aggregateId(),
                         ] + self::parseEvent($event),
                         $types
                     );

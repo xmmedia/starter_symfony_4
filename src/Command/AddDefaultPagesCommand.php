@@ -9,6 +9,7 @@ use App\Model\Page\Command\PublishPage;
 use App\Model\Page\Content;
 use App\Model\Page\PageId;
 use App\Model\Page\Path;
+use App\Model\Page\Template;
 use App\Model\Page\Title;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
@@ -48,10 +49,9 @@ final class AddDefaultPagesCommand extends Command
             AddPage::to(
                 $pageId,
                 Path::fromUserString('/'),
+                Template::fromString('default/index.html.twig'),
                 Title::fromString('Homepage'),
-                Content::fromArray([
-                    'template' => 'default/index.html.twig',
-                ] + $defaultContent)
+                Content::createDefaultContent()
             )
         );
         $this->commandBus->dispatch(PublishPage::now($pageId));
@@ -61,6 +61,7 @@ final class AddDefaultPagesCommand extends Command
             AddPage::to(
                 $pageId,
                 Path::fromUserString('/about-us'),
+                Template::fromString('static.html.twig'),
                 Title::fromString('About Us'),
                 Content::fromArray([
                     'pageTitle' => [
@@ -81,6 +82,7 @@ final class AddDefaultPagesCommand extends Command
             AddPage::to(
                 $pageId,
                 Path::fromUserString('/services'),
+                Template::fromString('static.html.twig'),
                 Title::fromString('Services'),
                 Content::fromArray([
                     'pageTitle' => [
@@ -101,6 +103,7 @@ final class AddDefaultPagesCommand extends Command
             AddPage::to(
                 $pageId,
                 Path::fromUserString('/services/web-development'),
+                Template::fromString('static.html.twig'),
                 Title::fromString('Web Development'),
                 Content::fromArray([
                     'pageTitle' => [

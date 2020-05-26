@@ -65,10 +65,6 @@ export default {
                     };
                 });
 
-                if (!this.page || null === this.page.template) {
-                    this.page.template = templates.filter((template) => template.default)[0].template;
-                }
-
                 return templates;
             },
             error () {

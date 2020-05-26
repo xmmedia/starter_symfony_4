@@ -21,7 +21,6 @@ class Content implements ValueObject
     public static function createDefaultContent(): self
     {
         return self::fromArray([
-            'template'         => null,
             'visibleInSitemap' => true,
             'metaDescription'  => null,
         ]);
@@ -29,9 +28,6 @@ class Content implements ValueObject
 
     private function __construct(array $content)
     {
-        Assert::keyExists($content, 'template', 'Content must have "template" key.');
-        Assert::nullOrString($content['template'], '"template" must be a string or null.');
-
         Assert::keyExists($content, 'visibleInSitemap', 'Content must have "visibleInSitemap" key.');
         Assert::boolean($content['visibleInSitemap'], '"visibleInSitemap" must be a boolean.');
 
@@ -39,11 +35,11 @@ class Content implements ValueObject
         Assert::nullOrString($content['metaDescription'], '"metaDescription" must be a string or null.');
 
         foreach ($content as $item => $value) {
-            if (\in_array($item, ['template', 'visibleInSitemap', 'metaDescription'])) {
+            if (\in_array($item, ['visibleInSitemap', 'metaDescription'])) {
                 continue;
             }
 
-            Assert::isArray($value, 'All values in content must be arrays. "'.$item.'" is a %1$s.');
+            Assert::isArray($value, 'All content values in content must be arrays. "'.$item.'" is a %1$s.');
             Assert::keyExists($value, 'type', 'The type key must exist. Missing on "'.$item.'".');
             Assert::keyExists($value, 'value', 'The value key must exist. Missing on "'.$item.'".');
         }

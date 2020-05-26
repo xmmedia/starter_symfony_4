@@ -26,6 +26,12 @@ class Page
     private $path;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", length=191)
+     */
+    private $template;
+
+    /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
@@ -64,6 +70,11 @@ class Page
     public function path(): string
     {
         return $this->path;
+    }
+
+    public function template(): string
+    {
+        return $this->template;
     }
 
     public function published(): bool

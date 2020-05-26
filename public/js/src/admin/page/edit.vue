@@ -18,7 +18,7 @@
 
             <form-error v-if="$v.$anyError" />
 
-            <field-template v-model="template" :edit="true" />
+            <page-fields v-model="page" :edit="true" />
 
             <admin-button :saving="state.matches('ready.saving')"
                           :saved="state.matches('ready.saved')"
@@ -33,7 +33,7 @@
 import { Machine, interpret } from 'xstate';
 import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
-import fieldTemplate from './component/field_template';
+import pageFields from './component/fields';
 
 import { GetPageQuery } from '@/admin/queries/page.query.graphql';
 import { AdminUserUpdateMutation } from '@/admin/queries/admin/user.mutation.graphql';
@@ -76,7 +76,7 @@ const stateMachine = Machine({
 
 export default {
     components: {
-        fieldTemplate,
+        pageFields,
     },
 
     mixins: [
@@ -96,8 +96,9 @@ export default {
             state: stateMachine.initialState,
 
             page: {
-                template: null,
                 page: '/',
+                template: null,
+                title: null,
             },
         };
     },
@@ -116,7 +117,7 @@ export default {
     },
 
     apollo: {
-        page: {
+        pageOriginal: {
             query: GetPageQuery,
             variables () {
                 return {
@@ -124,11 +125,18 @@ export default {
                 };
             },
             update ({ Page }) {
+                if (!Page) {
+                    this.stateEvent('ERROR');
+
+                    return Page;
+                }
+
                 Page.content = JSON.parse(Page.content);
 
                 // @todo copy values into local vars
-                this.page.template = Page.content.template;
                 this.page.path = Page.path.substring(1);
+                this.page.template = Page.template.template;
+                this.page.title = Page.title;
 
                 this.stateEvent('LOADED');
 
