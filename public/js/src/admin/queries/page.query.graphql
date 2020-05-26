@@ -1,0 +1,16 @@
+query GetPagesQuery {
+    Pages {
+        pageId
+        path
+        title
+    }
+}
+
+query GetPageQuery($pageId: UUID!) {
+    Page(pageId: $pageId) {
+        pageId
+        title
+        published
+        content
+    }
+}

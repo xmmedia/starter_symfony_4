@@ -4,6 +4,12 @@
         <portal to="header-actions" />
 
         <li>
+            <router-link :to="{ name: 'admin-page' }" class="dashboard-link">
+                <svg width="96" height="96"><use xlink:href="#gear"></use></svg>
+                Pages
+            </router-link>
+        </li>
+        <li>
             <router-link :to="{ name: 'admin-user' }" class="dashboard-link">
                 <svg width="96" height="96"><use xlink:href="#users"></use></svg>
                 Users
