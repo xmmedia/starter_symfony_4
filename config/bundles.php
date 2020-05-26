@@ -24,6 +24,7 @@ return [
     Prooph\Bundle\EventStore\ProophEventStoreBundle::class => ['all' => true],
     Overblog\GraphQLBundle\OverblogGraphQLBundle::class => ['all' => true],
     Overblog\GraphiQLBundle\OverblogGraphiQLBundle::class => ['dev' => true],
-    Xm\SymfonyBundle\XmSymfonyBundle::class => ['all' => true],
     Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true],
+    Xm\CmsBundle\XmCmsBundle::class => ['all' => true],
+    Xm\SymfonyBundle\XmSymfonyBundle::class => ['all' => true],
 ];

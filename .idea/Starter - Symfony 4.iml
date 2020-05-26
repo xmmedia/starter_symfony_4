@@ -187,6 +187,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webonyx/graphql-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/wildbit/postmark-php" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/xm/cms-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/xm/symfony-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-code" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-eventmanager" />

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "773613abee29f40495438d8589031273",
+    "content-hash": "cd652913cde2774935b76e2d495cc443",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -9428,6 +9428,76 @@
             ],
             "description": "The officially supported client for Postmark (http://postmarkapp.com)",
             "time": "2020-04-09T10:02:15+00:00"
+        },
+        {
+            "name": "xm/cms-bundle",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xmmedia/cms-bundle.git",
+                "reference": "e14ee99f63c2b3f891143a44e2f37d54964d3bd0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xmmedia/cms-bundle/zipball/e14ee99f63c2b3f891143a44e2f37d54964d3bd0",
+                "reference": "e14ee99f63c2b3f891143a44e2f37d54964d3bd0",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "^2.0",
+                "doctrine/orm": "^2.5",
+                "egulias/email-validator": "^2.1",
+                "ext-json": "*",
+                "marc-mabe/php-enum": "^4.1",
+                "nesbot/carbon": "^2.24",
+                "overblog/graphql-bundle": "^0.12.3 || ^0.13.0",
+                "php": "^7.3",
+                "prooph/event-store-bus-bridge": "^3.3",
+                "prooph/event-store-symfony-bundle": "^0.6.0 || ^0.7.0 || ^0.8.0",
+                "prooph/pdo-event-store": "^1.11",
+                "ramsey/uuid": "^3.7.3 || ^4.0",
+                "ramsey/uuid-doctrine": "^1.5",
+                "symfony/framework-bundle": "^5.0",
+                "symfony/messenger": "^5.0",
+                "symfony/security-bundle": "^5.0",
+                "wildbit/postmark-php": "^2.8"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "fzaninotto/faker": "^1.8",
+                "mockery/mockery": "^1.2",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-mockery": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-symfony": "^0.12",
+                "phpstan/phpstan-webmozart-assert": "^0.12",
+                "phpunit/phpunit": "^8.0",
+                "symfony/debug-pack": "^1.0.0",
+                "symfony/phpunit-bridge": "^5.0",
+                "symfony/test-pack": "^1.0.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Xm\\CmsBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Darryl Hein",
+                    "email": "dhein@xmmedia.com"
+                }
+            ],
+            "description": "CMS used for building websites at XM Media. Based on Symfony.",
+            "homepage": "https://github.com/xmmedia/XMCmsBundle",
+            "time": "2020-05-26T17:03:29+00:00"
         },
         {
             "name": "xm/symfony-bundle",

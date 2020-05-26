@@ -784,6 +784,9 @@
     "wildbit/postmark-php": {
         "version": "2.6.0"
     },
+    "xm/cms-bundle": {
+        "version": "dev-master"
+    },
     "xm/symfony-bundle": {
         "version": "1.0.0"
     },
