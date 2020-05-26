@@ -18,27 +18,24 @@
                 No pages were found.
             </div>
 
-            <template v-else>
-                <div>Pages...</div>
-                <ul>
-                    <li v-for="page in pagesInPath(pages, '')"
-                        :key="page.pageId">
-                        <router-link :to="{ name: 'admin-page-edit', params: { pageId: page.pageId } }">
-                            {{ page.title }}
-                        </router-link>
-                        <div class="text-xs text-gray-500">{{ page.path }}</div>
+            <ul v-else>
+                <li v-for="page in pagesInPath(pages, '')"
+                    :key="page.pageId">
+                    <router-link :to="{ name: 'admin-page-edit', params: { pageId: page.pageId } }">
+                        {{ page.title }}
+                    </router-link>
+                    <div class="text-xs text-gray-500">{{ page.path }}</div>
 
-                        <page-list v-if="'/' !== page.path && pagesInPath(pages, page.path).length > 0"
-                                   :pages="pages"
-                                   :parent-page="page" />
-                    </li>
-                    <li>
-                        <router-link :to="{ name: 'admin-page-add', params: { parentPageId: null } }">
-                            + Add
-                        </router-link>
-                    </li>
-                </ul>
-            </template>
+                    <page-list v-if="'/' !== page.path && pagesInPath(pages, page.path).length > 0"
+                               :pages="pages"
+                               :parent-page="page" />
+                </li>
+                <li>
+                    <router-link :to="{ name: 'admin-page-add', params: { parentPageId: null } }">
+                        + Add
+                    </router-link>
+                </li>
+            </ul>
         </template>
     </div>
 </template>
