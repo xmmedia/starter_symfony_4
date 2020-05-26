@@ -74,7 +74,6 @@
         "symfony/phpunit-bridge": "*",
         "symfony/profiler-pack": "^1.0",
         "symfony/test-pack": "^1.0",
-        "symfony/web-server-bundle": "*",
         "theofidry/alice-data-fixtures": "^1.1"
     },
     "config": {
