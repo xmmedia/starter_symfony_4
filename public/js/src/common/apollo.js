@@ -31,7 +31,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 // http link
 const httpLink = createHttpLink({
     uri: process.env.REQUEST_CONTEXT_SCHEME+'://'+process.env.REQUEST_CONTEXT_HOST+'/graphql/',
-    fetch: fetch,
+    fetch,
 });
 
 // Create the apollo client
