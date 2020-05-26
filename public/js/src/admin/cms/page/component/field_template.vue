@@ -46,6 +46,12 @@ export default {
         };
     },
 
+    computed: {
+        defaultTemplate () {
+            return this.templates.filter((template) => template.default)[0].template;
+        },
+    },
+
     watch: {
         template (value) {
             this.$emit('input', value);

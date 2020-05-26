@@ -47,7 +47,7 @@ import stateMixin from '@/common/state_mixin';
 import pageList from './component/page_list';
 import { pagesInPath } from './component/pages_in_path';
 
-import { GetPagesQuery } from '../queries/page.query.graphql';
+import { GetPagesQuery } from '@/admin/queries/page.query.graphql';
 
 const stateMachine = Machine({
     id: 'component',
