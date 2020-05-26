@@ -8,6 +8,7 @@ use App\Model\Page\Command\AddPage;
 use App\Model\Page\Content;
 use App\Model\Page\PageId;
 use App\Model\Page\Path;
+use App\Model\Page\Template;
 use App\Model\Page\Title;
 use App\Projection\Page\PageFinder;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -35,11 +36,12 @@ class PageAddMutation implements MutationInterface
     {
         $pageId = PageId::fromString($args['pageId']);
         $path = Path::fromUserString($args['path']);
+        $template = Template::fromString($args['template']);
         $title = Title::fromString($args['title']);
         $content = Content::fromArray(Json::decode($args['content']));
 
         $this->commandBus->dispatch(
-            AddPage::to($pageId, $path, $title, $content)
+            AddPage::to($pageId, $path, $template, $title, $content)
         );
 
         return [
