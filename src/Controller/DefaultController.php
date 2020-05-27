@@ -35,9 +35,7 @@ class DefaultController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $template = $page->content()['template'] ?: 'static.html.twig';
-
-        return $this->render($template, [
+        return $this->render($page->template(), [
             'page' => $page,
         ]);
     }
