@@ -3,7 +3,6 @@
 {% block page_title_wrap %}{{ 'app.parameter.name'|trans }}{% endblock %}
 
 {% block head %}
-    {# @todo-symfony #}
     {% include 'meta.html.twig' with {
         'description' : page.content.metaDescription,
         'url' : path('index'),
