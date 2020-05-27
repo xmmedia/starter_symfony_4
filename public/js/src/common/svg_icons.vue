@@ -23,6 +23,14 @@ export default {
     async mounted () {
         const response = await fetch(this.src);
 
+        if (!response.ok) {
+            if (console) {
+                console.error('The svg file at '+this.src+' could not be loaded.');
+            }
+
+            return;
+        }
+
         this.svg = await response.text();
     },
 }
