@@ -34,14 +34,15 @@ class TemplateConfig implements ValueObject
     public function toArray(): array
     {
         return [
-            'template' => $this->template,
-            'name'     => $this->config['name'],
-            'default'  => $this->config['default'],
-            'items'    => array_map(
+            'template'            => $this->template,
+            'name'                => $this->config['name'],
+            'default'             => $this->config['default'],
+            'editMetaDescription' => $this->config['edit_meta_description'],
+            'items'               => array_map(
                 function (string $item, array $config): array {
                     return [
                         'item'     => $item,
-                        'name' => $config['name'],
+                        'name'     => $config['name'],
                         'type'     => $config['type'],
                         'required' => $config['required'],
                         'config'   => Json::encode($config),

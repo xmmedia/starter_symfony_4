@@ -4,14 +4,16 @@
             <router-link :to="{ name: 'admin-page-edit', params: { pageId: page.pageId } }">
                 {{ page.title }}
             </router-link>
-            <div class="text-xs text-gray-500">{{ page.path }}</div>
+            <a :href="$store.state.cms.rootUrl+page.path"
+               class="block text-xs text-gray-500"
+               target="_blank">{{ page.path }}</a>
 
             <page-list v-if="pagesInPath(pages, page.path).length > 0"
                        :pages="pages"
                        :parent-page="page" />
         </li>
         <li>
-            <router-link :to="{ name: 'admin-page-add', params: { parentPageId: parentPage.pageId } }">
+            <router-link :to="{ name: 'admin-page-add', query: { parent_page_id: parentPage.pageId } }">
                 + Add
             </router-link>
         </li>

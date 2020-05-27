@@ -30,13 +30,19 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep';
+import { v4 as uuid4 } from 'uuid';
 import { Machine, interpret } from 'xstate';
 import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import pageFields from './component/fields';
+import pageDefaults from './component/page_defaults';
 
-import { GetPageQuery } from '@/admin/queries/page.query.graphql';
-import { AdminUserUpdateMutation } from '@/admin/queries/admin/user.mutation.graphql';
+import { GetPageQuery } from '@/admin/queries/admin/page.query.graphql';
+import {
+    PageAddMutation,
+    PagePublishMutation,
+} from '@/admin/queries/admin/page.mutation.graphql';
 
 const stateMachine = Machine({
     id: 'component',
@@ -96,9 +102,7 @@ export default {
             state: stateMachine.initialState,
 
             page: {
-                template: this.$store.getters['cms/defaultTemplate'],
-                path: '/',
-                title: null,
+                ...cloneDeep(pageDefaults),
             },
         };
     },
@@ -169,14 +173,29 @@ export default {
             }
 
             try {
+                const pageId = uuid4();
+
                 await this.$apollo.mutate({
-                    mutation: AdminUserUpdateMutation,
+                    mutation: PageAddMutation,
                     variables: {
                         page: {
-                            pageId: this.pageId,
+                            pageId,
+                            path: '/'+this.page.path,
+                            template: this.page.template,
+                            title: this.page.title,
+                            content: JSON.stringify(this.page.content),
                         },
                     },
                 });
+
+                if (this.page.published) {
+                    await this.$apollo.mutate({
+                        mutation: PagePublishMutation,
+                        variables: {
+                            pageId,
+                        },
+                    });
+                }
 
                 this.stateEvent('SAVED');
 

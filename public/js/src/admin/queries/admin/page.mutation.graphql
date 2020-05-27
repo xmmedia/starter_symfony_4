@@ -1,0 +1,31 @@
+mutation PageAddMutation($page: PageAddInput!) {
+    PageAdd(page: $page) {
+        page {
+            pageId
+        }
+    }
+}
+
+mutation PageUpdateMutation($page: PageUpdateInput!) {
+    PageUpdate(page: $page) {
+        page {
+            pageId
+        }
+    }
+}
+
+mutation PagePublishMutation($pageId: String!) {
+    PagePublish(pageId: $pageId) {
+        page {
+            pageId
+        }
+    }
+}
+
+mutation PageUnpublishMutation($pageId: String!) {
+    PageUnpublish(pageId: $pageId) {
+        page {
+            pageId
+        }
+    }
+}

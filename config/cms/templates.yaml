@@ -2,12 +2,12 @@ cms:
     templates:
         static.html.twig:
             name: 'Default'
-            default: true
             items:
                 pageTitle:
                     type: text
                     name: 'Page Title'
                     required: true
+# @todo help
                     params:
                         - [min, 3]
                         - [max, 25]
@@ -17,3 +17,4 @@ cms:
 
         default/index.html.twig:
             name: 'Home Page'
+            # edit_meta_description: false

@@ -81,9 +81,11 @@ const router = new Router({
                 },
                 {
                     name: 'admin-page-add',
-                    path: 'add/:parentPageId?',
+                    path: 'add',
                     component: () => import(/* webpackChunkName: "admin-page" */ './cms/page/add'),
-                    props: true,
+                    props: (route) => ({
+                        parentPageId: route.query.parent_page_id || null,
+                    }),
                 },
                 {
                     name: 'admin-page-edit',

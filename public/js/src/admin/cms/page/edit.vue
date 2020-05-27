@@ -14,7 +14,12 @@
         </div>
 
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
-            <h2 class="mt-0">{{ page.title }}</h2>
+            <div class="flex">
+                <h2 class="mt-0">{{ page.title }}</h2>
+                <div class="text-right flex-grow">
+                    <a :href="pageUrl" target="_blank">View page</a>
+                </div>
+            </div>
 
             <form-error v-if="$v.$anyError" />
 
@@ -30,13 +35,19 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep';
 import { Machine, interpret } from 'xstate';
 import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import pageFields from './component/fields';
+import pageDefaults from './component/page_defaults';
 
-import { GetPageQuery } from '@/admin/queries/page.query.graphql';
-import { AdminUserUpdateMutation } from '@/admin/queries/admin/user.mutation.graphql';
+import { GetPageQuery } from '@/admin/queries/admin/page.query.graphql';
+import {
+    PageUpdateMutation,
+    PagePublishMutation,
+    PageUnpublishMutation,
+} from '@/admin/queries/admin/page.mutation.graphql';
 
 const stateMachine = Machine({
     id: 'component',
@@ -96,9 +107,7 @@ export default {
             state: stateMachine.initialState,
 
             page: {
-                page: '/',
-                template: null,
-                title: null,
+                ...cloneDeep(pageDefaults),
             },
         };
     },
@@ -113,6 +122,14 @@ export default {
             }
 
             return !this.state.matches('ready.saving') && !this.state.matches('ready.saved');
+        },
+
+        pageUrl () {
+            if (!this.pageOriginal) {
+                return null;
+            }
+
+            return this.$store.state.cms.rootUrl+this.pageOriginal.path;
         },
     },
 
@@ -133,10 +150,14 @@ export default {
 
                 Page.content = JSON.parse(Page.content);
 
-                // @todo copy values into local vars
                 this.page.path = Page.path.substring(1);
                 this.page.template = Page.template.template;
                 this.page.title = Page.title;
+                this.page.published = Page.published;
+                this.page.content = {
+                    ...cloneDeep(this.page.content),
+                    ...cloneDeep(Page.content),
+                };
 
                 this.stateEvent('LOADED');
 
@@ -172,13 +193,33 @@ export default {
 
             try {
                 await this.$apollo.mutate({
-                    mutation: AdminUserUpdateMutation,
+                    mutation: PageUpdateMutation,
                     variables: {
                         page: {
                             pageId: this.pageId,
+                            title: this.page.title,
+                            content: JSON.stringify(this.page.content),
                         },
                     },
                 });
+
+                let publishMutation;
+                if (!this.pageOriginal.published && this.page.published) {
+                    // not published before, published now
+                    publishMutation = PagePublishMutation;
+                } else if (this.pageOriginal.published && !this.page.published) {
+                    // published before, not published now
+                    publishMutation = PageUnpublishMutation;
+                }
+
+                if (publishMutation) {
+                    await this.$apollo.mutate({
+                        mutation: publishMutation,
+                        variables: {
+                            pageId: this.pageId,
+                        },
+                    });
+                }
 
                 this.stateEvent('SAVED');
 

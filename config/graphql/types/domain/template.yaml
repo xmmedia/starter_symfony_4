@@ -8,7 +8,7 @@ Template:
                 type: String!
             name:
                 type: String!
-            default:
+            editMetaDescription:
                 type: Boolean!
             items:
                 type: '[ContentItem!]'

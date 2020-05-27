@@ -6,12 +6,18 @@ namespace App\Model\Page;
 
 use App\Util\Assert;
 use Xm\SymfonyBundle\Model\ValueObject;
+use Xm\SymfonyBundle\Util\Json;
 use Xm\SymfonyBundle\Util\StringUtil;
 
 class Content implements ValueObject
 {
     /** @var array */
     private $content;
+
+    public static function fromJson(string $content): self
+    {
+        return new self(Json::decode($content));
+    }
 
     public static function fromArray(array $content): self
     {
@@ -33,6 +39,7 @@ class Content implements ValueObject
 
         Assert::keyExists($content, 'metaDescription', 'Content must have "metaDescription" key.');
         Assert::nullOrString($content['metaDescription'], '"metaDescription" must be a string or null.');
+        Assert::maxLength($content['metaDescription'], 180, '"metaDescription" cannot be longer than %2$s. Current length is %1$s.');
 
         foreach ($content as $item => $value) {
             if (\in_array($item, ['visibleInSitemap', 'metaDescription'])) {

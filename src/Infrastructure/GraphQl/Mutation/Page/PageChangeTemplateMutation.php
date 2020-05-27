@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\GraphQl\Mutation\Page;
 
-use App\Model\Page\Command\ChangePagePath;
 use App\Model\Page\Command\ChangePageTemplate;
 use App\Model\Page\PageId;
-use App\Model\Page\Path;
 use App\Model\Page\Template;
 use App\Projection\Page\PageFinder;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;

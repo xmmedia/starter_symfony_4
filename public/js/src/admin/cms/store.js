@@ -1,17 +1,15 @@
+import find from 'lodash/find';
 import apolloProvider from '@/common/apollo';
-import { GetTemplatesQuery } from '@/admin/queries/template.query.graphql';
+import { GetTemplatesQuery } from '@/admin/queries/admin/template.query.graphql';
 
 const state = {
+    rootUrl: process.env.REQUEST_CONTEXT_SCHEME+'://'+process.env.REQUEST_CONTEXT_HOST,
     templates: null,
 };
 
 const getters = {
-    defaultTemplate (state) {
-        if (!state.templates) {
-            return null;
-        }
-
-        return state.templates.filter((template) => template.default)[0].template;
+    templateConfig: (state) => (template) => {
+        return find(state.templates, { template });
     },
 };
 

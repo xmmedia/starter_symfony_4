@@ -466,7 +466,7 @@
                             "deprecationReason": null
                         },
                         {
-                            "name": "default",
+                            "name": "editMetaDescription",
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",

@@ -11,10 +11,8 @@ use App\Model\Page\Path;
 use App\Model\Page\Template;
 use App\Model\Page\Title;
 use App\Projection\Page\PageFinder;
-use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xm\SymfonyBundle\Util\Json;
 
 class PageAddMutation implements MutationInterface
 {
@@ -32,13 +30,13 @@ class PageAddMutation implements MutationInterface
         $this->pageFinder = $pageFinder;
     }
 
-    public function __invoke(Argument $args): array
+    public function __invoke(array $page): array
     {
-        $pageId = PageId::fromString($args['pageId']);
-        $path = Path::fromUserString($args['path']);
-        $template = Template::fromString($args['template']);
-        $title = Title::fromString($args['title']);
-        $content = Content::fromArray(Json::decode($args['content']));
+        $pageId = PageId::fromString($page['pageId']);
+        $path = Path::fromUserString($page['path']);
+        $template = Template::fromString($page['template']);
+        $title = Title::fromString($page['title']);
+        $content = Content::fromJson($page['content']);
 
         $this->commandBus->dispatch(
             AddPage::to($pageId, $path, $template, $title, $content)

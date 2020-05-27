@@ -9,10 +9,8 @@ use App\Model\Page\Content;
 use App\Model\Page\PageId;
 use App\Model\Page\Title;
 use App\Projection\Page\PageFinder;
-use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xm\SymfonyBundle\Util\Json;
 
 class PageUpdateMutation implements MutationInterface
 {
@@ -30,11 +28,11 @@ class PageUpdateMutation implements MutationInterface
         $this->pageFinder = $pageFinder;
     }
 
-    public function __invoke(Argument $args): array
+    public function __invoke(array $page): array
     {
-        $pageId = PageId::fromString($args['pageId']);
-        $title = Title::fromString($args['title']);
-        $content = Content::fromArray(Json::decode($args['content']));
+        $pageId = PageId::fromString($page['pageId']);
+        $title = Title::fromString($page['title']);
+        $content = Content::fromJson($page['content']);
 
         $this->commandBus->dispatch(
             UpdatePage::to($pageId, $title, $content)

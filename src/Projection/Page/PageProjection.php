@@ -148,9 +148,14 @@ class PageProjection implements ReadModelProjection
      */
     public static function generateLastModified(AggregateChanged $event): array
     {
+        $issuedBy = null;
+        if ('cli' !== $event->metadata()['issuedBy']) {
+            $issuedBy = $event->metadata()['issuedBy'];
+        }
+
         return [
             'last_modified'    => $event->createdAt(),
-            'last_modified_by' => 'cli' !== $event->metadata()['issuedBy'] ?: null,
+            'last_modified_by' => $issuedBy,
         ];
     }
 }

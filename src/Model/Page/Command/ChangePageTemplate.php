@@ -14,7 +14,7 @@ final class ChangePageTemplate extends Command
     public static function to(PageId $pageId, Template $template): self
     {
         return new self([
-            'pageId' => $pageId->toString(),
+            'pageId'   => $pageId->toString(),
             'template' => $template->toString(),
         ]);
     }

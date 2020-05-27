@@ -2,7 +2,7 @@ query GetTemplatesQuery {
     Templates {
         template
         name
-        default
+        editMetaDescription
         items {
             item
             name

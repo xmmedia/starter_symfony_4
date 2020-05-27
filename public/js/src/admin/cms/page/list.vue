@@ -24,7 +24,9 @@
                     <router-link :to="{ name: 'admin-page-edit', params: { pageId: page.pageId } }">
                         {{ page.title }}
                     </router-link>
-                    <div class="text-xs text-gray-500">{{ page.path }}</div>
+                    <a :href="$store.state.cms.rootUrl+page.path"
+                       class="block text-xs text-gray-500"
+                       target="_blank">{{ page.path }}</a>
 
                     <page-list v-if="'/' !== page.path && pagesInPath(pages, page.path).length > 0"
                                :pages="pages"
@@ -47,7 +49,7 @@ import stateMixin from '@/common/state_mixin';
 import pageList from './component/page_list';
 import { pagesInPath } from './component/pages_in_path';
 
-import { GetPagesQuery } from '@/admin/queries/page.query.graphql';
+import { GetPagesQuery } from '@/admin/queries/admin/page.query.graphql';
 
 const stateMachine = Machine({
     id: 'component',
