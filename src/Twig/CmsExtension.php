@@ -40,6 +40,10 @@ class CmsExtension extends AbstractExtension
             }
         }
 
+        if (!array_key_exists($item, $page->content())) {
+            return null;
+        }
+
         return $page->content()[$item]['value'];
     }
 }

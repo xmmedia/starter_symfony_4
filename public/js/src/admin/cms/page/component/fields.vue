@@ -99,11 +99,13 @@ import slugify from 'slugify';
 import some from 'lodash/some';
 import { mapState } from 'vuex';
 import itemText from '../../item/text';
+import itemTextarea from '../../item/textarea';
 import itemHtml from '../../item/html';
 
 export default {
     components: {
         itemText,
+        itemTextarea,
         itemHtml,
     },
 
@@ -147,27 +149,17 @@ export default {
                 return;
             }
 
-            for (const item of this.template.items) {
-                this.page.content[item.item] = {
-                    type: item.type,
-                    value: null,
-                };
-            }
-
-            for (const key of Object.keys(this.page.content)) {
-                if (['metaDescription', 'visibleInSitemap'].includes(key)) {
-                    continue;
-                }
-
-                if (!some(this.template.items, { item: key })) {
-                    delete this.page.content[key];
-                }
-            }
+            this.updatePageContentFromTemplate();
         },
     },
 
     beforeMount () {
         this.page = this.value;
+
+        if (this.page.template) {
+            // do this on load as the page may have changed since the last time it was edited
+            this.updatePageContentFromTemplate();
+        }
     },
 
     updated () {
@@ -185,6 +177,25 @@ export default {
                 this.page.path = this.parentPath.substring(1)+'/'+slug;
             }
         },
+
+        updatePageContentFromTemplate () {
+            for (const item of this.template.items) {
+                this.page.content[item.item] = {
+                    type: item.type,
+                    value: null,
+                };
+            }
+
+            for (const key of Object.keys(this.page.content)) {
+                if (['metaDescription', 'visibleInSitemap'].includes(key)) {
+                    continue;
+                }
+
+                if (!some(this.template.items, { item: key })) {
+                    delete this.page.content[key];
+                }
+            }
+        }
     },
 }
 </script>
