@@ -8,6 +8,7 @@ query GetTemplatesQuery {
             name
             type
             required
+            help
             config
         }
     }

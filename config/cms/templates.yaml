@@ -7,7 +7,7 @@ cms:
                     type: text
                     name: 'Page Title'
                     required: true
-# @todo help
+                    help: 'Displayed in the main page heading.'
                     params:
                         - [min, 3]
                         - [max, 25]

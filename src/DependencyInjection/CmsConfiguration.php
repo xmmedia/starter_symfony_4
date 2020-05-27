@@ -53,6 +53,7 @@ class CmsConfiguration implements ConfigurationInterface
                                             ->info('The name of the item to be shown to the user.')
                                         ->end()
                                         ->scalarNode('required')->defaultFalse()->end()
+                                        ->scalarNode('help')->end()
                                         ->variableNode('params')->defaultValue([])->end()
                                     ->end()
                                 ->end()

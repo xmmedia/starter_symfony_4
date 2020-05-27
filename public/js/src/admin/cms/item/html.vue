@@ -4,6 +4,8 @@
         <input :id="id"
                v-model="currentValue"
                type="text">
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <div v-if="config.help" class="field-help" v-html="config.help"></div>
     </div>
 </template>
 

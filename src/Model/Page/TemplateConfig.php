@@ -26,17 +26,11 @@ class TemplateConfig implements ValueObject
         $this->config = $config;
     }
 
-    public function default(): bool
-    {
-        return $this->config['default'];
-    }
-
     public function toArray(): array
     {
         return [
             'template'            => $this->template,
             'name'                => $this->config['name'],
-            'default'             => $this->config['default'],
             'editMetaDescription' => $this->config['edit_meta_description'],
             'items'               => array_map(
                 function (string $item, array $config): array {
@@ -45,6 +39,7 @@ class TemplateConfig implements ValueObject
                         'name'     => $config['name'],
                         'type'     => $config['type'],
                         'required' => $config['required'],
+                        'help'     => $config['help'],
                         'config'   => Json::encode($config),
                     ];
                 },

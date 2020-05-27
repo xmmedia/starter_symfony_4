@@ -27,6 +27,8 @@ ContentItem:
                 type: String!
             required:
                 type: Boolean!
+            help:
+                type: String
             config:
                 type: String!
                 description: 'JSON string. Includes the field settings, such as min and max.'
