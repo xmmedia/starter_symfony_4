@@ -25,7 +25,7 @@ export default {
 
         if (!response.ok) {
             if (console) {
-                console.error('The svg file at '+this.src+' could not be loaded.');
+                console.error('The SVG icons file at '+this.src+' could not be loaded.');
             }
 
             return;
