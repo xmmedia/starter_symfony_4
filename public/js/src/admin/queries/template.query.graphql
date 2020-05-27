@@ -4,6 +4,7 @@ query GetTemplatesQuery {
         name
         default
         items {
+            item
             name
             type
             required

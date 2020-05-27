@@ -40,7 +40,8 @@ class TemplateConfig implements ValueObject
             'items'    => array_map(
                 function (string $item, array $config): array {
                     return [
-                        'name'     => $item,
+                        'item'     => $item,
+                        'name' => $config['name'],
                         'type'     => $config['type'],
                         'required' => $config['required'],
                         'config'   => Json::encode($config),

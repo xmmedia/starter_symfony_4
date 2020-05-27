@@ -19,6 +19,8 @@ ContentItem:
         description: 'The configuration for a content item.'
         fieldsDefaultPublic: '@=hasRole("ROLE_USER")'
         fields:
+            item:
+                type: String!
             name:
                 type: String!
             type:

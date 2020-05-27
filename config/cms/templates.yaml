@@ -6,12 +6,14 @@ cms:
             items:
                 pageTitle:
                     type: text
+                    name: 'Page Title'
                     required: true
                     params:
                         - [min, 3]
                         - [max, 25]
                 content:
                     type: html
+                    name: 'Content'
 
         default/index.html.twig:
             name: 'Home Page'
