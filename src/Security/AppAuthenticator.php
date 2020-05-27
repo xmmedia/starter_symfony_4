@@ -23,7 +23,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
     use TargetPathTrait;
 
     // @todo-symfony
-    public const DEFAULT_REDIRECT = '/';
+    public const DEFAULT_REDIRECT = '/admin';
 
     /** @var RouterInterface */
     private $router;
