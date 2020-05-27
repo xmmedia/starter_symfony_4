@@ -566,3 +566,11 @@
         <admin-delete record-desc="test" />
     </div>
 </template>
+
+<script>
+export default {
+    metaInfo: {
+        title: 'Admin Pattern Library',
+    },
+}
+</script>
