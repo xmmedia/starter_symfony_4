@@ -98,6 +98,22 @@ class PageProjection implements ReadModelProjection
                         $types
                     );
                 },
+                Event\PageTemplateWasChanged::class => function (
+                    array $state,
+                    Event\PageTemplateWasChanged $event
+                ) use ($types): void {
+                    /** @var PageReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->aggregateId(),
+                        [
+                            'template' => $event->newTemplate()->toString(),
+                        ] + self::generateLastModified($event),
+                        $types
+                    );
+                },
 
                 Event\PageWasDeleted::class => function (
                     array $state,
@@ -122,8 +138,8 @@ class PageProjection implements ReadModelProjection
     public static function parseEvent(AggregateChanged $event): array
     {
         return [
-            'title'            => $event->title()->toString(),
-            'content'          => $event->content()->toArray(),
+            'title'   => $event->title()->toString(),
+            'content' => $event->content()->toArray(),
         ] + self::generateLastModified($event);
     }
 

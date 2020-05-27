@@ -116,7 +116,28 @@ class Page extends AggregateRoot implements Entity
             throw new \InvalidArgumentException(sprintf('The path "%s" is not unique', $newPath));
         }
 
-        $this->recordThat(Event\PagePathWasChanged::now($this->pageId, $newPath, $this->path));
+        $this->recordThat(
+            Event\PagePathWasChanged::now($this->pageId, $newPath, $this->path)
+        );
+    }
+
+    public function changeTemplate(Template $newTemplate): void
+    {
+        if ($this->deleted) {
+            throw Exception\PageIsDeleted::triedTo($this->pageId, 'change path');
+        }
+
+        if ($newTemplate->sameValueAs($this->template)) {
+            return;
+        }
+
+        $this->recordThat(
+            Event\PageTemplateWasChanged::now(
+                $this->pageId,
+                $newTemplate,
+                $this->template
+            )
+        );
     }
 
     public function delete(): void
@@ -158,6 +179,11 @@ class Page extends AggregateRoot implements Entity
     protected function whenPagePathWasChanged(Event\PagePathWasChanged $event): void
     {
         $this->path = $event->newPath();
+    }
+
+    protected function whenPageTemplateWasChanged(Event\PageTemplateWasChanged $event): void
+    {
+        $this->template = $event->newTemplate();
     }
 
     protected function whenPageWasDeleted(Event\PageWasDeleted $event): void

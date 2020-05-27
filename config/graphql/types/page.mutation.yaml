@@ -31,6 +31,16 @@ PageMutation:
                     pageId: String!
                     newPath: String!
 
+            PageChangeTemplate:
+                type: PageMutationPayload!
+                description: 'Change the path to a Page.'
+                public: '@=hasRole("ROLE_USER")'
+                access: '@=hasRole("ROLE_USER")'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\Page\\PageChangeTemplateMutation", [args["pageId"], args["newTemplate"]])'
+                args:
+                    pageId: String!
+                    newTemplate: String!
+
             PagePublish:
                 type: PageMutationPayload!
                 description: 'Publish a Page.'
