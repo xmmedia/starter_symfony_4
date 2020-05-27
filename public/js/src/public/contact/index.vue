@@ -5,7 +5,7 @@
                 <form-error v-if="$v.$anyError" />
 
                 <div class="field-wrap">
-                    <label for="name">Your Name</label>
+                    <label for="name">Name</label>
 
                     <field-error v-if="$v.name.$error">
                         <template v-if="!$v.name.required">
