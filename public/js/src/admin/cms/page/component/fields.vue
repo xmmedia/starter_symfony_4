@@ -21,7 +21,7 @@
                 <component :is="'item-'+item.type"
                            v-model="page.content[item.item].value"
                            :config="item"
-                           :v="v.content[item.item]" />
+                           :v="v.content[item.item].value" />
             </div>
 
             <div class="field-wrap">
@@ -94,6 +94,7 @@
 
 <script>
 import slugify from 'slugify';
+import has from 'lodash/has';
 import some from 'lodash/some';
 import { mapState } from 'vuex';
 import fieldError from '../../field_error';
@@ -184,10 +185,12 @@ export default {
 
         updatePageContentFromTemplate () {
             for (const item of this.template.items) {
-                this.page.content[item.item] = {
-                    type: item.type,
-                    value: null,
-                };
+                if (!has(this.page.content, item.item)) {
+                    this.page.content[item.item] = {
+                        type: item.type,
+                        value: null,
+                    };
+                }
             }
 
             for (const key of Object.keys(this.page.content)) {

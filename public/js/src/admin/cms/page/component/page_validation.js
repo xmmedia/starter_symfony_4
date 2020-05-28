@@ -44,7 +44,9 @@ export default function (template, edit) {
                 itemValidation.maxLength = maxLength(item.config.max);
             }
 
-            validation.content[item.item] = itemValidation;
+            validation.content[item.item] = {
+                value: itemValidation,
+            };
         }
     }
 

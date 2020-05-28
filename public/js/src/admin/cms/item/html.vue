@@ -12,8 +12,13 @@
 
 <script>
 import cuid from 'cuid';
+import fieldError from '../field_error';
 
 export default {
+    components: {
+        fieldError,
+    },
+
     props: {
         value: {
             type: String,
