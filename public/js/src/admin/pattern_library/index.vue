@@ -151,18 +151,24 @@
                 </div>
                 <fieldset class="field-wrap-radios">
                     <legend>Horizontal radios</legend>
-                    <input id="pattern-library-radio-01"
-                           type="radio"
-                           name="pattern-library-radio-1">
-                    <label for="pattern-library-radio-01">Option 1</label>
-                    <input id="pattern-library-radio-02"
-                           type="radio"
-                           name="pattern-library-radio-1">
-                    <label for="pattern-library-radio-02">Option 2</label>
-                    <input id="pattern-library-radio-03"
-                           type="radio"
-                           name="pattern-library-radio-1">
-                    <label for="pattern-library-radio-03">Option 3</label>
+                    <div class="field-wrap-radio inline">
+                        <input id="pattern-library-radio-01"
+                               type="radio"
+                               name="pattern-library-radio-1">
+                        <label for="pattern-library-radio-01">Option 1</label>
+                    </div>
+                    <div class="field-wrap-radio inline">
+                        <input id="pattern-library-radio-02"
+                               type="radio"
+                               name="pattern-library-radio-1">
+                        <label for="pattern-library-radio-02">Option 2</label>
+                    </div>
+                    <div class="field-wrap-radio inline">
+                        <input id="pattern-library-radio-03"
+                               type="radio"
+                               name="pattern-library-radio-1">
+                        <label for="pattern-library-radio-03">Option 3</label>
+                    </div>
                 </fieldset>
 
                 <fieldset class="field-wrap-radios">
@@ -179,7 +185,7 @@
                                name="pattern-library-radio-2">
                         <label for="pattern-library-radio-05">Radio button</label>
                     </div>
-                    <div>
+                    <div class="field-wrap-radio">
                         <input id="pattern-library-radio-06"
                                type="radio"
                                name="pattern-library-radio-2">

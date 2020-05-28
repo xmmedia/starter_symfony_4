@@ -30,12 +30,9 @@ select {
         @apply border-gray-500 bg-gray-100;
     }
 }
-[type=checkbox] {
-    @apply mr-2;
-}
 // fixes alignment of radio to label
 [type=radio] {
-    @apply relative mr-1;
+    @apply relative;
     top: -1px;
 }
 // make sure everything shows a pointer on hover
@@ -57,27 +54,20 @@ select {
     }
 }
 // flex-wrap will ensure help is on a separate line
-.field-wrap-checkbox {
+.field-wrap-radio, .field-wrap-checkbox {
     @apply flex flex-wrap items-center mb-4;
     label {
-        @apply inline-block mr-4 mb-0;
+        @apply inline-block mb-0 pl-2;
     }
-}
-
-.field-wrap-radio {
-    @apply mb-1;
 }
 
 .field-wrap-radios, .field-wrap-checkboxes {
     @apply mb-4;
-    label {
-        @apply inline-block mr-4 mb-0;
-    }
     legend {
         @apply mb-1;
     }
-    .field-wrap-checkbox {
-        @apply mb-1;
+    .field-wrap-radio, .field-wrap-checkbox {
+        @apply mb-1 mr-6;
     }
 }
 
