@@ -1,6 +1,7 @@
 <template>
     <div class="field-wrap">
         <label :for="id">{{ config.name }}</label>
+        <field-error :v="v" />
         <textarea :id="id"
                   v-model="currentValue"
                   :rows="config.config.rows"
@@ -20,6 +21,10 @@ export default {
             default: null,
         },
         config: {
+            type: Object,
+            required: true,
+        },
+        v: {
             type: Object,
             required: true,
         },

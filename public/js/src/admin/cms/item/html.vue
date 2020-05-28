@@ -1,6 +1,7 @@
 <template>
     <div class="field-wrap">
         <label :for="id">{{ config.name }}</label>
+        <field-error :v="v" />
         <input :id="id"
                v-model="currentValue"
                type="text">
@@ -19,6 +20,10 @@ export default {
             default: null,
         },
         config: {
+            type: Object,
+            required: true,
+        },
+        v: {
             type: Object,
             required: true,
         },

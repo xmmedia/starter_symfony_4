@@ -1,11 +1,5 @@
 <template>
     <div>
-        <!--<portal to="header-actions">
-            <div class="header-secondary_actions">
-                <button type="button" class="button-link" @click="refresh">Refresh</button>
-            </div>
-        </portal>-->
-
         <loading-spinner v-if="state.matches('loading')">
             Loading pages…
         </loading-spinner>

@@ -15,15 +15,15 @@
 
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
             <div class="flex">
-                <h2 class="mt-0">{{ page.title }}</h2>
-                <div class="text-right flex-grow">
+                <h2 class="mt-0">Page: {{ pageOriginal.title }}</h2>
+                <div class="text-right flex-grow text-sm">
                     <a :href="pageUrl" target="_blank">View page</a>
                 </div>
             </div>
 
             <form-error v-if="$v.$anyError" />
 
-            <page-fields v-model="page" :edit="true" />
+            <page-fields v-model="page" :edit="true" :v="$v.page" />
 
             <admin-button :saving="state.matches('ready.saving')"
                           :saved="state.matches('ready.saved')"
@@ -41,6 +41,7 @@ import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import pageFields from './component/fields';
 import pageDefaults from './component/page_defaults';
+import pageValidation from './component/page_validation';
 
 import { GetPageQuery } from '@/admin/queries/admin/page.query.graphql';
 import {
@@ -170,7 +171,9 @@ export default {
     },
 
     validations () {
-        return {};
+        return {
+            page: pageValidation(this.$store.getters['cms/templateConfig'](this.page.template), true),
+        };
     },
 
     methods: {

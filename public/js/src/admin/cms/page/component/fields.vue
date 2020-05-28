@@ -2,13 +2,7 @@
     <div>
         <div v-if="!edit" class="field-wrap">
             <label for="page-template">Template</label>
-
-            <!--<field-error v-if="v.$error">
-                <template v-if="!v.required">
-                    An template is required.
-                </template>
-            </field-error>-->
-
+            <field-error :v="v.template" />
             <select id="page-template" v-model="page.template">
                 <option :value="null">– Select template –</option>
                 <option v-for="_template in templates"
@@ -26,11 +20,13 @@
             <div v-for="(item,i) in template.items" :key="i">
                 <component :is="'item-'+item.type"
                            v-model="page.content[item.item].value"
-                           :config="item" />
+                           :config="item"
+                           :v="v.content[item.item]" />
             </div>
 
             <div class="field-wrap">
                 <label for="page-title">Title</label>
+                <field-error :v="v.title" />
                 <input id="page-title"
                        v-model="page.title"
                        type="text"
@@ -45,10 +41,11 @@
 
             <div v-if="template.editMetaDescription" class="field-wrap">
                 <label for="page-metaDescription">Meta Description</label>
+                <field-error :v="v.content.metaDescription" />
                 <textarea id="page-metaDescription"
                           v-model="page.content.metaDescription"
-                          class="h-20"
-                          maxlength="180" />
+                          rows="3"
+                          :maxlength="v.content.metaDescription.$params.maxLength.max" />
                 <div class="field-help">
                     This maybe shown in search results.
                     Without it, search engines will pick a piece of the page they feel is relevant.
@@ -69,6 +66,7 @@
 
         <div class="field-wrap" :class="{ 'text-xs mb-2' : edit }">
             <label for="page-path">Path</label>
+            <field-error v-if="!edit" :v="v.path" />
             <div v-if="!edit" class="flex">
                 <div class="mr-1">/</div>
                 <input id="page-path"
@@ -98,12 +96,14 @@
 import slugify from 'slugify';
 import some from 'lodash/some';
 import { mapState } from 'vuex';
+import fieldError from '../../field_error';
 import itemText from '../../item/text';
 import itemTextarea from '../../item/textarea';
 import itemHtml from '../../item/html';
 
 export default {
     components: {
+        fieldError,
         itemText,
         itemTextarea,
         itemHtml,
@@ -121,6 +121,10 @@ export default {
         edit: {
             type: Boolean,
             default: false,
+        },
+        v: {
+            type: Object,
+            required: true,
         },
     },
 
@@ -195,7 +199,7 @@ export default {
                     delete this.page.content[key];
                 }
             }
-        }
+        },
     },
 }
 </script>

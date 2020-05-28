@@ -18,7 +18,7 @@
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
             <form-error v-if="$v.$anyError" />
 
-            <page-fields v-model="page" :parent-path="parentPage.path" />
+            <page-fields v-model="page" :parent-path="parentPage.path" :v="$v.page" />
 
             <admin-button :saving="state.matches('ready.saving')"
                           :saved="state.matches('ready.saved')"
@@ -37,6 +37,7 @@ import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import pageFields from './component/fields';
 import pageDefaults from './component/page_defaults';
+import pageValidation from '@/admin/cms/page/component/page_validation';
 
 import { GetPageQuery } from '@/admin/queries/admin/page.query.graphql';
 import {
@@ -145,7 +146,9 @@ export default {
     },
 
     validations () {
-        return {};
+        return {
+            page: pageValidation(this.$store.getters['cms/templateConfig'](this.page.template), false),
+        };
     },
 
     mounted () {
