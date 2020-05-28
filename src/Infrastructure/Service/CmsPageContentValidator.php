@@ -29,11 +29,12 @@ class CmsPageContentValidator implements PageContentValidator
 
         foreach ($this->templates[$template->toString()]['items'] as $itemKey => $item) {
             try {
+                Assert::keyExists($data, $itemKey);
+                Assert::isArray($data[$itemKey]);
+                Assert::keyExists($data[$itemKey], 'type');
+                Assert::keyExists($data[$itemKey], 'value');
+
                 if ($item['required'] ?? false) {
-                    Assert::keyExists($data, $itemKey);
-                    Assert::isArray($data[$itemKey]);
-                    Assert::keyExists($data[$itemKey], 'type');
-                    Assert::keyExists($data[$itemKey], 'value');
                     Assert::notEmpty($data[$itemKey]['value']);
                 }
 
