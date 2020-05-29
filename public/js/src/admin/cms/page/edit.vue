@@ -1,5 +1,5 @@
 <template>
-    <div class="form-wrap">
+    <div class="form-wrap max-w-3xl">
         <portal to="header-actions">
             <div class="header-secondary_actions">
                 <router-link :to="{ name: 'admin-page' }">Return to list</router-link>

@@ -2,9 +2,9 @@
     <div class="field-wrap">
         <label :for="id">{{ config.name }}</label>
         <field-error :v="v" />
-        <input :id="id"
-               v-model="currentValue"
-               type="text">
+        <editor v-model="currentValue"
+                :init="tinymceConfig"
+                tinymce-script-src="/js/src/tinymce/tinymce.min.js" />
         <!-- eslint-disable-next-line vue/no-v-html -->
         <div v-if="config.help" class="field-help" v-html="config.help"></div>
     </div>
@@ -13,10 +13,13 @@
 <script>
 import cuid from 'cuid';
 import fieldError from '../field_error';
+import editor from '@tinymce/tinymce-vue';
+import tinymceConfig from './tinymce_config';
 
 export default {
     components: {
         fieldError,
+        editor,
     },
 
     props: {
@@ -38,7 +41,19 @@ export default {
         return {
             currentValue: null,
             id: cuid(),
+            publicCssPath: null,
         };
+    },
+
+    computed: {
+        tinymceConfig () {
+            return {
+                ...tinymceConfig,
+                content_css: [
+                    this.publicCssPath,
+                ],
+            };
+        },
     },
 
     watch: {
@@ -49,10 +64,26 @@ export default {
 
     beforeMount () {
         this.currentValue = this.value;
+
+        this.findPublicCssPath();
     },
 
     updated () {
         // this.currentValue = this.value;
+    },
+
+    methods: {
+        async findPublicCssPath () {
+            if (!module.hot) {
+                const response = await fetch('/build/manifest.json');
+                if (response.ok) {
+                    const manifest = await response.json();
+                    this.publicCssPath = manifest['build/public.css'];
+                }
+            } else {
+                this.publicCssPath = __webpack_public_path__+'public.css';
+            }
+        },
     },
 };
 </script>
