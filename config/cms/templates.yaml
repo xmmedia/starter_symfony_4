@@ -21,5 +21,5 @@ cms:
                         - [rows, 5]
 
         default/index.html.twig:
-            name: 'Home Page'
+            name: 'Homepage'
             # edit_meta_description: false
