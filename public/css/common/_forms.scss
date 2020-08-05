@@ -57,7 +57,7 @@ select {
 .field-wrap-radio, .field-wrap-checkbox {
     @apply flex flex-wrap items-center mb-4;
     label {
-        @apply inline-block mb-0 pl-2;
+        @apply inline-block mb-0 pl-2 whitespace-no-wrap;
     }
 }
 
