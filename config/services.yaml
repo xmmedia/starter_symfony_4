@@ -4,9 +4,6 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    # hard to find docs on this, but this is the closest I could find:
-    # https://twitter.com/nicolasgrekas/status/929032213815005184
-    container.dumper.inline_class_loader: true
     locale: 'en'
     router.request_context.host: '%env(REQUEST_CONTEXT_HOST)%'
     router.request_context.scheme: '%env(REQUEST_CONTEXT_SCHEME)%'
