@@ -7,10 +7,6 @@ parameters:
 
 doctrine:
     dbal:
-        # configure these for your database server
-        driver: 'pdo_mysql'
-        server_version: '5.7'
-
         url: '%env(DATABASE_URL)%'
 
         types:
