@@ -68,8 +68,7 @@ deploy:
     # Install node/JS dependencies
     - yarn install --non-interactive --frozen-lockfile
     # check for JS security issues in libs
-    # see error codes here: https://classic.yarnpkg.com/en/docs/cli/audit/
-    - yarn audit --level moderate --groups dependencies || [ $? -ge 8 ] exit $?
+    - yarn audit:moderate
     - yarn build
     # add .revision file
     - git rev-parse --verify --short HEAD > .revision

@@ -20,6 +20,7 @@
     "watch": "encore dev --watch",
     "build": "encore production",
     "stats": "encore production --profile --json > webpack-stats.json",
+    "audit:moderate": "audit-ci --moderate",
     "browserlist": "browserslist"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "apollo-link": "^1.2.6",
     "apollo-link-error": "^1.1.11",
     "apollo-link-http": "^1.5.9",
+    "audit-ci": "^3.1.1",
     "clipboard": "^2.0.4",
     "core-js": "^3.4.3",
     "cuid": "^2.1.6",
