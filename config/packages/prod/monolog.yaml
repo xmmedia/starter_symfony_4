@@ -48,3 +48,20 @@ monolog:
             handler: deprecation
             max_level: info
             channels: ['php']
+
+services:
+    Symfony\Bridge\Monolog\Processor\WebProcessor:
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: monolog.processor }
+        arguments:
+            $extraFields:
+                referrer:    'HTTP_REFERER'
+                http_method: 'REQUEST_METHOD'
+                ip:          'REMOTE_ADDR'
+                user_agent:  'HTTP_USER_AGENT'
+
+    Xm\SymfonyBundle\Infrastructure\Logger\GraphQlProcessor:
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: monolog.processor }

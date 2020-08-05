@@ -9607,16 +9607,16 @@
         },
         {
             "name": "ua-parser/uap-php",
-            "version": "v3.9.10",
+            "version": "v3.9.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ua-parser/uap-php.git",
-                "reference": "4f9483855d46bc473e16af2cbc29dea1d624562b"
+                "reference": "8161581afaed42b1a5dd0e3ba1b01464cd9138fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ua-parser/uap-php/zipball/4f9483855d46bc473e16af2cbc29dea1d624562b",
-                "reference": "4f9483855d46bc473e16af2cbc29dea1d624562b",
+                "url": "https://api.github.com/repos/ua-parser/uap-php/zipball/8161581afaed42b1a5dd0e3ba1b01464cd9138fa",
+                "reference": "8161581afaed42b1a5dd0e3ba1b01464cd9138fa",
                 "shasum": ""
             },
             "require": {
@@ -9662,7 +9662,7 @@
                 }
             ],
             "description": "A multi-language port of Browserscope's user agent parser.",
-            "time": "2020-08-05T16:43:20+00:00"
+            "time": "2020-08-05T20:30:08+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -9877,16 +9877,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.40",
+            "version": "v1.0.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "9a79cc83609435714442ddba0c1fca9acebd2d60"
+                "reference": "1e7e36be229b3e8d1d484d56d2e339666614aed3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/9a79cc83609435714442ddba0c1fca9acebd2d60",
-                "reference": "9a79cc83609435714442ddba0c1fca9acebd2d60",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/1e7e36be229b3e8d1d484d56d2e339666614aed3",
+                "reference": "1e7e36be229b3e8d1d484d56d2e339666614aed3",
                 "shasum": ""
             },
             "require": {
@@ -9950,7 +9950,7 @@
             ],
             "description": "Provides classes & services typically used in XM Media Symfony projects.",
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
-            "time": "2020-07-21T02:26:25+00:00"
+            "time": "2020-08-05T21:21:55+00:00"
         },
         {
             "name": "zendframework/zend-code",
