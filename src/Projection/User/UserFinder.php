@@ -7,7 +7,7 @@ namespace App\Projection\User;
 use App\Entity\User;
 use App\Model\User\UserId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Xm\SymfonyBundle\Model\Email;
 
 /**

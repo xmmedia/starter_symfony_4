@@ -8,7 +8,7 @@ use App\Entity\Page;
 use App\Model\Page\PageId;
 use App\Model\Page\Path;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Page|null find(PageId|string $id, $lockMode = null, $lockVersion = null)

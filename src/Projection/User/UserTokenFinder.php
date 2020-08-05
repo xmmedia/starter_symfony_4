@@ -7,7 +7,7 @@ namespace App\Projection\User;
 use App\Entity\UserToken;
 use App\Model\User\Token;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method UserToken|null find(Token|string $id, $lockMode = null, $lockVersion = null)
