@@ -1,7 +1,7 @@
 /* purgecss start ignore */
+
 @tailwind base;
 @tailwind components;
-/* purgecss end ignore */
 
 $header-height: 3.72rem;
 
@@ -35,5 +35,7 @@ body {
     "admin/sidebar_nav_submenu",
     "admin/dashboard",
     "admin/password";
+
+/* purgecss end ignore */
 
 @tailwind utilities;

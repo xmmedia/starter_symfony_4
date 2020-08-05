@@ -1,7 +1,7 @@
 /* purgecss start ignore */
+
 @tailwind base;
 @tailwind components;
-/* purgecss end ignore */
 
 @import "common/common";
 
@@ -25,5 +25,7 @@ html {
 
 // page specific
 //@import ;
+
+/* purgecss end ignore */
 
 @tailwind utilities;
