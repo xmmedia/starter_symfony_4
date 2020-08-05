@@ -26,4 +26,5 @@ return [
     Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true],
     Xm\CmsBundle\XmCmsBundle::class => ['all' => true],
     Xm\SymfonyBundle\XmSymfonyBundle::class => ['all' => true],
+    Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
 ];
