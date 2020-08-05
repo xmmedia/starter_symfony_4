@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^5.1.2",
-    "@symfony/webpack-encore": "^0.30.2",
+    "@symfony/webpack-encore": "^0.29.1",
     "@vue/cli-plugin-babel": "^4.1.2",
     "@vue/cli-plugin-e2e-cypress": "^4.1.2",
     "@vue/cli-plugin-eslint": "^4.1.2",
@@ -83,7 +83,7 @@
     "glob-all": "^3.1.0",
     "node-sass": "^4.9.4",
     "postcss-loader": "^3.0.0",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^7.0.0",
     "stylelint": "^13.0.0",
     "stylelint-config-recommended-scss": "^4.1.0",
     "stylelint-scss": "^3.3.2",
