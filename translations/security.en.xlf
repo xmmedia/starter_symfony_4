@@ -16,7 +16,7 @@
             </trans-unit>
             <trans-unit id="4">
                 <source>Invalid credentials.</source>
-                <target>The email and password combination are incorrect.</target>
+                <target>The email and password combination are incorrect. Please try again.</target>
             </trans-unit>
             <trans-unit id="7">
                 <source>Invalid CSRF token.</source>
@@ -24,7 +24,7 @@
             </trans-unit>
             <trans-unit id="12">
                 <source>Username could not be found.</source>
-                <target>Your account could not be found.</target>
+                <target>The email and password combination are incorrect. Please try again.</target>
             </trans-unit>
             <trans-unit id="13">
                 <source>Account is inactive.</source>
