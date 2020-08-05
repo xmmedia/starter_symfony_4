@@ -43,6 +43,8 @@ module.exports = function (Encore) {
         .enableVueLoader((options) => {
             options.transpileOptions = {
                 transforms: {
+                    // required to use gql within template tags
+                    // (such as with the ApolloQuery component)
                     dangerousTaggedTemplateString: true,
                 },
             };
