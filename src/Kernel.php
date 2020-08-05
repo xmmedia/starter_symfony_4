@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\DependencyInjection\CmsExtension;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\Config\Resource\FileResource;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
@@ -29,21 +27,21 @@ class Kernel extends BaseKernel
     }
 
     protected function configureContainer(
-        ContainerBuilder $container,
+        ContainerConfigurator $container,
         LoaderInterface $loader
     ): void {
-        $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));
-        $container->setParameter('container.dumper.inline_class_loader', \PHP_VERSION_ID < 70400 || $this->debug);
-        $container->setParameter('container.dumper.inline_factories', true);
-        $confDir = $this->getProjectDir().'/config';
+        $container->import('../config/{packages}/*.yaml');
+        $container->import('../config/{packages}/'.$this->environment.'/*.yaml');
 
-        $loader->load($confDir.'/{packages}/*'.self::CONFIG_EXTS, 'glob');
-        $loader->load($confDir.'/{packages}/'.$this->environment.'/*'.self::CONFIG_EXTS, 'glob');
-        $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
-        $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
+        if (is_file(\dirname(__DIR__).'/config/services.yaml')) {
+            $container->import('../config/{services}.yaml');
+            $container->import('../config/{services}_'.$this->environment.'.yaml');
+        } elseif (is_file($path = \dirname(__DIR__).'/config/services.php')) {
+            (require $path)($container->withPath($path), $this);
+        }
 
-        $container->registerExtension(new CmsExtension());
-        $loader->load($confDir.'/{cms}/*'.self::CONFIG_EXTS, 'glob');
+        $container->extension('xm_cms', []);
+        $container->import('../config/cms/*.yml');
     }
 
     protected function configureRoutes(RoutingConfigurator $routes): void
