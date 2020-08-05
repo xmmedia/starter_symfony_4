@@ -19,7 +19,8 @@
     "lint:css:fix": "stylelint public/css/**/*.scss --fix",
     "watch": "encore dev --watch",
     "build": "encore production",
-    "stats": "encore production --profile --json > webpack-stats.json"
+    "stats": "encore production --profile --json > webpack-stats.json",
+    "browserlist": "browserslist"
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^3.2.2",
