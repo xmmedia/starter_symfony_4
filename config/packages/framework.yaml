@@ -9,8 +9,8 @@ framework:
     session:
         handler_id: 'session.handler.native_file'
         save_path: '%kernel.project_dir%/var/sessions'
-        cookie_secure: true
-        cookie_samesite: 'lax'
+        cookie_secure: auto
+        cookie_samesite: lax
         # configures the length of the string used for the session ID
         # integer; default = 32; valid values = from 22 to 256 (both inclusive)
         sid_length: 128
