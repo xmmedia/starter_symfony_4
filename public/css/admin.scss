@@ -17,6 +17,10 @@ body {
     @apply relative z-0 overflow-x-hidden;
 }
 
+.button-link {
+    @apply font-light;
+}
+
 // load common styles
 @import "common/forms",
     "common/alerts",
