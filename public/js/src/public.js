@@ -38,4 +38,22 @@ window.App = new Vue({
         svgIcons,
         'contact-form': () => import(/* webpackChunkName: "public-contact" */ './public/contact/index'),
     },
+
+    data () {
+        return {
+            showMobileMenu: false,
+        };
+    },
+
+    mounted () {
+        this.$nextTick(() => {
+            window.addEventListener('resize', () => { this.showMobileMenu = false });
+        });
+    },
+
+    methods: {
+        toggleMobileMenu () {
+            this.showMobileMenu = !this.showMobileMenu;
+        },
+    },
 });

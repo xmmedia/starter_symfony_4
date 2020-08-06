@@ -10,6 +10,36 @@
     {{ encore_entry_script_tags('public') }}
 {% endblock %}
 
+{% block header %}
+    <header>
+        <div class="flex flex-wrap justify-between items-center w-content"
+             :class="{ 'header-mobile-open': showMobileMenu }">
+            <a href="{{ path('index') }}">
+                <img src="/images/logo.svg" width="150" alt="{{ 'app.parameter.name'|trans }}">
+            </a>
+
+            <nav class="w-full lg:w-auto">
+                <ul class="flex flex-no-wrap list-none">
+                    <li class="header-nav_item header-nav_item-about"><a href="/about">About</a></li>
+                    <li class="header-nav_item header-nav_item-products"><a href="/about">Products</a></li>
+                    <li class="header-nav_item header-nav_item-contact"><a href="/contact">Contact</a></li>
+
+                    <li v-if="!showMobileMenu" class="header-nav_item header-nav_item-toggle">
+                        <button type="button"
+                                class="button-link"
+                                @click="toggleMobileMenu">+ More</button>
+                    </li>
+                    <li v-else class="header-nav_item header-nav_item-toggle">
+                        <button type="button"
+                                class="button-link"
+                                @click="toggleMobileMenu">– Less</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+{% endblock header %}
+
 {% block body %}
     {#<svg-icons src="{{ asset('build/images/icons-public.svg') }}"></svg-icons>#}
 
