@@ -77,6 +77,8 @@ deploy:
     - TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
     - echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
     - echo "Remote:"; echo $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PORT
+    # add .revision file
+    - git rev-parse --verify --short HEAD > .revision
     # create partial .env file
     - printf "APP_ENV=$APP_ENV\nREQUEST_CONTEXT_HOST=$REQUEST_CONTEXT_HOST\nREQUEST_CONTEXT_SCHEME=$REQUEST_CONTEXT_SCHEME\n" > .env.local && cat .env.local
     # install php dependencies
@@ -87,8 +89,6 @@ deploy:
     - yarn audit:moderate
     - yarn lint:js
     - yarn build
-    # add .revision file
-    - git rev-parse --verify --short HEAD > .revision
     # ensure based paths exist
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/public/uploads"
     # sync files to release directory
