@@ -70,6 +70,7 @@ deploy:
     - yarn install --non-interactive --frozen-lockfile
     # check for JS security issues in libs
     - yarn audit:moderate
+    - yarn lint:js
     - yarn build
     # add .revision file
     - git rev-parse --verify --short HEAD > .revision
