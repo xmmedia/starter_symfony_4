@@ -65,7 +65,7 @@ static:
     # check for security issues in PHP libs
     - php bin/console security:check
     - php bin/console cache:warmup --env=dev
-    - php composer.phar static
+    - php composer.phar static --no-progress src
     - rm -rf var/cache/*
 
 deploy:
