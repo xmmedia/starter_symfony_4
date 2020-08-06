@@ -1,0 +1,9 @@
+$mqs: ();
+@mixin mq($breakpoint) {
+    @if map-has-key($mqs, $breakpoint) {
+        @media (min-width: #{map-get($mqs, $breakpoint)}) { @content; }
+    }
+    @else {
+        @media (min-width: $breakpoint) { @content }
+    }
+}
