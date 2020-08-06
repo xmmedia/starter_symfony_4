@@ -20,6 +20,7 @@ variables:
 
 before_script:
   # setup SSH & private key
+  - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - ssh-keyscan -p $REMOTE_PORT $REMOTE_SERVER >> ~/.ssh/known_hosts
   # the following line is optional (likely remove previous line)
