@@ -89,6 +89,7 @@
         @apply hidden;
     }
 
+    /* stylelint-disable-next-line no-descending-specificity */
     a {
         @apply text-white;
     }
