@@ -10,7 +10,10 @@
         <form method="post" @submit.prevent="submit">
             <form-error v-if="$v.$anyError" />
 
-            <field-email v-model="email" :v="$v.email" autofocus />
+            <field-email v-model="email"
+                         :v="$v.email"
+                         autocomplete="off"
+                         autofocus />
 
             <field-password v-model="password"
                             :v="$v.password"

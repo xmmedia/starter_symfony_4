@@ -20,6 +20,7 @@
 
             <field-email v-model="email"
                          :v="$v.email"
+                         autocomplete="off"
                          autofocus />
 
             <field-password v-model="password"
