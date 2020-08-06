@@ -120,8 +120,10 @@ services:
 
     App\Infrastructure\Service\CmsPageContentValidator:
         arguments:
-            $templates: '%cms.templates%'
+            $templates: []
+#            $templates: '%cms.templates%'
 
     App\DataProvider\TemplateProvider:
         arguments:
-            $templates: '%cms.templates%'
+            $templates: []
+#            $templates: '%cms.templates%'
