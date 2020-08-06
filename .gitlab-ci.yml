@@ -41,7 +41,7 @@ static:
     - node --version
     - yarn --version
     # install php dependencies
-    - php composer.phar install --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs
+    - php composer.phar install --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs --no-suggest
     # check for security issues in PHP libs
     - php bin/console security:check
     - php bin/console cache:warmup --env=dev
@@ -70,7 +70,7 @@ deploy:
     # create partial .env file
     - printf "APP_ENV=$APP_ENV\nREQUEST_CONTEXT_HOST=$REQUEST_CONTEXT_HOST\nREQUEST_CONTEXT_SCHEME=$REQUEST_CONTEXT_SCHEME\n" > .env.local && cat .env.local
     # install php dependencies
-    - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs
+    - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs --no-suggest
     - yarn build
     # ensure based paths exist
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/public/uploads"
