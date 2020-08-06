@@ -59,7 +59,9 @@ static:
     - yarn --version
     # install php dependencies
     - php composer.phar install --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs
+    - php bin/console cache:clear
     - php composer.phar static
+    - rm -rf var/cache/*
 
 deploy:
   stage: deploy
