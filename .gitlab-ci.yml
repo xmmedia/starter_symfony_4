@@ -65,6 +65,7 @@ deploy:
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs
     # check for security issues in PHP libs
     - php bin/console security:check
+    - php composer.phar static
     # Install node/JS dependencies
     - yarn install --non-interactive --frozen-lockfile
     # check for JS security issues in libs
