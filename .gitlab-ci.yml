@@ -51,6 +51,7 @@ before_script:
 static:
   stage: static
   allow_failure: false
+  interruptible: true
   only:
     - master
   script:
