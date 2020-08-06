@@ -11,6 +11,7 @@
 </template>
 
 <script>
+/* global __webpack_public_path__ */
 import cuid from 'cuid';
 import fieldError from '../field_error';
 import editor from '@tinymce/tinymce-vue';
