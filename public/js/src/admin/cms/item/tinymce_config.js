@@ -7,23 +7,23 @@ export default {
     menu: {
         edit  : {
             title: 'Edit'  ,
-            items: 'undo redo | cut copy paste pastetext | selectall | searchreplace'
+            items: 'undo redo | cut copy paste pastetext | selectall | searchreplace',
         },
         insert: {
             title: 'Insert',
-            items: 'media image link | hr nonbreaking'
+            items: 'media image link | hr nonbreaking',
         },
         view  : {
             title: 'View'  ,
-            items: 'visualchars visualblocks visualaid'
+            items: 'visualchars visualblocks visualaid',
         },
         format: {
             title: 'Format',
-            items: 'bold italic underline | removeformat'
+            items: 'bold italic underline | removeformat',
         },
         table : {
             title: 'Table' ,
-            items: 'inserttable tableprops deletetable | cell row column'
+            items: 'inserttable tableprops deletetable | cell row column',
         },
     },
 
