@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
     purge: {
         content: [
@@ -50,5 +52,16 @@ module.exports = {
         borderColor: ['responsive', 'hover', 'focus', 'group-hover'],
         opacity: ['responsive', 'hover', 'focus', 'group-hover'],
     },
-    plugins: [],
+    plugins: [
+        plugin(function({ addComponents, config }) {
+            addComponents({
+                // same as: transition-all duration-300 ease-in-out
+                '.transition-default': {
+                    transitionProperty: config('theme.transitionProperty.all'),
+                    transitionDuration: config('theme.transitionDuration.300'),
+                    transitionTimingFunction: config('theme.transitionTimingFunction.in-out'),
+                },
+            });
+        }),
+    ],
 };
