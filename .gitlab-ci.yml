@@ -1,5 +1,7 @@
 default:
   timeout: 15m
+  services:
+    - mysql:5.7
 
 stages:
   - static
