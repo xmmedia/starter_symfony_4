@@ -64,6 +64,12 @@ static:
     - php bin/console security:check
     - php bin/console cache:warmup --env=dev
     - php bin/phpstan analyse --no-progress --memory-limit 1G src
+    # Install node/JS dependencies
+    - yarn install --non-interactive --frozen-lockfile
+    - # check for JS security issues in libs
+    - yarn audit:moderate
+    - yarn lint:js
+    # remove php cache, it will be for dev & cache should be generated on server
     - rm -rf var/cache/*
 
 deploy:
@@ -83,11 +89,6 @@ deploy:
     - printf "APP_ENV=$APP_ENV\nREQUEST_CONTEXT_HOST=$REQUEST_CONTEXT_HOST\nREQUEST_CONTEXT_SCHEME=$REQUEST_CONTEXT_SCHEME\n" > .env.local && cat .env.local
     # install php dependencies
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs
-    # Install node/JS dependencies
-    - yarn install --non-interactive --frozen-lockfile
-    # check for JS security issues in libs
-    - yarn audit:moderate
-    - yarn lint:js
     - yarn build
     # ensure based paths exist
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/public/uploads"
