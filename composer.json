@@ -64,6 +64,7 @@
         "mockery/mockery": "^1.2",
         "overblog/graphiql-bundle": "^0.2.0",
         "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-deprecation-rules": "^0.12.5",
         "phpstan/phpstan-mockery": "^0.12",
         "phpstan/phpstan-phpunit": "^0.12",
         "phpstan/phpstan-symfony": "^0.12",
