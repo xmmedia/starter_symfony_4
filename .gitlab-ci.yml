@@ -2,6 +2,7 @@ default:
   timeout: 15m
 
 stages:
+  - static
   - deploy
 
 # Select image from https://hub.docker.com/_/php/
@@ -46,9 +47,8 @@ before_script:
   - apt-get update -yqq && apt-get install yarn -yqq
   - curl --silent --show-error https://getcomposer.org/installer | php
 
-deploy:
-  stage: deploy
-  when: manual
+static:
+  stage: static
   allow_failure: false
   only:
     - master
@@ -57,6 +57,17 @@ deploy:
     - php composer.phar --version
     - node --version
     - yarn --version
+    # install php dependencies
+    - php composer.phar install --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs
+    - php composer.phar static
+
+deploy:
+  stage: deploy
+  when: manual
+  allow_failure: false
+  only:
+    - master
+  script:
     # setup vars for paths
     - TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
     - echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
@@ -67,7 +78,6 @@ deploy:
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --no-plugins --ignore-platform-reqs
     # check for security issues in PHP libs
     - php bin/console security:check
-    - php composer.phar static
     # Install node/JS dependencies
     - yarn install --non-interactive --frozen-lockfile
     # check for JS security issues in libs
