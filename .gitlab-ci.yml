@@ -29,8 +29,8 @@ before_script:
   - chmod 644 ~/.ssh/known_hosts
   # ensure everything up to date
   - apt-get update -yqq
-  # ensure latest version of composer
-  - php composer.phar selfupdate
+  # install composer
+  - curl --silent --show-error https://getcomposer.org/installer | php
 
 static:
   stage: static
@@ -56,6 +56,7 @@ static:
     - yarn lint:js
     # remove php cache, it will be for dev & cache should be generated on server
     - rm -rf var/cache/*
+    # @todo artifacts
 
 deploy:
   stage: deploy
