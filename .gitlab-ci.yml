@@ -27,7 +27,10 @@ before_script:
   # the following line is optional (likely remove previous line)
   #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
-  - curl --silent --show-error https://getcomposer.org/installer | php
+  # ensure everything up to date
+  - apt-get update -yqq
+  # ensure latest version of composer
+  - php composer.phar selfupdate
 
 static:
   stage: static
