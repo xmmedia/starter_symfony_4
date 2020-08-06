@@ -49,7 +49,7 @@ before_script:
 
 static:
   stage: static
-  allow_failure: true
+  allow_failure: false
   interruptible: true
   only:
     - master
