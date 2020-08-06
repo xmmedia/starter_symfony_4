@@ -1,3 +1,19 @@
 .header-nav_item {
-    @apply mr-4;
+    @apply hidden mr-8;
+    &:last-of-type {
+        @apply mr-0;
+    }
+}
+
+$header-menu-items: (
+    item1 : 10,
+    item2 : 20,
+);
+
+@each $name, $mq-width in $header-menu-items {
+    .header-nav_item-#{$name} {
+        @include mq($mq-width * 1em) {
+            @apply inline-block;
+        }
+    }
 }
