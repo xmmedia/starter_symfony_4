@@ -8,7 +8,6 @@ import PortalVue from 'portal-vue';
 import apolloProvider from './common/apollo';
 // import * as filters from './common/filters';
 
-import loadingSpinner from './common/loading_spinner';
 import svgIcons from './common/svg_icons';
 import formError from './common/form_error';
 import fieldErrors from './common/field_errors';
@@ -27,11 +26,9 @@ Vue.use(VueApollo);
 Vue.use(Vuelidate);
 Vue.use(PortalVue);
 
-Vue.component('loading-spinner', loadingSpinner);
 Vue.component('form-error', formError);
 Vue.component('field-errors', fieldErrors);
 Vue.component('field-error', fieldError);
-Vue.component('local-time', () => import(/* webpackChunkName: "local-time" */ './common/local_time'));
 
 window.App = new Vue({
     el: '#app',
