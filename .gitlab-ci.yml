@@ -23,28 +23,10 @@ before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -yqq )'
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-  - mkdir -p ~/.ssh; chmod 700 ~/.ssh
   - ssh-keyscan -p $REMOTE_PORT $REMOTE_SERVER >> ~/.ssh/known_hosts
   # the following line is optional (likely remove previous line)
   #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
-  # Taken from here: https://gist.github.com/kwk/55bb5b6a4b7457bef38d
-  # This forces dpkg to not call sync() after package extraction and speeds up install
-  - echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
-  # We don't need and apt cache in a container or recommendations
-  - echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
-  - echo 'APT::Install-Recommends "false";' > /etc/apt/apt.conf
-  # Install packages
-  - apt-get install gnupg2 build-essential libssl-dev -yqq
-  - curl -sL https://deb.nodesource.com/setup_10.x | bash -
-  # Install libs the php image doesn't have installed
-  - apt-get install git zip unzip gcc g++ make nodejs rsync -yqq
-  - alias nodejs=node
-  # add package key for yarn
-  - curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-  - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-  - apt-get update -yqq && apt-get install yarn -yqq
-  - docker-php-ext-install pdo_mysql
   - curl --silent --show-error https://getcomposer.org/installer | php
 
 static:
