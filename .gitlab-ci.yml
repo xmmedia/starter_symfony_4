@@ -44,7 +44,7 @@ before_script:
   - curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
   - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
   - apt-get update -yqq && apt-get install yarn -yqq
-  - curl -sS https://getcomposer.org/installer | php
+  - curl --silent --show-error https://getcomposer.org/installer | php
 
 deploy:
   stage: deploy
