@@ -97,7 +97,7 @@ deploy:
     # make bin files executable
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; chmod u+x bin/*"
     # ensure platform has all requirements
-    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; php composer.phar check-platform-reqs"
+    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; php -v; php composer.phar check-platform-reqs"
     # link shared folders
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -rf $RELEASE/var; ln -s $SHARED/var $RELEASE/var; rm -rf $RELEASE/public/uploads; ln -s $SHARED/public/uploads $RELEASE/public/uploads"
     # switch to new version
