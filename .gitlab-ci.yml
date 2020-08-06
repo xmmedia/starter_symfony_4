@@ -66,7 +66,7 @@ static:
     - php bin/phpstan analyse --no-progress --memory-limit 1G src
     # Install node/JS dependencies
     - yarn install --non-interactive --frozen-lockfile
-    - # check for JS security issues in libs
+    # check for JS security issues in libs
     - yarn audit:moderate
     - yarn lint:js
     # remove php cache, it will be for dev & cache should be generated on server
