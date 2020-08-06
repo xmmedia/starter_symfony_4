@@ -25,6 +25,19 @@ select {
     height: 2.14rem;
 }
 
+// fixes alignment of radio to label
+[type=radio] {
+    @apply relative;
+    top: -1px;
+}
+// make sure everything shows a pointer on hover
+[type=submit], [type=image], label, select {
+    @apply cursor-pointer;
+}
+[type=file] {
+    @apply w-full;
+}
+
 [type=text],
 [type=checkbox],
 [type=radio],
@@ -50,19 +63,6 @@ select {
     &:focus {
         @apply outline-none shadow-outline;
     }
-}
-
-// fixes alignment of radio to label
-[type=radio] {
-    @apply relative;
-    top: -1px;
-}
-// make sure everything shows a pointer on hover
-[type=submit], [type=image], label, select {
-    @apply cursor-pointer;
-}
-[type=file] {
-    @apply w-full;
 }
 
 .form-wrap {
