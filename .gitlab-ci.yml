@@ -1,6 +1,6 @@
 default:
   # Select image from https://hub.docker.com/_/php/
-  image: php:7.3-cli
+  image: xmmedia/php:7.3-cli
   timeout: 15m
 
 stages:
