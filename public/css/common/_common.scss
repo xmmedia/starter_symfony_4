@@ -2,9 +2,12 @@
 @import "media";
 
 a, .button-link {
-    @apply text-blue-500 no-underline transition-default;
+    @apply text-blue-500 no-underline transition-default outline-none;
     &:hover, &:active {
         @apply underline text-blue-700;
+    }
+    &:focus {
+        @apply outline-none bg-gray-300 rounded-sm;
     }
     &:disabled {
         @apply opacity-75;
@@ -32,6 +35,7 @@ ul {
 ol {
     @apply list-decimal;
 }
+
 address {
     @apply not-italic;
 }

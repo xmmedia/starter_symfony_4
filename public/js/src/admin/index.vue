@@ -4,7 +4,7 @@
 
         <nav class="sidebar_nav-wrap">
             <router-link :to="logoLinkRoute"
-                         class="flex items-center w-40 lg:w-64 border-b border-gray-600"
+                         class="flex items-center w-40 lg:w-64 border-b border-gray-600 rounded-none focus:bg-gray-700"
                          style="height: 3.75rem; padding: 0.65rem 0;">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
@@ -15,14 +15,14 @@
 
             <ul class="sidebar_nav-nav">
                 <template v-if="loggedIn">
-                    <li class="mb-2 lg:mb-0 hover:bg-gray-800">
+                    <li class="mb-2 lg:mb-0">
                         <router-link :to="{ name: 'admin-page' }"
                                      class="sidebar_nav-link">
                             <menu-link label="Pages" icon="gear" />
                         </router-link>
                     </li>
 
-                    <li v-if="hasRole('ROLE_ADMIN')" class="hover:bg-gray-800">
+                    <li v-if="hasRole('ROLE_ADMIN')">
                         <menu-subnav :items="adminMenuItems" label="Admin" icon="gear" />
                     </li>
                 </template>
@@ -31,13 +31,12 @@
             <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-500 font-thin">
                 <div class="flex items-end justify-between px-4">
                     <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap:break-word;">
-                        <router-link :to="{ name: 'user-profile-edit' }"
-                                     class="text-inherit hover:no-underline hover:text-white">
+                        <router-link :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
                             {{ profileLinkText }}
                         </router-link>
                     </div>
                     <div v-if="loggedIn" class="pb-2 pl-4 text-xs">
-                        <a href="/logout" class="text-inherit hover:no-underline hover:text-white">Sign Out</a>
+                        <a href="/logout" class="sidebar_nav-bottom_links">Sign Out</a>
                     </div>
                 </div>
                 <div class="py-2 pl-4 text-xs text-gray-600 border-t border-gray-600">
@@ -49,7 +48,7 @@
 
         <header class="header-wrap-small">
             <menu-small v-if="loggedIn" />
-            <router-link :to="logoLinkRoute" class="ml-auto">
+            <router-link :to="logoLinkRoute" class="ml-auto rounded-none focus:bg-gray-700">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
                      height="70"

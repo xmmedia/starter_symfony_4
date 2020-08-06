@@ -15,9 +15,12 @@
 }
 
 .sidebar_nav-link {
-    @apply w-full text-gray-500 fill-current;
+    @apply block w-full text-gray-500 fill-current outline-none;
     &:hover {
-        @apply text-white no-underline transition-none;
+        @apply text-white bg-gray-800 no-underline transition-none;
+    }
+    &:focus {
+        @apply shadow-outline bg-gray-800 outline-none;
     }
 }
 
@@ -29,5 +32,15 @@
     li {
         // so we can control the positioning of the submenu arrow
         @apply relative;
+    }
+}
+
+.sidebar_nav-bottom_links {
+    @apply text-inherit;
+    &:hover {
+        @apply no-underline text-white;
+    }
+    &:focus {
+        @apply bg-gray-800 -mx-1 px-1;
     }
 }

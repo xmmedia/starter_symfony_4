@@ -14,22 +14,44 @@
 [type=url],
 [type=color],
 textarea {
-    @apply w-full px-2 py-1 text-gray-800 border border-gray-400 rounded-sm bg-gray-200 transition-default;
-    &:focus {
-        @apply border-gray-500 bg-gray-100;
-    }
+    @apply w-full px-2 py-1 text-gray-800 border border-gray-400 rounded-sm bg-gray-200 transition-default outline-none;
 }
 textarea {
     // fixes space below textareas, making it consistent across browsers
     @apply align-top text-black;
 }
 select {
-    @apply w-full p-1 text-black border border-gray-400 rounded-sm bg-gray-200 transition-default;
+    @apply w-full p-1 text-black border border-gray-400 rounded-sm bg-gray-200 transition-default outline-none;
     height: 2.14rem;
+}
+
+[type=text],
+[type=checkbox],
+[type=radio],
+[type=password],
+[type=date],
+[type=datetime],
+[type=datetime-local],
+[type=month],
+[type=week],
+[type=email],
+[type=number],
+[type=search],
+[type=tel],
+[type=time],
+[type=url],
+[type=color],
+[type=file],
+[type=image],
+[type=submit],
+textarea,
+select {
+    @apply outline-none rounded-sm;
     &:focus {
-        @apply border-gray-500 bg-gray-100;
+        @apply outline-none shadow-outline;
     }
 }
+
 // fixes alignment of radio to label
 [type=radio] {
     @apply relative;
@@ -109,4 +131,7 @@ select {
 }
 .form-action {
     @apply text-sm ml-4;
+    &:focus {
+        @apply -mx-1 ml-3 px-1;
+    }
 }

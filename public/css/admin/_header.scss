@@ -47,6 +47,9 @@
     &:hover {
         @apply bg-blue-600 border-blue-600 text-white;
     }
+    &:focus {
+        @apply bg-blue-600 rounded;
+    }
 
     @media (min-width: 880px) {
         @apply my-0;
@@ -64,8 +67,11 @@
         order: 1;
     }
 
-    a {
+    a, button {
         @apply inline-block ml-4;
+        &:focus {
+            @apply -m-1 ml-3 p-1 bg-gray-400;
+        }
     }
 }
 

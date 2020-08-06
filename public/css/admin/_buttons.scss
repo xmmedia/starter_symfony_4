@@ -1,7 +1,10 @@
 .button {
-    @apply py-2 px-4 text-white font-thin bg-blue-600 text-center shadow-none border-2 border-blue-600 rounded tracking-wider transition-default;
+    @apply py-2 px-4 text-white font-thin bg-blue-600 text-center shadow-none border-2 border-blue-600 rounded tracking-wider transition-default outline-none;
     &:hover {
         @apply text-white bg-blue-800 border-blue-800 no-underline;
+    }
+    &:focus {
+        @apply outline-none shadow-outline border-blue-300;
     }
     &:disabled {
         @apply opacity-75;

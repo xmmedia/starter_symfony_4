@@ -72,6 +72,9 @@
     &:first-child {
         @apply ml-0;
     }
+    &:focus {
+        @apply -mx-1 px-1;
+    }
 }
 
 .record_list-record_count {

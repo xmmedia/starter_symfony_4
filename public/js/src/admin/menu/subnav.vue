@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-between w-full">
         <button :class="{ 'bg-gray-800' : open }"
-                class="sidebar_nav-link w-full mb-0"
+                class="sidebar_nav-link mb-0"
                 @click.stop="toggleMenu">
             <menu-link :label="label" :icon="icon" :has-subnav="true" />
         </button>

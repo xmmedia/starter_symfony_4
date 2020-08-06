@@ -50,6 +50,8 @@ module.exports = {
     variants: {
         textColor: ['responsive', 'hover', 'focus', 'group-hover'],
         borderColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        margin: ['responsive', 'focus'],
+        padding: ['responsive', 'focus'],
         opacity: ['responsive', 'hover', 'focus', 'group-hover'],
     },
     plugins: [
