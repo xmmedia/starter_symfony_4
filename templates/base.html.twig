@@ -29,8 +29,6 @@
         {% endblock %}
     </head>
     <body{% if body_attributes is defined %}{{ body_attributes }}{% endif %}>
-        {% include 'ie9_warning.html.twig' %}
-
         {# #app is what Vue.js mounts to #}
         <div id="app">
             {% block body %}
