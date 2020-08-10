@@ -10,6 +10,7 @@ use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
 use App\Model\User\Exception\TokenHasExpired;
+use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\Token;
 use App\Security\PasswordEncoder;
@@ -57,6 +58,15 @@ class UserVerifyMutationTest extends BaseTestCase
         $user->shouldReceive('firstRole')
             ->once()
             ->andReturn(Role::ROLE_USER());
+        $user->shouldReceive('email')
+            ->once()
+            ->andReturn($faker->emailVo);
+        $user->shouldReceive('firstName')
+            ->once()
+            ->andReturn(Name::fromString($faker->name));
+        $user->shouldReceive('lastName')
+            ->once()
+            ->andReturn(Name::fromString($faker->name));
 
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
@@ -122,6 +132,15 @@ class UserVerifyMutationTest extends BaseTestCase
         $user->shouldReceive('verified')
             ->once()
             ->andReturnTrue();
+        $user->shouldReceive('email')
+            ->once()
+            ->andReturn($faker->emailVo);
+        $user->shouldReceive('firstName')
+            ->once()
+            ->andReturn(Name::fromString($faker->name));
+        $user->shouldReceive('lastName')
+            ->once()
+            ->andReturn(Name::fromString($faker->name));
 
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')

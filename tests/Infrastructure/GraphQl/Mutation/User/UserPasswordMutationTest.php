@@ -7,6 +7,7 @@ namespace App\Tests\Infrastructure\GraphQl\Mutation\User;
 use App\Entity\User;
 use App\Infrastructure\GraphQl\Mutation\User\UserPasswordMutation;
 use App\Model\User\Command\ChangePassword;
+use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Security\PasswordEncoder;
 use App\Security\Security;
@@ -48,6 +49,15 @@ class UserPasswordMutationTest extends BaseTestCase
         $user->shouldReceive('userId')
             ->once()
             ->andReturn($userId);
+        $user->shouldReceive('email')
+            ->once()
+            ->andReturn($faker->emailVo);
+        $user->shouldReceive('firstName')
+            ->once()
+            ->andReturn(Name::fromString($faker->name));
+        $user->shouldReceive('lastName')
+            ->once()
+            ->andReturn(Name::fromString($faker->name));
         $user->shouldReceive('firstRole')
             ->once()
             ->andReturn(Role::ROLE_USER());

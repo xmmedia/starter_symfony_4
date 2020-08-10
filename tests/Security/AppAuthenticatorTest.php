@@ -221,7 +221,7 @@ class AppAuthenticatorTest extends BaseTestCase
         );
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
-        $this->assertSame('/', $result->getTargetUrl());
+        $this->assertSame('/admin', $result->getTargetUrl());
     }
 
     public function testOnAuthenticationSuccessWithTarget(): void
