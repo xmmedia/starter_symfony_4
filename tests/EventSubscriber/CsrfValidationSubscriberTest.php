@@ -221,7 +221,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
 
         $kernel = Mockery::mock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST');
-        $response = Response::create();
+        $response = new Response();
 
         $event = new ResponseEvent(
             $kernel,
