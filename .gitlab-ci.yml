@@ -53,6 +53,7 @@ static:
     # check for JS security issues in libs
     - yarn audit:moderate
     - yarn lint:js
+    - yarn lint:css
     # remove php cache, it will be for dev & cache should be generated on server
     - rm -rf var/cache/*
     # @todo artifacts
