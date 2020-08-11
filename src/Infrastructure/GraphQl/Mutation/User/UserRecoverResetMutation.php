@@ -17,6 +17,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class UserRecoverResetMutation implements MutationInterface
 {
@@ -32,16 +33,21 @@ class UserRecoverResetMutation implements MutationInterface
     /** @var Security */
     private $security;
 
+    /** @var HttpClientInterface|null */
+    private $pwnedHttpClient;
+
     public function __construct(
         MessageBusInterface $commandBus,
         PasswordEncoder $passwordEncoder,
         TokenValidator $tokenValidator,
-        Security $security
+        Security $security,
+        HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
         $this->passwordEncoder = $passwordEncoder;
         $this->tokenValidator = $tokenValidator;
         $this->security = $security;
+        $this->pwnedHttpClient = $pwnedHttpClient;
     }
 
     public function __invoke(Argument $args): array
@@ -54,7 +60,7 @@ class UserRecoverResetMutation implements MutationInterface
 
         // check new password
         Assert::passwordLength($newPassword);
-        Assert::compromisedPassword($newPassword);
+        Assert::compromisedPassword($newPassword, $this->pwnedHttpClient);
 
         try {
             $user = $this->tokenValidator->validate(

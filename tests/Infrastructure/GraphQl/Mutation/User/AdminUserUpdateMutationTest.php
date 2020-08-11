@@ -10,6 +10,7 @@ use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Role;
 use App\Security\PasswordEncoder;
 use App\Tests\BaseTestCase;
+use App\Tests\PwnedHttpClientMockTrait;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Messenger\Envelope;
@@ -17,6 +18,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserUpdateMutationTest extends BaseTestCase
 {
+    use PwnedHttpClientMockTrait;
+
     public function test(): void
     {
         $faker = $this->faker();
@@ -43,7 +46,8 @@ class AdminUserUpdateMutationTest extends BaseTestCase
 
         $result = (new AdminUserUpdateMutation(
             $commandBus,
-            $passwordEncoder
+            $passwordEncoder,
+            $this->getPwnedHttpClient()
         ))($args);
 
         $expected = [
@@ -88,7 +92,8 @@ class AdminUserUpdateMutationTest extends BaseTestCase
 
         $result = (new AdminUserUpdateMutation(
             $commandBus,
-            $passwordEncoder
+            $passwordEncoder,
+            $this->getPwnedHttpClient()
         ))(
             $args
         );
@@ -121,7 +126,8 @@ class AdminUserUpdateMutationTest extends BaseTestCase
 
         (new AdminUserUpdateMutation(
             Mockery::mock(MessageBusInterface::class),
-            Mockery::mock(PasswordEncoder::class)
+            Mockery::mock(PasswordEncoder::class),
+            $this->getPwnedHttpClient()
         ))(
             $args
         );

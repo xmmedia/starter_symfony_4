@@ -14,6 +14,7 @@ use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Xm\SymfonyBundle\Model\Email;
 
 class AdminUserAddMutation implements MutationInterface
@@ -27,14 +28,19 @@ class AdminUserAddMutation implements MutationInterface
     /** @var PasswordEncoder */
     private $passwordEncoder;
 
+    /** @var HttpClientInterface|null */
+    private $pwnedHttpClient;
+
     public function __construct(
         MessageBusInterface $commandBus,
         TokenGenerator $tokenGenerator,
-        PasswordEncoder $passwordEncoder
+        PasswordEncoder $passwordEncoder,
+        HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
         $this->tokenGenerator = $tokenGenerator;
         $this->passwordEncoder = $passwordEncoder;
+        $this->pwnedHttpClient = $pwnedHttpClient;
     }
 
     public function __invoke(Argument $args): array
@@ -55,7 +61,7 @@ class AdminUserAddMutation implements MutationInterface
         }
         // check both generated & user entered,
         // though unlikely generated will be compromised
-        Assert::compromisedPassword($password);
+        Assert::compromisedPassword($password, $this->pwnedHttpClient);
 
         $email = Email::fromString($args['user']['email']);
         $role = Role::byValue($args['user']['role']);

@@ -12,8 +12,11 @@ use App\Model\User\Role;
 use App\Security\PasswordEncoder;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
+use App\Tests\PwnedHttpClientMockTrait;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
@@ -21,6 +24,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserPasswordMutationTest extends BaseTestCase
 {
+    use PwnedHttpClientMockTrait;
+
     public function testValid(): void
     {
         $faker = $this->faker();
@@ -73,7 +78,8 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordEncoder,
             $passwordEncoder,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -111,7 +117,8 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordEncoder,
             $passwordEncoder,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
     }
 
@@ -146,7 +153,8 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordEncoder,
             $passwordEncoder,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
     }
 
@@ -184,7 +192,8 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordEncoder,
             $passwordEncoder,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
     }
 
@@ -254,11 +263,12 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordEncoder,
             $passwordEncoder,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
     }
 
-    public function testInvalidNewCompromised(): void
+    public function testInvalidNotComplex(): void
     {
         $faker = $this->faker();
         $data = [
@@ -289,7 +299,58 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordEncoder,
             $passwordEncoder,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
+        ))($args);
+    }
+
+    public function testInvalidCompromised(): void
+    {
+        $faker = $this->faker();
+        $password = $faker->password;
+        $data = [
+            'currentPassword' => $faker->password,
+            'newPassword'     => $password,
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnTrue();
+
+        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+
+        $user = Mockery::mock(User::class);
+        $user->shouldReceive('email')
+            ->once()
+            ->andReturn($faker->emailVo);
+        $user->shouldReceive('firstName')
+            ->once()
+            ->andReturn(Name::fromString($faker->name));
+        $user->shouldReceive('lastName')
+            ->once()
+            ->andReturn(Name::fromString($faker->name));
+        $security = Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->andReturn($user);
+
+        $pwnedHttpClient = new MockHttpClient([
+            new MockResponse(substr(strtoupper(sha1($password)), 5).':5'),
+        ]);
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        (new UserPasswordMutation(
+            $commandBus,
+            $userPasswordEncoder,
+            $passwordEncoder,
+            $security,
+            $pwnedHttpClient
         ))($args);
     }
 

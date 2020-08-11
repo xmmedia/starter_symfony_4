@@ -17,15 +17,20 @@ use App\Security\PasswordEncoder;
 use App\Security\Security;
 use App\Security\TokenValidator;
 use App\Tests\BaseTestCase;
+use App\Tests\PwnedHttpClientMockTrait;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 
 class UserRecoverResetMutationTest extends BaseTestCase
 {
+    use PwnedHttpClientMockTrait;
+
     public function testNotVerified(): void
     {
         $faker = $this->faker();
@@ -82,7 +87,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -110,7 +116,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -168,7 +175,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -207,7 +215,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -246,7 +255,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -283,7 +293,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
     }
 
@@ -315,7 +326,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
     }
 
@@ -347,11 +359,50 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
     }
 
-    public function testInvalidNewCompromised(): void
+    public function testInvalidCompromised(): void
+    {
+        $faker = $this->faker();
+        $password = $faker->password;
+        $data = [
+            'token'       => $faker->password,
+            'newPassword' => $password,
+        ];
+
+        $commandBus = Mockery::mock(MessageBusInterface::class);
+
+        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+
+        $user = Mockery::mock(User::class);
+        $user->shouldReceive('userId')
+            ->andReturn($faker->userId);
+
+        $tokenValidator = Mockery::mock(TokenValidator::class);
+
+        $security = $this->createSecurity(false);
+
+        $pwnedHttpClient = new MockHttpClient([
+            new MockResponse(substr(strtoupper(sha1($password)), 5).':5'),
+        ]);
+
+        $args = new Argument($data);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        (new UserRecoverResetMutation(
+            $commandBus,
+            $passwordEncoder,
+            $tokenValidator,
+            $security,
+            $pwnedHttpClient
+        ))($args);
+    }
+
+    public function testInvalidNotComplex(): void
     {
         $faker = $this->faker();
         $data = [
@@ -379,7 +430,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            $this->getPwnedHttpClient()
         ))($args);
     }
 

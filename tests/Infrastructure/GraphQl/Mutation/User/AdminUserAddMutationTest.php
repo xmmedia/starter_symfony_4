@@ -11,6 +11,7 @@ use App\Model\User\Token;
 use App\Security\PasswordEncoder;
 use App\Security\TokenGenerator;
 use App\Tests\BaseTestCase;
+use App\Tests\PwnedHttpClientMockTrait;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Messenger\Envelope;
@@ -18,6 +19,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserAddMutationTest extends BaseTestCase
 {
+    use PwnedHttpClientMockTrait;
+
     public function testGeneratePassword(): void
     {
         $faker = $this->faker();
@@ -55,7 +58,8 @@ class AdminUserAddMutationTest extends BaseTestCase
         $result = (new AdminUserAddMutation(
             $commandBus,
             $tokenGenerator,
-            $passwordEncoder
+            $passwordEncoder,
+            $this->getPwnedHttpClient()
         ))($args);
 
         $expected = [
@@ -91,7 +95,8 @@ class AdminUserAddMutationTest extends BaseTestCase
         (new AdminUserAddMutation(
             Mockery::mock(MessageBusInterface::class),
             Mockery::mock(TokenGenerator::class),
-            Mockery::mock(PasswordEncoder::class)
+            Mockery::mock(PasswordEncoder::class),
+            $this->getPwnedHttpClient()
         ))($args);
     }
 
@@ -131,7 +136,8 @@ class AdminUserAddMutationTest extends BaseTestCase
         $result = (new AdminUserAddMutation(
             $commandBus,
             $tokenGenerator,
-            $passwordEncoder
+            $passwordEncoder,
+            $this->getPwnedHttpClient()
         ))($args);
 
         $expected = [

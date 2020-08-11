@@ -12,6 +12,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Xm\SymfonyBundle\Util\StringUtil;
 
 class UserPasswordMutation implements MutationInterface
@@ -28,16 +29,21 @@ class UserPasswordMutation implements MutationInterface
     /** @var Security */
     private $security;
 
+    /** @var HttpClientInterface|null */
+    private $pwnedHttpClient;
+
     public function __construct(
         MessageBusInterface $commandBus,
         UserPasswordEncoderInterface $userPasswordEncoder,
         PasswordEncoder $passwordEncoder,
-        Security $security
+        Security $security,
+        HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
         $this->userPasswordEncoder = $userPasswordEncoder;
         $this->passwordEncoder = $passwordEncoder;
         $this->security = $security;
+        $this->pwnedHttpClient = $pwnedHttpClient;
     }
 
     public function __invoke(Argument $args): array
@@ -65,7 +71,7 @@ class UserPasswordMutation implements MutationInterface
             $user->firstName(),
             $user->lastName(),
         ]);
-        Assert::compromisedPassword($newPassword);
+        Assert::compromisedPassword($newPassword, $this->pwnedHttpClient);
 
         $encodedPassword = ($this->passwordEncoder)(
             $user->firstRole(),
