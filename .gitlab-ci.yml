@@ -19,13 +19,6 @@ variables:
   SHARED: "$REMOTE_BASE/shared"
 
 before_script:
-  # setup SSH & private key
-  - eval $(ssh-agent -s)
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-  - ssh-keyscan -p $REMOTE_PORT $REMOTE_SERVER >> ~/.ssh/known_hosts
-  # the following line is optional (likely remove previous line)
-  #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
-  - chmod 644 ~/.ssh/known_hosts
   # ensure everything up to date
   - apt-get update -yqq
   # install composer
@@ -73,6 +66,13 @@ deploy:
     - TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
     - echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
     - echo "Remote:"; echo $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PORT
+    # setup SSH & private key
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - ssh-keyscan -p $REMOTE_PORT $REMOTE_SERVER >> ~/.ssh/known_hosts
+    # the following line is optional (likely remove previous line)
+    #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
     # add .revision file
     - git rev-parse --verify --short HEAD > .revision
     # create partial .env file
