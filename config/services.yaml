@@ -111,13 +111,6 @@ services:
             $projectionsLocator: '@prooph_event_store.projections_locator'
             $projectionReadModelLocator: '@prooph_event_store.projection_read_models_locator'
 
-    # @todo-symfony delete if not using
-    Xm\SymfonyBundle\Infrastructure\Service\Cloudflare:
-        arguments:
-            $cloudflareZone: '%env(CLOUDFLARE_ZONE)%'
-            $cloudflareUsername: '%env(CLOUDFLARE_USERNAME)%'
-            $cloudflareApiKey: '%env(CLOUDFLARE_API_KEY)%'
-
     App\Infrastructure\Service\CmsPageContentValidator:
         arguments:
             $templates: []

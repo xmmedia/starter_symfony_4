@@ -10,7 +10,6 @@
         "ext-json": "*",
         "ext-pcntl": "*",
         "ext-pdo": "*",
-        "cloudflare/sdk": "^1.1",
         "egulias/email-validator": "^2.1",
         "guzzlehttp/guzzle": "^6.3",
         "knplabs/knp-paginator-bundle": "^5.0",
