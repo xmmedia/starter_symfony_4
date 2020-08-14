@@ -16,6 +16,9 @@ class WebTestCase extends BaseWebTestCase
 
     protected function assertPathInfoMatches(Client $client, $regExp)
     {
-        $this->assertRegExp($regExp, $client->getRequest()->getPathInfo());
+        $this->assertMatchesRegularExpression(
+            $regExp,
+            $client->getRequest()->getPathInfo()
+        );
     }
 }
