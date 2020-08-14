@@ -7,7 +7,7 @@
                 A <slot></slot> is required.
             </template>
             <template v-else-if="!v.minLength">
-                The <slot></slot> must be longer than {{ v.$params.minLength.min }} character.
+                The <slot></slot> must be longer than {{ v.$params.minLength.min }} {{ minCharacter }}.
             </template>
             <template v-else-if="!v.maxLength">
                 The <slot></slot> cannot be longer than {{ v.$params.maxLength.max }} characters.
@@ -46,6 +46,12 @@ export default {
         return {
             id: cuid(),
         };
+    },
+
+    computed: {
+        minCharacter () {
+            return 1 === this.v.$params.minLength.min ? 'character' : 'characters';
+        },
     },
 }
 </script>
