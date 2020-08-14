@@ -1,10 +1,8 @@
-/*global ga*/
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store';
 import apolloProvider from '@/common/apollo';
-
-import qs from 'qs';
+import { scrollBehavior, parseQuery, stringifyQuery, logPageView } from '@/common/router_helpers';
 
 import { MeSimpleQuery } from './queries/user.query.graphql';
 
@@ -148,24 +146,9 @@ const router = new Router({
         },
     ],
 
-    scrollBehavior (to, from, savedPosition) {
-        if (savedPosition) {
-            return savedPosition;
-        } else {
-            return { x: 0, y: 0 };
-        }
-    },
-
-    // set custom query resolver
-    parseQuery (query) {
-        return qs.parse(query);
-    },
-    // set custom query stringifier
-    stringifyQuery (query) {
-        const result = qs.stringify(query);
-
-        return result ? ('?' + result) : '';
-    },
+    scrollBehavior,
+    parseQuery,
+    stringifyQuery,
 });
 
 router.beforeEach( async (to, from, next) => {
@@ -203,10 +186,7 @@ router.beforeEach( async (to, from, next) => {
 });
 
 router.afterEach((to) => {
-    if (window.ga) {
-        ga('set', 'page', to.fullPath);
-        ga('send', 'pageview');
-    }
+    logPageView(to);
 });
 
 export default router;
