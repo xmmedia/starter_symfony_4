@@ -27,3 +27,5 @@ services:
     Xm\SymfonyBundle\Infrastructure\GraphQl\Resolver\:
         resource: '../../vendor/xm/symfony-bundle/Infrastructure/GraphQl/Resolver/*Resolver.php'
         tags: [ 'overblog_graphql.resolver' ]
+
+    Xm\SymfonyBundle\EventSubscriber\GraphQlContextInitialization: ~
