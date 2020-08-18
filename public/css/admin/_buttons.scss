@@ -7,9 +7,9 @@
         @apply outline-none shadow-outline border-blue-300;
     }
     &:disabled {
-        @apply opacity-75;
+        @apply bg-gray-400 border-gray-400 cursor-default;
         &:hover {
-            @apply cursor-default;
+            @apply bg-gray-400 border-gray-400 cursor-default;
         }
     }
 }
