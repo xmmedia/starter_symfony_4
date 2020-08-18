@@ -42,7 +42,7 @@ UserQuery:
 UserFilterInput:
     type: input-object
     config:
-        description: 'Available filters for querying users. Any passed fields will be applied. Exclude the key/field to skip that filter.'
+        description: 'Available filters for querying Users. Any passed fields will be applied. Exclude the key/field to skip that filter.'
         fields:
             email:
                 type: String
