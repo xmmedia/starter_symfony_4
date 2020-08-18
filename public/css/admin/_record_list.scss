@@ -20,7 +20,7 @@
             @apply table-row border-none;
         }
         &:nth-of-type(2) {
-            border-top: none;
+            @apply border-t-0;
         }
     }
 }
