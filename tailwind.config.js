@@ -1,6 +1,9 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
+    future: {
+        removeDeprecatedGapUtilities: true,
+    },
     purge: {
         content: [
             './templates/**/*.html.twig',
