@@ -25,11 +25,11 @@ class EnquiryProjection implements ReadModelProjection
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack('insert', [
-                        'id'        => $event->aggregateId(),
-                        'name'      => $event->name(),
-                        'email'     => $event->email()->toString(),
-                        'message'   => $event->message(),
-                        'submitted' => $event->createdAt(),
+                        'enquiry_id' => $event->aggregateId(),
+                        'name'       => $event->name(),
+                        'email'      => $event->email()->toString(),
+                        'message'    => $event->message(),
+                        'submitted'  => $event->createdAt(),
                     ], [
                         'submitted' => 'datetime',
                     ]);
