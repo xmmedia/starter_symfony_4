@@ -19,7 +19,6 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-        public: false
 
     Xm\SymfonyBundle\Infrastructure\GraphQl\Type\:
         resource: '../../vendor/xm/symfony-bundle/Infrastructure/GraphQl/Type/*Type.php'
