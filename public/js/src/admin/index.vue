@@ -1,7 +1,5 @@
 <template>
     <div v-if="ready">
-        <svg-icons :src="iconsPath" />
-
         <nav class="sidebar_nav-wrap">
             <router-link :to="logoLinkRoute"
                          class="flex items-center w-40 lg:w-64 border-b border-gray-600 rounded-none focus:bg-gray-700"
@@ -81,7 +79,6 @@ import { mapState, mapGetters } from 'vuex';
 import menuSubnav from './menu/subnav';
 import menuSmall from './menu/small';
 import menuLink from './menu/link';
-import svgIcons from '@/common/svg_icons';
 
 import iconsPath from '../../../images/icons-admin.svg';
 
@@ -96,7 +93,6 @@ export default {
         menuSubnav,
         menuSmall,
         menuLink,
-        svgIcons,
     },
 
     data () {

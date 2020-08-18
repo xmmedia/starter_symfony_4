@@ -47,6 +47,7 @@
     "qs": "^6.7.0",
     "register-service-worker": "^1.0.0",
     "slugify": "^1.4.0",
+    "svgxuse": "^1.2.6",
     "unfetch": "^4.0.1",
     "uuid": "^8.1.0",
     "vue": "^2.5.17",

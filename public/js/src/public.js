@@ -8,7 +8,6 @@ import PortalVue from 'portal-vue';
 import apolloProvider from './common/apollo';
 // import * as filters from './common/filters';
 
-import svgIcons from './common/svg_icons';
 import formError from './common/form_error';
 import fieldErrors from './common/field_errors';
 import fieldError from './common/field_error';
@@ -17,7 +16,7 @@ import fieldError from './common/field_error';
 import '../../css/public.scss';
 
 // images
-// import '../../images/icons-public.svg';
+import '@/../../images/icons-public.svg';
 
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
@@ -35,7 +34,6 @@ window.App = new Vue({
     apolloProvider,
 
     components: {
-        svgIcons,
         'contact-form': () => import(/* webpackChunkName: "public-contact" */ './public/contact/index'),
     },
 

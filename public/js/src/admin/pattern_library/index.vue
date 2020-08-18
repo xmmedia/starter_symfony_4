@@ -397,7 +397,7 @@
                 </div>
                 <div class="record_list-col lg:text-center">
                     <svg class="record_list-icon text-green-600" width="20" height="20">
-                        <use xlink:href="#check"></use>
+                        <use :xlink:href="iconsPath+'#check'"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
                 </div>
@@ -417,7 +417,7 @@
                 </div>
                 <div class="record_list-col lg:text-center">
                     <svg class="record_list-icon fill-current text-green-600" width="20" height="20">
-                        <use xlink:href="#check"></use>
+                        <use :xlink:href="iconsPath+'#check'"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
                 </div>
@@ -436,7 +436,7 @@
                 </div>
                 <div class="record_list-col lg:text-center">
                     <svg class="record_list-icon fill-current text-gray-800" width="20" height="20">
-                        <use xlink:href="#check"></use>
+                        <use :xlink:href="iconsPath+'#check'"></use>
                     </svg>
                     <span class="record_list-mobile_heading">[True]</span>
                 </div>
@@ -462,7 +462,7 @@
                 <div class="record_view-item_value">
                     <span title="A Checkmark">
                         <svg class="record_view-icon text-green-600" width="20" height="20">
-                            <use xlink:href="#check"></use>
+                            <use :xlink:href="iconsPath+'#check'"></use>
                         </svg>
                     </span>
                 </div>
@@ -574,9 +574,17 @@
 </template>
 
 <script>
+import iconsPath from '@/../../images/icons-admin.svg';
+
 export default {
     metaInfo: {
         title: 'Admin Pattern Library',
+    },
+
+    data () {
+        return {
+            iconsPath,
+        };
     },
 }
 </script>

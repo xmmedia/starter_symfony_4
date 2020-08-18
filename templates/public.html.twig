@@ -8,6 +8,10 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('public') }}
+
+    {# @todo-symfony remove is no IE support is needed #}
+    {# make svg's with use referencing an external image work in IE #}
+    <script defer src="{{ asset('build/svgxuse.min.js') }}"></script>
 {% endblock %}
 
 {% block header %}
@@ -47,7 +51,5 @@
 {% endblock header %}
 
 {% block body %}
-    {#<svg-icons src="{{ asset('build/images/icons-public.svg') }}"></svg-icons>#}
-
     {{ parent() }}
 {% endblock body %}

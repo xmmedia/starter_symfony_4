@@ -21,7 +21,7 @@
                     style="margin-top: 0.3rem;"
                     @click.prevent="visible = !visible">
                 <svg class="w-6 h-6 fill-current" width="24" height="24">
-                    <use :xlink:href="icon"></use>
+                    <use :xlink:href="iconsPath+icon"></use>
                 </svg>
             </button>
         </div>
@@ -38,6 +38,8 @@
 
 <script>
 import cuid from 'cuid';
+
+import iconsPath from '@/../../images/icons-admin.svg';
 
 export default {
     components: {
@@ -79,6 +81,7 @@ export default {
             visible: false,
             showMeter: false,
             minLength: 12,
+            iconsPath,
         };
     },
 
