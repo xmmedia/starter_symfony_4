@@ -54,8 +54,8 @@ module.exports = function (Encore) {
 
         .copyFiles({
             from: './node_modules/svgxuse',
-            to: '[name].[hash].[ext]',
-            pattern: /\.js$/
+            to: '[name].[hash:8].[ext]',
+            pattern: /\.js$/,
         })
 
         .configureBabel(null, {
