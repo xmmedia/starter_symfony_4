@@ -44,9 +44,9 @@ printf "\n\n"
 echo "Install oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 printf "\nDISABLE_AUTO_TITLE=\"true\"" >> ~/.zshrc
-printf "\nexport NVM_DIR=\"\$HOME/.nvm\"" >> ~/.zshrc
+printf "\n\nexport NVM_DIR=\"\$HOME/.nvm\"" >> ~/.zshrc
 printf "\n[ -s \"\$NVM_DIR/nvm.sh\" ] && \. \"\$NVM_DIR/nvm.sh\"  # This loads nvm" >> ~/.zshrc
-printf "[ -s \"\$NVM_DIR/bash_completion\" ] && \. \"\$NVM_DIR/bash_completion\"  # This loads nvm bash_completion" >> ~/.zshrc
+printf "\n[ -s \"\$NVM_DIR/bash_completion\" ] && \. \"\$NVM_DIR/bash_completion\"  # This loads nvm bash_completion" >> ~/.zshrc
 printf "\n\n"
 
 echo "Install nvm"
