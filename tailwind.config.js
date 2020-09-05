@@ -1,8 +1,10 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
+    // https://tailwindcss.com/docs/upcoming-changes
     future: {
         removeDeprecatedGapUtilities: true,
+        purgeLayersByDefault: true,
     },
     experimental: {
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#use-apply-with-variants-and-other-complex-classes
