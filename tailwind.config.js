@@ -5,7 +5,6 @@ module.exports = {
     future: {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
-        standardFontWeights: true,
     },
     experimental: {
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#use-apply-with-variants-and-other-complex-classes
@@ -18,6 +17,8 @@ module.exports = {
         defaultLineHeights: true,
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#extended-font-size-scale
         extendedFontSizeScale: true,
+        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.8.4
+        standardFontWeights: true,
     },
     purge: {
         content: [
