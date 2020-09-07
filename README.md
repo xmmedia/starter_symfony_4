@@ -83,7 +83,7 @@ and in `package.json` (`script.dev-server`) to be unique to each project if
 running multiple sites on one server.
 
 ## Incorporated Libraries & Tools
-
+@todo update/review
   - Frontend – full list of dependencies can be found in [package.json](https://github.com/xmmedia/starter_symfony_4/blob/master/package.json)
     - [Vue](https://vuejs.org/) – frontend framework
       - [Vue Router](https://router.vuejs.org/) – routing package for frontend
