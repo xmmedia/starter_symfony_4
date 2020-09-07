@@ -5,6 +5,7 @@ module.exports = {
     future: {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
+        standardFontWeights: true,
     },
     experimental: {
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#use-apply-with-variants-and-other-complex-classes
