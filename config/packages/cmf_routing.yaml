@@ -1,9 +1,9 @@
-cmf_routing:
-    chain:
-        routers_by_id:
-            router.default: 200
-            cmf_routing.dynamic_router: 100
-    dynamic:
-        enabled: true
-        default_controller: 'App\Controller\DefaultController::page'
-        route_provider_service_id: App\Infrastructure\Service\PageRouter
+#cmf_routing:
+#    chain:
+#        routers_by_id:
+#            router.default: 200
+#            cmf_routing.dynamic_router: 100
+#    dynamic:
+#        enabled: true
+#        default_controller: 'App\Controller\DefaultController::page'
+#        route_provider_service_id: App\Infrastructure\Service\PageRouter
