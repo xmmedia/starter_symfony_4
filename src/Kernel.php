@@ -14,8 +14,6 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
-
     protected function configureContainer(
         ContainerConfigurator $container,
         LoaderInterface $loader
