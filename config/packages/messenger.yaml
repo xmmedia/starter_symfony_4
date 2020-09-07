@@ -15,11 +15,16 @@ framework:
                 middleware:
                     - App\Messenger\RunProjectionMiddleware
                     - Xm\SymfonyBundle\Messenger\FailureCatcherMiddleware
+                    -
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        # failure_transport: failed
 
         transports:
-            # Uncomment the following line to enable a transport named "amqp"
-            # amqp: '%env(MESSENGER_TRANSPORT_DSN)%'
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            # failed: 'doctrine://default?queue_name=failed'
+            # sync: 'sync://'
 
         routing:
             # Route your messages to the transports
-            # 'App\Message\YourMessage': amqp
+            # 'App\Message\YourMessage': async
