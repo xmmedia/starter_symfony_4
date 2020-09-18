@@ -52,7 +52,7 @@ module.exports = function (Encore) {
             };
         })
 
-        .enableSourceMaps()
+        .enableSourceMaps(!Encore.isProduction())
 
         .copyFiles({
             from: './node_modules/svgxuse',
