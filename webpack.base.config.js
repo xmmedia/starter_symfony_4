@@ -35,6 +35,10 @@ module.exports = function (Encore) {
         .addEntry('admin', './public/js/src/admin.js')
         .addEntry('public', './public/js/src/public.js')
 
+        // uncomment to get integrity="..." attributes on your script & link tags
+        // requires WebpackEncoreBundle 1.4 or higher
+        .enableIntegrityHashes(Encore.isProduction())
+
         // allow sass/scss files to be processed
         .enableSassLoader(function() {}, {
             // see: http://symfony.com/doc/current/frontend/encore/bootstrap.html#importing-bootstrap-sass
