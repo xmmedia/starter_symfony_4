@@ -2,7 +2,7 @@
     <div v-if="ready">
         <nav class="sidebar_nav-wrap">
             <router-link :to="logoLinkRoute"
-                         class="flex items-center w-40 lg:w-64 border-b border-gray-600 rounded-none focus:bg-gray-700"
+                         class="flex items-center w-40 lg:w-64 border-b border-gray-700 rounded-none focus:bg-gray-700"
                          style="height: 3.75rem; padding: 0.65rem 0;">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
@@ -26,9 +26,9 @@
                 </template>
             </ul>
 
-            <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-500 font-thin">
+            <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-300 font-thin">
                 <div class="flex items-end justify-between px-4">
-                    <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap:break-word;">
+                    <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap:b reak-word;">
                         <router-link :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
                             {{ profileLinkText }}
                         </router-link>
@@ -37,7 +37,7 @@
                         <a href="/logout" class="sidebar_nav-bottom_links">Sign Out</a>
                     </div>
                 </div>
-                <div class="py-2 pl-4 text-xs text-gray-600 border-t border-gray-600">
+                <div class="py-2 pl-4 text-xs text-gray-400 border-t border-gray-600">
                     <!-- @todo-symfony -->
                     ©{{ copyrightYear }} XM Media Inc.
                 </div>

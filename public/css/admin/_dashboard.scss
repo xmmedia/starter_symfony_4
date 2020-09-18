@@ -1,5 +1,5 @@
 .dashboard-link {
-    @apply block w-40 h-40 mr-4 mb-4 p-2 text-center border border-gray-400 transition-colors duration-150 ease-in-out;
+    @apply block w-40 h-40 mr-4 mb-4 p-2 text-center border border-gray-300 transition-colors duration-150 ease-in-out;
     &:hover {
         @apply bg-gray-200 no-underline;
     }

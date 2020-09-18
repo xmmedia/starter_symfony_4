@@ -1,5 +1,5 @@
 .header-wrap {
-    @apply flex justify-between items-center py-2 bg-gray-200 border-b border-gray-500;
+    @apply flex justify-between items-center py-2 bg-gray-100 border-b border-gray-300;
     min-height: $header-height + 3.5;
     @screen xs {
         min-height: $header-height;
@@ -10,7 +10,7 @@
 }
 
 .header-wrap-small {
-    @apply flex justify-between items-center relative z-10 pt-4 text-white bg-black border-b border-gray-500;
+    @apply flex justify-between items-center relative z-10 pt-4 text-white bg-black border-b border-gray-400;
     height: $header-height;
     @screen lg {
         @apply hidden;

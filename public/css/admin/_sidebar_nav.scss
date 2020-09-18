@@ -15,12 +15,12 @@
 }
 
 .sidebar_nav-link {
-    @apply block w-full text-gray-500 fill-current outline-none;
+    @apply block w-full text-gray-300 fill-current outline-none;
     &:hover {
         @apply text-white bg-gray-800 no-underline transition-none;
     }
     &:focus {
-        @apply shadow-outline bg-gray-800 outline-none;
+        @apply text-white bg-gray-800 shadow-outline outline-none;
     }
 }
 
