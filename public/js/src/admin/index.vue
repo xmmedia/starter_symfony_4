@@ -92,6 +92,7 @@ export default {
     components: {
         menuSubnav,
         menuSmall,
+        /* eslint-disable vue/no-unused-components */
         menuLink,
     },
 
