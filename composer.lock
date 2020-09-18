@@ -10049,24 +10049,24 @@
         },
         {
             "name": "wildbit/postmark-php",
-            "version": "3.0.0",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wildbit/postmark-php.git",
-                "reference": "e799b3da3929d9a78ce1a83b51419738c6bb269b"
+                "reference": "136e3d0884411ca23d0bac02470cfa1d14be676c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wildbit/postmark-php/zipball/e799b3da3929d9a78ce1a83b51419738c6bb269b",
-                "reference": "e799b3da3929d9a78ce1a83b51419738c6bb269b",
+                "url": "https://api.github.com/repos/wildbit/postmark-php/zipball/136e3d0884411ca23d0bac02470cfa1d14be676c",
+                "reference": "136e3d0884411ca23d0bac02470cfa1d14be676c",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "~6.0",
-                "php": ">=5.5.0"
+                "guzzlehttp/guzzle": "^6.0|^7.0",
+                "php": ">=7.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.4.0"
+                "phpunit/phpunit": "^6.0.0"
             },
             "type": "library",
             "autoload": {
@@ -10079,20 +10079,20 @@
                 "MIT"
             ],
             "description": "The officially supported client for Postmark (http://postmarkapp.com)",
-            "time": "2020-08-06T12:51:55+00:00"
+            "time": "2020-09-10T16:36:51+00:00"
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.45",
+            "version": "v1.0.46",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "fb8bd880093c77ddc38855c528e8a6a7a971a812"
+                "reference": "92363adf3c6802f6acdc7a62581c4a897b2be6c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/fb8bd880093c77ddc38855c528e8a6a7a971a812",
-                "reference": "fb8bd880093c77ddc38855c528e8a6a7a971a812",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/92363adf3c6802f6acdc7a62581c4a897b2be6c9",
+                "reference": "92363adf3c6802f6acdc7a62581c4a897b2be6c9",
                 "shasum": ""
             },
             "require": {
@@ -10120,7 +10120,7 @@
                 "symfony/messenger": "^4.4 || ^5.0",
                 "symfony/security-bundle": "^4.4 || ^5.0",
                 "symfony/validator": "^4.4 || ^5.0",
-                "wildbit/postmark-php": "^2.8 || ^3.0"
+                "wildbit/postmark-php": "^2.8 || ^3.0 || ^4.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.13",
@@ -10157,7 +10157,7 @@
             ],
             "description": "Provides classes & services typically used in XM Media Symfony projects.",
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
-            "time": "2020-08-14T23:09:46+00:00"
+            "time": "2020-09-18T04:41:07+00:00"
         },
         {
             "name": "zendframework/zend-code",
