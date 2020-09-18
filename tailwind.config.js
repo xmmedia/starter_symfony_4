@@ -21,6 +21,7 @@ module.exports = {
         standardFontWeights: true,
     },
     purge: {
+        preserveHtmlElements: true,
         content: [
             './templates/**/*.html.twig',
             './public/js/src/**/*.vue',
