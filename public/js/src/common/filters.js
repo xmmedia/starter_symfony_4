@@ -15,10 +15,6 @@ export const formatPhone = function (phone, format = 'NATIONAL') {
     return libFormatPhone(str, 'CA', format);
 };
 
-export const nl2br = function (str) {
-    return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
-};
-
 export const date = function (date, format = 'M j, Y') {
     if (null === date) {
         return null;

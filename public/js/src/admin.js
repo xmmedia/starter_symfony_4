@@ -47,7 +47,6 @@ Vue.component('admin-delete', () => import(/* webpackChunkName: "admin-delete" *
 Vue.component('local-time', () => import(/* webpackChunkName: "local-time" */ './common/local_time'));
 
 Vue.filter('formatPhone', filters.formatPhone);
-Vue.filter('nl2br', filters.nl2br);
 Vue.filter('date', filters.date);
 Vue.filter('money', filters.money);
 Vue.filter('pluralize', filters.pluralize);
