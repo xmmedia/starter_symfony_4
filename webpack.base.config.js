@@ -52,7 +52,9 @@ module.exports = function (Encore) {
             };
         })
 
-        .enableSourceMaps(!Encore.isProduction())
+        // this makes compiling CSS very slow
+        // I believe it's mainly because of the size of tailwind
+        // .enableSourceMaps(!Encore.isProduction())
 
         .copyFiles({
             from: './node_modules/svgxuse',
