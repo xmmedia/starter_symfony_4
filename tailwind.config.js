@@ -75,6 +75,7 @@ module.exports = {
         textColor: ['responsive', 'hover', 'focus', 'group-hover'],
     },
     plugins: [
+        require('@tailwindcss/typography'),
         plugin(function({ addComponents, config }) {
             addComponents({
                 // same as: transition-all duration-300 ease-in-out
