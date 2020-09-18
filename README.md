@@ -10,7 +10,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
     ```
 2. Setup dev server:
    1. If using InterWorx, upload `setup_dev.sh` and run: `sh ./setup_dev.sh` 
-   1. Upload the files (exclude files that are OS dependent like `node_modules` & `.env` or that are only for editing like `.idea` and a lot of what's in `.gitignore`).
+   1. Upload the files (exclude files that are OS dependent like `node_modules` & `.env.local` or that are only for editing like `.idea` and a lot of what's in `.gitignore`).
    2. [Install Composer](https://getcomposer.org/download/) (if not already installed)
    3. Install PHP packages/vendors: `php composer.phar install`
    4. Add `.env.local` (copy `.env` and update). Generate this using 1Password (no need to store it) or similar at about 32 characters containing letters, numbers and symbols.
