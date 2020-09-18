@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import adminMenu from './menu/store';
-import cms from './cms/store';
 
 Vue.use(Vuex);
 
@@ -107,6 +106,5 @@ export default new Vuex.Store({
 
     modules: {
         adminMenu,
-        cms,
     },
 });

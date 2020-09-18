@@ -27,9 +27,6 @@ class Kernel extends BaseKernel
         } elseif (is_file($path = \dirname(__DIR__).'/config/services.php')) {
             (require $path)($container->withPath($path), $this);
         }
-
-        $container->extension('xm_cms', []);
-        $container->import('../config/cms/*.yml');
     }
 
     protected function configureRoutes(RoutingConfigurator $routes): void

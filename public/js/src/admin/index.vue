@@ -13,12 +13,12 @@
 
             <ul class="sidebar_nav-nav">
                 <template v-if="loggedIn">
-                    <li class="mb-2 lg:mb-0">
+                    <!--<li class="mb-2 lg:mb-0">
                         <router-link :to="{ name: 'admin-page' }"
                                      class="sidebar_nav-link">
                             <menu-link label="Pages" icon="gear" />
                         </router-link>
-                    </li>
+                    </li>-->
 
                     <li v-if="hasRole('ROLE_ADMIN')">
                         <menu-subnav :items="adminMenuItems" label="Admin" icon="gear" />

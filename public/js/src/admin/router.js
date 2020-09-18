@@ -69,35 +69,6 @@ const router = new Router({
             },
         },
         {
-            path: '/admin/page',
-            component: () => import(/* webpackChunkName: "admin-page" */ './cms/page'),
-            children: [
-                {
-                    name: 'admin-page',
-                    path: '',
-                    component: () => import(/* webpackChunkName: "admin-page" */ './cms/page/list'),
-                },
-                {
-                    name: 'admin-page-add',
-                    path: 'add',
-                    component: () => import(/* webpackChunkName: "admin-page" */ './cms/page/add'),
-                    props: (route) => ({
-                        parentPageId: route.query.parent_page_id || null,
-                    }),
-                },
-                {
-                    name: 'admin-page-edit',
-                    path: ':pageId/edit',
-                    component: () => import(/* webpackChunkName: "admin-page" */ './cms/page/edit'),
-                    props: true,
-                },
-            ],
-            meta: {
-                requiresAuth: true,
-                role: 'ROLE_ADMIN',
-            },
-        },
-        {
             path: '/admin/user',
             component: () => import(/* webpackChunkName: "admin-user" */ './user'),
             children: [

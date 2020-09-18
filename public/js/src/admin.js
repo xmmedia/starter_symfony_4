@@ -68,10 +68,6 @@ apolloProvider.defaultClient.query({ query: MeQuery })
             store,
             apolloProvider,
 
-            mounted () {
-                this.$store.dispatch('cms/loadTemplates');
-            },
-
             render: h => h(app),
 
             metaInfo: {

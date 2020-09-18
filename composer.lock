@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "14c1f506d2f464b7ddd12b61faeccebb",
+    "content-hash": "053b7ffe344b8c3f691a9198ce4ed8fe",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -4438,142 +4438,6 @@
                 "mailer"
             ],
             "time": "2019-11-12T09:31:26+00:00"
-        },
-        {
-            "name": "symfony-cmf/routing",
-            "version": "2.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony-cmf/Routing.git",
-                "reference": "e073c3b6db0e9a5f4c8d7a7bb8a092cd5e191fba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony-cmf/Routing/zipball/e073c3b6db0e9a5f4c8d7a7bb8a092cd5e191fba",
-                "reference": "e073c3b6db0e9a5f4c8d7a7bb8a092cd5e191fba",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2",
-                "psr/log": "^1.0",
-                "symfony/http-kernel": "^4.4 || ^5.0",
-                "symfony/routing": "^4.4 || ^5.0"
-            },
-            "require-dev": {
-                "symfony-cmf/testing": "^3@dev",
-                "symfony/config": "^4.4 || ^5.0",
-                "symfony/dependency-injection": "^4.4 || ^5.0",
-                "symfony/event-dispatcher": "^4.4 || ^5.0",
-                "symfony/phpunit-bridge": "^5.0"
-            },
-            "suggest": {
-                "symfony/event-dispatcher": "DynamicRouter can optionally trigger an event at the start of matching. Minimal version (^4.4 || ^5.0)"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Cmf\\Component\\Routing\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony CMF Community",
-                    "homepage": "https://github.com/symfony-cmf/Routing/contributors"
-                }
-            ],
-            "description": "Extends the Symfony routing component for dynamic routes and chaining several routers",
-            "homepage": "http://cmf.symfony.com",
-            "keywords": [
-                "database",
-                "routing"
-            ],
-            "time": "2020-05-27T08:26:50+00:00"
-        },
-        {
-            "name": "symfony-cmf/routing-bundle",
-            "version": "2.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony-cmf/routing-bundle.git",
-                "reference": "6d5c6fedb0ab74543479b24c8c3b14ab049810ff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony-cmf/routing-bundle/zipball/6d5c6fedb0ab74543479b24c8c3b14ab049810ff",
-                "reference": "6d5c6fedb0ab74543479b24c8c3b14ab049810ff",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2",
-                "symfony-cmf/routing": "^2.3.0",
-                "symfony/framework-bundle": "^4.4 || ^5.0",
-                "twig/twig": "^2.4.4 || ^3.0"
-            },
-            "conflict": {
-                "doctrine/phpcr-odm": "<1.4",
-                "phpunit/phpunit": "<6"
-            },
-            "require-dev": {
-                "doctrine/data-fixtures": "^1.0.0",
-                "doctrine/doctrine-bundle": "^2.0",
-                "doctrine/orm": "^2.5",
-                "doctrine/phpcr-bundle": "^2.1",
-                "doctrine/phpcr-odm": "^1.4|^2.0",
-                "jackalope/jackalope-doctrine-dbal": "^1.3",
-                "matthiasnoback/symfony-config-test": "^4.1.0",
-                "matthiasnoback/symfony-dependency-injection-test": "^4.1.0",
-                "symfony-cmf/testing": "^3.2",
-                "symfony/form": "^4.4 || ^5.0",
-                "symfony/monolog-bundle": "^3.5",
-                "symfony/phpunit-bridge": "^5.0",
-                "symfony/security-bundle": "^4.4 || ^5.0",
-                "symfony/serializer": "^4.4 || ^5.0",
-                "symfony/translation": "^4.4 || ^5.0",
-                "symfony/twig-bundle": "^4.4 || ^5.0",
-                "symfony/validator": "^4.4 || ^5.0"
-            },
-            "suggest": {
-                "doctrine/orm": "To enable support for the ORM entities (^2.5)",
-                "doctrine/phpcr-bundle": "To enable support for the PHPCR ODM documents",
-                "doctrine/phpcr-odm": "To enable support for the PHPCR ODM documents (^1.4)"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Cmf\\Bundle\\RoutingBundle\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony CMF Community",
-                    "homepage": "https://github.com/symfony-cmf/RoutingBundle/contributors"
-                }
-            ],
-            "description": "Symfony RoutingBundle",
-            "homepage": "http://cmf.symfony.com",
-            "keywords": [
-                "database",
-                "routing"
-            ],
-            "time": "2020-04-28T13:59:52+00:00"
         },
         {
             "name": "symfony/amqp-messenger",
@@ -10217,76 +10081,6 @@
             "time": "2020-06-08T08:42:08+00:00"
         },
         {
-            "name": "xm/cms-bundle",
-            "version": "v0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/xmmedia/cms-bundle.git",
-                "reference": "e14ee99f63c2b3f891143a44e2f37d54964d3bd0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/cms-bundle/zipball/e14ee99f63c2b3f891143a44e2f37d54964d3bd0",
-                "reference": "e14ee99f63c2b3f891143a44e2f37d54964d3bd0",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/doctrine-bundle": "^2.0",
-                "doctrine/orm": "^2.5",
-                "egulias/email-validator": "^2.1",
-                "ext-json": "*",
-                "marc-mabe/php-enum": "^4.1",
-                "nesbot/carbon": "^2.24",
-                "overblog/graphql-bundle": "^0.12.3 || ^0.13.0",
-                "php": "^7.3",
-                "prooph/event-store-bus-bridge": "^3.3",
-                "prooph/event-store-symfony-bundle": "^0.6.0 || ^0.7.0 || ^0.8.0",
-                "prooph/pdo-event-store": "^1.11",
-                "ramsey/uuid": "^3.7.3 || ^4.0",
-                "ramsey/uuid-doctrine": "^1.5",
-                "symfony/framework-bundle": "^5.0",
-                "symfony/messenger": "^5.0",
-                "symfony/security-bundle": "^5.0",
-                "wildbit/postmark-php": "^2.8"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.13",
-                "fzaninotto/faker": "^1.8",
-                "mockery/mockery": "^1.2",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-mockery": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpstan/phpstan-symfony": "^0.12",
-                "phpstan/phpstan-webmozart-assert": "^0.12",
-                "phpunit/phpunit": "^8.0",
-                "symfony/debug-pack": "^1.0.0",
-                "symfony/phpunit-bridge": "^5.0",
-                "symfony/test-pack": "^1.0.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Xm\\CmsBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Darryl Hein",
-                    "email": "dhein@xmmedia.com"
-                }
-            ],
-            "description": "CMS used for building websites at XM Media. Based on Symfony.",
-            "homepage": "https://github.com/xmmedia/XMCmsBundle",
-            "time": "2020-05-26T17:03:29+00:00"
-        },
-        {
             "name": "xm/symfony-bundle",
             "version": "v1.0.45",
             "source": {
@@ -13210,6 +13004,142 @@
             "time": "2020-06-26T12:18:43+00:00"
         },
         {
+            "name": "symfony-cmf/routing",
+            "version": "2.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony-cmf/Routing.git",
+                "reference": "e073c3b6db0e9a5f4c8d7a7bb8a092cd5e191fba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony-cmf/Routing/zipball/e073c3b6db0e9a5f4c8d7a7bb8a092cd5e191fba",
+                "reference": "e073c3b6db0e9a5f4c8d7a7bb8a092cd5e191fba",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2",
+                "psr/log": "^1.0",
+                "symfony/http-kernel": "^4.4 || ^5.0",
+                "symfony/routing": "^4.4 || ^5.0"
+            },
+            "require-dev": {
+                "symfony-cmf/testing": "^3@dev",
+                "symfony/config": "^4.4 || ^5.0",
+                "symfony/dependency-injection": "^4.4 || ^5.0",
+                "symfony/event-dispatcher": "^4.4 || ^5.0",
+                "symfony/phpunit-bridge": "^5.0"
+            },
+            "suggest": {
+                "symfony/event-dispatcher": "DynamicRouter can optionally trigger an event at the start of matching. Minimal version (^4.4 || ^5.0)"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Cmf\\Component\\Routing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony CMF Community",
+                    "homepage": "https://github.com/symfony-cmf/Routing/contributors"
+                }
+            ],
+            "description": "Extends the Symfony routing component for dynamic routes and chaining several routers",
+            "homepage": "http://cmf.symfony.com",
+            "keywords": [
+                "database",
+                "routing"
+            ],
+            "time": "2020-05-27T08:26:50+00:00"
+        },
+        {
+            "name": "symfony-cmf/routing-bundle",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony-cmf/routing-bundle.git",
+                "reference": "6d5c6fedb0ab74543479b24c8c3b14ab049810ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony-cmf/routing-bundle/zipball/6d5c6fedb0ab74543479b24c8c3b14ab049810ff",
+                "reference": "6d5c6fedb0ab74543479b24c8c3b14ab049810ff",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2",
+                "symfony-cmf/routing": "^2.3.0",
+                "symfony/framework-bundle": "^4.4 || ^5.0",
+                "twig/twig": "^2.4.4 || ^3.0"
+            },
+            "conflict": {
+                "doctrine/phpcr-odm": "<1.4",
+                "phpunit/phpunit": "<6"
+            },
+            "require-dev": {
+                "doctrine/data-fixtures": "^1.0.0",
+                "doctrine/doctrine-bundle": "^2.0",
+                "doctrine/orm": "^2.5",
+                "doctrine/phpcr-bundle": "^2.1",
+                "doctrine/phpcr-odm": "^1.4|^2.0",
+                "jackalope/jackalope-doctrine-dbal": "^1.3",
+                "matthiasnoback/symfony-config-test": "^4.1.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.1.0",
+                "symfony-cmf/testing": "^3.2",
+                "symfony/form": "^4.4 || ^5.0",
+                "symfony/monolog-bundle": "^3.5",
+                "symfony/phpunit-bridge": "^5.0",
+                "symfony/security-bundle": "^4.4 || ^5.0",
+                "symfony/serializer": "^4.4 || ^5.0",
+                "symfony/translation": "^4.4 || ^5.0",
+                "symfony/twig-bundle": "^4.4 || ^5.0",
+                "symfony/validator": "^4.4 || ^5.0"
+            },
+            "suggest": {
+                "doctrine/orm": "To enable support for the ORM entities (^2.5)",
+                "doctrine/phpcr-bundle": "To enable support for the PHPCR ODM documents",
+                "doctrine/phpcr-odm": "To enable support for the PHPCR ODM documents (^1.4)"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Cmf\\Bundle\\RoutingBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony CMF Community",
+                    "homepage": "https://github.com/symfony-cmf/RoutingBundle/contributors"
+                }
+            ],
+            "description": "Symfony RoutingBundle",
+            "homepage": "http://cmf.symfony.com",
+            "keywords": [
+                "database",
+                "routing"
+            ],
+            "time": "2020-04-28T13:59:52+00:00"
+        },
+        {
             "name": "symfony/apache-pack",
             "version": "v1.0.1",
             "source": {
@@ -14010,6 +13940,76 @@
                 }
             ],
             "time": "2020-07-12T23:59:07+00:00"
+        },
+        {
+            "name": "xm/cms-bundle",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xmmedia/cms-bundle.git",
+                "reference": "e14ee99f63c2b3f891143a44e2f37d54964d3bd0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xmmedia/cms-bundle/zipball/e14ee99f63c2b3f891143a44e2f37d54964d3bd0",
+                "reference": "e14ee99f63c2b3f891143a44e2f37d54964d3bd0",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "^2.0",
+                "doctrine/orm": "^2.5",
+                "egulias/email-validator": "^2.1",
+                "ext-json": "*",
+                "marc-mabe/php-enum": "^4.1",
+                "nesbot/carbon": "^2.24",
+                "overblog/graphql-bundle": "^0.12.3 || ^0.13.0",
+                "php": "^7.3",
+                "prooph/event-store-bus-bridge": "^3.3",
+                "prooph/event-store-symfony-bundle": "^0.6.0 || ^0.7.0 || ^0.8.0",
+                "prooph/pdo-event-store": "^1.11",
+                "ramsey/uuid": "^3.7.3 || ^4.0",
+                "ramsey/uuid-doctrine": "^1.5",
+                "symfony/framework-bundle": "^5.0",
+                "symfony/messenger": "^5.0",
+                "symfony/security-bundle": "^5.0",
+                "wildbit/postmark-php": "^2.8"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "fzaninotto/faker": "^1.8",
+                "mockery/mockery": "^1.2",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-mockery": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-symfony": "^0.12",
+                "phpstan/phpstan-webmozart-assert": "^0.12",
+                "phpunit/phpunit": "^8.0",
+                "symfony/debug-pack": "^1.0.0",
+                "symfony/phpunit-bridge": "^5.0",
+                "symfony/test-pack": "^1.0.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Xm\\CmsBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Darryl Hein",
+                    "email": "dhein@xmmedia.com"
+                }
+            ],
+            "description": "CMS used for building websites at XM Media. Based on Symfony.",
+            "homepage": "https://github.com/xmmedia/XMCmsBundle",
+            "time": "2020-05-26T17:03:29+00:00"
         }
     ],
     "aliases": [],

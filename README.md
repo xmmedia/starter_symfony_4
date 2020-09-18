@@ -18,8 +18,8 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
    7. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
    8. Give executable perms to bin dir: `chmod u+x bin/*`
    9. Create event streams & projections tables from `db_create.sql`. Set database collation to `utf8mb4_bin`.
-   10. Create one or more event streams with the command `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth && bin/console event-store:event-stream:create enquiry && bin/console event-store:event-stream:create page` (remove enquiry and page if not using the enquiry form or CMS).
-   11. Run all projections once: `bin/console event-store:projection:run user_projection -o && bin/console event-store:projection:run user_token_projection -o && bin/console event-store:projection:run enquiry_projection -o && bin/console event-store:projection:run page_projection -o` 
+   10. Create one or more event streams with the command `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth && bin/console event-store:event-stream:create enquiry` (remove enquiry if not using the enquiry form).
+   11. Run all projections once: `bin/console event-store:projection:run user_projection -o && bin/console event-store:projection:run user_token_projection -o && bin/console event-store:projection:run enquiry_projection -o` 
    12. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`).
    13. Setup mail spool: add cron task similar to: `*/15 * * * * cd /home/user/example.com/current && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1` (this only sends error emails, runs every 15 minutes)
       1. As one command: `crontab -l > mycron; echo "*/15 * * * * cd ${BASE}/current && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1" >> mycron; crontab mycron; rm mycron`

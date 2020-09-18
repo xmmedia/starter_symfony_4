@@ -23,8 +23,6 @@ return [
     Prooph\Bundle\EventStore\ProophEventStoreBundle::class => ['all' => true],
     Overblog\GraphQLBundle\OverblogGraphQLBundle::class => ['all' => true],
     Overblog\GraphiQLBundle\OverblogGraphiQLBundle::class => ['dev' => true],
-    Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle::class => ['all' => true],
-    Xm\CmsBundle\XmCmsBundle::class => ['all' => true],
     Xm\SymfonyBundle\XmSymfonyBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
 ];
