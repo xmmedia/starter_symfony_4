@@ -5,6 +5,7 @@
                    :scrollable="true"
                    :name="name"
                    :height="height"
+                   :width="width"
                    transition="md"
                    @opened="$emit('opened')"
                    @closed="$emit('closed')">
@@ -29,6 +30,10 @@ export default {
         height: {
             type: [String, Number],
             default: 'auto',
+        },
+        width: {
+            type: [String, Number],
+            default: 600,
         },
     },
 
