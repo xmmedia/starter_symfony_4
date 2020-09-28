@@ -83,6 +83,10 @@ const stateMachine = Machine({
 });
 
 export default {
+    metaInfo: {
+        title: 'Activate Your Account',
+    },
+
     components: {
         fieldPassword,
     },
