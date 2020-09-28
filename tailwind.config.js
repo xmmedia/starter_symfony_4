@@ -10,6 +10,7 @@ module.exports = {
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#use-apply-with-variants-and-other-complex-classes
         applyComplexClasses: true,
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#new-color-palette
+        // Palette: https://f1igi.csb.app/
         uniformColorPalette: true,
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#extended-spacing-scale
         extendedSpacingScale: true,
