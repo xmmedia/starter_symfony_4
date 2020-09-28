@@ -26,8 +26,7 @@ class Name implements ValueObject, \JsonSerializable
         $name = StringUtil::trim($name);
 
         Assert::notEmpty($name);
-        Assert::minLength($name, self::MIN_LENGTH);
-        Assert::maxLength($name, self::MAX_LENGTH);
+        Assert::lengthBetween($name, self::MIN_LENGTH, self::MAX_LENGTH);
 
         $this->name = $name;
     }
