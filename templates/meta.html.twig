@@ -1,10 +1,10 @@
-{# @todo-symfony update twitter username #}
 {#
 Usage:
 {% block head %}
+    {{ parent() }}
     {% include 'meta.html.twig' with {
-        'description' : 'Meta/OG/Twitter Description',
         'title' : 'Page Title',
+        'description' : 'Meta/OG/Twitter Description',
         'url' : <relative/url>,
         'image' : '/images/logo-og.png',
         'image_alt': 'Image Alt',
@@ -12,14 +12,18 @@ Usage:
 {% endblock head %}
 #}
 
-{% if titie is defined and title is not empty %}
+{% if title is defined and title is not empty %}
     {% set title = title ~ ' | ' ~ 'app.parameter.name'|trans %}
 {% else %}
     {% set title = 'app.parameter.name'|trans %}
 {% endif %}
 
 {% if description %}
-    <meta name="description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+    {% set description = description|replace({"\n":' ', "\r":' '}) %}
+{% endif %}
+
+{% if description %}
+    <meta name="description" content="{{ description }}">
 {% endif %}
 
 <meta property="og:title" content="{{ title }}">
@@ -27,22 +31,33 @@ Usage:
 <meta property="og:url"   content="{{ absolute_url(url) }}">
 <meta property="og:site_name" content="{{ 'app.parameter.name'|trans }}">
 {% if image is defined %}
+    {# should be 1200x630 #}
     <meta property="og:image" content="{{ absolute_url(image) }}">
-    <meta property="og:image:alt" content="{{ image_alt }}">
+    {% if image_alt %}
+        <meta property="og:image:alt" content="{{ image_alt }}">
+    {% endif %}
 {% endif %}
+{# should be 1200x630 #}
 <meta property="og:image" content="{{ absolute_url('/images/logo-og.png') }}">
 <meta property="og:image:alt" content="{{ 'app.parameter.name'|trans }} Logo">
 {% if description %}
-    <meta property="og:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+    <meta property="og:description" content="{{ description }}">
 {% endif %}
 
 <meta name="twitter:card"  content="summary_large_image">
+{# @todo-symfony update twitter username #}
 <meta name="twitter:site"  content="<twitter-username>">
 <meta name="twitter:title" content="{{ title }}">
 {% if description %}
-    <meta name="twitter:description" content="{{ description|replace({"\n":' ', "\r":' '}) }}">
+    <meta name="twitter:description" content="{{ description }}">
 {% endif %}
 {% if image is defined %}
     <meta name="twitter:image" content="{{ absolute_url(image) }}">
+    {% if image_alt %}
+        <meta property="twitter:image:alt" content="{{ image_alt }}">
+    {% endif %}
+{% else %}
+    <meta name="twitter:image" content="{{ absolute_url('/images/logo-og.png') }}">
+    <meta property="twitter:image:alt" content="{{ 'app.parameter.name'|trans }} Logo">
 {% endif %}
 <meta name="twitter:url"   content="{{ absolute_url(url) }}">
