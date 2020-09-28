@@ -20,6 +20,8 @@
                :autocomplete="autocomplete"
                type="text"
                @input="$emit('input', $event.target.value)">
+
+        <div v-if="hasHelp" class="field-help"><slot name="help"></slot></div>
     </div>
 </template>
 
@@ -51,6 +53,9 @@ export default {
     computed: {
         minCharacter () {
             return 1 === this.v.$params.minLength.min ? 'character' : 'characters';
+        },
+        hasHelp () {
+            return !!this.$slots.help;
         },
     },
 }
