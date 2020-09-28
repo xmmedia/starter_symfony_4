@@ -54,7 +54,7 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { Machine, interpret } from 'xstate';
 import { hasGraphQlError, logError, waitForValidation } from '@/common/lib';
-import { required } from 'vuelidate/lib/validators';
+import { required, sameAs } from 'vuelidate/lib/validators';
 import fieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '../queries/user.mutation.graphql';
 import stateMixin from '@/common/state_mixin';
@@ -120,6 +120,7 @@ export default {
             },
             repeatPassword: {
                 required,
+                sameAs: sameAs('password'),
             },
         };
     },

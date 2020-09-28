@@ -6,7 +6,6 @@ import {
 import { pwnedPassword } from 'hibp';
 import zxcvbn from 'zxcvbn';
 
-
 export default {
     password: {
         required,
