@@ -1,11 +1,11 @@
 .record_view-item_wrap {
-    @apply max-w-3xl mt-4 mx-auto p-2 border-4 border-gray-400 rounded;
+    @apply max-w-3xl mt-4 mx-auto p-2 border-4 border-gray-300 rounded;
     &:first-child {
         @apply mt-0;
     }
 }
 .record_view-item_group_wrap {
-    @apply mt-4 border-t-2 border-gray-500;
+    @apply mt-4 border-t-2 border-gray-400;
 }
 .record_view-item {
     @apply flex flex-wrap p-2 transition-colors duration-150 ease-in-out;
@@ -25,7 +25,7 @@
 }
 
 .record_view-item_label {
-    @apply text-gray-600;
+    @apply text-gray-400;
     min-width: 5rem;
     @screen md {
         @apply w-1/5;

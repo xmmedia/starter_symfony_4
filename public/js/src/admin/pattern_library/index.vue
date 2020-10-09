@@ -266,7 +266,7 @@
                     </div>
                 </fieldset>
 
-                <div class="mt-6 mb-4 p-4 pt-3 border border-gray-400">
+                <div class="mt-6 mb-4 p-4 pt-3 border border-gray-300">
                     <div class="flex">
                         <h4 class="mt-0 mb-3">Heading</h4>
                         <div class="ml-auto leading-none">

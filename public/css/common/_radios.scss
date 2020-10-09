@@ -14,7 +14,7 @@
     label {
         @apply block py-1 px-5 text-blue-800 rounded-full border-2 border-transparent cursor-pointer;
         &:after {
-            @apply absolute inset-0 border-2 border-gray-500 rounded-full cursor-pointer;
+            @apply absolute inset-0 border-2 border-gray-400 rounded-full cursor-pointer;
             content: "";
             transition:
                 bottom 200ms ease-in-out,
@@ -26,9 +26,9 @@
     }
 
     input:hover ~ label, label:hover {
-        @apply bg-gray-200 border-gray-700 ;
+        @apply bg-gray-200 border-gray-600 ;
         &:after {
-            @apply border-gray-700;
+            @apply border-gray-600;
         }
     }
 
