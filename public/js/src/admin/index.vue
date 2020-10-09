@@ -28,7 +28,7 @@
 
             <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-300 font-thin">
                 <div class="flex items-end justify-between px-4">
-                    <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap:b reak-word;">
+                    <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap: break-word;">
                         <router-link :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
                             {{ profileLinkText }}
                         </router-link>
