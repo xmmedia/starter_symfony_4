@@ -1,6 +1,6 @@
 // Leading resets tailwinds default line-height
 .button {
-    @apply py-2 px-4 text-white bg-blue-600 text-center shadow-none border border-blue-600 rounded leading-tight transition-default outline-none;
+    @apply py-2 px-4 text-white bg-blue-500 text-center shadow-none border border-blue-500 rounded leading-tight transition-default outline-none;
     &:hover {
         @apply text-white bg-blue-800 border-blue-800 no-underline;
     }
@@ -18,6 +18,6 @@
 a.button {
     @apply inline-block;
     &:focus {
-        @apply bg-blue-600;
+        @apply bg-blue-500;
     }
 }
