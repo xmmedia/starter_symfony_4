@@ -1,4 +1,5 @@
 <template>
+    <!-- eslint-disable vue/no-v-html -->
     <time :datetime="datetime" v-html="displayTime"></time>
 </template>
 
