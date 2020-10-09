@@ -1,5 +1,5 @@
 <template>
-    <time :datetime="datetime">{{ displayTime }}</time>
+    <time :datetime="datetime" v-html="displayTime"></time>
 </template>
 
 <script>
@@ -19,7 +19,8 @@ export default {
         displayTime () {
             const str = new Date(this.datetime).toLocaleString('en-CA', { hour12: false });
 
-            return str.substring(0, 10) + ' ' + str.substring(12, 17);
+            // add classes so the date and time don't wrap
+            return '<span class="whitespace-no-wrap">' + str.substring(0, 10) + '</span> <span class="whitespace-no-wrap">' + str.substring(12, 17) + '</span>';
         },
     },
 }
