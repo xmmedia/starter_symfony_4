@@ -7,8 +7,8 @@ module.exports = {
     },
     extends: ['plugin:vue/recommended', 'eslint:recommended'],
     rules: {
-        "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-        "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+        "no-console": "error",
+        "no-debugger": "error",
         "max-len": ["error", {
             "code": 120, // so we have a bit of grace
             "ignoreComments": true,

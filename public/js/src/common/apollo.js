@@ -13,17 +13,20 @@ Vue.use(VueApollo);
 const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
         graphQLErrors.map((error) => {
+            // eslint-disable-next-line no-console
             console.error(
                 `[GraphQL error]: Message: ${error.message}
                   Location: ${JSON.stringify(error.locations)}
                   Path: ${error.path}`,
             );
             if (error.debugMessage) {
+                // eslint-disable-next-line no-console
                 console.error(error.debugMessage);
             }
         });
     }
     if (networkError) {
+        // eslint-disable-next-line no-console
         console.error(`[Network error]: ${networkError}`);
     }
 });
