@@ -163,7 +163,6 @@
       <path value="$PROJECT_DIR$/vendor/wildbit/postmark-php" />
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
       <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
-      <path value="$PROJECT_DIR$/vendor/twig/extensions" />
       <path value="$PROJECT_DIR$/vendor/prooph/event-store-symfony-bundle" />
       <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
       <path value="$PROJECT_DIR$/vendor/prooph/event-store-bus-bridge" />
