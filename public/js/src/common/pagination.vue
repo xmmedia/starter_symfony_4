@@ -7,13 +7,13 @@
         <router-link v-if="current !== 1"
                      :to="pageRoute(0)"
                      :class="linkClasses"
-                     class="inline-block">&lt;&lt;</router-link>
-        <span v-else class="inline-block w-12 p-1 text-gray-800">&lt;&lt;</span>
+                     class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-100">&lt;&lt;</router-link>
+        <span v-else :class="spanClasses" class="inline-block">&lt;&lt;</span>
 
         <router-link v-if="previous !== null"
                      :to="previousRoute"
                      :class="linkClasses"
-                     class="inline-block">&lt;</router-link>
+                     class="inline-block w-12 p-1 hover:no-underline hover:bg-blue-100">&lt;</router-link>
         <span v-else :class="spanClasses" class="inline-block">&lt;</span>
 
         <span v-if="showBeforeEllipsis"
@@ -28,7 +28,7 @@
             <span v-else
                   :key="page"
                   :class="spanClasses"
-                  class="hidden lg:inline-block border border-gray-400 rounded">{{ page }}</span>
+                  class="hidden lg:inline-block border border-gray-400">{{ page }}</span>
         </template>
 
         <span v-if="showAfterEllipsis"
@@ -44,7 +44,7 @@
                      :to="{ name: routeName, query: { offset: last } }"
                      :class="linkClasses"
                      class="inline-block">&gt;&gt;</router-link>
-        <span v-else class="inline-block w-12 p-1 text-gray-800">&gt;&gt;</span>
+        <span v-else :class="spanClasses" class="inline-block">&gt;&gt;</span>
     </div>
 </template>
 
@@ -95,8 +95,8 @@ export default {
 
     data () {
         return {
-            linkClasses: 'w-12 p-1 hover:no-underline hover:bg-blue-100',
-            spanClasses: 'w-12 p-1 text-gray-800',
+            linkClasses: 'w-12 p-1 hover:no-underline hover:bg-blue-100 rounded',
+            spanClasses: 'w-12 p-1 text-gray-800 rounded',
         };
     },
 
