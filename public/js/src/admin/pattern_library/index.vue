@@ -73,18 +73,26 @@
         <!-- ######### Buttons ########### -->
         <!-- ############################# -->
         <h2>Buttons</h2>
-        <button class="button">Button Button</button>
-        <a href="" class="button">Link Button</a>
-        <a href="" class="button button-critical">Delete Button</a>
+        <div class="grid grid-cols-2 gap-4">
+            <button class="button">Button Button</button>
+            <button class="button button-critical">Critical Button</button>
+            <button class="button" disabled>Button Disabled</button>
+            <button class="button button-critical" disabled>Critical Button Disabled</button>
+            <a href="" class="button">Link Button</a>
+            <a href="" class="button button-critical">Critical Link Button</a>
+        </div>
         <div class="flex my-4">
             <button class="button-link">Button Link</button>
             <a href="" class="ml-4">Link</a>
         </div>
-        <div style="background: grey; margin-top: 1rem; padding: 1rem;">
-            <h2>Buttons on Dark Background</h2>
+        <div class="grid grid-cols-2 gap-4 mt-4 p-4 bg-gray-500">
+            <h2 class="col-span-2">Buttons on Dark Background</h2>
             <button class="button">Button Button</button>
+            <button class="button button-critical">Critical Button</button>
+            <button class="button" disabled>Button Disabled</button>
+            <button class="button button-critical" disabled>Critical Button Disabled</button>
             <a href="" class="button">Link Button</a>
-            <a href="" class="button button-critical bg-gray-300">Delete Button</a>
+            <a href="" class="button button-critical">Critical Button</a>
         </div>
 
         <!-- ############################# -->

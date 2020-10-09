@@ -17,4 +17,7 @@
 
 a.button {
     @apply inline-block;
+    &:focus {
+        @apply bg-blue-600;
+    }
 }
