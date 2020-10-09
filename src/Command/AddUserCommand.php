@@ -9,6 +9,7 @@ use App\Model\User\Role;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Security\PasswordEncoder;
+use App\Util\Assert;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use Ramsey\Uuid\Uuid;
@@ -18,7 +19,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
-use Webmozart\Assert\Assert;
 use Xm\SymfonyBundle\Model\Email;
 
 final class AddUserCommand extends Command

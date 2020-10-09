@@ -6,7 +6,7 @@ namespace App\Model\Enquiry\Command;
 
 use App\Model\Enquiry\EnquiryId;
 use App\Model\Enquiry\Name;
-use Webmozart\Assert\Assert;
+use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 use Xm\SymfonyBundle\Model\Email;
 

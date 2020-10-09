@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Model\Auth\Command;
 
 use App\Model\Auth\AuthId;
-use Webmozart\Assert\Assert;
+use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 
 final class UserLoginFailed extends Command

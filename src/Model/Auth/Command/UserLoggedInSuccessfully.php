@@ -6,7 +6,7 @@ namespace App\Model\Auth\Command;
 
 use App\Model\Auth\AuthId;
 use App\Model\User\UserId;
-use Webmozart\Assert\Assert;
+use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 use Xm\SymfonyBundle\Model\Email;
 

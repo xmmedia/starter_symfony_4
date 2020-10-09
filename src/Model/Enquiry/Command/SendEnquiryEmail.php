@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Enquiry\Command;
 
-use Webmozart\Assert\Assert;
+use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 use Xm\SymfonyBundle\Model\Email;
 

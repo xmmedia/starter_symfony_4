@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Model\User\Command;
 
 use App\Model\User\UserId;
-use Webmozart\Assert\Assert;
+use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 
 final class UserLoggedIn extends Command

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\User;
 
-use Webmozart\Assert\Assert;
+use App\Util\Assert;
 use Xm\SymfonyBundle\Model\ValueObject;
 use Xm\SymfonyBundle\Util\StringUtil;
 
