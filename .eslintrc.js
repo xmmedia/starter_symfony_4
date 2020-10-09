@@ -47,6 +47,7 @@ module.exports = {
         }],
         "vue/multiline-html-element-content-newline": "off",
         "vue/singleline-html-element-content-newline": "off",
+        "vue/component-definition-name-casing": ["error", "kebab-case"],
     },
     reportUnusedDisableDirectives: true,
     parserOptions: {
