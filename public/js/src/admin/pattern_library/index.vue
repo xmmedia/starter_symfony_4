@@ -252,7 +252,27 @@
                     </div>
                 </div>
 
-                <fieldset class="mt-6 mb-4 p-4 border border-gray-400">
+                <fieldset class="field-wrap-radios mb-5">
+                    <legend>Radio pills</legend>
+                    <span class="radio-pill radio-pill-bad">
+                        <input id="radio-pill-1"
+                               name="radio-pill"
+                               value="yes"
+                               type="radio">
+                        <label for="radio-pill-1">Yes</label>
+                    </span>
+
+                    <span class="radio-pill radio-pill-good">
+                        <input id="radio-pill-2"
+                               name="radio-pill"
+                               value="no"
+                               type="radio"
+                               class="radio-good">
+                        <label for="radio-pill-2">No</label>
+                    </span>
+                </fieldset>
+
+                <fieldset class="mt-6 mb-4 p-4 border border-gray-300">
                     <legend>Fieldset with border</legend>
                     <div class="field-wrap">
                         <label for="pattern-library-fieldset-1">Fieldset field 1</label>
