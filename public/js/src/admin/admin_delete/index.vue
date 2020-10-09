@@ -55,6 +55,7 @@ export default {
         },
         close () {
             this.show = false;
+            this.deleting = false;
             this.$refs.link.focus();
         },
     },
