@@ -90,6 +90,16 @@ export default {
         stateMixin,
     ],
 
+    beforeRouteLeave (to, from, next) {
+        if (this.state.matches('edited')) {
+            if (!confirm('You have unsaved changes. Are you sure you want to leave?')) {
+                return
+            }
+        }
+
+        next();
+    },
+
     data () {
         return {
             stateService: interpret(stateMachine),
@@ -99,16 +109,6 @@ export default {
             firstName: this.$store.state.user.firstName,
             lastName: this.$store.state.user.lastName,
         };
-    },
-
-    beforeRouteLeave (to, from, next) {
-        if (this.state.matches('edited')) {
-            if (!confirm('You have unsaved changes. Are you sure you want to leave?')) {
-                return
-            }
-        }
-
-        next();
     },
 
     validations () {
