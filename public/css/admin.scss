@@ -1,5 +1,3 @@
-/* purgecss start ignore */
-
 @tailwind base;
 @tailwind components;
 
@@ -41,7 +39,5 @@ body {
     "admin/sidebar_nav_submenu",
     "admin/dashboard",
     "admin/password";
-
-/* purgecss end ignore */
 
 @tailwind utilities;
