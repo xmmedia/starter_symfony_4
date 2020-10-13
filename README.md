@@ -14,7 +14,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
    2. [Install Composer](https://getcomposer.org/download/) (if not already installed)
    3. Install PHP packages/vendors: `php composer.phar install`
    4. Add `.env.local` (copy `.env` and update). Generate this using 1Password (no need to store it) or similar at about 32 characters containing letters, numbers and symbols.
-   6. Run `. ./node_setup.sh` (this will setup node & install the JS packages).
+   6. Run `. ./node_setup.sh` (this will setup node & install the JS packages – requires yarn to be installed).
    7. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
    8. Give executable perms to bin dir: `chmod u+x bin/*`
    9. Create event streams & projections tables from `db_create.sql`. Set database collation to `utf8mb4_bin`.
