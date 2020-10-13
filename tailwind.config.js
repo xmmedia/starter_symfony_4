@@ -5,6 +5,10 @@ module.exports = {
     future: {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
+        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#default-line-heights-per-font-size-by-default
+        defaultLineHeights: true,
+        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.8.4
+        standardFontWeights: true,
     },
     experimental: {
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#use-apply-with-variants-and-other-complex-classes
@@ -14,12 +18,10 @@ module.exports = {
         uniformColorPalette: true,
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#extended-spacing-scale
         extendedSpacingScale: true,
-        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#default-line-heights-per-font-size-by-default
-        defaultLineHeights: true,
         // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#extended-font-size-scale
         extendedFontSizeScale: true,
-        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.8.4
-        standardFontWeights: true,
+        // https://github.com/tailwindlabs/tailwindcss/pull/2468
+        additionalBreakpoint: true,
     },
     purge: {
         preserveHtmlElements: true,
