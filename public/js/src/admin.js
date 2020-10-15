@@ -54,10 +54,10 @@ Vue.filter('pluralize', filters.pluralize);
 // run gql query to see if the user is logged in, set state to ready
 // and then initialize
 apolloProvider.defaultClient.query({ query: MeQuery })
-    .then((result) =>  {
+    .then(async (result) =>  {
         // don't set a user if we didn't get anything
         if (result.data.Me) {
-            store.dispatch('updateUser', result.data.Me);
+            await store.dispatch('updateUser', result.data.Me);
         }
 
         store.commit('ready');
