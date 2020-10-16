@@ -68,6 +68,9 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
   - Projections:
     - All commands: `bin/console event-store:projection`
     - Run once: `bin/console event-store:projection:run user_projection -o`
+  - Makers (PHP):
+    - Make aggregate root/model: `bin/console make:model`
+    - Make projection: `bin/console make:projection`
 
 ### Apache Config
 
