@@ -4,7 +4,7 @@
 }
 
 .record_list-item {
-    @apply flex flex-col flex-wrap p-2 border-b border-gray-400 transition-colors duration-150 ease-in-out;
+    @apply flex flex-col flex-wrap p-2 border-b border-gray-300 transition-colors duration-150 ease-in-out;
 
     &:hover {
         @apply bg-blue-100;
@@ -14,7 +14,7 @@
     }
 
     @screen md {
-        @apply table-row border-b border-gray-400;
+        @apply table-row border-b border-gray-300;
 
         &:first-of-type {
             @apply table-row border-none;
