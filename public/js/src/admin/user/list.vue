@@ -27,7 +27,6 @@
                     <li class="record_list-headers">
                         <div class="record_list-col">Username</div>
                         <div class="record_list-col">Name</div>
-                        <div class="record_list-col">Customer</div>
                         <div class="record_list-col">Account Status</div>
                         <div class="record_list-col">Last Login (Count)</div>
                         <div class="record_list-col">Role</div>
@@ -45,13 +44,6 @@
                             </span>
                         </div>
                         <div class="record_list-col">{{ user.name }}</div>
-                        <div class="record_list-col">
-                            <template v-if="user.customer">
-                                {{ user.customer.customerNumber }} –
-                                {{ user.customer.name }}
-                            </template>
-                            <i v-else>None</i>
-                        </div>
                         <div class="record_list-col">{{ user|accountStatus }}</div>
                         <div class="record_list-col user_list-last_login">
                             <template v-if="user.loginCount > 0">
