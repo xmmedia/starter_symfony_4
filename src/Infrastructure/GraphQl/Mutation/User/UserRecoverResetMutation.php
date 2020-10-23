@@ -18,6 +18,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 
 class UserRecoverResetMutation implements MutationInterface
 {
@@ -33,6 +34,9 @@ class UserRecoverResetMutation implements MutationInterface
     /** @var Security */
     private $security;
 
+    /** @var PasswordStrengthInterface|null */
+    private $passwordStrength;
+
     /** @var HttpClientInterface|null */
     private $pwnedHttpClient;
 
@@ -41,12 +45,14 @@ class UserRecoverResetMutation implements MutationInterface
         PasswordEncoder $passwordEncoder,
         TokenValidator $tokenValidator,
         Security $security,
+        PasswordStrengthInterface $passwordStrength = null,
         HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
         $this->passwordEncoder = $passwordEncoder;
         $this->tokenValidator = $tokenValidator;
         $this->security = $security;
+        $this->passwordStrength = $passwordStrength;
         $this->pwnedHttpClient = $pwnedHttpClient;
     }
 
@@ -75,11 +81,16 @@ class UserRecoverResetMutation implements MutationInterface
         }
 
         // done here because we need the user entity
-        Assert::passwordComplexity($newPassword, [
-            $user->email(),
-            $user->firstName(),
-            $user->lastName(),
-        ]);
+        Assert::passwordComplexity(
+            $newPassword,
+            [
+                $user->email(),
+                $user->firstName(),
+                $user->lastName(),
+            ],
+            null,
+            $this->passwordStrength
+        );
 
         if (!$user->verified()) {
             $this->commandBus->dispatch(

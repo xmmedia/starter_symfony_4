@@ -13,6 +13,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 use Xm\SymfonyBundle\Util\StringUtil;
 
 class UserPasswordMutation implements MutationInterface
@@ -29,6 +30,9 @@ class UserPasswordMutation implements MutationInterface
     /** @var Security */
     private $security;
 
+    /** @var PasswordStrengthInterface|null */
+    private $passwordStrength;
+
     /** @var HttpClientInterface|null */
     private $pwnedHttpClient;
 
@@ -37,12 +41,14 @@ class UserPasswordMutation implements MutationInterface
         UserPasswordEncoderInterface $userPasswordEncoder,
         PasswordEncoder $passwordEncoder,
         Security $security,
+        PasswordStrengthInterface $passwordStrength = null,
         HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
         $this->userPasswordEncoder = $userPasswordEncoder;
         $this->passwordEncoder = $passwordEncoder;
         $this->security = $security;
+        $this->passwordStrength = $passwordStrength;
         $this->pwnedHttpClient = $pwnedHttpClient;
     }
 
@@ -66,11 +72,16 @@ class UserPasswordMutation implements MutationInterface
 
         // check new password
         Assert::passwordLength($newPassword);
-        Assert::passwordComplexity($newPassword, [
-            $user->email(),
-            $user->firstName(),
-            $user->lastName(),
-        ]);
+        Assert::passwordComplexity(
+            $newPassword,
+            [
+                $user->email(),
+                $user->firstName(),
+                $user->lastName(),
+            ],
+            null,
+            $this->passwordStrength
+        );
         Assert::compromisedPassword($newPassword, $this->pwnedHttpClient);
 
         $encodedPassword = ($this->passwordEncoder)(

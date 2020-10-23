@@ -21,6 +21,7 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
 class UserPasswordMutationTest extends BaseTestCase
 {
@@ -79,6 +80,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $userPasswordEncoder,
             $passwordEncoder,
             $security,
+            new PasswordStrengthFake(),
             $this->getPwnedHttpClient()
         ))($args);
 
@@ -118,6 +120,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $userPasswordEncoder,
             $passwordEncoder,
             $security,
+            new PasswordStrengthFake(),
             $this->getPwnedHttpClient()
         ))($args);
     }
@@ -154,6 +157,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $userPasswordEncoder,
             $passwordEncoder,
             $security,
+            new PasswordStrengthFake(),
             $this->getPwnedHttpClient()
         ))($args);
     }
@@ -193,6 +197,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $userPasswordEncoder,
             $passwordEncoder,
             $security,
+            new PasswordStrengthFake(),
             $this->getPwnedHttpClient()
         ))($args);
     }
@@ -264,6 +269,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $userPasswordEncoder,
             $passwordEncoder,
             $security,
+            new PasswordStrengthFake(),
             $this->getPwnedHttpClient()
         ))($args);
     }
@@ -300,6 +306,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $userPasswordEncoder,
             $passwordEncoder,
             $security,
+            new PasswordStrengthFake(),
             $this->getPwnedHttpClient()
         ))($args);
     }
@@ -350,6 +357,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $userPasswordEncoder,
             $passwordEncoder,
             $security,
+            new PasswordStrengthFake(),
             $pwnedHttpClient
         ))($args);
     }

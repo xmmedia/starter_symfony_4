@@ -16,6 +16,7 @@ use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
 class AdminUserAddMutationTest extends BaseTestCase
 {
@@ -59,7 +60,8 @@ class AdminUserAddMutationTest extends BaseTestCase
             $commandBus,
             $tokenGenerator,
             $passwordEncoder,
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
 
         $expected = [
@@ -96,7 +98,8 @@ class AdminUserAddMutationTest extends BaseTestCase
             Mockery::mock(MessageBusInterface::class),
             Mockery::mock(TokenGenerator::class),
             Mockery::mock(PasswordEncoder::class),
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
     }
 
@@ -137,7 +140,8 @@ class AdminUserAddMutationTest extends BaseTestCase
             $commandBus,
             $tokenGenerator,
             $passwordEncoder,
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
 
         $expected = [

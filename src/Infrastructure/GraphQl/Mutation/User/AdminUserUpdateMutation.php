@@ -16,6 +16,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Xm\SymfonyBundle\Model\Email;
+use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 
 class AdminUserUpdateMutation implements MutationInterface
 {
@@ -25,16 +26,21 @@ class AdminUserUpdateMutation implements MutationInterface
     /** @var PasswordEncoder */
     private $passwordEncoder;
 
+    /** @var PasswordStrengthInterface|null */
+    private $passwordStrength;
+
     /** @var HttpClientInterface|null */
     private $pwnedHttpClient;
 
     public function __construct(
         MessageBusInterface $commandBus,
         PasswordEncoder $passwordEncoder,
+        PasswordStrengthInterface $passwordStrength = null,
         HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
         $this->passwordEncoder = $passwordEncoder;
+        $this->passwordStrength = $passwordStrength;
         $this->pwnedHttpClient = $pwnedHttpClient;
     }
 
@@ -46,11 +52,16 @@ class AdminUserUpdateMutation implements MutationInterface
             $password = $args['user']['password'];
             // password checked here because it's encoded prior to the command
             Assert::passwordLength($password);
-            Assert::passwordComplexity($password, [
-                $args['user']['email'],
-                $args['user']['firstName'],
-                $args['user']['lastName'],
-            ]);
+            Assert::passwordComplexity(
+                $password,
+                [
+                    $args['user']['email'],
+                    $args['user']['firstName'],
+                    $args['user']['lastName'],
+                ],
+                null,
+                $this->passwordStrength
+            );
             Assert::compromisedPassword($password, $this->pwnedHttpClient);
         }
 

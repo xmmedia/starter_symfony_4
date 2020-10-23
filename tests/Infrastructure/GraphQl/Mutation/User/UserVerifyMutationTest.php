@@ -26,6 +26,7 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
+use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
 class UserVerifyMutationTest extends BaseTestCase
 {
@@ -88,7 +89,8 @@ class UserVerifyMutationTest extends BaseTestCase
             $passwordEncoder,
             $tokenValidator,
             $security,
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -117,7 +119,8 @@ class UserVerifyMutationTest extends BaseTestCase
             $passwordEncoder,
             $tokenValidator,
             $security,
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -166,7 +169,8 @@ class UserVerifyMutationTest extends BaseTestCase
             $passwordEncoder,
             $tokenValidator,
             $security,
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -206,7 +210,8 @@ class UserVerifyMutationTest extends BaseTestCase
             $passwordEncoder,
             $tokenValidator,
             $security,
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -246,7 +251,8 @@ class UserVerifyMutationTest extends BaseTestCase
             $passwordEncoder,
             $tokenValidator,
             $security,
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -284,7 +290,8 @@ class UserVerifyMutationTest extends BaseTestCase
             $passwordEncoder,
             $tokenValidator,
             $security,
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
     }
 
@@ -317,7 +324,8 @@ class UserVerifyMutationTest extends BaseTestCase
             $passwordEncoder,
             $tokenValidator,
             $security,
-            $this->getPwnedHttpClient()
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
         ))($args);
     }
 
@@ -349,7 +357,8 @@ class UserVerifyMutationTest extends BaseTestCase
             $commandBus,
             $passwordEncoder,
             $tokenValidator,
-            $security
+            $security,
+            new PasswordStrengthFake(),
         ))($args);
     }
 
@@ -387,6 +396,7 @@ class UserVerifyMutationTest extends BaseTestCase
             $passwordEncoder,
             $tokenValidator,
             $security,
+            new PasswordStrengthFake(),
             $pwnedHttpClient
         ))($args);
     }
@@ -420,6 +430,7 @@ class UserVerifyMutationTest extends BaseTestCase
             $passwordEncoder,
             $tokenValidator,
             $security,
+            new PasswordStrengthFake(),
             $this->getPwnedHttpClient()
         ))($args);
     }
