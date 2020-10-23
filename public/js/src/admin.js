@@ -19,6 +19,7 @@ import fieldErrors from './common/field_errors';
 import fieldError from './common/field_error';
 import fieldPassword from './common/field_password';
 import adminButton from './common/admin_button';
+import adminIcon from './common/admin_icon';
 import { MeQuery } from './admin/queries/user.query.graphql';
 
 import * as filters from './common/filters';
@@ -42,6 +43,7 @@ Vue.component('field-errors', fieldErrors);
 Vue.component('field-error', fieldError);
 Vue.component('field-password', fieldPassword);
 Vue.component('admin-button', adminButton);
+Vue.component('admin-icon', adminIcon);
 Vue.component('admin-modal', () => import(/* webpackChunkName: "admin-modal" */ './common/modal'));
 Vue.component('admin-delete', () => import(/* webpackChunkName: "admin-delete" */ './admin/admin_delete/index'));
 Vue.component('local-time', () => import(/* webpackChunkName: "local-time" */ './common/local_time'));

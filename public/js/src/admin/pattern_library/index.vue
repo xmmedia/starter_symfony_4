@@ -424,9 +424,10 @@
                     Value 2-{{ i }}
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon text-green-600" width="20" height="20">
-                        <use :xlink:href="iconsPath+'#check'"></use>
-                    </svg>
+                    <admin-icon icon="check"
+                                class="record_list-icon text-green-600"
+                                width="20"
+                                height="20" />
                     <span class="record_list-mobile_heading">[True]</span>
                 </div>
                 <div class="record_list-col record_list-col-actions">
@@ -444,9 +445,10 @@
                     Nullam quis risus eget urna mollis ornare vel eu leo.
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon fill-current text-green-600" width="20" height="20">
-                        <use :xlink:href="iconsPath+'#check'"></use>
-                    </svg>
+                    <admin-icon icon="check"
+                                class="record_list-icon fill-current text-green-600"
+                                width="20"
+                                height="20" />
                     <span class="record_list-mobile_heading">[True]</span>
                 </div>
                 <div class="record_list-col record_list-col-actions">
@@ -463,9 +465,10 @@
                     Inactive Value 2
                 </div>
                 <div class="record_list-col lg:text-center">
-                    <svg class="record_list-icon fill-current text-gray-800" width="20" height="20">
-                        <use :xlink:href="iconsPath+'#check'"></use>
-                    </svg>
+                    <admin-icon icon="check"
+                                class="record_list-icon fill-current text-gray-800"
+                                width="20"
+                                height="20" />
                     <span class="record_list-mobile_heading">[True]</span>
                 </div>
                 <div class="record_list-col record_list-col-actions">
@@ -489,9 +492,10 @@
                 <div class="record_view-item_label">Is True</div>
                 <div class="record_view-item_value">
                     <span title="A Checkmark">
-                        <svg class="record_view-icon text-green-600" width="20" height="20">
-                            <use :xlink:href="iconsPath+'#check'"></use>
-                        </svg>
+                        <admin-icon icon="check"
+                                    class="record_list-icon text-green-600"
+                                    width="20"
+                                    height="20" />
                     </span>
                 </div>
             </div>
@@ -602,17 +606,9 @@
 </template>
 
 <script>
-import iconsPath from '@/../../images/icons-admin.svg';
-
 export default {
     metaInfo: {
         title: 'Admin Pattern Library',
-    },
-
-    data () {
-        return {
-            iconsPath,
-        };
     },
 }
 </script>

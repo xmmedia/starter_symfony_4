@@ -5,21 +5,11 @@
 
         <li>
             <router-link :to="{ name: 'admin-user' }" class="dashboard-link">
-                <svg width="96" height="96"><use :xlink:href="iconsPath+'#users'"></use></svg>
+                <admin-icon icon="users"
+                            width="96"
+                            height="96" />
                 Users
             </router-link>
         </li>
     </ul>
 </template>
-
-<script>
-import iconsPath from '@/../../images/icons-admin.svg';
-
-export default {
-    data () {
-        return {
-            iconsPath,
-        };
-    },
-}
-</script>
