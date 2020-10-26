@@ -21,7 +21,7 @@ before_script:
   # ensure everything up to date
   - apt-get update -yqq
   # install composer
-  - curl --silent --show-error https://getcomposer.org/installer | php
+  - wget --no-verbose -O composer.phar https://getcomposer.org/composer-1.phar
 
 static:
   stage: static
