@@ -50,8 +50,8 @@ class CredentialsTest extends BaseTestCase
 
         $password = $faker->password;
 
-        $credentials1 = Credentials::build($faker->email, $password);
-        $credentials2 = Credentials::build($faker->email, $password);
+        $credentials1 = Credentials::build($faker->unique()->email, $password);
+        $credentials2 = Credentials::build($faker->unique()->email, $password);
 
         $this->assertFalse($credentials1->sameValueAs($credentials2));
     }
