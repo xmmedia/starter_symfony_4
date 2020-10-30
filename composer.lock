@@ -9721,16 +9721,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.53",
+            "version": "v1.0.54",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "4c087005b47e9bde5e7b854076c4ae81b99a51fe"
+                "reference": "8da31ec11e01c2c138b0f8c8992368e4b1c65b2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/4c087005b47e9bde5e7b854076c4ae81b99a51fe",
-                "reference": "4c087005b47e9bde5e7b854076c4ae81b99a51fe",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/8da31ec11e01c2c138b0f8c8992368e4b1c65b2c",
+                "reference": "8da31ec11e01c2c138b0f8c8992368e4b1c65b2c",
                 "shasum": ""
             },
             "require": {
@@ -9796,7 +9796,7 @@
             ],
             "description": "Provides classes & services typically used in XM Media Symfony projects.",
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
-            "time": "2020-10-23T03:48:34+00:00"
+            "time": "2020-10-30T05:06:11+00:00"
         },
         {
             "name": "zendframework/zend-code",
