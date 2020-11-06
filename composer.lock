@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bfa2e3163928cadcff9845ca617befc",
+    "content-hash": "b64497f1b3d7000213738c873c607807",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1576,16 +1576,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.22",
+            "version": "2.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "68e418ec08fbfc6f58f6fd2eea70ca8efc8cc7d5"
+                "reference": "5fa792ad1853ae2bc60528dd3e5cbf4542d3c1df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/68e418ec08fbfc6f58f6fd2eea70ca8efc8cc7d5",
-                "reference": "68e418ec08fbfc6f58f6fd2eea70ca8efc8cc7d5",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/5fa792ad1853ae2bc60528dd3e5cbf4542d3c1df",
+                "reference": "5fa792ad1853ae2bc60528dd3e5cbf4542d3c1df",
                 "shasum": ""
             },
             "require": {
@@ -1630,7 +1630,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2020-09-26T15:48:38+00:00"
+            "time": "2020-10-31T20:37:35+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
@@ -3848,12 +3848,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "327370943772f9917bc2dc2aa4263db2d572a112"
+                "reference": "065a018d3b5c2c84a53db3347cca4e1b7fa362a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/327370943772f9917bc2dc2aa4263db2d572a112",
-                "reference": "327370943772f9917bc2dc2aa4263db2d572a112",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/065a018d3b5c2c84a53db3347cca4e1b7fa362a6",
+                "reference": "065a018d3b5c2c84a53db3347cca4e1b7fa362a6",
                 "shasum": ""
             },
             "conflict": {
@@ -3869,7 +3869,7 @@
                 "bagisto/bagisto": "<0.1.5",
                 "barrelstrength/sprout-base-email": "<1.2.7",
                 "barrelstrength/sprout-forms": "<3.9",
-                "baserproject/basercms": ">=4,<=4.3.6",
+                "baserproject/basercms": ">=4,<=4.3.6|>=4.4,<4.4.1",
                 "bolt/bolt": "<3.7.1",
                 "brightlocal/phpwhois": "<=4.2.5",
                 "buddypress/buddypress": "<5.1.2",
@@ -3953,7 +3953,7 @@
                 "magento/magento1ee": ">=1,<1.14.4.3",
                 "magento/product-community-edition": ">=2,<2.2.10|>=2.3,<2.3.2-p.2",
                 "marcwillmann/turn": "<0.3.3",
-                "mediawiki/core": ">=1.31,<1.31.4|>=1.32,<1.32.4|>=1.33,<1.33.1",
+                "mediawiki/core": ">=1.31,<1.31.9|>=1.32,<1.32.4|>=1.33,<1.33.3|>=1.34,<1.34.3|>=1.34.99,<1.35",
                 "mittwald/typo3_forum": "<1.2.1",
                 "monolog/monolog": ">=1.8,<1.12",
                 "namshi/jose": "<2.2",
@@ -3968,7 +3968,8 @@
                 "onelogin/php-saml": "<2.10.4",
                 "oneup/uploader-bundle": "<1.9.3|>=2,<2.1.5",
                 "openid/php-openid": "<2.3",
-                "openmage/magento-lts": "<19.4.6|>=20,<20.0.2",
+                "openmage/magento-lts": "<19.4.8|>=20,<20.0.4",
+                "orchid/platform": ">=9,<9.4.4",
                 "oro/crm": ">=1.7,<1.7.4",
                 "oro/platform": ">=1.7,<1.7.4",
                 "padraic/humbug_get_contents": "<1.1.2",
@@ -4003,8 +4004,8 @@
                 "scheb/two-factor-bundle": ">=0,<3.26|>=4,<4.11",
                 "sensiolabs/connect": "<4.2.3",
                 "serluck/phpwhois": "<=4.2.6",
-                "shopware/core": "<=6.3.1",
-                "shopware/platform": "<=6.3.1",
+                "shopware/core": "<=6.3.2",
+                "shopware/platform": "<=6.3.2",
                 "shopware/shopware": "<5.3.7",
                 "silverstripe/admin": ">=1.0.3,<1.0.4|>=1.1,<1.1.1",
                 "silverstripe/assets": ">=1,<1.4.7|>=1.5,<1.5.2",
@@ -4037,7 +4038,7 @@
                 "sylius/grid": ">=1,<1.1.19|>=1.2,<1.2.18|>=1.3,<1.3.13|>=1.4,<1.4.5|>=1.5,<1.5.1",
                 "sylius/grid-bundle": ">=1,<1.1.19|>=1.2,<1.2.18|>=1.3,<1.3.13|>=1.4,<1.4.5|>=1.5,<1.5.1",
                 "sylius/resource-bundle": "<1.3.14|>=1.4,<1.4.7|>=1.5,<1.5.2|>=1.6,<1.6.4",
-                "sylius/sylius": "<1.3.16|>=1.4,<1.4.12|>=1.5,<1.5.9|>=1.6,<1.6.5",
+                "sylius/sylius": "<1.6.9|>=1.7,<1.7.9|>=1.8,<1.8.3",
                 "symbiote/silverstripe-multivaluefield": ">=3,<3.0.99",
                 "symbiote/silverstripe-versionedfiles": "<=2.0.3",
                 "symfony/cache": ">=3.1,<3.4.35|>=4,<4.2.12|>=4.3,<4.3.8",
@@ -4150,7 +4151,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-19T07:02:45+00:00"
+            "time": "2020-11-01T20:01:47+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -5595,16 +5596,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.9.10",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "7335ec033995aa34133e621627333368f260b626"
+                "reference": "e38520236bdc911c2f219634b485bc328746e980"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/7335ec033995aa34133e621627333368f260b626",
-                "reference": "7335ec033995aa34133e621627333368f260b626",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/e38520236bdc911c2f219634b485bc328746e980",
+                "reference": "e38520236bdc911c2f219634b485bc328746e980",
                 "shasum": ""
             },
             "require": {
@@ -5654,7 +5655,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-14T17:41:54+00:00"
+            "time": "2020-11-05T10:56:45+00:00"
         },
         {
             "name": "symfony/form",
@@ -9721,16 +9722,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.54",
+            "version": "v1.0.55",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "8da31ec11e01c2c138b0f8c8992368e4b1c65b2c"
+                "reference": "39c4a5e22d1ffbc44753f57d61d81adc1d41cd76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/8da31ec11e01c2c138b0f8c8992368e4b1c65b2c",
-                "reference": "8da31ec11e01c2c138b0f8c8992368e4b1c65b2c",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/39c4a5e22d1ffbc44753f57d61d81adc1d41cd76",
+                "reference": "39c4a5e22d1ffbc44753f57d61d81adc1d41cd76",
                 "shasum": ""
             },
             "require": {
@@ -9796,7 +9797,7 @@
             ],
             "description": "Provides classes & services typically used in XM Media Symfony projects.",
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
-            "time": "2020-10-30T05:06:11+00:00"
+            "time": "2020-11-06T00:02:43+00:00"
         },
         {
             "name": "zendframework/zend-code",
@@ -10269,6 +10270,53 @@
             "time": "2020-01-17T13:08:23+00:00"
         },
         {
+            "name": "fakerphp/faker",
+            "version": "v1.10.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FakerPHP/Faker.git",
+                "reference": "f2713a5016faaf6ffc60e9d456dedb5ebf0efcae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/f2713a5016faaf6ffc60e9d456dedb5ebf0efcae",
+                "reference": "f2713a5016faaf6ffc60e9d456dedb5ebf0efcae",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "conflict": {
+                "fzaninotto/faker": "*"
+            },
+            "require-dev": {
+                "ext-intl": "*",
+                "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "time": "2020-10-28T09:32:46+00:00"
+        },
+        {
             "name": "friendsofphp/php-cs-fixer",
             "version": "v2.16.7",
             "source": {
@@ -10364,56 +10412,6 @@
                 }
             ],
             "time": "2020-10-27T22:44:27+00:00"
-        },
-        {
-            "name": "fzaninotto/faker",
-            "version": "v1.9.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "fc10d778e4b84d5bd315dad194661e091d307c6f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/fc10d778e4b84d5bd315dad194661e091d307c6f",
-                "reference": "fc10d778e4b84d5bd315dad194661e091d307c6f",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3.3 || ^7.0"
-            },
-            "require-dev": {
-                "ext-intl": "*",
-                "phpunit/phpunit": "^4.8.35 || ^5.7",
-                "squizlabs/php_codesniffer": "^2.9.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.9-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Faker\\": "src/Faker/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "François Zaninotto"
-                }
-            ],
-            "description": "Faker is a PHP library that generates fake data for you.",
-            "keywords": [
-                "data",
-                "faker",
-                "fixtures"
-            ],
-            "time": "2019-12-12T13:22:17+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -10653,20 +10651,20 @@
         },
         {
             "name": "nelmio/alice",
-            "version": "3.7.2",
+            "version": "3.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "822bf9db2eb004acb0ec482415ff7e3057c3ae42"
+                "reference": "ce57713de3c3e32ad8ea77674cd318f87e1909a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/822bf9db2eb004acb0ec482415ff7e3057c3ae42",
-                "reference": "822bf9db2eb004acb0ec482415ff7e3057c3ae42",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/ce57713de3c3e32ad8ea77674cd318f87e1909a0",
+                "reference": "ce57713de3c3e32ad8ea77674cd318f87e1909a0",
                 "shasum": ""
             },
             "require": {
-                "fzaninotto/faker": "^1.6",
+                "fakerphp/faker": "^1.10",
                 "myclabs/deep-copy": "^1.5.2",
                 "php": "^7.3",
                 "sebastian/comparator": "^3.0 || ^4.0",
@@ -10735,7 +10733,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-27T21:19:31+00:00"
+            "time": "2020-11-04T09:20:59+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -11070,16 +11068,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.52",
+            "version": "0.12.54",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e96dd5e7ae9aefed663bc7e285ad96792b67eadc"
+                "reference": "45c7b999a4b7dd9ac5558bdaaf23dcebbef88223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e96dd5e7ae9aefed663bc7e285ad96792b67eadc",
-                "reference": "e96dd5e7ae9aefed663bc7e285ad96792b67eadc",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/45c7b999a4b7dd9ac5558bdaaf23dcebbef88223",
+                "reference": "45c7b999a4b7dd9ac5558bdaaf23dcebbef88223",
                 "shasum": ""
             },
             "require": {
@@ -11122,7 +11120,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-25T07:23:44+00:00"
+            "time": "2020-11-05T13:36:26+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -11287,22 +11285,22 @@
         },
         {
             "name": "phpstan/phpstan-symfony",
-            "version": "0.12.10",
+            "version": "0.12.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-symfony.git",
-                "reference": "675703d820235cac1abe08e8bfb12e5509a3b169"
+                "reference": "edb6aeb171980b11dca1fd27d3fa7573af89ac8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/675703d820235cac1abe08e8bfb12e5509a3b169",
-                "reference": "675703d820235cac1abe08e8bfb12e5509a3b169",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/edb6aeb171980b11dca1fd27d3fa7573af89ac8e",
+                "reference": "edb6aeb171980b11dca1fd27d3fa7573af89ac8e",
                 "shasum": ""
             },
             "require": {
                 "ext-simplexml": "*",
                 "php": "^7.1 || ^8.0",
-                "phpstan/phpstan": "^0.12.26"
+                "phpstan/phpstan": "^0.12.51"
             },
             "conflict": {
                 "symfony/framework-bundle": "<3.0"
@@ -11353,7 +11351,7 @@
                 }
             ],
             "description": "Symfony Framework extensions and rules for PHPStan",
-            "time": "2020-10-22T10:47:37+00:00"
+            "time": "2020-10-30T09:50:09+00:00"
         },
         {
             "name": "phpstan/phpstan-webmozart-assert",
@@ -11410,23 +11408,23 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.2",
+            "version": "9.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "229099d7d69fe5044f6e464f669b1fd34f252e8d"
+                "reference": "6b20e2055f7c29b56cb3870b3de7cc463d7add41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/229099d7d69fe5044f6e464f669b1fd34f252e8d",
-                "reference": "229099d7d69fe5044f6e464f669b1fd34f252e8d",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6b20e2055f7c29b56cb3870b3de7cc463d7add41",
+                "reference": "6b20e2055f7c29b56cb3870b3de7cc463d7add41",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "ext-xmlwriter": "*",
-                "nikic/php-parser": "^4.8",
+                "nikic/php-parser": "^4.10.2",
                 "php": ">=7.3",
                 "phpunit/php-file-iterator": "^3.0.3",
                 "phpunit/php-text-template": "^2.0.2",
@@ -11479,7 +11477,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-28T06:24:13+00:00"
+            "time": "2020-10-30T10:46:41+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

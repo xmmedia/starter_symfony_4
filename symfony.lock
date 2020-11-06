@@ -114,6 +114,9 @@
     "ekino/phpstan-banned-code": {
         "version": "v0.3.1"
     },
+    "fakerphp/faker": {
+        "version": "v1.10.1"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {
@@ -125,9 +128,6 @@
         "files": [
             ".php_cs.dist"
         ]
-    },
-    "fzaninotto/faker": {
-        "version": "v1.8.0"
     },
     "giggsey/libphonenumber-for-php": {
         "version": "8.9.16"
