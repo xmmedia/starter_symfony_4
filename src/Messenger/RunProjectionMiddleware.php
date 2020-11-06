@@ -21,6 +21,9 @@ class RunProjectionMiddleware implements MiddlewareInterface
      * @var array
      */
     private $namespaceToProjection = [
+        'App\Model\Enquiry\Event' => [
+            'enquiry_projection',
+        ],
         'App\Model\User\Event' => [
             'user_projection',
             'user_token_projection',
