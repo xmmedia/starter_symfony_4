@@ -25,7 +25,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
        1. As one command: `crontab -l > mycron; echo "*/15 * * * * cd ${BASE}/current && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1" >> mycron; crontab mycron; rm mycron`
    14. Add logrotate cron (only needed on production): `30 4 * * 1 cd /home/user/example.com/current && logrotate app/config/packages/logrotate.conf --state var/logrotate-state` (runs Mondays at 04:30 UTC)
 3. Remove or update the `LICENSE` file.
-4. [Install Composer](https://getcomposer.org/download/) locally.
+4. [Install Composer](https://getcomposer.org/download/) locally (if not installed globally).
 5. Update `composer.json`: `name`, `license` (likely `private`) and `description`
 6. Update `package.json`: `name`, `version`, `git.url`, `license`, `private`, `script.dev-server`
 7. Composer install & update (locally): `composer install && composer update` (or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
