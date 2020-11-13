@@ -5,10 +5,103 @@ declare(strict_types=1);
 namespace App\Tests\Entity;
 
 use App\Entity\User;
+use App\Model\User\Role;
 use App\Tests\BaseTestCase;
+use Ramsey\Uuid\Uuid;
 
 class UserTest extends BaseTestCase
 {
+    public function testUserId(): void
+    {
+        $faker = $this->faker();
+
+        $userId = Uuid::fromString($faker->uuid);
+
+        $user = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('userId');
+        $property->setAccessible(true);
+        $property->setValue($user, $userId);
+
+        $this->assertEquals($userId->toString(), $user->userId()->toString());
+    }
+
+    public function testUsername(): void
+    {
+        $faker = $this->faker();
+
+        $email = $faker->email;
+
+        $user = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('email');
+        $property->setAccessible(true);
+        $property->setValue($user, $email);
+
+        $this->assertEquals($email, $user->email()->toString());
+        $this->assertEquals($email, $user->getUsername());
+    }
+
+    public function testPassword(): void
+    {
+        $faker = $this->faker();
+
+        $password = $faker->password;
+
+        $user = new User();
+
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('password');
+        $property->setAccessible(true);
+        $property->setValue($user, $password);
+
+        $this->assertEquals($password, $user->password());
+        $this->assertEquals($password, $user->getPassword());
+    }
+
+    public function testEraseCredentials(): void
+    {
+        $faker = $this->faker();
+
+        $user = new User();
+
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('password');
+        $property->setAccessible(true);
+        $property->setValue($user, $faker->password);
+
+        // this shouldn't do anything so just make sure the password still returns value
+        $user->eraseCredentials();
+
+        $this->assertNotNull($user->password());
+    }
+
+    public function testFlags(): void
+    {
+        $user = new User();
+
+        $this->assertFalse($user->verified());
+        $this->assertFalse($user->active());
+
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('verified');
+        $property->setAccessible(true);
+        $property->setValue($user, true);
+        $property = $reflection->getProperty('active');
+        $property->setAccessible(true);
+        $property->setValue($user, true);
+
+        $this->assertTrue($user->verified());
+        $this->assertTrue($user->active());
+    }
+
+    public function testNoSalt(): void
+    {
+        $user = new User();
+
+        $this->assertNull($user->getSalt());
+    }
+
     public function testName(): void
     {
         $faker = $this->faker();
@@ -26,9 +119,114 @@ class UserTest extends BaseTestCase
         // note the added space
         $property->setValue($user, $lastName.' ');
 
-        $name = $firstName.' '.$lastName;
+        $this->assertEquals($firstName.' '.$lastName, $user->name());
+        $this->assertEquals($firstName, $user->firstName()->toString());
+        $this->assertEquals($lastName, $user->lastName()->toString());
+    }
 
-        $this->assertEquals($name, $user->name());
+    public function testFirstNameNull(): void
+    {
+        $user = new User();
+
+        $this->assertNull($user->firstName());
+    }
+
+    public function testLastNameNull(): void
+    {
+        $user = new User();
+
+        $this->assertNull($user->lastName());
+    }
+
+    public function testLastLogin(): void
+    {
+        $faker = $this->faker();
+
+        $lastLogin = $faker->dateTime;
+
+        $user = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('lastLogin');
+        $property->setAccessible(true);
+        $property->setValue($user, $lastLogin);
+
+        $this->assertEquals($lastLogin, $user->lastLogin());
+    }
+
+    public function testLoginCount(): void
+    {
+        $faker = $this->faker();
+
+        $loginCount = $faker->randomNumber();
+
+        $user = new User();
+
+        $this->assertEquals(0, $user->loginCount());
+
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('loginCount');
+        $property->setAccessible(true);
+        $property->setValue($user, $loginCount);
+
+        $this->assertEquals($loginCount, $user->loginCount());
+    }
+
+    public function testLastLoginNull(): void
+    {
+        $user = new User();
+
+        $this->assertNull($user->lastLogin());
+    }
+
+    public function testRolesNone(): void
+    {
+        $user = new User();
+
+        $this->assertEquals(['ROLE_USER'], $user->roles());
+        $this->assertEquals(['ROLE_USER'], $user->getRoles());
+    }
+
+    public function testRolesDuplicateRoleUser(): void
+    {
+        $user = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($user, [
+            Role::ROLE_USER()->getValue(),
+        ]);
+
+        $this->assertEquals(['ROLE_USER'], $user->roles());
+        $this->assertEquals(['ROLE_USER'], $user->getRoles());
+    }
+
+    public function testRolesDuplicateRole(): void
+    {
+        $user = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($user, [
+            Role::ROLE_USER()->getValue(),
+            Role::ROLE_USER()->getValue(),
+        ]);
+
+        $this->assertEquals(['ROLE_USER'], $user->roles());
+        $this->assertEquals(['ROLE_USER'], $user->getRoles());
+    }
+
+    public function testRolesDuplicateRoleAdmin(): void
+    {
+        $user = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $property = $reflection->getProperty('roles');
+        $property->setAccessible(true);
+        $property->setValue($user, [
+            Role::ROLE_ADMIN()->getValue(),
+        ]);
+
+        $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $user->roles());
+        $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $user->getRoles());
     }
 
     /**
