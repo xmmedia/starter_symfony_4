@@ -21,9 +21,7 @@ class UsersResolverTest extends BaseTestCase
             ->once()
             ->andReturn([$user]);
 
-        $resolver = new UsersResolver($userFinder);
-
-        $result = $resolver([]);
+        $result = (new UsersResolver($userFinder))([]);
 
         $this->assertEquals([$user], $result);
     }
@@ -35,8 +33,8 @@ class UsersResolverTest extends BaseTestCase
             ->once()
             ->andReturn([]);
 
-        $resolver = new UsersResolver($userFinder);
+        $result = (new UsersResolver($userFinder))([]);
 
-        $this->assertEquals([], $resolver([]));
+        $this->assertEquals([], $result);
     }
 }

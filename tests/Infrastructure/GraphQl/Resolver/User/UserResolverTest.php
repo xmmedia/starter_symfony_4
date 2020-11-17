@@ -13,7 +13,7 @@ use Mockery;
 
 class UserResolverTest extends BaseTestCase
 {
-    public function testUserByUserId(): void
+    public function test(): void
     {
         $faker = $this->faker();
 
@@ -26,14 +26,12 @@ class UserResolverTest extends BaseTestCase
             ->with(Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $resolver = new UserResolver($userFinder);
-
-        $result = $resolver($userId);
+        $result = (new UserResolver($userFinder))($userId);
 
         $this->assertEquals($user, $result);
     }
 
-    public function testUserByUserIdNotFound(): void
+    public function testNotFound(): void
     {
         $faker = $this->faker();
 
@@ -45,9 +43,7 @@ class UserResolverTest extends BaseTestCase
             ->with(Mockery::type(UserId::class))
             ->andReturnNull();
 
-        $resolver = new UserResolver($userFinder);
-
-        $result = $resolver($userId);
+        $result = (new UserResolver($userFinder))($userId);
 
         $this->assertNull($result);
     }
