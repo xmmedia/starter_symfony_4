@@ -17,6 +17,10 @@ a, .button-link {
     }
 }
 
+a[href^=tel], a[href^=mailto] {
+    white-space: nowrap;
+}
+
 b, strong {
     @apply font-bold;
 }
