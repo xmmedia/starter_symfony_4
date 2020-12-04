@@ -423,12 +423,14 @@
                 <div class="record_list-col">
                     Value 2-{{ i }}
                 </div>
-                <div class="record_list-col lg:text-center">
-                    <admin-icon icon="check"
-                                class="record_list-icon text-green-600"
-                                width="20"
-                                height="20" />
-                    <span class="record_list-mobile_heading">[True]</span>
+                <div class="record_list-col">
+                    <div class="flex justify-center">
+                        <admin-icon icon="check"
+                                    class="record_list-icon text-green-600"
+                                    width="20"
+                                    height="20" />
+                        <span class="record_list-mobile_heading">[True]</span>
+                    </div>
                 </div>
                 <div class="record_list-col record_list-col-actions">
                     <a href="" class="record_list-action">Action 1</a>
@@ -444,12 +446,14 @@
                     Nullam quis risus eget urna mollis ornare vel eu leo.
                     Nullam quis risus eget urna mollis ornare vel eu leo.
                 </div>
-                <div class="record_list-col lg:text-center">
-                    <admin-icon icon="check"
-                                class="record_list-icon fill-current text-green-600"
-                                width="20"
-                                height="20" />
-                    <span class="record_list-mobile_heading">[True]</span>
+                <div class="record_list-col">
+                    <div class="flex justify-center">
+                        <admin-icon icon="check"
+                                    class="record_list-icon fill-current text-green-600"
+                                    width="20"
+                                    height="20" />
+                        <span class="record_list-mobile_heading">[True]</span>
+                    </div>
                 </div>
                 <div class="record_list-col record_list-col-actions">
                     <a href="" class="record_list-action">Action 1</a>
@@ -464,12 +468,14 @@
                 <div class="record_list-col">
                     Inactive Value 2
                 </div>
-                <div class="record_list-col lg:text-center">
-                    <admin-icon icon="check"
-                                class="record_list-icon fill-current text-gray-800"
-                                width="20"
-                                height="20" />
-                    <span class="record_list-mobile_heading">[True]</span>
+                <div class="record_list-col">
+                    <div class="flex justify-center">
+                        <admin-icon icon="check"
+                                    class="record_list-icon fill-current text-gray-800"
+                                    width="20"
+                                    height="20" />
+                        <span class="record_list-mobile_heading">[True]</span>
+                    </div>
                 </div>
                 <div class="record_list-col record_list-col-actions">
                     <a href="" class="record_list-action">Action 1</a>
