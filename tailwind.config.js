@@ -80,7 +80,7 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/typography'),
-        plugin(function({ addComponents, config }) {
+        plugin(function ({ addComponents, config }) {
             addComponents({
                 // same as: transition-all duration-300 ease-in-out
                 '.transition-default': {

@@ -13,7 +13,7 @@ export default {
         }),
     },
 
-    mounted() {
+    mounted () {
         this.$nextTick(() => {
             this.setContentHeight();
             window.addEventListener('resize', this.windowResize);
@@ -29,15 +29,15 @@ export default {
                 document.documentElement.addEventListener('click', this.htmlClick);
             }
         },
-        windowResize() {
+        windowResize () {
             this.$store.dispatch('adminMenu/closeMobileMenu');
 
             this.setContentHeight();
         },
-        setContentHeight() {
+        setContentHeight () {
             document.querySelectorAll('.js-content-wrap')[0].style.minHeight = this.getWindowHeight() + 'px';
         },
-        getWindowHeight() {
+        getWindowHeight () {
             let d = document,
                 e = d.documentElement,
                 g = d.body;

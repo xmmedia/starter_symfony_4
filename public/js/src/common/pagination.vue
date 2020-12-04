@@ -64,7 +64,7 @@ export default {
         },
         routeQueryAdditions: {
             type: Object,
-            default() {
+            default () {
                 return {};
             },
         },

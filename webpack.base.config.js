@@ -40,7 +40,7 @@ module.exports = function (Encore) {
         .enableIntegrityHashes(Encore.isProduction())
 
         // allow sass/scss files to be processed
-        .enableSassLoader(function() {}, {
+        .enableSassLoader(function () {}, {
             // see: http://symfony.com/doc/current/frontend/encore/bootstrap.html#importing-bootstrap-sass
             resolveUrlLoader: false,
         })
