@@ -64,6 +64,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@cypress/webpack-preprocessor": "^5.1.2",
     "@symfony/webpack-encore": "^0.29.1",
     "@tailwindcss/typography": "^0.2.0",
