@@ -15,7 +15,7 @@
                         @click="close">×</button>
             </div>
 
-            <div class="px-8 py-10">
+            <div class="p-8">
                 <slot :close="close"></slot>
             </div>
         </vue-modal>
