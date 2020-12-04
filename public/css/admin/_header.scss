@@ -82,7 +82,7 @@
     a, button {
         @apply inline-block ml-4;
         &:focus {
-            @apply -m-1 ml-3 p-1 bg-gray-400;
+            @apply -m-1 ml-3 p-1 bg-gray-300;
         }
     }
 }
