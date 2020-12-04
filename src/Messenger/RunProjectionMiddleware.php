@@ -15,6 +15,10 @@ class RunProjectionMiddleware implements MiddlewareInterface
     /** @var ProjectionRunner */
     private $projectionRunner;
 
+    private const ENQUIRY = 'enquiry_projection';
+    private const USER = 'user_projection';
+    private const USER_TOKEN = 'user_token_projection';
+
     /**
      * Event namespace to projections.
      *
@@ -22,11 +26,11 @@ class RunProjectionMiddleware implements MiddlewareInterface
      */
     private $namespaceToProjection = [
         'App\Model\Enquiry\Event' => [
-            'enquiry_projection',
+            self::ENQUIRY,
         ],
         'App\Model\User\Event' => [
-            'user_projection',
-            'user_token_projection',
+            self::USER,
+            self::USER_TOKEN,
         ],
     ];
 
