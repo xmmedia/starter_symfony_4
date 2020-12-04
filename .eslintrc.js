@@ -44,7 +44,7 @@ module.exports = {
         ],
         "vue/html-closing-bracket-newline": ["error", {
             "singleline": "never",
-            "multiline": "never"
+            "multiline": "never",
         }],
         "vue/multiline-html-element-content-newline": "off",
         "vue/singleline-html-element-content-newline": "off",
