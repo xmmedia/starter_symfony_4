@@ -176,7 +176,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         ))($args);
     }
 
-    public function testInvalid(): void
+    public function testInvalidEmail(): void
     {
         $faker = $this->faker();
         $data = [
