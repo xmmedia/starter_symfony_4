@@ -35,12 +35,12 @@ export default {
             type: [String, Number],
             default: 600,
         },
-    },
-
-    data () {
-        return {
-            name: cuid(),
-        };
+        name: {
+            type: [String, Number],
+            default () {
+                return cuid();
+            },
+        },
     },
 
     mounted () {
