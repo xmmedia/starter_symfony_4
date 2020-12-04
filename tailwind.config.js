@@ -1,7 +1,7 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-    // https://tailwindcss.com/docs/upcoming-changes
+    // https://v1.tailwindcss.com/docs/upcoming-changes
     future: {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
