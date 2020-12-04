@@ -13,7 +13,7 @@ Used to create new projects using [Symfony 4](http://symfony.com/) at [XM Media]
    1. Upload the files (exclude files that are OS dependent like `node_modules` & `.env.local` or that are only for editing like `.idea` and `.git` and a lot of what's in `.gitignore`).
    2. [Install Composer](https://getcomposer.org/download/) (if not already installed)
    3. Install PHP packages/vendors: `php composer.phar install`
-   4. Add `.env.local` (copy `.env` and update). Generate this using 1Password (no need to store it) or similar at about 32 characters containing letters, numbers and symbols.
+   4. Add `.env.local` (copy `.env` and update).
    6. Run `. ./node_setup.sh` (this will setup node & install the JS packages – requires yarn to be installed).
    7. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
    8. Give executable perms to bin dir: `chmod u+x bin/*`
