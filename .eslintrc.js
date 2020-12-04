@@ -22,6 +22,7 @@ module.exports = {
             "exports": "never",
             "functions": "only-multiline",
         }],
+        "space-before-function-paren": ["error", "always"],
         "vue/max-attributes-per-line": ["error", {
             "singleline": 3,
             "multiline": {
