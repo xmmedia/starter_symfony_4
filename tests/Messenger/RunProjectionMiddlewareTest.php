@@ -7,9 +7,7 @@ namespace App\Tests\Messenger;
 use App\Messenger\RunProjectionMiddleware;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
-use App\Model\User\Event\UserWasAddedByAdmin;
-use App\Model\User\Name;
-use App\Model\User\Role;
+use App\Model\User\Event\UserActivatedByAdmin;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Symfony\Component\Messenger\Envelope;
@@ -44,16 +42,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
         $faker = $this->faker();
 
         yield [
-            UserWasAddedByAdmin::now(
-                $faker->userId,
-                $faker->emailVo,
-                $faker->password,
-                Role::ROLE_USER(),
-                true,
-                Name::fromString($faker->firstName),
-                Name::fromString($faker->lastName),
-                false,
-            ),
+            UserActivatedByAdmin::now($faker->userId),
             ['user_projection', 'user_token_projection'],
         ];
 
