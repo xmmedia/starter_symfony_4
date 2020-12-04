@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import has from 'lodash/has';
+
 export default {
     props: {
         value: {
@@ -87,14 +89,17 @@ export default {
     },
 
     methods: {
+        hasVuelidateProp (key) {
+            return has(this.v, key);
+        },
+
         vuelidateValue (key) {
-            if (!Object.prototype.hasOwnProperty.call(this.v, key)) {
+            if (!this.hasVuelidateProp(key)) {
                 return true;
             }
 
             return this.v[key];
         },
     },
-
 }
 </script>
