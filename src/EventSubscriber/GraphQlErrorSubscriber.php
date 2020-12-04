@@ -13,14 +13,14 @@ class GraphQlErrorSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            Events::ERROR_FORMATTING => ['onGraphqlError', -128],
+            Events::ERROR_FORMATTING => ['onGraphqlErrorFormat', -128],
         ];
     }
 
     /**
      * Set the exception code in the.
      */
-    public function onGraphqlError(ErrorFormattingEvent $event): void
+    public function onGraphqlErrorFormat(ErrorFormattingEvent $event): void
     {
         $exception = $event->getError()->getPrevious();
 
