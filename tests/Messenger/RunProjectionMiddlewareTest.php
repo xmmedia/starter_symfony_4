@@ -1,0 +1,107 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Messenger;
+
+use App\Messenger\RunProjectionMiddleware;
+use App\Model\Auth\Event\UserLoggedIn;
+use App\Model\Enquiry\Event\EnquiryWasSubmitted;
+use App\Model\User\Event\UserWasAddedByAdmin;
+use App\Model\User\Name;
+use App\Model\User\Role;
+use App\Tests\BaseTestCase;
+use Mockery;
+use Symfony\Component\Messenger\Envelope;
+use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
+use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
+use Xm\SymfonyBundle\Tests\MessengerMiddlewareTestTrait;
+
+class RunProjectionMiddlewareTest extends BaseTestCase
+{
+    use MessengerMiddlewareTestTrait;
+
+    /**
+     * @dataProvider messageDataProvider
+     */
+    public function test(AggregateChanged $message, array $projectionNames): void
+    {
+        $projectionRunner = Mockery::mock(ProjectionRunner::class);
+        foreach ($projectionNames as $projectionName) {
+            $projectionRunner->shouldReceive('run')
+                ->once()
+                ->with($projectionName);
+        }
+
+        (new RunProjectionMiddleware($projectionRunner))->handle(
+            new Envelope($message),
+            $this->getStackMock(),
+        );
+    }
+
+    public function messageDataProvider(): \Generator
+    {
+        $faker = $this->faker();
+
+        yield [
+            UserWasAddedByAdmin::now(
+                $faker->userId,
+                $faker->emailVo,
+                $faker->password,
+                Role::ROLE_USER(),
+                true,
+                Name::fromString($faker->firstName),
+                Name::fromString($faker->lastName),
+                false,
+            ),
+            ['user_projection', 'user_token_projection'],
+        ];
+
+        yield [
+            EnquiryWasSubmitted::now(
+                $faker->enquiryId,
+                $faker->name,
+                $faker->emailVo,
+                $faker->string(5)
+            ),
+            ['enquiry_projection'],
+        ];
+    }
+
+    public function testNotAggregateChangedMessage(): void
+    {
+        $projectionRunner = Mockery::mock(ProjectionRunner::class);
+        $projectionRunner->shouldNotReceive('run');
+
+        (new RunProjectionMiddleware($projectionRunner))->handle(
+            new Envelope(new \stdClass()),
+            $this->getStackMock(),
+        );
+    }
+
+    public function testMessageInRootNamespace(): void
+    {
+        $projectionRunner = Mockery::mock(ProjectionRunner::class);
+        $projectionRunner->shouldNotReceive('run');
+
+        $message = Mockery::mock(AggregateChanged::class);
+
+        (new RunProjectionMiddleware($projectionRunner))->handle(
+            new Envelope($message),
+            $this->getStackMock(),
+        );
+    }
+
+    public function testNotAggregateChanged(): void
+    {
+        $projectionRunner = Mockery::mock(ProjectionRunner::class);
+        $projectionRunner->shouldNotReceive('run');
+
+        $message = Mockery::mock(UserLoggedIn::class);
+
+        (new RunProjectionMiddleware($projectionRunner))->handle(
+            new Envelope($message),
+            $this->getStackMock(),
+        );
+    }
+}
