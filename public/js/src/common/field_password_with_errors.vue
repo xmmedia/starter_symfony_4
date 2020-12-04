@@ -4,6 +4,7 @@
                     :show-help="showHelp"
                     :required="false"
                     :autocomplete="autocomplete"
+                    :minlength="hasVuelidateProp('minLength') ? v.$params.minLength.min : null"
                     @input="$emit('input', $event)">
         <template #default><slot></slot></template>
         <template #errors>
