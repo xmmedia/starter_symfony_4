@@ -9,10 +9,6 @@ export const hasGraphQlError = function (e) {
     return e && e.graphQLErrors && e.graphQLErrors[0];
 };
 
-export const hasGraphQlValidationError = function (e) {
-    return e && e.graphQLErrors && e.graphQLErrors[0] && e.graphQLErrors[0].validation;
-};
-
 export const waitForValidation = function () {
     return new Promise((resolve) => {
         const unwatch = this.$watch(
