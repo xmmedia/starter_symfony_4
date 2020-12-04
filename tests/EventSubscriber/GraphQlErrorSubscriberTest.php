@@ -7,7 +7,6 @@ namespace App\Tests\EventSubscriber;
 use App\EventSubscriber\GraphQlErrorSubscriber;
 use App\Tests\BaseTestCase;
 use GraphQL\Error\Error;
-use Mockery;
 use Overblog\GraphQLBundle\Event\ErrorFormattingEvent;
 use Overblog\GraphQLBundle\Event\Events;
 
@@ -36,7 +35,12 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $exception = new \Exception('', $code);
 
         $error = new Error(
-            $faker->string(5), null, null, null, null, $exception,
+            $faker->string(5),
+            null,
+            null,
+            null,
+            null,
+            $exception,
         );
 
         $event = new ErrorFormattingEvent($error, []);
@@ -60,7 +64,12 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $exception = new \Exception('', 0);
 
         $error = new Error(
-            $faker->string(5), null, null, null, null, $exception,
+            $faker->string(5),
+            null,
+            null,
+            null,
+            null,
+            $exception,
         );
 
         $event = new ErrorFormattingEvent($error, []);

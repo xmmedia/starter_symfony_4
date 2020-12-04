@@ -22,7 +22,7 @@ class UrlGeneratorTest extends BaseTestCase
 
         $generator = new UrlGenerator($router);
 
-        $reflection = new \ReflectionClass(get_class($generator));
+        $reflection = new \ReflectionClass(\get_class($generator));
         $method = $reflection->getMethod('generate');
         $method->setAccessible(true);
 
