@@ -557,26 +557,26 @@
 
             <ul class="record_list-wrap">
                 <li class="record_list-headers">
-                    <div class="record_list-col record_list-col-view">Col 1</div>
-                    <div class="record_list-col record_list-col-view">Col 2</div>
-                    <div class="record_list-col record_list-col-view">Col 3</div>
-                    <div class="record_list-col record_list-col-view"></div>
+                    <div class="record_list-col">Col 1</div>
+                    <div class="record_list-col">Col 2</div>
+                    <div class="record_list-col">Col 3</div>
+                    <div class="record_list-col"></div>
                 </li>
 
                 <li v-for="i in 5" :key="i" class="record_list-item">
-                    <div class="record_list-col record_list-col-view">
+                    <div class="record_list-col">
                         <div class="record_list-mobile_heading">Col 1</div>
                         Value 1-{{ i }}
                     </div>
-                    <div class="record_list-col record_list-col-view">
+                    <div class="record_list-col">
                         <div class="record_list-mobile_heading">Col 2</div>
                         Value 2-{{ i }}
                     </div>
-                    <div class="record_list-col record_list-col-view">
+                    <div class="record_list-col">
                         <div class="record_list-mobile_heading">Col 3</div>
                         Value 3-{{ i }}
                     </div>
-                    <div class="record_list-col record_list-col-actions record_list-col-view">
+                    <div class="record_list-col record_list-col-actions">
                         <a href="" class="record_list-action">Action</a>
                     </div>
                 </li>
