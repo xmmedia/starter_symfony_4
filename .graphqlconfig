@@ -6,7 +6,8 @@
         "url": "https://dev.example.com/graphql/",
         "headers": {
           "user-agent": "JS GraphQL"
-        }
+        },
+        "introspect": false
       }
     }
   }
