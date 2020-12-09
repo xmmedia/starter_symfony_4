@@ -1,3 +1,13 @@
+/* Use:
+<div class="bg-black">
+    <div class="embed-wrap max-w-3xl">
+        <div class="embed-container embed-container-16-9">
+            <iframe ...></iframe>
+        </div>
+    </div>
+</div>
+*/
+
 .embed-wrap {
     @apply w-full max-w-5xl mx-auto;
 }
