@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store';
-import apolloProvider from '@/common/apollo';
 import { scrollBehavior, parseQuery, stringifyQuery, logPageView } from '@/common/router_helpers';
 
 import { MeSimpleQuery } from './queries/user.query.graphql';
