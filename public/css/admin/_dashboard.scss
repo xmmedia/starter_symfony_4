@@ -1,7 +1,11 @@
 .dashboard-link {
     @apply block w-40 h-40 mr-4 mb-4 p-2 text-center border border-gray-300 transition-colors duration-150 ease-in-out;
-    &:hover {
+    &:hover, &:active {
         @apply bg-gray-200 no-underline;
+    }
+    &:focus {
+        // margin/padding to override default focus styles
+        @apply m-0 mr-4 mb-4 p-2 bg-gray-200 no-underline;
     }
 
     svg {
