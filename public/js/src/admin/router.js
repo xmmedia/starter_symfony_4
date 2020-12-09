@@ -132,8 +132,23 @@ router.beforeEach( async (to, from, next) => {
             return;
         }
 
+        const waitForApollo = function () {
+            return new Promise((resolve) => {
+                (function waitingForApollo (){
+                    if (router.app.$apolloProvider) {
+                        return resolve();
+                    }
+
+                    setTimeout(waitingForApollo, 10);
+                })();
+            });
+        };
+
+        // check if Apollo is setup on the Vue instance
+        await waitForApollo();
+
         // check to see if they're still authenticated
-        const result = await apolloProvider.defaultClient.query({
+        const result = await router.app.$apollo.query({
             query: MeSimpleQuery,
         });
         if (!result.data.Me) {
