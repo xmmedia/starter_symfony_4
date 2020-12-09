@@ -1,5 +1,8 @@
 # https://www.robotstxt.org/
 User-agent: *
+# @todo-symfony if private site
+#User-agent: *
+#Disallow: /
 
 # @todo-symfony
 Sitemap: https://www.example.com/sitemap.xml
