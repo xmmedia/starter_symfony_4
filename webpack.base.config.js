@@ -104,6 +104,15 @@ module.exports = function (Encore) {
         .addPlugin(new Dotenv({
             path: './.env.local',
         }))
+
+        // this is to resolve the issues with the manifest
+        // where the file path keys have the hashed version
+        .configureUrlLoader({
+            images: {
+                limit: 0, // Avoids files from being inlined
+                esModule: false,
+            },
+        })
     ;
 
     if (Encore.isProduction()) {
