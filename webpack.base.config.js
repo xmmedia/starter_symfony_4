@@ -54,7 +54,7 @@ module.exports = function (Encore) {
                     dangerousTaggedTemplateString: true,
                 },
             };
-        })
+        }, { runtimeCompilerBuild: false })
 
         // generate source maps when "source-maps" argument exists
         .enableSourceMaps(
