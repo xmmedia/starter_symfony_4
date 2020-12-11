@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@cypress/webpack-preprocessor": "^5.1.2",
     "@symfony/webpack-encore": "^0.33.0",
@@ -81,15 +81,15 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^26.0.1",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "^8.0.2",
     "css-loader": "^3.5.2",
-    "dotenv-webpack": "^2.0.0",
+    "dotenv-webpack": "^6.0.0",
     "eslint": "^6.0.0",
     "eslint-plugin-cypress": "^2.0.1",
     "eslint-plugin-vue": "^7.0.1",
     "faker": "^5.1.0",
     "glob-all": "^3.1.0",
-    "node-sass": "^4.9.4",
+    "node-sass": "^5.0.0",
     "postcss": "^8.2.1",
     "postcss-loader": "^4.1.0",
     "sass-loader": "^10.1.0",
@@ -105,6 +105,6 @@
     "webpack": "^4.0.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.2.3",
-    "workbox-webpack-plugin": "^4.0.0"
+    "workbox-webpack-plugin": "^4.3.1"
   }
 }
