@@ -18,7 +18,7 @@ a, .button-link {
 }
 
 a[href^=tel], a[href^=mailto] {
-    white-space: nowrap;
+    @apply whitespace-no-wrap;
 }
 
 b, strong {
