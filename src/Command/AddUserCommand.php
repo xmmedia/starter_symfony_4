@@ -55,14 +55,12 @@ final class AddUserCommand extends Command
         $password = $this->askForPassword($io);
         $role = Role::byValue($this->askForRole($io));
 
-        $encodedPassword = ($this->passwordEncoder)($role, $password);
-
         $userId = UserId::fromUuid(Uuid::uuid4());
 
         $this->commandBus->dispatch(AdminAddUserMinimum::with(
             $userId,
             $email,
-            $encodedPassword,
+            ($this->passwordEncoder)($role, $password),
             $role
         ));
 
