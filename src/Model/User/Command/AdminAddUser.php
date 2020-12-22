@@ -81,19 +81,23 @@ final class AdminAddUser extends Command
         Assert::uuid($payload['userId']);
 
         Assert::keyExists($payload, 'email');
+        Assert::string($payload['email']);
 
         Assert::keyExists($payload, 'encodedPassword');
         Assert::notEmpty($payload['encodedPassword']);
         Assert::string($payload['encodedPassword']);
 
         Assert::keyExists($payload, 'role');
+        Assert::string($payload['role']);
 
         Assert::keyExists($payload, 'active');
         Assert::boolean($payload['active']);
 
         Assert::keyExists($payload, 'firstName');
+        Assert::string($payload['firstName']);
 
         Assert::keyExists($payload, 'lastName');
+        Assert::string($payload['lastName']);
 
         parent::setPayload($payload);
     }

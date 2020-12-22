@@ -52,12 +52,14 @@ final class AdminAddUserMinimum extends Command
         Assert::uuid($payload['userId']);
 
         Assert::keyExists($payload, 'email');
+        Assert::string($payload['email']);
 
         Assert::keyExists($payload, 'encodedPassword');
         Assert::notEmpty($payload['encodedPassword']);
         Assert::string($payload['encodedPassword']);
 
         Assert::keyExists($payload, 'role');
+        Assert::string($payload['role']);
 
         parent::setPayload($payload);
     }
