@@ -31,6 +31,7 @@ use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 class UserRecoverResetMutationTest extends BaseTestCase
 {
     use PwnedHttpClientMockTrait;
+    use UserMockForUserMutationTrait;
 
     public function testNotVerified(): void
     {
@@ -55,7 +56,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->once()
             ->andReturn('string');
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId);
         $user->shouldReceive('verified')
@@ -64,21 +65,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
         $user->shouldReceive('firstRole')
             ->once()
             ->andReturn(Role::ROLE_USER());
-        $user->shouldReceive('email')
-            ->once()
-            ->andReturn($faker->emailVo);
-        $user->shouldReceive('firstName')
-            ->once()
-            ->andReturn(Name::fromString($faker->name));
-        $user->shouldReceive('lastName')
-            ->once()
-            ->andReturn(Name::fromString($faker->name));
 
-        $tokenValidator = Mockery::mock(TokenValidator::class);
-        $tokenValidator->shouldReceive('validate')
-            ->once()
-            ->with(Mockery::type(Token::class))
-            ->andReturn($user);
+        $tokenValidator = $this->getTokenValidator($user);
 
         $security = $this->createSecurity(false);
 
@@ -164,11 +152,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->once()
             ->andReturn(Name::fromString($faker->name));
 
-        $tokenValidator = Mockery::mock(TokenValidator::class);
-        $tokenValidator->shouldReceive('validate')
-            ->once()
-            ->with(Mockery::type(Token::class))
-            ->andReturn($user);
+        $tokenValidator = $this->getTokenValidator($user);
 
         $security = $this->createSecurity(false);
 
@@ -283,11 +267,11 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId);
 
-        $tokenValidator = Mockery::mock(TokenValidator::class);
+        $tokenValidator = $this->getTokenValidator($user);
 
         $security = $this->createSecurity(false);
 
@@ -317,11 +301,11 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId);
 
-        $tokenValidator = Mockery::mock(TokenValidator::class);
+        $tokenValidator = $this->getTokenValidator($user);
 
         $security = $this->createSecurity(false);
 
@@ -351,11 +335,11 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId);
 
-        $tokenValidator = Mockery::mock(TokenValidator::class);
+        $tokenValidator = $this->getTokenValidator($user);
 
         $security = $this->createSecurity(false);
 
@@ -386,11 +370,11 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId);
 
-        $tokenValidator = Mockery::mock(TokenValidator::class);
+        $tokenValidator = $this->getTokenValidator($user);
 
         $security = $this->createSecurity(false);
 
@@ -424,11 +408,11 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId);
 
-        $tokenValidator = Mockery::mock(TokenValidator::class);
+        $tokenValidator = $this->getTokenValidator($user);
 
         $security = $this->createSecurity(false);
 
@@ -452,15 +436,5 @@ class UserRecoverResetMutationTest extends BaseTestCase
         yield [' '];
         yield ['   '];
         yield [null];
-    }
-
-    private function createSecurity(bool $isGrantedResult): Security
-    {
-        $security = Mockery::mock(Security::class);
-        $security->shouldReceive('isGranted')
-            ->once()
-            ->andReturn($isGrantedResult);
-
-        return $security;
     }
 }

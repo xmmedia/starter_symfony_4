@@ -26,6 +26,7 @@ use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 class UserPasswordMutationTest extends BaseTestCase
 {
     use PwnedHttpClientMockTrait;
+    use UserMockForUserMutationTrait;
 
     public function testValid(): void
     {
@@ -181,7 +182,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
@@ -218,7 +219,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
@@ -253,7 +254,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
@@ -290,7 +291,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
+        $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
@@ -328,16 +329,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
 
-        $user = Mockery::mock(User::class);
-        $user->shouldReceive('email')
-            ->once()
-            ->andReturn($faker->emailVo);
-        $user->shouldReceive('firstName')
-            ->once()
-            ->andReturn(Name::fromString($faker->name));
-        $user->shouldReceive('lastName')
-            ->once()
-            ->andReturn(Name::fromString($faker->name));
+        $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
@@ -360,13 +352,5 @@ class UserPasswordMutationTest extends BaseTestCase
             new PasswordStrengthFake(),
             $pwnedHttpClient
         ))($args);
-    }
-
-    public function emptyProvider(): \Generator
-    {
-        yield [''];
-        yield [' '];
-        yield ['   '];
-        yield [null];
     }
 }

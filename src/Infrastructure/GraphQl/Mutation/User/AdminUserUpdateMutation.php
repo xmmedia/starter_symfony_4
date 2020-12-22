@@ -47,41 +47,41 @@ class AdminUserUpdateMutation implements MutationInterface
     public function __invoke(Argument $args): array
     {
         $userId = UserId::fromString($args['user']['userId']);
+        $email = Email::fromString($args['user']['email']);
+        $firstName = Name::fromString($args['user']['firstName']);
+        $lastName = Name::fromString($args['user']['lastName']);
 
         if ($args['user']['setPassword']) {
             $password = $args['user']['password'];
             // password checked here because it's encoded prior to the command
-            Assert::passwordLength($password);
-            Assert::passwordComplexity(
+            Assert::passwordAllowed(
                 $password,
-                [
-                    $args['user']['email'],
-                    $args['user']['firstName'],
-                    $args['user']['lastName'],
-                ],
+                $email,
+                $firstName,
+                $lastName,
                 null,
-                $this->passwordStrength
+                $this->passwordStrength,
+                $this->pwnedHttpClient,
             );
-            Assert::compromisedPassword($password, $this->pwnedHttpClient);
         }
 
         $role = Role::byValue($args['user']['role']);
 
-        $this->commandBus->dispatch(AdminUpdateUser::with(
-            $userId,
-            Email::fromString($args['user']['email']),
-            $role,
-            Name::fromString($args['user']['firstName']),
-            Name::fromString($args['user']['lastName']),
-        ));
+        $this->commandBus->dispatch(
+            AdminUpdateUser::with(
+                $userId,
+                $email,
+                $role,
+                $firstName,
+                $lastName,
+            )
+        );
 
         if ($args['user']['setPassword']) {
-            $encodedPassword = ($this->passwordEncoder)($role, $password);
-
             $this->commandBus->dispatch(
                 AdminChangePassword::with(
                     $userId,
-                    $encodedPassword
+                    ($this->passwordEncoder)($role, $password),
                 )
             );
         }

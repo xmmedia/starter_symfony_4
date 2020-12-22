@@ -64,10 +64,6 @@ class UserRecoverResetMutation implements MutationInterface
 
         $newPassword = $args['newPassword'];
 
-        // check new password
-        Assert::passwordLength($newPassword);
-        Assert::compromisedPassword($newPassword, $this->pwnedHttpClient);
-
         try {
             $user = $this->tokenValidator->validate(
                 Token::fromString($args['token'])
@@ -81,15 +77,14 @@ class UserRecoverResetMutation implements MutationInterface
         }
 
         // done here because we need the user entity
-        Assert::passwordComplexity(
+        Assert::passwordAllowed(
             $newPassword,
-            [
-                $user->email(),
-                $user->firstName(),
-                $user->lastName(),
-            ],
+            $user->email(),
+            $user->firstName(),
+            $user->lastName(),
             null,
-            $this->passwordStrength
+            $this->passwordStrength,
+            $this->pwnedHttpClient,
         );
 
         if (!$user->verified()) {

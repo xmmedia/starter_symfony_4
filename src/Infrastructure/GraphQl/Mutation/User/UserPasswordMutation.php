@@ -70,29 +70,25 @@ class UserPasswordMutation implements MutationInterface
             'Current password does not match.'
         );
 
-        // check new password
-        Assert::passwordLength($newPassword);
-        Assert::passwordComplexity(
+        Assert::passwordAllowed(
             $newPassword,
-            [
-                $user->email(),
-                $user->firstName(),
-                $user->lastName(),
-            ],
+            $user->email(),
+            $user->firstName(),
+            $user->lastName(),
             null,
-            $this->passwordStrength
+            $this->passwordStrength,
+            $this->pwnedHttpClient,
         );
-        Assert::compromisedPassword($newPassword, $this->pwnedHttpClient);
 
         $encodedPassword = ($this->passwordEncoder)(
             $user->firstRole(),
-            $newPassword
+            $newPassword,
         );
 
         $this->commandBus->dispatch(
             ChangePassword::forUser(
                 $user->userId(),
-                $encodedPassword
+                $encodedPassword,
             )
         );
 

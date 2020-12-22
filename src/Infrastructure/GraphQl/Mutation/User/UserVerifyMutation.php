@@ -64,10 +64,6 @@ class UserVerifyMutation implements MutationInterface
 
         $password = $args['password'];
 
-        // check new password
-        Assert::passwordLength($password);
-        Assert::compromisedPassword($password, $this->pwnedHttpClient);
-
         try {
             // checks if the token is valid & user is active
             $user = $this->tokenValidator->validate(
@@ -82,15 +78,14 @@ class UserVerifyMutation implements MutationInterface
         }
 
         // done here because we need the user entity
-        Assert::passwordComplexity(
+        Assert::passwordAllowed(
             $password,
-            [
-                $user->email(),
-                $user->firstName(),
-                $user->lastName(),
-            ],
+            $user->email(),
+            $user->firstName(),
+            $user->lastName(),
             null,
-            $this->passwordStrength
+            $this->passwordStrength,
+            $this->pwnedHttpClient,
         );
 
         if ($user->verified()) {

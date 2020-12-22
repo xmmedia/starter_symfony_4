@@ -52,41 +52,41 @@ class AdminUserAddMutation implements MutationInterface
     public function __invoke(Argument $args): array
     {
         $userId = UserId::fromString($args['user']['userId']);
+        $email = Email::fromString($args['user']['email']);
+        $role = Role::byValue($args['user']['role']);
+        $firstName = Name::fromString($args['user']['firstName']);
+        $lastName = Name::fromString($args['user']['lastName']);
 
         if (!$args['user']['setPassword']) {
             $password = ($this->tokenGenerator)()->toString();
         } else {
             $password = $args['user']['password'];
-            // password checked here because it's encoded prior to the command
-            Assert::passwordLength($password);
-            Assert::passwordComplexity(
-                $password,
-                [
-                    $args['user']['email'],
-                    $args['user']['firstName'],
-                    $args['user']['lastName'],
-                ],
-                null,
-                $this->passwordStrength
-            );
         }
+        // password checked here because it's encoded prior to the command
         // check both generated & user entered,
         // though unlikely generated will be compromised
-        Assert::compromisedPassword($password, $this->pwnedHttpClient);
-
-        $email = Email::fromString($args['user']['email']);
-        $role = Role::byValue($args['user']['role']);
-
-        $this->commandBus->dispatch(AdminAddUser::with(
-            $userId,
+        Assert::passwordAllowed(
+            $password,
             $email,
-            ($this->passwordEncoder)($role, $password),
-            $role,
-            $args['user']['active'],
-            Name::fromString($args['user']['firstName']),
-            Name::fromString($args['user']['lastName']),
-            $args['user']['sendInvite'],
-        ));
+            $firstName,
+            $lastName,
+            null,
+            $this->passwordStrength,
+            $this->pwnedHttpClient
+        );
+
+        $this->commandBus->dispatch(
+            AdminAddUser::with(
+                $userId,
+                $email,
+                ($this->passwordEncoder)($role, $password),
+                $role,
+                $args['user']['active'],
+                $firstName,
+                $lastName,
+                $args['user']['sendInvite'],
+            )
+        );
 
         return [
             'userId' => $userId,
