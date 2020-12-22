@@ -2,6 +2,7 @@ overblog_graphql:
     definitions:
         default_field_resolver: Xm\SymfonyBundle\Infrastructure\GraphQl\Resolver\FieldResolver
         schema:
+            # @todo separate public?
             query: Query
             mutation: Mutation
         mappings:
@@ -14,6 +15,12 @@ overblog_graphql:
 
     security:
         enable_introspection: '%kernel.debug%'
+
+    errors_handler:
+        map_exceptions_to_parent: false
+        exceptions:
+            errors:
+                - "Symfony\\Component\\Security\\Core\\Exception\\AccessDeniedException"
 
 services:
     _defaults:
