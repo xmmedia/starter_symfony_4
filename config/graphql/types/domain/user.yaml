@@ -31,15 +31,3 @@ User:
             lastLogin:
                 type: DateTime
                 access: '@=hasRole("ROLE_ADMIN")'
-
-Role:
-    type: enum
-    config:
-        description: 'Available User roles.'
-        values:
-            ROLE_USER:
-                value: 'ROLE_USER'
-            ROLE_ADMIN:
-                value: 'ROLE_ADMIN'
-            ROLE_SUPER_ADMIN:
-                value: 'ROLE_SUPER_ADMIN'
