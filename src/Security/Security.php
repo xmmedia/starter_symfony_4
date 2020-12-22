@@ -32,6 +32,11 @@ class Security
         return $this->security->isGranted($attributes, $subject);
     }
 
+    public function hasAdminRole(): bool
+    {
+        return $this->security->isGranted('ROLE_ADMIN');
+    }
+
     public function getToken(): ?TokenInterface
     {
         return $this->security->getToken();
