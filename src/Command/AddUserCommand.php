@@ -57,12 +57,14 @@ final class AddUserCommand extends Command
 
         $userId = UserId::fromUuid(Uuid::uuid4());
 
-        $this->commandBus->dispatch(AdminAddUserMinimum::with(
-            $userId,
-            $email,
-            ($this->passwordEncoder)($role, $password),
-            $role
-        ));
+        $this->commandBus->dispatch(
+            AdminAddUserMinimum::with(
+                $userId,
+                $email,
+                ($this->passwordEncoder)($role, $password),
+                $role
+            )
+        );
 
         $io->writeln(
             sprintf(
