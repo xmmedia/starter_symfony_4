@@ -42,7 +42,7 @@ class PasswordRecoverySent extends AggregateChanged
     public function token(): Token
     {
         if (null === $this->token) {
-            $this->token = Token::fromString($this->payload()['token']);
+            $this->token = Token::fromString($this->payload['token']);
         }
 
         return $this->token;
@@ -52,7 +52,7 @@ class PasswordRecoverySent extends AggregateChanged
     {
         if (null === $this->messageId) {
             $this->messageId = EmailGatewayMessageId::fromString(
-                $this->payload()['messageId']
+                $this->payload['messageId']
             );
         }
 

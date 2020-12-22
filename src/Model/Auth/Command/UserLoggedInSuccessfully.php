@@ -30,27 +30,27 @@ final class UserLoggedInSuccessfully extends Command
 
     public function authId(): AuthId
     {
-        return AuthId::fromString($this->payload()['authId']);
+        return AuthId::fromString($this->payload['authId']);
     }
 
     public function userId(): UserId
     {
-        return UserId::fromString($this->payload()['userId']);
+        return UserId::fromString($this->payload['userId']);
     }
 
     public function email(): Email
     {
-        return Email::fromString($this->payload()['email']);
+        return Email::fromString($this->payload['email']);
     }
 
     public function userAgent(): string
     {
-        return $this->payload()['userAgent'];
+        return $this->payload['userAgent'];
     }
 
     public function ipAddress(): string
     {
-        return $this->payload()['ipAddress'];
+        return $this->payload['ipAddress'];
     }
 
     protected function setPayload(array $payload): void

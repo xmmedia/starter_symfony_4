@@ -22,12 +22,12 @@ final class ChangePassword extends Command
 
     public function userId(): UserId
     {
-        return UserId::fromString($this->payload()['userId']);
+        return UserId::fromString($this->payload['userId']);
     }
 
     public function encodedPassword(): string
     {
-        return $this->payload()['encodedPassword'];
+        return $this->payload['encodedPassword'];
     }
 
     protected function setPayload(array $payload): void

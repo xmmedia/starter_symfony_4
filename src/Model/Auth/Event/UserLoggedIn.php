@@ -53,7 +53,7 @@ class UserLoggedIn extends AggregateChanged
     public function userId(): UserId
     {
         if (null === $this->userId) {
-            $this->userId = UserId::fromString($this->payload()['userId']);
+            $this->userId = UserId::fromString($this->payload['userId']);
         }
 
         return $this->userId;
@@ -62,7 +62,7 @@ class UserLoggedIn extends AggregateChanged
     public function email(): Email
     {
         if (null === $this->email) {
-            $this->email = Email::fromString($this->payload()['email']);
+            $this->email = Email::fromString($this->payload['email']);
         }
 
         return $this->email;
@@ -71,7 +71,7 @@ class UserLoggedIn extends AggregateChanged
     public function userAgent(): string
     {
         if (null === $this->userAgent) {
-            $this->userAgent = $this->payload()['userAgent'];
+            $this->userAgent = $this->payload['userAgent'];
         }
 
         return $this->userAgent;
@@ -80,7 +80,7 @@ class UserLoggedIn extends AggregateChanged
     public function ipAddress(): string
     {
         if (null === $this->ipAddress) {
-            $this->ipAddress = $this->payload()['ipAddress'];
+            $this->ipAddress = $this->payload['ipAddress'];
         }
 
         return $this->ipAddress;

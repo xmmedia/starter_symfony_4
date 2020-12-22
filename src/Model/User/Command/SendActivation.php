@@ -28,22 +28,22 @@ final class SendActivation extends Command
 
     public function userId(): UserId
     {
-        return UserId::fromString($this->payload()['userId']);
+        return UserId::fromString($this->payload['userId']);
     }
 
     public function email(): Email
     {
-        return Email::fromString($this->payload()['email']);
+        return Email::fromString($this->payload['email']);
     }
 
     public function firstName(): Name
     {
-        return Name::fromString($this->payload()['firstName']);
+        return Name::fromString($this->payload['firstName']);
     }
 
     public function lastName(): Name
     {
-        return Name::fromString($this->payload()['lastName']);
+        return Name::fromString($this->payload['lastName']);
     }
 
     protected function setPayload(array $payload): void

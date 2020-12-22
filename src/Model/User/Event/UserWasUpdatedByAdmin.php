@@ -54,7 +54,7 @@ class UserWasUpdatedByAdmin extends AggregateChanged
     public function email(): Email
     {
         if (null === $this->email) {
-            $this->email = Email::fromString($this->payload()['email']);
+            $this->email = Email::fromString($this->payload['email']);
         }
 
         return $this->email;
@@ -63,7 +63,7 @@ class UserWasUpdatedByAdmin extends AggregateChanged
     public function role(): Role
     {
         if (null === $this->role) {
-            $this->role = Role::byValue($this->payload()['role']);
+            $this->role = Role::byValue($this->payload['role']);
         }
 
         return $this->role;
@@ -72,7 +72,7 @@ class UserWasUpdatedByAdmin extends AggregateChanged
     public function firstName(): Name
     {
         if (null === $this->firstName) {
-            $this->firstName = Name::fromString($this->payload()['firstName']);
+            $this->firstName = Name::fromString($this->payload['firstName']);
         }
 
         return $this->firstName;
@@ -81,7 +81,7 @@ class UserWasUpdatedByAdmin extends AggregateChanged
     public function lastName(): Name
     {
         if (null === $this->lastName) {
-            $this->lastName = Name::fromString($this->payload()['lastName']);
+            $this->lastName = Name::fromString($this->payload['lastName']);
         }
 
         return $this->lastName;

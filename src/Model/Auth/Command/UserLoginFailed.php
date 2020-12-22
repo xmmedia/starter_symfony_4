@@ -28,27 +28,27 @@ final class UserLoginFailed extends Command
 
     public function authId(): AuthId
     {
-        return AuthId::fromString($this->payload()['authId']);
+        return AuthId::fromString($this->payload['authId']);
     }
 
     public function email(): ?string
     {
-        return $this->payload()['email'];
+        return $this->payload['email'];
     }
 
     public function userAgent(): ?string
     {
-        return $this->payload()['userAgent'];
+        return $this->payload['userAgent'];
     }
 
     public function ipAddress(): string
     {
-        return $this->payload()['ipAddress'];
+        return $this->payload['ipAddress'];
     }
 
     public function exceptionMessage(): ?string
     {
-        return $this->payload()['exceptionMessage'];
+        return $this->payload['exceptionMessage'];
     }
 
     protected function setPayload(array $payload): void

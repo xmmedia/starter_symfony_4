@@ -72,7 +72,7 @@ class UserWasAddedByAdmin extends AggregateChanged
     public function email(): Email
     {
         if (null === $this->email) {
-            $this->email = Email::fromString($this->payload()['email']);
+            $this->email = Email::fromString($this->payload['email']);
         }
 
         return $this->email;
@@ -81,7 +81,7 @@ class UserWasAddedByAdmin extends AggregateChanged
     public function encodedPassword(): string
     {
         if (null === $this->encodedPassword) {
-            $this->encodedPassword = $this->payload()['encodedPassword'];
+            $this->encodedPassword = $this->payload['encodedPassword'];
         }
 
         return $this->encodedPassword;
@@ -90,7 +90,7 @@ class UserWasAddedByAdmin extends AggregateChanged
     public function role(): Role
     {
         if (null === $this->role) {
-            $this->role = Role::byValue($this->payload()['role']);
+            $this->role = Role::byValue($this->payload['role']);
         }
 
         return $this->role;
@@ -99,7 +99,7 @@ class UserWasAddedByAdmin extends AggregateChanged
     public function active(): bool
     {
         if (null === $this->active) {
-            $this->active = $this->payload()['active'];
+            $this->active = $this->payload['active'];
         }
 
         return $this->active;
@@ -108,7 +108,7 @@ class UserWasAddedByAdmin extends AggregateChanged
     public function firstName(): Name
     {
         if (null === $this->firstName) {
-            $this->firstName = Name::fromString($this->payload()['firstName']);
+            $this->firstName = Name::fromString($this->payload['firstName']);
         }
 
         return $this->firstName;
@@ -117,7 +117,7 @@ class UserWasAddedByAdmin extends AggregateChanged
     public function lastName(): Name
     {
         if (null === $this->lastName) {
-            $this->lastName = Name::fromString($this->payload()['lastName']);
+            $this->lastName = Name::fromString($this->payload['lastName']);
         }
 
         return $this->lastName;
@@ -126,7 +126,7 @@ class UserWasAddedByAdmin extends AggregateChanged
     public function sendInvite(): bool
     {
         if (null === $this->sendInvite) {
-            $this->sendInvite = $this->payload()['sendInvite'];
+            $this->sendInvite = $this->payload['sendInvite'];
         }
 
         return $this->sendInvite;

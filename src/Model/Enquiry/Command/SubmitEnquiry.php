@@ -28,22 +28,22 @@ final class SubmitEnquiry extends Command
 
     public function enquiryId(): EnquiryId
     {
-        return EnquiryId::fromString($this->payload()['enquiryId']);
+        return EnquiryId::fromString($this->payload['enquiryId']);
     }
 
     public function name(): string
     {
-        return $this->payload()['name'];
+        return $this->payload['name'];
     }
 
     public function email(): Email
     {
-        return Email::fromString($this->payload()['email']);
+        return Email::fromString($this->payload['email']);
     }
 
     public function message(): string
     {
-        return $this->payload()['message'];
+        return $this->payload['message'];
     }
 
     protected function setPayload(array $payload): void

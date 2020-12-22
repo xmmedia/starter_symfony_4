@@ -28,22 +28,22 @@ final class AdminAddUserMinimum extends Command
 
     public function userId(): UserId
     {
-        return UserId::fromString($this->payload()['userId']);
+        return UserId::fromString($this->payload['userId']);
     }
 
     public function email(): Email
     {
-        return Email::fromString($this->payload()['email']);
+        return Email::fromString($this->payload['email']);
     }
 
     public function encodedPassword(): string
     {
-        return $this->payload()['encodedPassword'];
+        return $this->payload['encodedPassword'];
     }
 
     public function role(): Role
     {
-        return Role::byValue($this->payload()['role']);
+        return Role::byValue($this->payload['role']);
     }
 
     protected function setPayload(array $payload): void

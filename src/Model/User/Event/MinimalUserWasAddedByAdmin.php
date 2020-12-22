@@ -47,7 +47,7 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function email(): Email
     {
         if (null === $this->email) {
-            $this->email = Email::fromString($this->payload()['email']);
+            $this->email = Email::fromString($this->payload['email']);
         }
 
         return $this->email;
@@ -56,7 +56,7 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function encodedPassword(): string
     {
         if (null === $this->encodedPassword) {
-            $this->encodedPassword = $this->payload()['encodedPassword'];
+            $this->encodedPassword = $this->payload['encodedPassword'];
         }
 
         return $this->encodedPassword;
@@ -65,7 +65,7 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function role(): Role
     {
         if (null === $this->role) {
-            $this->role = Role::byValue($this->payload()['role']);
+            $this->role = Role::byValue($this->payload['role']);
         }
 
         return $this->role;

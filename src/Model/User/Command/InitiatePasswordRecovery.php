@@ -21,12 +21,12 @@ final class InitiatePasswordRecovery extends Command
 
     public function userId(): UserId
     {
-        return UserId::fromString($this->payload()['userId']);
+        return UserId::fromString($this->payload['userId']);
     }
 
     public function email(): Email
     {
-        return Email::fromString($this->payload()['email']);
+        return Email::fromString($this->payload['email']);
     }
 
     protected function setPayload(array $payload): void

@@ -47,7 +47,7 @@ class UserUpdatedProfile extends AggregateChanged
     public function email(): Email
     {
         if (null === $this->email) {
-            $this->email = Email::fromString($this->payload()['email']);
+            $this->email = Email::fromString($this->payload['email']);
         }
 
         return $this->email;
@@ -56,7 +56,7 @@ class UserUpdatedProfile extends AggregateChanged
     public function firstName(): Name
     {
         if (null === $this->firstName) {
-            $this->firstName = Name::fromString($this->payload()['firstName']);
+            $this->firstName = Name::fromString($this->payload['firstName']);
         }
 
         return $this->firstName;
@@ -65,7 +65,7 @@ class UserUpdatedProfile extends AggregateChanged
     public function lastName(): Name
     {
         if (null === $this->lastName) {
-            $this->lastName = Name::fromString($this->payload()['lastName']);
+            $this->lastName = Name::fromString($this->payload['lastName']);
         }
 
         return $this->lastName;

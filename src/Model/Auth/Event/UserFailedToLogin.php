@@ -51,7 +51,7 @@ class UserFailedToLogin extends AggregateChanged
     public function email(): ?string
     {
         if (null === $this->email) {
-            $this->email = $this->payload()['email'];
+            $this->email = $this->payload['email'];
         }
 
         return $this->email;
@@ -60,7 +60,7 @@ class UserFailedToLogin extends AggregateChanged
     public function userAgent(): ?string
     {
         if (null === $this->userAgent) {
-            $this->userAgent = $this->payload()['userAgent'];
+            $this->userAgent = $this->payload['userAgent'];
         }
 
         return $this->userAgent;
@@ -69,7 +69,7 @@ class UserFailedToLogin extends AggregateChanged
     public function ipAddress(): string
     {
         if (null === $this->ipAddress) {
-            $this->ipAddress = $this->payload()['ipAddress'];
+            $this->ipAddress = $this->payload['ipAddress'];
         }
 
         return $this->ipAddress;
@@ -78,7 +78,7 @@ class UserFailedToLogin extends AggregateChanged
     public function exceptionMessage(): ?string
     {
         if (null === $this->exceptionMessage) {
-            $this->exceptionMessage = $this->payload()['exceptionMessage'];
+            $this->exceptionMessage = $this->payload['exceptionMessage'];
         }
 
         return $this->exceptionMessage;

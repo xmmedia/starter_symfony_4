@@ -31,7 +31,7 @@ class ChangedPassword extends AggregateChanged
     public function encodedPassword(): string
     {
         if (null === $this->encodedPassword) {
-            $this->encodedPassword = $this->payload()['encodedPassword'];
+            $this->encodedPassword = $this->payload['encodedPassword'];
         }
 
         return $this->encodedPassword;

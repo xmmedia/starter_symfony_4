@@ -46,7 +46,7 @@ class EnquiryWasSubmitted extends AggregateChanged
     public function name(): string
     {
         if (null === $this->name) {
-            $this->name = $this->payload()['name'];
+            $this->name = $this->payload['name'];
         }
 
         return $this->name;
@@ -55,7 +55,7 @@ class EnquiryWasSubmitted extends AggregateChanged
     public function email(): Email
     {
         if (null === $this->email) {
-            $this->email = Email::fromString($this->payload()['email']);
+            $this->email = Email::fromString($this->payload['email']);
         }
 
         return $this->email;
@@ -64,7 +64,7 @@ class EnquiryWasSubmitted extends AggregateChanged
     public function message(): string
     {
         if (null === $this->message) {
-            $this->message = $this->payload()['message'];
+            $this->message = $this->payload['message'];
         }
 
         return $this->message;

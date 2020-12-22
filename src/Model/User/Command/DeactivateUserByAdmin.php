@@ -19,7 +19,7 @@ final class DeactivateUserByAdmin extends Command
 
     public function userId(): UserId
     {
-        return UserId::fromString($this->payload()['userId']);
+        return UserId::fromString($this->payload['userId']);
     }
 
     protected function setPayload(array $payload): void
