@@ -63,7 +63,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator
     /**
      * @param Credentials $credentials
      *
-     * @return \App\Model\User\User
+     * @return \App\Entity\User
      */
     public function getUser(
         $credentials,
