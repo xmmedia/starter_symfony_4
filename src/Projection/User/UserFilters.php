@@ -9,6 +9,7 @@ use Xm\SymfonyBundle\Util\Filters;
 class UserFilters extends Filters
 {
     public const ACTIVE = 'active';
+    public const ROLES = 'roles';
     public const EMAIL = 'email';
     public const EMAIL_EXACT = 'emailExact';
 

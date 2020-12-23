@@ -49,6 +49,17 @@ class UserFinder extends ServiceEntityRepository
                 ->andWhere('u.verified = true');
         }
 
+        if ($filters->applied(UserFilters::ROLES)) {
+            $roleQueries = [];
+
+            foreach ($filters->get(UserFilters::ROLES) as $i => $role) {
+                $roleQueries[] = sprintf('JSON_CONTAINS(u.roles, :role%d) = 1', $i);
+                $qb->setParameter('role'.$i, sprintf('"%s"', $role));
+            }
+
+            $qb->andWhere($qb->expr()->orX(...$roleQueries));
+        }
+
         return $qb->getQuery()
             ->getResult();
     }
