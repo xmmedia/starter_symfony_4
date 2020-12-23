@@ -8,7 +8,7 @@ use App\Model\User\Command\ChangePassword;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 
-class ChangeUserPasswordHandler
+class ChangePasswordHandler
 {
     /** @var UserList */
     private $userRepo;

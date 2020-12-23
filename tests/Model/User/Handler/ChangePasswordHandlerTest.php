@@ -6,14 +6,14 @@ namespace App\Tests\Model\User\Handler;
 
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Exception\UserNotFound;
-use App\Model\User\Handler\ChangeUserPasswordHandler;
+use App\Model\User\Handler\ChangePasswordHandler;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Tests\BaseTestCase;
 use Mockery;
 
-class ChangeUserPasswordHandlerTest extends BaseTestCase
+class ChangePasswordHandlerTest extends BaseTestCase
 {
     public function test(): void
     {
@@ -36,7 +36,7 @@ class ChangeUserPasswordHandlerTest extends BaseTestCase
             ->once()
             ->with(Mockery::type(User::class));
 
-        (new ChangeUserPasswordHandler($repo))($command);
+        (new ChangePasswordHandler($repo))($command);
     }
 
     public function testNonUnique(): void
@@ -55,6 +55,6 @@ class ChangeUserPasswordHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new ChangeUserPasswordHandler($repo))($command);
+        (new ChangePasswordHandler($repo))($command);
     }
 }
