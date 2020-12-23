@@ -16,14 +16,14 @@ mutation AdminUserActivateMutation($user: AdminUserActivateInput!) {
     }
 }
 
-mutation AdminUserVerifyMutation($user: AdminUserInput!) {
-    AdminUserVerify(user: $user) {
+mutation AdminUserVerifyMutation($userId: UUID!) {
+    AdminUserVerify(userId: $userId) {
         userId
     }
 }
 
-mutation AdminUserSendResetMutation($user: AdminUserInput!) {
-    AdminUserSendReset(user: $user) {
+mutation AdminUserSendResetMutation($userId: UUID!) {
+    AdminUserSendReset(userId: $userId) {
         userId
     }
 }

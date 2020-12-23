@@ -28,9 +28,9 @@ class AdminUserSendResetToUserMutation implements MutationInterface
         $this->userFinder = $userFinder;
     }
 
-    public function __invoke(Argument $args): array
+    public function __invoke(string $userId): array
     {
-        $userId = UserId::fromString($args['user']['userId']);
+        $userId = UserId::fromString($userId);
 
         $user = $this->userFinder->find($userId);
         if (!$user) {

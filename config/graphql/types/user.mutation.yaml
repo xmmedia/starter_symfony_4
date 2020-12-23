@@ -45,7 +45,7 @@ UserMutation:
                     password: String!
 
             AdminUserAdd:
-                type: AdminUserMutationPayload!
+                type: AdminUserAddMutationPayload!
                 description: 'Admin User add.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
@@ -76,18 +76,18 @@ UserMutation:
                 description: 'Verify User by Admin.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", [args["userId"]])'
                 args:
-                    user: AdminUserInput!
+                    userId: UUID!
 
             AdminUserSendReset:
                 type: AdminUserMutationPayload!
                 description: 'Send User a password reset link.'
                 public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", [args["userId"]])'
                 args:
-                    user: AdminUserInput!
+                    userId: UUID!
 
 UserUpdateProfileInput:
     type: input-object
@@ -196,3 +196,14 @@ AdminUserMutationPayload:
         fields:
             userId:
                 type: UUID!
+
+AdminUserAddMutationPayload:
+    type: object
+    inherits: [AdminUserMutationPayload]
+    config:
+        description: 'Admin User add mutation payload.'
+        fields:
+            email:
+                type: String!
+            active:
+                type: Boolean!

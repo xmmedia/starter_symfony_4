@@ -175,9 +175,7 @@ export default {
                 await this.$apollo.mutate({
                     mutation: AdminUserVerifyMutation,
                     variables: {
-                        user: {
-                            userId: this.userId,
-                        },
+                        userId: this.userId,
                     },
                 });
 
