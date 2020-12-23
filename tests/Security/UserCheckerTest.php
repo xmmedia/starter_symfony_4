@@ -83,7 +83,7 @@ class UserCheckerTest extends BaseTestCase
         $checker->checkPostAuth($user);
     }
 
-    public function testCheckPostAuthDiffUser(): void
+    public function testCheckPostAuthNotUserEntity(): void
     {
         $checker = new UserChecker();
 
