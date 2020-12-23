@@ -204,6 +204,27 @@ class AppAuthenticatorTest extends BaseTestCase
         $this->assertFalse($result);
     }
 
+    public function testGetPassword(): void
+    {
+        $faker = $this->faker();
+
+        $password = $faker->password;
+        $credentials = Credentials::build($faker->email, $password);
+
+        $result = $this->authenticator->getPassword($credentials);
+
+        $this->assertEquals($password, $result);
+    }
+
+    public function testGetPasswordNotCredentials(): void
+    {
+        $faker = $this->faker();
+
+        $this->assertNull(
+            $this->authenticator->getPassword(['password' => $faker->password])
+        );
+    }
+
     public function testOnAuthenticationSuccess(): void
     {
         $providerKey = 'key';

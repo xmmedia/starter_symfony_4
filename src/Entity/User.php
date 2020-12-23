@@ -112,6 +112,15 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
         return $this->password;
     }
 
+    /**
+     * Allows setting the password when it changes while the user is logged in,
+     * for example when their password is upgraded.
+     */
+    public function upgradePassword(string $encodedPassword): void
+    {
+        $this->password = $encodedPassword;
+    }
+
     public function getPassword(): string
     {
         return $this->password();

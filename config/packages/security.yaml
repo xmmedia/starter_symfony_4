@@ -2,9 +2,7 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         app_provider:
-            entity:
-                class: App\Entity\User
-                property: email
+            id: App\Security\UserProvider
 
     # also in Vuex & \App\Model\User\Role
     role_hierarchy:

@@ -110,4 +110,38 @@ class UserPasswordTest extends BaseTestCase
 
         $user->changePassword($password);
     }
+
+    public function testUpgradePassword(): void
+    {
+        $faker = $this->faker();
+
+        $password = $faker->password;
+
+        $user = $this->getUserActive();
+
+        $user->upgradePassword($password);
+
+        $events = $this->popRecordedEvent($user);
+
+        $this->assertRecordedEvent(
+            Event\PasswordUpgraded::class,
+            ['encodedPassword' => $password],
+            $events
+        );
+
+        $this->assertCount(1, $events);
+    }
+
+    public function testUpgradePasswordInactive(): void
+    {
+        $faker = $this->faker();
+
+        $password = $faker->password;
+
+        $user = $this->getUserInactive();
+
+        $this->expectException(Exception\InvalidUserActiveStatus::class);
+
+        $user->upgradePassword($password);
+    }
 }

@@ -56,6 +56,14 @@ final class InvalidUserActiveStatus extends \RuntimeException
         ));
     }
 
+    public static function triedToUpgradePassword(UserId $userId): self
+    {
+        return new self(sprintf(
+            'The system tried to automatically upgrade User "%s"\'s password but their currently inactive.',
+            $userId,
+        ));
+    }
+
     public static function triedToLogin(UserId $userId): self
     {
         return new self(sprintf(

@@ -242,6 +242,17 @@ class User extends AggregateRoot implements Entity
         );
     }
 
+    public function upgradePassword(string $encodedPassword): void
+    {
+        if (!$this->active) {
+            throw Exception\InvalidUserActiveStatus::triedToChangePassword($this->userId);
+        }
+
+        $this->recordThat(
+            Event\PasswordUpgraded::now($this->userId, $encodedPassword)
+        );
+    }
+
     public function userId(): UserId
     {
         return $this->userId;
@@ -333,6 +344,11 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenChangedPassword(Event\ChangedPassword $event): void
+    {
+        // noop
+    }
+
+    protected function whenPasswordUpgraded(Event\PasswordUpgraded $event): void
     {
         // noop
     }
