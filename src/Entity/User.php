@@ -195,9 +195,12 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
         );
     }
 
-    public function getEncoderName()
+    public function getEncoderName(): ?string
     {
-        $adminRoles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
+        $adminRoles = [
+            Role::ROLE_ADMIN()->getValue(),
+            Role::ROLE_SUPER_ADMIN()->getValue(),
+        ];
         if (\count(array_intersect($adminRoles, $this->roles)) > 0) {
             return 'harsh';
         }
