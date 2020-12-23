@@ -18,21 +18,25 @@
                 <source>Invalid credentials.</source>
                 <target>The email and password combination are incorrect. Please try again.</target>
             </trans-unit>
-            <trans-unit id="7">
+            <trans-unit id="5">
                 <source>Invalid CSRF token.</source>
                 <target>There was a problem with the form. Please try again.</target>
             </trans-unit>
-            <trans-unit id="12">
+            <trans-unit id="6">
                 <source>Username could not be found.</source>
                 <target>The email and password combination are incorrect. Please try again.</target>
             </trans-unit>
-            <trans-unit id="13">
+            <trans-unit id="7">
                 <source>Account is inactive.</source>
                 <target>Your account has inactive. Please contact an admin for more information.</target>
             </trans-unit>
-            <trans-unit id="16">
+            <trans-unit id="8">
                 <source>Account is not verified.</source>
                 <target>Your account has not been verified. Please check your email for a link to verify your account or contact an admin.</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Account has expired.</source>
+                <target>Your account is no longer active.</target>
             </trans-unit>
         </body>
     </file>
