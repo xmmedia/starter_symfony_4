@@ -22,9 +22,7 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
     public function testValid(): void
     {
         $faker = $this->faker();
-        $data = [
-            'user' => ['userId' => $faker->uuid],
-        ];
+        $userId = $faker->uuid;
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -46,22 +44,18 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
             ->with(Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $args = new Argument($data);
-
         $result = (new AdminUserSendResetToUserMutation(
             $commandBus,
-            $userFinder
-        ))($args);
+            $userFinder,
+        ))($userId);
 
-        $this->assertEquals(['userId' => $data['user']['userId']], $result);
+        $this->assertEquals(['userId' => $userId], $result);
     }
 
     public function testUserNotFound(): void
     {
         $faker = $this->faker();
-        $data = [
-            'user' => ['userId' => $faker->uuid],
-        ];
+        $userId = $faker->uuid;
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
@@ -71,13 +65,11 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
             ->with(Mockery::type(UserId::class))
             ->andReturnNull();
 
-        $args = new Argument($data);
-
         $this->expectException(UserError::class);
 
         (new AdminUserSendResetToUserMutation(
             $commandBus,
-            $userFinder
-        ))($args);
+            $userFinder,
+        ))($userId);
     }
 }

@@ -17,10 +17,7 @@ class AdminUserVerifyMutationTest extends BaseTestCase
     public function testActivate(): void
     {
         $faker = $this->faker();
-
-        $data = [
-            'userId' => $faker->uuid,
-        ];
+        $userId = $faker->uuid;
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -28,16 +25,10 @@ class AdminUserVerifyMutationTest extends BaseTestCase
             ->with(Mockery::type(VerifyUserByAdmin::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $args = new Argument([
-            'user' => $data,
-        ]);
-
-        $result = (new AdminUserVerifyMutation(
-            $commandBus
-        ))($args);
+        $result = (new AdminUserVerifyMutation($commandBus))($userId);
 
         $expected = [
-            'userId' => $data['userId'],
+            'userId' => $userId,
         ];
 
         $this->assertEquals($expected, $result);
