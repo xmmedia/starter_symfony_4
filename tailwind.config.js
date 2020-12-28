@@ -53,7 +53,7 @@ module.exports = {
             },
             screens: {
                 'xs': '400px',
-                'max': '1245px',
+                '2xl': '1536px',
                 'print': { 'raw': 'print' },
                 'retina': { 'raw': '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)' },
             },
