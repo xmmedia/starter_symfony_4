@@ -6,7 +6,6 @@ UserQuery:
             Users:
                 type: '[User!]'
                 description: 'Retrieve all Users or a subset based on the passed filters.'
-                public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UsersResolver", [args["filters"]])'
                 args:
@@ -15,7 +14,6 @@ UserQuery:
             User:
                 type: User
                 description: 'Retrieve a single User.'
-                public: '@=hasRole("ROLE_ADMIN")'
                 access: '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserResolver", [args["userId"]])'
                 args:
@@ -24,7 +22,6 @@ UserQuery:
             UserEmailUnique:
                 type: UserEmailUnique!
                 description: 'Check if an email address is unique. Excludes the current user.'
-                public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
                 resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserEmailUniqueResolver", [args["email"]])'
                 args:
@@ -33,7 +30,6 @@ UserQuery:
             UserPasswordValid:
                 type: UserPasswordValid!
                 description: 'Check if the password is valid/correct for the current user.'
-                public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
                 resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserPasswordValidResolver", [args["password"]])'
                 args:

@@ -2,7 +2,6 @@ Address:
     type: object
     config:
         description: 'The Address object.'
-        fieldsDefaultPublic: '@=isAuthenticated()'
         fields:
             line1:
                 type: String!
@@ -38,7 +37,6 @@ AddressInput:
 Province:
     type: object
     config:
-        fieldsDefaultPublic: '@=isAuthenticated()'
         fields:
             country:
                 type: Country!
@@ -50,7 +48,6 @@ Province:
 Country:
     type: object
     config:
-        fieldsDefaultPublic: '@=isAuthenticated()'
         fields:
             name:
                 type: String!

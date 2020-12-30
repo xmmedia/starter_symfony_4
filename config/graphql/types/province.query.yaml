@@ -6,6 +6,5 @@ ProvinceQuery:
             Provinces:
                 type: '[Province!]!'
                 description: 'Retrieve all Provinces.'
-                public: '@=isAuthenticated()'
                 access: '@=isAuthenticated()'
                 resolve: '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\ProvinceResolver")'
