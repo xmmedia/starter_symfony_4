@@ -14,7 +14,6 @@ use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\Token;
 use App\Security\PasswordEncoder;
-use App\Security\Security;
 use App\Security\TokenValidator;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;

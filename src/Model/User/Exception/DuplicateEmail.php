@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Model\User\Exception;
 
-use App\Model\User\UserId;
 use App\Model\User\UserIdInterface;
 use Xm\SymfonyBundle\Model\Email;
 

@@ -6,7 +6,6 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Model\User\Command\VerifyUserByAdmin;
 use App\Model\User\UserId;
-use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 

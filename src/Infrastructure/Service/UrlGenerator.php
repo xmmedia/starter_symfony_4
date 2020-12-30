@@ -22,7 +22,7 @@ class UrlGenerator
         return $this->router->generate(
             $name,
             $params,
-            UrlGeneratorInterface::ABSOLUTE_URL
+            UrlGeneratorInterface::ABSOLUTE_URL,
         );
     }
 }

@@ -8,7 +8,6 @@ use App\Infrastructure\GraphQl\Mutation\User\AdminUserVerifyMutation;
 use App\Model\User\Command\VerifyUserByAdmin;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 

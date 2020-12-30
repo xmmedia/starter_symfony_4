@@ -7,8 +7,6 @@ namespace App\Tests\Infrastructure\GraphQl\Type;
 use App\Infrastructure\GraphQl\Type\RoleType;
 use App\Model\User\Role;
 use GraphQL\Language\AST\EnumValueNode;
-use GraphQL\Language\AST\StringValueNode;
-use GraphQL\Language\AST\VariableNode;
 use PHPUnit\Framework\TestCase;
 
 class RoleTypeTest extends TestCase

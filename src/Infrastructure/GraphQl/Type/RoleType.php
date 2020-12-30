@@ -40,7 +40,7 @@ class RoleType extends EnumType implements AliasedInterface
             return null;
         }
 
-        if (is_string($value)) {
+        if (\is_string($value)) {
             $value = Role::byValue($value);
         }
 
