@@ -16,9 +16,11 @@ User:
             verified:
                 type: Boolean
                 access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_ADMIN")'
             active:
                 type: Boolean
                 access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_ADMIN")'
             roles:
                 type: '[Role!]'
                 access: '@=isAuthenticated()'
@@ -28,6 +30,8 @@ User:
             loginCount:
                 type: Int!
                 access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_ADMIN")'
             lastLogin:
                 type: DateTime
                 access: '@=hasRole("ROLE_ADMIN")'
+                public: '@=hasRole("ROLE_ADMIN")'
