@@ -6,6 +6,7 @@ namespace App\Security;
 
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 
 class Security
 {
@@ -32,9 +33,16 @@ class Security
         return $this->security->isGranted($attributes, $subject);
     }
 
+    public function isLoggedIn(): bool
+    {
+        return $this->isGranted(
+            AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED,
+        );
+    }
+
     public function hasAdminRole(): bool
     {
-        return $this->security->isGranted('ROLE_ADMIN');
+        return $this->isGranted('ROLE_ADMIN');
     }
 
     public function getToken(): ?TokenInterface

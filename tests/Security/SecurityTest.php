@@ -77,6 +77,36 @@ class SecurityTest extends BaseTestCase
         $this->assertTrue($result);
     }
 
+    public function testIsLoggedInTrue(): void
+    {
+        $symfonySecurity = Mockery::mock(
+            \Symfony\Component\Security\Core\Security::class
+        );
+        $symfonySecurity->shouldReceive('isGranted')
+            ->once()
+            ->with('IS_AUTHENTICATED_REMEMBERED', null)
+            ->andReturnTrue();
+
+        $result = (new Security($symfonySecurity))->isLoggedIn();
+
+        $this->assertTrue($result);
+    }
+
+    public function testIsLoggedInFalse(): void
+    {
+        $symfonySecurity = Mockery::mock(
+            \Symfony\Component\Security\Core\Security::class
+        );
+        $symfonySecurity->shouldReceive('isGranted')
+            ->once()
+            ->with('IS_AUTHENTICATED_REMEMBERED', null)
+            ->andReturnFalse();
+
+        $result = (new Security($symfonySecurity))->isLoggedIn();
+
+        $this->assertFalse($result);
+    }
+
     public function testHasAdminRoleTrue(): void
     {
         $symfonySecurity = Mockery::mock(
