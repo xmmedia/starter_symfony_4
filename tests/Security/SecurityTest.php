@@ -77,6 +77,36 @@ class SecurityTest extends BaseTestCase
         $this->assertTrue($result);
     }
 
+    public function testHasAdminRoleTrue(): void
+    {
+        $symfonySecurity = Mockery::mock(
+            \Symfony\Component\Security\Core\Security::class
+        );
+        $symfonySecurity->shouldReceive('isGranted')
+            ->once()
+            ->with('ROLE_ADMIN', null)
+            ->andReturnTrue();
+
+        $result = (new Security($symfonySecurity))->hasAdminRole();
+
+        $this->assertTrue($result);
+    }
+
+    public function testHasAdminRoleFalse(): void
+    {
+        $symfonySecurity = Mockery::mock(
+            \Symfony\Component\Security\Core\Security::class
+        );
+        $symfonySecurity->shouldReceive('isGranted')
+            ->once()
+            ->with('ROLE_ADMIN', null)
+            ->andReturnFalse();
+
+        $result = (new Security($symfonySecurity))->hasAdminRole();
+
+        $this->assertFalse($result);
+    }
+
     public function testGetToken(): void
     {
         $symfonySecurity = Mockery::mock(
