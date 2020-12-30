@@ -104,7 +104,7 @@ UserPasswordInput:
             newPassword:
                 type: String!
 
-AdminUserAddInput:
+AdminUserInput:
     type: input-object
     config:
         description: 'Admin User add mutation input.'
@@ -113,40 +113,38 @@ AdminUserAddInput:
                 type: UUID!
             email:
                 type: String!
-            setPassword:
-                type: Boolean!
             password:
                 type: String
-            role:
-                type: Role!
-            active:
-                type: Boolean!
             firstName:
                 type: String!
             lastName:
                 type: String!
+
+AdminUserAddInput:
+    type: input-object
+    inherits: [AdminUserInput]
+    config:
+        description: 'Admin User add mutation input.'
+        fields:
+            setPassword:
+                type: Boolean!
+            role:
+                type: Role!
+            active:
+                type: Boolean!
             sendInvite:
                 type: Boolean!
 
 AdminUserUpdateInput:
     type: input-object
+    inherits: [AdminUserInput]
     config:
         description: 'Admin User update mutation input.'
         fields:
-            userId:
-                type: UUID!
-            email:
-                type: String!
             setPassword:
                 type: Boolean!
-            password:
-                type: String
             role:
                 type: Role!
-            firstName:
-                type: String!
-            lastName:
-                type: String!
 
 AdminUserActivateInput:
     type: input-object
@@ -157,14 +155,6 @@ AdminUserActivateInput:
                 type: UUID!
             action:
                 type: String!
-
-AdminUserInput:
-    type: input-object
-    config:
-        description: 'Admin User mutation input.'
-        fields:
-            userId:
-                type: UUID!
 
 UserMutationPayload:
     type: object
