@@ -6,6 +6,7 @@ import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import VueApollo from 'vue-apollo';
 import fetch from 'unfetch';
+import router from '@/admin/router';
 
 Vue.use(VueApollo);
 
@@ -22,6 +23,9 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
             if (error.debugMessage) {
                 // eslint-disable-next-line no-console
                 console.error(error.debugMessage);
+            }
+            if (401 === error.code) {
+                window.location = router.resolve({ name: 'login' }).href;
             }
         });
     }
