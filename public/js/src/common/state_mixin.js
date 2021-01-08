@@ -6,8 +6,8 @@ export default {
     },
 
     methods: {
-        stateEvent (event) {
-            this.stateService.send(event);
+        stateEvent (event, data) {
+            this.stateService.send(event, data);
         },
     },
 }
