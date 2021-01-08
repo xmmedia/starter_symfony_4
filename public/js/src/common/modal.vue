@@ -6,6 +6,7 @@
                    :name="name"
                    :height="height"
                    :width="width"
+                   :draggable="draggable"
                    transition="md"
                    @opened="$emit('opened')"
                    @closed="$emit('closed')">
@@ -34,6 +35,10 @@ export default {
         width: {
             type: [String, Number],
             default: 600,
+        },
+        draggable: {
+            type: Boolean,
+            default: false,
         },
         name: {
             type: [String, Number],
