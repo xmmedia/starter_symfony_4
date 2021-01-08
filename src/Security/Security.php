@@ -35,6 +35,10 @@ class Security
 
     public function isLoggedIn(): bool
     {
+        if (null === $this->getToken()) {
+            return false;
+        }
+
         return $this->isGranted(
             AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED,
         );

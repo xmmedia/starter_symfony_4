@@ -77,11 +77,28 @@ class SecurityTest extends BaseTestCase
         $this->assertTrue($result);
     }
 
+    public function testIsLoggedInNoToken(): void
+    {
+        $symfonySecurity = Mockery::mock(
+            \Symfony\Component\Security\Core\Security::class
+        );
+        $symfonySecurity->shouldReceive('getToken')
+            ->once()
+            ->andReturnNull();
+
+        $result = (new Security($symfonySecurity))->isLoggedIn();
+
+        $this->assertFalse($result);
+    }
+
     public function testIsLoggedInTrue(): void
     {
         $symfonySecurity = Mockery::mock(
             \Symfony\Component\Security\Core\Security::class
         );
+        $symfonySecurity->shouldReceive('getToken')
+            ->once()
+            ->andReturn(Mockery::mock(TokenInterface::class));
         $symfonySecurity->shouldReceive('isGranted')
             ->once()
             ->with('IS_AUTHENTICATED_REMEMBERED', null)
@@ -97,6 +114,9 @@ class SecurityTest extends BaseTestCase
         $symfonySecurity = Mockery::mock(
             \Symfony\Component\Security\Core\Security::class
         );
+        $symfonySecurity->shouldReceive('getToken')
+            ->once()
+            ->andReturn(Mockery::mock(TokenInterface::class));
         $symfonySecurity->shouldReceive('isGranted')
             ->once()
             ->with('IS_AUTHENTICATED_REMEMBERED', null)
