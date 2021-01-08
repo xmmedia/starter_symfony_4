@@ -8,7 +8,7 @@
             <span class="leading-none">{{ label }}</span>
         </span>
         <admin-icon v-if="hasSubnav"
-                    icon="get"
+                    icon="gt"
                     class="w-3 h-3"
                     width="12"
                     height="12" />
