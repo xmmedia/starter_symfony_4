@@ -6169,13 +6169,13 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-hibp@^9.0.0:
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/hibp/-/hibp-9.0.3.tgz#2f3bed6c644431b8edd73ca969f0253169d76f30"
-  integrity sha512-aO1djsqM8uQCzy3SIITWVTJDHx928w4ELzINNzqn5bYwwPvKdSyiKAVkLtMtW9i3d/kz1QNt2Mltz63wsEBb1Q==
+hibp@^10.0.0:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/hibp/-/hibp-10.0.1.tgz#d27eb0d50a1edc3624784697bd211271ba3d51f0"
+  integrity sha512-ol2/tyOf/8fr9i+8BR8uLXCIgaXUN0EpTeY3uBRyN/6jrAvpa91P8pvsiJ8XxNXDEscjNQTY5clxlcroLxHjhA==
   dependencies:
     isomorphic-unfetch "^3.1.0"
-    jssha "^3.1.2"
+    jssha "^3.2.0"
 
 highlight.js@^10.0.0:
   version "10.5.0"
@@ -7750,7 +7750,7 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-jssha@^3.1.2:
+jssha@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/jssha/-/jssha-3.2.0.tgz#88ec50b866dd1411deaddbe6b3e3692e4c710f16"
   integrity sha512-QuruyBENDWdN4tZwJbQq7/eAK85FqrI4oDbXjy5IBhYD+2pTJyBUWZe8ctWaCkrV0gy6AaelgOZZBMeswEa/6Q==
@@ -10209,9 +10209,9 @@ qs@6.7.0:
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
 qs@^6.7.0:
-  version "6.9.5"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.5.tgz#45859f731392198fbd3f91ea4290e7c4e25232fa"
-  integrity sha512-T0SnbxGiMcB09qd3bFcPt8rufxPs7T7TjePk33r1WsJNt12/rWsK/ofKqRHQ0rY/iMGE0mVdkc6Yg9CuL/ty0Q==
+  version "6.9.6"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.6.tgz#26ed3c8243a431b2924aca84cc90471f35d5a0ee"
+  integrity sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
 
 qs@~6.5.2:
   version "6.5.2"
