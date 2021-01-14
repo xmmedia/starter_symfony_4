@@ -22,7 +22,7 @@ if [ -d "$RELEASES" ]; then
 fi
 
 PHP_VERSION=$(php -v|grep --only-matching --perl-regexp "(PHP )\d+\.\\d+\.\\d+"|cut -c 5-7)
-PHP_MINIMUM_VERSION=7.3
+PHP_MINIMUM_VERSION=7.4
 printf "Current PHP version: ${PHP_VERSION}\nMinimum PHP version: ${PHP_MINIMUM_VERSION}\n"
 if [ $(echo "$PHP_VERSION >= $PHP_MINIMUM_VERSION" | bc) -eq 0 ]; then
     echo "************"
@@ -58,9 +58,9 @@ printf "\n\n"
 
 if [ $(echo "$PHP_VERSION >= $PHP_MINIMUM_VERSION" | bc) -eq 0 ]; then
     echo "Switching PHP version to ${PHP_MINIMUM_VERSION}"
-    printf "\nsource /opt/remi/php73/enable" >> ~/.zshrc
-    printf "\nsource /opt/remi/php73/enable" >> ~/.bashrc
-    source /opt/remi/php73/enable
+    printf "\nsource /opt/remi/php74/enable" >> ~/.zshrc
+    printf "\nsource /opt/remi/php74/enable" >> ~/.bashrc
+    source /opt/remi/php74/enable
     php -v
 fi
 
