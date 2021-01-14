@@ -1,9 +1,4 @@
 nelmio_security:
-    # prevents framing of the entire site
-    clickjacking:
-        paths:
-            '^/.*': DENY
-
     # Send a full URL in the `Referer` header when performing a same-origin request,
     # only send the origin of the document to secure destination (HTTPS->HTTPS),
     # and send no header to a less secure destination (HTTPS->HTTP).
