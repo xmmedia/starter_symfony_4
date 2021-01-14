@@ -16,6 +16,7 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="index")
+     * @todo-symfony if deleted, add "index" route to routes.yaml for email generation
      */
     public function index(): Response
     {
