@@ -24,7 +24,7 @@ CREATE TABLE `$tableName` (
   `active` tinyint(1) NOT NULL,
   `roles` json NOT NULL,
   `last_login` datetime DEFAULT NULL,
-  `login_count` int(11) NOT NULL,
+  `login_count` int(11) DEFAULT 0 NOT NULL,
   `first_name` varchar(50) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   `last_name` varchar(50) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
