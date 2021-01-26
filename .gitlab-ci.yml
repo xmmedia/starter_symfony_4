@@ -96,7 +96,7 @@ deploy:
     # run composer post update cmds on server
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current && rm -rf var/cache/prod/* && php composer.phar run-script post-update-cmd"
     # reload php-fpm (to reset cache)
-    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "sudo /sbin/service php74-php-fpm reload"
+    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "sudo /bin/systemctl reload php73-php-fpm"
     # run all projections (with 2GB memory)
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; php -d memory_limit=2048M bin/console app:projection:run --run-all"
     # remove >2 releases
