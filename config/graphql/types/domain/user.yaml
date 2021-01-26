@@ -24,6 +24,7 @@ User:
             roles:
                 type: '[Role!]'
                 access: '@=isAuthenticated()'
+                resolve: '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserRoleResolver", [value])'
             # if they attempt to access this field when not admin
             # they'll get a access denied + null for the whole user
             # as this field cannot come back as null

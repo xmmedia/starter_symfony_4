@@ -13,11 +13,6 @@ export default new Vuex.Store({
         ready: false,
         user: null,
 
-        // also in Symfony security config
-        roleHierarchy: {
-            ROLE_ADMIN: ['ROLE_USER'],
-            ROLE_SUPER_ADMIN: ['ROLE_ADMIN'],
-        },
         availableRoles: {
             ROLE_USER: 'User',
             ROLE_ADMIN: 'Admin',
@@ -48,40 +43,7 @@ export default new Vuex.Store({
                 return false;
             }
 
-            for (let r = 0; r < state.user.roles.length; r++) {
-                // ROLE_USER is checked above, so skip
-                if (state.user.roles[r] === 'ROLE_USER') {
-                    continue;
-                }
-
-                if (getters.roleMap[state.user.roles[r]].has(role)) {
-                    return true;
-                }
-            }
-
-            return false;
-        },
-
-        roleMap (state) {
-            const map = { ...state.roleHierarchy };
-
-            for (let main in state.roleHierarchy) {
-                const roles = state.roleHierarchy[main];
-                map[main] = new Set([...roles]);
-                map[main].add(main);
-
-                roles.forEach((role) => {
-                    if (!Object.prototype.hasOwnProperty.call(map, role)) {
-                        return;
-                    }
-
-                    state.roleHierarchy[role].forEach((roleToAdd) => {
-                        map[main].add(roleToAdd);
-                    });
-                });
-            }
-
-            return map;
+            return state.user.roles.includes(role);
         },
     },
 
