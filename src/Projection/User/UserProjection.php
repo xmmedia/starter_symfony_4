@@ -37,6 +37,8 @@ class UserProjection implements ReadModelProjection
                         'first_name' => $event->firstName()->toString(),
                         'last_name'  => $event->lastName()->toString(),
                     ], [
+                        'verified' => 'boolean',
+                        'active'   => 'boolean',
                         'roles' => 'json',
                     ]);
                 },
@@ -56,6 +58,8 @@ class UserProjection implements ReadModelProjection
                         'active'     => true,
                         'roles'      => [$event->role()->getValue()],
                     ], [
+                        'verified' => 'boolean',
+                        'active'   => 'boolean',
                         'roles' => 'json',
                     ]);
                 },
@@ -110,7 +114,8 @@ class UserProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         [
                             'verified' => true,
-                        ]
+                        ],
+                        ['verified' => 'boolean'],
                     );
                 },
 
@@ -126,7 +131,8 @@ class UserProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         [
                             'active' => true,
-                        ]
+                        ],
+                        ['active' => 'boolean'],
                     );
                 },
 
@@ -142,7 +148,8 @@ class UserProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         [
                             'active' => false,
-                        ]
+                        ],
+                        ['active' => 'boolean'],
                     );
                 },
 
@@ -208,7 +215,8 @@ class UserProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         [
                             'verified' => true,
-                        ]
+                        ],
+                        ['verified' => 'boolean'],
                     );
                 },
 
