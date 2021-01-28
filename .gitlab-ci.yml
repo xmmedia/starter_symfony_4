@@ -26,7 +26,7 @@ variables:
   MYSQL_ALLOW_EMPTY_PASSWORD: yes
 #  MYSQL_ROOT_PASSWORD: password
 #  MYSQL_PASSWORD:      password
-  DATABASE_URL: 'mysql://root@mysql:3306/mysql?serverVersion=5.7'
+  DATABASE_URL: "mysql://root@mysql:3306/mysql?serverVersion=5.7"
 
 before_script:
   # ensure everything up to date
