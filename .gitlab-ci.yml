@@ -94,6 +94,8 @@ deploy:
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --ignore-platform-reqs --no-suggest
     - yarn install --non-interactive --frozen-lockfile
     - yarn build
+    # remove temp .env file just incase
+    - rm .env.local
     # ensure based paths exist
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/public/uploads"
     # sync files to release directory
