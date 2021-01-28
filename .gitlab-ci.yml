@@ -26,6 +26,7 @@ variables:
   MYSQL_ROOT_PASSWORD: "password"
   MYSQL_PASSWORD:      "password"
   DATABASE_URL: "mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql:3306/$MYSQL_DATABASE?serverVersion=5.7"
+  MYSQL_INITDB_SKIP_TZINFO: "true"
 
 before_script:
   # ensure everything up to date
