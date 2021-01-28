@@ -28,6 +28,11 @@ variables:
   DATABASE_URL: "mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql:3306/$MYSQL_DATABASE?serverVersion=5.7"
   MYSQL_INITDB_SKIP_TZINFO: "true"
 
+connect:
+  image: mysql
+  script:
+    - echo "SELECT 'OK';" | mysql --user="$MYSQL_USER" --password="MYSQL_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+
 before_script:
   # ensure everything up to date
   - apt-get update -yqq
