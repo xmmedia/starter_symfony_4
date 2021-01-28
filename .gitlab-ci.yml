@@ -3,6 +3,7 @@ default:
   timeout: 15m
   services:
     - symfonycorp/cli:latest
+    - mysql:latest
 
 stages:
   - static
@@ -20,6 +21,11 @@ variables:
   APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
+  # Configure mysql service (https://hub.docker.com/_/mysql/)
+  MYSQL_DATABASE:      database
+  MYSQL_USER:          runner
+  MYSQL_ROOT_PASSWORD: password
+  MYSQL_PASSWORD:      password
 
 before_script:
   # ensure everything up to date
