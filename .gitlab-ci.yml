@@ -29,9 +29,10 @@ variables:
   MYSQL_INITDB_SKIP_TZINFO: "true"
 
 connect:
+  stage: .pre
   image: mysql
   script:
-    - echo "SELECT 'OK';" | mysql --user="$MYSQL_USER" --password="MYSQL_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+    - echo "SELECT 'OK';" | mysql --user="$MYSQL_USER" --password="$MYSQL_PASSWORD" --host=mysql "$MYSQL_DATABASE"
 
 before_script:
   # ensure everything up to date
