@@ -21,10 +21,10 @@ variables:
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
   # Configure mysql service (https://hub.docker.com/_/mysql/)
-  MYSQL_DATABASE:      database
-  MYSQL_USER:          runner
-  MYSQL_ROOT_PASSWORD: password
-  MYSQL_PASSWORD:      password
+  MYSQL_DATABASE:      mysql
+  MYSQL_USER:          root
+#  MYSQL_ROOT_PASSWORD: password
+#  MYSQL_PASSWORD:      password
 
 before_script:
   # ensure everything up to date
