@@ -2,7 +2,6 @@ default:
   image: xmmedia/php:7.4-cli
   timeout: 15m
   services:
-    #- symfonycorp/cli:latest
     - mysql:latest
 
 stages:
@@ -45,7 +44,7 @@ static:
     # install php dependencies
     - php composer.phar install --classmap-authoritative --no-interaction --no-progress --no-scripts --ignore-platform-reqs --no-suggest
     # check for security issues in PHP libs
-    #- symfonycorp/cli check:security
+    - symfonycorp security:check
     - php bin/console cache:warmup --env=dev
     - php bin/phpstan analyse --no-progress --memory-limit 1G src
     # Install node/JS dependencies
