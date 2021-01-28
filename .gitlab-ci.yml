@@ -21,9 +21,9 @@ variables:
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
   # Configure mysql service (https://hub.docker.com/_/mysql/)
-  MYSQL_DATABASE: mysql
-  MYSQL_USER: root
-  MYSQL_ALLOW_EMPTY_PASSWORD: yes
+  MYSQL_DATABASE: "mysql"
+  MYSQL_USER: "root"
+  MYSQL_ALLOW_EMPTY_PASSWORD: "true"
 #  MYSQL_ROOT_PASSWORD: password
 #  MYSQL_PASSWORD:      password
   DATABASE_URL: "mysql://root@mysql:3306/mysql?serverVersion=5.7"
