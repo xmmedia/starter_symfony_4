@@ -25,7 +25,6 @@
         "roave/security-advisories": "dev-master",
         "scienta/doctrine-json-functions": "^4.3",
         "sensio/framework-extra-bundle": "^5.1",
-        "sensiolabs/security-checker": "^6.0",
         "symfony/asset": "*",
         "symfony/console": "*",
         "symfony/dotenv": "*",
@@ -106,8 +105,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "security-checker security:check": "script"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
