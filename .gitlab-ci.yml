@@ -25,7 +25,7 @@ variables:
   MYSQL_USER: "ci"
   MYSQL_ROOT_PASSWORD: "password"
   MYSQL_PASSWORD:      "password"
-  DATABASE_URL: "mysql://ci:password@mysql:3306/mysql?serverVersion=5.7"
+  DATABASE_URL: "mysql://$MYSQL_USER:$MYSQL_PASSWORD@mysql:3306/$MYSQL_DATABASE?serverVersion=5.7"
 
 before_script:
   # ensure everything up to date
