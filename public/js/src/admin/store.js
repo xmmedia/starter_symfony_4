@@ -30,7 +30,7 @@ export default new Vuex.Store({
         },
 
         hasRole: (state, getters) => (role) => {
-            if (!state.user) {
+            if (!getters.loggedIn) {
                 return false;
             }
 
