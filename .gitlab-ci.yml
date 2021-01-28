@@ -29,8 +29,6 @@ static:
   stage: static
   allow_failure: false
   interruptible: true
-  only:
-    - master
   script:
     - php -v
     - php composer.phar --version
