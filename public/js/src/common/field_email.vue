@@ -14,8 +14,8 @@
             </template>
         </field-error>
 
-        <input ref="input"
-               :id="id"
+        <input :id="id"
+               ref="input"
                :value="value"
                :autofocus="autofocus"
                :autocomplete="autocomplete"

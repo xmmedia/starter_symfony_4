@@ -58,6 +58,7 @@ export default new Vuex.Store({
 
         setIntegrityHash ({ commit, state }, { entrypoint, hash }) {
             if (state.entrypointIntegrityHashes[entrypoint]) {
+                // eslint-disable-next-line no-console
                 console.error('Integrity hash already set for '+entrypoint+' entry point. Won\'t update.');
                 return;
             }
