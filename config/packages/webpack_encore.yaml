@@ -26,3 +26,4 @@ webpack_encore:
 
     script_attributes:
         defer: true
+        async: true
