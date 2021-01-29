@@ -39,7 +39,7 @@ class UserProjection implements ReadModelProjection
                     ], [
                         'verified' => 'boolean',
                         'active'   => 'boolean',
-                        'roles' => 'json',
+                        'roles'    => 'json',
                     ]);
                 },
 
@@ -60,7 +60,7 @@ class UserProjection implements ReadModelProjection
                     ], [
                         'verified' => 'boolean',
                         'active'   => 'boolean',
-                        'roles' => 'json',
+                        'roles'    => 'json',
                     ]);
                 },
 
