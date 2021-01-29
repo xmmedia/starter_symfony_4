@@ -40,6 +40,7 @@
     "js-cookie": "^2.2.1",
     "libphonenumber-js": "^1.7.22",
     "lodash": "^4.17.11",
+    "mailcheck": "^1.1.0",
     "omit-deep-lodash": "^1.1.5",
     "pluralize": "^8.0.0",
     "portal-vue": "^2.1.3",

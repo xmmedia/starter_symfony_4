@@ -14,18 +14,29 @@
             </template>
         </field-error>
 
-        <input :id="id"
+        <input ref="input"
+               :id="id"
                :value="value"
                :autofocus="autofocus"
                :autocomplete="autocomplete"
                type="email"
                maxlength="150"
+               @blur="checkEmail"
                @input="$emit('input', $event.target.value)">
+
+        <div v-if="suggestedEmail" class="p-2 bg-red-500 text-white">
+            Did you mean
+            <button ref="suggestedEmailButton"
+                    type="button"
+                    class="button-link underline text-white mx-2 focus:bg-transparent focus:mx-0 focus:px-2"
+                    @click="useSuggested">{{ suggestedEmail }}</button>?
+        </div>
     </div>
 </template>
 
 <script>
 import cuid from 'cuid';
+import mailcheck from 'mailcheck';
 
 export default {
     props: {
@@ -50,7 +61,35 @@ export default {
     data () {
         return {
             id: cuid(),
+            suggestedEmail: null,
         };
+    },
+
+    methods: {
+        checkEmail () {
+            if (!this.value) {
+                return;
+            }
+
+            mailcheck.run({
+                email: this.value,
+                suggested: (suggestion) => {
+                    this.suggestedEmail = suggestion.full;
+
+                    this.$nextTick(() => {
+                        this.$refs.suggestedEmailButton.focus();
+                    });
+                },
+                empty: () => {
+                    this.suggestedEmail = null;
+                },
+            });
+        },
+        useSuggested () {
+            this.$emit('input', this.suggestedEmail);
+            this.suggestedEmail = null;
+            this.$refs.input.focus();
+        },
     },
 }
 </script>
