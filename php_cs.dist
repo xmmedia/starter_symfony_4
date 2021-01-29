@@ -3,8 +3,8 @@
 // Great tool for configuration: https://mlocati.github.io/php-cs-fixer-configurator/
 
 $finder = PhpCsFixer\Finder::create()
-    ->in('src')
-    ->in('tests')
+    ->in(__DIR__)
+    ->exclude('var')
 ;
 
 return PhpCsFixer\Config::create()
