@@ -16,7 +16,7 @@ module.exports = function (Encore) {
     }
 
     Encore
-    // directory where all compiled assets will be stored
+        // directory where all compiled assets will be stored
         .setOutputPath('public/build/')
 
         // what's the public path to this directory (relative to your project's document root dir)
@@ -58,7 +58,7 @@ module.exports = function (Encore) {
 
         // generate source maps when "source-maps" argument exists
         .enableSourceMaps(
-            process.argv.splice(2).includes('--source-maps')
+            process.argv.splice(2).includes('--source-maps'),
         )
 
         .copyFiles({
