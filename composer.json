@@ -114,7 +114,10 @@
             "@auto-scripts"
         ],
         "test": "bin/simple-phpunit",
-        "test:coverage": "bin/simple-phpunit --coverage-html coverage",
+        "test:coverage": [
+            "@putenv XDEBUG_MODE=coverage",
+            "bin/simple-phpunit --coverage-html coverage"
+        ],
         "cs": "php-cs-fixer fix -v --dry-run --config=php_cs.dist",
         "cs:fix": "php-cs-fixer fix -v --config=php_cs.dist",
         "static": "php bin/phpstan analyse --memory-limit 2G"
