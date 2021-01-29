@@ -7,7 +7,9 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('public') }}
+    {{ encore_entry_script_tags('public', attributes={
+        'data-entry': 'public',
+    }) }}
 
     {# @todo-symfony remove is no IE support is needed #}
     {# make svg's with use referencing an external image work in IE #}

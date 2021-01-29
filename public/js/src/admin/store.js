@@ -18,6 +18,10 @@ export default new Vuex.Store({
             ROLE_ADMIN: 'Admin',
             ROLE_SUPER_ADMIN: 'Super Admin',
         },
+
+        entrypointIntegrityHashes: {
+            admin: null,
+        },
     },
 
     getters: {
@@ -51,6 +55,15 @@ export default new Vuex.Store({
         updateUser ({ commit }, user) {
             commit('setUser', user);
         },
+
+        setIntegrityHash ({ commit, state }, { entrypoint, hash }) {
+            if (state.entrypointIntegrityHashes[entrypoint]) {
+                console.error('Integrity hash already set for '+entrypoint+' entry point. Won\'t update.');
+                return;
+            }
+
+            commit('setIntegrityHash', { entrypoint, hash });
+        },
     },
 
     mutations: {
@@ -63,6 +76,10 @@ export default new Vuex.Store({
             } else {
                 Vue.set(state, 'user', { ...state.user, ...user });
             }
+        },
+
+        setIntegrityHash (state, { entrypoint, hash }) {
+            state.entrypointIntegrityHashes[entrypoint] = hash;
         },
     },
 

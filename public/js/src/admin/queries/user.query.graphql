@@ -9,10 +9,11 @@ query MeQuery {
     }
 }
 
-query MeSimpleQuery {
+query RouteQuery {
     Me {
         userId
     }
+    EntrypointIntegrity(entrypoint: "admin")
 }
 
 query UserEmailUnique($email: String!) {

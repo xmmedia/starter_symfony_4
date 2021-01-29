@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import store from './store';
 import { scrollBehavior, parseQuery, stringifyQuery, logPageView } from '@/common/router_helpers';
 
-import { MeSimpleQuery } from './queries/user.query.graphql';
+import { RouteQuery } from './queries/user.query.graphql';
 
 Vue.use(Router);
 
@@ -148,12 +148,20 @@ router.beforeEach( async (to, from, next) => {
 
         // check to see if they're still authenticated
         const result = await router.app.$apollo.query({
-            query: MeSimpleQuery,
+            query: RouteQuery,
         });
         if (!result.data.Me) {
             window.location = router.resolve({ name: 'login' }).href;
 
             return;
+        }
+        // JS files have changed
+        if (result.data.EntrypointIntegrity !== store.state.entrypointIntegrityHashes.admin) {
+            if (result.data.EntrypointIntegrity && store.state.entrypointIntegrityHashes.admin) {
+                window.location.reload();
+
+                return;
+            }
         }
 
         // find the first matched route that has a role
