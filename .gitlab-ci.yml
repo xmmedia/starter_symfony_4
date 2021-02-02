@@ -34,15 +34,24 @@ before_script:
   # install composer
   - wget --no-verbose -O composer.phar https://getcomposer.org/composer-1.phar
 
+*versions-script: &versions-script
+  - php -v
+  - php composer.phar --version
+  - node --version
+  - yarn --version
+
+.security-checks: &security-checks
+  # check for security issues in PHP libs
+  - /root/.symfony/bin/symfony security:check
+  # check for JS security issues in libs
+  - yarn audit:moderate
+
 static:
   stage: static
   allow_failure: false
   interruptible: true
   script:
-    - php -v
-    - php composer.phar --version
-    - node --version
-    - yarn --version
+    - *versions-script
     # install php dependencies
     - php composer.phar install --classmap-authoritative --no-interaction --no-progress --no-scripts --ignore-platform-reqs --no-suggest
     # check for security issues in PHP libs
@@ -55,6 +64,7 @@ static:
     - yarn audit:moderate
     - yarn lint:js
     - yarn lint:css
+    - *security-checks
     # remove php cache, it will be for dev & cache should be generated on server
     - rm -rf var/cache/*
     # @todo artifacts
@@ -66,10 +76,7 @@ deploy:
   only:
     - master
   script:
-    - php -v
-    - php composer.phar --version
-    - node --version
-    - yarn --version
+    - *versions-script
     # setup vars for paths
     - TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
     - echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
@@ -88,6 +95,7 @@ deploy:
     # install php dependencies without dev
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --no-scripts --ignore-platform-reqs --no-suggest
     - yarn install --non-interactive --frozen-lockfile
+    - *security-checks
     - yarn build
     # remove temp .env file just incase
     - rm .env.local
@@ -95,7 +103,7 @@ deploy:
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/public/uploads"
     # sync files to release directory
     - rsync --archive --stats --human-readable --no-perms --exclude ".git/" --exclude ".idea/" --exclude "node_modules/" --exclude "cypress/" -e "ssh -p $REMOTE_PORT" . $REMOTE_USER@$REMOTE_SERVER:$RELEASE
-    # make bin files executable
+    # make console file executable
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; chmod u+x bin/console"
     # ensure platform has all requirements
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; $SERVER_PHP_PATH -v; echo "\n\n"; $SERVER_PHP_PATH composer.phar check-platform-reqs"
