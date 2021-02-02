@@ -6,7 +6,9 @@ namespace App\Tests\Infrastructure\GraphQl\Type;
 
 use App\Infrastructure\GraphQl\Type\RoleType;
 use App\Model\User\Role;
+use GraphQL\Error\Error;
 use GraphQL\Language\AST\EnumValueNode;
+use GraphQL\Language\AST\FieldNode;
 use PHPUnit\Framework\TestCase;
 
 class RoleTypeTest extends TestCase
@@ -19,6 +21,13 @@ class RoleTypeTest extends TestCase
         $result = (new RoleType())->serialize($value);
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testSerializeNotRole(): void
+    {
+        $this->expectException(Error::class);
+
+        (new RoleType())->serialize(1);
     }
 
     /**
@@ -60,6 +69,15 @@ class RoleTypeTest extends TestCase
             null,
             null,
         ];
+    }
+
+    public function testParseLiteralNotEnum(): void
+    {
+        $valueNode = new FieldNode([]);
+
+        $result = (new RoleType())->parseLiteral($valueNode);
+
+        $this->assertNull($result);
     }
 
     public function testParseValueInvalid(): void
