@@ -34,7 +34,7 @@ before_script:
   # install composer
   - wget --no-verbose -O composer.phar https://getcomposer.org/composer-1.phar
 
-*versions-script: &versions-script
+.versions-script: &versions-script
   - php -v
   - php composer.phar --version
   - node --version
