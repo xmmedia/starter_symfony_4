@@ -138,21 +138,21 @@ export default {
             }
 
             try {
+                const data = {
+                    email: this.email,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                };
+
                 await this.$apollo.mutate({
                     mutation: UserUpdateProfile,
                     variables: {
-                        user: {
-                            email: this.email,
-                            firstName: this.firstName,
-                            lastName: this.lastName,
-                        },
+                        user: data,
                     },
                 });
 
                 this.$store.dispatch('updateUser', {
-                    email: this.email,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
+                    ...data,
                     name: this.firstName + ' ' + this.lastName,
                 });
 
