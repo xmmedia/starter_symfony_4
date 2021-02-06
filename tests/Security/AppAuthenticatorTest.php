@@ -204,6 +204,57 @@ class AppAuthenticatorTest extends BaseTestCase
         $this->assertFalse($result);
     }
 
+    public function testCheckCredentialsEmptyPassword(): void
+    {
+        $this->passwordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnFalse();
+
+        $faker = $this->faker();
+
+        $email = $faker->email;
+        $credentials = Credentials::build($email, '');
+
+        $user = Mockery::mock(User::class);
+
+        $result = $this->authenticator->checkCredentials($credentials, $user);
+
+        $this->assertFalse($result);
+    }
+
+    public function testCheckCredentialsNullPassword(): void
+    {
+        $this->passwordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnFalse();
+
+        $faker = $this->faker();
+
+        $email = $faker->email;
+        $credentials = Credentials::build($email, '');
+
+        $user = Mockery::mock(User::class);
+
+        $result = $this->authenticator->checkCredentials($credentials, $user);
+
+        $this->assertFalse($result);
+    }
+
+    public function testCheckCredentialsShortPassword(): void
+    {
+        $this->passwordEncoder->shouldReceive('isPasswordValid')
+            ->andReturnFalse();
+
+        $faker = $this->faker();
+
+        $email = $faker->email;
+        $credentials = Credentials::build($email, 'a');
+
+        $user = Mockery::mock(User::class);
+
+        $result = $this->authenticator->checkCredentials($credentials, $user);
+
+        $this->assertFalse($result);
+    }
+
     public function testGetPassword(): void
     {
         $faker = $this->faker();
