@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { email, required, sameAs } from 'vuelidate/lib/validators';
+import { email, helpers, required, sameAs } from 'vuelidate/lib/validators';
 import userValidation from '@/admin/validation/user';
 import { UserEmailUnique, UserPasswordValid } from '../queries/user.query.graphql';
 
@@ -8,7 +8,7 @@ export default {
         required,
         email,
         async unique (value) {
-            if (!email(value)) {
+            if (!helpers.req(value) || !email(value)) {
                 return true;
             }
 
@@ -25,7 +25,7 @@ export default {
     currentPassword: {
         required,
         async valid (value) {
-            if (!required(value)) {
+            if (!helpers.req(value)) {
                 return true;
             }
 
