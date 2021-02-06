@@ -21,7 +21,7 @@ export const waitForValidation = function () {
                     resolve(!this.$v.$invalid);
                 }
             },
-            { immediate: true }
+            { immediate: true },
         );
     })
 };
