@@ -93,5 +93,13 @@ export default {
             return this.visible ? '#visible' : '#invisible';
         },
     },
+
+    watch: {
+        value (value) {
+            if (null === value) {
+                this.showMeter = false;
+            }
+        },
+    },
 }
 </script>
