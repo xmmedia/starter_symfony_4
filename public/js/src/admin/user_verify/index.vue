@@ -31,7 +31,7 @@
                             autocomplete="new-password" />
             <field-password v-model="repeatPassword"
                             :v="$v.repeatPassword"
-                            autocomplete="new-password">Password Again</field-password>
+                            autocomplete="new-password">Password again</field-password>
 
             <admin-button :saving="state.matches('submitting')"
                           :cancel-to="{ name: 'login' }">

@@ -30,10 +30,10 @@
             <field-password v-model="newPassword"
                             :v="$v.newPassword"
                             :show-help="true"
-                            autocomplete="new-password">New Password</field-password>
+                            autocomplete="new-password">New password</field-password>
             <field-password v-model="repeatPassword"
                             :v="$v.repeatPassword"
-                            autocomplete="new-password">New Password Again</field-password>
+                            autocomplete="new-password">New password again</field-password>
 
             <admin-button :saving="state.matches('submitting')">
                 Set Password
