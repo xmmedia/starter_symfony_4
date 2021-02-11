@@ -98,7 +98,7 @@ deploy:
     # remove temp .env file just incase
     - rm .env.local
     # ensure based paths exist
-    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/public/uploads"
+    - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/var/log/archive $SHARED/public/uploads"
     # sync files to release directory
     - rsync --archive --stats --human-readable --no-perms --exclude ".git/" --exclude ".idea/" --exclude "node_modules/" --exclude "cypress/" -e "ssh -p $REMOTE_PORT" . $REMOTE_USER@$REMOTE_SERVER:$RELEASE
     # make console file executable
