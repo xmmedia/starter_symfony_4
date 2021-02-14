@@ -1,8 +1,6 @@
 default:
   image: xmmedia/php:7.4-cli
   timeout: 15m
-  services:
-    - mysql:5.7
 
 stages:
   - static
@@ -21,12 +19,6 @@ variables:
   APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
-  # Configure mysql service (https://hub.docker.com/_/mysql/)
-  MYSQL_DATABASE: "ci"
-  MYSQL_USER: "ci"
-  MYSQL_ROOT_PASSWORD: "password"
-  MYSQL_PASSWORD:      "password"
-  MYSQL_INITDB_SKIP_TZINFO: "true"
 
 before_script:
   # ensure everything up to date
