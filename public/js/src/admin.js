@@ -15,7 +15,6 @@ import app from './admin/index';
 
 import loadingSpinner from './common/loading_spinner';
 import formError from './common/form_error';
-import fieldErrors from './common/field_errors';
 import fieldError from './common/field_error';
 import fieldPassword from './common/field_password';
 import adminButton from './common/admin_button';
@@ -39,7 +38,6 @@ Vue.use(AsyncComputed);
 // global components
 Vue.component('loading-spinner', loadingSpinner);
 Vue.component('form-error', formError);
-Vue.component('field-errors', fieldErrors);
 Vue.component('field-error', fieldError);
 Vue.component('field-password', fieldPassword);
 Vue.component('admin-button', adminButton);

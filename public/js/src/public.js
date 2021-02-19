@@ -9,7 +9,6 @@ import apolloProvider from './common/apollo';
 // import * as filters from './common/filters';
 
 import formError from './common/form_error';
-import fieldErrors from './common/field_errors';
 import fieldError from './common/field_error';
 
 // SASS/CSS
@@ -26,7 +25,6 @@ Vue.use(Vuelidate);
 Vue.use(PortalVue);
 
 Vue.component('form-error', formError);
-Vue.component('field-errors', fieldErrors);
 Vue.component('field-error', fieldError);
 
 window.App = new Vue({
