@@ -8,7 +8,9 @@
                    :width="width"
                    :draggable="draggable"
                    transition="md"
+                   @before-open="$emit('before-open', $event)"
                    @opened="$emit('opened')"
+                   @before-close="$emit('before-close', $event)"
                    @closed="$emit('closed')">
             <div class="float-right pr-4 pt-4 text-4xl leading-3">
                 <button class="text-gray-300 hover:text-gray-700 transition-colors duration-300"
