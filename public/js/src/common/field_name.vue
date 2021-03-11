@@ -2,17 +2,7 @@
     <div class="field-wrap">
         <label :for="id"><slot></slot></label>
 
-        <field-error v-if="v.$error">
-            <template v-if="!v.required">
-                A <slot></slot> is required.
-            </template>
-            <template v-else-if="!v.minLength">
-                The <slot></slot> must be longer than {{ v.$params.minLength.min }} {{ minCharacter }}.
-            </template>
-            <template v-else-if="!v.maxLength">
-                The <slot></slot> cannot be longer than {{ v.$params.maxLength.max }} characters.
-            </template>
-        </field-error>
+        <field-error :v="v" />
 
         <input :id="id"
                :value="value"
