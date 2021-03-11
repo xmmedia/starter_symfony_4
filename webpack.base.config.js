@@ -79,13 +79,6 @@ module.exports = function (Encore) {
             use: [
                 {
                     loader: 'svgo-loader',
-                    options: {
-                        plugins: [
-                            // config targeted at icon files, but should work for others
-                            { removeUselessDefs: false },
-                            { cleanupIDs: false },
-                        ],
-                    },
                 },
             ],
         })
