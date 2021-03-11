@@ -1,6 +1,8 @@
 <template>
-    <!-- eslint-disable vue/no-v-html -->
-    <time :datetime="datetime" v-html="displayTime"></time>
+    <time :datetime="datetime">
+        <span class="whitespace-no-wrap">{{ displayDate }}</span>
+        <span class="whitespace-no-wrap">{{ displayTime }}</span>
+    </time>
 </template>
 
 <script>
@@ -12,16 +14,20 @@ export default {
         },
         locale: {
             type: String,
-            default: 'en-ca',
+            default: 'en-CA',
         },
     },
 
     computed: {
-        displayTime () {
-            const str = new Date(this.datetime).toLocaleString('en-CA', { hour12: false });
+        localeString () {
+            return new Date(this.datetime).toLocaleString(this.locale, { hour12: false });
+        },
 
-            // add classes so the date and time don't wrap
-            return '<span class="whitespace-no-wrap">' + str.substring(0, 10) + '</span> <span class="whitespace-no-wrap">' + str.substring(12, 17) + '</span>';
+        displayDate () {
+            return this.localeString.substring(0, 10);
+        },
+        displayTime () {
+            return this.localeString.substring(12, 17);
         },
     },
 }
