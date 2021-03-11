@@ -10,7 +10,7 @@
         <form method="post" @submit.prevent="submit">
             <form-error v-if="$v.$anyError" />
 
-            <field-email v-model="email"
+            <field-email v-model.trim="email"
                          :v="$v.email"
                          autocomplete="off"
                          autofocus />
@@ -26,8 +26,8 @@
                 <label for="inputActive">Active</label>
             </div>
 
-            <field-name v-model="firstName" :v="$v.firstName">First name</field-name>
-            <field-name v-model="lastName" :v="$v.lastName">Last name</field-name>
+            <field-name v-model.trim="firstName" :v="$v.firstName">First name</field-name>
+            <field-name v-model.trim="lastName" :v="$v.lastName">Last name</field-name>
 
             <field-role v-model="role" :v="$v.role" />
 

@@ -13,11 +13,11 @@
                 Email address
             </field-email>
 
-            <field-name v-model="firstName"
+            <field-name v-model.trim="firstName"
                         :v="$v.firstName"
                         autocomplete="given-name"
                         @input="changed">First name</field-name>
-            <field-name v-model="lastName"
+            <field-name v-model.trim="lastName"
                         :v="$v.lastName"
                         autocomplete="family-name"
                         @input="changed">Last name</field-name>
