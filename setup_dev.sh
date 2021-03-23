@@ -41,7 +41,7 @@ cd $BASE
 echo "Working in: $PWD"
 printf "\n\n"
 
-echo "Install oh-my-zsh"
+echo "Install oh-my-zsh & add nvm vars"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 printf "\nDISABLE_AUTO_TITLE=\"true\"" >> ~/.zshrc
 printf "\n\nexport NVM_DIR=\"\$HOME/.nvm\"" >> ~/.zshrc
