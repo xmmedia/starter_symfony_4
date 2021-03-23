@@ -18,7 +18,7 @@
             </field-email>
 
             <admin-button :saving="state.matches('submitting')">
-                Search
+                Find Account
                 <router-link slot="cancel"
                              :to="{ name: 'login' }"
                              class="form-action">Return to Login</router-link>
