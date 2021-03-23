@@ -63,15 +63,13 @@ fi
 
 echo "Creating dirs in ${BASE}"
 cd $BASE
-mkdir -p $RELEASE
-mkdir -p $RELEASE/public
+mkdir -p $RELEASE/public/media
 mkdir -p $SHARED/public/uploads
 mkdir -p $SHARED/public/media/cache
-mkdir -p $RELEASE/public/media
+mkdir -p $SHARED/var
 ln -s $RELEASE current
 rm -rf html
 ln -s current/public html
-mkdir -p $SHARED/var
 ln -s $SHARED/var $RELEASE/var
 ln -s $SHARED/public/uploads $RELEASE/public/uploads
 ln -s $SHARED/public/media/cache $RELEASE/public/media/cache

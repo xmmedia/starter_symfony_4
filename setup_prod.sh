@@ -66,11 +66,9 @@ fi
 
 echo "Creating dirs in ${BASE}"
 cd $BASE
-mkdir -p $RELEASE
-mkdir -p $RELEASE/public
+mkdir -p $RELEASE/public/media
 mkdir -p $SHARED/public/uploads
 mkdir -p $SHARED/public/media/cache
-mkdir -p $RELEASE/public/media
 ln -s $RELEASE current
 rm -rf html
 ln -s current/public html
