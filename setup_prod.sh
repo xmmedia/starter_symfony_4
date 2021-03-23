@@ -41,7 +41,7 @@ if [[ ! $REPLY =~ ^[Y]$ ]]; then
 fi
 printf "\n\n"
 
-cd $BASE
+cd $BASE || exit
 echo "Working in: $PWD"
 printf "\n\n"
 
@@ -65,7 +65,7 @@ if [ $(echo "$PHP_VERSION >= $PHP_MINIMUM_VERSION" | bc) -eq 0 ]; then
 fi
 
 echo "Creating dirs in ${BASE}"
-cd $BASE
+cd $BASE || exit
 mkdir -p $RELEASE/public/media
 mkdir -p $SHARED/public/uploads
 mkdir -p $SHARED/public/media/cache
@@ -78,7 +78,7 @@ ln -s $SHARED/public/uploads $RELEASE/public/uploads
 ln -s $SHARED/public/media/cache $RELEASE/public/media/cache
 printf "\n\n"
 
-cd $RELEASE
+cd $RELEASE || exit
 
 echo "Ready! You can attempt a deploy."
 echo
