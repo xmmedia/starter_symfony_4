@@ -43,7 +43,7 @@ Used to create new projects using [Symfony 4](https://symfony.com/) at [XM Media
 
   - PHP 7.3+
   - MySQL 5.7+
-  - Node 10
+  - Node 14
   - [Yarn](https://yarnpkg.com/en/docs/install)
 
 ## Commands
