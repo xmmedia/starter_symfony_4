@@ -109,5 +109,7 @@ deploy:
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; $SERVER_PHP_PATH -d memory_limit=2048M bin/console app:projection:run --run-all"
     # remove >2 releases
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ls -1d $RELEASES/* | sort -rg | tail -n +3 | xargs /bin/rm -rf"
+    # test if website is up
+    - if wget --spider --server-response "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST" 2>&1 | grep '200\ OK'; then echo "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST is up"; else echo "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST is down"; exit 1; fi
     # success message
     - echo "Deployment completed successfully. Release at $RELEASE"
