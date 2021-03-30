@@ -141,11 +141,3 @@ class AuthTest extends BaseTestCase
         $this->assertFalse($auth->sameIdentityAs(FakeAr::create()));
     }
 }
-
-class UserArUniquenessCheckerNoneForSameAsCheck implements ChecksUniqueUsersEmail
-{
-    public function __invoke(Email $email): ?UserIdInterface
-    {
-        return null;
-    }
-}

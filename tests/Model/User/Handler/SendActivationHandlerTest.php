@@ -46,8 +46,12 @@ class SendActivationHandlerTest extends BaseTestCase
             ->once()
             ->with(Mockery::type(User::class));
 
-        $emailGateway = new SendActivationHandlerTestEmailGateway();
-        $tokenGenerator = new SendActivationHandlerTestTokenGenerator();
+        $emailGateway = Mockery::mock(EmailGatewayInterface::class);
+        $emailGateway->shouldReceive('send')
+            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid));
+        $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
+        $tokenGenerator->shouldReceive('__invoke')
+            ->andReturn(Token::fromString('string'));
 
         $router = Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
@@ -80,9 +84,13 @@ class SendActivationHandlerTest extends BaseTestCase
             ->with(Mockery::type(UserId::class))
             ->andReturnNull();
 
-        $emailGateway = new SendActivationHandlerTestEmailGateway();
+        $emailGateway = Mockery::mock(EmailGatewayInterface::class);
+        $emailGateway->shouldReceive('send')
+            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid));
         $router = Mockery::mock(RouterInterface::class);
-        $tokenGenerator = new SendActivationHandlerTestTokenGenerator();
+        $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
+        $tokenGenerator->shouldReceive('__invoke')
+            ->andReturn(Token::fromString('string'));
 
         $this->expectException(UserNotFound::class);
 
@@ -95,26 +103,5 @@ class SendActivationHandlerTest extends BaseTestCase
         );
 
         $handler($command);
-    }
-}
-
-class SendActivationHandlerTestEmailGateway implements EmailGatewayInterface
-{
-    public function send(
-        $template,
-        $to,
-        array $templateData,
-        ?array $attachments = null,
-        ?Email $from = null
-    ): EmailGatewayMessageId {
-        return EmailGatewayMessageId::fromString(Uuid::uuid4()->toString());
-    }
-}
-
-class SendActivationHandlerTestTokenGenerator implements TokenGeneratorInterface
-{
-    public function __invoke(): Token
-    {
-        return Token::fromString('string');
     }
 }

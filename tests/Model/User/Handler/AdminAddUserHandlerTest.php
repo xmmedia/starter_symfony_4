@@ -48,61 +48,10 @@ class AdminAddUserHandlerTest extends BaseTestCase
             ->once()
             ->with(Mockery::type(User::class));
 
-        (new AdminAddUserHandler(
-            $repo,
-            new AdminAddUserHandlerUniquenessCheckerNone()
-        ))(
-            $command
-        );
-    }
+        $checksUniqueUsersEmail = Mockery::mock(ChecksUniqueUsersEmail::class);
+        $checksUniqueUsersEmail->shouldReceive('__invoke')
+            ->andReturnNull();
 
-    public function testNonUnique(): void
-    {
-        $faker = $this->faker();
-
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
-        $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
-
-        $command = AdminAddUser::with(
-            $userId,
-            $email,
-            $password,
-            $role,
-            true,
-            $firstName,
-            $lastName,
-            false
-        );
-
-        $repo = Mockery::mock(UserList::class);
-
-        $this->expectException(DuplicateEmail::class);
-
-        (new AdminAddUserHandler(
-            $repo,
-            new AdminAddUserHandlerUniquenessCheckerDuplicate()
-        ))(
-            $command
-        );
-    }
-}
-
-class AdminAddUserHandlerUniquenessCheckerNone implements ChecksUniqueUsersEmail
-{
-    public function __invoke(Email $email): ?UserIdInterface
-    {
-        return null;
-    }
-}
-
-class AdminAddUserHandlerUniquenessCheckerDuplicate implements ChecksUniqueUsersEmail
-{
-    public function __invoke(Email $email): ?UserIdInterface
-    {
-        return UserId::fromUuid(Uuid::uuid4());
+        (new AdminAddUserHandler($repo, $checksUniqueUsersEmail))($command);
     }
 }

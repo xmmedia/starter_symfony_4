@@ -50,12 +50,11 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
             ->once()
             ->with(Mockery::type(User::class));
 
-        (new AdminUpdateUserHandler(
-            $repo,
-            new AdminUpdateUserHandlerUniquenessCheckerNone()
-        ))(
-            $command
-        );
+        $checksUniqueUsersEmail = Mockery::mock(ChecksUniqueUsersEmail::class);
+        $checksUniqueUsersEmail->shouldReceive('__invoke')
+            ->andReturnNull();
+
+        (new AdminUpdateUserHandler($repo, $checksUniqueUsersEmail))($command);
     }
 
     public function testNotFound(): void
@@ -83,19 +82,10 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new AdminUpdateUserHandler(
-            $repo,
-            new AdminUpdateUserHandlerUniquenessCheckerNone()
-        ))(
-            $command
-        );
-    }
-}
+        $checksUniqueUsersEmail = Mockery::mock(ChecksUniqueUsersEmail::class);
+        $checksUniqueUsersEmail->shouldReceive('__invoke')
+            ->andReturnNull();
 
-class AdminUpdateUserHandlerUniquenessCheckerNone implements ChecksUniqueUsersEmail
-{
-    public function __invoke(Email $email): ?UserIdInterface
-    {
-        return null;
+        (new AdminUpdateUserHandler($repo, $checksUniqueUsersEmail))($command);
     }
 }

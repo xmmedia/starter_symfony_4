@@ -47,12 +47,11 @@ class UpdateUserProfileHandlerTest extends BaseTestCase
             ->once()
             ->with(Mockery::type(User::class));
 
-        (new UpdateUserProfileHandler(
-            $repo,
-            new UpdateUserProfileHandlerUniquenessCheckerNone()
-        ))(
-            $command
-        );
+        $checksUniqueUsersEmail = Mockery::mock(ChecksUniqueUsersEmail::class);
+        $checksUniqueUsersEmail->shouldReceive('__invoke')
+            ->andReturnNull();
+
+        (new UpdateUserProfileHandler($repo, $checksUniqueUsersEmail))($command);
     }
 
     public function testNotFound(): void
@@ -76,21 +75,10 @@ class UpdateUserProfileHandlerTest extends BaseTestCase
             ->with(Mockery::type(UserId::class))
             ->andReturnNull();
 
+        $checksUniqueUsersEmail = Mockery::mock(ChecksUniqueUsersEmail::class);
+
         $this->expectException(UserNotFound::class);
 
-        (new UpdateUserProfileHandler(
-            $repo,
-            new UpdateUserProfileHandlerUniquenessCheckerNone()
-        ))(
-            $command
-        );
-    }
-}
-
-class UpdateUserProfileHandlerUniquenessCheckerNone implements ChecksUniqueUsersEmail
-{
-    public function __invoke(Email $email): ?UserIdInterface
-    {
-        return null;
+        (new UpdateUserProfileHandler($repo, $checksUniqueUsersEmail))($command);
     }
 }
