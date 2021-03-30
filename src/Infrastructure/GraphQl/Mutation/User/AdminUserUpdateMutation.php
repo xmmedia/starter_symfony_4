@@ -48,6 +48,7 @@ class AdminUserUpdateMutation implements MutationInterface
     {
         $userId = UserId::fromString($args['user']['userId']);
         $email = Email::fromString($args['user']['email']);
+        $role = Role::byValue($args['user']['role']);
         $firstName = Name::fromString($args['user']['firstName']);
         $lastName = Name::fromString($args['user']['lastName']);
 
@@ -64,8 +65,6 @@ class AdminUserUpdateMutation implements MutationInterface
                 $this->pwnedHttpClient,
             );
         }
-
-        $role = Role::byValue($args['user']['role']);
 
         $this->commandBus->dispatch(
             AdminUpdateUser::with(
