@@ -15,10 +15,8 @@ use App\Model\User\UserList;
 use App\Security\TokenGeneratorInterface;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\RouterInterface;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
-use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
 
 class SendActivationHandlerTest extends BaseTestCase

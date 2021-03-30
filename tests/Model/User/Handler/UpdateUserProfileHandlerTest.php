@@ -11,11 +11,9 @@ use App\Model\User\Name;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserId;
-use App\Model\User\UserIdInterface;
 use App\Model\User\UserList;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Xm\SymfonyBundle\Model\Email;
 
 class UpdateUserProfileHandlerTest extends BaseTestCase
 {

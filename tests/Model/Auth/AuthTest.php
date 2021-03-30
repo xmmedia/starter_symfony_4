@@ -7,10 +7,7 @@ namespace App\Tests\Model\Auth;
 use App\Model\Auth\Auth;
 use App\Model\Auth\Event\UserFailedToLogin;
 use App\Model\Auth\Event\UserLoggedIn;
-use App\Model\User\Service\ChecksUniqueUsersEmail;
-use App\Model\User\UserIdInterface;
 use App\Tests\BaseTestCase;
-use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Tests\FakeAr;
 
 class AuthTest extends BaseTestCase
