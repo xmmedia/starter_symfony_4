@@ -18,9 +18,9 @@ class EnquirySubmittedProcessManagerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $enquiryId = $faker->enquiryId;
-        $name = $faker->name;
-        $email = $faker->emailVo;
+        $enquiryId = $faker->enquiryId();
+        $name = $faker->name();
+        $email = $faker->emailVo();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $commandBus = Mockery::mock(MessageBusInterface::class);

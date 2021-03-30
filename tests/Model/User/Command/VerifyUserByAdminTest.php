@@ -13,7 +13,7 @@ class VerifyUserByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $command = VerifyUserByAdmin::now($userId);
 

@@ -35,8 +35,8 @@ class UserVerifyMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'    => $faker->password,
-            'password' => $faker->password,
+            'token'    => $faker->password(),
+            'password' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -56,7 +56,7 @@ class UserVerifyMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
         $user->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
@@ -86,8 +86,8 @@ class UserVerifyMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'    => $faker->password,
-            'password' => $faker->password,
+            'token'    => $faker->password(),
+            'password' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -116,8 +116,8 @@ class UserVerifyMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'    => $faker->password,
-            'password' => $faker->password,
+            'token'    => $faker->password(),
+            'password' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -153,8 +153,8 @@ class UserVerifyMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'    => $faker->password,
-            'password' => $faker->password,
+            'token'    => $faker->password(),
+            'password' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -163,7 +163,7 @@ class UserVerifyMutationTest extends BaseTestCase
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
@@ -194,8 +194,8 @@ class UserVerifyMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'    => $faker->password,
-            'password' => $faker->password,
+            'token'    => $faker->password(),
+            'password' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -204,7 +204,7 @@ class UserVerifyMutationTest extends BaseTestCase
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
@@ -238,7 +238,7 @@ class UserVerifyMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'    => $faker->password,
+            'token'    => $faker->password(),
             'password' => $empty,
         ];
 
@@ -248,7 +248,7 @@ class UserVerifyMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 
@@ -272,7 +272,7 @@ class UserVerifyMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'    => $faker->password,
+            'token'    => $faker->password(),
             'password' => $faker->string(\App\Model\User\User::PASSWORD_MIN_LENGTH - 1),
         ];
 
@@ -282,7 +282,7 @@ class UserVerifyMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 
@@ -306,7 +306,7 @@ class UserVerifyMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'    => $faker->password,
+            'token'    => $faker->password(),
             'password' => $faker->string(BasePasswordEncoder::MAX_PASSWORD_LENGTH + 1),
         ];
 
@@ -316,7 +316,7 @@ class UserVerifyMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 
@@ -338,9 +338,9 @@ class UserVerifyMutationTest extends BaseTestCase
     public function testInvalidCompromised(): void
     {
         $faker = $this->faker();
-        $password = $faker->password;
+        $password = $faker->password();
         $data = [
-            'token'    => $faker->password,
+            'token'    => $faker->password(),
             'password' => $password,
         ];
 
@@ -350,7 +350,7 @@ class UserVerifyMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 
@@ -378,7 +378,7 @@ class UserVerifyMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'    => $faker->password,
+            'token'    => $faker->password(),
             'password' => '123456',
         ];
 
@@ -388,7 +388,7 @@ class UserVerifyMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 

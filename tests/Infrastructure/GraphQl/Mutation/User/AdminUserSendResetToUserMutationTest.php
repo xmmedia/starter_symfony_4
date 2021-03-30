@@ -32,10 +32,10 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
         $user->shouldReceive('email')
             ->once()
-            ->andReturn(Email::fromString($faker->email));
+            ->andReturn(Email::fromString($faker->email()));
 
         $userFinder = Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')

@@ -13,11 +13,11 @@ class UserLoggedInSuccessfullyTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
 
         $command = UserLoggedInSuccessfully::now(
             $authId,

@@ -20,10 +20,10 @@ class UserUpdateTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $email = $faker->emailVo;
+        $email = $faker->emailVo();
         $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $user->updateByAdmin(
             $email,
@@ -55,10 +55,10 @@ class UserUpdateTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $email = $faker->emailVo;
+        $email = $faker->emailVo();
         $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $this->expectException(Exception\DuplicateEmail::class);
 
@@ -77,9 +77,9 @@ class UserUpdateTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $email = $faker->emailVo;
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $email = $faker->emailVo();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $user->update(
             $email,
@@ -109,9 +109,9 @@ class UserUpdateTest extends BaseTestCase
 
         $user = $this->getUserInactive();
 
-        $email = $faker->emailVo;
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $email = $faker->emailVo();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $this->expectException(Exception\InvalidUserActiveStatus::class);
 
@@ -129,9 +129,9 @@ class UserUpdateTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $email = $faker->emailVo;
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $email = $faker->emailVo();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $this->expectException(Exception\DuplicateEmail::class);
 

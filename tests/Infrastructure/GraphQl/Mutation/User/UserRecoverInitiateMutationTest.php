@@ -23,7 +23,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'email' => $faker->email,
+            'email' => $faker->email(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -35,7 +35,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
         $user->shouldReceive('email')
             ->once()
             ->andReturn(Email::fromString($data['email']));
@@ -65,7 +65,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
     public function testValidCapitalEmail(): void
     {
         $faker = $this->faker();
-        $email = strtoupper($faker->email);
+        $email = strtoupper($faker->email());
         $data = [
             'email' => $email,
         ];
@@ -79,7 +79,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
         $user->shouldReceive('email')
             ->once()
             ->andReturn(Email::fromString($data['email']));
@@ -117,7 +117,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'email' => $faker->email,
+            'email' => $faker->email(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -151,7 +151,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'email' => $faker->email,
+            'email' => $faker->email(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);

@@ -19,11 +19,11 @@ class UserUpdateProfileMutationTest extends BaseTestCase
     public function testValid(): void
     {
         $faker = $this->faker();
-        $userId = $faker->userId;
+        $userId = $faker->userId();
         $data = [
-            'email'     => $faker->email,
-            'firstName' => $faker->name,
-            'lastName'  => $faker->name,
+            'email'     => $faker->email(),
+            'firstName' => $faker->name(),
+            'lastName'  => $faker->name(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);

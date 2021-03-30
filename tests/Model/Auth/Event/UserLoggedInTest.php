@@ -16,11 +16,11 @@ class UserLoggedInTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
 
         $event = UserLoggedIn::now(
             $authId,
@@ -41,11 +41,11 @@ class UserLoggedInTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
 
         /** @var UserLoggedIn $event */
         $event = $this->createEventFromArray(

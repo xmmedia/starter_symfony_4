@@ -23,7 +23,7 @@ class UserLoggedInHandlerTest extends BaseTestCase
         $user->shouldReceive('loggedIn')
             ->once();
 
-        $command = UserLoggedIn::now($faker->userId);
+        $command = UserLoggedIn::now($faker->userId());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -40,7 +40,7 @@ class UserLoggedInHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $command = UserLoggedIn::now($faker->userId);
+        $command = UserLoggedIn::now($faker->userId());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

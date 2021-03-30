@@ -24,11 +24,11 @@ class UserLoggedInProcessManagerTest extends BaseTestCase
             ->andReturn(new Envelope(new \stdClass()));
 
         $event = UserLoggedIn::now(
-            $faker->authId,
-            $faker->userId,
-            $faker->emailVo,
-            $faker->userAgent,
-            $faker->ipv4
+            $faker->authId(),
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->userAgent(),
+            $faker->ipv4()
         );
 
         (new UserLoggedInProcessManager($commandBus))($event);

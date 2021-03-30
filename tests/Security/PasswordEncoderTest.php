@@ -28,7 +28,7 @@ class PasswordEncoderTest extends BaseTestCase
             })
             ->andReturn('encoded-password');
 
-        (new PasswordEncoder($passwordEncoder))($role, $faker->password);
+        (new PasswordEncoder($passwordEncoder))($role, $faker->password());
     }
 
     public function roleProvider(): \Generator

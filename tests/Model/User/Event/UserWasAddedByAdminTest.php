@@ -18,14 +18,14 @@ class UserWasAddedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $password = $faker->password();
         $role = Role::ROLE_USER();
-        $active = $faker->boolean;
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
-        $sendInvite = $faker->boolean;
+        $active = $faker->boolean();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
+        $sendInvite = $faker->boolean();
 
         $event = UserWasAddedByAdmin::now(
             $userId,
@@ -52,14 +52,14 @@ class UserWasAddedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $password = $faker->password();
         $role = Role::ROLE_USER();
-        $active = $faker->boolean;
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
-        $sendInvite = $faker->boolean;
+        $active = $faker->boolean();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
+        $sendInvite = $faker->boolean();
 
         /** @var UserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(

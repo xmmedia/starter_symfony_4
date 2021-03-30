@@ -56,12 +56,12 @@ trait UserTestTrait
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $password = $faker->password();
         $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $user = User::addByAdmin(
             $userId,

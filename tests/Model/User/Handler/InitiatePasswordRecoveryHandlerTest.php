@@ -32,8 +32,8 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
             ->once();
 
         $command = InitiatePasswordRecovery::now(
-            $faker->userId,
-            $faker->emailVo
+            $faker->userId(),
+            $faker->emailVo()
         );
 
         $repo = Mockery::mock(UserList::class);
@@ -71,8 +71,8 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $command = InitiatePasswordRecovery::now(
-            $faker->userId,
-            $faker->emailVo
+            $faker->userId(),
+            $faker->emailVo()
         );
 
         $repo = Mockery::mock(UserList::class);

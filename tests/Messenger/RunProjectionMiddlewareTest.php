@@ -42,15 +42,15 @@ class RunProjectionMiddlewareTest extends BaseTestCase
         $faker = $this->faker();
 
         yield [
-            UserActivatedByAdmin::now($faker->userId),
+            UserActivatedByAdmin::now($faker->userId()),
             ['user_projection', 'user_token_projection'],
         ];
 
         yield [
             EnquiryWasSubmitted::now(
-                $faker->enquiryId,
-                $faker->name,
-                $faker->emailVo,
+                $faker->enquiryId(),
+                $faker->name(),
+                $faker->emailVo(),
                 $faker->string(5)
             ),
             ['enquiry_projection'],

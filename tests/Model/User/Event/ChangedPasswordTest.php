@@ -16,8 +16,8 @@ class ChangedPasswordTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $password = $faker->password;
+        $userId = $faker->userId();
+        $password = $faker->password();
 
         $event = ChangedPassword::now($userId, $password);
 
@@ -29,8 +29,8 @@ class ChangedPasswordTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $password = $faker->password;
+        $userId = $faker->userId();
+        $password = $faker->password();
 
         /** @var ChangedPassword $event */
         $event = $this->createEventFromArray(

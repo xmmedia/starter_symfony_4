@@ -36,8 +36,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'       => $faker->password,
-            'newPassword' => $faker->password,
+            'token'       => $faker->password(),
+            'newPassword' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -57,7 +57,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
         $user->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
@@ -87,8 +87,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'       => $faker->password,
-            'newPassword' => $faker->password,
+            'token'       => $faker->password(),
+            'newPassword' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -117,8 +117,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'       => $faker->password,
-            'newPassword' => $faker->password,
+            'token'       => $faker->password(),
+            'newPassword' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -134,7 +134,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
         $user->shouldReceive('verified')
             ->once()
             ->andReturnTrue();
@@ -143,13 +143,13 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->andReturn(Role::ROLE_USER());
         $user->shouldReceive('email')
             ->once()
-            ->andReturn($faker->emailVo);
+            ->andReturn($faker->emailVo());
         $user->shouldReceive('firstName')
             ->once()
-            ->andReturn(Name::fromString($faker->name));
+            ->andReturn(Name::fromString($faker->name()));
         $user->shouldReceive('lastName')
             ->once()
-            ->andReturn(Name::fromString($faker->name));
+            ->andReturn(Name::fromString($faker->name()));
 
         $tokenValidator = $this->getTokenValidator($user);
 
@@ -173,8 +173,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'       => $faker->password,
-            'newPassword' => $faker->password,
+            'token'       => $faker->password(),
+            'newPassword' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -183,7 +183,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
@@ -214,8 +214,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'       => $faker->password,
-            'newPassword' => $faker->password,
+            'token'       => $faker->password(),
+            'newPassword' => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -224,7 +224,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
@@ -258,7 +258,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'       => $faker->password,
+            'token'       => $faker->password(),
             'newPassword' => $empty,
         ];
 
@@ -268,7 +268,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 
@@ -292,7 +292,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'       => $faker->password,
+            'token'       => $faker->password(),
             'newPassword' => $faker->string(\App\Model\User\User::PASSWORD_MIN_LENGTH - 1),
         ];
 
@@ -302,7 +302,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 
@@ -326,7 +326,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'       => $faker->password,
+            'token'       => $faker->password(),
             'newPassword' => $faker->string(BasePasswordEncoder::MAX_PASSWORD_LENGTH + 1),
         ];
 
@@ -336,7 +336,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 
@@ -359,9 +359,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
     public function testInvalidCompromised(): void
     {
         $faker = $this->faker();
-        $password = $faker->password;
+        $password = $faker->password();
         $data = [
-            'token'       => $faker->password,
+            'token'       => $faker->password(),
             'newPassword' => $password,
         ];
 
@@ -371,7 +371,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 
@@ -399,7 +399,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'token'       => $faker->password,
+            'token'       => $faker->password(),
             'newPassword' => '123456',
         ];
 
@@ -409,7 +409,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
 
         $tokenValidator = $this->getTokenValidator($user);
 

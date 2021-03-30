@@ -16,10 +16,10 @@ class UserFailedToLoginTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $email = $faker->email;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $email = $faker->email();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $event = UserFailedToLogin::now(
@@ -41,8 +41,8 @@ class UserFailedToLoginTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $event = UserFailedToLogin::now(
@@ -61,10 +61,10 @@ class UserFailedToLoginTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $email = $faker->email;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $email = $faker->email();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
         $message = $faker->string(100);
 
         /** @var UserFailedToLogin $event */
@@ -92,8 +92,8 @@ class UserFailedToLoginTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
 
         /** @var UserFailedToLogin $event */

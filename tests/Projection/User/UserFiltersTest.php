@@ -19,9 +19,9 @@ class UserFiltersTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $active = $faker->boolean;
-        $email = $faker->email;
-        $emailExact = $faker->email;
+        $active = $faker->boolean();
+        $email = $faker->email();
+        $emailExact = $faker->email();
 
         $filters = UserFilters::fromArray([
             UserFilters::ACTIVE      => $active,
@@ -39,7 +39,7 @@ class UserFiltersTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $email = $faker->email;
+        $email = $faker->email();
 
         $filters = UserFilters::fromArray([
             UserFilters::EMAIL => $email,
@@ -56,7 +56,7 @@ class UserFiltersTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $email = $faker->email;
+        $email = $faker->email();
 
         $filters = UserFilters::fromArray([]);
 

@@ -94,7 +94,7 @@ class UserReadModelTest extends BaseTestCase
     {
         $faker = $this->faker();
         $userId = $faker->uuid();
-        $dateTime = \DateTimeImmutable::createFromMutable($faker->dateTime);
+        $dateTime = \DateTimeImmutable::createFromMutable($faker->dateTime());
 
         $statement = Mockery::mock(Statement::class);
         $statement->shouldReceive('bindValue')

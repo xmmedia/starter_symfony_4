@@ -18,8 +18,8 @@ class SendEnquiryMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'name'    => $faker->name,
-            'email'   => $faker->email,
+            'name'    => $faker->name(),
+            'email'   => $faker->email(),
             'message' => $faker->string(50),
         ];
 
@@ -43,8 +43,8 @@ class SendEnquiryMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'name'    => $faker->name,
-            'email'   => $faker->email,
+            'name'    => $faker->name(),
+            'email'   => $faker->email(),
             'message' => $message,
         ];
 

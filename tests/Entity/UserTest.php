@@ -30,7 +30,7 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $email = $faker->email;
+        $email = $faker->email();
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -46,7 +46,7 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password;
+        $password = $faker->password();
 
         $user = new User();
 
@@ -68,7 +68,7 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
         $property->setAccessible(true);
-        $property->setValue($user, $faker->password);
+        $property->setValue($user, $faker->password());
 
         // this shouldn't do anything so just make sure the password still returns value
         $user->eraseCredentials();
@@ -106,8 +106,8 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $firstName = $faker->name;
-        $lastName = $faker->name;
+        $firstName = $faker->name();
+        $lastName = $faker->name();
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -142,7 +142,7 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $lastLogin = $faker->dateTime;
+        $lastLogin = $faker->dateTime();
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -266,18 +266,18 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
         $property->setAccessible(true);
-        $property->setValue($user1, $faker->password);
+        $property->setValue($user1, $faker->password());
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
         $property->setAccessible(true);
-        $property->setValue($user2, $faker->password);
+        $property->setValue($user2, $faker->password());
 
         // password has changed
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
+        $password = $faker->password();
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -286,7 +286,7 @@ class UserTest extends BaseTestCase
         $property->setValue($user1, $password);
         $property = $reflection->getProperty('email');
         $property->setAccessible(true);
-        $property->setValue($user1, $faker->email);
+        $property->setValue($user1, $faker->email());
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -295,13 +295,13 @@ class UserTest extends BaseTestCase
         $property->setValue($user2, $password);
         $property = $reflection->getProperty('email');
         $property->setAccessible(true);
-        $property->setValue($user2, $faker->email);
+        $property->setValue($user2, $faker->email());
 
         // email (username) has changed
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
-        $email = $faker->email;
+        $password = $faker->password();
+        $email = $faker->email();
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -327,8 +327,8 @@ class UserTest extends BaseTestCase
         // no longer active
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
-        $email = $faker->email;
+        $password = $faker->password();
+        $email = $faker->email();
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -357,8 +357,8 @@ class UserTest extends BaseTestCase
         // no longer verified
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
-        $email = $faker->email;
+        $password = $faker->password();
+        $email = $faker->email();
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -393,8 +393,8 @@ class UserTest extends BaseTestCase
         // roles have changed (no longer has super admin)
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
-        $email = $faker->email;
+        $password = $faker->password();
+        $email = $faker->email();
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -429,8 +429,8 @@ class UserTest extends BaseTestCase
         // roles have changed (gained super admin)
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
-        $email = $faker->email;
+        $password = $faker->password();
+        $email = $faker->email();
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
@@ -465,8 +465,8 @@ class UserTest extends BaseTestCase
         // roles have changed (switched from user to admin)
         yield [$user1, $user2, false];
 
-        $password = $faker->password;
-        $email = $faker->email;
+        $password = $faker->password();
+        $email = $faker->email();
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);

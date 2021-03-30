@@ -9772,16 +9772,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.85",
+            "version": "v1.0.86",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "b61070a95478d31e1c13a378d62ad5d0ad070460"
+                "reference": "7640d0c399ed5e9742d58cfb8ff6a290b456a972"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/b61070a95478d31e1c13a378d62ad5d0ad070460",
-                "reference": "b61070a95478d31e1c13a378d62ad5d0ad070460",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/7640d0c399ed5e9742d58cfb8ff6a290b456a972",
+                "reference": "7640d0c399ed5e9742d58cfb8ff6a290b456a972",
                 "shasum": ""
             },
             "require": {
@@ -9848,7 +9848,7 @@
             ],
             "description": "Provides classes & services typically used in XM Media Symfony projects.",
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
-            "time": "2021-03-16T03:42:07+00:00"
+            "time": "2021-03-30T21:42:56+00:00"
         }
     ],
     "packages-dev": [

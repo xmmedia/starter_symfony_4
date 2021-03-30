@@ -23,7 +23,7 @@ class DeactivateUserByAdminHandlerTest extends BaseTestCase
         $user->shouldReceive('deactivateByAdmin')
             ->once();
 
-        $command = DeactivateUserByAdmin::user($faker->userId);
+        $command = DeactivateUserByAdmin::user($faker->userId());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -40,7 +40,7 @@ class DeactivateUserByAdminHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $command = DeactivateUserByAdmin::user($faker->userId);
+        $command = DeactivateUserByAdmin::user($faker->userId());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

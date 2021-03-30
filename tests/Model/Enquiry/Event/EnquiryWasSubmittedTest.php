@@ -16,9 +16,9 @@ class EnquiryWasSubmittedTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $enquiryId = $faker->enquiryId;
-        $name = $faker->name;
-        $email = $faker->emailVo;
+        $enquiryId = $faker->enquiryId();
+        $name = $faker->name();
+        $email = $faker->emailVo();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $event = EnquiryWasSubmitted::now($enquiryId, $name, $email, $message);
@@ -33,9 +33,9 @@ class EnquiryWasSubmittedTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $enquiryId = $faker->enquiryId;
-        $name = $faker->name;
-        $email = $faker->emailVo;
+        $enquiryId = $faker->enquiryId();
+        $name = $faker->name();
+        $email = $faker->emailVo();
         $message = $faker->asciify(str_repeat('*', 100));
 
         /** @var EnquiryWasSubmitted $event */

@@ -27,10 +27,10 @@ class AdminUserAddMutationTest extends BaseTestCase
         $faker = $this->faker();
         $data = [
             'userId'      => $faker->uuid(),
-            'email'       => $faker->email,
+            'email'       => $faker->email(),
             'setPassword' => false,
-            'firstName'   => $faker->name,
-            'lastName'    => $faker->name,
+            'firstName'   => $faker->name(),
+            'lastName'    => $faker->name(),
             'role'        => 'ROLE_USER',
             'active'      => true,
             'sendInvite'  => true,
@@ -45,7 +45,7 @@ class AdminUserAddMutationTest extends BaseTestCase
         $tokenGenerator = Mockery::mock(TokenGenerator::class);
         $tokenGenerator->shouldReceive('__invoke')
             ->once()
-            ->andReturn(new Token($faker->password));
+            ->andReturn(new Token($faker->password()));
 
         $passwordEncoder = Mockery::mock(PasswordEncoder::class);
         $passwordEncoder->shouldReceive('__invoke')
@@ -78,11 +78,11 @@ class AdminUserAddMutationTest extends BaseTestCase
         $faker = $this->faker();
         $data = [
             'userId'      => $faker->uuid(),
-            'email'       => $faker->email,
+            'email'       => $faker->email(),
             'setPassword' => true,
             'password'    => $faker->string(4097),
-            'firstName'   => $faker->name,
-            'lastName'    => $faker->name,
+            'firstName'   => $faker->name(),
+            'lastName'    => $faker->name(),
             'role'        => 'ROLE_USER',
             'active'      => true,
             'sendInvite'  => true,
@@ -108,11 +108,11 @@ class AdminUserAddMutationTest extends BaseTestCase
         $faker = $this->faker();
         $data = [
             'userId'      => $faker->uuid(),
-            'email'       => $faker->email,
+            'email'       => $faker->email(),
             'setPassword' => true,
-            'password'    => $faker->password,
-            'firstName'   => $faker->name,
-            'lastName'    => $faker->name,
+            'password'    => $faker->password(),
+            'firstName'   => $faker->name(),
+            'lastName'    => $faker->name(),
             'role'        => 'ROLE_USER',
             'active'      => true,
             'sendInvite'  => true,

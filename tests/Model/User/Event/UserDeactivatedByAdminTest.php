@@ -16,7 +16,7 @@ class UserDeactivatedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $event = UserDeactivatedByAdmin::now($userId);
 
@@ -27,7 +27,7 @@ class UserDeactivatedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         /** @var UserDeactivatedByAdmin $event */
         $event = $this->createEventFromArray(

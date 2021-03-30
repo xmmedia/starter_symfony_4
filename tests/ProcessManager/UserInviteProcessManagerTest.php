@@ -27,13 +27,13 @@ class UserInviteProcessManagerTest extends BaseTestCase
             ->andReturn(new Envelope(new \stdClass()));
 
         $event = UserWasAddedByAdmin::now(
-            $faker->userId,
-            $faker->emailVo,
-            $faker->password,
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->password(),
             Role::ROLE_USER(),
             true,
-            Name::fromString($faker->firstName),
-            Name::fromString($faker->lastName),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
             true
         );
 
@@ -48,13 +48,13 @@ class UserInviteProcessManagerTest extends BaseTestCase
         $commandBus->shouldNotReceive('dispatch');
 
         $event = UserWasAddedByAdmin::now(
-            $faker->userId,
-            $faker->emailVo,
-            $faker->password,
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->password(),
             Role::ROLE_USER(),
             true,
-            Name::fromString($faker->firstName),
-            Name::fromString($faker->lastName),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
             false
         );
 

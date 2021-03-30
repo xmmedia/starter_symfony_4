@@ -31,13 +31,13 @@ trait UserMockForUserMutationTrait
         $user = Mockery::mock(User::class);
         $user->shouldReceive('email')
             ->once()
-            ->andReturn($faker->emailVo);
+            ->andReturn($faker->emailVo());
         $user->shouldReceive('firstName')
             ->once()
-            ->andReturn(Name::fromString($faker->name));
+            ->andReturn(Name::fromString($faker->name()));
         $user->shouldReceive('lastName')
             ->once()
-            ->andReturn(Name::fromString($faker->name));
+            ->andReturn(Name::fromString($faker->name()));
 
         return $user;
     }

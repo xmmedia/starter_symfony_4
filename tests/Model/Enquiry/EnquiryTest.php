@@ -15,9 +15,9 @@ class EnquiryTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $enquiryId = $faker->enquiryId;
-        $name = $faker->name;
-        $email = $faker->emailVo;
+        $enquiryId = $faker->enquiryId();
+        $name = $faker->name();
+        $email = $faker->emailVo();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $enquiry = Enquiry::submit($enquiryId, $name, $email, $message);
@@ -41,9 +41,9 @@ class EnquiryTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $enquiryId = $faker->enquiryId;
-        $name = $faker->name;
-        $email = $faker->emailVo;
+        $enquiryId = $faker->enquiryId();
+        $name = $faker->name();
+        $email = $faker->emailVo();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $enquiry1 = Enquiry::submit($enquiryId, $name, $email, $message);
@@ -56,12 +56,12 @@ class EnquiryTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $name = $faker->name;
-        $email = $faker->emailVo;
+        $name = $faker->name();
+        $email = $faker->emailVo();
         $message = $faker->asciify(str_repeat('*', 100));
 
-        $enquiry1 = Enquiry::submit($faker->enquiryId, $name, $email, $message);
-        $enquiry2 = Enquiry::submit($faker->enquiryId, $name, $email, $message);
+        $enquiry1 = Enquiry::submit($faker->enquiryId(), $name, $email, $message);
+        $enquiry2 = Enquiry::submit($faker->enquiryId(), $name, $email, $message);
 
         $this->assertFalse($enquiry1->sameIdentityAs($enquiry2));
     }
@@ -71,9 +71,9 @@ class EnquiryTest extends BaseTestCase
         $faker = $this->faker();
 
         $enquiry = Enquiry::submit(
-            $faker->enquiryId,
-            $faker->name,
-            $faker->emailVo,
+            $faker->enquiryId(),
+            $faker->name(),
+            $faker->emailVo(),
             $faker->string(100)
         );
 

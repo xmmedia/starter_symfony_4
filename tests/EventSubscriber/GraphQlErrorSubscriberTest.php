@@ -38,7 +38,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
             ->once()
             ->andReturnFalse();
 
-        $error = new Error('Cannot query field '.$faker->sentence);
+        $error = new Error('Cannot query field '.$faker->sentence());
 
         $event = new ErrorFormattingEvent($error, []);
 

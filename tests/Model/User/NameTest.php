@@ -14,7 +14,7 @@ class NameTest extends BaseTestCase
     public function testFromString(): void
     {
         $faker = $this->faker();
-        $nameString = $faker->name;
+        $nameString = $faker->name();
 
         $name = Name::fromString($nameString);
 
@@ -50,7 +50,7 @@ class NameTest extends BaseTestCase
     public function testSameValueAs(): void
     {
         $faker = $this->faker();
-        $nameString = $faker->name;
+        $nameString = $faker->name();
 
         $name1 = Name::fromString($nameString);
         $name2 = Name::fromString($nameString);
@@ -62,8 +62,8 @@ class NameTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $name1 = Name::fromString($faker->unique()->name);
-        $name2 = Name::fromString($faker->unique()->name);
+        $name1 = Name::fromString($faker->unique()->name());
+        $name2 = Name::fromString($faker->unique()->name());
 
         $this->assertFalse($name1->sameValueAs($name2));
     }
@@ -72,7 +72,7 @@ class NameTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $name = Name::fromString($faker->name);
+        $name = Name::fromString($faker->name());
 
         $this->assertFalse($name->sameValueAs(FakeVo::create()));
     }

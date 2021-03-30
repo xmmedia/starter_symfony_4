@@ -13,7 +13,7 @@ class VerifyUserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $command = VerifyUser::now($userId);
 

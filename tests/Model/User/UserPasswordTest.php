@@ -20,7 +20,7 @@ class UserPasswordTest extends BaseTestCase
 
         $user = $this->getUserActive();
 
-        $password = $faker->password;
+        $password = $faker->password();
 
         $user->changePasswordByAdmin($password);
 
@@ -81,7 +81,7 @@ class UserPasswordTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password;
+        $password = $faker->password();
 
         $user = $this->getUserActive();
 
@@ -102,7 +102,7 @@ class UserPasswordTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password;
+        $password = $faker->password();
 
         $user = $this->getUserInactive();
 
@@ -115,7 +115,7 @@ class UserPasswordTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password;
+        $password = $faker->password();
 
         $user = $this->getUserActive();
 
@@ -136,7 +136,7 @@ class UserPasswordTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password;
+        $password = $faker->password();
 
         $user = $this->getUserInactive();
 

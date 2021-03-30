@@ -19,11 +19,11 @@ class AuthTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
 
         $auth = Auth::success($authId, $userId, $email, $userAgent, $ipAddress);
 
@@ -47,10 +47,10 @@ class AuthTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $email = $faker->email;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $email = $faker->email();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $auth = Auth::failure($authId, $email, $userAgent, $ipAddress, $message);
@@ -75,8 +75,8 @@ class AuthTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $auth = Auth::failure($authId, null, null, $ipAddress, $message);
@@ -99,11 +99,11 @@ class AuthTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
 
         $auth1 = Auth::success($authId, $userId, $email, $userAgent, $ipAddress);
         $auth2 = Auth::success($authId, $userId, $email, $userAgent, $ipAddress);
@@ -115,13 +115,13 @@ class AuthTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
 
-        $auth1 = Auth::success($faker->authId, $userId, $email, $userAgent, $ipAddress);
-        $auth2 = Auth::success($faker->authId, $userId, $email, $userAgent, $ipAddress);
+        $auth1 = Auth::success($faker->authId(), $userId, $email, $userAgent, $ipAddress);
+        $auth2 = Auth::success($faker->authId(), $userId, $email, $userAgent, $ipAddress);
 
         $this->assertFalse($auth1->sameIdentityAs($auth2));
     }
@@ -131,11 +131,11 @@ class AuthTest extends BaseTestCase
         $faker = $this->faker();
 
         $auth = Auth::success(
-            $faker->authId,
-            $faker->userId,
-            $faker->emailVo,
-            $faker->userAgent,
-            $faker->ipv4
+            $faker->authId(),
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->userAgent(),
+            $faker->ipv4()
         );
 
         $this->assertFalse($auth->sameIdentityAs(FakeAr::create()));

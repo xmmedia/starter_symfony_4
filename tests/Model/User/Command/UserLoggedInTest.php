@@ -13,7 +13,7 @@ class UserLoggedInTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $command = UserLoggedIn::now($userId);
 

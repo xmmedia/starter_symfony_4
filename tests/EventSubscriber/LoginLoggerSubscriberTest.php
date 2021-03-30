@@ -57,14 +57,14 @@ class LoginLoggerSubscriberTest extends BaseTestCase
             [],
             [],
             [
-                'REMOTE_ADDR' => $faker->ipv4,
+                'REMOTE_ADDR' => $faker->ipv4(),
             ]
         );
         $requestStack = Mockery::mock(RequestStack::class);
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
         $user->shouldReceive('email')
             ->andReturn(Email::fromString('test@example.com'));
 
@@ -97,8 +97,8 @@ class LoginLoggerSubscriberTest extends BaseTestCase
             [],
             [],
             [
-                'REMOTE_ADDR'     => $faker->ipv4,
-                'HTTP_USER_AGENT' => $faker->userAgent,
+                'REMOTE_ADDR'     => $faker->ipv4(),
+                'HTTP_USER_AGENT' => $faker->userAgent(),
             ]
         );
         $requestStack = Mockery::mock(RequestStack::class);
@@ -107,13 +107,13 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
         $user->shouldReceive('email')
             ->andReturn(Email::fromString('test@example.com'));
 
         $token = Mockery::mock(TokenInterface::class);
         $token->shouldReceive('getCredentials')
-            ->andReturn(Credentials::build($faker->email, $faker->password));
+            ->andReturn(Credentials::build($faker->email(), $faker->password()));
 
         $event = new AuthenticationFailureEvent(
             $token,

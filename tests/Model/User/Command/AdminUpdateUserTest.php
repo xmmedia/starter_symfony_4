@@ -15,11 +15,11 @@ class AdminUpdateUserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
         $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $command = AdminUpdateUser::with(
             $userId,

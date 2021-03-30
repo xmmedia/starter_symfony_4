@@ -17,7 +17,7 @@ class UserEmailUniqueResolverTest extends BaseTestCase
     public function testSameUser(): void
     {
         $faker = $this->faker();
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $currentUser = Mockery::mock(User::class);
         $currentUser->shouldReceive('userId')
@@ -41,7 +41,7 @@ class UserEmailUniqueResolverTest extends BaseTestCase
             ->andReturn($currentUser);
 
         $result = (new UserEmailUniqueResolver($userFinder, $security))(
-            $faker->email
+            $faker->email()
         );
 
         $this->assertEquals(['unique' => true], $result);
@@ -54,12 +54,12 @@ class UserEmailUniqueResolverTest extends BaseTestCase
         $currentUser = Mockery::mock(User::class);
         $currentUser->shouldReceive('userId')
             ->once()
-            ->andReturn($faker->unique()->userId);
+            ->andReturn($faker->unique()->userId());
 
         $otherUser = Mockery::mock(User::class);
         $otherUser->shouldReceive('userId')
             ->once()
-            ->andReturn($faker->unique()->userId);
+            ->andReturn($faker->unique()->userId());
 
         $userFinder = Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findOneByEmail')
@@ -73,7 +73,7 @@ class UserEmailUniqueResolverTest extends BaseTestCase
             ->andReturn($currentUser);
 
         $result = (new UserEmailUniqueResolver($userFinder, $security))(
-            $faker->email
+            $faker->email()
         );
 
         $this->assertEquals(['unique' => false], $result);
@@ -97,7 +97,7 @@ class UserEmailUniqueResolverTest extends BaseTestCase
             ->andReturn($currentUser);
 
         $result = (new UserEmailUniqueResolver($userFinder, $security))(
-            $faker->email
+            $faker->email()
         );
 
         $this->assertEquals(['unique' => true], $result);
@@ -116,6 +116,6 @@ class UserEmailUniqueResolverTest extends BaseTestCase
 
         $this->expectException(\RuntimeException::class);
 
-        (new UserEmailUniqueResolver($userFinder, $security))($faker->email);
+        (new UserEmailUniqueResolver($userFinder, $security))($faker->email());
     }
 }

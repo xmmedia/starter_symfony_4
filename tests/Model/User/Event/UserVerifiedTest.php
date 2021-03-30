@@ -16,7 +16,7 @@ class UserVerifiedTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $event = UserVerified::now($userId);
 
@@ -27,7 +27,7 @@ class UserVerifiedTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         /** @var UserVerified $event */
         $event = $this->createEventFromArray(

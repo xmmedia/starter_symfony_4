@@ -13,7 +13,7 @@ class ActivateUserByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $command = ActivateUserByAdmin::user($userId);
 

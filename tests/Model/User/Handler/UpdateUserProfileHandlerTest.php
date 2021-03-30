@@ -23,10 +23,10 @@ class UpdateUserProfileHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $command = UpdateUserProfile::with(
             $userId,
@@ -58,10 +58,10 @@ class UpdateUserProfileHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $command = UpdateUserProfile::with(
             $userId,

@@ -14,8 +14,8 @@ class CredentialsTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $email = $faker->email;
-        $password = $faker->password;
+        $email = $faker->email();
+        $password = $faker->password();
 
         $credentials = Credentials::build($email, $password);
 
@@ -35,8 +35,8 @@ class CredentialsTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $email = $faker->email;
-        $password = $faker->password;
+        $email = $faker->email();
+        $password = $faker->password();
 
         $credentials1 = Credentials::build($email, $password);
         $credentials2 = Credentials::build($email, $password);
@@ -48,10 +48,10 @@ class CredentialsTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password;
+        $password = $faker->password();
 
-        $credentials1 = Credentials::build($faker->unique()->email, $password);
-        $credentials2 = Credentials::build($faker->unique()->email, $password);
+        $credentials1 = Credentials::build($faker->unique()->email(), $password);
+        $credentials2 = Credentials::build($faker->unique()->email(), $password);
 
         $this->assertFalse($credentials1->sameValueAs($credentials2));
     }
@@ -60,10 +60,10 @@ class CredentialsTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $email = $faker->email;
+        $email = $faker->email();
 
-        $credentials1 = Credentials::build($email, $faker->password);
-        $credentials2 = Credentials::build($email, $faker->password);
+        $credentials1 = Credentials::build($email, $faker->password());
+        $credentials2 = Credentials::build($email, $faker->password());
 
         $this->assertFalse($credentials1->sameValueAs($credentials2));
     }
@@ -72,7 +72,7 @@ class CredentialsTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $credentials = Credentials::build($faker->email, $faker->password);
+        $credentials = Credentials::build($faker->email(), $faker->password());
 
         $this->assertFalse($credentials->sameValueAs(FakeVo::create()));
     }

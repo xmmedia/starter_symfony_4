@@ -17,10 +17,10 @@ class UserUpdatedProfileTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $event = UserUpdatedProfile::now($userId, $email, $firstName, $lastName);
 
@@ -34,10 +34,10 @@ class UserUpdatedProfileTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         /** @var UserUpdatedProfile $event */
         $event = $this->createEventFromArray(

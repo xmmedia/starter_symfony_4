@@ -13,7 +13,7 @@ class DeactivateUserByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $command = DeactivateUserByAdmin::user($userId);
 

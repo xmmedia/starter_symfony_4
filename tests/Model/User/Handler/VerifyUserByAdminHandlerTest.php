@@ -23,7 +23,7 @@ class VerifyUserByAdminHandlerTest extends BaseTestCase
         $user->shouldReceive('verifyByAdmin')
             ->once();
 
-        $command = VerifyUserByAdmin::now($faker->userId);
+        $command = VerifyUserByAdmin::now($faker->userId());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -40,7 +40,7 @@ class VerifyUserByAdminHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $command = VerifyUserByAdmin::now($faker->userId);
+        $command = VerifyUserByAdmin::now($faker->userId());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

@@ -16,7 +16,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
     public function testPasswordMatches(): void
     {
         $faker = $this->faker();
-        $password = $faker->password;
+        $password = $faker->password();
 
         $currentUser = Mockery::mock(User::class);
 
@@ -44,7 +44,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
     public function testPasswordDifferent(): void
     {
         $faker = $this->faker();
-        $password = $faker->password;
+        $password = $faker->password();
 
         $currentUser = Mockery::mock(User::class);
 
@@ -86,7 +86,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
             $userPasswordEncoder,
             $security
         ))(
-            $faker->password
+            $faker->password()
         );
     }
 }

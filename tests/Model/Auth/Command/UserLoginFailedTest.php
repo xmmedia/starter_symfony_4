@@ -13,10 +13,10 @@ class UserLoginFailedTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $email = $faker->email;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $email = $faker->email();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $command = UserLoginFailed::now(
@@ -39,10 +39,10 @@ class UserLoginFailedTest extends BaseTestCase
         $faker = $this->faker();
 
         $command = UserLoginFailed::now(
-            $faker->authId,
+            $faker->authId(),
             null,
             null,
-            $faker->ipv4,
+            $faker->ipv4(),
             null
         );
 

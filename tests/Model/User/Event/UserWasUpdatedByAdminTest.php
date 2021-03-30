@@ -18,11 +18,11 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
         $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $event = UserWasUpdatedByAdmin::now($userId, $email, $role, $firstName, $lastName);
 
@@ -37,11 +37,11 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
         $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName);
-        $lastName = Name::fromString($faker->lastName);
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         /** @var UserWasUpdatedByAdmin $event */
         $event = $this->createEventFromArray(

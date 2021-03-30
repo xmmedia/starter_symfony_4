@@ -17,9 +17,9 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $password = $faker->password();
         $role = Role::ROLE_USER();
 
         $user1 = User::addByAdminMinimum(
@@ -44,19 +44,19 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $email = $faker->emailVo;
-        $password = $faker->password;
+        $email = $faker->emailVo();
+        $password = $faker->password();
         $role = Role::ROLE_USER();
 
         $user1 = User::addByAdminMinimum(
-            $faker->userId,
+            $faker->userId(),
             $email,
             $password,
             $role,
             $this->userUniquenessCheckerNone
         );
         $user2 = User::addByAdminMinimum(
-            $faker->userId,
+            $faker->userId(),
             $email,
             $password,
             $role,
@@ -71,9 +71,9 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $user = User::addByAdminMinimum(
-            $faker->userId,
-            $faker->emailVo,
-            $faker->password,
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->password(),
             Role::ROLE_USER(),
             $this->userUniquenessCheckerNone
         );

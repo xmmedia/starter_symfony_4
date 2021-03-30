@@ -30,7 +30,7 @@ class UserProviderTest extends BaseTestCase
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->andReturn($faker->userId);
+            ->andReturn($faker->userId());
         $user->shouldReceive('upgradePassword')->once();
 
         $this->commandBus->shouldReceive('dispatch')
@@ -38,7 +38,7 @@ class UserProviderTest extends BaseTestCase
             ->with(Mockery::type(UpgradePassword::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $this->getUserProvider()->upgradePassword($user, $faker->password);
+        $this->getUserProvider()->upgradePassword($user, $faker->password());
     }
 
     public function testUpgradePasswordWrongUserType(): void
@@ -49,7 +49,7 @@ class UserProviderTest extends BaseTestCase
 
         $this->commandBus->shouldNotReceive('dispatch');
 
-        $this->getUserProvider()->upgradePassword($user, $faker->password);
+        $this->getUserProvider()->upgradePassword($user, $faker->password());
     }
 
     private function getUserProvider(): UserProvider

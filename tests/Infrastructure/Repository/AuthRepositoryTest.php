@@ -18,11 +18,11 @@ class AuthRepositoryTest extends BaseTestCase
         $faker = $this->faker();
 
         $auth = Auth::success(
-            $faker->authId,
-            $faker->userId,
-            $faker->emailVo,
-            $faker->userAgent,
-            $faker->ipv4,
+            $faker->authId(),
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->userAgent(),
+            $faker->ipv4(),
         );
 
         $repository = $this->getRepository(AuthRepository::class, Auth::class);
@@ -41,7 +41,7 @@ class AuthRepositoryTest extends BaseTestCase
         $faker = $this->faker();
 
         $fetchedAuth = $this->getRepository(AuthRepository::class, Auth::class)
-            ->get($faker->authId);
+            ->get($faker->authId());
 
         $this->assertNull($fetchedAuth);
     }

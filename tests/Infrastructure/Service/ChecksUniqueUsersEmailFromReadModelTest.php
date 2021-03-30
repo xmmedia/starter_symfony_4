@@ -15,7 +15,7 @@ class ChecksUniqueUsersEmailFromReadModelTest extends BaseTestCase
     public function testDoesntExist(): void
     {
         $faker = $this->faker();
-        $email = $faker->emailVo;
+        $email = $faker->emailVo();
 
         $userFinder = Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findOneByEmail')
@@ -31,8 +31,8 @@ class ChecksUniqueUsersEmailFromReadModelTest extends BaseTestCase
     public function testExists(): void
     {
         $faker = $this->faker();
-        $email = $faker->emailVo;
-        $userId = $faker->userId;
+        $email = $faker->emailVo();
+        $userId = $faker->userId();
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')

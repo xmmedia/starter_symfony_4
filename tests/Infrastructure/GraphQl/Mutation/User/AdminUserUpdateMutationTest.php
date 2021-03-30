@@ -26,10 +26,10 @@ class AdminUserUpdateMutationTest extends BaseTestCase
         $faker = $this->faker();
         $data = [
             'userId'      => $faker->uuid(),
-            'email'       => $faker->email,
+            'email'       => $faker->email(),
             'setPassword' => false,
-            'firstName'   => $faker->name,
-            'lastName'    => $faker->name,
+            'firstName'   => $faker->name(),
+            'lastName'    => $faker->name(),
             'role'        => 'ROLE_USER',
         ];
 
@@ -64,11 +64,11 @@ class AdminUserUpdateMutationTest extends BaseTestCase
         $faker = $this->faker();
         $data = [
             'userId'      => $faker->uuid(),
-            'email'       => $faker->email,
+            'email'       => $faker->email(),
             'setPassword' => true,
-            'password'    => $faker->password,
-            'firstName'   => $faker->name,
-            'lastName'    => $faker->name,
+            'password'    => $faker->password(),
+            'firstName'   => $faker->name(),
+            'lastName'    => $faker->name(),
             'role'        => 'ROLE_USER',
         ];
 
@@ -113,11 +113,11 @@ class AdminUserUpdateMutationTest extends BaseTestCase
         $faker = $this->faker();
         $data = [
             'userId'      => $faker->uuid(),
-            'email'       => $faker->email,
+            'email'       => $faker->email(),
             'setPassword' => true,
             'password'    => $faker->string(4097),
-            'firstName'   => $faker->name,
-            'lastName'    => $faker->name,
+            'firstName'   => $faker->name(),
+            'lastName'    => $faker->name(),
             'role'        => 'ROLE_USER',
         ];
 

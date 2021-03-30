@@ -16,7 +16,7 @@ class UserVerifiedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $event = UserVerifiedByAdmin::now($userId);
 
@@ -27,7 +27,7 @@ class UserVerifiedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         /** @var UserVerifiedByAdmin $event */
         $event = $this->createEventFromArray(

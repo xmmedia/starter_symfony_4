@@ -23,7 +23,7 @@ class VerifyUserHandlerTest extends BaseTestCase
         $user->shouldReceive('verify')
             ->once();
 
-        $command = VerifyUser::now($faker->userId);
+        $command = VerifyUser::now($faker->userId());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -40,7 +40,7 @@ class VerifyUserHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $command = VerifyUser::now($faker->userId);
+        $command = VerifyUser::now($faker->userId());
 
         $repo = Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

@@ -13,8 +13,8 @@ class InitiatePasswordRecoveryTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
 
         $command = InitiatePasswordRecovery::now($userId, $email);
 

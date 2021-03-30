@@ -17,9 +17,9 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $password = $faker->password();
         $role = Role::ROLE_USER();
 
         $event = MinimalUserWasAddedByAdmin::now($userId, $email, $password, $role);
@@ -34,9 +34,9 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
-        $email = $faker->emailVo;
-        $password = $faker->password;
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $password = $faker->password();
         $role = Role::ROLE_USER();
 
         /** @var MinimalUserWasAddedByAdmin $event */

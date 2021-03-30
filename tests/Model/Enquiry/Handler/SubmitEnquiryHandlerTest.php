@@ -18,9 +18,9 @@ class SubmitEnquiryHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $enquiryId = $faker->enquiryId;
-        $name = Name::fromString($faker->name);
-        $email = $faker->emailVo;
+        $enquiryId = $faker->enquiryId();
+        $name = Name::fromString($faker->name());
+        $email = $faker->emailVo();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $command = SubmitEnquiry::with($enquiryId, $name, $email, $message);

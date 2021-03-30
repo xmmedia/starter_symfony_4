@@ -25,9 +25,9 @@ class UserRepositoryTest extends BaseTestCase
             ->andReturnNull();
 
         $user = User::addByAdminMinimum(
-            $faker->userId,
-            $faker->emailVo,
-            $faker->password,
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->password(),
             Role::ROLE_USER(),
             $checksUniqueUsersEmail,
         );
@@ -48,7 +48,7 @@ class UserRepositoryTest extends BaseTestCase
         $faker = $this->faker();
 
         $fetchedUser = $this->getRepository(UserRepository::class, User::class)
-            ->get($faker->userId);
+            ->get($faker->userId());
 
         $this->assertNull($fetchedUser);
     }

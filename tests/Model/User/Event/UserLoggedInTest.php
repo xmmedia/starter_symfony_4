@@ -16,7 +16,7 @@ class UserLoggedInTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         $event = UserLoggedIn::now($userId);
 
@@ -27,7 +27,7 @@ class UserLoggedInTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
 
         /** @var UserLoggedIn $event */
         $event = $this->createEventFromArray(

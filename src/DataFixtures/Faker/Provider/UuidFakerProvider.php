@@ -10,10 +10,6 @@ use App\Model\User\UserId;
 use Faker;
 
 /**
- * @property AuthId    $authId
- * @property EnquiryId $enquiryId
- * @property UserId    $userId
- *
  * @codeCoverageIgnore
  */
 class UuidFakerProvider extends Faker\Provider\Uuid

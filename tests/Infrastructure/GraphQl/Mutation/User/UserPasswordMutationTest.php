@@ -31,10 +31,10 @@ class UserPasswordMutationTest extends BaseTestCase
     public function testValid(): void
     {
         $faker = $this->faker();
-        $userId = $faker->userId;
+        $userId = $faker->userId();
         $data = [
-            'currentPassword' => $faker->password,
-            'newPassword'     => $faker->password,
+            'currentPassword' => $faker->password(),
+            'newPassword'     => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -58,13 +58,13 @@ class UserPasswordMutationTest extends BaseTestCase
             ->andReturn($userId);
         $user->shouldReceive('email')
             ->once()
-            ->andReturn($faker->emailVo);
+            ->andReturn($faker->emailVo());
         $user->shouldReceive('firstName')
             ->once()
-            ->andReturn(Name::fromString($faker->name));
+            ->andReturn(Name::fromString($faker->name()));
         $user->shouldReceive('lastName')
             ->once()
-            ->andReturn(Name::fromString($faker->name));
+            ->andReturn(Name::fromString($faker->name()));
         $user->shouldReceive('firstRole')
             ->once()
             ->andReturn(Role::ROLE_USER());
@@ -96,7 +96,7 @@ class UserPasswordMutationTest extends BaseTestCase
         $faker = $this->faker();
         $data = [
             'currentPassword' => $empty,
-            'newPassword'     => $faker->password,
+            'newPassword'     => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -130,8 +130,8 @@ class UserPasswordMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'currentPassword' => $faker->password,
-            'newPassword'     => $faker->password,
+            'currentPassword' => $faker->password(),
+            'newPassword'     => $faker->password(),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
@@ -170,7 +170,7 @@ class UserPasswordMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'currentPassword' => $faker->password,
+            'currentPassword' => $faker->password(),
             'newPassword'     => $empty,
         ];
 
@@ -207,7 +207,7 @@ class UserPasswordMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'currentPassword' => $faker->password,
+            'currentPassword' => $faker->password(),
             'newPassword'     => $faker->string(\App\Model\User\User::PASSWORD_MIN_LENGTH - 1),
         ];
 
@@ -242,7 +242,7 @@ class UserPasswordMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'currentPassword' => $faker->password,
+            'currentPassword' => $faker->password(),
             'newPassword'     => $faker->string(BasePasswordEncoder::MAX_PASSWORD_LENGTH + 1),
         ];
 
@@ -279,7 +279,7 @@ class UserPasswordMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'currentPassword' => $faker->password,
+            'currentPassword' => $faker->password(),
             'newPassword'     => '123456',
         ];
 
@@ -315,9 +315,9 @@ class UserPasswordMutationTest extends BaseTestCase
     public function testInvalidCompromised(): void
     {
         $faker = $this->faker();
-        $password = $faker->password;
+        $password = $faker->password();
         $data = [
-            'currentPassword' => $faker->password,
+            'currentPassword' => $faker->password(),
             'newPassword'     => $password,
         ];
 

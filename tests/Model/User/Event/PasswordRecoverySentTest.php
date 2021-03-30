@@ -18,7 +18,7 @@ class PasswordRecoverySentTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
         $token = Token::fromString($faker->asciify('token'));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
@@ -33,7 +33,7 @@ class PasswordRecoverySentTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->userId;
+        $userId = $faker->userId();
         $token = Token::fromString($faker->asciify('token'));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 

@@ -17,10 +17,10 @@ class UserLoginFailedHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $authId = $faker->authId;
-        $email = $faker->email;
-        $userAgent = $faker->userAgent;
-        $ipAddress = $faker->ipv4;
+        $authId = $faker->authId();
+        $email = $faker->email();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
 
         $command = UserLoginFailed::now(

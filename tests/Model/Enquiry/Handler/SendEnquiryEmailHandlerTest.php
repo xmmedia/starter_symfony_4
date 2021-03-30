@@ -18,11 +18,11 @@ class SendEnquiryEmailHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $template = $faker->string(15);
-        $adminEmail = $faker->email;
+        $adminEmail = $faker->email();
 
         $command = SendEnquiryEmail::with(
-            $faker->name,
-            $faker->emailVo,
+            $faker->name(),
+            $faker->emailVo(),
             $faker->string(25)
         );
 
