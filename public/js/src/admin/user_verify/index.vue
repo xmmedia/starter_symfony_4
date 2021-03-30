@@ -125,6 +125,12 @@ export default {
         };
     },
 
+    mounted () {
+        if (this.$store.getters.loggedIn) {
+            this.$router.replace({ name: 'login' });
+        }
+    },
+
     methods: {
         waitForValidation,
 

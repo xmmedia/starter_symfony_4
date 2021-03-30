@@ -98,6 +98,12 @@ export default {
         };
     },
 
+    mounted () {
+        if (this.$store.getters.loggedIn) {
+            this.$router.replace({ name: 'login' });
+        }
+    },
+
     methods: {
         async submit () {
             if (!this.state.matches('ready')) {
