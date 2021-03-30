@@ -22,28 +22,30 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $email = $faker->emailVo;
         $password = $faker->password;
         $role = Role::ROLE_USER();
+        $active = $faker->boolean;
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
+        $sendInvite = $faker->boolean;
 
         $event = UserWasAddedByAdmin::now(
             $userId,
             $email,
             $password,
             $role,
-            true,
+            $active,
             $firstName,
             $lastName,
-            false
+            $sendInvite,
         );
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
         $this->assertEquals($password, $event->encodedPassword());
         $this->assertEquals($role, $event->role());
-        $this->assertTrue($event->active());
+        $this->assertEquals($active, $event->active());
         $this->assertEquals($firstName, $event->firstName());
         $this->assertEquals($lastName, $event->lastName());
-        $this->assertFalse($event->sendInvite());
+        $this->assertEquals($sendInvite, $event->sendInvite());
     }
 
     public function testFromArray(): void
@@ -54,8 +56,10 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $email = $faker->emailVo;
         $password = $faker->password;
         $role = Role::ROLE_USER();
+        $active = $faker->boolean;
         $firstName = Name::fromString($faker->firstName);
         $lastName = Name::fromString($faker->lastName);
+        $sendInvite = $faker->boolean;
 
         /** @var UserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(
@@ -65,10 +69,10 @@ class UserWasAddedByAdminTest extends BaseTestCase
                 'email'           => $email->toString(),
                 'encodedPassword' => $password,
                 'role'            => $role->getValue(),
-                'active'          => true,
+                'active'          => $active,
                 'firstName'       => $firstName->toString(),
                 'lastName'        => $lastName->toString(),
-                'sendInvite'      => false,
+                'sendInvite'      => $sendInvite,
             ]
         );
 
@@ -78,9 +82,9 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $this->assertEquals($email, $event->email());
         $this->assertEquals($password, $event->encodedPassword());
         $this->assertEquals($role, $event->role());
-        $this->assertTrue($event->active());
+        $this->assertEquals($active, $event->active());
         $this->assertEquals($firstName, $event->firstName());
         $this->assertEquals($lastName, $event->lastName());
-        $this->assertFalse($event->sendInvite());
+        $this->assertEquals($sendInvite, $event->sendInvite());
     }
 }
