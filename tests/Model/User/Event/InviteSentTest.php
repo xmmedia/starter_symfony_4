@@ -20,7 +20,7 @@ class InviteSentTest extends BaseTestCase
 
         $userId = $faker->userId;
         $token = Token::fromString($faker->asciify('token'));
-        $messageId = EmailGatewayMessageId::fromString($faker->uuid);
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
         $event = InviteSent::now($userId, $token, $messageId);
 
@@ -35,7 +35,7 @@ class InviteSentTest extends BaseTestCase
 
         $userId = $faker->userId;
         $token = Token::fromString($faker->asciify('token'));
-        $messageId = EmailGatewayMessageId::fromString($faker->uuid);
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
         /** @var InviteSent $event */
         $event = $this->createEventFromArray(

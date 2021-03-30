@@ -61,7 +61,7 @@ class UserTokenReadModelTest extends BaseTestCase
     public function testRemoveAllForUser(): void
     {
         $faker = $this->faker();
-        $userId = $faker->uuid;
+        $userId = $faker->uuid();
 
         $connection = Mockery::mock(Connection::class);
         $connection->shouldReceive('delete')

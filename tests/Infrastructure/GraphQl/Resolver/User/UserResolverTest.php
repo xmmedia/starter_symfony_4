@@ -17,7 +17,7 @@ class UserResolverTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->uuid;
+        $userId = $faker->uuid();
         $user = Mockery::mock(User::class);
 
         $userFinder = Mockery::mock(UserFinder::class);
@@ -35,7 +35,7 @@ class UserResolverTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = $faker->uuid;
+        $userId = $faker->uuid();
 
         $userFinder = Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')

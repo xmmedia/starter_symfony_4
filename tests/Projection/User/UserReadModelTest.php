@@ -61,7 +61,7 @@ class UserReadModelTest extends BaseTestCase
     public function testUpdate(): void
     {
         $faker = $this->faker();
-        $userId = $faker->uuid;
+        $userId = $faker->uuid();
         $data = $types = ['key' => $faker->string(5)];
 
         $connection = Mockery::mock(Connection::class);
@@ -93,7 +93,7 @@ class UserReadModelTest extends BaseTestCase
     public function testLoggedIn(): void
     {
         $faker = $this->faker();
-        $userId = $faker->uuid;
+        $userId = $faker->uuid();
         $dateTime = \DateTimeImmutable::createFromMutable($faker->dateTime);
 
         $statement = Mockery::mock(Statement::class);

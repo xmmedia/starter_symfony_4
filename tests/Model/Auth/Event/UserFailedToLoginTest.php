@@ -65,7 +65,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $email = $faker->email;
         $userAgent = $faker->userAgent;
         $ipAddress = $faker->ipv4;
-        $message = $faker->asciify(str_repeat('*', 100));
+        $message = $faker->string(100);
 
         /** @var UserFailedToLogin $event */
         $event = $this->createEventFromArray(
