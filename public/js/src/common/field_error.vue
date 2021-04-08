@@ -1,6 +1,6 @@
 <template>
     <ul v-if="hasErrors"
-        className="field-errors"
+        class="field-errors"
         role="alert"
         aria-live="polite">
         <li>
