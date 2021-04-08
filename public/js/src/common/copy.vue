@@ -2,15 +2,12 @@
     <button ref="button"
             :title="title"
             type="button">
-        <svg class="w-4 h-4 fill-current">
-            <use :xlink:href="iconsPath+'#copy'"></use>
-        </svg>
+        <admin-icon icon="copy" class="w-4 h-4 fill-current" />
     </button>
 </template>
 
 <script>
 import ClipboardJs from 'clipboard';
-import iconsPath from '@/../../images/icons-admin.svg';
 
 export default {
     props: {
@@ -27,7 +24,6 @@ export default {
     data () {
         return {
             clipboard: null,
-            iconsPath,
         };
     },
 
