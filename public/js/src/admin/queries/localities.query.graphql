@@ -13,5 +13,5 @@ query ProvincesQuery {
           }
           name
           abbreviation
-    },
+    }
 }
