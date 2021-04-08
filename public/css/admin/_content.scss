@@ -1,5 +1,5 @@
 .content-wrap {
-    //bg-white hides side menu bg color on mobile. Otherwise content is transparent
+    // bg-white hides side menu bg color on mobile. Otherwise content is transparent
     @apply relative z-10 transition-all duration-150 ease-in-out bg-white;
     @screen lg {
         @apply z-auto ml-64;
