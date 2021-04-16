@@ -39,7 +39,7 @@ class UpgradePasswordHandlerTest extends BaseTestCase
         (new UpgradePasswordHandler($repo))($command);
     }
 
-    public function testNonUnique(): void
+    public function testNotFound(): void
     {
         $faker = $this->faker();
 
