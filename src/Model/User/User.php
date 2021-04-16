@@ -245,7 +245,7 @@ class User extends AggregateRoot implements Entity
     public function upgradePassword(string $encodedPassword): void
     {
         if (!$this->active) {
-            throw Exception\InvalidUserActiveStatus::triedToChangePassword($this->userId);
+            throw Exception\InvalidUserActiveStatus::triedToUpgradePassword($this->userId);
         }
 
         $this->recordThat(
