@@ -81,8 +81,6 @@ import menuSubnav from './menu/subnav';
 import menuSmall from './menu/small';
 import menuLink from './menu/link';
 
-import iconsPath from '../../../images/icons-admin.svg';
-
 export default {
     metaInfo: {
         title: 'Dashboard',
@@ -99,8 +97,6 @@ export default {
 
     data () {
         return {
-            iconsPath,
-
             adminMenuItems: {
                 'Users': 'admin-user',
             },
