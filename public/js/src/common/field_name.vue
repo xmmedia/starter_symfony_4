@@ -41,9 +41,6 @@ export default {
     },
 
     computed: {
-        minCharacter () {
-            return 1 === this.v.$params.minLength.min ? 'character' : 'characters';
-        },
         hasHelp () {
             return !!this.$slots.help;
         },
