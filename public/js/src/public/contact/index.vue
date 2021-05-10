@@ -66,11 +66,11 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import {
-    email,
     minLength,
     maxLength,
     required,
 } from 'vuelidate/lib/validators';
+import email from '@/common/email_validator';
 import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import fieldEmail from '@/common/field_email';

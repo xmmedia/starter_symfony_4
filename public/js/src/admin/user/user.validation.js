@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { email, required, requiredIf } from 'vuelidate/lib/validators';
+import { required, requiredIf } from 'vuelidate/lib/validators';
+import email from '@/common/email_validator';
 import userValidation from '../validation/user';
 import { GetDuplicateUsers } from '../queries/user.query.graphql';
 

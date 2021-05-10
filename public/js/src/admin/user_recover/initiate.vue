@@ -36,7 +36,8 @@
 
 <script>
 import { Machine, interpret } from 'xstate';
-import { email, required } from 'vuelidate/lib/validators';
+import { required } from 'vuelidate/lib/validators';
+import email from '@/common/email_validator';
 import { hasGraphQlError, logError } from '@/common/lib';
 import fieldEmail from '@/common/field_email';
 import stateMixin from '@/common/state_mixin';

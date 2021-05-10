@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { email, helpers, required, sameAs } from 'vuelidate/lib/validators';
+import { helpers, required, sameAs } from 'vuelidate/lib/validators';
+import email from '@/common/email_validator';
 import userValidation from '@/admin/validation/user';
 import { UserEmailUnique, UserPasswordValid } from '../queries/user.query.graphql';
 
