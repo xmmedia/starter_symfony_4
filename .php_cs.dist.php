@@ -8,7 +8,7 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('node_modules')
 ;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
@@ -23,7 +23,9 @@ return PhpCsFixer\Config::create()
             'syntax' => 'short',
         ],
         'binary_operator_spaces' => [
-            'align_double_arrow' => true,
+            'operators' => [
+                '=>' => 'align',
+            ],
         ],
         'declare_strict_types' => true,
         'fopen_flags' => false,

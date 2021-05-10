@@ -118,9 +118,10 @@
             "@putenv XDEBUG_MODE=coverage",
             "bin/simple-phpunit --coverage-html coverage"
         ],
-        "cs": "php-cs-fixer fix -v --dry-run --config=./.php_cs.dist",
-        "cs:fix": "php-cs-fixer fix -v --config=./.php_cs.dist",
+        "cs": "php-cs-fixer fix -v --dry-run --config=./.php_cs.dist.php",
+        "cs:fix": "php-cs-fixer fix -v --config=./.php_cs.dist.php",
         "php-cs-fixer": "@cs",
+        "phpcs": "@cs",
         "static": "php bin/phpstan analyse --memory-limit 2G"
     },
     "conflict": {
