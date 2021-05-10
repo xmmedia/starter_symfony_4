@@ -35,7 +35,7 @@ module.exports = function (Encore) {
         .addEntry('admin', './public/js/src/admin.js')
         .addEntry('public', './public/js/src/public.js')
 
-        // uncomment to get integrity="..." attributes on your script & link tags
+        // adds integrity="..." attributes on your script & link tags
         // requires WebpackEncoreBundle 1.4 or higher
         .enableIntegrityHashes(Encore.isProduction())
 
