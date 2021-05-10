@@ -15,7 +15,7 @@ class UserReadModelTest extends BaseTestCase
     public function testInit(): void
     {
         $statement = Mockery::mock(Statement::class);
-        $statement->shouldReceive('execute')
+        $statement->shouldReceive('executeQuery')
             ->twice();
 
         $connection = Mockery::mock(Connection::class);
@@ -103,7 +103,7 @@ class UserReadModelTest extends BaseTestCase
         $statement->shouldReceive('bindValue')
             ->once()
             ->with('user_id', $userId);
-        $statement->shouldReceive('execute')
+        $statement->shouldReceive('executeQuery')
             ->once();
 
         $connection = Mockery::mock(Connection::class);

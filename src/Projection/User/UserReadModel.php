@@ -31,7 +31,7 @@ CREATE TABLE `$tableName` (
 EOT;
 
         $statement = $this->connection->prepare($sql);
-        $statement->execute();
+        $statement->executeQuery();
 
         $sql = <<<EOT
 ALTER TABLE `$tableName`
@@ -40,7 +40,7 @@ ALTER TABLE `$tableName`
 EOT;
 
         $statement = $this->connection->prepare($sql);
-        $statement->execute();
+        $statement->executeQuery();
     }
 
     protected function insert(array $data, array $types = []): void
@@ -71,6 +71,6 @@ EOT;
         $stmt->bindValue('last_login', $lastLogin, 'datetime');
         $stmt->bindValue('user_id', $userId);
 
-        $stmt->execute();
+        $stmt->executeQuery();
     }
 }

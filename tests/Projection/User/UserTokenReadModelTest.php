@@ -15,7 +15,7 @@ class UserTokenReadModelTest extends BaseTestCase
     public function testInit(): void
     {
         $statement = Mockery::mock(Statement::class);
-        $statement->shouldReceive('execute')
+        $statement->shouldReceive('executeQuery')
             ->twice();
 
         $connection = Mockery::mock(Connection::class);

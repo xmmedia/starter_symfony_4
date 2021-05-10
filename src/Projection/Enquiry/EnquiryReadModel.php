@@ -26,7 +26,7 @@ CREATE TABLE `$tableName` (
 EOT;
 
         $statement = $this->connection->prepare($sql);
-        $statement->execute();
+        $statement->executeQuery();
 
         $sql = <<<EOT
 ALTER TABLE `$tableName`
@@ -35,7 +35,7 @@ ALTER TABLE `$tableName`
 EOT;
 
         $statement = $this->connection->prepare($sql);
-        $statement->execute();
+        $statement->executeQuery();
     }
 
     protected function insert(array $data, array $types = []): void
