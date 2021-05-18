@@ -6,7 +6,7 @@
                 :disabled="isSaving || isSaved || disableButton">
             <slot>Save</slot>
         </button>
-        <slot name="cancel">
+        <slot v-if="!isSaving && !isSaved" name="cancel">
             <router-link v-if="cancelTo"
                          :to="cancelTo"
                          class="form-action">Cancel</router-link>
