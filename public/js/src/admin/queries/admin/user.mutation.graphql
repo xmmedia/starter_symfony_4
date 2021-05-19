@@ -27,3 +27,9 @@ mutation AdminUserSendResetMutation($userId: UUID!) {
         userId
     }
 }
+
+mutation AdminUserSendActivationMutation($userId: UUID!) {
+    AdminUserSendActivation(userId: $userId) {
+        userId
+    }
+}

@@ -82,6 +82,14 @@ UserMutation:
                 args:
                     userId: UUID!
 
+            AdminUserSendActivation:
+                type:        AdminUserMutationPayload!
+                description: 'Send User a their activation link.'
+                access:      '@=hasRole("ROLE_ADMIN")'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendActivationToUserMutation", [args["userId"]])'
+                args:
+                    userId: UUID!
+
 UserUpdateProfileInput:
     type: input-object
     config:

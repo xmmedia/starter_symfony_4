@@ -49,6 +49,9 @@
                                      @deactivated="active = false"
                                      @verified="verified = true" />
                 </li>
+                <li v-if="!verified">
+                    <send-activation :user-id="userId" :allow="allowSave" />
+                </li>
                 <li v-if="active">
                     <send-reset :user-id="userId" :allow="allowSave" />
                 </li>
@@ -70,6 +73,7 @@ import fieldPassword from './component/password';
 import fieldName from '@/common/field_name';
 import fieldRole from './component/role';
 import activateVerify from './component/activate_verify';
+import sendActivation from './component/send_activation';
 import sendReset from './component/send_reset';
 
 import { GetUserQuery } from '../queries/user.query.graphql';
@@ -118,6 +122,7 @@ export default {
         fieldName,
         fieldRole,
         activateVerify,
+        sendActivation,
         sendReset,
     },
 

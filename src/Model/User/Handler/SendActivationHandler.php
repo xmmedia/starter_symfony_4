@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\User\Handler;
 
 use App\Model\User\Command\SendActivation;
+use App\Model\User\Exception\UserAlreadyVerified;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 use App\Security\TokenGeneratorInterface;
@@ -50,6 +51,10 @@ class SendActivationHandler
         $user = $this->userRepo->get($command->userId());
         if (!$user) {
             throw UserNotFound::withUserId($command->userId());
+        }
+
+        if ($user->verified()) {
+            throw UserAlreadyVerified::triedToSendVerification($command->userId());
         }
 
         $name = StringUtil::trim(sprintf(

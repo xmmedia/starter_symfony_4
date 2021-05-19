@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Handler;
 
 use App\Model\User\Command\SendActivation;
+use App\Model\User\Exception\UserAlreadyVerified;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Handler\SendActivationHandler;
 use App\Model\User\Name;
@@ -26,6 +27,9 @@ class SendActivationHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $user = Mockery::mock(User::class);
+        $user->shouldReceive('verified')
+            ->once()
+            ->andReturnFalse();
         $user->shouldReceive('inviteSent')
             ->once();
 
@@ -62,6 +66,44 @@ class SendActivationHandlerTest extends BaseTestCase
             $router,
             $tokenGenerator
         );
+
+        $handler($command);
+    }
+
+    public function testAlreadyVerified(): void
+    {
+        $faker = $this->faker();
+
+        $user = Mockery::mock(User::class);
+        $user->shouldReceive('verified')
+            ->once()
+            ->andReturnTrue();
+
+        $command = SendActivation::now(
+            $faker->userId(),
+            $faker->emailVo(),
+            Name::fromString($faker->name()),
+            Name::fromString($faker->name())
+        );
+
+        $repo = Mockery::mock(UserList::class);
+        $repo->shouldReceive('get')
+            ->with(Mockery::type(UserId::class))
+            ->andReturn($user);
+
+        $emailGateway = Mockery::mock(EmailGatewayInterface::class);
+        $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
+        $router = Mockery::mock(RouterInterface::class);
+
+        $handler = new SendActivationHandler(
+            $repo,
+            $emailGateway,
+            $faker->string(10),
+            $router,
+            $tokenGenerator
+        );
+
+        $this->expectException(UserAlreadyVerified::class);
 
         $handler($command);
     }
