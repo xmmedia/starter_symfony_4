@@ -17,7 +17,7 @@
         "odolbeau/phone-number-bundle": "^3.0",
         "overblog/graphql-bundle": "^0.13",
         "prooph/event-store-bus-bridge": "^3.3",
-        "prooph/event-store-symfony-bundle": "^0.8",
+        "prooph/event-store-symfony-bundle": "^0.9",
         "prooph/pdo-event-store": "^1.10",
         "ramsey/uuid": "^4.0",
         "ramsey/uuid-doctrine": "^1.5",
