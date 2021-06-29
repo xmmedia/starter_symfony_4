@@ -6,3 +6,5 @@ doctrine:
         default_table_options:
             charset: UTF8
             collation: UTF8
+        # "TEST_TOKEN" is typically set by ParaTest
+        dbname_suffix: '_test%env(default::TEST_TOKEN)%'
