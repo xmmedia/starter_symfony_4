@@ -1,4 +1,6 @@
 security:
+    enable_authenticator_manager: true
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         app_provider:
@@ -28,11 +30,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
             lazy: true
-            guard:
-                authenticators:
-                    - App\Security\AppAuthenticator
+            form_login:
+                check_path: app_login
+                # @todo-symfony
+                default_target_path: admin_default
+                # CSRF validation is done in CsrfValidationSubscriber
             user_checker: App\Security\UserChecker
             logout:
                 path: app_logout

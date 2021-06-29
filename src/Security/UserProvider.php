@@ -13,18 +13,18 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserProvider extends EntityUserProvider implements UserProviderInterface, PasswordUpgraderInterface
+class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
+    private EntityUserProvider $entityUserProvider;
+    private MessageBusInterface $commandBus;
 
     public function __construct(
         ManagerRegistry $registry,
         MessageBusInterface $commandBus
     ) {
-        parent::__construct($registry, User::class, 'email');
-
         $this->commandBus = $commandBus;
+
+        $this->entityUserProvider = new EntityUserProvider($registry, User::class, 'email');
     }
 
     /**
@@ -43,5 +43,25 @@ class UserProvider extends EntityUserProvider implements UserProviderInterface, 
         );
 
         $user->upgradePassword($newEncodedPassword);
+    }
+
+    public function loadUserByIdentifier(string $identifier): UserInterface
+    {
+        return $this->entityUserProvider->loadUserByIdentifier($identifier);
+    }
+
+    public function loadUserByUsername(string $username)
+    {
+        return $this->entityUserProvider->loadUserByUsername($username);
+    }
+
+    public function refreshUser(UserInterface $user)
+    {
+        return $this->entityUserProvider->refreshUser($user);
+    }
+
+    public function supportsClass(string $class)
+    {
+        return $this->entityUserProvider->supportsClass($class);
     }
 }

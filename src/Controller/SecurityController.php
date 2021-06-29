@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Security\AppAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,7 +19,8 @@ class SecurityController extends AbstractController
     public function login(): Response
     {
         if ($this->getUser()) {
-            return new RedirectResponse(AppAuthenticator::DEFAULT_REDIRECT);
+            // @todo-symfony
+            return $this->redirectToRoute('admin_default');
         }
 
         return $this->render('admin.html.twig');

@@ -19,6 +19,7 @@ admin_default:
     path: /admin{path}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
+        path: ''
         template: admin.html.twig
     methods: [GET]
     requirements:
