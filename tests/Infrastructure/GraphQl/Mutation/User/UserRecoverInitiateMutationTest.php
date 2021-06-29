@@ -180,7 +180,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
     {
         $faker = $this->faker();
         $data = [
-            'email' => $faker->string(5),
+            'email' => $faker->string(3),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
