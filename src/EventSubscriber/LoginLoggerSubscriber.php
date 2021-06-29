@@ -9,34 +9,24 @@ use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Command\UserLoginFailed;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\AuthenticationEvents;
-use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Security\Http\SecurityEvents;
+use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 
 class LoginLoggerSubscriber implements EventSubscriberInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
+    private MessageBusInterface $commandBus;
 
-    /** @var RequestStack */
-    private $requestStack;
-
-    public function __construct(
-        MessageBusInterface $commandBus,
-        RequestStack $requestStack
-    ) {
+    public function __construct(MessageBusInterface $commandBus)
+    {
         $this->commandBus = $commandBus;
-        $this->requestStack = $requestStack;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            SecurityEvents::INTERACTIVE_LOGIN            => 'loginSuccess',
-            AuthenticationEvents::AUTHENTICATION_FAILURE => 'loginFailure',
+            InteractiveLoginEvent::class => 'loginSuccess',
+            LoginFailureEvent::class     => 'loginFailure',
         ];
     }
 
@@ -55,7 +45,7 @@ class LoginLoggerSubscriber implements EventSubscriberInterface
                 $user->userId(),
                 $user->email(),
                 $request->headers->get('User-Agent'),
-                $request->getClientIp()
+                $request->getClientIp(),
             )
         );
     }
@@ -63,19 +53,18 @@ class LoginLoggerSubscriber implements EventSubscriberInterface
     /**
      * Logs a failed login.
      */
-    public function loginFailure(AuthenticationFailureEvent $event): void
+    public function loginFailure(LoginFailureEvent $event): void
     {
         $authId = AuthId::fromUuid(Uuid::uuid4());
-        $token = $event->getAuthenticationToken();
-        $request = $this->requestStack->getCurrentRequest();
+        $request = $event->getRequest();
 
         $this->commandBus->dispatch(
             UserLoginFailed::now(
                 $authId,
-                $token->getCredentials()->email(),
+                $request->get('email'),
                 $request->headers->get('User-Agent'),
                 $request->getClientIp(),
-                $event->getAuthenticationException()->getMessage()
+                $event->getException()->getMessage(),
             )
         );
     }

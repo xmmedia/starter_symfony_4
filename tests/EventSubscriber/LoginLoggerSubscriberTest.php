@@ -8,19 +8,16 @@ use App\Entity\User;
 use App\EventSubscriber\LoginLoggerSubscriber;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Command\UserLoginFailed;
-use App\Model\User\Credentials;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\AuthenticationEvents;
-use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Security\Http\SecurityEvents;
+use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 use Xm\SymfonyBundle\Model\Email;
 
 class LoginLoggerSubscriberTest extends BaseTestCase
@@ -29,21 +26,15 @@ class LoginLoggerSubscriberTest extends BaseTestCase
     {
         $subscribed = LoginLoggerSubscriber::getSubscribedEvents();
 
-        $this->assertArrayHasKey(
-            SecurityEvents::INTERACTIVE_LOGIN,
-            $subscribed
-        );
-        $this->assertArrayHasKey(
-            AuthenticationEvents::AUTHENTICATION_FAILURE,
-            $subscribed
-        );
+        $this->assertArrayHasKey(InteractiveLoginEvent::class, $subscribed);
+        $this->assertArrayHasKey(LoginFailureEvent::class, $subscribed);
     }
 
     public function testSuccessfulLogin(): void
     {
         $faker = $this->faker();
 
-        $method = LoginLoggerSubscriber::getSubscribedEvents()[SecurityEvents::INTERACTIVE_LOGIN];
+        $method = LoginLoggerSubscriber::getSubscribedEvents()[InteractiveLoginEvent::class];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -60,7 +51,6 @@ class LoginLoggerSubscriberTest extends BaseTestCase
                 'REMOTE_ADDR' => $faker->ipv4(),
             ]
         );
-        $requestStack = Mockery::mock(RequestStack::class);
 
         $user = Mockery::mock(User::class);
         $user->shouldReceive('userId')
@@ -74,7 +64,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $event = new InteractiveLoginEvent($request, $token);
 
-        $listener = new LoginLoggerSubscriber($commandBus, $requestStack);
+        $listener = new LoginLoggerSubscriber($commandBus);
 
         $listener->{$method}($event);
     }
@@ -83,7 +73,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $method = LoginLoggerSubscriber::getSubscribedEvents()[AuthenticationEvents::AUTHENTICATION_FAILURE];
+        $method = LoginLoggerSubscriber::getSubscribedEvents()[LoginFailureEvent::class];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -101,26 +91,18 @@ class LoginLoggerSubscriberTest extends BaseTestCase
                 'HTTP_USER_AGENT' => $faker->userAgent(),
             ]
         );
-        $requestStack = Mockery::mock(RequestStack::class);
-        $requestStack->shouldReceive('getCurrentRequest')
-            ->andReturn($request);
 
-        $user = Mockery::mock(User::class);
-        $user->shouldReceive('userId')
-            ->andReturn($faker->userId());
-        $user->shouldReceive('email')
-            ->andReturn(Email::fromString('test@example.com'));
+        $authenticator = Mockery::mock(AuthenticatorInterface::class);
 
-        $token = Mockery::mock(TokenInterface::class);
-        $token->shouldReceive('getCredentials')
-            ->andReturn(Credentials::build($faker->email(), $faker->password()));
-
-        $event = new AuthenticationFailureEvent(
-            $token,
-            new AuthenticationException()
+        $event = new LoginFailureEvent(
+            new AuthenticationException(),
+            $authenticator,
+            $request,
+            null,
+            'main'
         );
 
-        $listener = new LoginLoggerSubscriber($commandBus, $requestStack);
+        $listener = new LoginLoggerSubscriber($commandBus);
 
         $listener->{$method}($event);
     }
