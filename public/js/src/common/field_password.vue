@@ -24,6 +24,7 @@
                 <svg class="w-6 h-6 fill-current" width="24" height="24">
                     <use :xlink:href="iconsPath+icon"></use>
                 </svg>
+                <span class="sr-only">Show password</span>
             </button>
         </div>
 
