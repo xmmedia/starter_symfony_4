@@ -1,5 +1,5 @@
 .header-nav_item {
-    // using x instead of left or right so when the menu wraps it's still centered
+    // using margin instead of left or right so when the menu wraps it's still centered
     // don't use padding as google may complain about being too close
     @apply mx-4;
     &:last-of-type {
