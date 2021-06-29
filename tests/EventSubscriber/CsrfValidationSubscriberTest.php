@@ -59,7 +59,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->andReturn($request);
         $event->shouldReceive('getRequestType')
             ->once()
-            ->andReturn(HttpKernelInterface::MASTER_REQUEST);
+            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
         $tokenManager->shouldReceive('isTokenValid')
@@ -99,7 +99,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->andReturn($request);
         $event->shouldReceive('getRequestType')
             ->once()
-            ->andReturn(HttpKernelInterface::MASTER_REQUEST);
+            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
         $tokenManager->shouldReceive('isTokenValid')
@@ -130,7 +130,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->andReturn($request);
         $event->shouldReceive('getRequestType')
             ->once()
-            ->andReturn(HttpKernelInterface::MASTER_REQUEST);
+            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
 
@@ -158,7 +158,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->andReturn($request);
         $event->shouldReceive('getRequestType')
             ->once()
-            ->andReturn(HttpKernelInterface::MASTER_REQUEST);
+            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
 
@@ -182,7 +182,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->andReturn($request);
         $event->shouldReceive('getRequestType')
             ->once()
-            ->andReturn(HttpKernelInterface::MASTER_REQUEST);
+            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
 
@@ -226,7 +226,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         $event = new ResponseEvent(
             $kernel,
             $request,
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $response
         );
 

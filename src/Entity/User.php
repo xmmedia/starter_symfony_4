@@ -9,7 +9,7 @@ use App\Model\User\Role;
 use App\Model\User\UserId;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Xm\SymfonyBundle\Model\Email;
@@ -18,7 +18,7 @@ use Xm\SymfonyBundle\Util\StringUtil;
 /**
  * @ORM\Entity(repositoryClass="App\Projection\User\UserFinder")
  */
-class User implements UserInterface, EncoderAwareInterface, EquatableInterface
+class User implements UserInterface, PasswordHasherAwareInterface, EquatableInterface
 {
     /**
      * @var \Ramsey\Uuid\Uuid
@@ -102,9 +102,14 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
         return Email::fromString($this->email);
     }
 
-    public function getUsername(): string
+    public function getUserIdentifier(): string
     {
         return $this->email()->toString();
+    }
+
+    public function getUsername(): string
+    {
+        return $this->getUserIdentifier();
     }
 
     public function password(): string
@@ -204,7 +209,7 @@ class User implements UserInterface, EncoderAwareInterface, EquatableInterface
         );
     }
 
-    public function getEncoderName(): ?string
+    public function getPasswordHasherName(): ?string
     {
         $adminRoles = [
             Role::ROLE_ADMIN()->getValue(),

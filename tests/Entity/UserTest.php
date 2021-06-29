@@ -240,7 +240,7 @@ class UserTest extends BaseTestCase
         $property->setAccessible(true);
         $property->setValue($user, [$role]);
 
-        $this->assertEquals($expected, $user->getEncoderName());
+        $this->assertEquals($expected, $user->getPasswordHasherName());
     }
 
     public function roleProvider(): \Generator

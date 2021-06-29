@@ -18,7 +18,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Xm\SymfonyBundle\Model\Email;
 
 final class AddUserCommand extends Command
@@ -103,7 +103,7 @@ final class AddUserCommand extends Command
             );
             Assert::maxLength(
                 $password,
-                BasePasswordEncoder::MAX_PASSWORD_LENGTH,
+                PasswordHasherInterface::MAX_PASSWORD_LENGTH,
                 'The password must be less than %2$d characters long.'
             );
 

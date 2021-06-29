@@ -24,7 +24,7 @@ use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
 class UserRecoverResetMutationTest extends BaseTestCase
@@ -327,7 +327,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
         $faker = $this->faker();
         $data = [
             'token'       => $faker->password(),
-            'newPassword' => $faker->string(BasePasswordEncoder::MAX_PASSWORD_LENGTH + 1),
+            'newPassword' => $faker->string(PasswordHasherInterface::MAX_PASSWORD_LENGTH + 1),
         ];
 
         $commandBus = Mockery::mock(MessageBusInterface::class);

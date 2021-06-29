@@ -12,6 +12,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -74,11 +75,11 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
         // Load / create our user however you need.
         // You can do this by calling the user provider, or with custom logic here.
-        $user = $userProvider->loadUserByUsername($credentials->email());
-
-        if (!$user) {
+        try {
+            $user = $userProvider->loadUserByIdentifier($credentials->email());
+        } catch (UserNotFoundException $e) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Account could not be found.');
+            throw new CustomUserMessageAuthenticationException('Account could not be found.', [], 0, $e);
         }
 
         return $user;

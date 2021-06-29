@@ -17,6 +17,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\Security;
 
 class AppAuthenticatorTest extends BaseTestCase
@@ -141,7 +142,7 @@ class AppAuthenticatorTest extends BaseTestCase
         $user = Mockery::mock(User::class);
 
         $userProvider = Mockery::mock(EntityUserProvider::class);
-        $userProvider->shouldReceive('loadUserByUsername')
+        $userProvider->shouldReceive('loadUserByIdentifier')
             ->with($credentials->email())
             ->once()
             ->andReturn($user);
@@ -158,10 +159,10 @@ class AppAuthenticatorTest extends BaseTestCase
         $credentials = Credentials::build($email, null);
 
         $userProvider = Mockery::mock(EntityUserProvider::class);
-        $userProvider->shouldReceive('loadUserByUsername')
+        $userProvider->shouldReceive('loadUserByIdentifier')
             ->with($credentials->email())
             ->once()
-            ->andReturnNull();
+            ->andThrow(new UserNotFoundException());
 
         $this->expectException(CustomUserMessageAuthenticationException::class);
 
