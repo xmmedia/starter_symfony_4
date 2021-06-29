@@ -9,7 +9,7 @@ security:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
-    encoders:
+    password_hashers:
         App\Entity\User:
             algorithm: 'auto'
             # values below are meant to take ~2 seconds on 4 core machine
