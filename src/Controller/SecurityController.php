@@ -20,7 +20,7 @@ class SecurityController extends AbstractController
      */
     public function login(): Response
     {
-        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if ($this->getUser()) {
             return new RedirectResponse(AppAuthenticator::DEFAULT_REDIRECT);
         }
 
@@ -32,6 +32,6 @@ class SecurityController extends AbstractController
      */
     public function logout(): void
     {
-        throw new \Exception('Shouldn\'t have gotten to the login action.');
+        throw new \LogicException('Shouldn\'t have gotten to the login action.');
     }
 }
