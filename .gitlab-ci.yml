@@ -36,7 +36,7 @@ before_script:
   # check for security issues in PHP libs
   - /root/.symfony/bin/symfony security:check
   # check for JS security issues in libs
-  - yarn audit:moderate
+  - yarn audit:high
 
 static:
   stage: static

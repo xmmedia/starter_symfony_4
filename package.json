@@ -21,6 +21,7 @@
     "build": "encore production",
     "stats": "encore production --profile --json > webpack-stats.json",
     "audit:moderate": "audit-ci --moderate --config audit-ci.json --report-type summary",
+    "audit:high": "audit-ci --high --config audit-ci.json --report-type summary",
     "browserlist": "browserslist"
   },
   "dependencies": {
