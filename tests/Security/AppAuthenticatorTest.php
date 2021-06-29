@@ -13,9 +13,9 @@ use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\Security;
@@ -30,8 +30,8 @@ class AppAuthenticatorTest extends BaseTestCase
     private $authenticator;
     /** @var RouterInterface|\Mockery\MockInterface */
     private $router;
-    /** @var UserPasswordEncoderInterface|\Mockery\MockInterface */
-    private $passwordEncoder;
+    /** @var UserPasswordHasherInterface|\Mockery\MockInterface */
+    private $passwordHasher;
 
     protected function setUp(): void
     {
@@ -42,11 +42,11 @@ class AppAuthenticatorTest extends BaseTestCase
         $this->requestWithSession->setSession($session);
 
         $this->router = Mockery::mock(RouterInterface::class);
-        $this->passwordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $this->passwordHasher = Mockery::mock(UserPasswordHasherInterface::class);
 
         $this->authenticator = new AppAuthenticator(
             $this->router,
-            $this->passwordEncoder
+            $this->passwordHasher
         );
     }
 
@@ -171,7 +171,7 @@ class AppAuthenticatorTest extends BaseTestCase
 
     public function testCheckCredentials(): void
     {
-        $this->passwordEncoder->shouldReceive('isPasswordValid')
+        $this->passwordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
         $faker = $this->faker();
@@ -189,7 +189,7 @@ class AppAuthenticatorTest extends BaseTestCase
 
     public function testCheckCredentialsFalse(): void
     {
-        $this->passwordEncoder->shouldReceive('isPasswordValid')
+        $this->passwordHasher->shouldReceive('isPasswordValid')
             ->andReturnFalse();
 
         $faker = $this->faker();
@@ -207,7 +207,7 @@ class AppAuthenticatorTest extends BaseTestCase
 
     public function testCheckCredentialsEmptyPassword(): void
     {
-        $this->passwordEncoder->shouldReceive('isPasswordValid')
+        $this->passwordHasher->shouldReceive('isPasswordValid')
             ->andReturnFalse();
 
         $faker = $this->faker();
@@ -224,7 +224,7 @@ class AppAuthenticatorTest extends BaseTestCase
 
     public function testCheckCredentialsNullPassword(): void
     {
-        $this->passwordEncoder->shouldReceive('isPasswordValid')
+        $this->passwordHasher->shouldReceive('isPasswordValid')
             ->andReturnFalse();
 
         $faker = $this->faker();
@@ -241,7 +241,7 @@ class AppAuthenticatorTest extends BaseTestCase
 
     public function testCheckCredentialsShortPassword(): void
     {
-        $this->passwordEncoder->shouldReceive('isPasswordValid')
+        $this->passwordHasher->shouldReceive('isPasswordValid')
             ->andReturnFalse();
 
         $faker = $this->faker();

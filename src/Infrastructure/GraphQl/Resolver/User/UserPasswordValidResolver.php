@@ -6,21 +6,21 @@ namespace App\Infrastructure\GraphQl\Resolver\User;
 
 use App\Security\Security;
 use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserPasswordValidResolver implements ResolverInterface
 {
-    /** @var UserPasswordEncoderInterface */
-    private $userPasswordEncoder;
+    /** @var UserPasswordHasherInterface */
+    private $userPasswordHasher;
 
     /** @var Security */
     private $security;
 
     public function __construct(
-        UserPasswordEncoderInterface $userPasswordEncoder,
+        UserPasswordHasherInterface $userPasswordHasher,
         Security $security
     ) {
-        $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->userPasswordHasher = $userPasswordHasher;
         $this->security = $security;
     }
 
@@ -32,7 +32,7 @@ class UserPasswordValidResolver implements ResolverInterface
         }
 
         return [
-            'valid' => $this->userPasswordEncoder->isPasswordValid(
+            'valid' => $this->userPasswordHasher->isPasswordValid(
                 $currentUser,
                 $password
             ),

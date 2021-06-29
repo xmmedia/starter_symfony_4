@@ -9,7 +9,7 @@ use App\Infrastructure\GraphQl\Resolver\User\UserPasswordValidResolver;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
 use Mockery;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserPasswordValidResolverTest extends BaseTestCase
 {
@@ -20,8 +20,8 @@ class UserPasswordValidResolverTest extends BaseTestCase
 
         $currentUser = Mockery::mock(User::class);
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher->shouldReceive('isPasswordValid')
             ->once()
             ->with($currentUser, $password)
             ->andReturnTrue();
@@ -32,7 +32,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
             ->andReturn($currentUser);
 
         $result = (new UserPasswordValidResolver(
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $security
         ))(
             $password
@@ -48,8 +48,8 @@ class UserPasswordValidResolverTest extends BaseTestCase
 
         $currentUser = Mockery::mock(User::class);
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher->shouldReceive('isPasswordValid')
             ->once()
             ->with($currentUser, $password)
             ->andReturnFalse();
@@ -60,7 +60,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
             ->andReturn($currentUser);
 
         $result = (new UserPasswordValidResolver(
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $security
         ))(
             $password
@@ -73,7 +73,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
 
         $security = Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
@@ -83,7 +83,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
         $this->expectException(\RuntimeException::class);
 
         (new UserPasswordValidResolver(
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $security
         ))(
             $faker->password()

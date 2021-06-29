@@ -8,7 +8,7 @@ use App\Model\User\Command\AdminAddUserMinimum;
 use App\Model\User\Role;
 use App\Model\User\User;
 use App\Model\User\UserId;
-use App\Security\PasswordEncoder;
+use App\Security\PasswordHasher;
 use App\Util\Assert;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
@@ -26,12 +26,12 @@ final class AddUserCommand extends Command
     /** @var MessageBusInterface */
     private $commandBus;
 
-    /** @var PasswordEncoder */
+    /** @var PasswordHasher */
     private $passwordEncoder;
 
     public function __construct(
         MessageBusInterface $commandBus,
-        PasswordEncoder $passwordEncoder
+        PasswordHasher $passwordEncoder
     ) {
         parent::__construct();
 

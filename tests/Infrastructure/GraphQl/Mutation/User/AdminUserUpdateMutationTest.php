@@ -8,7 +8,7 @@ use App\Infrastructure\GraphQl\Mutation\User\AdminUserUpdateMutation;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Role;
-use App\Security\PasswordEncoder;
+use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
 use Mockery;
@@ -39,7 +39,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             ->with(Mockery::type(AdminUpdateUser::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
 
         $args = new Argument([
             'user' => $data,
@@ -82,7 +82,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             ->with(Mockery::type(AdminChangePassword::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
         $passwordEncoder->shouldReceive('__invoke')
             ->once()
             ->with(Mockery::type(Role::class), $data['password'])
@@ -129,7 +129,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
 
         (new AdminUserUpdateMutation(
             Mockery::mock(MessageBusInterface::class),
-            Mockery::mock(PasswordEncoder::class),
+            Mockery::mock(PasswordHasher::class),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))(

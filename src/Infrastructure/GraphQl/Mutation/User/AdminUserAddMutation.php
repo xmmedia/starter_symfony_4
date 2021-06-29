@@ -8,7 +8,7 @@ use App\Model\User\Command\AdminAddUser;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\UserId;
-use App\Security\PasswordEncoder;
+use App\Security\PasswordHasher;
 use App\Security\TokenGenerator;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -26,7 +26,7 @@ class AdminUserAddMutation implements MutationInterface
     /** @var TokenGenerator */
     private $tokenGenerator;
 
-    /** @var PasswordEncoder */
+    /** @var PasswordHasher */
     private $passwordEncoder;
 
     /** @var PasswordStrengthInterface|null */
@@ -38,7 +38,7 @@ class AdminUserAddMutation implements MutationInterface
     public function __construct(
         MessageBusInterface $commandBus,
         TokenGenerator $tokenGenerator,
-        PasswordEncoder $passwordEncoder,
+        PasswordHasher $passwordEncoder,
         PasswordStrengthInterface $passwordStrength = null,
         HttpClientInterface $pwnedHttpClient = null
     ) {

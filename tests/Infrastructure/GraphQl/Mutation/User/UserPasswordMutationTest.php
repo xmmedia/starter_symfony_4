@@ -9,7 +9,7 @@ use App\Infrastructure\GraphQl\Mutation\User\UserPasswordMutation;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Name;
 use App\Model\User\Role;
-use App\Security\PasswordEncoder;
+use App\Security\PasswordHasher;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
@@ -19,8 +19,8 @@ use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
 class UserPasswordMutationTest extends BaseTestCase
@@ -43,11 +43,11 @@ class UserPasswordMutationTest extends BaseTestCase
             ->with(Mockery::type(ChangePassword::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
         $passwordEncoder->shouldReceive('__invoke')
             ->once()
             ->andReturn('string');
@@ -78,7 +78,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $result = (new UserPasswordMutation(
             $commandBus,
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $passwordEncoder,
             $security,
             new PasswordStrengthFake(),
@@ -101,9 +101,9 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
 
         $user = Mockery::mock(User::class);
         $security = Mockery::mock(Security::class);
@@ -118,7 +118,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         (new UserPasswordMutation(
             $commandBus,
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $passwordEncoder,
             $security,
             new PasswordStrengthFake(),
@@ -136,11 +136,11 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnFalse();
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
 
         $user = Mockery::mock(User::class);
         $security = Mockery::mock(Security::class);
@@ -155,7 +155,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         (new UserPasswordMutation(
             $commandBus,
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $passwordEncoder,
             $security,
             new PasswordStrengthFake(),
@@ -176,11 +176,11 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
@@ -195,7 +195,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         (new UserPasswordMutation(
             $commandBus,
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $passwordEncoder,
             $security,
             new PasswordStrengthFake(),
@@ -213,11 +213,11 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
@@ -232,7 +232,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         (new UserPasswordMutation(
             $commandBus,
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $passwordEncoder,
             $security
         ))($args);
@@ -248,11 +248,11 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
@@ -267,7 +267,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         (new UserPasswordMutation(
             $commandBus,
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $passwordEncoder,
             $security,
             new PasswordStrengthFake(),
@@ -285,11 +285,11 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
@@ -304,7 +304,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         (new UserPasswordMutation(
             $commandBus,
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $passwordEncoder,
             $security,
             new PasswordStrengthFake(),
@@ -323,11 +323,11 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordEncoder = Mockery::mock(UserPasswordEncoderInterface::class);
-        $userPasswordEncoder->shouldReceive('isPasswordValid')
+        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordEncoder = Mockery::mock(PasswordEncoder::class);
+        $passwordEncoder = Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $security = Mockery::mock(Security::class);
@@ -346,7 +346,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         (new UserPasswordMutation(
             $commandBus,
-            $userPasswordEncoder,
+            $userPasswordHasher,
             $passwordEncoder,
             $security,
             new PasswordStrengthFake(),

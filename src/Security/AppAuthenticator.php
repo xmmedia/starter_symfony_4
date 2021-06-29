@@ -8,9 +8,9 @@ use App\Model\User\Credentials;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\Security;
@@ -30,15 +30,15 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     /** @var RouterInterface */
     private $router;
 
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
+    /** @var UserPasswordHasherInterface */
+    private $passwordHasher;
 
     public function __construct(
         RouterInterface $router,
-        UserPasswordEncoderInterface $passwordEncoder
+        UserPasswordHasherInterface $passwordHasher
     ) {
         $this->router = $router;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
     }
 
     public function supports(Request $request): bool
@@ -90,7 +90,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
      */
     public function checkCredentials($credentials, UserInterface $user): bool
     {
-        return $this->passwordEncoder->isPasswordValid(
+        return $this->passwordHasher->isPasswordValid(
             $user,
             (string) $credentials->password(),
         );

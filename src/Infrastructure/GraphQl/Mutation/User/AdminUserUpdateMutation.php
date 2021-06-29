@@ -9,7 +9,7 @@ use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\UserId;
-use App\Security\PasswordEncoder;
+use App\Security\PasswordHasher;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
@@ -23,7 +23,7 @@ class AdminUserUpdateMutation implements MutationInterface
     /** @var MessageBusInterface */
     private $commandBus;
 
-    /** @var PasswordEncoder */
+    /** @var PasswordHasher */
     private $passwordEncoder;
 
     /** @var PasswordStrengthInterface|null */
@@ -34,7 +34,7 @@ class AdminUserUpdateMutation implements MutationInterface
 
     public function __construct(
         MessageBusInterface $commandBus,
-        PasswordEncoder $passwordEncoder,
+        PasswordHasher $passwordEncoder,
         PasswordStrengthInterface $passwordStrength = null,
         HttpClientInterface $pwnedHttpClient = null
     ) {

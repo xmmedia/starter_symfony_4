@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Util\StringUtil;
@@ -18,7 +19,7 @@ use Xm\SymfonyBundle\Util\StringUtil;
 /**
  * @ORM\Entity(repositoryClass="App\Projection\User\UserFinder")
  */
-class User implements UserInterface, PasswordHasherAwareInterface, EquatableInterface
+class User implements UserInterface, PasswordHasherAwareInterface, EquatableInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @var \Ramsey\Uuid\Uuid

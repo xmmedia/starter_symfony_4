@@ -6,21 +6,20 @@ namespace App\Security;
 
 use App\Entity\User;
 use App\Model\User\Role;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class PasswordEncoder
+class PasswordHasher
 {
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
+    private UserPasswordHasherInterface $passwordHasher;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
     }
 
     public function __invoke(Role $role, string $password): string
     {
-        return $this->passwordEncoder->encodePassword(
+        return $this->passwordHasher->hashPassword(
             $this->getUserForRole($role),
             $password
         );

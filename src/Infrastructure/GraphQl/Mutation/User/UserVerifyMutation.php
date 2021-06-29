@@ -9,7 +9,7 @@ use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\InvalidToken;
 use App\Model\User\Exception\TokenHasExpired;
 use App\Model\User\Token;
-use App\Security\PasswordEncoder;
+use App\Security\PasswordHasher;
 use App\Security\Security;
 use App\Security\TokenValidator;
 use App\Util\Assert;
@@ -25,7 +25,7 @@ class UserVerifyMutation implements MutationInterface
     /** @var MessageBusInterface */
     private $commandBus;
 
-    /** @var PasswordEncoder */
+    /** @var PasswordHasher */
     private $passwordEncoder;
 
     /** @var TokenValidator */
@@ -42,7 +42,7 @@ class UserVerifyMutation implements MutationInterface
 
     public function __construct(
         MessageBusInterface $commandBus,
-        PasswordEncoder $passwordEncoder,
+        PasswordHasher $passwordEncoder,
         TokenValidator $tokenValidator,
         Security $security,
         PasswordStrengthInterface $passwordStrength = null,
