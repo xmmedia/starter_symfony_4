@@ -8,19 +8,20 @@
             <div v-if="errorMsg" class="alert alert-warning alert-type-warning">{{ errorMsg }}</div>
 
             <form method="post">
+                <!-- field names match what Symfony uses by default -->
                 <div class="field-wrap">
                     <label for="inputEmail">Email address</label>
                     <input id="inputEmail"
                            v-model="email"
                            type="email"
-                           name="email"
+                           name="_username"
                            required
                            autofocus
                            autocomplete="username email">
                 </div>
 
                 <field-password v-model="password"
-                                name="password"
+                                name="_password"
                                 autocomplete="current-password" />
 
                 <div class="field-wrap-checkbox">
