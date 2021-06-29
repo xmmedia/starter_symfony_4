@@ -6,6 +6,7 @@
          backupGlobals="false"
          colors="true"
          bootstrap="tests/bootstrap.php"
+         convertDeprecationsToExceptions="false"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -22,17 +23,16 @@
         </testsuite>
     </testsuites>
 
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-        <listener class="Mockery\Adapter\Phpunit\TestListener" />
-    </listeners>
-
-    <coverage>
+    <coverage processUncoveredFiles="true">
         <include>
-            <directory>src</directory>
+            <directory suffix=".php">src</directory>
         </include>
         <exclude>
             <file>src/Kernel.php</file>
         </exclude>
     </coverage>
+
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+    </listeners>
 </phpunit>

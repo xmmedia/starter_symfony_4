@@ -302,12 +302,12 @@
         "version": "2.0.0"
     },
     "phpunit/phpunit": {
-        "version": "4.7",
+        "version": "9.3",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.7",
-            "ref": "fc18a41d910bd168b6d83b09330d3dd892ddbcdd"
+            "version": "9.3",
+            "ref": "68450b8fef6804047d9424c55d758c28b4340791"
         },
         "files": [
             ".env.test",
