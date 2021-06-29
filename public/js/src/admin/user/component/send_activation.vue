@@ -18,7 +18,7 @@
 import { Machine, interpret } from 'xstate';
 import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
-import { AdminUserSendActivationMutation } from '@/queries/admin/user.mutation.graphql';
+import { AdminUserSendActivationMutation } from '@/admin/queries/admin/user.mutation.graphql';
 
 const stateMachine = Machine({
     id: 'component',
