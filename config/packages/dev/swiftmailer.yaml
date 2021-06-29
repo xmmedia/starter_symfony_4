@@ -1,6 +1,4 @@
 # See https://symfony.com/doc/current/email/dev_environment.html
 swiftmailer:
     delivery_address: admin@xmmedia.com
-    delivery_whitelist:
-        - '/@xmmedia\.com$/'
-#            - '/@mail-tester\.com$/'
+    delivery_whitelist: '%email.whitelist%'
