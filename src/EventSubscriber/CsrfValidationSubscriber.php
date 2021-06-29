@@ -47,7 +47,7 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (HttpKernelInterface::MAIN_REQUEST !== $event->getRequestType()) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

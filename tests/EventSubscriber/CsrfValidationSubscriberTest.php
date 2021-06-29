@@ -57,9 +57,9 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->atLeast()
             ->once()
             ->andReturn($request);
-        $event->shouldReceive('getRequestType')
+        $event->shouldReceive('isMainRequest')
             ->once()
-            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
+            ->andReturnTrue();
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
         $tokenManager->shouldReceive('isTokenValid')
@@ -97,9 +97,9 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->atLeast()
             ->once()
             ->andReturn($request);
-        $event->shouldReceive('getRequestType')
+        $event->shouldReceive('isMainRequest')
             ->once()
-            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
+            ->andReturnTrue();
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
         $tokenManager->shouldReceive('isTokenValid')
@@ -128,9 +128,9 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->atLeast()
             ->once()
             ->andReturn($request);
-        $event->shouldReceive('getRequestType')
+        $event->shouldReceive('isMainRequest')
             ->once()
-            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
+            ->andReturnTrue();
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
 
@@ -156,9 +156,9 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->atLeast()
             ->once()
             ->andReturn($request);
-        $event->shouldReceive('getRequestType')
+        $event->shouldReceive('isMainRequest')
             ->once()
-            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
+            ->andReturnTrue();
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
 
@@ -180,9 +180,9 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->atLeast()
             ->once()
             ->andReturn($request);
-        $event->shouldReceive('getRequestType')
+        $event->shouldReceive('isMainRequest')
             ->once()
-            ->andReturn(HttpKernelInterface::MAIN_REQUEST);
+            ->andReturnTrue();
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
 
@@ -203,9 +203,9 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->atLeast()
             ->once()
             ->andReturn($request);
-        $event->shouldReceive('getRequestType')
+        $event->shouldReceive('isMainRequest')
             ->once()
-            ->andReturn(HttpKernelInterface::SUB_REQUEST);
+            ->andReturnFalse();
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);
 
