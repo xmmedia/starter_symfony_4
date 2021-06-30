@@ -2,6 +2,9 @@
     "beberlei/assert": {
         "version": "v3.1.0"
     },
+    "bjeavons/zxcvbn-php": {
+        "version": "1.2.0"
+    },
     "brick/math": {
         "version": "0.8.15"
     },
@@ -165,9 +168,6 @@
     },
     "marc-mabe/php-enum": {
         "version": "v3.0.2"
-    },
-    "mkopinsky/zxcvbn-php": {
-        "version": "4.4.2"
     },
     "mockery/mockery": {
         "version": "1.2.0"

@@ -74,6 +74,57 @@
             "time": "2021-04-18T20:11:03+00:00"
         },
         {
+            "name": "bjeavons/zxcvbn-php",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bjeavons/zxcvbn-php.git",
+                "reference": "13b505d53c6e72a8fce7f42e3392f13642bbf65e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bjeavons/zxcvbn-php/zipball/13b505d53c6e72a8fce7f42e3392f13642bbf65e",
+                "reference": "13b505d53c6e72a8fce7f42e3392f13642bbf65e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 | ^8.0",
+                "symfony/polyfill-mbstring": ">=1.3.1"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "*",
+                "phpunit/phpunit": "^8.5",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZxcvbnPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "See contributors",
+                    "homepage": "https://github.com/bjeavons/zxcvbn-php"
+                }
+            ],
+            "description": "Realistic password strength estimation PHP library based on Zxcvbn JS",
+            "homepage": "https://github.com/bjeavons/zxcvbn-php",
+            "keywords": [
+                "password",
+                "zxcvbn"
+            ],
+            "support": {
+                "issues": "https://github.com/bjeavons/zxcvbn-php/issues",
+                "source": "https://github.com/bjeavons/zxcvbn-php/tree/1.2.0"
+            },
+            "time": "2020-11-30T16:47:23+00:00"
+        },
+        {
             "name": "brick/math",
             "version": "0.9.2",
             "source": {
@@ -2407,58 +2458,6 @@
                 "source": "https://github.com/marc-mabe/php-enum/tree/v4.4.0"
             },
             "time": "2020-10-12T21:17:47+00:00"
-        },
-        {
-            "name": "mkopinsky/zxcvbn-php",
-            "version": "4.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mkopinsky/zxcvbn-php.git",
-                "reference": "30be8030c8a3a3cfef9ec28e7210aba95a43007c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mkopinsky/zxcvbn-php/zipball/30be8030c8a3a3cfef9ec28e7210aba95a43007c",
-                "reference": "30be8030c8a3a3cfef9ec28e7210aba95a43007c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.6 || ^7.0",
-                "symfony/polyfill-mbstring": ">=1.3.1"
-            },
-            "require-dev": {
-                "php-coveralls/php-coveralls": "*",
-                "phpunit/phpunit": "< 6.0",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ZxcvbnPhp\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "See contributors",
-                    "homepage": "https://github.com/mkopinsky/zxcvbn-php"
-                }
-            ],
-            "description": "Realistic password strength estimation PHP library based on Zxcvbn JS",
-            "homepage": "https://github.com/mkopinsky/zxcvbn-php",
-            "keywords": [
-                "password",
-                "zxcvbn"
-            ],
-            "support": {
-                "issues": "https://github.com/mkopinsky/zxcvbn-php/issues",
-                "source": "https://github.com/mkopinsky/zxcvbn-php/tree/master"
-            },
-            "abandoned": true,
-            "time": "2018-09-14T20:43:16+00:00"
         },
         {
             "name": "moneyphp/money",
@@ -10519,26 +10518,26 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.93",
+            "version": "v1.0.94",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "6bfad05198641f93f8ffefbe7929366cae1f78ed"
+                "reference": "067812f64de2be8d8d69a79cfe6831bdfc89dd6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/6bfad05198641f93f8ffefbe7929366cae1f78ed",
-                "reference": "6bfad05198641f93f8ffefbe7929366cae1f78ed",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/067812f64de2be8d8d69a79cfe6831bdfc89dd6c",
+                "reference": "067812f64de2be8d8d69a79cfe6831bdfc89dd6c",
                 "shasum": ""
             },
             "require": {
+                "bjeavons/zxcvbn-php": "^1.2",
                 "cloudflare/sdk": "^1.1",
                 "doctrine/doctrine-bundle": "^2.0",
                 "doctrine/orm": "^2.5",
                 "egulias/email-validator": "^2.1 || ^3.0",
                 "ext-json": "*",
                 "marc-mabe/php-enum": "^4.1",
-                "mkopinsky/zxcvbn-php": "^4.4",
                 "moneyphp/money": "^3.2",
                 "nesbot/carbon": "^2.24",
                 "odolbeau/phone-number-bundle": "^3.0",
@@ -10597,9 +10596,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.93"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.94"
             },
-            "time": "2021-06-30T04:08:47+00:00"
+            "time": "2021-06-30T16:46:57+00:00"
         }
     ],
     "packages-dev": [

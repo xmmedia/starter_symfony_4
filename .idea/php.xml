@@ -111,7 +111,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/twig-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-csrf" />
       <path value="$PROJECT_DIR$/vendor/symfony/validator" />
-      <path value="$PROJECT_DIR$/vendor/mkopinsky/zxcvbn-php" />
       <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
       <path value="$PROJECT_DIR$/vendor/symfony/cache-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
@@ -198,6 +197,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/password-hasher" />
       <path value="$PROJECT_DIR$/vendor/symfony/runtime" />
       <path value="$PROJECT_DIR$/vendor/bin/.phpunit" />
+      <path value="$PROJECT_DIR$/vendor/bjeavons/zxcvbn-php" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
