@@ -50,7 +50,7 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ('POST' !== $request->getMethod()) {
+        if (!$request->isMethod('POST')) {
             return;
         }
 
