@@ -10,7 +10,7 @@
         "ext-json": "*",
         "ext-pcntl": "*",
         "ext-pdo": "*",
-        "egulias/email-validator": "^2.1",
+        "egulias/email-validator": "^3.0",
         "knplabs/knp-paginator-bundle": "^5.0",
         "moneyphp/money": "^3.2",
         "nesbot/carbon": "^2.4",
