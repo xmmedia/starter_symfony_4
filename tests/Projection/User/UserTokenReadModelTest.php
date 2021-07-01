@@ -7,24 +7,18 @@ namespace App\Tests\Projection\User;
 use App\Projection\User\UserTokenReadModel;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Statement;
 use Mockery;
 
 class UserTokenReadModelTest extends BaseTestCase
 {
     public function testInit(): void
     {
-        $statement = Mockery::mock(Statement::class);
-        $statement->shouldReceive('executeQuery')
-            ->twice();
-
         $connection = Mockery::mock(Connection::class);
-        $connection->shouldReceive('prepare')
+        $connection->shouldReceive('executeQuery')
             ->twice()
             ->withArgs(function (string $sql) {
                 return (bool) strpos($sql, '`user_token`');
-            })
-            ->andReturn($statement);
+            });
 
         (new UserTokenReadModel($connection))->init();
     }
