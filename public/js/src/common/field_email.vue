@@ -31,6 +31,8 @@
                     class="button-link underline text-white mx-2 focus:bg-transparent focus:mx-0 focus:px-2"
                     @click="useSuggested">{{ suggestedEmail }}</button>?
         </div>
+
+        <div v-if="hasHelp" class="field-help"><slot name="help"></slot></div>
     </div>
 </template>
 
@@ -63,6 +65,12 @@ export default {
             id: cuid(),
             suggestedEmail: null,
         };
+    },
+
+    computed: {
+        hasHelp () {
+            return !!this.$slots.help;
+        },
     },
 
     methods: {
