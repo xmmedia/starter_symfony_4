@@ -45,7 +45,7 @@ static:
   script:
     - *versions-script
     # install php dependencies
-    - php composer.phar install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
+    - php composer.phar install --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
     - yarn install --non-interactive --frozen-lockfile
     - *security-checks
@@ -55,6 +55,8 @@ static:
     # lint JS
     - yarn lint:js
     - yarn lint:css
+    # run PHP unit tests
+    - bin/simple-phpunit
     # @todo artifacts
 
 deploy:
