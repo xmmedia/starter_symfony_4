@@ -45,7 +45,7 @@ static:
   script:
     - *versions-script
     # install php dependencies
-    - php composer.phar install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs --no-suggest
+    - php composer.phar install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
     - yarn install --non-interactive --frozen-lockfile
     - *security-checks
@@ -81,7 +81,7 @@ deploy:
     # create partial .env file
     - printf "APP_ENV=$APP_ENV\nREQUEST_CONTEXT_HOST=$REQUEST_CONTEXT_HOST\nREQUEST_CONTEXT_SCHEME=$REQUEST_CONTEXT_SCHEME\n" > .env.local && cat .env.local
     # install php dependencies without dev
-    - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs --no-suggest
+    - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
     - yarn install --non-interactive --frozen-lockfile
     - *security-checks
     - yarn build
