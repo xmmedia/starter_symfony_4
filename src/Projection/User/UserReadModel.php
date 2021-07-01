@@ -30,8 +30,7 @@ CREATE TABLE `$tableName` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 EOT;
 
-        $statement = $this->connection->prepare($sql);
-        $statement->executeQuery();
+        $this->connection->executeQuery($sql);
 
         $sql = <<<EOT
 ALTER TABLE `$tableName`
@@ -39,8 +38,7 @@ ALTER TABLE `$tableName`
   ADD UNIQUE KEY `email` (`email`) USING BTREE;
 EOT;
 
-        $statement = $this->connection->prepare($sql);
-        $statement->executeQuery();
+        $this->connection->executeQuery($sql);
     }
 
     protected function insert(array $data, array $types = []): void
@@ -66,11 +64,11 @@ EOT;
 UPDATE `$tableName` SET login_count = login_count + 1, last_login = :last_login WHERE user_id = :user_id;
 EOT;
 
-        $stmt = $this->connection->prepare($sql);
+        $statement = $this->connection->prepare($sql);
 
-        $stmt->bindValue('last_login', $lastLogin, 'datetime');
-        $stmt->bindValue('user_id', $userId);
+        $statement->bindValue('last_login', $lastLogin, 'datetime');
+        $statement->bindValue('user_id', $userId);
 
-        $stmt->executeQuery();
+        $statement->executeQuery();
     }
 }

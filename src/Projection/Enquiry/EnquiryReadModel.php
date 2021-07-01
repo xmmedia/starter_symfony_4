@@ -25,8 +25,7 @@ CREATE TABLE `$tableName` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 EOT;
 
-        $statement = $this->connection->prepare($sql);
-        $statement->executeQuery();
+        $this->connection->executeQuery($sql);
 
         $sql = <<<EOT
 ALTER TABLE `$tableName`
@@ -34,8 +33,7 @@ ALTER TABLE `$tableName`
   ADD KEY `filter_sort` (`submitted`) USING BTREE;
 EOT;
 
-        $statement = $this->connection->prepare($sql);
-        $statement->executeQuery();
+        $this->connection->executeQuery($sql);
     }
 
     protected function insert(array $data, array $types = []): void

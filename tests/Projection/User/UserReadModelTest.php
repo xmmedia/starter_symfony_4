@@ -14,17 +14,12 @@ class UserReadModelTest extends BaseTestCase
 {
     public function testInit(): void
     {
-        $statement = Mockery::mock(Statement::class);
-        $statement->shouldReceive('executeQuery')
-            ->twice();
-
         $connection = Mockery::mock(Connection::class);
-        $connection->shouldReceive('prepare')
+        $connection->shouldReceive('executeQuery')
             ->twice()
             ->withArgs(function (string $sql) {
                 return (bool) strpos($sql, '`user`');
-            })
-            ->andReturn($statement);
+            });
 
         (new UserReadModel($connection))->init();
     }
