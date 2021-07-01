@@ -24,7 +24,7 @@ before_script:
   # ensure everything up to date
   - apt-get update -yqq
   # install composer
-  - wget --no-verbose -O composer.phar https://getcomposer.org/download/latest-2.x/composer.phar
+  - wget --no-verbose -O composer.phar https://getcomposer.org/composer-2.phar
 
 .versions-script: &versions-script
   - php -v
