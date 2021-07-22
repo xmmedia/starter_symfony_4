@@ -99,6 +99,9 @@ final class AdminAddUser extends Command
         Assert::keyExists($payload, 'lastName');
         Assert::string($payload['lastName']);
 
+        Assert::keyExists($payload, 'sendInvite');
+        Assert::boolean($payload['sendInvite']);
+
         parent::setPayload($payload);
     }
 }
