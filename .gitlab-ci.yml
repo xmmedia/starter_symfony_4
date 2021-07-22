@@ -42,6 +42,8 @@ static:
   stage: static
   allow_failure: false
   interruptible: true
+  variables:
+    APP_ENV: test
   script:
     - *versions-script
     # install php dependencies
@@ -87,7 +89,7 @@ deploy:
     - yarn install --non-interactive --frozen-lockfile
     - *security-checks
     - yarn build
-    # remove temp .env file just incase
+    # remove temp .env file just in case
     - rm .env.local
     # ensure based paths exist
     - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/var/log/archive $SHARED/public/uploads"
