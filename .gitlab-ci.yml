@@ -58,6 +58,7 @@ static:
     - yarn lint:js
     - yarn lint:css
     # run PHP unit tests
+    - printf "{}" > public/build/manifest.json
     - bin/simple-phpunit
     # @todo artifacts
 
