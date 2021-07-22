@@ -2,6 +2,8 @@ doctrine:
     dbal:
         driver: 'pdo_sqlite'
         path:   '%kernel.cache_dir%/test.db'
+        # remove the url value
+        url: ~
         charset: UTF8
         default_table_options:
             charset: UTF8
