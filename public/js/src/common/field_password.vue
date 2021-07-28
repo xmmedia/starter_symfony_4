@@ -75,11 +75,16 @@ export default {
                 return [];
             },
         },
+        id: {
+            type: String,
+            default: function () {
+                return cuid();
+            },
+        },
     },
 
     data () {
         return {
-            id: cuid(),
             visible: false,
             showMeter: false,
             minLength: 12,

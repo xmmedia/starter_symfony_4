@@ -5,6 +5,7 @@
                     :required="false"
                     :autocomplete="autocomplete"
                     :minlength="hasVuelidateProp('minLength') ? v.$params.minLength.min : null"
+                    :id="id"
                     @input="$emit('input', $event)">
         <template #default><slot></slot></template>
         <template #errors>
@@ -39,6 +40,7 @@
 
 <script>
 import has from 'lodash/has';
+import cuid from 'cuid';
 
 export default {
     props: {
@@ -62,6 +64,12 @@ export default {
             type: Array,
             default () {
                 return [];
+            },
+        },
+        id: {
+            type: String,
+            default: function () {
+                return cuid();
             },
         },
     },

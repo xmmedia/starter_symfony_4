@@ -32,12 +32,12 @@ export default {
             type: Object,
             required: true,
         },
-    },
-
-    data () {
-        return {
-            id: cuid(),
-        };
+        id: {
+            type: String,
+            default: function () {
+                return cuid();
+            },
+        },
     },
 
     computed: {

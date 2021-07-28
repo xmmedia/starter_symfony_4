@@ -58,11 +58,16 @@ export default {
             type: Object,
             required: true,
         },
+        id: {
+            type: String,
+            default: function () {
+                return cuid();
+            },
+        },
     },
 
     data () {
         return {
-            id: cuid(),
             suggestedEmail: null,
         };
     },
