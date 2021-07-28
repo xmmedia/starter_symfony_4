@@ -24,7 +24,7 @@
                @blur="checkEmail"
                v-on="inputListeners">
 
-        <div v-if="suggestedEmail" class="p-2 bg-red-500 text-white">
+        <div v-if="suggestedEmail" class="p-2 bg-red-700 text-white">
             Did you mean
             <button ref="suggestedEmailButton"
                     type="button"
