@@ -22,7 +22,7 @@
                type="email"
                maxlength="150"
                @blur="checkEmail"
-               @input="$emit('input', $event.target.value)">
+               v-on="inputListeners">
 
         <div v-if="suggestedEmail" class="p-2 bg-red-500 text-white">
             Did you mean
@@ -39,8 +39,13 @@
 <script>
 import cuid from 'cuid';
 import mailcheck from 'mailcheck';
+import fieldEventMixin from './field_event_mixin';
 
 export default {
+    mixins: [
+        fieldEventMixin,
+    ],
+
     props: {
         value: {
             type: String,

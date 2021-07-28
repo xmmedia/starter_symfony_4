@@ -9,7 +9,7 @@
                :maxlength="v.$params.maxLength.max"
                :autocomplete="autocomplete"
                type="text"
-               @input="$emit('input', $event.target.value)">
+               v-on="inputListeners">
 
         <div v-if="hasHelp" class="field-help"><slot name="help"></slot></div>
     </div>
@@ -17,8 +17,13 @@
 
 <script>
 import cuid from 'cuid';
+import fieldEventMixin from '@/common/field_event_mixin';
 
 export default {
+    mixins: [
+        fieldEventMixin,
+    ],
+
     props: {
         value: {
             type: String,
