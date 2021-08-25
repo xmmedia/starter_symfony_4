@@ -1,3 +1,4 @@
+import upperFirst from 'lodash/upperFirst';
 import { formatNumber as libFormatPhone } from 'libphonenumber-js';
 import Flatpickr from 'flatpickr';
 import pluralizeFunction from 'pluralize';
@@ -39,4 +40,8 @@ export const money = function (value) {
 
 export const pluralize = function (string, count) {
     return pluralizeFunction(string, count);
+};
+
+export const upperFirstFilter = function (string) {
+    return upperFirst(string);
 };
