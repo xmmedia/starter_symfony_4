@@ -1,10 +1,10 @@
 ProvinceQuery:
     decorator: true
-    heirs: [Query]
+    heirs: [ Query ]
     config:
         fields:
             Provinces:
-                type: '[Province!]!'
+                type:        '[Province!]!'
                 description: 'Retrieve all Provinces.'
-                access: '@=isAuthenticated()'
-                resolve: '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\ProvinceResolver")'
+                access:      '@=isAuthenticated()'
+                resolve:     '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\ProvinceResolver")'

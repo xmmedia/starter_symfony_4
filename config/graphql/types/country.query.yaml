@@ -1,10 +1,10 @@
 CountryQuery:
     decorator: true
-    heirs: [Query]
+    heirs: [ Query ]
     config:
         fields:
             Countries:
-                type: '[Country!]!'
+                type:        '[Country!]!'
                 description: 'Retrieve all Countries.'
-                access: '@=isAuthenticated()'
-                resolve: '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\CountryResolver")'
+                access:      '@=isAuthenticated()'
+                resolve:     '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\CountryResolver")'

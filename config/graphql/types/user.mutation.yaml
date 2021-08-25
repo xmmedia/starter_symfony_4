@@ -1,84 +1,84 @@
 UserMutation:
     decorator: true
-    heirs: [Mutation]
+    heirs: [ Mutation ]
     config:
         fields:
             UserUpdateProfile:
-                type: UserMutationPayload!
+                type:        UserMutationPayload!
                 description: 'Update User profile.'
-                access: '@=isAuthenticated()'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserUpdateProfileMutation", [args])'
+                access:      '@=isAuthenticated()'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserUpdateProfileMutation", [args])'
                 args:
                     user: UserUpdateProfileInput!
 
             ChangePassword:
-                type: UserMutationPayload!
+                type:        UserMutationPayload!
                 description: 'Change User password.'
-                access: '@=isAuthenticated()'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserPasswordMutation", [args])'
+                access:      '@=isAuthenticated()'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserPasswordMutation", [args])'
                 args:
                     user: UserPasswordInput!
 
             UserRecoverInitiate:
-                type: UserResultPayload!
+                type:        UserResultPayload!
                 description: 'Initiate User account recovery.'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverInitiateMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverInitiateMutation", [args])'
                 args:
                     email: String!
 
             UserRecoverReset:
-                type: UserResultPayload!
+                type:        UserResultPayload!
                 description: 'Set User password with User token.'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", [args])'
                 args:
-                    token: String!
+                    token:       String!
                     newPassword: String!
 
             UserVerify:
-                type: UserResultPayload!
+                type:        UserResultPayload!
                 description: 'Verify (activate) User account with password and User token.'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserVerifyMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserVerifyMutation", [args])'
                 args:
-                    token: String!
+                    token:    String!
                     password: String!
 
             AdminUserAdd:
-                type: AdminUserAddMutationPayload!
+                type:        AdminUserAddMutationPayload!
                 description: 'Admin User add.'
-                access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserAddMutation", [args])'
+                access:      '@=hasRole("ROLE_ADMIN")'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserAddMutation", [args])'
                 args:
                     user: AdminUserAddInput!
 
             AdminUserUpdate:
-                type: AdminUserMutationPayload!
+                type:        AdminUserMutationPayload!
                 description: 'Admin User update.'
-                access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserUpdateMutation", [args])'
+                access:      '@=hasRole("ROLE_ADMIN")'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserUpdateMutation", [args])'
                 args:
                     user: AdminUserUpdateInput!
 
             AdminUserActivate:
-                type: AdminUserMutationPayload!
+                type:        AdminUserMutationPayload!
                 description: 'Activate User by Admin.'
-                access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserActivateMutation", [args])'
+                access:      '@=hasRole("ROLE_ADMIN")'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserActivateMutation", [args])'
                 args:
                     user: AdminUserActivateInput!
 
             AdminUserVerify:
-                type: AdminUserMutationPayload!
+                type:        AdminUserMutationPayload!
                 description: 'Verify User by Admin.'
-                access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", [args["userId"]])'
+                access:      '@=hasRole("ROLE_ADMIN")'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", [args["userId"]])'
                 args:
                     userId: UUID!
 
             AdminUserSendReset:
-                type: AdminUserMutationPayload!
+                type:        AdminUserMutationPayload!
                 description: 'Send User a password reset link.'
-                access: '@=hasRole("ROLE_ADMIN")'
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", [args["userId"]])'
+                access:      '@=hasRole("ROLE_ADMIN")'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", [args["userId"]])'
                 args:
                     userId: UUID!
 
@@ -130,7 +130,7 @@ AdminUserInput:
 
 AdminUserAddInput:
     type: input-object
-    inherits: [AdminUserInput]
+    inherits: [ AdminUserInput ]
     config:
         description: 'Admin User add mutation input.'
         fields:
@@ -145,7 +145,7 @@ AdminUserAddInput:
 
 AdminUserUpdateInput:
     type: input-object
-    inherits: [AdminUserInput]
+    inherits: [ AdminUserInput ]
     config:
         description: 'Admin User update mutation input.'
         fields:
@@ -190,7 +190,7 @@ AdminUserMutationPayload:
 
 AdminUserAddMutationPayload:
     type: object
-    inherits: [AdminUserMutationPayload]
+    inherits: [ AdminUserMutationPayload ]
     config:
         description: 'Admin User add mutation payload.'
         fields:

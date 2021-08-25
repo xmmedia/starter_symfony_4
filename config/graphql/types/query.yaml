@@ -4,10 +4,10 @@ Query:
         description: 'Main Queries'
         fields:
             Me:
-                type: User
+                type:        User
                 description: 'The current User object or null.'
-                access: '@=isAuthenticated()'
-                resolve: '@=getUser()'
+                access:      '@=isAuthenticated()'
+                resolve:     '@=getUser()'
 
             EntrypointIntegrity:
                 type:        String
