@@ -1,5 +1,5 @@
 .w-content, .w-content-narrow, .w-content-copy {
-    @apply max-w-11/12 mx-auto;
+    @apply max-w-11/12 mx-auto break-words;
 }
 .w-content {
     @screen xl {
