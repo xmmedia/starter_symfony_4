@@ -2,7 +2,7 @@
     <portal to="modal">
         <vue-modal :key="name"
                    :adaptive="true"
-                   :scrollable="true"
+                   :scrollable="scrollable"
                    :name="name"
                    :height="height"
                    :width="width"
@@ -41,6 +41,10 @@ export default {
         draggable: {
             type: Boolean,
             default: false,
+        },
+        scrollable: {
+            type: Boolean,
+            default: true,
         },
         name: {
             type: [String, Number],
