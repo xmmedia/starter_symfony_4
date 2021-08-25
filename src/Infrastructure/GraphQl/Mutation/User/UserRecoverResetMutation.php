@@ -26,7 +26,7 @@ class UserRecoverResetMutation implements MutationInterface
     private $commandBus;
 
     /** @var PasswordHasher */
-    private $passwordEncoder;
+    private $passwordHasher;
 
     /** @var TokenValidator */
     private $tokenValidator;
@@ -42,14 +42,14 @@ class UserRecoverResetMutation implements MutationInterface
 
     public function __construct(
         MessageBusInterface $commandBus,
-        PasswordHasher $passwordEncoder,
+        PasswordHasher $passwordHasher,
         TokenValidator $tokenValidator,
         Security $security,
         PasswordStrengthInterface $passwordStrength = null,
         HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->tokenValidator = $tokenValidator;
         $this->security = $security;
         $this->passwordStrength = $passwordStrength;
@@ -93,7 +93,7 @@ class UserRecoverResetMutation implements MutationInterface
             );
         }
 
-        $encodedPassword = ($this->passwordEncoder)(
+        $encodedPassword = ($this->passwordHasher)(
             $user->firstRole(),
             $newPassword
         );

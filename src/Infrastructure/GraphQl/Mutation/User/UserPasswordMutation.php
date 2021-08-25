@@ -25,7 +25,7 @@ class UserPasswordMutation implements MutationInterface
     private $userPasswordHasher;
 
     /** @var PasswordHasher */
-    private $passwordEncoder;
+    private $passwordHasher;
 
     /** @var Security */
     private $security;
@@ -39,14 +39,14 @@ class UserPasswordMutation implements MutationInterface
     public function __construct(
         MessageBusInterface $commandBus,
         UserPasswordHasherInterface $userPasswordHasher,
-        PasswordHasher $passwordEncoder,
+        PasswordHasher $passwordHasher,
         Security $security,
         PasswordStrengthInterface $passwordStrength = null,
         HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
         $this->userPasswordHasher = $userPasswordHasher;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->security = $security;
         $this->passwordStrength = $passwordStrength;
         $this->pwnedHttpClient = $pwnedHttpClient;
@@ -80,7 +80,7 @@ class UserPasswordMutation implements MutationInterface
             $this->pwnedHttpClient,
         );
 
-        $encodedPassword = ($this->passwordEncoder)(
+        $encodedPassword = ($this->passwordHasher)(
             $user->firstRole(),
             $newPassword,
         );

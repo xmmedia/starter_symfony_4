@@ -47,8 +47,8 @@ class AdminUserAddMutationTest extends BaseTestCase
             ->once()
             ->andReturn(new Token($faker->password()));
 
-        $passwordEncoder = Mockery::mock(PasswordHasher::class);
-        $passwordEncoder->shouldReceive('__invoke')
+        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher->shouldReceive('__invoke')
             ->once()
             ->andReturn('string');
 
@@ -59,7 +59,7 @@ class AdminUserAddMutationTest extends BaseTestCase
         $result = (new AdminUserAddMutation(
             $commandBus,
             $tokenGenerator,
-            $passwordEncoder,
+            $passwordHasher,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -126,8 +126,8 @@ class AdminUserAddMutationTest extends BaseTestCase
 
         $tokenGenerator = Mockery::mock(TokenGenerator::class);
 
-        $passwordEncoder = Mockery::mock(PasswordHasher::class);
-        $passwordEncoder->shouldReceive('__invoke')
+        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher->shouldReceive('__invoke')
             ->once()
             ->with(Mockery::type(Role::class), $data['password'])
             ->andReturn('string');
@@ -139,7 +139,7 @@ class AdminUserAddMutationTest extends BaseTestCase
         $result = (new AdminUserAddMutation(
             $commandBus,
             $tokenGenerator,
-            $passwordEncoder,
+            $passwordHasher,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);

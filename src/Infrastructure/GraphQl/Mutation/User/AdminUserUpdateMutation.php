@@ -24,7 +24,7 @@ class AdminUserUpdateMutation implements MutationInterface
     private $commandBus;
 
     /** @var PasswordHasher */
-    private $passwordEncoder;
+    private $passwordHasher;
 
     /** @var PasswordStrengthInterface|null */
     private $passwordStrength;
@@ -34,12 +34,12 @@ class AdminUserUpdateMutation implements MutationInterface
 
     public function __construct(
         MessageBusInterface $commandBus,
-        PasswordHasher $passwordEncoder,
+        PasswordHasher $passwordHasher,
         PasswordStrengthInterface $passwordStrength = null,
         HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->passwordStrength = $passwordStrength;
         $this->pwnedHttpClient = $pwnedHttpClient;
     }
@@ -80,7 +80,7 @@ class AdminUserUpdateMutation implements MutationInterface
             $this->commandBus->dispatch(
                 AdminChangePassword::with(
                     $userId,
-                    ($this->passwordEncoder)($role, $password),
+                    ($this->passwordHasher)($role, $password),
                 )
             );
         }

@@ -27,7 +27,7 @@ class AdminUserAddMutation implements MutationInterface
     private $tokenGenerator;
 
     /** @var PasswordHasher */
-    private $passwordEncoder;
+    private $passwordHasher;
 
     /** @var PasswordStrengthInterface|null */
     private $passwordStrength;
@@ -38,13 +38,13 @@ class AdminUserAddMutation implements MutationInterface
     public function __construct(
         MessageBusInterface $commandBus,
         TokenGenerator $tokenGenerator,
-        PasswordHasher $passwordEncoder,
+        PasswordHasher $passwordHasher,
         PasswordStrengthInterface $passwordStrength = null,
         HttpClientInterface $pwnedHttpClient = null
     ) {
         $this->commandBus = $commandBus;
         $this->tokenGenerator = $tokenGenerator;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->passwordStrength = $passwordStrength;
         $this->pwnedHttpClient = $pwnedHttpClient;
     }
@@ -79,7 +79,7 @@ class AdminUserAddMutation implements MutationInterface
             AdminAddUser::with(
                 $userId,
                 $email,
-                ($this->passwordEncoder)($role, $password),
+                ($this->passwordHasher)($role, $password),
                 $role,
                 $args['user']['active'],
                 $firstName,

@@ -27,16 +27,16 @@ final class AddUserCommand extends Command
     private $commandBus;
 
     /** @var PasswordHasher */
-    private $passwordEncoder;
+    private $passwordHasher;
 
     public function __construct(
         MessageBusInterface $commandBus,
-        PasswordHasher $passwordEncoder
+        PasswordHasher $passwordHasher
     ) {
         parent::__construct();
 
         $this->commandBus = $commandBus;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
     }
 
     protected function configure()
@@ -61,7 +61,7 @@ final class AddUserCommand extends Command
             AdminAddUserMinimum::with(
                 $userId,
                 $email,
-                ($this->passwordEncoder)($role, $password),
+                ($this->passwordHasher)($role, $password),
                 $role
             )
         );
