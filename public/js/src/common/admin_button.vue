@@ -19,12 +19,6 @@
         <span v-else-if="isSaved" class="ml-4 text-sm italic">
             <slot name="saved">Saved</slot>
         </span>
-        <span v-else-if="isDeleting" class="ml-4 text-sm italic">
-            <slot name="saved">Deleting…</slot>
-        </span>
-        <span v-else-if="isDeleted" class="ml-4 text-sm italic">
-            <slot name="saved">Deleted</slot>
-        </span>
     </div>
 </template>
 
@@ -63,12 +57,6 @@ export default {
         },
         isSaved () {
             return this.saved || this.status === 'saved';
-        },
-        isDeleting () {
-            return this.status === 'deleting';
-        },
-        isDeleted () {
-            return this.deleted || this.status === 'deleted';
         },
     },
 };
