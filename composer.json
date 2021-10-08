@@ -54,8 +54,8 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "ekino/phpstan-banned-code": "^0.4",
-        "friendsofphp/php-cs-fixer": "^3.0",
         "fakerphp/faker": "^1.8",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "liip/functional-test-bundle": "^4.1",
         "mockery/mockery": "^1.2",
         "overblog/graphiql-bundle": "^0.2.0",
