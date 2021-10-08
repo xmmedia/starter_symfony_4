@@ -2,8 +2,8 @@
   "schemaPath": "graphql.schema.json",
   "extensions": {
     "endpoints": {
-      "Default (https://dev.example.com/graphql/)": {
-        "url": "https://dev.example.com/graphql/",
+      "Default (https://dev.example.com/graphql)": {
+        "url": "https://dev.example.com/graphql",
         "headers": {
           "user-agent": "JS GraphQL"
         },
