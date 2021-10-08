@@ -78,7 +78,7 @@ printf "\n\n"
 cd $RELEASE || exit
 
 echo "Install Composer"
-wget --no-verbose -O composer.phar https://getcomposer.org/composer-1.phar
+wget --no-verbose -O composer.phar https://getcomposer.org/composer-2.phar
 php composer.phar selfupdate
 printf "\n\n"
 
