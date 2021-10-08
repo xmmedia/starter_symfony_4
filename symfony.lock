@@ -224,8 +224,11 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "0.1",
-            "ref": "fe8d172f2480efc598f5a8be0e732656d3594cec"
-        }
+            "ref": "96d185c63491cd15c1570f6243ec1808f4462970"
+        },
+        "files": [
+            "config/routes/dev/graphiql.yaml"
+        ]
     },
     "overblog/graphql-bundle": {
         "version": "0.12",
@@ -233,7 +236,7 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "0.12",
-            "ref": "c01dcfb85a6e93f1a43ef36151fcff11cf17f791"
+            "ref": "b122f3bfcfc0706c617a74afa8510af4799810f6"
         },
         "files": [
             "config/graphql/types/.gitignore",
