@@ -9,30 +9,30 @@
                     <slot name="required">Required</slot>
                 </template>
                 <template v-else-if="!minLength">
-                    <slot name="minLength">
+                    <slot name="minLength" :v="v">
                         Must be at least {{ v.$params.minLength.min }}
                         {{ 'character'|pluralize(v.$params.minLength.min) }}.
                     </slot>
                 </template>
                 <template v-else-if="!maxLength">
-                    <slot name="maxLength">
+                    <slot name="maxLength" :v="v">
                         Cannot be more than {{ v.$params.maxLength.max }}
                         {{ 'character'|pluralize(v.$params.minLength.min) }}.
                     </slot>
                 </template>
                 <template v-else-if="!between">
-                    <slot name="between">
+                    <slot name="between" :v="v">
                         Must be between {{ v.$params.between.min }}
                         and {{ v.$params.between.max }}.
                     </slot>
                 </template>
                 <template v-else-if="!url">
-                    <slot name="url">
+                    <slot name="url" :v="v">
                         The URL is not valid.
                     </slot>
                 </template>
                 <template v-else-if="!email">
-                    <slot name="email">
+                    <slot name="email" :v="v">
                         This email is invalid.
                     </slot>
                 </template>
