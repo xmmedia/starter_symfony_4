@@ -24,7 +24,7 @@ export const date = function (date, format = 'M j, Y') {
     return Flatpickr.formatDate(Flatpickr.parseDate(date, 'Y-m-d'), format);
 };
 
-export const money = function (value) {
+export const money = function (value, decimals = 2) {
     const price = parseFloat(value / 100);
 
     // from what I'm reading, Android doesn't fully support the locales and options
@@ -32,9 +32,10 @@ export const money = function (value) {
         return price.toLocaleString('en-CA', {
             style: 'currency',
             currency: 'CAD',
+            maximumFractionDigits: decimals,
         });
     } catch (e) {
-        return '$'+price.toFixed(2);
+        return '$'+price.toFixed(decimals);
     }
 };
 
