@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d5e9fc34b7a61586a1f7fd56c55a162",
+    "content-hash": "bfac90698836eec75f21ae9be6d364e2",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -10989,16 +10989,16 @@
         },
         {
             "name": "ekino/phpstan-banned-code",
-            "version": "v0.4.0",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ekino/phpstan-banned-code.git",
-                "reference": "bd4eeb7fd899880c01b7729e2c12e82d000b0136"
+                "reference": "3277f5c833839142fa4f4d291d00e791cde9583b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ekino/phpstan-banned-code/zipball/bd4eeb7fd899880c01b7729e2c12e82d000b0136",
-                "reference": "bd4eeb7fd899880c01b7729e2c12e82d000b0136",
+                "url": "https://api.github.com/repos/ekino/phpstan-banned-code/zipball/3277f5c833839142fa4f4d291d00e791cde9583b",
+                "reference": "3277f5c833839142fa4f4d291d00e791cde9583b",
                 "shasum": ""
             },
             "require": {
@@ -11048,9 +11048,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ekino/phpstan-banned-code/issues",
-                "source": "https://github.com/ekino/phpstan-banned-code/tree/v0.4.0"
+                "source": "https://github.com/ekino/phpstan-banned-code/tree/v0.5.0"
             },
-            "time": "2021-03-15T13:00:30+00:00"
+            "time": "2021-08-13T12:29:33+00:00"
         },
         {
             "name": "fakerphp/faker",

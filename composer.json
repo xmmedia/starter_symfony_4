@@ -61,7 +61,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
-        "ekino/phpstan-banned-code": "^0.4",
+        "ekino/phpstan-banned-code": "^0.5",
         "fakerphp/faker": "^1.8",
         "friendsofphp/php-cs-fixer": "^3.0",
         "liip/functional-test-bundle": "^4.1",
