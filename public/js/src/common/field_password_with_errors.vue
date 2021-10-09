@@ -1,11 +1,11 @@
 <template>
-    <field-password :value="value"
+    <field-password :id="id"
+                    :value="value"
                     :user-data="userData"
                     :show-help="showHelp"
                     :required="false"
                     :autocomplete="autocomplete"
                     :minlength="hasVuelidateProp('minLength') ? v.$params.minLength.min : null"
-                    :id="id"
                     @input="$emit('input', $event)">
         <template #default><slot></slot></template>
         <template #errors>
