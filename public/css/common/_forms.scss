@@ -66,7 +66,7 @@ textarea,
 select {
     @apply outline-none rounded-sm;
     &:focus {
-        @apply outline-none shadow-outline;
+        @apply outline-none ring;
     }
 }
 
@@ -84,7 +84,7 @@ select {
 .field-wrap-radio, .field-wrap-checkbox {
     @apply flex flex-wrap items-center mb-4;
     label {
-        @apply inline-block mb-0 pl-2 whitespace-no-wrap;
+        @apply inline-block mb-0 pl-2 whitespace-nowrap;
     }
 }
 

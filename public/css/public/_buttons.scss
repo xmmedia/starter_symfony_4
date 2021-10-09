@@ -5,7 +5,7 @@
         @apply text-white bg-blue-800 border-blue-800 no-underline;
     }
     &:focus {
-        @apply outline-none shadow-outline border-blue-300;
+        @apply outline-none ring border-blue-300;
     }
     &:disabled {
         @apply bg-gray-400 border-gray-400 cursor-default;

@@ -1,37 +1,15 @@
 const plugin = require('tailwindcss/plugin');
+const colors = require('tailwindcss/colors');
 
 module.exports = {
-    // https://v1.tailwindcss.com/docs/upcoming-changes
-    future: {
-        removeDeprecatedGapUtilities: true,
-        purgeLayersByDefault: true,
-        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#default-line-heights-per-font-size-by-default
-        defaultLineHeights: true,
-        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.8.4
-        standardFontWeights: true,
-    },
-    experimental: {
-        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#use-apply-with-variants-and-other-complex-classes
-        applyComplexClasses: true,
-        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#new-color-palette
-        // Palette: https://f1igi.csb.app/
-        uniformColorPalette: true,
-        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#extended-spacing-scale
-        extendedSpacingScale: true,
-        // https://github.com/tailwindlabs/tailwindcss/releases/tag/v1.7.0#extended-font-size-scale
-        extendedFontSizeScale: true,
-        // https://github.com/tailwindlabs/tailwindcss/pull/2468
-        additionalBreakpoint: true,
-    },
     purge: {
-        preserveHtmlElements: true,
         content: [
             './templates/**/*.html.twig',
             './public/js/src/**/*.vue',
             './public/js/src/**/*.js',
         ],
         options: {
-            whitelist: [
+            safelist: [
                 // vue transition classes: https://vuejs.org/v2/guide/transitions.html#Transition-Classes
                 /-enter/,
                 /-leave/,
@@ -39,10 +17,25 @@ module.exports = {
         },
     },
     theme: {
+        colors: {
+            transparent: 'transparent',
+            current: 'currentColor',
+            inherit: 'inherit',
+
+            black: colors.black,
+            white: colors.white,
+            gray: colors.trueGray,
+            orange: colors.orange,
+            green: colors.green,
+            // teal: colors.teal,
+            blue: colors.blue,
+            yellow: colors.yellow,
+            // indigo: colors.indigo,
+            red: colors.red,
+            // pink: colors.pink,
+            // purple: colors.purple,
+        },
         extend: {
-            colors: {
-                'inherit': 'inherit',
-            },
             borderWidth: {
                 '10': '10px',
             },

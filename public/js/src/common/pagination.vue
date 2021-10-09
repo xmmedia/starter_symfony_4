@@ -1,5 +1,5 @@
 <template>
-    <div v-if="pageCount > 1" class="my-4 mx-auto text-center clearfix">
+    <div v-if="pageCount > 1" class="my-4 mx-auto text-center flow-root">
         <global-events v-if="arrowEvents"
                        @keydown.left="goToPrevious"
                        @keydown.right="goToNext" />

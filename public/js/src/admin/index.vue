@@ -27,7 +27,7 @@
                 </template>
             </ul>
 
-            <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-300 font-thin">
+            <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-300 font-extralight">
                 <div class="flex items-end justify-between px-4">
                     <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap: break-word;">
                         <router-link :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
@@ -35,7 +35,7 @@
                         </router-link>
                     </div>
                     <div v-if="loggedIn" class="pb-2 pl-4 text-xs">
-                        <a href="/logout" class="sidebar_nav-bottom_links whitespace-no-wrap">Sign Out</a>
+                        <a href="/logout" class="sidebar_nav-bottom_links whitespace-nowrap">Sign Out</a>
                     </div>
                 </div>
                 <div class="py-2 pl-4 text-xs text-gray-400 border-t border-gray-600">

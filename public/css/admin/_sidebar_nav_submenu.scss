@@ -15,7 +15,7 @@
     }
 }
 .sidebar_nav-submenu_header {
-    @apply text-lg font-thin border-b border-gray-600;
+    @apply text-lg font-extralight border-b border-gray-600;
     min-height: $header-height;
     padding: 1.25rem 0 1rem 1rem;
     @screen lg {

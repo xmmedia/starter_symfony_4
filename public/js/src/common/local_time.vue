@@ -1,7 +1,7 @@
 <template>
     <time :datetime="datetime">
-        <span class="whitespace-no-wrap">{{ displayDate }}</span>
-        <span class="whitespace-no-wrap">{{ displayTime }}</span>
+        <span class="whitespace-nowrap">{{ displayDate }}</span>
+        <span class="whitespace-nowrap">{{ displayTime }}</span>
     </time>
 </template>
 
