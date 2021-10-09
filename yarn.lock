@@ -2841,10 +2841,10 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-audit-ci@^4.0.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/audit-ci/-/audit-ci-4.2.0.tgz#a736486f404b0ec2c56029a891ef6bb0c89ed717"
-  integrity sha512-qTbQu8qmfF87Jdc+WWsL9Cb/K8RUwAK7xtjGn0+5SEyutV9VA8HUdj3toIyo7hazx9L326XL6GMerJRyoQut6g==
+audit-ci@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/audit-ci/-/audit-ci-5.0.0.tgz#6d2ceccd71496ad95a1476eb94bf1092ef4b9934"
+  integrity sha512-Idd4fl5okNa/3JaivI/UU5TBg6CU7EhMBS/G+UwgkaqwsviPbcOD8jFdNFZq9QqyBHFLn8uy5tt7gn4Orug7Tw==
   dependencies:
     JSONStream "^1.3.5"
     cross-spawn "^7.0.3"
@@ -2852,7 +2852,7 @@ audit-ci@^4.0.0:
     jju "^1.4.0"
     readline-transform "1.0.0"
     semver "^7.0.0"
-    yargs "^15.0.0"
+    yargs "^16.0.0"
 
 autoprefixer@^9.4.5:
   version "9.8.8"
@@ -6627,10 +6627,10 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-hibp@^10.0.0:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/hibp/-/hibp-10.0.1.tgz#d27eb0d50a1edc3624784697bd211271ba3d51f0"
-  integrity sha512-ol2/tyOf/8fr9i+8BR8uLXCIgaXUN0EpTeY3uBRyN/6jrAvpa91P8pvsiJ8XxNXDEscjNQTY5clxlcroLxHjhA==
+hibp@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/hibp/-/hibp-11.0.0.tgz#068d83bf7cfc0162b482c33945b4aa41a3ff16c1"
+  integrity sha512-PkwyP1WPKNgK0gSaove000s8eq133BDShvBPL6+h3h3jREuNK3CppCUISuqgHUR/giQIsW93hZhgMLb75c1eQQ==
   dependencies:
     isomorphic-unfetch "^3.1.0"
     jssha "^3.2.0"
@@ -8075,10 +8075,10 @@ js-beautify@^1.6.12, js-beautify@^1.6.14:
     glob "^7.1.3"
     nopt "^5.0.0"
 
-js-cookie@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
-  integrity sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==
+js-cookie@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.1.tgz#9e39b4c6c2f56563708d7d31f6f5f21873a92414"
+  integrity sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==
 
 js-message@1.0.7:
   version "1.0.7"
@@ -14081,7 +14081,7 @@ yargs@^13.3.0, yargs@^13.3.2:
     y18n "^4.0.0"
     yargs-parser "^13.1.2"
 
-yargs@^15.0.0, yargs@^15.3.1:
+yargs@^15.3.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.4.1.tgz#0d87a16de01aee9d8bec2bfbf74f67851730f4f8"
   integrity sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
