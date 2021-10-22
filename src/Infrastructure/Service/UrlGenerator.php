@@ -17,7 +17,7 @@ class UrlGenerator
         $this->router = $router;
     }
 
-    private function generate(string $name, array $params): string
+    private function generate(string $name, array $params = []): string
     {
         return $this->router->generate(
             $name,
