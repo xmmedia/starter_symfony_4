@@ -1,14 +1,13 @@
-const { extendDefaultPlugins } = require('svgo');
-
 module.exports = {
-    plugins: extendDefaultPlugins([
+    plugins: [
         {
-            name: 'removeUselessDefs',
-            active: false,
+            name: 'preset-default',
+            params: {
+                overrides: {
+                    removeUselessDefs: false,
+                    cleanupIDs: false,
+                },
+            },
         },
-        {
-            name: 'cleanupIDs',
-            active: false,
-        },
-    ]),
+    ],
 };
