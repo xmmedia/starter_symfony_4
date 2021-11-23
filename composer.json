@@ -4,7 +4,7 @@
     "type": "project",
     "description": "Starter for creating Symfony 4/5 sites at XM Media",
     "require": {
-        "php": "7.4.*",
+        "php": "8.0.*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
