@@ -26,6 +26,11 @@
         });
     }
     </script>
+
+    {% if app.debug %}
+        {# makes svgs work with the dev server #}
+        <script defer src="{{ asset('build/svgxuse.min.js') }}"></script>
+    {% endif %}
 {% endblock %}
 
 {% block body %}

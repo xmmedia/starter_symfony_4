@@ -11,9 +11,10 @@
         'data-entry': 'public',
     }) }}
 
-    {# @todo-symfony remove is no IE support is needed #}
-    {# make svg's with use referencing an external image work in IE #}
-    <script defer src="{{ asset('build/svgxuse.min.js') }}"></script>
+    {% if app.debug %}
+        {# makes svgs work with the dev server #}
+        <script defer src="{{ asset('build/svgxuse.min.js') }}"></script>
+    {% endif %}
 {% endblock %}
 
 {% block header %}
