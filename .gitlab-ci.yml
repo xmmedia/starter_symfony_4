@@ -62,11 +62,11 @@ static:
     - bin/simple-phpunit
     # @todo artifacts
 
-deploy:
+.deploy template: &deploy
   stage: deploy
-  when: manual
   allow_failure: false
   only:
+    # @todo-symfony update to match main branch name
     - master
   script:
     - *versions-script
@@ -120,3 +120,16 @@ deploy:
     - if wget --spider --server-response "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST" 2>&1 | grep '200\ OK'; then echo "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST is up"; else echo "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST is down"; exit 1; fi
     # success message
     - echo "Deployment completed successfully. Release at $RELEASE"
+
+deploy to staging:
+  <<: *deploy
+  environment:
+    name: staging
+    url: $STAGING_URL
+
+deploy to prod:
+  <<: *deploy
+  environment:
+    name: production
+    url: $PROD_URL
+  when: manual
