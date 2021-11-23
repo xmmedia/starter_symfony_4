@@ -94,7 +94,8 @@ module.exports = {
                 '.transition-default': {
                     transitionProperty: theme('transitionProperty.all'),
                     transitionDuration: theme('transitionDuration.300'),
-                    transitionTimingFunction: theme('transitionTimingFunction.in-out'),},
+                    transitionTimingFunction: theme('transitionTimingFunction.in-out'),
+                },
             });
         }),
     ],
