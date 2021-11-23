@@ -44,6 +44,7 @@ static:
   interruptible: true
   variables:
     APP_ENV: test
+    TRUSTED_PROXIES: ''
   script:
     - *versions-script
     # install php dependencies
