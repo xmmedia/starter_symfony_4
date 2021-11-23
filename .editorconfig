@@ -14,5 +14,5 @@ trim_trailing_whitespace = true
 trim_trailing_whitespace = false
 indent_size = 2
 
-[{package.json,.gitlab-ci.yml}]
+[{package.json,.gitlab-ci.yml,.stylelintrc}]
 indent_size = 2
