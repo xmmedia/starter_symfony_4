@@ -88,14 +88,13 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/typography'),
-        plugin(function ({ addComponents, config }) {
-            addComponents({
+        plugin(({ addBase, theme }) => {
+            addBase({
                 // same as: transition-all duration-300 ease-in-out
                 '.transition-default': {
-                    transitionProperty: config('theme.transitionProperty.all'),
-                    transitionDuration: config('theme.transitionDuration.300'),
-                    transitionTimingFunction: config('theme.transitionTimingFunction.in-out'),
-                },
+                    transitionProperty: theme('transitionProperty.all'),
+                    transitionDuration: theme('transitionDuration.300'),
+                    transitionTimingFunction: theme('transitionTimingFunction.in-out'),},
             });
         }),
     ],
