@@ -10635,16 +10635,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.107",
+            "version": "v1.0.108",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "9b8bffd7d3adf560bba520ea890e0bfd6243d1c7"
+                "reference": "c350f97660c1d1939f3a2e5bdce1184a270f1783"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/9b8bffd7d3adf560bba520ea890e0bfd6243d1c7",
-                "reference": "9b8bffd7d3adf560bba520ea890e0bfd6243d1c7",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/c350f97660c1d1939f3a2e5bdce1184a270f1783",
+                "reference": "c350f97660c1d1939f3a2e5bdce1184a270f1783",
                 "shasum": ""
             },
             "require": {
@@ -10654,6 +10654,7 @@
                 "doctrine/orm": "^2.5",
                 "egulias/email-validator": "^2.1 || ^3.0",
                 "ext-json": "*",
+                "ext-pdo": "*",
                 "marc-mabe/php-enum": "^4.1",
                 "moneyphp/money": "^3.2",
                 "nesbot/carbon": "^2.24",
@@ -10713,9 +10714,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.107"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.108"
             },
-            "time": "2021-10-20T20:55:50+00:00"
+            "time": "2021-11-23T03:28:07+00:00"
         }
     ],
     "packages-dev": [

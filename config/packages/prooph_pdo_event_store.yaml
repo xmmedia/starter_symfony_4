@@ -5,9 +5,9 @@ services:
         class: Prooph\EventStore\Pdo\MySqlEventStore
         arguments:
             $messageFactory: '@prooph_event_store.message_factory'
-            $connection: '@app.event_store.pdo_connection.mysql'
+            $connection: '@app.pdo_connection'
             $persistenceStrategy: '@Xm\SymfonyBundle\EventStore\PersistenceStrategy\StreamStrategy'
 
-    app.event_store.pdo_connection.mysql:
+    app.pdo_connection:
         class: PDO
-        factory: ['@database_connection', getWrappedConnection]
+        factory: '@Xm\SymfonyBundle\Doctrine\PdoProvider'

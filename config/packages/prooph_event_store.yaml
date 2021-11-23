@@ -6,7 +6,7 @@ prooph_event_store:
     projection_managers:
         app:
             event_store: '@Prooph\EventStore\EventStore'
-            connection: '@app.event_store.pdo_connection.mysql'
+            connection: '@app.pdo_connection'
             projections:
                 enquiry_projection:
                     read_model: App\Projection\Enquiry\EnquiryReadModel
