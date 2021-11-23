@@ -2,6 +2,7 @@ const plugin = require('tailwindcss/plugin');
 const colors = require('tailwindcss/colors');
 
 module.exports = {
+    mode: 'jit',
     purge: {
         content: [
             './templates/**/*.html.twig',
@@ -11,8 +12,10 @@ module.exports = {
         options: {
             safelist: [
                 // vue transition classes: https://vuejs.org/v2/guide/transitions.html#Transition-Classes
-                /-enter/,
-                /-leave/,
+                '.md-enter-active',
+                '.md-leave-active',
+                '.md-enter',
+                '.md-leave-active',
             ],
         },
     },
