@@ -1,6 +1,5 @@
 'use strict';
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 function resolve (dir) {
@@ -23,7 +22,7 @@ module.exports = function (Encore) {
         .setPublicPath('/build')
 
         // always create hashed filenames (e.g. public.a1b2c3.css)
-        .enableVersioning(true)
+        .enableVersioning(!Encore.isDevServer())
 
         // empty the outputPath dir before each build
         .cleanupOutputBeforeBuild()
@@ -41,8 +40,10 @@ module.exports = function (Encore) {
 
         // allow sass/scss files to be processed
         .enableSassLoader(function () {}, {
-            // see: http://symfony.com/doc/current/frontend/encore/bootstrap.html#importing-bootstrap-sass
-            resolveUrlLoader: false,
+            // tell sass where to find url() paths/files
+            resolveUrlLoaderOptions: {
+                root: resolve('public'),
+            },
         })
         .enablePostCssLoader()
         // allow .vue files to be processed
@@ -94,17 +95,10 @@ module.exports = function (Encore) {
             'vue$': 'vue/dist/vue.esm.js',
         })
 
-        .addPlugin(new Dotenv({
-            path: './.env.local',
-        }))
-
-        // this is to resolve the issues with the manifest
-        // where the file path keys have the hashed version
-        .configureUrlLoader({
-            images: {
-                limit: 0, // Avoids files from being inlined
-                esModule: false,
-            },
+        .configureDefinePlugin((options) => {
+            const env = require('dotenv').config({ path: '.env.local' });
+            options['process.env'].REQUEST_CONTEXT_SCHEME = '"'+env.parsed.REQUEST_CONTEXT_SCHEME+'"';
+            options['process.env'].REQUEST_CONTEXT_HOST = '"'+env.parsed.REQUEST_CONTEXT_HOST+'"';
         })
     ;
 
@@ -114,6 +108,16 @@ module.exports = function (Encore) {
                 analyzerMode: 'static',
                 openAnalyzer: false,
             }))
+        ;
+    }
+
+    if (Encore.isDev()) {
+        Encore
+            .copyFiles({
+                from: './node_modules/svgxuse',
+                to: '[name].[hash:8].[ext]',
+                pattern: /\.js$/,
+            })
         ;
     }
 };
