@@ -1,5 +1,5 @@
 default:
-  image: xmmedia/php:7.4-cli
+  image: xmmedia/php:8.0-cli
   timeout: 15m
 
 stages:
@@ -15,7 +15,7 @@ cache:
     - node_modules/
 
 variables:
-  SERVER_PHP_PATH: php74
+  SERVER_PHP_PATH: php80
   APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"

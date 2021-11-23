@@ -692,9 +692,6 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.9.0"
     },
-    "symfony/polyfill-php80": {
-        "version": "v1.18.1"
-    },
     "symfony/polyfill-php81": {
         "version": "v1.23.0"
     },
