@@ -12,50 +12,15 @@
                 {
                     "kind": "OBJECT",
                     "name": "Query",
+                    "description": "Main Queries",
                     "fields": [
                         {
-                            "name": "AuthLast",
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "OBJECT",
-                                    "name": "AuthLast",
-                                    "ofType": null
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
-                            "name": "Provinces",
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "OBJECT",
-                                            "name": "Province",
-                                            "ofType": null
-                                        }
-                                    }
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
                             "name": "Users",
+                            "description": "Retrieve all Users or a subset based on the passed filters.",
                             "args": [
                                 {
                                     "name": "filters",
+                                    "description": null,
                                     "type": {
                                         "kind": "INPUT_OBJECT",
                                         "name": "UserFilterInput",
@@ -82,9 +47,11 @@
                         },
                         {
                             "name": "User",
+                            "description": "Retrieve a single User.",
                             "args": [
                                 {
                                     "name": "userId",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -107,9 +74,11 @@
                         },
                         {
                             "name": "UserEmailUnique",
+                            "description": "Check if an email address is unique. Excludes the current user.",
                             "args": [
                                 {
                                     "name": "email",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -136,9 +105,11 @@
                         },
                         {
                             "name": "UserPasswordValid",
+                            "description": "Check if the password is valid\/correct for the current user.",
                             "args": [
                                 {
                                     "name": "password",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -164,7 +135,24 @@
                             "deprecationReason": null
                         },
                         {
+                            "name": "AuthLast",
+                            "description": "Retrieves the last email used on the login form and the last error from the last auth attempt (from session).",
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "AuthLast",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
                             "name": "Countries",
+                            "description": "Retrieve all Countries.",
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -187,7 +175,32 @@
                             "deprecationReason": null
                         },
                         {
+                            "name": "Provinces",
+                            "description": "Retrieve all Provinces.",
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "OBJECT",
+                                            "name": "Province",
+                                            "ofType": null
+                                        }
+                                    }
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
                             "name": "Me",
+                            "description": "The current User object or null.",
                             "args": [],
                             "type": {
                                 "kind": "OBJECT",
@@ -199,9 +212,11 @@
                         },
                         {
                             "name": "EntrypointIntegrity",
+                            "description": "Retrieve the current integrity hash for a script (JavaScript) file.",
                             "args": [
                                 {
                                     "name": "entrypoint",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -229,148 +244,14 @@
                     "possibleTypes": null
                 },
                 {
-                    "kind": "OBJECT",
-                    "name": "AuthLast",
-                    "fields": [
-                        {
-                            "name": "email",
-                            "args": [],
-                            "type": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
-                            "name": "error",
-                            "args": [],
-                            "type": {
-                                "kind": "SCALAR",
-                                "name": "String",
-                                "ofType": null
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        }
-                    ],
-                    "inputFields": null,
-                    "interfaces": [],
-                    "enumValues": null,
-                    "possibleTypes": null
-                },
-                {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "fields": null,
-                    "inputFields": null,
-                    "interfaces": null,
-                    "enumValues": null,
-                    "possibleTypes": null
-                },
-                {
-                    "kind": "OBJECT",
-                    "name": "Province",
-                    "fields": [
-                        {
-                            "name": "country",
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "OBJECT",
-                                    "name": "Country",
-                                    "ofType": null
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
-                            "name": "name",
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
-                            "name": "abbreviation",
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        }
-                    ],
-                    "inputFields": null,
-                    "interfaces": [],
-                    "enumValues": null,
-                    "possibleTypes": null
-                },
-                {
-                    "kind": "OBJECT",
-                    "name": "Country",
-                    "fields": [
-                        {
-                            "name": "name",
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
-                            "name": "abbreviation",
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        }
-                    ],
-                    "inputFields": null,
-                    "interfaces": [],
-                    "enumValues": null,
-                    "possibleTypes": null
-                },
-                {
                     "kind": "INPUT_OBJECT",
                     "name": "UserFilterInput",
+                    "description": "Available filters for querying Users. Any passed fields will be applied. Exclude the key\/field to skip that filter.",
                     "fields": null,
                     "inputFields": [
                         {
                             "name": "roles",
+                            "description": null,
                             "type": {
                                 "kind": "LIST",
                                 "name": null,
@@ -388,6 +269,7 @@
                         },
                         {
                             "name": "email",
+                            "description": null,
                             "type": {
                                 "kind": "SCALAR",
                                 "name": "String",
@@ -397,6 +279,7 @@
                         },
                         {
                             "name": "emailExact",
+                            "description": null,
                             "type": {
                                 "kind": "SCALAR",
                                 "name": "String",
@@ -406,6 +289,7 @@
                         },
                         {
                             "name": "active",
+                            "description": null,
                             "type": {
                                 "kind": "SCALAR",
                                 "name": "Boolean",
@@ -421,22 +305,26 @@
                 {
                     "kind": "ENUM",
                     "name": "Role",
+                    "description": "Available User roles.",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
                     "enumValues": [
                         {
                             "name": "ROLE_USER",
+                            "description": null,
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "ROLE_ADMIN",
+                            "description": null,
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "ROLE_SUPER_ADMIN",
+                            "description": null,
                             "isDeprecated": false,
                             "deprecationReason": null
                         }
@@ -445,7 +333,18 @@
                 },
                 {
                     "kind": "SCALAR",
+                    "name": "String",
+                    "description": "The `String` scalar type represents textual data, represented as UTF-8\ncharacter sequences. The String type is most often used by GraphQL to\nrepresent free-form human-readable text.",
+                    "fields": null,
+                    "inputFields": null,
+                    "interfaces": null,
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "SCALAR",
                     "name": "Boolean",
+                    "description": "The `Boolean` scalar type represents `true` or `false`.",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
@@ -455,9 +354,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "User",
+                    "description": "The User object.",
                     "fields": [
                         {
                             "name": "userId",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -473,6 +374,7 @@
                         },
                         {
                             "name": "email",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -488,6 +390,7 @@
                         },
                         {
                             "name": "firstName",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -499,6 +402,7 @@
                         },
                         {
                             "name": "lastName",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -510,6 +414,7 @@
                         },
                         {
                             "name": "name",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -521,6 +426,7 @@
                         },
                         {
                             "name": "verified",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -532,6 +438,7 @@
                         },
                         {
                             "name": "active",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -543,6 +450,7 @@
                         },
                         {
                             "name": "roles",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "LIST",
@@ -562,6 +470,7 @@
                         },
                         {
                             "name": "loginCount",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -577,6 +486,7 @@
                         },
                         {
                             "name": "lastLogin",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -595,6 +505,7 @@
                 {
                     "kind": "SCALAR",
                     "name": "UUID",
+                    "description": "A UUID represented as string.",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
@@ -604,6 +515,7 @@
                 {
                     "kind": "SCALAR",
                     "name": "Int",
+                    "description": "The `Int` scalar type represents non-fractional signed whole numeric\nvalues. Int can represent values between -(2^31) and 2^31 - 1. ",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
@@ -613,6 +525,7 @@
                 {
                     "kind": "SCALAR",
                     "name": "DateTime",
+                    "description": "Date & time represented as string. The serialized date will be in the RFC3339 format and will include the server timezone (UTC). The input should be a string in a format understood by PHP DateTime constructors and containing the user's timezone. If the input timezone is not included, UTC will be assumed.",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
@@ -622,9 +535,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "UserEmailUnique",
+                    "description": null,
                     "fields": [
                         {
                             "name": "unique",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -647,9 +562,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "UserPasswordValid",
+                    "description": null,
                     "fields": [
                         {
                             "name": "valid",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -671,13 +588,153 @@
                 },
                 {
                     "kind": "OBJECT",
+                    "name": "AuthLast",
+                    "description": "The last email & last error after a login attempt.",
+                    "fields": [
+                        {
+                            "name": "email",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "error",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        }
+                    ],
+                    "inputFields": null,
+                    "interfaces": [],
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "OBJECT",
+                    "name": "Country",
+                    "description": null,
+                    "fields": [
+                        {
+                            "name": "name",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "abbreviation",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        }
+                    ],
+                    "inputFields": null,
+                    "interfaces": [],
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "OBJECT",
+                    "name": "Province",
+                    "description": null,
+                    "fields": [
+                        {
+                            "name": "country",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "Country",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "name",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "abbreviation",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        }
+                    ],
+                    "inputFields": null,
+                    "interfaces": [],
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "OBJECT",
                     "name": "Mutation",
+                    "description": "Main Mutations",
                     "fields": [
                         {
                             "name": "SendEnquiry",
+                            "description": null,
                             "args": [
                                 {
                                     "name": "enquiry",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -704,9 +761,11 @@
                         },
                         {
                             "name": "UserUpdateProfile",
+                            "description": "Update User profile.",
                             "args": [
                                 {
                                     "name": "user",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -733,9 +792,11 @@
                         },
                         {
                             "name": "ChangePassword",
+                            "description": "Change User password.",
                             "args": [
                                 {
                                     "name": "user",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -762,9 +823,11 @@
                         },
                         {
                             "name": "UserRecoverInitiate",
+                            "description": "Initiate User account recovery.",
                             "args": [
                                 {
                                     "name": "email",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -791,9 +854,11 @@
                         },
                         {
                             "name": "UserRecoverReset",
+                            "description": "Set User password with User token.",
                             "args": [
                                 {
                                     "name": "token",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -807,6 +872,7 @@
                                 },
                                 {
                                     "name": "newPassword",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -833,9 +899,11 @@
                         },
                         {
                             "name": "UserVerify",
+                            "description": "Verify (activate) User account with password and User token.",
                             "args": [
                                 {
                                     "name": "token",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -849,6 +917,7 @@
                                 },
                                 {
                                     "name": "password",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -875,9 +944,11 @@
                         },
                         {
                             "name": "AdminUserAdd",
+                            "description": "Admin User add.",
                             "args": [
                                 {
                                     "name": "user",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -904,9 +975,11 @@
                         },
                         {
                             "name": "AdminUserUpdate",
+                            "description": "Admin User update.",
                             "args": [
                                 {
                                     "name": "user",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -933,9 +1006,11 @@
                         },
                         {
                             "name": "AdminUserActivate",
+                            "description": "Activate User by Admin.",
                             "args": [
                                 {
                                     "name": "user",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -962,9 +1037,11 @@
                         },
                         {
                             "name": "AdminUserVerify",
+                            "description": "Verify User by Admin.",
                             "args": [
                                 {
                                     "name": "userId",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -991,9 +1068,11 @@
                         },
                         {
                             "name": "AdminUserSendReset",
+                            "description": "Send User a password reset link.",
                             "args": [
                                 {
                                     "name": "userId",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -1020,9 +1099,11 @@
                         },
                         {
                             "name": "AdminUserSendActivation",
+                            "description": "Send User a their activation link.",
                             "args": [
                                 {
                                     "name": "userId",
+                                    "description": null,
                                     "type": {
                                         "kind": "NON_NULL",
                                         "name": null,
@@ -1056,10 +1137,12 @@
                 {
                     "kind": "INPUT_OBJECT",
                     "name": "EnquiryInput",
+                    "description": "Send Enquiry input.",
                     "fields": null,
                     "inputFields": [
                         {
                             "name": "name",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1073,6 +1156,7 @@
                         },
                         {
                             "name": "email",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1086,6 +1170,7 @@
                         },
                         {
                             "name": "message",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1105,9 +1190,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "EnquiryPayload",
+                    "description": "Send Enquiry mutation payload.",
                     "fields": [
                         {
                             "name": "success",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1130,10 +1217,12 @@
                 {
                     "kind": "INPUT_OBJECT",
                     "name": "UserUpdateProfileInput",
+                    "description": "User update mutation input.",
                     "fields": null,
                     "inputFields": [
                         {
                             "name": "email",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1147,6 +1236,7 @@
                         },
                         {
                             "name": "firstName",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1160,6 +1250,7 @@
                         },
                         {
                             "name": "lastName",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1179,9 +1270,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "UserMutationPayload",
+                    "description": "User mutation payload.",
                     "fields": [
                         {
                             "name": "success",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1204,10 +1297,12 @@
                 {
                     "kind": "INPUT_OBJECT",
                     "name": "UserPasswordInput",
+                    "description": "User update mutation input.",
                     "fields": null,
                     "inputFields": [
                         {
                             "name": "currentPassword",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1221,6 +1316,7 @@
                         },
                         {
                             "name": "newPassword",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1240,9 +1336,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "UserResultPayload",
+                    "description": "Payload if the User mutation was successful.",
                     "fields": [
                         {
                             "name": "success",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1265,10 +1363,12 @@
                 {
                     "kind": "INPUT_OBJECT",
                     "name": "AdminUserAddInput",
+                    "description": "Admin User add mutation input.",
                     "fields": null,
                     "inputFields": [
                         {
                             "name": "userId",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1282,6 +1382,7 @@
                         },
                         {
                             "name": "email",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1295,6 +1396,7 @@
                         },
                         {
                             "name": "password",
+                            "description": null,
                             "type": {
                                 "kind": "SCALAR",
                                 "name": "String",
@@ -1304,6 +1406,7 @@
                         },
                         {
                             "name": "firstName",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1317,6 +1420,7 @@
                         },
                         {
                             "name": "lastName",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1330,6 +1434,7 @@
                         },
                         {
                             "name": "setPassword",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1343,6 +1448,7 @@
                         },
                         {
                             "name": "role",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1356,6 +1462,7 @@
                         },
                         {
                             "name": "active",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1369,6 +1476,7 @@
                         },
                         {
                             "name": "sendInvite",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1388,9 +1496,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "AdminUserAddMutationPayload",
+                    "description": "Admin User add mutation payload.",
                     "fields": [
                         {
                             "name": "userId",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1406,6 +1516,7 @@
                         },
                         {
                             "name": "email",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1421,6 +1532,7 @@
                         },
                         {
                             "name": "active",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1443,10 +1555,12 @@
                 {
                     "kind": "INPUT_OBJECT",
                     "name": "AdminUserUpdateInput",
+                    "description": "Admin User update mutation input.",
                     "fields": null,
                     "inputFields": [
                         {
                             "name": "userId",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1460,6 +1574,7 @@
                         },
                         {
                             "name": "email",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1473,6 +1588,7 @@
                         },
                         {
                             "name": "password",
+                            "description": null,
                             "type": {
                                 "kind": "SCALAR",
                                 "name": "String",
@@ -1482,6 +1598,7 @@
                         },
                         {
                             "name": "firstName",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1495,6 +1612,7 @@
                         },
                         {
                             "name": "lastName",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1508,6 +1626,7 @@
                         },
                         {
                             "name": "setPassword",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1521,6 +1640,7 @@
                         },
                         {
                             "name": "role",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1540,9 +1660,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "AdminUserMutationPayload",
+                    "description": "Admin User mutation payload.",
                     "fields": [
                         {
                             "name": "userId",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1565,10 +1687,12 @@
                 {
                     "kind": "INPUT_OBJECT",
                     "name": "AdminUserActivateInput",
+                    "description": "Admin User activate\/deactivate mutation input.",
                     "fields": null,
                     "inputFields": [
                         {
                             "name": "userId",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1582,6 +1706,7 @@
                         },
                         {
                             "name": "action",
+                            "description": null,
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -1601,6 +1726,7 @@
                 {
                     "kind": "SCALAR",
                     "name": "ID",
+                    "description": "The `ID` scalar type represents a unique identifier, often used to\nrefetch an object or as key for a cache. The ID type appears in a JSON\nresponse as a String; however, it is not intended to be human-readable.\nWhen expected as an input type, any string (such as `\"4\"`) or integer\n(such as `4`) input value will be accepted as an ID.",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
@@ -1610,6 +1736,7 @@
                 {
                     "kind": "SCALAR",
                     "name": "Float",
+                    "description": "The `Float` scalar type represents signed double-precision fractional\nvalues as specified by\n[IEEE 754](http:\/\/en.wikipedia.org\/wiki\/IEEE_floating_point). ",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
@@ -1619,9 +1746,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "__Schema",
+                    "description": "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.",
                     "fields": [
                         {
                             "name": "types",
+                            "description": "A list of all types supported by this server.",
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1645,6 +1774,7 @@
                         },
                         {
                             "name": "queryType",
+                            "description": "The type that query operations will be rooted at.",
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1660,6 +1790,7 @@
                         },
                         {
                             "name": "mutationType",
+                            "description": "If this server supports mutation, the type that mutation operations will be rooted at.",
                             "args": [],
                             "type": {
                                 "kind": "OBJECT",
@@ -1671,6 +1802,7 @@
                         },
                         {
                             "name": "subscriptionType",
+                            "description": "If this server support subscription, the type that subscription operations will be rooted at.",
                             "args": [],
                             "type": {
                                 "kind": "OBJECT",
@@ -1682,6 +1814,7 @@
                         },
                         {
                             "name": "directives",
+                            "description": "A list of all directives supported by this server.",
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1712,9 +1845,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "__Type",
+                    "description": "The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.\n\nDepending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name and description, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.",
                     "fields": [
                         {
                             "name": "kind",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1730,6 +1865,7 @@
                         },
                         {
                             "name": "name",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -1741,6 +1877,7 @@
                         },
                         {
                             "name": "description",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -1752,9 +1889,11 @@
                         },
                         {
                             "name": "fields",
+                            "description": null,
                             "args": [
                                 {
                                     "name": "includeDeprecated",
+                                    "description": null,
                                     "type": {
                                         "kind": "SCALAR",
                                         "name": "Boolean",
@@ -1781,6 +1920,7 @@
                         },
                         {
                             "name": "interfaces",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "LIST",
@@ -1800,6 +1940,7 @@
                         },
                         {
                             "name": "possibleTypes",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "LIST",
@@ -1819,9 +1960,11 @@
                         },
                         {
                             "name": "enumValues",
+                            "description": null,
                             "args": [
                                 {
                                     "name": "includeDeprecated",
+                                    "description": null,
                                     "type": {
                                         "kind": "SCALAR",
                                         "name": "Boolean",
@@ -1848,6 +1991,7 @@
                         },
                         {
                             "name": "inputFields",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "LIST",
@@ -1867,6 +2011,7 @@
                         },
                         {
                             "name": "ofType",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "OBJECT",
@@ -1885,47 +2030,56 @@
                 {
                     "kind": "ENUM",
                     "name": "__TypeKind",
+                    "description": "An enum describing what kind of type a given `__Type` is.",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
                     "enumValues": [
                         {
                             "name": "SCALAR",
+                            "description": "Indicates this type is a scalar.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "OBJECT",
+                            "description": "Indicates this type is an object. `fields` and `interfaces` are valid fields.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "INTERFACE",
+                            "description": "Indicates this type is an interface. `fields` and `possibleTypes` are valid fields.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "UNION",
+                            "description": "Indicates this type is a union. `possibleTypes` is a valid field.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "ENUM",
+                            "description": "Indicates this type is an enum. `enumValues` is a valid field.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "INPUT_OBJECT",
+                            "description": "Indicates this type is an input object. `inputFields` is a valid field.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "LIST",
+                            "description": "Indicates this type is a list. `ofType` is a valid field.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "NON_NULL",
+                            "description": "Indicates this type is a non-null. `ofType` is a valid field.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         }
@@ -1935,9 +2089,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "__Field",
+                    "description": "Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type.",
                     "fields": [
                         {
                             "name": "name",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1953,6 +2109,7 @@
                         },
                         {
                             "name": "description",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -1964,6 +2121,7 @@
                         },
                         {
                             "name": "args",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -1987,6 +2145,7 @@
                         },
                         {
                             "name": "type",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2002,6 +2161,7 @@
                         },
                         {
                             "name": "isDeprecated",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2017,6 +2177,7 @@
                         },
                         {
                             "name": "deprecationReason",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -2035,9 +2196,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "__InputValue",
+                    "description": "Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value.",
                     "fields": [
                         {
                             "name": "name",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2053,6 +2216,7 @@
                         },
                         {
                             "name": "description",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -2064,6 +2228,7 @@
                         },
                         {
                             "name": "type",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2079,6 +2244,7 @@
                         },
                         {
                             "name": "defaultValue",
+                            "description": "A GraphQL-formatted string representing the default value for this input value.",
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -2097,9 +2263,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "__EnumValue",
+                    "description": "One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string.",
                     "fields": [
                         {
                             "name": "name",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2115,6 +2283,7 @@
                         },
                         {
                             "name": "description",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -2126,6 +2295,7 @@
                         },
                         {
                             "name": "isDeprecated",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2141,6 +2311,7 @@
                         },
                         {
                             "name": "deprecationReason",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -2159,9 +2330,11 @@
                 {
                     "kind": "OBJECT",
                     "name": "__Directive",
+                    "description": "A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.\n\nIn some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.",
                     "fields": [
                         {
                             "name": "name",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2177,6 +2350,7 @@
                         },
                         {
                             "name": "description",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "SCALAR",
@@ -2188,6 +2362,7 @@
                         },
                         {
                             "name": "locations",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2211,6 +2386,7 @@
                         },
                         {
                             "name": "args",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2234,6 +2410,7 @@
                         },
                         {
                             "name": "onOperation",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2249,6 +2426,7 @@
                         },
                         {
                             "name": "onFragment",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2264,6 +2442,7 @@
                         },
                         {
                             "name": "onField",
+                            "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
@@ -2286,97 +2465,116 @@
                 {
                     "kind": "ENUM",
                     "name": "__DirectiveLocation",
+                    "description": "A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies.",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
                     "enumValues": [
                         {
                             "name": "QUERY",
+                            "description": "Location adjacent to a query operation.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "MUTATION",
+                            "description": "Location adjacent to a mutation operation.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "SUBSCRIPTION",
+                            "description": "Location adjacent to a subscription operation.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "FIELD",
+                            "description": "Location adjacent to a field.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "FRAGMENT_DEFINITION",
+                            "description": "Location adjacent to a fragment definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "FRAGMENT_SPREAD",
+                            "description": "Location adjacent to a fragment spread.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "INLINE_FRAGMENT",
+                            "description": "Location adjacent to an inline fragment.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "SCHEMA",
+                            "description": "Location adjacent to a schema definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "SCALAR",
+                            "description": "Location adjacent to a scalar definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "OBJECT",
+                            "description": "Location adjacent to an object type definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "FIELD_DEFINITION",
+                            "description": "Location adjacent to a field definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "ARGUMENT_DEFINITION",
+                            "description": "Location adjacent to an argument definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "INTERFACE",
+                            "description": "Location adjacent to an interface definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "UNION",
+                            "description": "Location adjacent to a union definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "ENUM",
+                            "description": "Location adjacent to an enum definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "ENUM_VALUE",
+                            "description": "Location adjacent to an enum value definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "INPUT_OBJECT",
+                            "description": "Location adjacent to an input object type definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
                         {
                             "name": "INPUT_FIELD_DEFINITION",
+                            "description": "Location adjacent to an input object field definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         }
@@ -2387,6 +2585,7 @@
             "directives": [
                 {
                     "name": "include",
+                    "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
                     "locations": [
                         "FIELD",
                         "FRAGMENT_SPREAD",
@@ -2395,6 +2594,7 @@
                     "args": [
                         {
                             "name": "if",
+                            "description": "Included when true.",
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -2410,6 +2610,7 @@
                 },
                 {
                     "name": "skip",
+                    "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
                     "locations": [
                         "FIELD",
                         "FRAGMENT_SPREAD",
@@ -2418,6 +2619,7 @@
                     "args": [
                         {
                             "name": "if",
+                            "description": "Skipped when true.",
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -2433,6 +2635,7 @@
                 },
                 {
                     "name": "deprecated",
+                    "description": "Marks an element of a GraphQL schema as no longer supported.",
                     "locations": [
                         "FIELD_DEFINITION",
                         "ENUM_VALUE"
@@ -2440,6 +2643,7 @@
                     "args": [
                         {
                             "name": "reason",
+                            "description": "Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted in [Markdown](https:\/\/daringfireball.net\/projects\/markdown\/).",
                             "type": {
                                 "kind": "SCALAR",
                                 "name": "String",
