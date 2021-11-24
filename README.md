@@ -8,34 +8,26 @@ Used to create new projects using [Symfony 4](https://symfony.com/) at [XM Media
     ```sh
     composer create-project xm/starter_symfony_4 project-name --stability=dev --no-install --remove-vcs
     ```
-2. Setup dev server:
-   1. If using InterWorx, upload `setup_dev.sh` and run: `sh ./setup_dev.sh` 
-   1. Upload the files (exclude files that are OS dependent like `node_modules` & `.env.local` or that are only for editing like `.idea` and `.git` and a lot of what's in `.gitignore`).
-   2. [Install Composer](https://getcomposer.org/download/) (if not already installed)
-   3. Install PHP packages/vendors: `php composer.phar install`
-   4. Add `.env.local` – copy `.env` and update.
-   6. Run `. ./node_setup.sh` (this will setup node & install the JS packages – requires yarn to be installed).
-   7. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
-   8. Give executable perms to bin dir: `chmod u+x bin/*`
-   9. Create event streams & projections tables from `db_create.sql`. Set database collation to `utf8mb4_bin`.
-   10. Create one or more event streams with the command `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth && bin/console event-store:event-stream:create enquiry` (remove enquiry if not using the enquiry form).
-   11. Run all projections once: `bin/console event-store:projection:run user_projection -o && bin/console event-store:projection:run user_token_projection -o && bin/console event-store:projection:run enquiry_projection -o` 
-   12. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`).
-   13. Setup mail spool: add cron task similar to: `*/15 * * * * cd /home/user/example.com/current && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1` (this only sends error emails, runs every 15 minutes)
-       1. As one command: `crontab -l > mycron; echo "*/15 * * * * cd ${BASE}/current && bin/console swiftmailer:spool:send --message-limit=10 --time-limit=45 >> var/log/mailer.log 2>&1" >> mycron; crontab mycron; rm mycron`
-   14. Add logrotate cron (only needed on production): `30 4 * * 1 cd /home/user/example.com/current && logrotate app/config/packages/logrotate.conf --state var/logrotate-state` (runs Mondays at 04:30 UTC)
-3. Remove or update the `LICENSE` file.
-4. [Install Composer](https://getcomposer.org/download/) locally (if not installed globally).
-5. Update `composer.json`: `name`, `license` (likely `private`) and `description`
-6. Update `package.json`: `name`, `version`, `git.url`, `license`, `private`, `script.dev-server`
-7. Composer install & update (locally): `composer install && composer update` (or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
-8. Run `yarn && yarn upgrade` locally.
-9. Find and make changes near `@todo-symfony` comments throughout the site.
-10. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
-11. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests
-12. Create new favicons: [realfavicongenerator.net](https://realfavicongenerator.net)
-13. Copy (use "Push to another server") or recreate the templates in Postmark. The templates are referenced by the aliases.
-14. *Optional:* Run `bin/console app:graphql:dump-schema <username>` to update the GraphQL schema file where `username` is the email of an admin user.
+2. Add `.env.local` – copy `.env` and update.
+3. Update `composer.json`: `name`, `license` (likely `private`) and `description`
+4. Update `package.json`: `name`, `version`, `git.url`, `license` (probably delete), `private`, `script.dev-server` (update the port)
+5. Remove or update the `LICENSE` file.
+6. Composer install & update: `composer install && composer update` (or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
+7. Run `yarn && yarn upgrade`.
+8. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
+9. Give executable perms to bin dir: `chmod u+x bin/*`
+10. Add nitro site: `nitro add` (updating .env won't do anything).
+11. Create database with event streams & projections tables from `db_create.sql` using `nitro db import`. If possible, set database collation to `utf8mb4_bin`.
+12. Create one or more event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth && bin/console event-store:event-stream:create enquiry` (remove enquiry if not using the enquiry form).
+13. Run all projections once: `bin/console event-store:projection:run user_projection -o && bin/console event-store:projection:run user_token_projection -o && bin/console event-store:projection:run enquiry_projection -o` (remove enquiry if not using the enquiry form).
+14. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`).
+15. Find and make changes near `@todo-symfony` comments throughout the site.
+16. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
+17. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests
+18. Create new favicons: [realfavicongenerator.net](https://realfavicongenerator.net)
+19. Copy (use "Push to another server") or recreate the templates in Postmark. The templates are referenced by the aliases.
+20. *Optional:* Run `bin/console app:graphql:dump-schema <username>` to update the GraphQL schema file where `username` is the email of an admin user.
+21. Rename the project in PhpStorm.
 
 **Dev site can be accessed at https://[domain]/**
 
@@ -87,6 +79,7 @@ running multiple sites on one server.
 
 ## Incorporated Libraries & Tools
 
+  - [Craft Nitro](https://getnitro.sh/) – local dev environment
   - Frontend – full list of dependencies can be found in [package.json](https://github.com/xmmedia/starter_symfony_4/blob/master/package.json)
     - [Vue](https://vuejs.org/) – frontend framework
       - [Vue Router](https://router.vuejs.org/) – routing package for frontend
