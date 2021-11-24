@@ -41,8 +41,13 @@
 <script>
 import has from 'lodash/has';
 import cuid from 'cuid';
+import fieldPassword from './field_password';
 
 export default {
+    components: {
+        fieldPassword,
+    },
+
     props: {
         value: {
             type: String,
