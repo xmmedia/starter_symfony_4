@@ -10556,16 +10556,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.109",
+            "version": "v1.0.110",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "43c4c4f8cb5cdfa1a82494b837b49551a28fdcc4"
+                "reference": "930ca8b38917e39110bfb0f84457da0e3d2dbc4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/43c4c4f8cb5cdfa1a82494b837b49551a28fdcc4",
-                "reference": "43c4c4f8cb5cdfa1a82494b837b49551a28fdcc4",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/930ca8b38917e39110bfb0f84457da0e3d2dbc4e",
+                "reference": "930ca8b38917e39110bfb0f84457da0e3d2dbc4e",
                 "shasum": ""
             },
             "require": {
@@ -10635,9 +10635,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.109"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.110"
             },
-            "time": "2021-11-24T17:25:21+00:00"
+            "time": "2021-11-24T22:36:03+00:00"
         }
     ],
     "packages-dev": [
