@@ -18,10 +18,11 @@
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
             <form-error v-if="$v.$anyError" />
 
-            <field-email v-model="email"
+            <field-email :value="email"
                          :v="$v.email"
                          autocomplete="off"
-                         autofocus />
+                         autofocus
+                         @input="setEmailDebounce" />
 
             <field-password v-model="password"
                             :v="$v.password"
@@ -63,6 +64,7 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
+import debounce from 'lodash/debounce';
 import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 
@@ -196,6 +198,14 @@ export default {
 
     methods: {
         waitForValidation,
+
+        setEmailDebounce: debounce(function (email) {
+            this.setEmail(email);
+        }, 2000),
+        setEmail (email) {
+            this.email = email;
+            this.changed();
+        },
 
         async submit () {
             if (!this.allowSave) {
