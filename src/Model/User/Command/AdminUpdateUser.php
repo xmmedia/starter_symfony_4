@@ -60,12 +60,16 @@ final class AdminUpdateUser extends Command
         Assert::uuid($payload['userId']);
 
         Assert::keyExists($payload, 'email');
+        Assert::string($payload['email']);
 
         Assert::keyExists($payload, 'role');
+        Assert::string($payload['role']);
 
         Assert::keyExists($payload, 'firstName');
+        Assert::string($payload['firstName']);
 
         Assert::keyExists($payload, 'lastName');
+        Assert::string($payload['lastName']);
 
         parent::setPayload($payload);
     }
