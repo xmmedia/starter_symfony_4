@@ -29,8 +29,8 @@
                             checkbox-label="Change password"
                             @set-password="setPassword = $event" />
 
-            <field-name v-model="firstName" :v="$v.firstName">First name</field-name>
-            <field-name v-model="lastName" :v="$v.lastName">Last name</field-name>
+            <field-name v-model.trim="firstName" :v="$v.firstName">First name</field-name>
+            <field-name v-model.trim="lastName" :v="$v.lastName">Last name</field-name>
 
             <field-role v-model="role" :v="$v.role" />
 
