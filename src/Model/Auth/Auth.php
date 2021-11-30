@@ -30,7 +30,7 @@ class Auth extends AggregateRoot implements Entity
                 $authId,
                 $userId,
                 $email,
-                $userAgent,
+                substr($userAgent, 0, 500),
                 $ipAddress
             )
         );
@@ -50,7 +50,7 @@ class Auth extends AggregateRoot implements Entity
             Event\UserFailedToLogin::now(
                 $authId,
                 $email,
-                $userAgent,
+                substr($userAgent, 0, 500),
                 $ipAddress,
                 $exceptionMessage
             )
