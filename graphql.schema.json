@@ -1217,7 +1217,7 @@
                 {
                     "kind": "INPUT_OBJECT",
                     "name": "UserUpdateProfileInput",
-                    "description": "User update mutation input.",
+                    "description": "User profile update mutation input.",
                     "fields": null,
                     "inputFields": [
                         {
