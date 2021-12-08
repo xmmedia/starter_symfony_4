@@ -7,6 +7,7 @@
                          style="height: 3.75rem; padding: 0.65rem 0;">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
+                     width="70"
                      height="70"
                      class="h-10 ml-4"
                      alt="Logo">
@@ -50,6 +51,7 @@
             <router-link :to="logoLinkRoute" class="ml-auto rounded-none focus:bg-gray-700">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
+                     width="70"
                      height="70"
                      class="h-10 -mt-4 mr-4"
                      alt="Logo">
