@@ -82,19 +82,23 @@ select {
 }
 // flex-wrap will ensure help is on a separate line
 .field-wrap-radio, .field-wrap-checkbox {
-    @apply flex flex-wrap items-center mb-4;
+    @apply flex flex-wrap items-start mb-4;
+    input {
+        margin-top: 0.45rem;
+    }
     label {
-        @apply inline-block mb-0 pl-2 whitespace-nowrap;
+        @apply inline-block mb-0 pl-2;
+        width: 86%;
     }
 }
 
 .field-wrap-radios, .field-wrap-checkboxes {
-    @apply mb-4;
+    @apply mb-6;
     legend {
         @apply mb-1;
     }
     .field-wrap-radio, .field-wrap-checkbox {
-        @apply mb-1 mr-6;
+        @apply mb-1 mr-4;
     }
 }
 
