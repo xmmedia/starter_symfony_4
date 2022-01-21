@@ -35,7 +35,7 @@ before_script:
 
 .security-checks: &security-checks
   # check for security issues in PHP libs
-  - /root/.symfony/bin/symfony security:check
+  - symfony security:check
   # check for JS security issues in libs
   - yarn audit:high
 
