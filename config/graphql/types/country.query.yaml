@@ -7,4 +7,4 @@ CountryQuery:
                 type:        '[Country!]!'
                 description: 'Retrieve all Countries.'
                 access:      '@=isAuthenticated()'
-                resolve:     '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\CountryResolver")'
+                resolve:     '@=query("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Query\\CountryQuery")'

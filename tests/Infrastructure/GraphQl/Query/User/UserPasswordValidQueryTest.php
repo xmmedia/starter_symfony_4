@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\GraphQl\Resolver\User;
+namespace App\Tests\Infrastructure\GraphQl\Query\User;
 
 use App\Entity\User;
-use App\Infrastructure\GraphQl\Resolver\User\UserPasswordValidResolver;
+use App\Infrastructure\GraphQl\Query\User\UserPasswordValidQuery;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserPasswordValidResolverTest extends BaseTestCase
+class UserPasswordValidQueryTest extends BaseTestCase
 {
     public function testPasswordMatches(): void
     {
@@ -31,7 +31,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserPasswordValidResolver(
+        $result = (new UserPasswordValidQuery(
             $userPasswordHasher,
             $security,
         ))(
@@ -59,7 +59,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserPasswordValidResolver(
+        $result = (new UserPasswordValidQuery(
             $userPasswordHasher,
             $security,
         ))(
@@ -82,7 +82,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
 
         $this->expectException(\RuntimeException::class);
 
-        (new UserPasswordValidResolver(
+        (new UserPasswordValidQuery(
             $userPasswordHasher,
             $security,
         ))(

@@ -2049,7 +2049,7 @@
                         },
                         {
                             "name": "INTERFACE",
-                            "description": "Indicates this type is an interface. `fields` and `possibleTypes` are valid fields.",
+                            "description": "Indicates this type is an interface. `fields`, `interfaces`, and `possibleTypes` are valid fields.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
@@ -2361,30 +2361,6 @@
                             "deprecationReason": null
                         },
                         {
-                            "name": "locations",
-                            "description": null,
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "ENUM",
-                                            "name": "__DirectiveLocation",
-                                            "ofType": null
-                                        }
-                                    }
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
                             "name": "args",
                             "description": null,
                             "args": [],
@@ -2409,7 +2385,7 @@
                             "deprecationReason": null
                         },
                         {
-                            "name": "onOperation",
+                            "name": "isRepeatable",
                             "description": null,
                             "args": [],
                             "type": {
@@ -2421,40 +2397,32 @@
                                     "ofType": null
                                 }
                             },
-                            "isDeprecated": true,
-                            "deprecationReason": "Use `locations`."
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
-                            "name": "onFragment",
+                            "name": "locations",
                             "description": null,
                             "args": [],
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
                                 "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "Boolean",
-                                    "ofType": null
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "ENUM",
+                                            "name": "__DirectiveLocation",
+                                            "ofType": null
+                                        }
+                                    }
                                 }
                             },
-                            "isDeprecated": true,
-                            "deprecationReason": "Use `locations`."
-                        },
-                        {
-                            "name": "onField",
-                            "description": null,
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "Boolean",
-                                    "ofType": null
-                                }
-                            },
-                            "isDeprecated": true,
-                            "deprecationReason": "Use `locations`."
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "inputFields": null,
@@ -2509,6 +2477,12 @@
                         {
                             "name": "INLINE_FRAGMENT",
                             "description": "Location adjacent to an inline fragment.",
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "VARIABLE_DEFINITION",
+                            "description": "Location adjacent to a variable definition.",
                             "isDeprecated": false,
                             "deprecationReason": null
                         },
@@ -2586,11 +2560,6 @@
                 {
                     "name": "include",
                     "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
-                    "locations": [
-                        "FIELD",
-                        "FRAGMENT_SPREAD",
-                        "INLINE_FRAGMENT"
-                    ],
                     "args": [
                         {
                             "name": "if",
@@ -2606,16 +2575,16 @@
                             },
                             "defaultValue": null
                         }
+                    ],
+                    "locations": [
+                        "FIELD",
+                        "FRAGMENT_SPREAD",
+                        "INLINE_FRAGMENT"
                     ]
                 },
                 {
                     "name": "skip",
                     "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
-                    "locations": [
-                        "FIELD",
-                        "FRAGMENT_SPREAD",
-                        "INLINE_FRAGMENT"
-                    ],
                     "args": [
                         {
                             "name": "if",
@@ -2631,19 +2600,20 @@
                             },
                             "defaultValue": null
                         }
+                    ],
+                    "locations": [
+                        "FIELD",
+                        "FRAGMENT_SPREAD",
+                        "INLINE_FRAGMENT"
                     ]
                 },
                 {
                     "name": "deprecated",
                     "description": "Marks an element of a GraphQL schema as no longer supported.",
-                    "locations": [
-                        "FIELD_DEFINITION",
-                        "ENUM_VALUE"
-                    ],
                     "args": [
                         {
                             "name": "reason",
-                            "description": "Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted in [Markdown](https:\/\/daringfireball.net\/projects\/markdown\/).",
+                            "description": "Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted using the Markdown syntax (as specified by [CommonMark](https:\/\/commonmark.org\/).",
                             "type": {
                                 "kind": "SCALAR",
                                 "name": "String",
@@ -2651,6 +2621,10 @@
                             },
                             "defaultValue": "\"No longer supported\""
                         }
+                    ],
+                    "locations": [
+                        "FIELD_DEFINITION",
+                        "ENUM_VALUE"
                     ]
                 }
             ]

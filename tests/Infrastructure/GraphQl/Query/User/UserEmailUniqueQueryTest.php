@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\GraphQl\Resolver\User;
+namespace App\Tests\Infrastructure\GraphQl\Query\User;
 
 use App\Entity\User;
-use App\Infrastructure\GraphQl\Resolver\User\UserEmailUniqueResolver;
+use App\Infrastructure\GraphQl\Query\User\UserEmailUniqueQuery;
 use App\Projection\User\UserFinder;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Xm\SymfonyBundle\Model\Email;
 
-class UserEmailUniqueResolverTest extends BaseTestCase
+class UserEmailUniqueQueryTest extends BaseTestCase
 {
     public function testSameUser(): void
     {
@@ -40,7 +40,7 @@ class UserEmailUniqueResolverTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserEmailUniqueResolver($userFinder, $security))(
+        $result = (new UserEmailUniqueQuery($userFinder, $security))(
             $faker->email()
         );
 
@@ -72,7 +72,7 @@ class UserEmailUniqueResolverTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserEmailUniqueResolver($userFinder, $security))(
+        $result = (new UserEmailUniqueQuery($userFinder, $security))(
             $faker->email()
         );
 
@@ -96,7 +96,7 @@ class UserEmailUniqueResolverTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserEmailUniqueResolver($userFinder, $security))(
+        $result = (new UserEmailUniqueQuery($userFinder, $security))(
             $faker->email()
         );
 
@@ -116,6 +116,6 @@ class UserEmailUniqueResolverTest extends BaseTestCase
 
         $this->expectException(\RuntimeException::class);
 
-        (new UserEmailUniqueResolver($userFinder, $security))($faker->email());
+        (new UserEmailUniqueQuery($userFinder, $security))($faker->email());
     }
 }

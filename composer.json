@@ -19,7 +19,7 @@
         "moneyphp/money": "^4.0",
         "nesbot/carbon": "^2.4",
         "odolbeau/phone-number-bundle": "^3.0",
-        "overblog/graphql-bundle": "^0.13",
+        "overblog/graphql-bundle": "^0.14",
         "phpdocumentor/reflection-docblock": "^5.2",
         "prooph/event-store-bus-bridge": "^3.3",
         "prooph/event-store-symfony-bundle": "^0.9",

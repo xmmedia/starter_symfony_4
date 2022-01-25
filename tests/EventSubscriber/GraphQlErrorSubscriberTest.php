@@ -98,7 +98,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
             $faker->string(5),
             null,
             null,
-            null,
+            [],
             null,
             $exception,
         );
@@ -131,7 +131,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
             'Access denied to this field.',
             null,
             null,
-            null,
+            [],
             null,
             new \Exception('', $code),
         );
@@ -163,7 +163,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
             $faker->string(5),
             null,
             null,
-            null,
+            [],
             null,
             new \Exception('', 0),
         );

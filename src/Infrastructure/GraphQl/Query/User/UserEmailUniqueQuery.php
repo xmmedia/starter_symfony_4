@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\GraphQl\Resolver\User;
+namespace App\Infrastructure\GraphQl\Query\User;
 
 use App\Projection\User\UserFinder;
 use App\Security\Security;
-use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
+use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 use Xm\SymfonyBundle\Model\Email;
 
-class UserEmailUniqueResolver implements ResolverInterface
+class UserEmailUniqueQuery implements QueryInterface
 {
     /** @var UserFinder */
     private $userFinder;

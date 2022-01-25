@@ -7,7 +7,7 @@ UserMutation:
                 type:        UserMutationPayload!
                 description: 'Update User profile.'
                 access:      '@=isAuthenticated()'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserUpdateProfileMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserUpdateProfileMutation", args)'
                 args:
                     user: UserUpdateProfileInput!
 
@@ -15,21 +15,21 @@ UserMutation:
                 type:        UserMutationPayload!
                 description: 'Change User password.'
                 access:      '@=isAuthenticated()'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserPasswordMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserPasswordMutation", args)'
                 args:
                     user: UserPasswordInput!
 
             UserRecoverInitiate:
                 type:        UserResultPayload!
                 description: 'Initiate User account recovery.'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverInitiateMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverInitiateMutation", args)'
                 args:
                     email: String!
 
             UserRecoverReset:
                 type:        UserResultPayload!
                 description: 'Set User password with User token.'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", args)'
                 args:
                     token:       String!
                     newPassword: String!
@@ -37,7 +37,7 @@ UserMutation:
             UserVerify:
                 type:        UserResultPayload!
                 description: 'Verify (activate) User account with password and User token.'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserVerifyMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserVerifyMutation", args)'
                 args:
                     token:    String!
                     password: String!
@@ -46,7 +46,7 @@ UserMutation:
                 type:        AdminUserAddMutationPayload!
                 description: 'Admin User add.'
                 access:      '@=hasRole("ROLE_ADMIN")'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserAddMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserAddMutation", args)'
                 args:
                     user: AdminUserAddInput!
 
@@ -54,7 +54,7 @@ UserMutation:
                 type:        AdminUserMutationPayload!
                 description: 'Admin User update.'
                 access:      '@=hasRole("ROLE_ADMIN")'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserUpdateMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserUpdateMutation", args)'
                 args:
                     user: AdminUserUpdateInput!
 
@@ -62,7 +62,7 @@ UserMutation:
                 type:        AdminUserMutationPayload!
                 description: 'Activate User by Admin.'
                 access:      '@=hasRole("ROLE_ADMIN")'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserActivateMutation", [args])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserActivateMutation", args)'
                 args:
                     user: AdminUserActivateInput!
 
@@ -70,7 +70,7 @@ UserMutation:
                 type:        AdminUserMutationPayload!
                 description: 'Verify User by Admin.'
                 access:      '@=hasRole("ROLE_ADMIN")'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", [args["userId"]])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", args["userId"])'
                 args:
                     userId: UUID!
 
@@ -78,7 +78,7 @@ UserMutation:
                 type:        AdminUserMutationPayload!
                 description: 'Send User a password reset link.'
                 access:      '@=hasRole("ROLE_ADMIN")'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", [args["userId"]])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", args["userId"])'
                 args:
                     userId: UUID!
 
@@ -86,7 +86,7 @@ UserMutation:
                 type:        AdminUserMutationPayload!
                 description: 'Send User a their activation link.'
                 access:      '@=hasRole("ROLE_ADMIN")'
-                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendActivationToUserMutation", [args["userId"]])'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendActivationToUserMutation", args["userId"])'
                 args:
                     userId: UUID!
 

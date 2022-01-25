@@ -5,7 +5,7 @@ EnquiryMutation:
         fields:
             SendEnquiry:
                 type:    EnquiryPayload!
-                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\SendEnquiryMutation", [args])'
+                resolve: '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\SendEnquiryMutation", args)'
                 args:
                     enquiry: EnquiryInput!
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d035b13a4e3b9eab0fbf46ed781f6fb1",
+    "content-hash": "c195f0c6796f5b35334ccf342b555569",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2677,6 +2677,51 @@
             "time": "2021-10-01T21:08:31+00:00"
         },
         {
+            "name": "murtukov/php-code-generator",
+            "version": "v0.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/murtukov/php-code-generator.git",
+                "reference": "89b6063daa42870bc08e4ce6e670f2ae62634bba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/murtukov/php-code-generator/zipball/89b6063daa42870bc08e4ce6e670f2ae62634bba",
+                "reference": "89b6063daa42870bc08e4ce6e670f2ae62634bba",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.58",
+                "phpunit/phpunit": "^9.4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Murtukov\\PHPCodeGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Timur Murtukov",
+                    "email": "murtukov@gmail.com"
+                }
+            ],
+            "description": "A library to generate php code",
+            "support": {
+                "issues": "https://github.com/murtukov/php-code-generator/issues",
+                "source": "https://github.com/murtukov/php-code-generator/tree/v0.1.6"
+            },
+            "time": "2021-05-04T16:39:00+00:00"
+        },
+        {
             "name": "nesbot/carbon",
             "version": "2.56.0",
             "source": {
@@ -2848,51 +2893,64 @@
         },
         {
             "name": "overblog/graphql-bundle",
-            "version": "v0.13.7",
+            "version": "v0.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overblog/GraphQLBundle.git",
-                "reference": "53a2f88285142db02704ad8902de298712616d6b"
+                "reference": "a77a31483a725963892523b02960434a0a61c924"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/53a2f88285142db02704ad8902de298712616d6b",
-                "reference": "53a2f88285142db02704ad8902de298712616d6b",
+                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/a77a31483a725963892523b02960434a0a61c924",
+                "reference": "a77a31483a725963892523b02960434a0a61c924",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=7.2",
-                "psr/log": "^1.0",
-                "symfony/config": "^4.3 || ^5.0",
-                "symfony/dependency-injection": "^4.3 || ^5.0",
-                "symfony/event-dispatcher": "^4.3 || ^5.0",
-                "symfony/expression-language": "^4.3 || ^5.0",
-                "symfony/framework-bundle": "^4.3 || ^5.0",
-                "symfony/options-resolver": "^4.3 || ^5.0",
-                "symfony/property-access": "^4.3 || ^5.0",
-                "webonyx/graphql-php": "^0.13.5"
+                "murtukov/php-code-generator": "^0.1.5",
+                "php": ">=7.4",
+                "phpdocumentor/reflection-docblock": "^5.2",
+                "psr/log": "^1.0 || ^2.0 || ^3.0",
+                "symfony/config": "^4.4.30 || ^5.3.7",
+                "symfony/dependency-injection": "^4.4.30 || ^5.3.7",
+                "symfony/event-dispatcher": "^4.4 || ^5.3",
+                "symfony/expression-language": "^4.4 || ^5.3",
+                "symfony/framework-bundle": "^4.4.30 || ^5.3.7",
+                "symfony/http-foundation": "^4.4.30 || ^5.3.7",
+                "symfony/http-kernel": "^4.4 || ^5.3",
+                "symfony/options-resolver": "^4.4 || ^5.3",
+                "symfony/property-access": "^4.4 || ^5.3",
+                "webonyx/graphql-php": ">=14.5"
             },
-            "replace": {
-                "overblog/graphql-php-generator": "self.version"
+            "conflict": {
+                "phpdocumentor/type-resolver": "<1.4.0",
+                "react/promise": "<2.8"
             },
             "require-dev": {
+                "doctrine/annotations": "^1.13",
                 "doctrine/orm": "^2.5",
+                "monolog/monolog": "^1.26.1",
                 "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan-phpunit": "^0.11",
-                "phpstan/phpstan-shim": "^0.11.19",
-                "phpstan/phpstan-symfony": "^0.11",
-                "phpunit/phpunit": "<8.3",
+                "phpstan/phpstan": "^0.12.58",
+                "phpstan/phpstan-phpunit": "^0.12.11",
+                "phpstan/phpstan-symfony": "^0.12.6",
+                "phpunit/phpunit": "^9.5.10",
                 "react/promise": "^2.5",
-                "symfony/asset": "^4.3 || ^5.0",
-                "symfony/browser-kit": "^4.3 || ^5.0",
-                "symfony/console": "^4.3 || ^5.0",
-                "symfony/css-selector": "^4.3 || ^5.0",
-                "symfony/phpunit-bridge": "^4.3 || ^5.0",
-                "symfony/process": "^4.3 || ^5.0",
-                "symfony/security-bundle": "^4.3 || ^5.0",
-                "symfony/validator": "^4.3 || ^5.0",
-                "symfony/yaml": "^4.3 || ^5.0"
+                "symfony/asset": "^4.4 || ^5.3",
+                "symfony/browser-kit": "^4.4 || ^5.3",
+                "symfony/console": "^4.4.30 || ^5.3",
+                "symfony/css-selector": "^4.4 || ^5.3",
+                "symfony/dom-crawler": "^4.4.30 || ^5.3.7",
+                "symfony/finder": "^4.4.30 || ^5.3.7",
+                "symfony/monolog-bundle": "^3.7",
+                "symfony/phpunit-bridge": "^6.0",
+                "symfony/process": "^4.4.30 || ^5.3.7",
+                "symfony/routing": "^4.4 || ^5.3.7",
+                "symfony/security-bundle": "^4.4 || ^5.3",
+                "symfony/validator": "^4.4.30 || ^5.3.7",
+                "symfony/var-dumper": "^4.4.30 || ^5.3.7",
+                "symfony/yaml": "^4.4 || ^5.3",
+                "twig/twig": "^2.10|^3.0"
             },
             "suggest": {
                 "nelmio/cors-bundle": "For more flexibility when using CORS prefight",
@@ -2903,13 +2961,12 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.13-dev"
+                    "dev-master": "0.14-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Overblog\\GraphQLBundle\\": "src/",
-                    "Overblog\\GraphQLGenerator\\": "lib/generator/src/"
+                    "Overblog\\GraphQLBundle\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2929,9 +2986,9 @@
             ],
             "support": {
                 "issues": "https://github.com/overblog/GraphQLBundle/issues",
-                "source": "https://github.com/overblog/GraphQLBundle/tree/v0.13.7"
+                "source": "https://github.com/overblog/GraphQLBundle/tree/v0.14.1"
             },
-            "time": "2021-11-22T13:33:12+00:00"
+            "time": "2021-12-21T09:55:56+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -3900,30 +3957,30 @@
         },
         {
             "name": "psr/log",
-            "version": "1.1.4",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
+                "reference": "ef29f6d262798707a9edd554e2b82517ef3a9376"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/ef29f6d262798707a9edd554e2b82517ef3a9376",
+                "reference": "ef29f6d262798707a9edd554e2b82517ef3a9376",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=8.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Psr\\Log\\": "Psr/Log/"
+                    "Psr\\Log\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3944,9 +4001,9 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/1.1.4"
+                "source": "https://github.com/php-fig/log/tree/2.0.0"
             },
-            "time": "2021-05-03T11:20:27+00:00"
+            "time": "2021-07-14T16:41:46+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -10440,33 +10497,37 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v0.13.9",
+            "version": "v14.11.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "d9a94fddcad0a35d4bced212b8a44ad1bc59bdf3"
+                "reference": "ffa431c0821821839370a68dab3c2597c06bf7f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/d9a94fddcad0a35d4bced212b8a44ad1bc59bdf3",
-                "reference": "d9a94fddcad0a35d4bced212b8a44ad1bc59bdf3",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/ffa431c0821821839370a68dab3c2597c06bf7f0",
+                "reference": "ffa431c0821821839370a68dab3c2597c06bf7f0",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": "^7.1||^8.0"
+                "php": "^7.1 || ^8"
             },
             "require-dev": {
+                "amphp/amp": "^2.3",
                 "doctrine/coding-standard": "^6.0",
-                "phpbench/phpbench": "^0.14.0",
-                "phpstan/phpstan": "^0.11.4",
-                "phpstan/phpstan-phpunit": "^0.11.0",
-                "phpstan/phpstan-strict-rules": "^0.11.0",
-                "phpunit/phpcov": "^5.0",
-                "phpunit/phpunit": "^7.2",
+                "nyholm/psr7": "^1.2",
+                "phpbench/phpbench": "^1.2",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "0.12.82",
+                "phpstan/phpstan-phpunit": "0.12.18",
+                "phpstan/phpstan-strict-rules": "0.12.9",
+                "phpunit/phpunit": "^7.2 || ^8.5",
                 "psr/http-message": "^1.0",
-                "react/promise": "2.*"
+                "react/promise": "2.*",
+                "simpod/php-coveralls-mirror": "^3.0",
+                "squizlabs/php_codesniffer": "3.5.4"
             },
             "suggest": {
                 "psr/http-message": "To use standard GraphQL server",
@@ -10490,7 +10551,7 @@
             ],
             "support": {
                 "issues": "https://github.com/webonyx/graphql-php/issues",
-                "source": "https://github.com/webonyx/graphql-php/tree/0.13.x"
+                "source": "https://github.com/webonyx/graphql-php/tree/v14.11.5"
             },
             "funding": [
                 {
@@ -10498,7 +10559,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2020-07-02T05:49:25+00:00"
+            "time": "2022-01-24T11:13:31+00:00"
         },
         {
             "name": "wildbit/postmark-php",
@@ -10540,16 +10601,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.118",
+            "version": "v1.0.120",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "04bf6920c5342fe1f80c0aa92c49093be1e9ea43"
+                "reference": "9f72d6c5580faf3f0e8abeaccc4e74ee9f9ef524"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/04bf6920c5342fe1f80c0aa92c49093be1e9ea43",
-                "reference": "04bf6920c5342fe1f80c0aa92c49093be1e9ea43",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/9f72d6c5580faf3f0e8abeaccc4e74ee9f9ef524",
+                "reference": "9f72d6c5580faf3f0e8abeaccc4e74ee9f9ef524",
                 "shasum": ""
             },
             "require": {
@@ -10564,7 +10625,7 @@
                 "moneyphp/money": "^3.2 || ^4.0",
                 "nesbot/carbon": "^2.24",
                 "odolbeau/phone-number-bundle": "^3.0",
-                "overblog/graphql-bundle": "^0.12.3 || ^0.13.0",
+                "overblog/graphql-bundle": "^0.12.3 || ^0.13.0 || ^0.14.0",
                 "php": "^7.3 || ^8.0",
                 "prooph/event-store-bus-bridge": "^3.3",
                 "prooph/event-store-symfony-bundle": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0",
@@ -10619,9 +10680,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.118"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.120"
             },
-            "time": "2022-01-25T21:21:57+00:00"
+            "time": "2022-01-25T23:19:18+00:00"
         }
     ],
     "packages-dev": [

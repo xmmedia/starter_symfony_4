@@ -6,7 +6,7 @@ AuthQuery:
             AuthLast:
                 type:        AuthLast!
                 description: 'Retrieves the last email used on the login form and the last error from the last auth attempt (from session).'
-                resolve:     '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\AuthLastResolver")'
+                resolve:     '@=query("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Query\\AuthLastQuery")'
 
 AuthLast:
     type: object

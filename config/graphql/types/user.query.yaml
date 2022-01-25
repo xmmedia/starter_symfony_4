@@ -7,7 +7,7 @@ UserQuery:
                 type:        '[User!]'
                 description: 'Retrieve all Users or a subset based on the passed filters.'
                 access:      '@=hasRole("ROLE_ADMIN")'
-                resolve:     '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UsersResolver", [args["filters"]])'
+                resolve:     '@=query("App\\Infrastructure\\GraphQl\\Query\\User\\UsersQuery", args["filters"])'
                 args:
                     filters: UserFilterInput
 
@@ -15,7 +15,7 @@ UserQuery:
                 type:        User
                 description: 'Retrieve a single User.'
                 access:      '@=hasRole("ROLE_ADMIN")'
-                resolve:     '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserResolver", [args["userId"]])'
+                resolve:     '@=query("App\\Infrastructure\\GraphQl\\Query\\User\\UserQuery", args["userId"])'
                 args:
                     userId: UUID!
 
@@ -23,7 +23,7 @@ UserQuery:
                 type:        UserEmailUnique!
                 description: 'Check if an email address is unique. Excludes the current user.'
                 access:      '@=isAuthenticated()'
-                resolve:     '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserEmailUniqueResolver", [args["email"]])'
+                resolve:     '@=query("App\\Infrastructure\\GraphQl\\Query\\User\\UserEmailUniqueQuery", args["email"])'
                 args:
                     email: String!
 
@@ -31,7 +31,7 @@ UserQuery:
                 type:        UserPasswordValid!
                 description: 'Check if the password is valid/correct for the current user.'
                 access:      '@=isAuthenticated()'
-                resolve:     '@=resolver("App\\Infrastructure\\GraphQl\\Resolver\\User\\UserPasswordValidResolver", [args["password"]])'
+                resolve:     '@=query("App\\Infrastructure\\GraphQl\\Query\\User\\UserPasswordValidQuery", args["password"])'
                 args:
                     password: String!
 

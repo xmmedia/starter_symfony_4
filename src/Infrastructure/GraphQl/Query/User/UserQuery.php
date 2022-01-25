@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\GraphQl\Resolver\User;
+namespace App\Infrastructure\GraphQl\Query\User;
 
 use App\Entity\User;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
-use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
+use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
-class UserResolver implements ResolverInterface
+class UserQuery implements QueryInterface
 {
     /** @var UserFinder */
     private $userFinder;

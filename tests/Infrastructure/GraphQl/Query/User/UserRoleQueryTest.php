@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\GraphQl\Resolver\User;
+namespace App\Tests\Infrastructure\GraphQl\Query\User;
 
 use App\Entity\User;
-use App\Infrastructure\GraphQl\Resolver\User\UserRoleResolver;
+use App\Infrastructure\GraphQl\Query\User\UserRoleQuery;
 use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use Mockery;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
-class UserRoleResolverTest extends BaseTestCase
+class UserRoleQueryTest extends BaseTestCase
 {
     public function test(): void
     {
@@ -29,6 +29,6 @@ class UserRoleResolverTest extends BaseTestCase
             ->once()
             ->andReturn($userRoles);
 
-        (new UserRoleResolver($roleHierarchy))($user);
+        (new UserRoleQuery($roleHierarchy))($user);
     }
 }

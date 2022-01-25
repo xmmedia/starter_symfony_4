@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\GraphQl\Resolver\User;
+namespace App\Infrastructure\GraphQl\Query\User;
 
 use App\Entity\User;
-use Overblog\GraphQLBundle\Definition\Resolver\ResolverInterface;
+use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
-class UserRoleResolver implements ResolverInterface
+class UserRoleQuery implements QueryInterface
 {
     /** @var RoleHierarchyInterface */
     private $roleHierarchy;

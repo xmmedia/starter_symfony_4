@@ -12,7 +12,7 @@ Query:
             EntrypointIntegrity:
                 type:        String
                 description: 'Retrieve the current integrity hash for a script (JavaScript) file.'
-                resolve:     '@=resolver("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Resolver\\EntrypointIntegrityHashResolver", [args["entrypoint"]])'
+                resolve:     '@=query("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Query\\EntrypointIntegrityHashQuery", args["entrypoint"])'
                 args:
                     entrypoint:
                         type: String!

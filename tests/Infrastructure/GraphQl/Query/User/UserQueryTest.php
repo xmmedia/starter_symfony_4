@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\GraphQl\Resolver\User;
+namespace App\Tests\Infrastructure\GraphQl\Query\User;
 
 use App\Entity\User;
-use App\Infrastructure\GraphQl\Resolver\User\UserResolver;
+use App\Infrastructure\GraphQl\Query\User\UserQuery;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
 use Mockery;
 
-class UserResolverTest extends BaseTestCase
+class UserQueryTest extends BaseTestCase
 {
     public function test(): void
     {
@@ -26,7 +26,7 @@ class UserResolverTest extends BaseTestCase
             ->with(Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $result = (new UserResolver($userFinder))($userId);
+        $result = (new UserQuery($userFinder))($userId);
 
         $this->assertEquals($user, $result);
     }
@@ -43,7 +43,7 @@ class UserResolverTest extends BaseTestCase
             ->with(Mockery::type(UserId::class))
             ->andReturnNull();
 
-        $result = (new UserResolver($userFinder))($userId);
+        $result = (new UserQuery($userFinder))($userId);
 
         $this->assertNull($result);
     }
