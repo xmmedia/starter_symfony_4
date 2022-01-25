@@ -30,7 +30,7 @@ class UserTokenTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $datetime = $faker->dateTime();
+        $datetime = \DateTimeImmutable::createFromMutable($faker->dateTime());
 
         $token = new UserToken();
         $reflection = new \ReflectionClass(UserToken::class);

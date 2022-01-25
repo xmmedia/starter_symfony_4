@@ -142,7 +142,7 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $lastLogin = $faker->dateTime();
+        $lastLogin = \DateTimeImmutable::createFromMutable($faker->dateTime());
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
