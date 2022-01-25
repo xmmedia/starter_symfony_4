@@ -181,6 +181,9 @@
     "monolog/monolog": {
         "version": "1.23.0"
     },
+    "murtukov/php-code-generator": {
+        "version": "v0.1.6"
+    },
     "myclabs/deep-copy": {
         "version": "1.8.1"
     },
