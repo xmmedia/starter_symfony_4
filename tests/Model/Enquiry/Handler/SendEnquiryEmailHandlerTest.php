@@ -35,7 +35,7 @@ class SendEnquiryEmailHandlerTest extends BaseTestCase
 
                 return true;
             })
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()))
+            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid3()))
         ;
 
         (new SendEnquiryEmailHandler(

@@ -16,7 +16,7 @@ class AdminUserVerifyMutationTest extends BaseTestCase
     public function testActivate(): void
     {
         $faker = $this->faker();
-        $userId = $faker->uuid();
+        $userId = $faker->uuid3();
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')

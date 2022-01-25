@@ -13,7 +13,7 @@ class UserIdTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $uuid = $faker->uuid();
+        $uuid = $faker->uuid3();
 
         $userId = UserId::fromString($uuid);
 

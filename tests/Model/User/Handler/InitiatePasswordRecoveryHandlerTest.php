@@ -43,7 +43,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
 
         $emailGateway = Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
+            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid3()));
         $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
         $tokenGenerator->shouldReceive('__invoke')
             ->andReturn(Token::fromString('string'));
@@ -79,7 +79,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
 
         $emailGateway = Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
+            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid3()));
         $router = Mockery::mock(RouterInterface::class);
         $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
         $tokenGenerator->shouldReceive('__invoke')

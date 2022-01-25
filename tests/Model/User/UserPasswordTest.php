@@ -45,7 +45,7 @@ class UserPasswordTest extends BaseTestCase
         $this->popRecordedEvent($user);
 
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
-        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid3());
 
         $user->passwordRecoverySent($token, $messageId);
 
@@ -70,7 +70,7 @@ class UserPasswordTest extends BaseTestCase
         $user = $this->getUserInactive();
 
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
-        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid3());
 
         $this->expectException(Exception\InvalidUserActiveStatus::class);
 

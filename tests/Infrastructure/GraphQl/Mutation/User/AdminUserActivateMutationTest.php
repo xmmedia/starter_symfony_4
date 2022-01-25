@@ -21,7 +21,7 @@ class AdminUserActivateMutationTest extends BaseTestCase
         $faker = $this->faker();
 
         $data = [
-            'userId' => $faker->uuid(),
+            'userId' => $faker->uuid3(),
             'action' => 'activate',
         ];
 
@@ -51,7 +51,7 @@ class AdminUserActivateMutationTest extends BaseTestCase
         $faker = $this->faker();
 
         $data = [
-            'userId' => $faker->uuid(),
+            'userId' => $faker->uuid3(),
             'action' => 'deactivate',
         ];
 
@@ -81,7 +81,7 @@ class AdminUserActivateMutationTest extends BaseTestCase
         $faker = $this->faker();
 
         $data = [
-            'userId' => $faker->uuid(),
+            'userId' => $faker->uuid3(),
             'action' => 'asdf',
         ];
 
