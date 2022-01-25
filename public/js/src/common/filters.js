@@ -1,3 +1,4 @@
+import lowerCase from 'lodash/lowerCase';
 import upperFirst from 'lodash/upperFirst';
 import { formatNumber as libFormatPhone } from 'libphonenumber-js';
 import Flatpickr from 'flatpickr';
@@ -44,5 +45,5 @@ export const pluralize = function (string, count) {
 };
 
 export const upperFirstFilter = function (string) {
-    return upperFirst(string);
+    return upperFirst(lowerCase(string));
 };
