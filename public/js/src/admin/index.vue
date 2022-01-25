@@ -70,6 +70,8 @@
                 <router-view />
             </main>
         </div>
+
+        <portal-target name="modal" multiple></portal-target>
     </div>
 
     <loading-spinner v-else class="mt-8" />
