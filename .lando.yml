@@ -1,0 +1,16 @@
+# @todo-symfony update
+name: symfonystarter
+recipe: symfony
+config:
+  php: '8.0'
+  webroot: public
+  xdebug: true
+services:
+  phpmyadmin:
+    type: phpmyadmin
+    hosts:
+      - database
+proxy:
+  appserver:
+    # @todo-symfony update
+    - symfonystarter.lndo.site
