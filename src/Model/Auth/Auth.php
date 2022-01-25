@@ -49,7 +49,7 @@ class Auth extends AggregateRoot implements Entity
             Event\UserFailedToLogin::now(
                 $authId,
                 $email,
-                substr($userAgent, 0, 500),
+                null !== $userAgent ? substr($userAgent, 0, 500) : null,
                 $ipAddress,
                 $exceptionMessage,
             ),
