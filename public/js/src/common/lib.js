@@ -24,5 +24,5 @@ export const waitForValidation = function () {
             },
             { immediate: true },
         );
-    })
+    });
 };

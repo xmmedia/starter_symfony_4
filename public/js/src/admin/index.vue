@@ -16,8 +16,7 @@
             <ul class="sidebar_nav-nav">
                 <template v-if="loggedIn">
                     <!--<li class="mb-2 focus:mb-2 lg:mb-0">
-                        <router-link :to="{ name: 'admin-page' }"
-                                     class="sidebar_nav-link">
+                        <router-link :to="{ name: 'admin-page' }" class="sidebar_nav-link">
                             <menu-link label="Pages" icon="gear" />
                         </router-link>
                     </li>-->
