@@ -12,20 +12,20 @@ use Faker;
 /**
  * @codeCoverageIgnore
  */
-class UuidFakerProvider extends Faker\Provider\Uuid
+class UuidFakerProvider extends Faker\Provider\Base
 {
     public function authId(): AuthId
     {
-        return AuthId::fromString(parent::uuid());
+        return AuthId::fromString($this->generator->ext(Faker\Extension\UuidExtension::class)->uuid3());
     }
 
     public function enquiryId(): EnquiryId
     {
-        return EnquiryId::fromString(parent::uuid());
+        return EnquiryId::fromString($this->generator->ext(Faker\Extension\UuidExtension::class)->uuid3());
     }
 
     public function userId(): UserId
     {
-        return UserId::fromString(parent::uuid());
+        return UserId::fromString($this->generator->ext(Faker\Extension\UuidExtension::class)->uuid3());
     }
 }
