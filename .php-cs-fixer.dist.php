@@ -36,6 +36,9 @@ return (new PhpCsFixer\Config())
         ],
         'ordered_imports' => true,
         'protected_to_private' => false,
+        'trailing_comma_in_multiline' => [
+            'elements' => ['arrays', 'arguments', 'parameters'],
+        ],
     ])
     ->setFinder($finder)
 ;
