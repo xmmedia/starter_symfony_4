@@ -75,7 +75,7 @@ final class AddUserCommand extends Command
             )
         );
 
-        return 0;
+        return self::SUCCESS;
     }
 
     private function askForEmail(SymfonyStyle $io): string
