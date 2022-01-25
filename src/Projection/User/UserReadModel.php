@@ -23,7 +23,7 @@ CREATE TABLE `$tableName` (
   `verified` tinyint(1) NOT NULL,
   `active` tinyint(1) NOT NULL,
   `roles` json NOT NULL,
-  `last_login` datetime DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   `login_count` int(11) DEFAULT 0 NOT NULL,
   `first_name` varchar(50) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   `last_name` varchar(50) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL
