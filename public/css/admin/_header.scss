@@ -22,7 +22,7 @@
 }
 
 .header-page_title {
-    @apply flex-grow flex-shrink-0 w-40 max-w-1/2 px-4 text-xl text-blue-600 font-headings font-extralight truncate;
+    @apply grow flex-shrink-0 w-40 max-w-1/2 px-4 text-xl text-blue-600 font-headings font-extralight truncate;
     @screen sm {
         @apply w-auto max-w-xs;
     }
