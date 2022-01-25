@@ -16,7 +16,7 @@ final class AdminAddUser extends Command
     public static function with(
         UserId $userId,
         Email $email,
-        string $encodedPassword,
+        string $hashedPassword,
         Role $role,
         bool $active,
         Name $firstName,
@@ -24,14 +24,14 @@ final class AdminAddUser extends Command
         bool $sendInvite,
     ): self {
         return new self([
-            'userId'          => $userId->toString(),
-            'email'           => $email->toString(),
-            'encodedPassword' => $encodedPassword,
-            'role'            => $role->getValue(),
-            'active'          => $active,
-            'firstName'       => $firstName->toString(),
-            'lastName'        => $lastName->toString(),
-            'sendInvite'      => $sendInvite,
+            'userId'         => $userId->toString(),
+            'email'          => $email->toString(),
+            'hashedPassword' => $hashedPassword,
+            'role'           => $role->getValue(),
+            'active'         => $active,
+            'firstName'      => $firstName->toString(),
+            'lastName'       => $lastName->toString(),
+            'sendInvite'     => $sendInvite,
         ]);
     }
 
@@ -45,9 +45,9 @@ final class AdminAddUser extends Command
         return Email::fromString($this->payload['email']);
     }
 
-    public function encodedPassword(): string
+    public function hashedPassword(): string
     {
-        return $this->payload['encodedPassword'];
+        return $this->payload['hashedPassword'];
     }
 
     public function role(): Role
@@ -83,9 +83,9 @@ final class AdminAddUser extends Command
         Assert::keyExists($payload, 'email');
         Assert::string($payload['email']);
 
-        Assert::keyExists($payload, 'encodedPassword');
-        Assert::notEmpty($payload['encodedPassword']);
-        Assert::string($payload['encodedPassword']);
+        Assert::keyExists($payload, 'hashedPassword');
+        Assert::notEmpty($payload['hashedPassword']);
+        Assert::string($payload['hashedPassword']);
 
         Assert::keyExists($payload, 'role');
         Assert::string($payload['role']);

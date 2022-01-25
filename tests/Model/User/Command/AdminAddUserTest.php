@@ -35,7 +35,7 @@ class AdminAddUserTest extends BaseTestCase
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
         $this->assertTrue($email->sameValueAs($command->email()));
-        $this->assertEquals($password, $command->encodedPassword());
+        $this->assertEquals($password, $command->hashedPassword());
         $this->assertEquals($role, $command->role());
         $this->assertTrue($command->active());
         $this->assertTrue($firstName->sameValueAs($command->firstName()));

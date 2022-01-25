@@ -30,7 +30,7 @@ class AdminAddUserHandler
         $user = User::addByAdmin(
             $command->userId(),
             $command->email(),
-            $command->encodedPassword(),
+            $command->hashedPassword(),
             $command->role(),
             $command->active(),
             $command->firstName(),
