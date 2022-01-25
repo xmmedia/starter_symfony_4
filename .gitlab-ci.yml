@@ -118,13 +118,16 @@ static:
 deploy to staging:
   stage: deploy
   allow_failure: false
-  only:
-    - master
   environment:
     name: staging
     url: $STAGING_URL
   variables:
     APP_ENV: dev
+  rules:
+    - if:   '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: on_success
+    - if:   '$CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
+      when: manual
   script:
     - *deploy-setup-script
     # install dependencies
