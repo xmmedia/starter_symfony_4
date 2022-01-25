@@ -59,8 +59,8 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
     private $roles = [];
 
     /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTimeImmutable|null
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $lastLogin;
 
@@ -173,11 +173,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
 
     public function lastLogin(): ?\DateTimeImmutable
     {
-        if (null === $this->lastLogin) {
-            return null;
-        }
-
-        return \DateTimeImmutable::createFromMutable($this->lastLogin);
+        return $this->lastLogin;
     }
 
     public function loginCount(): int

@@ -27,7 +27,7 @@ class UserToken
     private $user;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      * @ORM\Column(type="datetime")
      */
     private $generatedAt;
@@ -44,6 +44,6 @@ class UserToken
 
     public function generatedAt(): \DateTimeImmutable
     {
-        return \DateTimeImmutable::createFromMutable($this->generatedAt);
+        return $this->generatedAt;
     }
 }
