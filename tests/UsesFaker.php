@@ -10,15 +10,14 @@ use Xm\SymfonyBundle\DataFixtures\Faker\Provider as BundleProviders;
 
 trait UsesFaker
 {
-    /** @var Faker\Generator */
-    private $faker;
+    private Faker\Generator $faker;
 
     /**
      * @return Faker\Generator|BundleProviders\AddressFakerProvider|BundleProviders\DateFakerProvider|BundleProviders\EmailFakerProvider|BundleProviders\GenderFakerProvider|BundleProviders\InternetFakerProvider|BundleProviders\NameFakerProvider|BundleProviders\PhoneNumberFakerProvider|BundleProviders\StringFakerProvider|BundleProviders\UuidFakerProvider|Provider\UuidFakerProvider
      */
     protected function faker(): Faker\Generator
     {
-        return null === $this->faker ? $this->makeFaker() : $this->faker;
+        return !isset($this->faker) ? $this->makeFaker() : $this->faker;
     }
 
     private function makeFaker(): Faker\Generator

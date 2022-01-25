@@ -14,8 +14,7 @@ class Auth extends AggregateRoot implements Entity
 {
     use AppliesAggregateChanged;
 
-    /** @var AuthId */
-    private $authId;
+    private AuthId $authId;
 
     public static function success(
         AuthId $authId,
