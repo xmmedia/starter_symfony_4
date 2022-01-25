@@ -50,17 +50,17 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
         return $this->entityUserProvider->loadUserByIdentifier($identifier);
     }
 
-    public function loadUserByUsername(string $username)
+    public function loadUserByUsername(string $username): UserInterface
     {
         return $this->entityUserProvider->loadUserByUsername($username);
     }
 
-    public function refreshUser(UserInterface $user)
+    public function refreshUser(UserInterface $user): UserInterface
     {
         return $this->entityUserProvider->refreshUser($user);
     }
 
-    public function supportsClass(string $class)
+    public function supportsClass(string $class): bool
     {
         return $this->entityUserProvider->supportsClass($class);
     }
