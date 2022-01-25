@@ -46,7 +46,7 @@ class Name implements ValueObject, \JsonSerializable
         return $this->toString();
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return $this->toString();
     }
