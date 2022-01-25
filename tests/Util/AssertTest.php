@@ -51,7 +51,7 @@ class AssertTest extends BaseTestCase
         $this->expectExceptionMessage('The password must length must be between');
 
         Assert::passwordLength(
-            $this->faker()->string(PasswordHasherInterface::MAX_PASSWORD_LENGTH + 1)
+            $this->faker()->string(PasswordHasherInterface::MAX_PASSWORD_LENGTH + 1),
         );
     }
 }

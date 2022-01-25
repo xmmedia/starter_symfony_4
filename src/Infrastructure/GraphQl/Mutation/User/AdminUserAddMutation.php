@@ -40,7 +40,7 @@ class AdminUserAddMutation implements MutationInterface
         TokenGenerator $tokenGenerator,
         PasswordHasher $passwordHasher,
         PasswordStrengthInterface $passwordStrength = null,
-        HttpClientInterface $pwnedHttpClient = null
+        HttpClientInterface $pwnedHttpClient = null,
     ) {
         $this->commandBus = $commandBus;
         $this->tokenGenerator = $tokenGenerator;
@@ -72,7 +72,7 @@ class AdminUserAddMutation implements MutationInterface
             $lastName,
             null,
             $this->passwordStrength,
-            $this->pwnedHttpClient
+            $this->pwnedHttpClient,
         );
 
         $this->commandBus->dispatch(
@@ -85,7 +85,7 @@ class AdminUserAddMutation implements MutationInterface
                 $firstName,
                 $lastName,
                 $args['user']['sendInvite'],
-            )
+            ),
         );
 
         return [

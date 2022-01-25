@@ -44,7 +44,7 @@ class PasswordRecoverySentTest extends BaseTestCase
             [
                 'token'     => $token->toString(),
                 'messageId' => $messageId->toString(),
-            ]
+            ],
         );
 
         $this->assertInstanceOf(PasswordRecoverySent::class, $event);

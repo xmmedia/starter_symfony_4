@@ -15,7 +15,7 @@ final class UserLoginFailed extends Command
         ?string $email,
         ?string $userAgent,
         string $ipAddress,
-        ?string $exceptionMessage
+        ?string $exceptionMessage,
     ): self {
         return new self([
             'authId'           => $authId->toString(),

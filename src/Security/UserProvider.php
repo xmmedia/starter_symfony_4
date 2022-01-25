@@ -20,7 +20,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 
     public function __construct(
         ManagerRegistry $registry,
-        MessageBusInterface $commandBus
+        MessageBusInterface $commandBus,
     ) {
         $this->commandBus = $commandBus;
 
@@ -32,14 +32,14 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
      */
     public function upgradePassword(
         UserInterface $user,
-        string $newEncodedPassword
+        string $newEncodedPassword,
     ): void {
         if (!$user instanceof User) {
             return;
         }
 
         $this->commandBus->dispatch(
-            UpgradePassword::forUser($user->userId(), $newEncodedPassword)
+            UpgradePassword::forUser($user->userId(), $newEncodedPassword),
         );
 
         $user->upgradePassword($newEncodedPassword);

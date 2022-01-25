@@ -16,7 +16,7 @@ final class AdminAddUserMinimum extends Command
         UserId $userId,
         Email $email,
         string $encodedPassword,
-        Role $role
+        Role $role,
     ): self {
         return new self([
             'userId'          => $userId->toString(),

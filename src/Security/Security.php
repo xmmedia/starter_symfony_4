@@ -14,7 +14,7 @@ class Security
     private $security;
 
     public function __construct(
-        \Symfony\Component\Security\Core\Security $security
+        \Symfony\Component\Security\Core\Security $security,
     ) {
         $this->security = $security;
     }

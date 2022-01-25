@@ -19,7 +19,7 @@ class UpdateUserProfileHandler
 
     public function __construct(
         UserList $userRepo,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmail
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ) {
         $this->userRepo = $userRepo;
         $this->checksUniqueUsersEmail = $checksUniqueUsersEmail;
@@ -37,7 +37,7 @@ class UpdateUserProfileHandler
             $command->email(),
             $command->firstName(),
             $command->lastName(),
-            $this->checksUniqueUsersEmail
+            $this->checksUniqueUsersEmail,
         );
 
         $this->userRepo->save($user);

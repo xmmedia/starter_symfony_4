@@ -21,7 +21,7 @@ class Assert extends \Xm\SymfonyBundle\Util\Assert
         Name $lastName,
         ?int $minimum = null,
         PasswordStrengthInterface $passwordStrength = null,
-        HttpClientInterface $pwnedHttpClient = null
+        HttpClientInterface $pwnedHttpClient = null,
     ): void {
         self::passwordLength($password);
         self::passwordComplexity(
@@ -41,14 +41,14 @@ class Assert extends \Xm\SymfonyBundle\Util\Assert
     {
         self::notEmpty(
             StringUtil::trim($password),
-            'The password cannot be empty or all whitespace.'
+            'The password cannot be empty or all whitespace.',
         );
 
         self::lengthBetween(
             $password,
             User::PASSWORD_MIN_LENGTH,
             PasswordHasherInterface::MAX_PASSWORD_LENGTH,
-            'The password must length must be between %2$d and %3$d. Got '.\strlen($password)
+            'The password must length must be between %2$d and %3$d. Got '.\strlen($password),
         );
     }
 }

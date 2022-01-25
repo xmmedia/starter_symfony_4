@@ -16,7 +16,7 @@ final class DuplicateEmail extends \InvalidArgumentException
                 'The email address "%s" is already used by user "%s".',
                 $email,
                 $userId,
-            )
+            ),
         );
     }
 }

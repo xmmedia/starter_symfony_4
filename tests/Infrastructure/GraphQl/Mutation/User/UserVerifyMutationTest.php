@@ -370,7 +370,7 @@ class UserVerifyMutationTest extends BaseTestCase
             $tokenValidator,
             $security,
             new PasswordStrengthFake(),
-            $pwnedHttpClient
+            $pwnedHttpClient,
         ))($args);
     }
 
@@ -404,7 +404,7 @@ class UserVerifyMutationTest extends BaseTestCase
             $tokenValidator,
             $security,
             new PasswordStrengthFake(),
-            $this->getPwnedHttpClient()
+            $this->getPwnedHttpClient(),
         ))($args);
     }
 }

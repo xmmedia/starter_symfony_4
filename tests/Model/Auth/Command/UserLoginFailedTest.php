@@ -24,7 +24,7 @@ class UserLoginFailedTest extends BaseTestCase
             $email,
             $userAgent,
             $ipAddress,
-            $message
+            $message,
         );
 
         $this->assertTrue($authId->sameValueAs($command->authId()));
@@ -43,7 +43,7 @@ class UserLoginFailedTest extends BaseTestCase
             null,
             null,
             $faker->ipv4(),
-            null
+            null,
         );
 
         $this->assertNull($command->email());

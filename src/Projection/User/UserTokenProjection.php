@@ -19,7 +19,7 @@ class UserTokenProjection implements ReadModelProjection
             ->when([
                 Event\InviteSent::class => function (
                     array $state,
-                    Event\InviteSent $event
+                    Event\InviteSent $event,
                 ): void {
                     /** @var UserTokenReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -33,13 +33,13 @@ class UserTokenProjection implements ReadModelProjection
                         ],
                         [
                             'generated_at' => 'datetime',
-                        ]
+                        ],
                     );
                 },
 
                 Event\PasswordRecoverySent::class => function (
                     array $state,
-                    Event\PasswordRecoverySent $event
+                    Event\PasswordRecoverySent $event,
                 ): void {
                     /** @var UserTokenReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -53,33 +53,33 @@ class UserTokenProjection implements ReadModelProjection
                         ],
                         [
                             'generated_at' => 'datetime',
-                        ]
+                        ],
                     );
                 },
 
                 Event\UserVerified::class => function (
                     array $state,
-                    Event\UserVerified $event
+                    Event\UserVerified $event,
                 ): void {
                     /** @var UserTokenReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack(
                         'removeAllForUser',
-                        $event->userId()->toString()
+                        $event->userId()->toString(),
                     );
                 },
 
                 Event\ChangedPassword::class => function (
                     array $state,
-                    Event\ChangedPassword $event
+                    Event\ChangedPassword $event,
                 ): void {
                     /** @var UserTokenReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack(
                         'removeAllForUser',
-                        $event->userId()->toString()
+                        $event->userId()->toString(),
                     );
                 },
             ]);

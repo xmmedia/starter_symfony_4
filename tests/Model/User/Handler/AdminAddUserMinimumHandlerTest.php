@@ -28,7 +28,7 @@ class AdminAddUserMinimumHandlerTest extends BaseTestCase
             $userId,
             $email,
             $password,
-            $role
+            $role,
         );
 
         $repo = Mockery::mock(UserList::class);

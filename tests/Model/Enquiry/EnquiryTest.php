@@ -74,7 +74,7 @@ class EnquiryTest extends BaseTestCase
             $faker->enquiryId(),
             $faker->name(),
             $faker->emailVo(),
-            $faker->string(100)
+            $faker->string(100),
         );
 
         $this->assertFalse($enquiry->sameIdentityAs(FakeAr::create()));

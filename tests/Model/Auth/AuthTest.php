@@ -132,7 +132,7 @@ class AuthTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->userAgent(),
-            $faker->ipv4()
+            $faker->ipv4(),
         );
 
         $this->assertFalse($auth->sameIdentityAs(FakeAr::create()));

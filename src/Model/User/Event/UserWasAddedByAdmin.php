@@ -41,7 +41,7 @@ class UserWasAddedByAdmin extends AggregateChanged
         bool $active,
         Name $firstName,
         Name $lastName,
-        bool $sendInvite
+        bool $sendInvite,
     ): self {
         $event = self::occur($userId->toString(), [
             'email'           => $email->toString(),

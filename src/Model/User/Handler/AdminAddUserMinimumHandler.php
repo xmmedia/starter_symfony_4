@@ -19,7 +19,7 @@ class AdminAddUserMinimumHandler
 
     public function __construct(
         UserList $userRepo,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmail
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ) {
         $this->userRepo = $userRepo;
         $this->checksUniqueUsersEmail = $checksUniqueUsersEmail;
@@ -32,7 +32,7 @@ class AdminAddUserMinimumHandler
             $command->email(),
             $command->encodedPassword(),
             $command->role(),
-            $this->checksUniqueUsersEmail
+            $this->checksUniqueUsersEmail,
         );
 
         $this->userRepo->save($user);

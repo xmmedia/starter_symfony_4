@@ -202,7 +202,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
     public function name(): ?string
     {
         return StringUtil::trim(
-            sprintf('%s %s', $this->firstName, $this->lastName)
+            sprintf('%s %s', $this->firstName, $this->lastName),
         );
     }
 

@@ -24,8 +24,8 @@ class EnquirySubmittedProcessManager
             SendEnquiryEmail::with(
                 $event->name(),
                 $event->email(),
-                $event->message()
-            )
+                $event->message(),
+            ),
         );
     }
 }

@@ -25,7 +25,7 @@ class UserProjection implements ReadModelProjection
             ->when([
                 Event\UserWasAddedByAdmin::class => function (
                     array $state,
-                    Event\UserWasAddedByAdmin $event
+                    Event\UserWasAddedByAdmin $event,
                 ) use ($types): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -47,7 +47,7 @@ class UserProjection implements ReadModelProjection
 
                 Event\MinimalUserWasAddedByAdmin::class => function (
                     array $state,
-                    Event\MinimalUserWasAddedByAdmin $event
+                    Event\MinimalUserWasAddedByAdmin $event,
                 ) use ($types): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -64,7 +64,7 @@ class UserProjection implements ReadModelProjection
 
                 Event\UserWasUpdatedByAdmin::class => function (
                     array $state,
-                    Event\UserWasUpdatedByAdmin $event
+                    Event\UserWasUpdatedByAdmin $event,
                 ) use ($types): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -84,7 +84,7 @@ class UserProjection implements ReadModelProjection
 
                 Event\AdminChangedPassword::class => function (
                     array $state,
-                    Event\AdminChangedPassword $event
+                    Event\AdminChangedPassword $event,
                 ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -94,13 +94,13 @@ class UserProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         [
                             'password' => $event->encodedPassword(),
-                        ]
+                        ],
                     );
                 },
 
                 Event\UserVerifiedByAdmin::class => function (
                     array $state,
-                    Event\UserVerifiedByAdmin $event
+                    Event\UserVerifiedByAdmin $event,
                 ) use ($types): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -117,7 +117,7 @@ class UserProjection implements ReadModelProjection
 
                 Event\UserActivatedByAdmin::class => function (
                     array $state,
-                    Event\UserActivatedByAdmin $event
+                    Event\UserActivatedByAdmin $event,
                 ) use ($types): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -134,7 +134,7 @@ class UserProjection implements ReadModelProjection
 
                 Event\UserDeactivatedByAdmin::class => function (
                     array $state,
-                    Event\UserDeactivatedByAdmin $event
+                    Event\UserDeactivatedByAdmin $event,
                 ) use ($types): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -151,7 +151,7 @@ class UserProjection implements ReadModelProjection
 
                 Event\UserUpdatedProfile::class => function (
                     array $state,
-                    Event\UserUpdatedProfile $event
+                    Event\UserUpdatedProfile $event,
                 ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -163,13 +163,13 @@ class UserProjection implements ReadModelProjection
                             'email'      => mb_strtolower($event->email()->toString()),
                             'first_name' => $event->firstName()->toString(),
                             'last_name'  => $event->lastName()->toString(),
-                        ]
+                        ],
                     );
                 },
 
                 Event\ChangedPassword::class => function (
                     array $state,
-                    Event\ChangedPassword $event
+                    Event\ChangedPassword $event,
                 ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -179,13 +179,13 @@ class UserProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         [
                             'password' => $event->encodedPassword(),
-                        ]
+                        ],
                     );
                 },
 
                 Event\PasswordUpgraded::class => function (
                     array $state,
-                    Event\PasswordUpgraded $event
+                    Event\PasswordUpgraded $event,
                 ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -195,13 +195,13 @@ class UserProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         [
                             'password' => $event->encodedPassword(),
-                        ]
+                        ],
                     );
                 },
 
                 Event\UserVerified::class => function (
                     array $state,
-                    Event\UserVerified $event
+                    Event\UserVerified $event,
                 ) use ($types): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -218,7 +218,7 @@ class UserProjection implements ReadModelProjection
 
                 Event\UserLoggedIn::class => function (
                     array $state,
-                    Event\UserLoggedIn $event
+                    Event\UserLoggedIn $event,
                 ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
@@ -226,7 +226,7 @@ class UserProjection implements ReadModelProjection
                     $readModel->stack(
                         'loggedIn',
                         $event->userId()->toString(),
-                        $event->createdAt()
+                        $event->createdAt(),
                     );
                 },
             ]);

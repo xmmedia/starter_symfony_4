@@ -35,7 +35,7 @@ class AdminAddUserHandlerTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            false
+            false,
         );
 
         $repo = Mockery::mock(UserList::class);

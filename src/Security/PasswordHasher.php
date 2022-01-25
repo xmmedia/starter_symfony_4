@@ -21,7 +21,7 @@ class PasswordHasher
     {
         return $this->passwordHasher->hashPassword(
             $this->getUserForRole($role),
-            $password
+            $password,
         );
     }
 

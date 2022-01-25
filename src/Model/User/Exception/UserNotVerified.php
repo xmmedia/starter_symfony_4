@@ -13,8 +13,8 @@ final class UserNotVerified extends \RuntimeException
         return new self(
             sprintf(
                 'User "%s" tried to login but they\'re account is not verified.',
-                $userId
-            )
+                $userId,
+            ),
         );
     }
 }

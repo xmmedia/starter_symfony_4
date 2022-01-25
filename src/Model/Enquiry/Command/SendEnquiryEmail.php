@@ -13,7 +13,7 @@ final class SendEnquiryEmail extends Command
     public static function with(
         string $name,
         Email $email,
-        string $message
+        string $message,
     ): self {
         return new self([
             'name'    => $name,

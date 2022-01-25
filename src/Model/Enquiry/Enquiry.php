@@ -24,14 +24,14 @@ class Enquiry extends AggregateRoot implements Entity
         EnquiryId $enquiryId,
         string $name,
         Email $email,
-        string $message
+        string $message,
     ): self {
         Assert::minLength($message, self::MESSAGE_MIN_LENGTH);
         Assert::maxLength($message, self::MESSAGE_MAX_LENGTH);
 
         $self = new self();
         $self->recordThat(
-            Event\EnquiryWasSubmitted::now($enquiryId, $name, $email, $message)
+            Event\EnquiryWasSubmitted::now($enquiryId, $name, $email, $message),
         );
 
         return $self;

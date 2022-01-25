@@ -19,7 +19,7 @@ class AdminUpdateUserHandler
 
     public function __construct(
         UserList $userRepo,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmail
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ) {
         $this->userRepo = $userRepo;
         $this->checksUniqueUsersEmail = $checksUniqueUsersEmail;
@@ -38,7 +38,7 @@ class AdminUpdateUserHandler
             $command->role(),
             $command->firstName(),
             $command->lastName(),
-            $this->checksUniqueUsersEmail
+            $this->checksUniqueUsersEmail,
         );
 
         $this->userRepo->save($user);

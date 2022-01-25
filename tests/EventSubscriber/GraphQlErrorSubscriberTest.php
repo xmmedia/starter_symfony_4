@@ -22,7 +22,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
 
         $this->assertEquals(
             -128,
-            $subscribed[key($subscribed)][1]
+            $subscribed[key($subscribed)][1],
         );
     }
 
@@ -47,12 +47,12 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $this->assertTrue($event->getFormattedError()->offsetExists('message'));
         $this->assertEquals(
             'Access denied to this field.',
-            $event->getFormattedError()->offsetGet('message')
+            $event->getFormattedError()->offsetGet('message'),
         );
         $this->assertTrue($event->getFormattedError()->offsetExists('code'));
         $this->assertEquals(
             401,
-            $event->getFormattedError()->offsetGet('code')
+            $event->getFormattedError()->offsetGet('code'),
         );
     }
 
@@ -75,7 +75,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $this->assertTrue($event->getFormattedError()->offsetExists('code'));
         $this->assertEquals(
             401,
-            $event->getFormattedError()->offsetGet('code')
+            $event->getFormattedError()->offsetGet('code'),
         );
     }
 
@@ -110,7 +110,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $this->assertTrue($event->getFormattedError()->offsetExists('code'));
         $this->assertEquals(
             $code,
-            $event->getFormattedError()->offsetGet('code')
+            $event->getFormattedError()->offsetGet('code'),
         );
     }
 
@@ -143,7 +143,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $this->assertTrue($event->getFormattedError()->offsetExists('code'));
         $this->assertEquals(
             $code,
-            $event->getFormattedError()->offsetGet('code')
+            $event->getFormattedError()->offsetGet('code'),
         );
     }
 

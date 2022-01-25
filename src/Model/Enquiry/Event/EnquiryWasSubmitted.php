@@ -23,7 +23,7 @@ class EnquiryWasSubmitted extends AggregateChanged
         EnquiryId $enquiryId,
         string $name,
         Email $email,
-        string $message
+        string $message,
     ): self {
         $event = self::occur($enquiryId->toString(), [
             'name'    => $name,

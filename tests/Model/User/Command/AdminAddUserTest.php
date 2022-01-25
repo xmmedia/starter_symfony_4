@@ -30,7 +30,7 @@ class AdminAddUserTest extends BaseTestCase
             true,
             $firstName,
             $lastName,
-            false
+            false,
         );
 
         $this->assertTrue($userId->sameValueAs($command->userId()));

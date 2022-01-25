@@ -18,7 +18,7 @@ class UserPasswordValidResolver implements ResolverInterface
 
     public function __construct(
         UserPasswordHasherInterface $userPasswordHasher,
-        Security $security
+        Security $security,
     ) {
         $this->userPasswordHasher = $userPasswordHasher;
         $this->security = $security;
@@ -34,7 +34,7 @@ class UserPasswordValidResolver implements ResolverInterface
         return [
             'valid' => $this->userPasswordHasher->isPasswordValid(
                 $currentUser,
-                $password
+                $password,
             ),
         ];
     }

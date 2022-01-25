@@ -34,7 +34,7 @@ class SendEnquiryMutation implements MutationInterface
             $message,
             10,
             10000,
-            'Message must be between %2$s and %3$s characters. Got: "%s".'
+            'Message must be between %2$s and %3$s characters. Got: "%s".',
         );
 
         $this->commandBus->dispatch(
@@ -42,8 +42,8 @@ class SendEnquiryMutation implements MutationInterface
                 EnquiryId::fromUuid(Uuid::uuid4()),
                 Name::fromString($enquiry['name']),
                 Email::fromString($enquiry['email']),
-                $message
-            )
+                $message,
+            ),
         );
 
         return [

@@ -38,7 +38,7 @@ class ChangedPasswordTest extends BaseTestCase
             $userId->toString(),
             [
                 'encodedPassword' => $password,
-            ]
+            ],
         );
 
         $this->assertInstanceOf(ChangedPassword::class, $event);

@@ -52,7 +52,7 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
                 'role'      => $role->getValue(),
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
-            ]
+            ],
         );
 
         $this->assertInstanceOf(UserWasUpdatedByAdmin::class, $event);

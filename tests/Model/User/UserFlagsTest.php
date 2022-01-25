@@ -23,7 +23,7 @@ class UserFlagsTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserVerifiedByAdmin::class,
             [],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -51,7 +51,7 @@ class UserFlagsTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserActivatedByAdmin::class,
             [],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -79,7 +79,7 @@ class UserFlagsTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserDeactivatedByAdmin::class,
             [],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);

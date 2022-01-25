@@ -36,7 +36,7 @@ class AdminUserActivateMutationTest extends BaseTestCase
         ]);
 
         $result = (new AdminUserActivateMutation(
-            $commandBus
+            $commandBus,
         ))($args);
 
         $expected = [
@@ -66,7 +66,7 @@ class AdminUserActivateMutationTest extends BaseTestCase
         ]);
 
         $result = (new AdminUserActivateMutation(
-            $commandBus
+            $commandBus,
         ))($args);
 
         $expected = [
@@ -94,7 +94,7 @@ class AdminUserActivateMutationTest extends BaseTestCase
         $this->expectException(UserError::class);
 
         (new AdminUserActivateMutation(
-            $commandBus
+            $commandBus,
         ))($args);
     }
 }

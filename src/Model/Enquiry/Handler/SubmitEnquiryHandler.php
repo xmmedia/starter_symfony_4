@@ -24,7 +24,7 @@ class SubmitEnquiryHandler
             $command->enquiryId(),
             $command->name(),
             $command->email(),
-            $command->message()
+            $command->message(),
         );
 
         $this->enquiryRepo->save($enquiry);

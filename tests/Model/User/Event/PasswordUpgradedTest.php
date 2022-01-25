@@ -38,7 +38,7 @@ class PasswordUpgradedTest extends BaseTestCase
             $userId->toString(),
             [
                 'encodedPassword' => $password,
-            ]
+            ],
         );
 
         $this->assertInstanceOf(PasswordUpgraded::class, $event);

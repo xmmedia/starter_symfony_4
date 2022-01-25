@@ -24,7 +24,7 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
         UserId $userId,
         Email $email,
         string $encodedPassword,
-        Role $role
+        Role $role,
     ): self {
         $event = self::occur($userId->toString(), [
             'email'           => $email->toString(),

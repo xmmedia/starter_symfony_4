@@ -21,7 +21,7 @@ class RoleType extends EnumType implements AliasedInterface
             'name'        => self::NAME,
             'values'      => array_combine(
                 Role::getNames(),
-                Role::getValues()
+                Role::getValues(),
             ),
             'description' => 'Available User roles.',
         ];

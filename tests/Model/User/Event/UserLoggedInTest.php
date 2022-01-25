@@ -32,7 +32,7 @@ class UserLoggedInTest extends BaseTestCase
         /** @var UserLoggedIn $event */
         $event = $this->createEventFromArray(
             UserLoggedIn::class,
-            $userId->toString()
+            $userId->toString(),
         );
 
         $this->assertInstanceOf(UserLoggedIn::class, $event);

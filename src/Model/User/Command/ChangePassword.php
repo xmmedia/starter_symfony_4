@@ -12,7 +12,7 @@ final class ChangePassword extends Command
 {
     public static function forUser(
         UserId $userId,
-        string $encodedPassword
+        string $encodedPassword,
     ): self {
         return new self([
             'userId'          => $userId->toString(),

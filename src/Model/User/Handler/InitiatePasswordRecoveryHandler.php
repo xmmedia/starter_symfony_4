@@ -35,7 +35,7 @@ class InitiatePasswordRecoveryHandler
         EmailGatewayInterface $emailGateway,
         string $template,
         RouterInterface $router,
-        TokenGeneratorInterface $tokenGenerator
+        TokenGeneratorInterface $tokenGenerator,
     ) {
         $this->userRepo = $userRepo;
         $this->emailGateway = $emailGateway;
@@ -56,7 +56,7 @@ class InitiatePasswordRecoveryHandler
         $resetUrl = $this->router->generate(
             'user_reset',
             ['token' => $token],
-            UrlGeneratorInterface::ABSOLUTE_URL
+            UrlGeneratorInterface::ABSOLUTE_URL,
         );
 
         $messageId = $this->emailGateway->send(
@@ -65,7 +65,7 @@ class InitiatePasswordRecoveryHandler
             [
                 'resetUrl' => $resetUrl,
                 'email'    => $command->email()->toString(),
-            ]
+            ],
         );
 
         $user->passwordRecoverySent($token, $messageId);

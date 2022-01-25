@@ -18,7 +18,7 @@ final class AdminUpdateUser extends Command
         Email $email,
         Role $role,
         Name $firstName,
-        Name $lastName
+        Name $lastName,
     ): self {
         return new self([
             'userId'    => $userId->toString(),

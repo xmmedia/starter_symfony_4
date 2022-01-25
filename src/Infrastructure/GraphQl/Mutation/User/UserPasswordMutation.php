@@ -42,7 +42,7 @@ class UserPasswordMutation implements MutationInterface
         PasswordHasher $passwordHasher,
         Security $security,
         PasswordStrengthInterface $passwordStrength = null,
-        HttpClientInterface $pwnedHttpClient = null
+        HttpClientInterface $pwnedHttpClient = null,
     ) {
         $this->commandBus = $commandBus;
         $this->userPasswordHasher = $userPasswordHasher;
@@ -63,11 +63,11 @@ class UserPasswordMutation implements MutationInterface
         Assert::notEmpty(
             // trim to check for empty, but keep for check
             StringUtil::trim($currentPassword),
-            'Current password cannot be empty.'
+            'Current password cannot be empty.',
         );
         Assert::true(
             $this->userPasswordHasher->isPasswordValid($user, $currentPassword),
-            'Current password does not match.'
+            'Current password does not match.',
         );
 
         Assert::passwordAllowed(
@@ -89,7 +89,7 @@ class UserPasswordMutation implements MutationInterface
             ChangePassword::forUser(
                 $user->userId(),
                 $encodedPassword,
-            )
+            ),
         );
 
         return [

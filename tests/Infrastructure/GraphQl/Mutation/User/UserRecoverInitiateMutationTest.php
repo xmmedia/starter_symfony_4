@@ -56,7 +56,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $result = (new UserRecoverInitiateMutation(
             $commandBus,
             $userFinder,
-            $security
+            $security,
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -93,10 +93,10 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
                 Mockery::on(
                     function (Email $passedEmail) use ($email): bool {
                         return $passedEmail->toString() === mb_strtolower(
-                            $email
+                            $email,
                         );
-                    }
-                )
+                    },
+                ),
             )
             ->andReturn($user);
 
@@ -107,7 +107,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $result = (new UserRecoverInitiateMutation(
             $commandBus,
             $userFinder,
-            $security
+            $security,
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -143,7 +143,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         (new UserRecoverInitiateMutation(
             $commandBus,
             $userFinder,
-            $security
+            $security,
         ))($args);
     }
 
@@ -172,7 +172,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         (new UserRecoverInitiateMutation(
             $commandBus,
             $userFinder,
-            $security
+            $security,
         ))($args);
     }
 
@@ -196,7 +196,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         (new UserRecoverInitiateMutation(
             $commandBus,
             $userFinder,
-            $security
+            $security,
         ))($args);
     }
 
@@ -221,7 +221,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         (new UserRecoverInitiateMutation(
             $commandBus,
             $userFinder,
-            $security
+            $security,
         ))($args);
     }
 

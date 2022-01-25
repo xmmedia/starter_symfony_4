@@ -27,7 +27,7 @@ class UserLoggedInTest extends BaseTestCase
             $userId,
             $email,
             $userAgent,
-            $ipAddress
+            $ipAddress,
         );
 
         $this->assertEquals($authId, $event->authId());
@@ -56,7 +56,7 @@ class UserLoggedInTest extends BaseTestCase
                 'email'     => $email->toString(),
                 'userAgent' => $userAgent,
                 'ipAddress' => $ipAddress,
-            ]
+            ],
         );
 
         $this->assertInstanceOf(UserLoggedIn::class, $event);

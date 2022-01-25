@@ -29,7 +29,7 @@ class UserWasUpdatedByAdmin extends AggregateChanged
         Email $email,
         Role $role,
         Name $firstName,
-        Name $lastName
+        Name $lastName,
     ): self {
         $event = self::occur($userId->toString(), [
             'email'     => $email->toString(),

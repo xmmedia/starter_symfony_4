@@ -23,7 +23,7 @@ class AdminAddUserMinimumTest extends BaseTestCase
             $userId,
             $email,
             $password,
-            $role
+            $role,
         );
 
         $this->assertTrue($userId->sameValueAs($command->userId()));

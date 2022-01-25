@@ -12,7 +12,7 @@ final class AdminChangePassword extends Command
 {
     public static function with(
         UserId $userId,
-        string $encodedPassword
+        string $encodedPassword,
     ): self {
         return new self([
             'userId'          => $userId->toString(),

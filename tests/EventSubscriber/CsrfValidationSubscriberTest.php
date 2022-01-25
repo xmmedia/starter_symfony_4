@@ -28,12 +28,12 @@ class CsrfValidationSubscriberTest extends BaseTestCase
 
         $this->assertEquals(
             10,
-            $subscribed[key($subscribed)][1]
+            $subscribed[key($subscribed)][1],
         );
         next($subscribed);
         $this->assertEquals(
             0,
-            $subscribed[key($subscribed)][1]
+            $subscribed[key($subscribed)][1],
         );
     }
 
@@ -227,7 +227,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             $kernel,
             $request,
             HttpKernelInterface::MAIN_REQUEST,
-            $response
+            $response,
         );
 
         $tokenManager = Mockery::mock(CsrfTokenManagerInterface::class);

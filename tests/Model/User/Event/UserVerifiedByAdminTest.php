@@ -32,7 +32,7 @@ class UserVerifiedByAdminTest extends BaseTestCase
         /** @var UserVerifiedByAdmin $event */
         $event = $this->createEventFromArray(
             UserVerifiedByAdmin::class,
-            $userId->toString()
+            $userId->toString(),
         );
 
         $this->assertInstanceOf(UserVerifiedByAdmin::class, $event);

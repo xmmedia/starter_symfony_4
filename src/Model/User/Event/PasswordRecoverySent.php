@@ -21,7 +21,7 @@ class PasswordRecoverySent extends AggregateChanged
     public static function now(
         UserId $userId,
         Token $token,
-        NotificationGatewayId $messageId
+        NotificationGatewayId $messageId,
     ): self {
         $event = self::occur($userId->toString(), [
             'token'     => $token->toString(),
@@ -52,7 +52,7 @@ class PasswordRecoverySent extends AggregateChanged
     {
         if (null === $this->messageId) {
             $this->messageId = EmailGatewayMessageId::fromString(
-                $this->payload['messageId']
+                $this->payload['messageId'],
             );
         }
 

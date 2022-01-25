@@ -28,7 +28,7 @@ class UserLoggedIn extends AggregateChanged
         UserId $userId,
         Email $email,
         string $userAgent,
-        string $ipAddress
+        string $ipAddress,
     ): self {
         $event = self::occur($authId->toString(), [
             'userId'    => $userId->toString(),

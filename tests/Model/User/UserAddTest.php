@@ -35,7 +35,7 @@ class UserAddTest extends BaseTestCase
             $firstName,
             $lastName,
             false,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -53,7 +53,7 @@ class UserAddTest extends BaseTestCase
                 'lastName'        => $lastName->toString(),
                 'sendInvite'      => false,
             ],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -83,7 +83,7 @@ class UserAddTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -101,7 +101,7 @@ class UserAddTest extends BaseTestCase
                 'lastName'        => $lastName->toString(),
                 'sendInvite'      => true,
             ],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -131,7 +131,7 @@ class UserAddTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -149,7 +149,7 @@ class UserAddTest extends BaseTestCase
                 'lastName'        => $lastName->toString(),
                 'sendInvite'      => false,
             ],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -181,7 +181,7 @@ class UserAddTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
-            $this->userUniquenessCheckerDuplicate
+            $this->userUniquenessCheckerDuplicate,
         );
     }
 
@@ -199,7 +199,7 @@ class UserAddTest extends BaseTestCase
             $email,
             $password,
             $role,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
 
         $this->assertInstanceOf(User::class, $user);
@@ -213,7 +213,7 @@ class UserAddTest extends BaseTestCase
                 'encodedPassword' => $password,
                 'role'            => $role->getValue(),
             ],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -239,7 +239,7 @@ class UserAddTest extends BaseTestCase
             $email,
             $password,
             $role,
-            $this->userUniquenessCheckerDuplicate
+            $this->userUniquenessCheckerDuplicate,
         );
     }
 }

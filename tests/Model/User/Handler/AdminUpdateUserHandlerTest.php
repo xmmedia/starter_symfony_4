@@ -33,7 +33,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
             $email,
             $role,
             $firstName,
-            $lastName
+            $lastName,
         );
 
         $user = Mockery::mock(User::class);
@@ -70,7 +70,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
             $email,
             $role,
             $firstName,
-            $lastName
+            $lastName,
         );
 
         $repo = Mockery::mock(UserList::class);

@@ -35,7 +35,7 @@ class User extends AggregateRoot implements Entity
         Name $firstName,
         Name $lastName,
         bool $sendInvite,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmail
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): self {
         if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
             throw Exception\DuplicateEmail::withEmail($email, $duplicateUserId);
@@ -56,8 +56,8 @@ class User extends AggregateRoot implements Entity
                 $active,
                 $firstName,
                 $lastName,
-                $sendInvite
-            )
+                $sendInvite,
+            ),
         );
 
         return $self;
@@ -68,7 +68,7 @@ class User extends AggregateRoot implements Entity
         Email $email,
         string $encodedPassword,
         Role $role,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmail
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): self {
         if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
             throw Exception\DuplicateEmail::withEmail($email, $duplicateUserId);
@@ -80,8 +80,8 @@ class User extends AggregateRoot implements Entity
                 $userId,
                 $email,
                 $encodedPassword,
-                $role
-            )
+                $role,
+            ),
         );
 
         return $self;
@@ -92,7 +92,7 @@ class User extends AggregateRoot implements Entity
         Role $role,
         Name $firstName,
         Name $lastName,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmail
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): void {
         if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
             if (!$this->userId->sameValueAs($duplicateUserId)) {
@@ -106,15 +106,15 @@ class User extends AggregateRoot implements Entity
                 $email,
                 $role,
                 $firstName,
-                $lastName
-            )
+                $lastName,
+            ),
         );
     }
 
     public function changePasswordByAdmin(string $encodedPassword): void
     {
         $this->recordThat(
-            Event\AdminChangedPassword::now($this->userId, $encodedPassword)
+            Event\AdminChangedPassword::now($this->userId, $encodedPassword),
         );
     }
 
@@ -125,7 +125,7 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            Event\UserVerifiedByAdmin::now($this->userId)
+            Event\UserVerifiedByAdmin::now($this->userId),
         );
     }
 
@@ -136,7 +136,7 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            Event\UserActivatedByAdmin::now($this->userId)
+            Event\UserActivatedByAdmin::now($this->userId),
         );
     }
 
@@ -147,20 +147,20 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            Event\UserDeactivatedByAdmin::now($this->userId)
+            Event\UserDeactivatedByAdmin::now($this->userId),
         );
     }
 
     public function inviteSent(
         Token $token,
-        NotificationGatewayId $messageId
+        NotificationGatewayId $messageId,
     ): void {
         if ($this->verified) {
             throw Exception\UserAlreadyVerified::triedToSendVerification($this->userId);
         }
 
         $this->recordThat(
-            Event\InviteSent::now($this->userId, $token, $messageId)
+            Event\InviteSent::now($this->userId, $token, $messageId),
         );
     }
 
@@ -175,20 +175,20 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            Event\UserVerified::now($this->userId)
+            Event\UserVerified::now($this->userId),
         );
     }
 
     public function passwordRecoverySent(
         Token $token,
-        NotificationGatewayId $messageId
+        NotificationGatewayId $messageId,
     ): void {
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToRequestPasswordReset($this->userId);
         }
 
         $this->recordThat(
-            Event\PasswordRecoverySent::now($this->userId, $token, $messageId)
+            Event\PasswordRecoverySent::now($this->userId, $token, $messageId),
         );
     }
 
@@ -196,7 +196,7 @@ class User extends AggregateRoot implements Entity
         Email $email,
         Name $firstName,
         Name $lastName,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmail
+        ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): void {
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToUpdateProfile($this->userId);
@@ -213,8 +213,8 @@ class User extends AggregateRoot implements Entity
                 $this->userId,
                 $email,
                 $firstName,
-                $lastName
-            )
+                $lastName,
+            ),
         );
     }
 
@@ -238,7 +238,7 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            Event\ChangedPassword::now($this->userId, $encodedPassword)
+            Event\ChangedPassword::now($this->userId, $encodedPassword),
         );
     }
 
@@ -249,7 +249,7 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            Event\PasswordUpgraded::now($this->userId, $encodedPassword)
+            Event\PasswordUpgraded::now($this->userId, $encodedPassword),
         );
     }
 
@@ -277,7 +277,7 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenUserWasAddedByAdmin(
-        Event\UserWasAddedByAdmin $event
+        Event\UserWasAddedByAdmin $event,
     ): void {
         $this->userId = $event->userId();
         $this->verified = !$event->sendInvite();
@@ -285,7 +285,7 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenMinimalUserWasAddedByAdmin(
-        Event\MinimalUserWasAddedByAdmin $event
+        Event\MinimalUserWasAddedByAdmin $event,
     ): void {
         $this->userId = $event->userId();
         $this->verified = true;
@@ -298,25 +298,25 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenAdminChangedPassword(
-        Event\AdminChangedPassword $event
+        Event\AdminChangedPassword $event,
     ): void {
         // noop
     }
 
     protected function whenUserVerifiedByAdmin(
-        Event\UserVerifiedByAdmin $event
+        Event\UserVerifiedByAdmin $event,
     ): void {
         $this->verified = true;
     }
 
     protected function whenUserActivatedByAdmin(
-        Event\UserActivatedByAdmin $event
+        Event\UserActivatedByAdmin $event,
     ): void {
         $this->active = true;
     }
 
     protected function whenUserDeactivatedByAdmin(
-        Event\UserDeactivatedByAdmin $event
+        Event\UserDeactivatedByAdmin $event,
     ): void {
         $this->active = false;
     }
@@ -332,13 +332,13 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenPasswordRecoverySent(
-        Event\PasswordRecoverySent $event
+        Event\PasswordRecoverySent $event,
     ): void {
         // noop
     }
 
     protected function whenUserUpdatedProfile(
-        Event\UserUpdatedProfile $event
+        Event\UserUpdatedProfile $event,
     ): void {
         // noop
     }

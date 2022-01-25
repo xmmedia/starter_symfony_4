@@ -37,7 +37,7 @@ class SendActivationHandler
         EmailGatewayInterface $emailGateway,
         string $template,
         RouterInterface $router,
-        TokenGeneratorInterface $tokenGenerator
+        TokenGeneratorInterface $tokenGenerator,
     ) {
         $this->userRepo = $userRepo;
         $this->emailGateway = $emailGateway;
@@ -60,14 +60,14 @@ class SendActivationHandler
         $name = StringUtil::trim(sprintf(
             '%s %s',
             $command->firstName(),
-            $command->lastName()
+            $command->lastName(),
         ));
         $token = ($this->tokenGenerator)();
 
         $verifyUrl = $this->router->generate(
             'user_verify',
             ['token' => $token],
-            UrlGeneratorInterface::ABSOLUTE_URL
+            UrlGeneratorInterface::ABSOLUTE_URL,
         );
 
         $messageId = $this->emailGateway->send(
@@ -77,7 +77,7 @@ class SendActivationHandler
                 'verifyUrl' => $verifyUrl,
                 'name'      => $name,
                 'email'     => $command->email()->toString(),
-            ]
+            ],
         );
 
         $user->inviteSent($token, $messageId);

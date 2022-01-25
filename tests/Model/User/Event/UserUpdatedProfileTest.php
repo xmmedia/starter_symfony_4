@@ -47,7 +47,7 @@ class UserUpdatedProfileTest extends BaseTestCase
                 'email'     => $email->toString(),
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
-            ]
+            ],
         );
 
         $this->assertInstanceOf(UserUpdatedProfile::class, $event);

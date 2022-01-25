@@ -39,7 +39,7 @@ class GraphQlErrorSubscriber implements EventSubscriberInterface
         if (!$this->security->isLoggedIn() && $notAllowedField) {
             $event->getFormattedError()->offsetSet(
                 'message',
-                'Access denied to this field.'
+                'Access denied to this field.',
             );
         }
 

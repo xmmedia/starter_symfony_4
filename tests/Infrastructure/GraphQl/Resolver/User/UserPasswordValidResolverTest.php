@@ -33,7 +33,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
 
         $result = (new UserPasswordValidResolver(
             $userPasswordHasher,
-            $security
+            $security,
         ))(
             $password
         );
@@ -61,7 +61,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
 
         $result = (new UserPasswordValidResolver(
             $userPasswordHasher,
-            $security
+            $security,
         ))(
             $password
         );
@@ -84,7 +84,7 @@ class UserPasswordValidResolverTest extends BaseTestCase
 
         (new UserPasswordValidResolver(
             $userPasswordHasher,
-            $security
+            $security,
         ))(
             $faker->password()
         );

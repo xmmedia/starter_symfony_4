@@ -36,7 +36,7 @@ class DefaultController extends AbstractController
         $pagination = $paginator->paginate(
             range(1, 10), /* some random data */
             3, /* current page */
-            1 /* limit per page */
+            1, /* limit per page */
         );
 
         return $this->render('default/pattern_library_public.html.twig', [

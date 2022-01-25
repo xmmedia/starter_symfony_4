@@ -27,7 +27,7 @@ class UserFailedToLoginTest extends BaseTestCase
             $email,
             $userAgent,
             $ipAddress,
-            $message
+            $message,
         );
 
         $this->assertEquals($authId, $event->authId());
@@ -50,7 +50,7 @@ class UserFailedToLoginTest extends BaseTestCase
             null,
             null,
             $ipAddress,
-            $message
+            $message,
         );
 
         $this->assertNull($event->email());
@@ -76,7 +76,7 @@ class UserFailedToLoginTest extends BaseTestCase
                 'userAgent'        => $userAgent,
                 'ipAddress'        => $ipAddress,
                 'exceptionMessage' => $message,
-            ]
+            ],
         );
 
         $this->assertInstanceOf(UserFailedToLogin::class, $event);
@@ -105,7 +105,7 @@ class UserFailedToLoginTest extends BaseTestCase
                 'userAgent'        => null,
                 'ipAddress'        => $ipAddress,
                 'exceptionMessage' => $message,
-            ]
+            ],
         );
 
         $this->assertInstanceOf(UserFailedToLogin::class, $event);

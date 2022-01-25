@@ -16,7 +16,7 @@ final class UpdateUserProfile extends Command
         UserId $userId,
         Email $email,
         Name $firstName,
-        Name $lastName
+        Name $lastName,
     ): self {
         return new self([
             'userId'    => $userId->toString(),

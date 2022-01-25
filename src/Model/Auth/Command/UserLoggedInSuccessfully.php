@@ -17,7 +17,7 @@ final class UserLoggedInSuccessfully extends Command
         UserId $userId,
         Email $email,
         string $userAgent,
-        string $ipAddress
+        string $ipAddress,
     ): self {
         return new self([
             'authId'    => $authId->toString(),

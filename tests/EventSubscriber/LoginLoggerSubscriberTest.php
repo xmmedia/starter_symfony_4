@@ -49,7 +49,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
             [],
             [
                 'REMOTE_ADDR' => $faker->ipv4(),
-            ]
+            ],
         );
 
         $user = Mockery::mock(User::class);
@@ -89,7 +89,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
             [
                 'REMOTE_ADDR'     => $faker->ipv4(),
                 'HTTP_USER_AGENT' => $faker->userAgent(),
-            ]
+            ],
         );
 
         $authenticator = Mockery::mock(AuthenticatorInterface::class);
@@ -99,7 +99,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
             $authenticator,
             $request,
             null,
-            'main'
+            'main',
         );
 
         $listener = new LoginLoggerSubscriber($commandBus);

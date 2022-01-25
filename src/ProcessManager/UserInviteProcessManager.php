@@ -29,8 +29,8 @@ class UserInviteProcessManager
                 $event->userId(),
                 $event->email(),
                 $event->firstName(),
-                $event->lastName()
-            )
+                $event->lastName(),
+            ),
         );
     }
 }

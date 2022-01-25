@@ -25,7 +25,7 @@ class UserLoggedInSuccessfullyHandler
             $command->userId(),
             $command->email(),
             $command->userAgent(),
-            $command->ipAddress()
+            $command->ipAddress(),
         );
 
         $this->authRepo->save($auth);

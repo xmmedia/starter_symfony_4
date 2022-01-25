@@ -38,7 +38,7 @@ class AdminChangedPasswordTest extends BaseTestCase
             $userId->toString(),
             [
                 'encodedPassword' => $password,
-            ]
+            ],
         );
 
         $this->assertInstanceOf(AdminChangedPassword::class, $event);

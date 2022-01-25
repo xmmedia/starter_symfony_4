@@ -25,8 +25,8 @@ trait UserTestTrait
     {
         $this->userUniquenessCheckerNone = Mockery::spy(
             new ChecksUniqueUsersEmailFromReadModel(
-                Mockery::mock(UserFinder::class)
-            )
+                Mockery::mock(UserFinder::class),
+            ),
         );
         $this->userUniquenessCheckerNone->shouldReceive('__invoke')
             ->andReturnNull()
@@ -34,8 +34,8 @@ trait UserTestTrait
 
         $this->userUniquenessCheckerDuplicate = Mockery::spy(
             new ChecksUniqueUsersEmailFromReadModel(
-                Mockery::mock(UserFinder::class)
-            )
+                Mockery::mock(UserFinder::class),
+            ),
         );
         $this->userUniquenessCheckerDuplicate->shouldReceive('__invoke')
             ->andReturn(UserId::fromUuid(Uuid::uuid4()))
@@ -72,7 +72,7 @@ trait UserTestTrait
             $firstName,
             $lastName,
             $sendInvite,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
         $this->popRecordedEvent($user);
 

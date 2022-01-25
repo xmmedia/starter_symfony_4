@@ -46,7 +46,7 @@ class EnquiryWasSubmittedTest extends BaseTestCase
                 'name'    => $name,
                 'email'   => $email->toString(),
                 'message' => $message,
-            ]
+            ],
         );
 
         $this->assertInstanceOf(EnquiryWasSubmitted::class, $event);

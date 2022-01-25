@@ -37,7 +37,7 @@ class SendActivationHandlerTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             Name::fromString($faker->name()),
-            Name::fromString($faker->name())
+            Name::fromString($faker->name()),
         );
 
         $repo = Mockery::mock(UserList::class);
@@ -64,7 +64,7 @@ class SendActivationHandlerTest extends BaseTestCase
             $emailGateway,
             $faker->string(10),
             $router,
-            $tokenGenerator
+            $tokenGenerator,
         );
 
         $handler($command);
@@ -83,7 +83,7 @@ class SendActivationHandlerTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             Name::fromString($faker->name()),
-            Name::fromString($faker->name())
+            Name::fromString($faker->name()),
         );
 
         $repo = Mockery::mock(UserList::class);
@@ -100,7 +100,7 @@ class SendActivationHandlerTest extends BaseTestCase
             $emailGateway,
             $faker->string(10),
             $router,
-            $tokenGenerator
+            $tokenGenerator,
         );
 
         $this->expectException(UserAlreadyVerified::class);
@@ -116,7 +116,7 @@ class SendActivationHandlerTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             Name::fromString($faker->name()),
-            Name::fromString($faker->name())
+            Name::fromString($faker->name()),
         );
 
         $repo = Mockery::mock(UserList::class);
@@ -139,7 +139,7 @@ class SendActivationHandlerTest extends BaseTestCase
             $emailGateway,
             $faker->string(10),
             $router,
-            $tokenGenerator
+            $tokenGenerator,
         );
 
         $handler($command);

@@ -30,7 +30,7 @@ class UserUpdateTest extends BaseTestCase
             $role,
             $firstName,
             $lastName,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
 
         $events = $this->popRecordedEvent($user);
@@ -43,7 +43,7 @@ class UserUpdateTest extends BaseTestCase
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
             ],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -67,7 +67,7 @@ class UserUpdateTest extends BaseTestCase
             $role,
             $firstName,
             $lastName,
-            $this->userUniquenessCheckerDuplicate
+            $this->userUniquenessCheckerDuplicate,
         );
     }
 
@@ -85,7 +85,7 @@ class UserUpdateTest extends BaseTestCase
             $email,
             $firstName,
             $lastName,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
 
         $events = $this->popRecordedEvent($user);
@@ -97,7 +97,7 @@ class UserUpdateTest extends BaseTestCase
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
             ],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -119,7 +119,7 @@ class UserUpdateTest extends BaseTestCase
             $email,
             $firstName,
             $lastName,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
     }
 
@@ -139,7 +139,7 @@ class UserUpdateTest extends BaseTestCase
             $email,
             $firstName,
             $lastName,
-            $this->userUniquenessCheckerDuplicate
+            $this->userUniquenessCheckerDuplicate,
         );
     }
 }

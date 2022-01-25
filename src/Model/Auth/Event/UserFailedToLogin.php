@@ -26,7 +26,7 @@ class UserFailedToLogin extends AggregateChanged
         ?string $email,
         ?string $userAgent,
         string $ipAddress,
-        ?string $exceptionMessage
+        ?string $exceptionMessage,
     ): self {
         $event = self::occur($authId->toString(), [
             'email'            => $email,

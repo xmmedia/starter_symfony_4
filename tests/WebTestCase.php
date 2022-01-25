@@ -18,7 +18,7 @@ class WebTestCase extends BaseWebTestCase
     {
         $this->assertMatchesRegularExpression(
             $regExp,
-            $client->getRequest()->getPathInfo()
+            $client->getRequest()->getPathInfo(),
         );
     }
 }

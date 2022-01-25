@@ -23,7 +23,7 @@ class SendEnquiryEmailHandlerTest extends BaseTestCase
         $command = SendEnquiryEmail::with(
             $faker->name(),
             $faker->emailVo(),
-            $faker->string(25)
+            $faker->string(25),
         );
 
         $emailGateway = Mockery::mock(EmailGatewayInterface::class);
@@ -41,7 +41,7 @@ class SendEnquiryEmailHandlerTest extends BaseTestCase
         (new SendEnquiryEmailHandler(
             $emailGateway,
             $template,
-            $adminEmail
+            $adminEmail,
         ))(
             $command
         );

@@ -44,7 +44,7 @@ class InviteSentTest extends BaseTestCase
             [
                 'token'     => $token->toString(),
                 'messageId' => $messageId->toString(),
-            ]
+            ],
         );
 
         $this->assertInstanceOf(InviteSent::class, $event);

@@ -31,7 +31,7 @@ final class AddUserCommand extends Command
 
     public function __construct(
         MessageBusInterface $commandBus,
-        PasswordHasher $passwordHasher
+        PasswordHasher $passwordHasher,
     ) {
         parent::__construct();
 
@@ -62,8 +62,8 @@ final class AddUserCommand extends Command
                 $userId,
                 $email,
                 ($this->passwordHasher)($role, $password),
-                $role
-            )
+                $role,
+            ),
         );
 
         $io->writeln(
@@ -71,8 +71,8 @@ final class AddUserCommand extends Command
                 'Created new active user %s with role %s with ID: %s.',
                 $email,
                 $role->getValue(),
-                $userId
-            )
+                $userId,
+            ),
         );
 
         return self::SUCCESS;
@@ -85,7 +85,7 @@ final class AddUserCommand extends Command
 
             Assert::true(
                 (new EmailValidator())->isValid($email, new RFCValidation()),
-                'The email address in invalid.'
+                'The email address in invalid.',
             );
 
             return trim($email);
@@ -99,12 +99,12 @@ final class AddUserCommand extends Command
             Assert::minLength(
                 $password,
                 User::PASSWORD_MIN_LENGTH,
-                'The password must be at least %2$d characters long.'
+                'The password must be at least %2$d characters long.',
             );
             Assert::maxLength(
                 $password,
                 PasswordHasherInterface::MAX_PASSWORD_LENGTH,
-                'The password must be less than %2$d characters long.'
+                'The password must be less than %2$d characters long.',
             );
 
             return $password;

@@ -51,7 +51,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
                 $faker->enquiryId(),
                 $faker->name(),
                 $faker->emailVo(),
-                $faker->string(5)
+                $faker->string(5),
             ),
             ['enquiry_projection'],
         ];

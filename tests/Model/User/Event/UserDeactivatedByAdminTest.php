@@ -32,7 +32,7 @@ class UserDeactivatedByAdminTest extends BaseTestCase
         /** @var UserDeactivatedByAdmin $event */
         $event = $this->createEventFromArray(
             UserDeactivatedByAdmin::class,
-            $userId->toString()
+            $userId->toString(),
         );
 
         $this->assertInstanceOf(UserDeactivatedByAdmin::class, $event);

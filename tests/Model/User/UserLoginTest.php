@@ -23,7 +23,7 @@ class UserLoginTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserLoggedIn::class,
             [],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);

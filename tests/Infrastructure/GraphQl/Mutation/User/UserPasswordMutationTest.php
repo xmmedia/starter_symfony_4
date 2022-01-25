@@ -82,7 +82,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $passwordHasher,
             $security,
             new PasswordStrengthFake(),
-            $this->getPwnedHttpClient()
+            $this->getPwnedHttpClient(),
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
@@ -122,7 +122,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $passwordHasher,
             $security,
             new PasswordStrengthFake(),
-            $this->getPwnedHttpClient()
+            $this->getPwnedHttpClient(),
         ))($args);
     }
 
@@ -159,7 +159,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $passwordHasher,
             $security,
             new PasswordStrengthFake(),
-            $this->getPwnedHttpClient()
+            $this->getPwnedHttpClient(),
         ))($args);
     }
 
@@ -199,7 +199,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $passwordHasher,
             $security,
             new PasswordStrengthFake(),
-            $this->getPwnedHttpClient()
+            $this->getPwnedHttpClient(),
         ))($args);
     }
 
@@ -234,7 +234,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
-            $security
+            $security,
         ))($args);
     }
 
@@ -271,7 +271,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $passwordHasher,
             $security,
             new PasswordStrengthFake(),
-            $this->getPwnedHttpClient()
+            $this->getPwnedHttpClient(),
         ))($args);
     }
 
@@ -308,7 +308,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $passwordHasher,
             $security,
             new PasswordStrengthFake(),
-            $this->getPwnedHttpClient()
+            $this->getPwnedHttpClient(),
         ))($args);
     }
 
@@ -350,7 +350,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $passwordHasher,
             $security,
             new PasswordStrengthFake(),
-            $pwnedHttpClient
+            $pwnedHttpClient,
         ))($args);
     }
 }

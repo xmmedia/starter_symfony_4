@@ -46,7 +46,7 @@ class LoginLoggerSubscriber implements EventSubscriberInterface
                 $user->email(),
                 $request->headers->get('User-Agent'),
                 $request->getClientIp(),
-            )
+            ),
         );
     }
 
@@ -65,7 +65,7 @@ class LoginLoggerSubscriber implements EventSubscriberInterface
                 $request->headers->get('User-Agent'),
                 $request->getClientIp(),
                 $event->getException()->getMessage(),
-            )
+            ),
         );
     }
 }

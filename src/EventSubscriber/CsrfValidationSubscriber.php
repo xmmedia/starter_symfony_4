@@ -74,7 +74,7 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
         $token = $this->csrfTokenManager->getToken($this->tokenName)->getValue();
 
         $event->getResponse()->headers->setCookie(
-            Cookie::create($this->cookieName, $token, 0, '/', null, true)
+            Cookie::create($this->cookieName, $token, 0, '/', null, true),
         );
     }
 }

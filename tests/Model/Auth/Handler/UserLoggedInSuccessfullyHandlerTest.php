@@ -28,7 +28,7 @@ class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
             $userId,
             $email,
             $userAgent,
-            $ipAddress
+            $ipAddress,
         );
 
         $repo = Mockery::mock(AuthList::class);

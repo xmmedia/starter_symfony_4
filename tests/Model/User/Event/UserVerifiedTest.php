@@ -32,7 +32,7 @@ class UserVerifiedTest extends BaseTestCase
         /** @var UserVerified $event */
         $event = $this->createEventFromArray(
             UserVerified::class,
-            $userId->toString()
+            $userId->toString(),
         );
 
         $this->assertInstanceOf(UserVerified::class, $event);

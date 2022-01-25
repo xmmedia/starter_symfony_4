@@ -73,7 +73,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
                 'firstName'       => $firstName->toString(),
                 'lastName'        => $lastName->toString(),
                 'sendInvite'      => $sendInvite,
-            ]
+            ],
         );
 
         $this->assertInstanceOf(UserWasAddedByAdmin::class, $event);

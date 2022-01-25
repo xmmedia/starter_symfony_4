@@ -22,7 +22,7 @@ class SendEnquiryEmailHandler
     public function __construct(
         EmailGatewayInterface $emailGateway,
         string $template,
-        string $adminEmail
+        string $adminEmail,
     ) {
         $this->emailGateway = $emailGateway;
         $this->template = $template;
@@ -39,7 +39,7 @@ class SendEnquiryEmailHandler
                 'email'    => $command->email()->toString(),
                 'message'  => $command->message(),
                 'received' => $command->createdAt()->format('Y-m-d H:m:s'),
-            ]
+            ],
         );
     }
 }

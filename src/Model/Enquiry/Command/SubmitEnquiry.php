@@ -16,7 +16,7 @@ final class SubmitEnquiry extends Command
         EnquiryId $enquiryId,
         Name $name,
         Email $email,
-        string $message
+        string $message,
     ): self {
         return new self([
             'enquiryId' => $enquiryId->toString(),

@@ -36,7 +36,7 @@ class AdminUserUpdateMutation implements MutationInterface
         MessageBusInterface $commandBus,
         PasswordHasher $passwordHasher,
         PasswordStrengthInterface $passwordStrength = null,
-        HttpClientInterface $pwnedHttpClient = null
+        HttpClientInterface $pwnedHttpClient = null,
     ) {
         $this->commandBus = $commandBus;
         $this->passwordHasher = $passwordHasher;
@@ -73,7 +73,7 @@ class AdminUserUpdateMutation implements MutationInterface
                 $role,
                 $firstName,
                 $lastName,
-            )
+            ),
         );
 
         if ($args['user']['setPassword']) {
@@ -81,7 +81,7 @@ class AdminUserUpdateMutation implements MutationInterface
                 AdminChangePassword::with(
                     $userId,
                     ($this->passwordHasher)($role, $password),
-                )
+                ),
             );
         }
 

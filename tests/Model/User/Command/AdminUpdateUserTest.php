@@ -26,7 +26,7 @@ class AdminUpdateUserTest extends BaseTestCase
             $email,
             $role,
             $firstName,
-            $lastName
+            $lastName,
         );
 
         $this->assertTrue($userId->sameValueAs($command->userId()));

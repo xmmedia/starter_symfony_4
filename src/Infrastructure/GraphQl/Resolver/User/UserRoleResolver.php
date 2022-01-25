@@ -21,7 +21,7 @@ class UserRoleResolver implements ResolverInterface
     public function __invoke(User $user): array
     {
         return array_unique(
-            $this->roleHierarchy->getReachableRoleNames($user->roles())
+            $this->roleHierarchy->getReachableRoleNames($user->roles()),
         );
     }
 }

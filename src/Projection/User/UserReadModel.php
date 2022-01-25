@@ -52,7 +52,7 @@ EOT;
             self::TABLE,
             $data,
             ['user_id' => $userId],
-            $types
+            $types,
         );
     }
 

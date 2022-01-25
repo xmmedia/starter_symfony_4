@@ -21,7 +21,7 @@ class AdminUserSendResetToUserMutation implements MutationInterface
 
     public function __construct(
         MessageBusInterface $commandBus,
-        UserFinder $userFinder
+        UserFinder $userFinder,
     ) {
         $this->commandBus = $commandBus;
         $this->userFinder = $userFinder;
@@ -37,7 +37,7 @@ class AdminUserSendResetToUserMutation implements MutationInterface
         }
 
         $this->commandBus->dispatch(
-            InitiatePasswordRecovery::now($user->userId(), $user->email())
+            InitiatePasswordRecovery::now($user->userId(), $user->email()),
         );
 
         return [

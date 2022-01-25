@@ -27,14 +27,14 @@ class UserTest extends BaseTestCase
             $email,
             $password,
             $role,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
         $user2 = User::addByAdminMinimum(
             $userId,
             $email,
             $password,
             $role,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
 
         $this->assertTrue($user1->sameIdentityAs($user2));
@@ -53,14 +53,14 @@ class UserTest extends BaseTestCase
             $email,
             $password,
             $role,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
         $user2 = User::addByAdminMinimum(
             $faker->userId(),
             $email,
             $password,
             $role,
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
 
         $this->assertFalse($user1->sameIdentityAs($user2));
@@ -75,7 +75,7 @@ class UserTest extends BaseTestCase
             $faker->emailVo(),
             $faker->password(),
             Role::ROLE_USER(),
-            $this->userUniquenessCheckerNone
+            $this->userUniquenessCheckerNone,
         );
 
         $this->assertFalse($user->sameIdentityAs(FakeAr::create()));

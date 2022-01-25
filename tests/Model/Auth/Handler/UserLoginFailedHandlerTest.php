@@ -28,7 +28,7 @@ class UserLoginFailedHandlerTest extends BaseTestCase
             $email,
             $userAgent,
             $ipAddress,
-            $message
+            $message,
         );
 
         $repo = Mockery::mock(AuthList::class);

@@ -27,7 +27,7 @@ class UserRecoverInitiateMutation implements MutationInterface
     public function __construct(
         MessageBusInterface $commandBus,
         UserFinder $userFinder,
-        Security $security
+        Security $security,
     ) {
         $this->commandBus = $commandBus;
         $this->userFinder = $userFinder;
@@ -41,7 +41,7 @@ class UserRecoverInitiateMutation implements MutationInterface
         }
 
         $user = $this->userFinder->findOneByEmail(
-            Email::fromString(mb_strtolower($args['email']))
+            Email::fromString(mb_strtolower($args['email'])),
         );
 
         if (!$user || !$user->active()) {
@@ -49,7 +49,7 @@ class UserRecoverInitiateMutation implements MutationInterface
         }
 
         $this->commandBus->dispatch(
-            InitiatePasswordRecovery::now($user->userId(), $user->email())
+            InitiatePasswordRecovery::now($user->userId(), $user->email()),
         );
 
         return [

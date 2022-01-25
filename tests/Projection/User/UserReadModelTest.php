@@ -36,14 +36,14 @@ class UserReadModelTest extends BaseTestCase
                 function (
                     string $table,
                     array $passedData,
-                    array $passedTypes
+                    array $passedTypes,
                 ) use ($data, $types): bool {
                     $this->assertEquals('user', $table);
                     $this->assertEquals($data, $passedData);
                     $this->assertEquals($types, $passedTypes);
 
                     return true;
-                }
+                },
             );
 
         $reflection = new \ReflectionClass(UserReadModel::class);
@@ -67,7 +67,7 @@ class UserReadModelTest extends BaseTestCase
                     string $table,
                     array $passedData,
                     array $passedCriteria,
-                    array $passedTypes
+                    array $passedTypes,
                 ) use ($userId, $data, $types): bool {
                     $this->assertEquals('user', $table);
                     $this->assertEquals($data, $passedData);
@@ -75,7 +75,7 @@ class UserReadModelTest extends BaseTestCase
                     $this->assertEquals($types, $passedTypes);
 
                     return true;
-                }
+                },
             );
 
         $reflection = new \ReflectionClass(UserReadModel::class);

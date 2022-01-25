@@ -24,7 +24,7 @@ class UserLoggedInSuccessfullyTest extends BaseTestCase
             $userId,
             $email,
             $userAgent,
-            $ipAddress
+            $ipAddress,
         );
 
         $this->assertTrue($authId->sameValueAs($command->authId()));

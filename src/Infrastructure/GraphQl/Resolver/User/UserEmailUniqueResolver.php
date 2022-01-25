@@ -37,7 +37,7 @@ class UserEmailUniqueResolver implements ResolverInterface
         }
 
         $user = $this->userFinder->findOneByEmail(
-            Email::fromString(mb_strtolower($email))
+            Email::fromString(mb_strtolower($email)),
         );
 
         if (!$user) {

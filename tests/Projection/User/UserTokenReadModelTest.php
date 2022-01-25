@@ -35,14 +35,14 @@ class UserTokenReadModelTest extends BaseTestCase
                 function (
                     string $table,
                     array $passedData,
-                    array $passedTypes
+                    array $passedTypes,
                 ) use ($data, $types): bool {
                     $this->assertEquals('user_token', $table);
                     $this->assertEquals($data, $passedData);
                     $this->assertEquals($types, $passedTypes);
 
                     return true;
-                }
+                },
             );
 
         $reflection = new \ReflectionClass(UserTokenReadModel::class);
@@ -63,13 +63,13 @@ class UserTokenReadModelTest extends BaseTestCase
             ->withArgs(
                 function (
                     string $table,
-                    array $passedCriteria
+                    array $passedCriteria,
                 ) use ($userId): bool {
                     $this->assertEquals('user_token', $table);
                     $this->assertEquals(['user_id' => $userId], $passedCriteria);
 
                     return true;
-                }
+                },
             );
 
         $reflection = new \ReflectionClass(UserTokenReadModel::class);

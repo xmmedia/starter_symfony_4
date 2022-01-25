@@ -56,7 +56,7 @@ class UserProviderTest extends BaseTestCase
     {
         return new UserProvider(
             Mockery::mock(ManagerRegistry::class),
-            $this->commandBus
+            $this->commandBus,
         );
     }
 }

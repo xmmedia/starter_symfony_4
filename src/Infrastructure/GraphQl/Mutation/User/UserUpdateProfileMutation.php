@@ -22,7 +22,7 @@ class UserUpdateProfileMutation implements MutationInterface
 
     public function __construct(
         MessageBusInterface $commandBus,
-        Security $security
+        Security $security,
     ) {
         $this->commandBus = $commandBus;
         $this->security = $security;
@@ -33,8 +33,8 @@ class UserUpdateProfileMutation implements MutationInterface
         $this->commandBus->dispatch(
             UpdateUserProfile::with(
                 $this->security->getUser()->userId(),
-                ...$this->transformData($args['user'])
-            )
+                ...$this->transformData($args['user']),
+            ),
         );
 
         return [

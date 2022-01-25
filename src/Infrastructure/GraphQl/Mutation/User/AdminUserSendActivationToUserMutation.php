@@ -18,7 +18,7 @@ class AdminUserSendActivationToUserMutation implements MutationInterface
 
     public function __construct(
         MessageBusInterface $commandBus,
-        UserFinder $userFinder
+        UserFinder $userFinder,
     ) {
         $this->commandBus = $commandBus;
         $this->userFinder = $userFinder;
@@ -39,7 +39,7 @@ class AdminUserSendActivationToUserMutation implements MutationInterface
                 $user->email(),
                 $user->firstName(),
                 $user->lastName(),
-            )
+            ),
         );
 
         return [

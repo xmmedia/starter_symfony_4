@@ -25,7 +25,7 @@ class UserLoginFailedHandler
             $command->email(),
             $command->userAgent(),
             $command->ipAddress(),
-            $command->exceptionMessage()
+            $command->exceptionMessage(),
         );
 
         $this->authRepo->save($auth);

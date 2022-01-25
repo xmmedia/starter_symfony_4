@@ -21,7 +21,7 @@ final class AdminAddUser extends Command
         bool $active,
         Name $firstName,
         Name $lastName,
-        bool $sendInvite
+        bool $sendInvite,
     ): self {
         return new self([
             'userId'          => $userId->toString(),

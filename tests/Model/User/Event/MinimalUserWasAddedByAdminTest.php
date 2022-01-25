@@ -47,7 +47,7 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
                 'email'           => $email->toString(),
                 'encodedPassword' => $password,
                 'role'            => $role->getValue(),
-            ]
+            ],
         );
 
         $this->assertInstanceOf(MinimalUserWasAddedByAdmin::class, $event);

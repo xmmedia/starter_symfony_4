@@ -30,7 +30,7 @@ class UpdateUserProfileHandlerTest extends BaseTestCase
             $userId,
             $email,
             $firstName,
-            $lastName
+            $lastName,
         );
 
         $user = Mockery::mock(User::class);
@@ -65,7 +65,7 @@ class UpdateUserProfileHandlerTest extends BaseTestCase
             $userId,
             $email,
             $firstName,
-            $lastName
+            $lastName,
         );
 
         $repo = Mockery::mock(UserList::class);

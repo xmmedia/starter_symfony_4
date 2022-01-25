@@ -19,7 +19,7 @@ class EnquiryProjection implements ReadModelProjection
             ->when([
                 Event\EnquiryWasSubmitted::class => function (
                     array $state,
-                    Event\EnquiryWasSubmitted $event
+                    Event\EnquiryWasSubmitted $event,
                 ): void {
                     /** @var EnquiryReadModel $readModel */
                     /** @var ReadModelProjector $this */

@@ -31,7 +31,7 @@ class UserPasswordTest extends BaseTestCase
             [
                 'encodedPassword' => $password,
             ],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -57,7 +57,7 @@ class UserPasswordTest extends BaseTestCase
                 'token'     => $token->toString(),
                 'messageId' => $messageId->toString(),
             ],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -92,7 +92,7 @@ class UserPasswordTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\ChangedPassword::class,
             ['encodedPassword' => $password],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);
@@ -126,7 +126,7 @@ class UserPasswordTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\PasswordUpgraded::class,
             ['encodedPassword' => $password],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);

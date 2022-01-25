@@ -33,7 +33,7 @@ class UserInviteTest extends BaseTestCase
                 'token'     => $token->toString(),
                 'messageId' => $messageId->toString(),
             ],
-            $events
+            $events,
         );
 
         $this->assertCount(1, $events);

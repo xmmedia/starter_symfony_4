@@ -46,7 +46,7 @@ class UserVerifyMutation implements MutationInterface
         TokenValidator $tokenValidator,
         Security $security,
         PasswordStrengthInterface $passwordStrength = null,
-        HttpClientInterface $pwnedHttpClient = null
+        HttpClientInterface $pwnedHttpClient = null,
     ) {
         $this->commandBus = $commandBus;
         $this->passwordHasher = $passwordHasher;
@@ -67,7 +67,7 @@ class UserVerifyMutation implements MutationInterface
         try {
             // checks if the token is valid & user is active
             $user = $this->tokenValidator->validate(
-                Token::fromString($args['token'])
+                Token::fromString($args['token']),
             );
         } catch (InvalidToken $e) {
             // 404 -> not found
@@ -94,7 +94,7 @@ class UserVerifyMutation implements MutationInterface
         }
 
         $this->commandBus->dispatch(
-            VerifyUser::now($user->userId())
+            VerifyUser::now($user->userId()),
         );
 
         $encodedPassword = ($this->passwordHasher)(
@@ -102,7 +102,7 @@ class UserVerifyMutation implements MutationInterface
             $password
         );
         $this->commandBus->dispatch(
-            ChangePassword::forUser($user->userId(), $encodedPassword)
+            ChangePassword::forUser($user->userId(), $encodedPassword),
         );
 
         // we would log the user in right away, but as we don't have a request

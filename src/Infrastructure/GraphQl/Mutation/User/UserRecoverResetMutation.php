@@ -46,7 +46,7 @@ class UserRecoverResetMutation implements MutationInterface
         TokenValidator $tokenValidator,
         Security $security,
         PasswordStrengthInterface $passwordStrength = null,
-        HttpClientInterface $pwnedHttpClient = null
+        HttpClientInterface $pwnedHttpClient = null,
     ) {
         $this->commandBus = $commandBus;
         $this->passwordHasher = $passwordHasher;
@@ -66,7 +66,7 @@ class UserRecoverResetMutation implements MutationInterface
 
         try {
             $user = $this->tokenValidator->validate(
-                Token::fromString($args['token'])
+                Token::fromString($args['token']),
             );
         } catch (InvalidToken $e) {
             // 404 -> not found
@@ -89,7 +89,7 @@ class UserRecoverResetMutation implements MutationInterface
 
         if (!$user->verified()) {
             $this->commandBus->dispatch(
-                VerifyUser::now($user->userId())
+                VerifyUser::now($user->userId()),
             );
         }
 
@@ -98,7 +98,7 @@ class UserRecoverResetMutation implements MutationInterface
             $newPassword
         );
         $this->commandBus->dispatch(
-            ChangePassword::forUser($user->userId(), $encodedPassword)
+            ChangePassword::forUser($user->userId(), $encodedPassword),
         );
 
         // we would log the user in right away, but as we don't have a request

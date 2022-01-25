@@ -11,7 +11,7 @@ class TokenGenerator implements TokenGeneratorInterface
     public function __invoke(): Token
     {
         return Token::fromString(
-            rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=')
+            rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '='),
         );
     }
 }

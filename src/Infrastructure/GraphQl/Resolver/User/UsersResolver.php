@@ -25,7 +25,7 @@ class UsersResolver implements ResolverInterface
     public function __invoke(?array $filters): array
     {
         return $this->userFinder->findByUserFilters(
-            UserFilters::fromArray($filters)
+            UserFilters::fromArray($filters),
         );
     }
 }
