@@ -38,7 +38,7 @@ export default {
             default: false,
         },
         cancelTo: {
-            type: Object,
+            type: [Object, String],
             default: null,
         },
         showButton: {
