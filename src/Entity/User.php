@@ -8,6 +8,7 @@ use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\UserId;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -26,67 +27,58 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
      * @ORM\Id
      * @ORM\Column(type="uuid")
      */
-    private $userId;
+    private \Ramsey\Uuid\UuidInterface $userId;
 
     /**
-     * @var Email|string
      * @ORM\Column(type="string", length=150, unique=true)
      */
-    private $email;
+    private string $email;
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private string $password;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $verified = false;
+    private bool $verified = false;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $active = false;
+    private bool $active = false;
 
     /**
-     * @var array
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
-     * @var \DateTimeImmutable|null
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $lastLogin;
+    private ?\DateTimeImmutable $lastLogin = null;
 
     /**
-     * @var int
      * @ORM\Column(type="integer")
      */
-    private $loginCount = 0;
+    private int $loginCount = 0;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $firstName;
+    private ?string $firstName;
 
     /**
-     * @var string|null
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $lastName;
+    private ?string $lastName;
 
     /**
-     * @var ArrayCollection
+     * @var UserToken[]|Collection|ArrayCollection
      * @ORM\OneToMany(targetEntity="App\Entity\UserToken", mappedBy="user")
      */
-    private $tokens;
+    private Collection $tokens;
 
     public function __construct()
     {
@@ -183,7 +175,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
 
     public function firstName(): ?Name
     {
-        if (null === $this->firstName) {
+        if (!isset($this->firstName) || null === $this->firstName) {
             return null;
         }
 
@@ -192,7 +184,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
 
     public function lastName(): ?Name
     {
-        if (null === $this->lastName) {
+        if (!isset($this->lastName) || null === $this->lastName) {
             return null;
         }
 

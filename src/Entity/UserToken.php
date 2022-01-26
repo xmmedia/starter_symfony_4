@@ -13,24 +13,21 @@ use Doctrine\ORM\Mapping as ORM;
 class UserToken
 {
     /**
-     * @var string
      * @ORM\Id
      * @ORM\Column(type="string", length=50)
      */
-    private $token;
+    private string $token;
 
     /**
-     * @var User
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tokens")
      * @ORM\JoinColumn(referencedColumnName="user_id", nullable=false)
      */
-    private $user;
+    private User $user;
 
     /**
-     * @var \DateTimeImmutable
      * @ORM\Column(type="datetime")
      */
-    private $generatedAt;
+    private \DateTimeImmutable $generatedAt;
 
     public function token(): Token
     {
