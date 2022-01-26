@@ -17,8 +17,7 @@ class Enquiry extends AggregateRoot implements Entity
     public const MESSAGE_MIN_LENGTH = 10;
     public const MESSAGE_MAX_LENGTH = 5000;
 
-    /** @var EnquiryId */
-    private $enquiryId;
+    private EnquiryId $enquiryId;
 
     public static function submit(
         EnquiryId $enquiryId,

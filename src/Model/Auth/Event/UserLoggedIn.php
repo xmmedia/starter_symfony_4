@@ -11,17 +11,10 @@ use Xm\SymfonyBundle\Model\Email;
 
 class UserLoggedIn extends AggregateChanged
 {
-    /** @var UserId */
-    private $userId;
-
-    /** @var Email */
-    private $email;
-
-    /** @var string */
-    private $userAgent;
-
-    /** @var string */
-    private $ipAddress;
+    private UserId $userId;
+    private Email $email;
+    private string $userAgent;
+    private string $ipAddress;
 
     public static function now(
         AuthId $authId,
@@ -52,7 +45,7 @@ class UserLoggedIn extends AggregateChanged
 
     public function userId(): UserId
     {
-        if (null === $this->userId) {
+        if (!isset($this->userId)) {
             $this->userId = UserId::fromString($this->payload['userId']);
         }
 
@@ -61,7 +54,7 @@ class UserLoggedIn extends AggregateChanged
 
     public function email(): Email
     {
-        if (null === $this->email) {
+        if (!isset($this->email)) {
             $this->email = Email::fromString($this->payload['email']);
         }
 
@@ -70,7 +63,7 @@ class UserLoggedIn extends AggregateChanged
 
     public function userAgent(): string
     {
-        if (null === $this->userAgent) {
+        if (!isset($this->userAgent)) {
             $this->userAgent = $this->payload['userAgent'];
         }
 
@@ -79,7 +72,7 @@ class UserLoggedIn extends AggregateChanged
 
     public function ipAddress(): string
     {
-        if (null === $this->ipAddress) {
+        if (!isset($this->ipAddress)) {
             $this->ipAddress = $this->payload['ipAddress'];
         }
 

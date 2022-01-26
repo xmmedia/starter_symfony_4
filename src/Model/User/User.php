@@ -17,14 +17,9 @@ class User extends AggregateRoot implements Entity
 
     public const PASSWORD_MIN_LENGTH = 12;
 
-    /** @var UserId */
-    private $userId;
-
-    /** @var bool */
-    private $verified = false;
-
-    /** @var bool */
-    private $active = false;
+    private UserId $userId;
+    private bool $verified = false;
+    private bool $active = false;
 
     public static function addByAdmin(
         UserId $userId,

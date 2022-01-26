@@ -10,8 +10,7 @@ use Xm\SymfonyBundle\Util\StringUtil;
 
 class Token implements ValueObject
 {
-    /** @var string */
-    private $token;
+    private string $token;
 
     public static function fromString(string $token): self
     {

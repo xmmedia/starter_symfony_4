@@ -13,8 +13,7 @@ class Name implements ValueObject, \JsonSerializable
     public const MIN_LENGTH = 2;
     public const MAX_LENGTH = 50;
 
-    /** @var string */
-    private $name;
+    private string $name;
 
     public static function fromString(string $name): self
     {

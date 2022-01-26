@@ -12,11 +12,8 @@ use Xm\SymfonyBundle\Model\NotificationGatewayId;
 
 class PasswordRecoverySent extends AggregateChanged
 {
-    /** @var Token */
-    private $token;
-
-    /** @var NotificationGatewayId */
-    private $messageId;
+    private Token $token;
+    private NotificationGatewayId $messageId;
 
     public static function now(
         UserId $userId,
@@ -41,7 +38,7 @@ class PasswordRecoverySent extends AggregateChanged
 
     public function token(): Token
     {
-        if (null === $this->token) {
+        if (!isset($this->token)) {
             $this->token = Token::fromString($this->payload['token']);
         }
 
@@ -50,7 +47,7 @@ class PasswordRecoverySent extends AggregateChanged
 
     public function messageId(): NotificationGatewayId
     {
-        if (null === $this->messageId) {
+        if (!isset($this->messageId)) {
             $this->messageId = EmailGatewayMessageId::fromString(
                 $this->payload['messageId'],
             );

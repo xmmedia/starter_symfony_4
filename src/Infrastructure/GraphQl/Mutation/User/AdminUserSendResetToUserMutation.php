@@ -13,11 +13,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserSendResetToUserMutation implements MutationInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
-
-    /** @var UserFinder */
-    private $userFinder;
+    private MessageBusInterface $commandBus;
+    private UserFinder $userFinder;
 
     public function __construct(
         MessageBusInterface $commandBus,

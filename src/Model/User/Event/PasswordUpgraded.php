@@ -9,8 +9,7 @@ use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
 class PasswordUpgraded extends AggregateChanged
 {
-    /** @var string */
-    private $encodedPassword;
+    private string $encodedPassword;
 
     public static function now(UserId $userId, string $encodedPassword): self
     {
@@ -30,7 +29,7 @@ class PasswordUpgraded extends AggregateChanged
 
     public function encodedPassword(): string
     {
-        if (null === $this->encodedPassword) {
+        if (!isset($this->encodedPassword)) {
             $this->encodedPassword = $this->payload['encodedPassword'];
         }
 

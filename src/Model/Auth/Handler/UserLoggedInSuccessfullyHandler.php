@@ -10,8 +10,7 @@ use App\Model\Auth\Command\UserLoggedInSuccessfully;
 
 class UserLoggedInSuccessfullyHandler
 {
-    /** @var AuthList */
-    private $authRepo;
+    private AuthList $authRepo;
 
     public function __construct(AuthList $authRepo)
     {

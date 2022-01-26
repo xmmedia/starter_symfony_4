@@ -11,11 +11,8 @@ use App\Model\User\UserList;
 
 class AdminAddUserMinimumHandler
 {
-    /** @var UserList */
-    private $userRepo;
-
-    /** @var ChecksUniqueUsersEmail */
-    private $checksUniqueUsersEmail;
+    private UserList $userRepo;
+    private ChecksUniqueUsersEmail $checksUniqueUsersEmail;
 
     public function __construct(
         UserList $userRepo,

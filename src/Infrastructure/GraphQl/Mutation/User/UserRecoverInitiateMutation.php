@@ -15,14 +15,9 @@ use Xm\SymfonyBundle\Model\Email;
 
 class UserRecoverInitiateMutation implements MutationInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
-
-    /** @var UserFinder */
-    private $userFinder;
-
-    /** @var Security */
-    private $security;
+    private MessageBusInterface $commandBus;
+    private UserFinder $userFinder;
+    private Security $security;
 
     public function __construct(
         MessageBusInterface $commandBus,

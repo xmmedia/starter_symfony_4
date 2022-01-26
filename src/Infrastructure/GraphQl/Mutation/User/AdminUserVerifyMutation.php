@@ -11,8 +11,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserVerifyMutation implements MutationInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
+    private MessageBusInterface $commandBus;
 
     public function __construct(MessageBusInterface $commandBus)
     {

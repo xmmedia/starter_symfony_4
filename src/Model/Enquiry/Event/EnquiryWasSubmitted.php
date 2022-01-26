@@ -10,14 +10,9 @@ use Xm\SymfonyBundle\Model\Email;
 
 class EnquiryWasSubmitted extends AggregateChanged
 {
-    /** @var string */
-    private $name;
-
-    /** @var Email */
-    private $email;
-
-    /** @var string */
-    private $message;
+    private string $name;
+    private Email $email;
+    private string $message;
 
     public static function now(
         EnquiryId $enquiryId,
@@ -45,7 +40,7 @@ class EnquiryWasSubmitted extends AggregateChanged
 
     public function name(): string
     {
-        if (null === $this->name) {
+        if (!isset($this->name)) {
             $this->name = $this->payload['name'];
         }
 
@@ -54,7 +49,7 @@ class EnquiryWasSubmitted extends AggregateChanged
 
     public function email(): Email
     {
-        if (null === $this->email) {
+        if (!isset($this->email)) {
             $this->email = Email::fromString($this->payload['email']);
         }
 
@@ -63,7 +58,7 @@ class EnquiryWasSubmitted extends AggregateChanged
 
     public function message(): string
     {
-        if (null === $this->message) {
+        if (!isset($this->message)) {
             $this->message = $this->payload['message'];
         }
 

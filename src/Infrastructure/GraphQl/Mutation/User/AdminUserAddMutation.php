@@ -20,20 +20,11 @@ use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 
 class AdminUserAddMutation implements MutationInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
-
-    /** @var TokenGenerator */
-    private $tokenGenerator;
-
-    /** @var PasswordHasher */
-    private $passwordHasher;
-
-    /** @var PasswordStrengthInterface|null */
-    private $passwordStrength;
-
-    /** @var HttpClientInterface|null */
-    private $pwnedHttpClient;
+    private MessageBusInterface $commandBus;
+    private TokenGenerator $tokenGenerator;
+    private PasswordHasher $passwordHasher;
+    private ?PasswordStrengthInterface $passwordStrength;
+    private ?HttpClientInterface $pwnedHttpClient;
 
     public function __construct(
         MessageBusInterface $commandBus,

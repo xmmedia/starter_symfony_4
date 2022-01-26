@@ -10,8 +10,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class UserLoggedInProcessManager
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
+    private MessageBusInterface $commandBus;
 
     public function __construct(MessageBusInterface $commandBus)
     {

@@ -11,11 +11,8 @@ use App\Model\User\UserList;
 
 class UpdateUserProfileHandler
 {
-    /** @var UserList */
-    private $userRepo;
-
-    /** @var ChecksUniqueUsersEmail */
-    private $checksUniqueUsersEmail;
+    private UserList $userRepo;
+    private ChecksUniqueUsersEmail $checksUniqueUsersEmail;
 
     public function __construct(
         UserList $userRepo,

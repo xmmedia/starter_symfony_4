@@ -18,23 +18,12 @@ use Xm\SymfonyBundle\Util\StringUtil;
 
 class UserPasswordMutation implements MutationInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
-
-    /** @var UserPasswordHasherInterface */
-    private $userPasswordHasher;
-
-    /** @var PasswordHasher */
-    private $passwordHasher;
-
-    /** @var Security */
-    private $security;
-
-    /** @var PasswordStrengthInterface|null */
-    private $passwordStrength;
-
-    /** @var HttpClientInterface|null */
-    private $pwnedHttpClient;
+    private MessageBusInterface $commandBus;
+    private UserPasswordHasherInterface $userPasswordHasher;
+    private PasswordHasher $passwordHasher;
+    private Security $security;
+    private ?PasswordStrengthInterface $passwordStrength;
+    private ?HttpClientInterface $pwnedHttpClient;
 
     public function __construct(
         MessageBusInterface $commandBus,

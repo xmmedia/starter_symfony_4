@@ -17,20 +17,13 @@ use Xm\SymfonyBundle\Util\StringUtil;
 
 class SendActivationHandler
 {
-    /** @var UserList */
-    private $userRepo;
-
+    private UserList $userRepo;
     /** @var EmailGatewayInterface|\Xm\SymfonyBundle\Infrastructure\Email\EmailGateway */
-    private $emailGateway;
-
-    /** @var string */
-    private $template;
-
+    private EmailGatewayInterface $emailGateway;
+    private string $template;
     /** @var RouterInterface|\Symfony\Bundle\FrameworkBundle\Routing\Router */
-    private $router;
-
-    /** @var TokenGeneratorInterface|\App\Security\TokenGenerator */
-    private $tokenGenerator;
+    private RouterInterface $router;
+    private TokenGeneratorInterface $tokenGenerator;
 
     public function __construct(
         UserList $userRepo,

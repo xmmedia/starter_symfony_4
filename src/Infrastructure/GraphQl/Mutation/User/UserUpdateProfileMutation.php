@@ -14,11 +14,8 @@ use Xm\SymfonyBundle\Model\Email;
 
 class UserUpdateProfileMutation implements MutationInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
-
-    /** @var Security */
-    private $security;
+    private MessageBusInterface $commandBus;
+    private Security $security;
 
     public function __construct(
         MessageBusInterface $commandBus,

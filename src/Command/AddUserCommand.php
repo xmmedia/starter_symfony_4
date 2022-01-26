@@ -23,11 +23,8 @@ use Xm\SymfonyBundle\Model\Email;
 
 final class AddUserCommand extends Command
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
-
-    /** @var PasswordHasher */
-    private $passwordHasher;
+    private MessageBusInterface $commandBus;
+    private PasswordHasher $passwordHasher;
 
     public function __construct(
         MessageBusInterface $commandBus,

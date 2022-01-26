@@ -12,17 +12,10 @@ use Xm\SymfonyBundle\Model\Email;
 
 class UserWasUpdatedByAdmin extends AggregateChanged
 {
-    /** @var Email */
-    private $email;
-
-    /** @var Role */
-    private $role;
-
-    /** @var Name */
-    private $firstName;
-
-    /** @var Name */
-    private $lastName;
+    private Email $email;
+    private Role $role;
+    private Name $firstName;
+    private Name $lastName;
 
     public static function now(
         UserId $userId,
@@ -53,7 +46,7 @@ class UserWasUpdatedByAdmin extends AggregateChanged
 
     public function email(): Email
     {
-        if (null === $this->email) {
+        if (!isset($this->email)) {
             $this->email = Email::fromString($this->payload['email']);
         }
 
@@ -62,7 +55,7 @@ class UserWasUpdatedByAdmin extends AggregateChanged
 
     public function role(): Role
     {
-        if (null === $this->role) {
+        if (!isset($this->role)) {
             $this->role = Role::byValue($this->payload['role']);
         }
 
@@ -71,7 +64,7 @@ class UserWasUpdatedByAdmin extends AggregateChanged
 
     public function firstName(): Name
     {
-        if (null === $this->firstName) {
+        if (!isset($this->firstName)) {
             $this->firstName = Name::fromString($this->payload['firstName']);
         }
 
@@ -80,7 +73,7 @@ class UserWasUpdatedByAdmin extends AggregateChanged
 
     public function lastName(): Name
     {
-        if (null === $this->lastName) {
+        if (!isset($this->lastName)) {
             $this->lastName = Name::fromString($this->payload['lastName']);
         }
 

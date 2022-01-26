@@ -11,8 +11,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
 class UserQuery implements QueryInterface
 {
-    /** @var UserFinder */
-    private $userFinder;
+    private UserFinder $userFinder;
 
     public function __construct(UserFinder $userFinder)
     {

@@ -10,8 +10,7 @@ use App\Model\User\UserList;
 
 class VerifyUserHandler
 {
-    /** @var UserList */
-    private $userRepo;
+    private UserList $userRepo;
 
     public function __construct(UserList $userRepo)
     {

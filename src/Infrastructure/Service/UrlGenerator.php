@@ -10,7 +10,7 @@ use Symfony\Component\Routing\RouterInterface;
 class UrlGenerator
 {
     /** @var RouterInterface|\Symfony\Bundle\FrameworkBundle\Routing\Router */
-    private $router;
+    private RouterInterface $router;
 
     public function __construct(RouterInterface $router)
     {

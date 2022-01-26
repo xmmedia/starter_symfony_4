@@ -12,8 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GraphQlErrorSubscriber implements EventSubscriberInterface
 {
-    /** @var Security */
-    private $security;
+    private Security $security;
 
     public function __construct(Security $security)
     {

@@ -10,8 +10,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 
 class Security
 {
-    /** @var \Symfony\Component\Security\Core\Security */
-    private $security;
+    private \Symfony\Component\Security\Core\Security $security;
 
     public function __construct(
         \Symfony\Component\Security\Core\Security $security,

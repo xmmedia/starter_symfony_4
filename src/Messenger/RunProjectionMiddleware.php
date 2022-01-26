@@ -12,8 +12,7 @@ use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
 
 class RunProjectionMiddleware implements MiddlewareInterface
 {
-    /** @var ProjectionRunner */
-    private $projectionRunner;
+    private ProjectionRunner $projectionRunner;
 
     private const ENQUIRY = 'enquiry_projection';
     private const USER = 'user_projection';
@@ -21,10 +20,8 @@ class RunProjectionMiddleware implements MiddlewareInterface
 
     /**
      * Event namespace to projections.
-     *
-     * @var array
      */
-    private $namespaceToProjection = [
+    private array $namespaceToProjection = [
         'App\Model\Enquiry\Event' => [
             self::ENQUIRY,
         ],

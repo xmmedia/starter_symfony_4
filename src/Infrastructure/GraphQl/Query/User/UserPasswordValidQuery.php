@@ -10,11 +10,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserPasswordValidQuery implements QueryInterface
 {
-    /** @var UserPasswordHasherInterface */
-    private $userPasswordHasher;
-
-    /** @var Security */
-    private $security;
+    private UserPasswordHasherInterface $userPasswordHasher;
+    private Security $security;
 
     public function __construct(
         UserPasswordHasherInterface $userPasswordHasher,

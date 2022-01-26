@@ -11,14 +11,9 @@ use Xm\SymfonyBundle\Model\Email;
 
 class MinimalUserWasAddedByAdmin extends AggregateChanged
 {
-    /** @var Email */
-    private $email;
-
-    /** @var string */
-    private $encodedPassword;
-
-    /** @var Role */
-    private $role;
+    private Email $email;
+    private string $encodedPassword;
+    private Role $role;
 
     public static function now(
         UserId $userId,
@@ -46,7 +41,7 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
 
     public function email(): Email
     {
-        if (null === $this->email) {
+        if (!isset($this->email)) {
             $this->email = Email::fromString($this->payload['email']);
         }
 
@@ -55,7 +50,7 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
 
     public function encodedPassword(): string
     {
-        if (null === $this->encodedPassword) {
+        if (!isset($this->encodedPassword)) {
             $this->encodedPassword = $this->payload['encodedPassword'];
         }
 
@@ -64,7 +59,7 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
 
     public function role(): Role
     {
-        if (null === $this->role) {
+        if (!isset($this->role)) {
             $this->role = Role::byValue($this->payload['role']);
         }
 

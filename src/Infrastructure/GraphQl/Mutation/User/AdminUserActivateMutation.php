@@ -14,8 +14,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserActivateMutation implements MutationInterface
 {
-    /** @var MessageBusInterface */
-    private $commandBus;
+    private MessageBusInterface $commandBus;
 
     public function __construct(MessageBusInterface $commandBus)
     {

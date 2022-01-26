@@ -9,17 +9,10 @@ use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
 class UserFailedToLogin extends AggregateChanged
 {
-    /** @var string */
-    private $email;
-
-    /** @var string */
-    private $userAgent;
-
-    /** @var string */
-    private $ipAddress;
-
-    /** @var string */
-    private $exceptionMessage;
+    private ?string $email;
+    private ?string $userAgent;
+    private string $ipAddress;
+    private ?string $exceptionMessage;
 
     public static function now(
         AuthId $authId,
@@ -50,7 +43,7 @@ class UserFailedToLogin extends AggregateChanged
 
     public function email(): ?string
     {
-        if (null === $this->email) {
+        if (!isset($this->email)) {
             $this->email = $this->payload['email'];
         }
 
@@ -59,7 +52,7 @@ class UserFailedToLogin extends AggregateChanged
 
     public function userAgent(): ?string
     {
-        if (null === $this->userAgent) {
+        if (!isset($this->userAgent)) {
             $this->userAgent = $this->payload['userAgent'];
         }
 
@@ -68,7 +61,7 @@ class UserFailedToLogin extends AggregateChanged
 
     public function ipAddress(): string
     {
-        if (null === $this->ipAddress) {
+        if (!isset($this->ipAddress)) {
             $this->ipAddress = $this->payload['ipAddress'];
         }
 
@@ -77,7 +70,7 @@ class UserFailedToLogin extends AggregateChanged
 
     public function exceptionMessage(): ?string
     {
-        if (null === $this->exceptionMessage) {
+        if (!isset($this->exceptionMessage)) {
             $this->exceptionMessage = $this->payload['exceptionMessage'];
         }
 
