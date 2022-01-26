@@ -57,10 +57,7 @@ module.exports = function (Encore) {
             };
         }, { runtimeCompilerBuild: true })
 
-        // generate source maps when "source-maps" argument exists
-        .enableSourceMaps(
-            process.argv.splice(2).includes('--source-maps'),
-        )
+        .enableSourceMaps(Encore.isDev() || Encore.isDevServer())
 
         .copyFiles({
             from: './node_modules/svgxuse',
