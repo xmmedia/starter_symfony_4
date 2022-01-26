@@ -39,7 +39,9 @@ class UserTest extends BaseTestCase
         $property->setValue($user, $email);
 
         $this->assertEquals($email, $user->email()->toString());
+        // @phpstan-ignore-next-line
         $this->assertEquals($email, $user->getUsername());
+        $this->assertEquals($email, $user->getUserIdentifier());
     }
 
     public function testPassword(): void
