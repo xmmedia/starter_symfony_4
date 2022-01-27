@@ -55,7 +55,7 @@
 }
 
 .record_list-col {
-    @apply table-cell py-1 px-2 transition-default;
+    @apply table-cell py-1 px-2 align-middle transition-default;
 }
 .record_list-item-inactive > .record_list-col {
     @apply opacity-50;
