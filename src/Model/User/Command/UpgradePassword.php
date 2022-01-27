@@ -12,11 +12,11 @@ final class UpgradePassword extends Command
 {
     public static function forUser(
         UserId $userId,
-        string $encodedPassword,
+        string $hashedPassword,
     ): self {
         return new self([
-            'userId'          => $userId->toString(),
-            'encodedPassword' => $encodedPassword,
+            'userId'         => $userId->toString(),
+            'hashedPassword' => $hashedPassword,
         ]);
     }
 
@@ -25,9 +25,9 @@ final class UpgradePassword extends Command
         return UserId::fromString($this->payload['userId']);
     }
 
-    public function encodedPassword(): string
+    public function hashedPassword(): string
     {
-        return $this->payload['encodedPassword'];
+        return $this->payload['hashedPassword'];
     }
 
     protected function setPayload(array $payload): void
@@ -35,9 +35,9 @@ final class UpgradePassword extends Command
         Assert::keyExists($payload, 'userId');
         Assert::uuid($payload['userId']);
 
-        Assert::keyExists($payload, 'encodedPassword');
-        Assert::notEmpty($payload['encodedPassword']);
-        Assert::string($payload['encodedPassword']);
+        Assert::keyExists($payload, 'hashedPassword');
+        Assert::notEmpty($payload['hashedPassword']);
+        Assert::string($payload['hashedPassword']);
 
         parent::setPayload($payload);
     }

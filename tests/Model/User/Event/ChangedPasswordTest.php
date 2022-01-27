@@ -22,7 +22,7 @@ class ChangedPasswordTest extends BaseTestCase
         $event = ChangedPassword::now($userId, $password);
 
         $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($password, $event->encodedPassword());
+        $this->assertEquals($password, $event->hashedPassword());
     }
 
     public function testFromArray(): void
@@ -37,13 +37,13 @@ class ChangedPasswordTest extends BaseTestCase
             ChangedPassword::class,
             $userId->toString(),
             [
-                'encodedPassword' => $password,
+                'hashedPassword' => $password,
             ],
         );
 
         $this->assertInstanceOf(ChangedPassword::class, $event);
 
         $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($password, $event->encodedPassword());
+        $this->assertEquals($password, $event->hashedPassword());
     }
 }

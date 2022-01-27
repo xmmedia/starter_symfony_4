@@ -69,7 +69,7 @@ class UserPasswordMutation implements MutationInterface
             $this->pwnedHttpClient,
         );
 
-        $encodedPassword = ($this->passwordHasher)(
+        $hashedPassword = ($this->passwordHasher)(
             $user->firstRole(),
             $newPassword,
         );
@@ -77,7 +77,7 @@ class UserPasswordMutation implements MutationInterface
         $this->commandBus->dispatch(
             ChangePassword::forUser(
                 $user->userId(),
-                $encodedPassword,
+                $hashedPassword,
             ),
         );
 

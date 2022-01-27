@@ -114,9 +114,9 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
      * Allows setting the password when it changes while the user is logged in,
      * for example when their password is upgraded.
      */
-    public function upgradePassword(string $encodedPassword): void
+    public function upgradePassword(string $hashedPassword): void
     {
-        $this->password = $encodedPassword;
+        $this->password = $hashedPassword;
     }
 
     public function getPassword(): string

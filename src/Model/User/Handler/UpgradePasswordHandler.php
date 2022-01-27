@@ -25,7 +25,7 @@ class UpgradePasswordHandler
             throw UserNotFound::withUserId($command->userId());
         }
 
-        $user->upgradePassword($command->encodedPassword());
+        $user->upgradePassword($command->hashedPassword());
 
         $this->userRepo->save($user);
     }

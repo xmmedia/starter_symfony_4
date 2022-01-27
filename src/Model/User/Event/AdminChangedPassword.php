@@ -9,15 +9,15 @@ use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
 class AdminChangedPassword extends AggregateChanged
 {
-    private string $encodedPassword;
+    private string $hashedPassword;
 
-    public static function now(UserId $userId, string $encodedPassword): self
+    public static function now(UserId $userId, string $hashedPassword): self
     {
         $event = self::occur($userId->toString(), [
-            'encodedPassword' => $encodedPassword,
+            'hashedPassword' => $hashedPassword,
         ]);
 
-        $event->encodedPassword = $encodedPassword;
+        $event->hashedPassword = $hashedPassword;
 
         return $event;
     }
@@ -27,12 +27,16 @@ class AdminChangedPassword extends AggregateChanged
         return UserId::fromString($this->aggregateId());
     }
 
-    public function encodedPassword(): string
+    public function hashedPassword(): string
     {
-        if (!isset($this->encodedPassword)) {
-            $this->encodedPassword = $this->payload['encodedPassword'];
+        if (!isset($this->hashedPassword)) {
+            if (\array_key_exists('hashedPassword', $this->payload)) {
+                $this->hashedPassword = $this->payload['hashedPassword'];
+            } else {
+                $this->hashedPassword = $this->payload['encodedPassword'];
+            }
         }
 
-        return $this->encodedPassword;
+        return $this->hashedPassword;
     }
 }

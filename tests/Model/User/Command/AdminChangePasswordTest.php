@@ -19,6 +19,6 @@ class AdminChangePasswordTest extends BaseTestCase
         $command = AdminChangePassword::with($userId, $password);
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
-        $this->assertEquals($password, $command->encodedPassword());
+        $this->assertEquals($password, $command->hashedPassword());
     }
 }

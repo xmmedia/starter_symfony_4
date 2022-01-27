@@ -33,7 +33,7 @@ class UserProjection implements ReadModelProjection
                     $readModel->stack('insert', [
                         'user_id'    => $event->aggregateId(),
                         'email'      => mb_strtolower($event->email()->toString()),
-                        'password'   => $event->encodedPassword(),
+                        'password'   => $event->hashedPassword(),
                         // if sent an invite, then account is not verified
                         // if they didn't send an invite, then account is verified
                         // because there's no way for them to verify the account
@@ -55,7 +55,7 @@ class UserProjection implements ReadModelProjection
                     $readModel->stack('insert', [
                         'user_id'    => $event->aggregateId(),
                         'email'      => mb_strtolower($event->email()->toString()),
-                        'password'   => $event->encodedPassword(),
+                        'password'   => $event->hashedPassword(),
                         'verified'   => true,
                         'active'     => true,
                         'roles'      => [$event->role()->getValue()],
@@ -93,7 +93,7 @@ class UserProjection implements ReadModelProjection
                         'update',
                         $event->userId()->toString(),
                         [
-                            'password' => $event->encodedPassword(),
+                            'password' => $event->hashedPassword(),
                         ],
                     );
                 },
@@ -178,7 +178,7 @@ class UserProjection implements ReadModelProjection
                         'update',
                         $event->userId()->toString(),
                         [
-                            'password' => $event->encodedPassword(),
+                            'password' => $event->hashedPassword(),
                         ],
                     );
                 },
@@ -194,7 +194,7 @@ class UserProjection implements ReadModelProjection
                         'update',
                         $event->userId()->toString(),
                         [
-                            'password' => $event->encodedPassword(),
+                            'password' => $event->hashedPassword(),
                         ],
                     );
                 },

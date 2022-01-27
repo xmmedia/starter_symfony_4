@@ -24,7 +24,7 @@ class User extends AggregateRoot implements Entity
     public static function addByAdmin(
         UserId $userId,
         Email $email,
-        string $encodedPassword,
+        string $hashedPassword,
         Role $role,
         bool $active,
         Name $firstName,
@@ -46,7 +46,7 @@ class User extends AggregateRoot implements Entity
             Event\UserWasAddedByAdmin::now(
                 $userId,
                 $email,
-                $encodedPassword,
+                $hashedPassword,
                 $role,
                 $active,
                 $firstName,
@@ -61,7 +61,7 @@ class User extends AggregateRoot implements Entity
     public static function addByAdminMinimum(
         UserId $userId,
         Email $email,
-        string $encodedPassword,
+        string $hashedPassword,
         Role $role,
         ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): self {
@@ -74,7 +74,7 @@ class User extends AggregateRoot implements Entity
             Event\MinimalUserWasAddedByAdmin::now(
                 $userId,
                 $email,
-                $encodedPassword,
+                $hashedPassword,
                 $role,
             ),
         );
@@ -106,10 +106,10 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function changePasswordByAdmin(string $encodedPassword): void
+    public function changePasswordByAdmin(string $hashedPassword): void
     {
         $this->recordThat(
-            Event\AdminChangedPassword::now($this->userId, $encodedPassword),
+            Event\AdminChangedPassword::now($this->userId, $hashedPassword),
         );
     }
 
@@ -226,25 +226,25 @@ class User extends AggregateRoot implements Entity
         $this->recordThat(Event\UserLoggedIn::now($this->userId));
     }
 
-    public function changePassword(string $encodedPassword): void
+    public function changePassword(string $hashedPassword): void
     {
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToChangePassword($this->userId);
         }
 
         $this->recordThat(
-            Event\ChangedPassword::now($this->userId, $encodedPassword),
+            Event\ChangedPassword::now($this->userId, $hashedPassword),
         );
     }
 
-    public function upgradePassword(string $encodedPassword): void
+    public function upgradePassword(string $hashedPassword): void
     {
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToUpgradePassword($this->userId);
         }
 
         $this->recordThat(
-            Event\PasswordUpgraded::now($this->userId, $encodedPassword),
+            Event\PasswordUpgraded::now($this->userId, $hashedPassword),
         );
     }
 

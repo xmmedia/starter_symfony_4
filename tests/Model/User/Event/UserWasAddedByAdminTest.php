@@ -40,7 +40,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
-        $this->assertEquals($password, $event->encodedPassword());
+        $this->assertEquals($password, $event->hashedPassword());
         $this->assertEquals($role, $event->role());
         $this->assertEquals($active, $event->active());
         $this->assertEquals($firstName, $event->firstName());
@@ -66,13 +66,13 @@ class UserWasAddedByAdminTest extends BaseTestCase
             UserWasAddedByAdmin::class,
             $userId->toString(),
             [
-                'email'           => $email->toString(),
-                'encodedPassword' => $password,
-                'role'            => $role->getValue(),
-                'active'          => $active,
-                'firstName'       => $firstName->toString(),
-                'lastName'        => $lastName->toString(),
-                'sendInvite'      => $sendInvite,
+                'email'          => $email->toString(),
+                'hashedPassword' => $password,
+                'role'           => $role->getValue(),
+                'active'         => $active,
+                'firstName'      => $firstName->toString(),
+                'lastName'       => $lastName->toString(),
+                'sendInvite'     => $sendInvite,
             ],
         );
 
@@ -80,7 +80,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
-        $this->assertEquals($password, $event->encodedPassword());
+        $this->assertEquals($password, $event->hashedPassword());
         $this->assertEquals($role, $event->role());
         $this->assertEquals($active, $event->active());
         $this->assertEquals($firstName, $event->firstName());

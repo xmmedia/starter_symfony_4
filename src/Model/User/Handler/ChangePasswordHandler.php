@@ -25,7 +25,7 @@ class ChangePasswordHandler
             throw UserNotFound::withUserId($command->userId());
         }
 
-        $user->changePassword($command->encodedPassword());
+        $user->changePassword($command->hashedPassword());
 
         $this->userRepo->save($user);
     }

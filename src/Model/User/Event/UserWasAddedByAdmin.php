@@ -13,7 +13,7 @@ use Xm\SymfonyBundle\Model\Email;
 class UserWasAddedByAdmin extends AggregateChanged
 {
     private Email $email;
-    private string $encodedPassword;
+    private string $hashedPassword;
     private Role $role;
     private bool $active;
     private Name $firstName;
@@ -23,7 +23,7 @@ class UserWasAddedByAdmin extends AggregateChanged
     public static function now(
         UserId $userId,
         Email $email,
-        string $encodedPassword,
+        string $hashedPassword,
         Role $role,
         bool $active,
         Name $firstName,
@@ -31,17 +31,17 @@ class UserWasAddedByAdmin extends AggregateChanged
         bool $sendInvite,
     ): self {
         $event = self::occur($userId->toString(), [
-            'email'           => $email->toString(),
-            'encodedPassword' => $encodedPassword,
-            'role'            => $role->getValue(),
-            'active'          => $active,
-            'firstName'       => $firstName->toString(),
-            'lastName'        => $lastName->toString(),
-            'sendInvite'      => $sendInvite,
+            'email'          => $email->toString(),
+            'hashedPassword' => $hashedPassword,
+            'role'           => $role->getValue(),
+            'active'         => $active,
+            'firstName'      => $firstName->toString(),
+            'lastName'       => $lastName->toString(),
+            'sendInvite'     => $sendInvite,
         ]);
 
         $event->email = $email;
-        $event->encodedPassword = $encodedPassword;
+        $event->hashedPassword = $hashedPassword;
         $event->role = $role;
         $event->active = $active;
         $event->firstName = $firstName;
@@ -65,13 +65,17 @@ class UserWasAddedByAdmin extends AggregateChanged
         return $this->email;
     }
 
-    public function encodedPassword(): string
+    public function hashedPassword(): string
     {
-        if (!isset($this->encodedPassword)) {
-            $this->encodedPassword = $this->payload['encodedPassword'];
+        if (!isset($this->hashedPassword)) {
+            if (\array_key_exists('hashedPassword', $this->payload)) {
+                $this->hashedPassword = $this->payload['hashedPassword'];
+            } else {
+                $this->hashedPassword = $this->payload['encodedPassword'];
+            }
         }
 
-        return $this->encodedPassword;
+        return $this->hashedPassword;
     }
 
     public function role(): Role

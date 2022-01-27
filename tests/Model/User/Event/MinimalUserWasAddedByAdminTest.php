@@ -26,7 +26,7 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
-        $this->assertEquals($password, $event->encodedPassword());
+        $this->assertEquals($password, $event->hashedPassword());
         $this->assertEquals($role, $event->role());
     }
 
@@ -44,9 +44,9 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
             MinimalUserWasAddedByAdmin::class,
             $userId->toString(),
             [
-                'email'           => $email->toString(),
-                'encodedPassword' => $password,
-                'role'            => $role->getValue(),
+                'email'          => $email->toString(),
+                'hashedPassword' => $password,
+                'role'           => $role->getValue(),
             ],
         );
 
@@ -54,7 +54,7 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
-        $this->assertEquals($password, $event->encodedPassword());
+        $this->assertEquals($password, $event->hashedPassword());
         $this->assertEquals($role, $event->role());
     }
 }

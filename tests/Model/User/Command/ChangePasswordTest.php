@@ -19,6 +19,6 @@ class ChangePasswordTest extends BaseTestCase
         $command = ChangePassword::forUser($userId, $password);
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
-        $this->assertEquals($password, $command->encodedPassword());
+        $this->assertEquals($password, $command->hashedPassword());
     }
 }

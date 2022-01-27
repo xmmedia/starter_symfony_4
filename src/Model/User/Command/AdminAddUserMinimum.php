@@ -15,14 +15,14 @@ final class AdminAddUserMinimum extends Command
     public static function with(
         UserId $userId,
         Email $email,
-        string $encodedPassword,
+        string $hashedPassword,
         Role $role,
     ): self {
         return new self([
-            'userId'          => $userId->toString(),
-            'email'           => $email->toString(),
-            'encodedPassword' => $encodedPassword,
-            'role'            => $role->getValue(),
+            'userId'         => $userId->toString(),
+            'email'          => $email->toString(),
+            'hashedPassword' => $hashedPassword,
+            'role'           => $role->getValue(),
         ]);
     }
 
@@ -36,9 +36,9 @@ final class AdminAddUserMinimum extends Command
         return Email::fromString($this->payload['email']);
     }
 
-    public function encodedPassword(): string
+    public function hashedPassword(): string
     {
-        return $this->payload['encodedPassword'];
+        return $this->payload['hashedPassword'];
     }
 
     public function role(): Role
@@ -54,9 +54,9 @@ final class AdminAddUserMinimum extends Command
         Assert::keyExists($payload, 'email');
         Assert::string($payload['email']);
 
-        Assert::keyExists($payload, 'encodedPassword');
-        Assert::notEmpty($payload['encodedPassword']);
-        Assert::string($payload['encodedPassword']);
+        Assert::keyExists($payload, 'hashedPassword');
+        Assert::notEmpty($payload['hashedPassword']);
+        Assert::string($payload['hashedPassword']);
 
         Assert::keyExists($payload, 'role');
         Assert::string($payload['role']);

@@ -32,17 +32,17 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
      */
     public function upgradePassword(
         UserInterface $user,
-        string $newEncodedPassword,
+        string $newHashedPassword,
     ): void {
         if (!$user instanceof User) {
             return;
         }
 
         $this->commandBus->dispatch(
-            UpgradePassword::forUser($user->userId(), $newEncodedPassword),
+            UpgradePassword::forUser($user->userId(), $newHashedPassword),
         );
 
-        $user->upgradePassword($newEncodedPassword);
+        $user->upgradePassword($newHashedPassword);
     }
 
     public function loadUserByIdentifier(string $identifier): UserInterface

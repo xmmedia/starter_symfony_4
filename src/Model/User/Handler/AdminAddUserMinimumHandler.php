@@ -27,7 +27,7 @@ class AdminAddUserMinimumHandler
         $user = User::addByAdminMinimum(
             $command->userId(),
             $command->email(),
-            $command->encodedPassword(),
+            $command->hashedPassword(),
             $command->role(),
             $this->checksUniqueUsersEmail,
         );

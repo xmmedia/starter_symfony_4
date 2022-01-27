@@ -29,7 +29,7 @@ class UserPasswordTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\AdminChangedPassword::class,
             [
-                'encodedPassword' => $password,
+                'hashedPassword' => $password,
             ],
             $events,
         );
@@ -91,7 +91,7 @@ class UserPasswordTest extends BaseTestCase
 
         $this->assertRecordedEvent(
             Event\ChangedPassword::class,
-            ['encodedPassword' => $password],
+            ['hashedPassword' => $password],
             $events,
         );
 
@@ -125,7 +125,7 @@ class UserPasswordTest extends BaseTestCase
 
         $this->assertRecordedEvent(
             Event\PasswordUpgraded::class,
-            ['encodedPassword' => $password],
+            ['hashedPassword' => $password],
             $events,
         );
 

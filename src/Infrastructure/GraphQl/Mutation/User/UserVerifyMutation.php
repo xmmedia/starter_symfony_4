@@ -86,12 +86,12 @@ class UserVerifyMutation implements MutationInterface
             VerifyUser::now($user->userId()),
         );
 
-        $encodedPassword = ($this->passwordHasher)(
+        $hashedPassword = ($this->passwordHasher)(
             $user->firstRole(),
             $password
         );
         $this->commandBus->dispatch(
-            ChangePassword::forUser($user->userId(), $encodedPassword),
+            ChangePassword::forUser($user->userId(), $hashedPassword),
         );
 
         // we would log the user in right away, but as we don't have a request

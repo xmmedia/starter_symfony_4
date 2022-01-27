@@ -45,13 +45,13 @@ class UserAddTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserWasAddedByAdmin::class,
             [
-                'email'           => $email->toString(),
-                'encodedPassword' => $password,
-                'role'            => $role->getValue(),
-                'active'          => true,
-                'firstName'       => $firstName->toString(),
-                'lastName'        => $lastName->toString(),
-                'sendInvite'      => false,
+                'email'          => $email->toString(),
+                'hashedPassword' => $password,
+                'role'           => $role->getValue(),
+                'active'         => true,
+                'firstName'      => $firstName->toString(),
+                'lastName'       => $lastName->toString(),
+                'sendInvite'     => false,
             ],
             $events,
         );
@@ -93,13 +93,13 @@ class UserAddTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserWasAddedByAdmin::class,
             [
-                'email'           => $email->toString(),
-                'encodedPassword' => $password,
-                'role'            => $role->getValue(),
-                'active'          => true,
-                'firstName'       => $firstName->toString(),
-                'lastName'        => $lastName->toString(),
-                'sendInvite'      => true,
+                'email'          => $email->toString(),
+                'hashedPassword' => $password,
+                'role'           => $role->getValue(),
+                'active'         => true,
+                'firstName'      => $firstName->toString(),
+                'lastName'       => $lastName->toString(),
+                'sendInvite'     => true,
             ],
             $events,
         );
@@ -141,13 +141,13 @@ class UserAddTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserWasAddedByAdmin::class,
             [
-                'email'           => $email->toString(),
-                'encodedPassword' => $password,
-                'role'            => $role->getValue(),
-                'active'          => false,
-                'firstName'       => $firstName->toString(),
-                'lastName'        => $lastName->toString(),
-                'sendInvite'      => false,
+                'email'          => $email->toString(),
+                'hashedPassword' => $password,
+                'role'           => $role->getValue(),
+                'active'         => false,
+                'firstName'      => $firstName->toString(),
+                'lastName'       => $lastName->toString(),
+                'sendInvite'     => false,
             ],
             $events,
         );
@@ -209,9 +209,9 @@ class UserAddTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\MinimalUserWasAddedByAdmin::class,
             [
-                'email'           => $email->toString(),
-                'encodedPassword' => $password,
-                'role'            => $role->getValue(),
+                'email'          => $email->toString(),
+                'hashedPassword' => $password,
+                'role'           => $role->getValue(),
             ],
             $events,
         );

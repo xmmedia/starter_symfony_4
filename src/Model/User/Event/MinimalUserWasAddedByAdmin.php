@@ -12,23 +12,23 @@ use Xm\SymfonyBundle\Model\Email;
 class MinimalUserWasAddedByAdmin extends AggregateChanged
 {
     private Email $email;
-    private string $encodedPassword;
+    private string $hashedPassword;
     private Role $role;
 
     public static function now(
         UserId $userId,
         Email $email,
-        string $encodedPassword,
+        string $hashedPassword,
         Role $role,
     ): self {
         $event = self::occur($userId->toString(), [
-            'email'           => $email->toString(),
-            'encodedPassword' => $encodedPassword,
-            'role'            => $role->getValue(),
+            'email'          => $email->toString(),
+            'hashedPassword' => $hashedPassword,
+            'role'           => $role->getValue(),
         ]);
 
         $event->email = $email;
-        $event->encodedPassword = $encodedPassword;
+        $event->hashedPassword = $hashedPassword;
         $event->role = $role;
 
         return $event;
@@ -48,13 +48,17 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
         return $this->email;
     }
 
-    public function encodedPassword(): string
+    public function hashedPassword(): string
     {
-        if (!isset($this->encodedPassword)) {
-            $this->encodedPassword = $this->payload['encodedPassword'];
+        if (!isset($this->hashedPassword)) {
+            if (\array_key_exists('hashedPassword', $this->payload)) {
+                $this->hashedPassword = $this->payload['hashedPassword'];
+            } else {
+                $this->hashedPassword = $this->payload['encodedPassword'];
+            }
         }
 
-        return $this->encodedPassword;
+        return $this->hashedPassword;
     }
 
     public function role(): Role

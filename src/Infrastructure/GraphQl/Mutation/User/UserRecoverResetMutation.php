@@ -82,12 +82,12 @@ class UserRecoverResetMutation implements MutationInterface
             );
         }
 
-        $encodedPassword = ($this->passwordHasher)(
+        $hashedPassword = ($this->passwordHasher)(
             $user->firstRole(),
             $newPassword
         );
         $this->commandBus->dispatch(
-            ChangePassword::forUser($user->userId(), $encodedPassword),
+            ChangePassword::forUser($user->userId(), $hashedPassword),
         );
 
         // we would log the user in right away, but as we don't have a request
