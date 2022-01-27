@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserProviderTest extends BaseTestCase
 {
     /** @var MessageBusInterface|Mockery\MockInterface */
-    private $commandBus;
+    private MessageBusInterface $commandBus;
 
     protected function setUp(): void
     {

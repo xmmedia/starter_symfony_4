@@ -16,10 +16,10 @@ use Ramsey\Uuid\Uuid;
 trait UserTestTrait
 {
     /** @var ChecksUniqueUsersEmailFromReadModel|\Mockery\MockInterface */
-    private $userUniquenessCheckerNone;
+    private ChecksUniqueUsersEmailFromReadModel $userUniquenessCheckerNone;
 
     /** @var ChecksUniqueUsersEmailFromReadModel|\Mockery\MockInterface */
-    private $userUniquenessCheckerDuplicate;
+    private ChecksUniqueUsersEmailFromReadModel $userUniquenessCheckerDuplicate;
 
     protected function setUp(): void
     {

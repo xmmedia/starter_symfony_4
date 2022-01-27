@@ -10,8 +10,7 @@ use App\Model\Enquiry\EnquiryList;
 
 class SubmitEnquiryHandler
 {
-    /** @var EnquiryList */
-    private $enquiryRepo;
+    private EnquiryList $enquiryRepo;
 
     public function __construct(EnquiryList $enquiryRepo)
     {

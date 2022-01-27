@@ -11,13 +11,9 @@ use Xm\SymfonyBundle\Model\Email;
 class SendEnquiryEmailHandler
 {
     /** @var EmailGatewayInterface|\Xm\SymfonyBundle\Infrastructure\Email\EmailGateway */
-    private $emailGateway;
-
-    /** @var string */
-    private $template;
-
-    /** @var string */
-    private $adminEmail;
+    private EmailGatewayInterface $emailGateway;
+    private string $template;
+    private string $adminEmail;
 
     public function __construct(
         EmailGatewayInterface $emailGateway,
