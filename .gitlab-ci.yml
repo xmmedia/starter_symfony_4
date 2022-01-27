@@ -112,7 +112,7 @@ static:
     - yarn lint:css
     # run PHP unit tests
     - mkdir -p public/build; printf "{}" > public/build/manifest.json
-    #- bin/simple-phpunit
+    - bin/simple-phpunit
     # @todo artifacts
 
 deploy to staging:
