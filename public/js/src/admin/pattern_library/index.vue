@@ -166,7 +166,11 @@
                         <input id="pattern-library-checkbox-2"
                                type="checkbox"
                                name="pattern-library-checkbox-2">
-                        <label for="pattern-library-checkbox-2">Checkbox label Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</label>
+                        <label for="pattern-library-checkbox-2">
+                            Checkbox label Maecenas sed diam eget risus varius blandit sit amet non magna.
+                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                            eget lacinia odio sem nec elit.
+                        </label>
                     </div>
                     <div class="field-help">Some help…</div>
                 </div>
@@ -180,7 +184,11 @@
                     <input id="pattern-library-checkbox-long-4"
                            type="checkbox"
                            name="pattern-library-checkbox-long-4">
-                    <label for="pattern-library-checkbox-long-4">Checkbox label Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</label>
+                    <label for="pattern-library-checkbox-long-4">
+                        Checkbox label Maecenas sed diam eget risus varius blandit sit amet non magna.
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                        eget lacinia odio sem nec elit.
+                    </label>
                 </div>
 
                 <fieldset class="field-wrap-radios">
@@ -232,7 +240,11 @@
                         <input id="pattern-library-radio-07"
                                type="radio"
                                name="pattern-library-radio-2">
-                        <label for="pattern-library-radio-07">Radio button Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</label>
+                        <label for="pattern-library-radio-07">
+                            Radio button Maecenas sed diam eget risus varius blandit sit amet non magna.
+                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                            eget lacinia odio sem nec elit.
+                        </label>
                     </div>
                     <div class="field-help">Some help…</div>
                 </fieldset>
@@ -261,7 +273,11 @@
                         <input id="pattern-library-checkbox-03a"
                                type="checkbox"
                                name="pattern-library-checkbox1[]">
-                        <label for="pattern-library-checkbox-03a">Checkbox Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</label>
+                        <label for="pattern-library-checkbox-03a">
+                            Checkbox Maecenas sed diam eget risus varius blandit sit amet non magna.
+                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                            eget lacinia odio sem nec elit.
+                        </label>
                     </div>
                     <div class="field-help">Some help…</div>
                 </fieldset>
