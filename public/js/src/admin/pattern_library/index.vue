@@ -142,7 +142,7 @@
                 </div>
                 <div class="field-wrap">
                     <label for="pattern-library-textarea">Text area</label>
-                    <textarea id="pattern-library-textarea" class="h-32"></textarea>
+                    <textarea id="pattern-library-textarea" class="h-32" />
                 </div>
                 <div class="field-wrap">
                     <label for="pattern-library-select">Select</label>
@@ -151,12 +151,38 @@
                         <option value="">Test 2</option>
                     </select>
                 </div>
-                <div class="field-wrap-checkbox">
-                    <input id="pattern-library-checkbox"
-                           type="checkbox"
-                           name="pattern-library-checkbox">
-                    <label for="pattern-library-checkbox">Checkbox label</label>
+
+                <div class="field-wrap">
+                    <div class="field-wrap-checkbox">
+                        <input id="pattern-library-checkbox-1"
+                               type="checkbox"
+                               name="pattern-library-checkbox-1">
+                        <label for="pattern-library-checkbox-1">Checkbox label</label>
+                    </div>
+                    <div class="field-help">Some help…</div>
                 </div>
+                <div class="field-wrap">
+                    <div class="field-wrap-checkbox">
+                        <input id="pattern-library-checkbox-2"
+                               type="checkbox"
+                               name="pattern-library-checkbox-2">
+                        <label for="pattern-library-checkbox-2">Checkbox label Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</label>
+                    </div>
+                    <div class="field-help">Some help…</div>
+                </div>
+                <div class="field-wrap field-wrap-checkbox">
+                    <input id="pattern-library-checkbox-3"
+                           type="checkbox"
+                           name="pattern-library-checkbox-3">
+                    <label for="pattern-library-checkbox-3">Checkbox label</label>
+                </div>
+                <div class="field-wrap field-wrap-checkbox">
+                    <input id="pattern-library-checkbox-long-4"
+                           type="checkbox"
+                           name="pattern-library-checkbox-long-4">
+                    <label for="pattern-library-checkbox-long-4">Checkbox label Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</label>
+                </div>
+
                 <fieldset class="field-wrap-radios">
                     <legend>Horizontal radios</legend>
                     <div class="flex flex-row">
@@ -179,6 +205,7 @@
                             <label for="pattern-library-radio-03">Option 3</label>
                         </div>
                     </div>
+                    <div class="field-help">Some help…</div>
                 </fieldset>
 
                 <fieldset class="field-wrap-radios">
@@ -200,6 +227,12 @@
                                type="radio"
                                name="pattern-library-radio-2">
                         <label for="pattern-library-radio-06">Radio button</label>
+                    </div>
+                    <div class="field-wrap-radio">
+                        <input id="pattern-library-radio-07"
+                               type="radio"
+                               name="pattern-library-radio-2">
+                        <label for="pattern-library-radio-07">Radio button Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</label>
                     </div>
                     <div class="field-help">Some help…</div>
                 </fieldset>
@@ -223,6 +256,12 @@
                                type="checkbox"
                                name="pattern-library-checkbox1[]">
                         <label for="pattern-library-checkbox-03">Checkbox</label>
+                    </div>
+                    <div class="field-wrap-checkbox">
+                        <input id="pattern-library-checkbox-03a"
+                               type="checkbox"
+                               name="pattern-library-checkbox1[]">
+                        <label for="pattern-library-checkbox-03a">Checkbox Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</label>
                     </div>
                     <div class="field-help">Some help…</div>
                 </fieldset>

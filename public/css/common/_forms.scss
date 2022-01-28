@@ -30,13 +30,8 @@ select {
     height: 2.14rem;
 }
 
-// fixes alignment of radio to label
-[type=radio] {
-    @apply relative;
-    top: -1px;
-}
 // make sure everything shows a pointer on hover
-[type=submit], [type=image], label, select {
+[type=checkbox], [type=radio], [type=submit], [type=image], label, select {
     @apply cursor-pointer;
 }
 [type=file] {
@@ -80,20 +75,20 @@ select {
         @apply block mb-1;
     }
 }
-// flex-wrap will ensure help is on a separate line
+// if no .field-help, then add .field-wrap to container along with these classes
 .field-wrap-radio, .field-wrap-checkbox {
-    @apply flex flex-wrap items-start mb-4;
+    @apply flex flex-nowrap items-start;
     input {
-        margin-top: 0.45rem;
+        @apply shrink;
+        margin-top: 0.35em;
     }
     label {
-        @apply inline-block mb-0 pl-2;
-        width: 86%;
+        @apply grow mb-0 pl-2;
     }
 }
 
 .field-wrap-radios, .field-wrap-checkboxes {
-    @apply mb-6;
+    @apply mb-4;
     legend {
         @apply mb-1;
     }

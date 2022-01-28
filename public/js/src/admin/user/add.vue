@@ -31,9 +31,11 @@
 
             <field-role v-model="role" :v="$v.role" />
 
-            <div v-if="!setPassword && active" class="field-wrap-checkbox">
-                <input id="inputSendInvite" v-model="sendInvite" type="checkbox">
-                <label for="inputSendInvite">Send invite</label>
+            <div v-if="!setPassword && active" class="field-wrap">
+                <div class="field-wrap-checkbox">
+                    <input id="inputSendInvite" v-model="sendInvite" type="checkbox">
+                    <label for="inputSendInvite">Send invite</label>
+                </div>
                 <div class="field-help">
                     The user will need to follow the link in the invite email
                     before their account will be fully activated.
