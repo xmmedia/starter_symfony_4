@@ -16,13 +16,9 @@ use Xm\SymfonyBundle\Model\Email;
 class InitiatePasswordRecoveryHandler
 {
     private UserList $userRepo;
-    /** @var EmailGatewayInterface|\Xm\SymfonyBundle\Infrastructure\Email\EmailGateway */
     private EmailGatewayInterface $emailGateway;
-    /** @var string */
     private string $template;
-    /** @var RouterInterface|\Symfony\Bundle\FrameworkBundle\Routing\Router */
     private RouterInterface $router;
-    /** @var TokenGeneratorInterface|\App\Security\TokenGenerator */
     private TokenGeneratorInterface $tokenGenerator;
 
     public function __construct(

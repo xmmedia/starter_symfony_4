@@ -10,7 +10,6 @@ use Xm\SymfonyBundle\Model\Email;
 
 class SendEnquiryEmailHandler
 {
-    /** @var EmailGatewayInterface|\Xm\SymfonyBundle\Infrastructure\Email\EmailGateway */
     private EmailGatewayInterface $emailGateway;
     private string $template;
     private string $adminEmail;

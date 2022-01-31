@@ -18,10 +18,8 @@ use Xm\SymfonyBundle\Util\StringUtil;
 class SendActivationHandler
 {
     private UserList $userRepo;
-    /** @var EmailGatewayInterface|\Xm\SymfonyBundle\Infrastructure\Email\EmailGateway */
     private EmailGatewayInterface $emailGateway;
     private string $template;
-    /** @var RouterInterface|\Symfony\Bundle\FrameworkBundle\Routing\Router */
     private RouterInterface $router;
     private TokenGeneratorInterface $tokenGenerator;
 
