@@ -9,7 +9,7 @@
                 <img src="/images/logo.svg"
                      width="70"
                      height="70"
-                     class="h-10 ml-4"
+                     class="h-10"
                      alt="Logo">
             </router-link>
 
