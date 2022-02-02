@@ -7,13 +7,13 @@
         <router-link v-if="current !== 1"
                      :to="pageRoute(0)"
                      :class="linkClasses"
-                     class="inline-block w-12 focus:mx-0 p-1 focus:p-1  hover:no-underline hover:bg-blue-100">&lt;&lt;</router-link>
+                     class="inline-block">&lt;&lt;</router-link>
         <span v-else :class="spanClasses" class="inline-block">&lt;&lt;</span>
 
         <router-link v-if="previous !== null"
                      :to="previousRoute"
                      :class="linkClasses"
-                     class="inline-block w-12 focus:mx-0 p-1 focus:p-1  hover:no-underline hover:bg-blue-100">&lt;</router-link>
+                     class="inline-block">&lt;</router-link>
         <span v-else :class="spanClasses" class="inline-block">&lt;</span>
 
         <span v-if="showBeforeEllipsis"
@@ -32,7 +32,7 @@
         </template>
 
         <span v-if="showAfterEllipsis"
-              class="hidden lg:inline-block w-4 focus:mx-0 p-1 focus:p-1  text-gray-800">…</span>
+              class="hidden lg:inline-block w-4 focus:mx-0 p-1 focus:p-1 text-gray-800">…</span>
 
         <router-link v-if="next !== null"
                      :to="nextRoute"
