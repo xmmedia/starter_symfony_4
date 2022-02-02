@@ -94,8 +94,6 @@ module.exports = function (Encore) {
 
         .configureDefinePlugin((options) => {
             const env = require('dotenv').config({ path: '.env.local' });
-            options['process.env'].REQUEST_CONTEXT_SCHEME = '"'+env.parsed.REQUEST_CONTEXT_SCHEME+'"';
-            options['process.env'].REQUEST_CONTEXT_HOST = '"'+env.parsed.REQUEST_CONTEXT_HOST+'"';
         })
     ;
 
