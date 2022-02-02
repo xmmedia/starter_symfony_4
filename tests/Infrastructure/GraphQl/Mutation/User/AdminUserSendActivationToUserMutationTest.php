@@ -39,10 +39,10 @@ class AdminUserSendActivationToUserMutationTest extends BaseTestCase
             ->andReturn(Email::fromString($faker->email()));
         $user->shouldReceive('firstName')
             ->once()
-            ->andReturn(Name::fromString($faker->name()));
+            ->andReturn(Name::fromString($faker->firstName()));
         $user->shouldReceive('lastName')
             ->once()
-            ->andReturn(Name::fromString($faker->name()));
+            ->andReturn(Name::fromString($faker->lastName()));
 
         $userFinder = Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')

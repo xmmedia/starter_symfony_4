@@ -30,8 +30,8 @@ class UserRepositoryTest extends BaseTestCase
             $faker->emailVo(),
             $faker->password(),
             Role::ROLE_USER(),
-            Name::fromString($faker->name()),
-            Name::fromString($faker->name()),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
             $faker->boolean(),
             $checksUniqueUsersEmail,
         );

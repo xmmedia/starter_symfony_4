@@ -34,10 +34,10 @@ trait UserMockForUserMutationTrait
             ->andReturn($faker->emailVo());
         $user->shouldReceive('firstName')
             ->once()
-            ->andReturn(Name::fromString($faker->name()));
+            ->andReturn(Name::fromString($faker->firstName()));
         $user->shouldReceive('lastName')
             ->once()
-            ->andReturn(Name::fromString($faker->name()));
+            ->andReturn(Name::fromString($faker->lastName()));
 
         return $user;
     }

@@ -61,10 +61,10 @@ class UserPasswordMutationTest extends BaseTestCase
             ->andReturn($faker->emailVo());
         $user->shouldReceive('firstName')
             ->once()
-            ->andReturn(Name::fromString($faker->name()));
+            ->andReturn(Name::fromString($faker->firstName()));
         $user->shouldReceive('lastName')
             ->once()
-            ->andReturn(Name::fromString($faker->name()));
+            ->andReturn(Name::fromString($faker->lastName()));
         $user->shouldReceive('firstRole')
             ->once()
             ->andReturn(Role::ROLE_USER());

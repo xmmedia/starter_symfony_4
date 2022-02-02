@@ -22,8 +22,8 @@ class UserTest extends BaseTestCase
         $email = $faker->emailVo();
         $password = $faker->password();
         $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->name());
-        $lastName = Name::fromString($faker->name());
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
 
         $user1 = User::addByAdminMinimum(
@@ -57,8 +57,8 @@ class UserTest extends BaseTestCase
         $email = $faker->emailVo();
         $password = $faker->password();
         $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->name());
-        $lastName = Name::fromString($faker->name());
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
 
         $user1 = User::addByAdminMinimum(
@@ -94,8 +94,8 @@ class UserTest extends BaseTestCase
             $faker->emailVo(),
             $faker->password(),
             Role::ROLE_USER(),
-            Name::fromString($faker->name()),
-            Name::fromString($faker->name()),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
             $faker->boolean(),
             $this->userUniquenessCheckerNone,
         );

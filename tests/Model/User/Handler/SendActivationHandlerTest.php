@@ -36,8 +36,8 @@ class SendActivationHandlerTest extends BaseTestCase
         $command = SendActivation::now(
             $faker->userId(),
             $faker->emailVo(),
-            Name::fromString($faker->name()),
-            Name::fromString($faker->name()),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
         );
 
         $repo = Mockery::mock(UserList::class);
@@ -82,8 +82,8 @@ class SendActivationHandlerTest extends BaseTestCase
         $command = SendActivation::now(
             $faker->userId(),
             $faker->emailVo(),
-            Name::fromString($faker->name()),
-            Name::fromString($faker->name()),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
         );
 
         $repo = Mockery::mock(UserList::class);
@@ -115,8 +115,8 @@ class SendActivationHandlerTest extends BaseTestCase
         $command = SendActivation::now(
             $faker->userId(),
             $faker->emailVo(),
-            Name::fromString($faker->name()),
-            Name::fromString($faker->name()),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
         );
 
         $repo = Mockery::mock(UserList::class);
