@@ -21,7 +21,7 @@ class UserInviteTest extends BaseTestCase
         $user = $this->getUserActive(true);
 
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
-        $messageId = EmailGatewayMessageId::fromString($faker->uuid3());
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
         $user->inviteSent($token, $messageId);
 
@@ -43,7 +43,7 @@ class UserInviteTest extends BaseTestCase
     {
         $faker = $this->faker();
         $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
-        $messageId = EmailGatewayMessageId::fromString($faker->uuid3());
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
         $user = $this->getUserActive();
 

@@ -50,7 +50,7 @@ class SendActivationHandlerTest extends BaseTestCase
 
         $emailGateway = Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid3()));
+            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
         $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
         $tokenGenerator->shouldReceive('__invoke')
             ->andReturn(Token::fromString('string'));
@@ -126,7 +126,7 @@ class SendActivationHandlerTest extends BaseTestCase
 
         $emailGateway = Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid3()));
+            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
         $router = Mockery::mock(RouterInterface::class);
         $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
         $tokenGenerator->shouldReceive('__invoke')

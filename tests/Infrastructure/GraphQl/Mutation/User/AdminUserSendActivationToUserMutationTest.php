@@ -22,7 +22,7 @@ class AdminUserSendActivationToUserMutationTest extends BaseTestCase
     public function testValid(): void
     {
         $faker = $this->faker();
-        $userId = $faker->uuid3();
+        $userId = $faker->uuid();
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -61,7 +61,7 @@ class AdminUserSendActivationToUserMutationTest extends BaseTestCase
     public function testUserNotFound(): void
     {
         $faker = $this->faker();
-        $userId = $faker->uuid3();
+        $userId = $faker->uuid();
 
         $commandBus = Mockery::mock(MessageBusInterface::class);
 
