@@ -69,11 +69,11 @@
 }
 .record_list-action {
     @apply ml-4;
-    &:first-child {
-        @apply ml-0;
-    }
     &:focus {
         @apply -mr-1 ml-3 px-1;
+    }
+    &:first-child {
+        @apply ml-0 focus:ml-0 focus:pl-0;
     }
 }
 

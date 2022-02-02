@@ -14,7 +14,7 @@
                 <li v-for="(route, anchor) in items" :key="route" class="mb-1">
                     <router-link :to="{ name: route }"
                                  class="sidebar_nav-link block py-2 px-4 hover:bg-blue-800
-                                    focus:py-3 focus:px-5 focus:bg-gray-700"
+                                    focus:py-2 focus:px-5 focus:bg-gray-700 focus:no-underline"
                                  @click.native="subnavItemClicked">
                         {{ anchor }}
                     </router-link>
