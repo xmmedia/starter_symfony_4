@@ -36,6 +36,25 @@ class UserTokenProjection implements ReadModelProjection
                         ],
                     );
                 },
+                Event\TokenGenerated::class => function (
+                    array $state,
+                    Event\TokenGenerated $event,
+                ): void {
+                    /** @var UserTokenReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'add',
+                        [
+                            'token'        => $event->token()->toString(),
+                            'user_id'      => $event->userId()->toString(),
+                            'generated_at' => $event->createdAt(),
+                        ],
+                        [
+                            'generated_at' => 'datetime',
+                        ],
+                    );
+                },
 
                 Event\PasswordRecoverySent::class => function (
                     array $state,

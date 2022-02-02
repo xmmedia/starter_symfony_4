@@ -159,6 +159,16 @@ class User extends AggregateRoot implements Entity
         );
     }
 
+    /**
+     * Can be called at any time, including if the account is verified.
+     */
+    public function tokenGenerated(Token $token): void
+    {
+        $this->recordThat(
+            Event\TokenGenerated::now($this->userId, $token),
+        );
+    }
+
     public function verify(): void
     {
         if ($this->verified) {
@@ -317,6 +327,11 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenInviteSent(Event\InviteSent $event): void
+    {
+        // noop
+    }
+
+    protected function whenTokenGenerated(Event\TokenGenerated $event): void
     {
         // noop
     }

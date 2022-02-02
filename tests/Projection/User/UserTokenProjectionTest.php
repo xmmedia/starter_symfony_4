@@ -16,6 +16,7 @@ class UserTokenProjectionTest extends BaseTestCase
     {
         $projectedEvents = [
             Event\InviteSent::class,
+            Event\TokenGenerated::class,
             Event\PasswordRecoverySent::class,
             Event\UserVerified::class,
             Event\ChangedPassword::class,
