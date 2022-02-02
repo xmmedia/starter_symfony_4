@@ -299,7 +299,7 @@ class User extends AggregateRoot implements Entity
         Event\MinimalUserWasAddedByAdmin $event,
     ): void {
         $this->userId = $event->userId();
-        $this->verified = true;
+        $this->verified = !$event->sendInvite();
         $this->active = true;
     }
 
