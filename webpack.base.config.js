@@ -92,9 +92,11 @@ module.exports = function (Encore) {
             'vue$': 'vue/dist/vue.esm.js',
         })
 
+        /* eslint-disable no-unused-vars */
         .configureDefinePlugin((options) => {
             const env = require('dotenv').config({ path: '.env.local' });
         })
+        /* eslint-enable no-unused-vars */
     ;
 
     if (Encore.isProduction()) {
