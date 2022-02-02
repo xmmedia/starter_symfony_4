@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="{ 'mb-2' : setPassword }" class="field-wrap-checkbox">
+        <div :class="{ 'mb-2' : setPassword }" class="field-wrap field-wrap-checkbox">
             <input :id="id" v-model="setPassword" type="checkbox">
             <label :for="id">{{ checkboxLabel }}</label>
         </div>

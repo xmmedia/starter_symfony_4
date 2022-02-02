@@ -24,7 +24,7 @@
                                 name="_password"
                                 autocomplete="current-password" />
 
-                <div class="field-wrap-checkbox">
+                <div class="field-wrap field-wrap-checkbox">
                     <input id="remember_me"
                            type="checkbox"
                            name="_remember_me"
