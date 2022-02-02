@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User;
 
+use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\User;
 use App\Tests\BaseTestCase;
@@ -21,12 +22,18 @@ class UserTest extends BaseTestCase
         $email = $faker->emailVo();
         $password = $faker->password();
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->name());
+        $lastName = Name::fromString($faker->name());
+        $sendInvite = $faker->boolean();
 
         $user1 = User::addByAdminMinimum(
             $userId,
             $email,
             $password,
             $role,
+            $firstName,
+            $lastName,
+            $sendInvite,
             $this->userUniquenessCheckerNone,
         );
         $user2 = User::addByAdminMinimum(
@@ -34,6 +41,9 @@ class UserTest extends BaseTestCase
             $email,
             $password,
             $role,
+            $firstName,
+            $lastName,
+            $sendInvite,
             $this->userUniquenessCheckerNone,
         );
 
@@ -47,12 +57,18 @@ class UserTest extends BaseTestCase
         $email = $faker->emailVo();
         $password = $faker->password();
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->name());
+        $lastName = Name::fromString($faker->name());
+        $sendInvite = $faker->boolean();
 
         $user1 = User::addByAdminMinimum(
             $faker->userId(),
             $email,
             $password,
             $role,
+            $firstName,
+            $lastName,
+            $sendInvite,
             $this->userUniquenessCheckerNone,
         );
         $user2 = User::addByAdminMinimum(
@@ -60,6 +76,9 @@ class UserTest extends BaseTestCase
             $email,
             $password,
             $role,
+            $firstName,
+            $lastName,
+            $sendInvite,
             $this->userUniquenessCheckerNone,
         );
 
@@ -75,6 +94,9 @@ class UserTest extends BaseTestCase
             $faker->emailVo(),
             $faker->password(),
             Role::ROLE_USER(),
+            Name::fromString($faker->name()),
+            Name::fromString($faker->name()),
+            $faker->boolean(),
             $this->userUniquenessCheckerNone,
         );
 

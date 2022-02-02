@@ -7,6 +7,7 @@ namespace App\Projection\User;
 use App\Model\User\Event;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\EventStore\Projection\ReadModelProjector;
+use Xm\SymfonyBundle\Util\Utils;
 
 /**
  * @method \Prooph\EventStore\Projection\ReadModel readModel()
@@ -56,9 +57,11 @@ class UserProjection implements ReadModelProjection
                         'user_id'    => $event->aggregateId(),
                         'email'      => mb_strtolower($event->email()->toString()),
                         'password'   => $event->hashedPassword(),
-                        'verified'   => true,
+                        'verified'   => !$event->sendInvite(),
                         'active'     => true,
                         'roles'      => [$event->role()->getValue()],
+                        'first_name' => Utils::serialize($event->firstName()),
+                        'last_name'  => Utils::serialize($event->lastName()),
                     ], $types);
                 },
 

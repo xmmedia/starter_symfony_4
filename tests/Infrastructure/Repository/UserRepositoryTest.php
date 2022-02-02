@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Infrastructure\Repository;
 
 use App\Infrastructure\Repository\UserRepository;
+use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
@@ -29,6 +30,9 @@ class UserRepositoryTest extends BaseTestCase
             $faker->emailVo(),
             $faker->password(),
             Role::ROLE_USER(),
+            Name::fromString($faker->name()),
+            Name::fromString($faker->name()),
+            $faker->boolean(),
             $checksUniqueUsersEmail,
         );
 

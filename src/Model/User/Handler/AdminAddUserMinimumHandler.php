@@ -29,6 +29,9 @@ class AdminAddUserMinimumHandler
             $command->email(),
             $command->hashedPassword(),
             $command->role(),
+            $command->firstName(),
+            $command->lastName(),
+            $command->sendInvite(),
             $this->checksUniqueUsersEmail,
         );
 

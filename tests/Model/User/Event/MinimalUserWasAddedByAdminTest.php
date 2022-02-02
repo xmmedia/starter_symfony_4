@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\MinimalUserWasAddedByAdmin;
+use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
@@ -21,13 +22,27 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
         $email = $faker->emailVo();
         $password = $faker->password();
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->name());
+        $lastName = Name::fromString($faker->name());
+        $sendInvite = $faker->boolean();
 
-        $event = MinimalUserWasAddedByAdmin::now($userId, $email, $password, $role);
+        $event = MinimalUserWasAddedByAdmin::now(
+            $userId,
+            $email,
+            $password,
+            $role,
+            $firstName,
+            $lastName,
+            $sendInvite,
+        );
 
-        $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($email, $event->email());
+        $this->assertSameValueAs($userId, $event->userId());
+        $this->assertSameValueAs($email, $event->email());
         $this->assertEquals($password, $event->hashedPassword());
         $this->assertEquals($role, $event->role());
+        $this->assertSameValueAs($firstName, $event->firstName());
+        $this->assertSameValueAs($lastName, $event->lastName());
+        $this->assertSame($sendInvite, $event->sendInvite());
     }
 
     public function testFromArray(): void
@@ -38,6 +53,9 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
         $email = $faker->emailVo();
         $password = $faker->password();
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->name());
+        $lastName = Name::fromString($faker->name());
+        $sendInvite = $faker->boolean();
 
         /** @var MinimalUserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(
@@ -47,14 +65,20 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
                 'email'          => $email->toString(),
                 'hashedPassword' => $password,
                 'role'           => $role->getValue(),
+                'firstName'      => $firstName->toString(),
+                'lastName'       => $lastName->toString(),
+                'sendInvite'     => $sendInvite,
             ],
         );
 
         $this->assertInstanceOf(MinimalUserWasAddedByAdmin::class, $event);
 
-        $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($email, $event->email());
+        $this->assertSameValueAs($userId, $event->userId());
+        $this->assertSameValueAs($email, $event->email());
         $this->assertEquals($password, $event->hashedPassword());
         $this->assertEquals($role, $event->role());
+        $this->assertSameValueAs($firstName, $event->firstName());
+        $this->assertSameValueAs($lastName, $event->lastName());
+        $this->assertSame($sendInvite, $event->sendInvite());
     }
 }

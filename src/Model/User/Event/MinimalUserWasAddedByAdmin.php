@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\User\Event;
 
+use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
@@ -14,22 +15,34 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
     private Email $email;
     private string $hashedPassword;
     private Role $role;
+    private ?Name $firstName;
+    private ?Name $lastName;
+    private bool $sendInvite;
 
     public static function now(
         UserId $userId,
         Email $email,
         string $hashedPassword,
         Role $role,
+        Name $firstName,
+        Name $lastName,
+        bool $sendInvite,
     ): self {
         $event = self::occur($userId->toString(), [
             'email'          => $email->toString(),
             'hashedPassword' => $hashedPassword,
             'role'           => $role->getValue(),
+            'firstName'      => $firstName->toString(),
+            'lastName'       => $lastName->toString(),
+            'sendInvite'     => $sendInvite,
         ]);
 
         $event->email = $email;
         $event->hashedPassword = $hashedPassword;
         $event->role = $role;
+        $event->firstName = $firstName;
+        $event->lastName = $lastName;
+        $event->sendInvite = $sendInvite;
 
         return $event;
     }
@@ -68,5 +81,44 @@ class MinimalUserWasAddedByAdmin extends AggregateChanged
         }
 
         return $this->role;
+    }
+
+    public function firstName(): ?Name
+    {
+        if (!isset($this->firstName)) {
+            if (!\array_key_exists('firstName', $this->payload)) {
+                $this->firstName = null;
+            } else {
+                $this->firstName = Name::fromString($this->payload['firstName']);
+            }
+        }
+
+        return $this->firstName;
+    }
+
+    public function lastName(): ?Name
+    {
+        if (!isset($this->lastName)) {
+            if (!\array_key_exists('lastName', $this->payload)) {
+                $this->lastName = null;
+            } else {
+                $this->lastName = Name::fromString($this->payload['lastName']);
+            }
+        }
+
+        return $this->lastName;
+    }
+
+    public function sendInvite(): bool
+    {
+        if (!isset($this->sendInvite)) {
+            if (!\array_key_exists('sendInvite', $this->payload)) {
+                $this->sendInvite = false;
+            } else {
+                $this->sendInvite = $this->payload['sendInvite'];
+            }
+        }
+
+        return $this->sendInvite;
     }
 }

@@ -63,6 +63,9 @@ class User extends AggregateRoot implements Entity
         Email $email,
         string $hashedPassword,
         Role $role,
+        Name $firstName,
+        Name $lastName,
+        bool $sendInvite,
         ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): self {
         if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
@@ -76,6 +79,9 @@ class User extends AggregateRoot implements Entity
                 $email,
                 $hashedPassword,
                 $role,
+                $firstName,
+                $lastName,
+                $sendInvite,
             ),
         );
 

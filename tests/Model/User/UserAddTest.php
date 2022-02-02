@@ -193,12 +193,18 @@ class UserAddTest extends BaseTestCase
         $email = $faker->emailVo();
         $password = $faker->password();
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->name());
+        $lastName = Name::fromString($faker->name());
+        $sendInvite = $faker->boolean();
 
         $user = User::addByAdminMinimum(
             $userId,
             $email,
             $password,
             $role,
+            $firstName,
+            $lastName,
+            $sendInvite,
             $this->userUniquenessCheckerNone,
         );
 
@@ -212,6 +218,9 @@ class UserAddTest extends BaseTestCase
                 'email'          => $email->toString(),
                 'hashedPassword' => $password,
                 'role'           => $role->getValue(),
+                'firstName'      => $firstName->toString(),
+                'lastName'       => $lastName->toString(),
+                'sendInvite'     => $sendInvite,
             ],
             $events,
         );
@@ -231,6 +240,9 @@ class UserAddTest extends BaseTestCase
         $email = $faker->emailVo();
         $password = $faker->password();
         $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->name());
+        $lastName = Name::fromString($faker->name());
+        $sendInvite = $faker->boolean();
 
         $this->expectException(Exception\DuplicateEmail::class);
 
@@ -239,6 +251,9 @@ class UserAddTest extends BaseTestCase
             $email,
             $password,
             $role,
+            $firstName,
+            $lastName,
+            $sendInvite,
             $this->userUniquenessCheckerDuplicate,
         );
     }
