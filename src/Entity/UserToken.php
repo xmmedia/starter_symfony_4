@@ -7,26 +7,18 @@ namespace App\Entity;
 use App\Model\User\Token;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Projection\User\UserTokenFinder")
- */
+#[ORM\Entity(repositoryClass: \App\Projection\User\UserTokenFinder::class)]
 class UserToken
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="string", length=50)
-     */
+    #[ORM\Id]
+    #[ORM\Column(length: 50)]
     private string $token;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tokens")
-     * @ORM\JoinColumn(referencedColumnName="user_id", nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: \App\Entity\User::class, inversedBy: 'tokens')]
+    #[ORM\JoinColumn(referencedColumnName: 'user_id', nullable: false)]
     private User $user;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column]
     private \DateTimeImmutable $generatedAt;
 
     public function token(): Token

@@ -17,67 +17,46 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Util\StringUtil;
 
-/**
- * @ORM\Entity(repositoryClass="App\Projection\User\UserFinder")
- */
+#[ORM\Entity(repositoryClass: \App\Projection\User\UserFinder::class)]
 class User implements UserInterface, PasswordHasherAwareInterface, EquatableInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @var \Ramsey\Uuid\Uuid
-     * @ORM\Id
-     * @ORM\Column(type="uuid")
      */
+    #[ORM\Id]
+    #[ORM\Column(type: 'uuid')]
     private \Ramsey\Uuid\UuidInterface $userId;
 
-    /**
-     * @ORM\Column(type="string", length=150, unique=true)
-     */
+    #[ORM\Column(length: 150, unique: true)]
     private string $email;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(length: 255)]
     private string $password;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column]
     private bool $verified = false;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column]
     private bool $active = false;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $lastLogin = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(nullable: false, options: ['default' => 0])]
     private int $loginCount = 0;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private ?string $firstName;
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $firstName = null;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private ?string $lastName;
-
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $lastName = null;
     /**
      * @var UserToken[]|Collection|ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\UserToken", mappedBy="user")
      */
+    #[ORM\OneToMany(targetEntity: \App\Entity\UserToken::class, mappedBy: 'user')]
     private Collection $tokens;
 
     public function __construct()
