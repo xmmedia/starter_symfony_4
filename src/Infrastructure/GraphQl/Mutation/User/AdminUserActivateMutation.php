@@ -26,16 +26,11 @@ class AdminUserActivateMutation implements MutationInterface
         $userId = UserId::fromString($args['user']['userId']);
         $action = strtolower($args['user']['action']);
 
-        switch ($action) {
-            case 'activate':
-                $command = ActivateUserByAdmin::class;
-                break;
-            case 'deactivate':
-                $command = DeactivateUserByAdmin::class;
-                break;
-            default:
-                throw new UserError(sprintf('The "%s" action is invalid.', $action));
-        }
+        $command = match ($action) {
+            'activate' => ActivateUserByAdmin::class,
+            'deactivate' => DeactivateUserByAdmin::class,
+            default => throw new UserError(sprintf('The "%s" action is invalid.', $action)),
+        };
 
         $this->commandBus->dispatch($command::user($userId));
 
