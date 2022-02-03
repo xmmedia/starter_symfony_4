@@ -10,12 +10,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 
 class Security
 {
-    private \Symfony\Component\Security\Core\Security $security;
-
-    public function __construct(
-        \Symfony\Component\Security\Core\Security $security,
-    ) {
-        $this->security = $security;
+    public function __construct(private \Symfony\Component\Security\Core\Security $security)
+    {
     }
 
     public function getUser(): ?User

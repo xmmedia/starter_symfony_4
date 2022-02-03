@@ -11,11 +11,8 @@ use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
 class UserQuery implements QueryInterface
 {
-    private UserFinder $userFinder;
-
-    public function __construct(UserFinder $userFinder)
+    public function __construct(private UserFinder $userFinder)
     {
-        $this->userFinder = $userFinder;
     }
 
     public function __invoke(string $userId): ?User

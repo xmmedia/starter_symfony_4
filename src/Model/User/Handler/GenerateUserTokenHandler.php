@@ -12,18 +12,11 @@ use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 
 class GenerateUserTokenHandler
 {
-    private UserList $userRepo;
-    private EmailGatewayInterface $emailGateway;
-    private TokenGeneratorInterface $tokenGenerator;
-
     public function __construct(
-        UserList $userRepo,
-        EmailGatewayInterface $emailGateway,
-        TokenGeneratorInterface $tokenGenerator,
+        private UserList $userRepo,
+        private EmailGatewayInterface $emailGateway,
+        private TokenGeneratorInterface $tokenGenerator,
     ) {
-        $this->userRepo = $userRepo;
-        $this->emailGateway = $emailGateway;
-        $this->tokenGenerator = $tokenGenerator;
     }
 
     public function __invoke(GenerateUserToken $command): void

@@ -11,13 +11,8 @@ use Xm\SymfonyBundle\Model\Email;
 
 class UserEmailUniqueQuery implements QueryInterface
 {
-    private UserFinder $userFinder;
-    private Security $security;
-
-    public function __construct(UserFinder $userFinder, Security $security)
+    public function __construct(private UserFinder $userFinder, private Security $security)
     {
-        $this->userFinder = $userFinder;
-        $this->security = $security;
     }
 
     /**

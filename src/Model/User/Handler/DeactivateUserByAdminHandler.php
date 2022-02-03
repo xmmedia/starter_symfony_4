@@ -10,11 +10,8 @@ use App\Model\User\UserList;
 
 class DeactivateUserByAdminHandler
 {
-    private UserList $userRepo;
-
-    public function __construct(UserList $userRepo)
+    public function __construct(private UserList $userRepo)
     {
-        $this->userRepo = $userRepo;
     }
 
     public function __invoke(DeactivateUserByAdmin $command): void

@@ -10,11 +10,8 @@ use App\Model\User\UserList;
 
 class VerifyUserByAdminHandler
 {
-    private UserList $userRepo;
-
-    public function __construct(UserList $userRepo)
+    public function __construct(private UserList $userRepo)
     {
-        $this->userRepo = $userRepo;
     }
 
     public function __invoke(VerifyUserByAdmin $command): void

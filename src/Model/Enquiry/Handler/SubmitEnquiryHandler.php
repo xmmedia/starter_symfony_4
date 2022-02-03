@@ -10,11 +10,8 @@ use App\Model\Enquiry\EnquiryList;
 
 class SubmitEnquiryHandler
 {
-    private EnquiryList $enquiryRepo;
-
-    public function __construct(EnquiryList $enquiryRepo)
+    public function __construct(private EnquiryList $enquiryRepo)
     {
-        $this->enquiryRepo = $enquiryRepo;
     }
 
     public function __invoke(SubmitEnquiry $command): void

@@ -13,15 +13,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class AdminUserSendResetToUserMutation implements MutationInterface
 {
-    private MessageBusInterface $commandBus;
-    private UserFinder $userFinder;
-
     public function __construct(
-        MessageBusInterface $commandBus,
-        UserFinder $userFinder,
+        private MessageBusInterface $commandBus,
+        private UserFinder $userFinder,
     ) {
-        $this->commandBus = $commandBus;
-        $this->userFinder = $userFinder;
     }
 
     public function __invoke(string $userId): array

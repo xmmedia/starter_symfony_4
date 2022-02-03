@@ -10,11 +10,8 @@ use App\Model\Auth\Command\UserLoginFailed;
 
 class UserLoginFailedHandler
 {
-    private AuthList $authRepo;
-
-    public function __construct(AuthList $authRepo)
+    public function __construct(private AuthList $authRepo)
     {
-        $this->authRepo = $authRepo;
     }
 
     public function __invoke(UserLoginFailed $command): void

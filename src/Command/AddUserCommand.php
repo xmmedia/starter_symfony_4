@@ -32,29 +32,17 @@ use Xm\SymfonyBundle\Util\Json;
 
 final class AddUserCommand extends Command
 {
-    private MessageBusInterface $commandBus;
-    private PasswordHasher $passwordHasher;
-    private TokenGenerator $tokenGenerator;
-    private UserTokenFinder $userTokenFinder;
-    private RouterInterface $router;
-
     private const SEND_INVITE = 'send-invite';
     private const GENERATE_ACTIVATION_TOKEN = 'generate-activation-token';
     private const FORMAT = 'format';
 
     public function __construct(
-        MessageBusInterface $commandBus,
-        PasswordHasher $passwordHasher,
-        TokenGenerator $tokenGenerator,
-        UserTokenFinder $userTokenFinder,
-        RouterInterface $router,
+        private MessageBusInterface $commandBus,
+        private PasswordHasher $passwordHasher,
+        private TokenGenerator $tokenGenerator,
+        private UserTokenFinder $userTokenFinder,
+        private RouterInterface $router,
     ) {
-        $this->commandBus = $commandBus;
-        $this->passwordHasher = $passwordHasher;
-        $this->tokenGenerator = $tokenGenerator;
-        $this->userTokenFinder = $userTokenFinder;
-        $this->router = $router;
-
         parent::__construct();
     }
 

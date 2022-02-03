@@ -10,11 +10,8 @@ use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 class UserRoleQuery implements QueryInterface
 {
-    private RoleHierarchyInterface $roleHierarchy;
-
-    public function __construct(RoleHierarchyInterface $roleHierarchy)
+    public function __construct(private RoleHierarchyInterface $roleHierarchy)
     {
-        $this->roleHierarchy = $roleHierarchy;
     }
 
     public function __invoke(User $user): array

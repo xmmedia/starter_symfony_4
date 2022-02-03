@@ -11,15 +11,10 @@ use App\Model\User\UserList;
 
 class AdminAddUserHandler
 {
-    private UserList $userRepo;
-    private ChecksUniqueUsersEmail $checksUniqueUsersEmail;
-
     public function __construct(
-        UserList $userRepo,
-        ChecksUniqueUsersEmail $checksUniqueUsersEmail,
+        private UserList $userRepo,
+        private ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ) {
-        $this->userRepo = $userRepo;
-        $this->checksUniqueUsersEmail = $checksUniqueUsersEmail;
     }
 
     public function __invoke(AdminAddUser $command): void

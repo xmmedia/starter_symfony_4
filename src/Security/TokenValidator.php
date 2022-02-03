@@ -12,11 +12,8 @@ use App\Projection\User\UserTokenFinder;
 
 class TokenValidator
 {
-    private UserTokenFinder $tokenFinder;
-
-    public function __construct(UserTokenFinder $tokenFinder)
+    public function __construct(private UserTokenFinder $tokenFinder)
     {
-        $this->tokenFinder = $tokenFinder;
     }
 
     public function validate(Token $token): User

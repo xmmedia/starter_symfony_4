@@ -10,11 +10,8 @@ use App\Model\User\UserList;
 
 class UserLoggedInHandler
 {
-    private UserList $userRepo;
-
-    public function __construct(UserList $userRepo)
+    public function __construct(private UserList $userRepo)
     {
-        $this->userRepo = $userRepo;
     }
 
     public function __invoke(UserLoggedIn $command): void

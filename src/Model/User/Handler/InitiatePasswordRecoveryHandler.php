@@ -15,24 +15,13 @@ use Xm\SymfonyBundle\Model\Email;
 
 class InitiatePasswordRecoveryHandler
 {
-    private UserList $userRepo;
-    private EmailGatewayInterface $emailGateway;
-    private string $template;
-    private RouterInterface $router;
-    private TokenGeneratorInterface $tokenGenerator;
-
     public function __construct(
-        UserList $userRepo,
-        EmailGatewayInterface $emailGateway,
-        string $template,
-        RouterInterface $router,
-        TokenGeneratorInterface $tokenGenerator,
+        private UserList $userRepo,
+        private EmailGatewayInterface $emailGateway,
+        private string $template,
+        private RouterInterface $router,
+        private TokenGeneratorInterface $tokenGenerator,
     ) {
-        $this->userRepo = $userRepo;
-        $this->emailGateway = $emailGateway;
-        $this->template = $template;
-        $this->router = $router;
-        $this->tokenGenerator = $tokenGenerator;
     }
 
     public function __invoke(InitiatePasswordRecovery $command): void
@@ -49,7 +38,7 @@ class InitiatePasswordRecoveryHandler
             ['token' => $token],
             UrlGeneratorInterface::ABSOLUTE_URL,
         );
-
+        // @todo consider nonce: bin2hex(random_bytes(16)) + check how validated here: https://symfony.com/doc/current/security/custom_authentication_provider.html#the-authentication-provider
         $messageId = $this->emailGateway->send(
             $this->template,
             Email::fromString($command->email()->toString()),

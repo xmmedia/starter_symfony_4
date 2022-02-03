@@ -22,27 +22,14 @@ use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 
 class UserVerifyMutation implements MutationInterface
 {
-    private MessageBusInterface $commandBus;
-    private PasswordHasher $passwordHasher;
-    private TokenValidator $tokenValidator;
-    private Security $security;
-    private ?PasswordStrengthInterface $passwordStrength;
-    private ?HttpClientInterface $pwnedHttpClient;
-
     public function __construct(
-        MessageBusInterface $commandBus,
-        PasswordHasher $passwordHasher,
-        TokenValidator $tokenValidator,
-        Security $security,
-        PasswordStrengthInterface $passwordStrength = null,
-        HttpClientInterface $pwnedHttpClient = null,
+        private MessageBusInterface $commandBus,
+        private PasswordHasher $passwordHasher,
+        private TokenValidator $tokenValidator,
+        private Security $security,
+        private ?PasswordStrengthInterface $passwordStrength = null,
+        private ?HttpClientInterface $pwnedHttpClient = null,
     ) {
-        $this->commandBus = $commandBus;
-        $this->passwordHasher = $passwordHasher;
-        $this->tokenValidator = $tokenValidator;
-        $this->security = $security;
-        $this->passwordStrength = $passwordStrength;
-        $this->pwnedHttpClient = $pwnedHttpClient;
     }
 
     public function __invoke(Argument $args): array

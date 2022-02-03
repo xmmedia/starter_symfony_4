@@ -16,14 +16,11 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
     private EntityUserProvider $entityUserProvider;
-    private MessageBusInterface $commandBus;
 
     public function __construct(
         ManagerRegistry $registry,
-        MessageBusInterface $commandBus,
+        private MessageBusInterface $commandBus,
     ) {
-        $this->commandBus = $commandBus;
-
         $this->entityUserProvider = new EntityUserProvider($registry, User::class, 'email');
     }
 

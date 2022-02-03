@@ -10,18 +10,11 @@ use Xm\SymfonyBundle\Model\Email;
 
 class SendEnquiryEmailHandler
 {
-    private EmailGatewayInterface $emailGateway;
-    private string $template;
-    private string $adminEmail;
-
     public function __construct(
-        EmailGatewayInterface $emailGateway,
-        string $template,
-        string $adminEmail,
+        private EmailGatewayInterface $emailGateway,
+        private string $template,
+        private string $adminEmail,
     ) {
-        $this->emailGateway = $emailGateway;
-        $this->template = $template;
-        $this->adminEmail = $adminEmail;
     }
 
     public function __invoke(SendEnquiryEmail $command): void

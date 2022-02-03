@@ -10,15 +10,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserPasswordValidQuery implements QueryInterface
 {
-    private UserPasswordHasherInterface $userPasswordHasher;
-    private Security $security;
-
     public function __construct(
-        UserPasswordHasherInterface $userPasswordHasher,
-        Security $security,
+        private UserPasswordHasherInterface $userPasswordHasher,
+        private Security $security,
     ) {
-        $this->userPasswordHasher = $userPasswordHasher;
-        $this->security = $security;
     }
 
     public function __invoke(string $password): array

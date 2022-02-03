@@ -12,8 +12,6 @@ use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
 
 class RunProjectionMiddleware implements MiddlewareInterface
 {
-    private ProjectionRunner $projectionRunner;
-
     private const ENQUIRY = 'enquiry_projection';
     private const USER = 'user_projection';
     private const USER_TOKEN = 'user_token_projection';
@@ -31,9 +29,8 @@ class RunProjectionMiddleware implements MiddlewareInterface
         ],
     ];
 
-    public function __construct(ProjectionRunner $projectionRunner)
+    public function __construct(private ProjectionRunner $projectionRunner)
     {
-        $this->projectionRunner = $projectionRunner;
     }
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope

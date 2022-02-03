@@ -17,11 +17,8 @@ use Xm\SymfonyBundle\Util\StringUtil;
 
 class SendEnquiryMutation implements MutationInterface
 {
-    private MessageBusInterface $commandBus;
-
-    public function __construct(MessageBusInterface $commandBus)
+    public function __construct(private MessageBusInterface $commandBus)
     {
-        $this->commandBus = $commandBus;
     }
 
     public function __invoke(Argument $args): array

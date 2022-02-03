@@ -15,11 +15,8 @@ use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 
 class LoginLoggerSubscriber implements EventSubscriberInterface
 {
-    private MessageBusInterface $commandBus;
-
-    public function __construct(MessageBusInterface $commandBus)
+    public function __construct(private MessageBusInterface $commandBus)
     {
-        $this->commandBus = $commandBus;
     }
 
     public static function getSubscribedEvents(): array

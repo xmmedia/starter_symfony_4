@@ -17,24 +17,13 @@ use Xm\SymfonyBundle\Util\StringUtil;
 
 class SendActivationHandler
 {
-    private UserList $userRepo;
-    private EmailGatewayInterface $emailGateway;
-    private string $template;
-    private RouterInterface $router;
-    private TokenGeneratorInterface $tokenGenerator;
-
     public function __construct(
-        UserList $userRepo,
-        EmailGatewayInterface $emailGateway,
-        string $template,
-        RouterInterface $router,
-        TokenGeneratorInterface $tokenGenerator,
+        private UserList $userRepo,
+        private EmailGatewayInterface $emailGateway,
+        private string $template,
+        private RouterInterface $router,
+        private TokenGeneratorInterface $tokenGenerator,
     ) {
-        $this->userRepo = $userRepo;
-        $this->emailGateway = $emailGateway;
-        $this->template = $template;
-        $this->router = $router;
-        $this->tokenGenerator = $tokenGenerator;
     }
 
     public function __invoke(SendActivation $command): void

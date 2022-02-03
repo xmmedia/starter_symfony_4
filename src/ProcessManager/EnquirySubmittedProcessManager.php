@@ -10,11 +10,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class EnquirySubmittedProcessManager
 {
-    private MessageBusInterface $commandBus;
-
-    public function __construct(MessageBusInterface $commandBus)
+    public function __construct(private MessageBusInterface $commandBus)
     {
-        $this->commandBus = $commandBus;
     }
 
     public function __invoke(EnquiryWasSubmitted $event): void
