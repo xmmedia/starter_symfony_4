@@ -32,7 +32,7 @@ class GraphQlErrorSubscriber implements EventSubscriberInterface
     public function onGraphqlErrorFormat(ErrorFormattingEvent $event): void
     {
         $message = $event->getError()->getMessage();
-        $notAllowedField = 0 === strpos($message, 'Cannot query field');
+        $notAllowedField = str_starts_with($message, 'Cannot query field');
 
         // if not logged in, always set the error to the same message
         if (!$this->security->isLoggedIn() && $notAllowedField) {
