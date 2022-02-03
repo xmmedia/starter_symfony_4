@@ -49,7 +49,7 @@ class UserRecoverResetMutation implements MutationInterface
             throw new UserError('The token is invalid.', 404, $e);
         } catch (TokenHasExpired $e) {
             // 405 -> method not allowed
-            throw new UserError('The link has expired.', 405);
+            throw new UserError('The link has expired.', 405, $e);
         }
 
         // done here because we need the user entity
