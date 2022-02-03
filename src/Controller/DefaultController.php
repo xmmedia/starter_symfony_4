@@ -15,9 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
      * @todo-symfony if deleted, add "index" route to routes.yaml for email generation
      */
+    #[Route(path: '/', name: 'index')]
     public function index(): Response
     {
         // @todo-symfony if building an admin only app
@@ -28,9 +28,7 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig');
     }
 
-    /**
-     * @Route("/pattern-library-public", name="pattern_library_public")
-     */
+    #[Route(path: '/pattern-library-public', name: 'pattern_library_public')]
     public function patternLibraryPublic(PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(

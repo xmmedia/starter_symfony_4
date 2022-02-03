@@ -13,9 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/login", name="app_login")
-     */
+    #[Route(path: '/login', name: 'app_login')]
     public function login(): Response
     {
         if ($this->getUser()) {
@@ -26,9 +24,7 @@ class SecurityController extends AbstractController
         return $this->render('admin.html.twig');
     }
 
-    /**
-     * @Route("/logout", name="app_logout")
-     */
+    #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
         throw new \LogicException('Shouldn\'t have gotten to the login action.');
