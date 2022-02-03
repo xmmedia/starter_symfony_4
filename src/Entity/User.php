@@ -213,17 +213,26 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
 
     /**
      * User will be logged out if their email (username) or password changes,
-     * or if they've become inactive or unverified.
+     * if they've become inactive or unverified, or if their roles have changed.
      *
      * @param User|UserInterface $user the user just loaded from the db
      */
     public function isEqualTo(UserInterface $user): bool
     {
-        if ($this->password !== $user->password()) {
+        if (!$user instanceof self) {
+            return false;
+        }
+
+        if ($this->password() !== $user->password()) {
             return false;
         }
 
         if (!$this->email()->sameValueAs($user->email())) {
+            return false;
+        }
+
+        // basically the same as above normally, but just in case
+        if ($this->getUserIdentifier() !== $user->getUserIdentifier()) {
             return false;
         }
 
@@ -236,12 +245,10 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
         }
 
         // check if roles have changed
-        // sort so the arrays should end up the same
-        $thisUserRoles = $this->roles();
-        sort($thisUserRoles);
-        $otherUserRoles = $user->roles();
-        sort($otherUserRoles);
-        if ($thisUserRoles !== $otherUserRoles) {
+        $currentRoles = array_map('strval', (array) $this->roles());
+        $newRoles = array_map('strval', (array) $user->roles());
+        $rolesChanged = \count($currentRoles) !== \count($newRoles) || \count($currentRoles) !== \count(array_intersect($currentRoles, $newRoles));
+        if ($rolesChanged) {
             return false;
         }
 
