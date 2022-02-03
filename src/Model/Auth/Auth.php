@@ -86,7 +86,7 @@ class Auth extends AggregateRoot implements Entity
      */
     public function sameIdentityAs(Entity $other): bool
     {
-        if (static::class !== \get_class($other)) {
+        if (static::class !== $other::class) {
             return false;
         }
 
