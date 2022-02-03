@@ -415,6 +415,9 @@
             "config/packages/ramsey_uuid_doctrine.yaml"
         ]
     },
+    "rector/rector": {
+        "version": "0.12.15"
+    },
     "roave/security-advisories": {
         "version": "dev-master"
     },
