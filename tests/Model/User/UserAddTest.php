@@ -228,7 +228,7 @@ class UserAddTest extends BaseTestCase
         $this->assertCount(1, $events);
 
         $this->assertEquals($userId, $user->userId());
-        $this->assertTrue($user->verified());
+        $this->assertSame(!$sendInvite, $user->verified());
         $this->assertTrue($user->active());
     }
 
