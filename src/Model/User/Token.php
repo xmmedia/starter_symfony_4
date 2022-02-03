@@ -8,7 +8,7 @@ use App\Util\Assert;
 use Xm\SymfonyBundle\Model\ValueObject;
 use Xm\SymfonyBundle\Util\StringUtil;
 
-class Token implements ValueObject
+class Token implements ValueObject, \Stringable
 {
     private string $token;
 
