@@ -37,7 +37,7 @@
 
             <admin-button :saving="state.matches('submitting')">
                 Set Password
-                <router-link slot="cancel"
+                <router-link #cancel
                              :to="{ name: 'login' }"
                              class="form-action">Return to Login</router-link>
             </admin-button>
