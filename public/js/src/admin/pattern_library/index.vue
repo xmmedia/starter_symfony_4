@@ -324,7 +324,7 @@
                                name="radio-pill"
                                value="no"
                                type="radio"
-                               class="radio-good">
+                               class="radio-pill-red">
                         <label for="radio-pill-2">No</label>
                     </span>
                 </fieldset>
