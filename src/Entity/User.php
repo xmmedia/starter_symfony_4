@@ -56,8 +56,8 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
     /**
      * @var UserToken[]|Collection|ArrayCollection
      */
-    #[ORM\OneToMany(targetEntity: \App\Entity\UserToken::class, mappedBy: 'user')]
-    private Collection $tokens;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: \App\Entity\UserToken::class)]
+    private array|Collection $tokens;
 
     public function __construct()
     {
