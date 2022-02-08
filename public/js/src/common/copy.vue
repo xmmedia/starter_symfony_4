@@ -12,7 +12,7 @@ import ClipboardJs from 'clipboard';
 export default {
     props: {
         text: {
-            type: [String, Number],
+            type: String,
             required: true,
         },
         title: {
