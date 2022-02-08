@@ -17,6 +17,9 @@
     &:hover {
         @apply bg-white border-blue-500 no-underline;
     }
+    &:focus {
+        @apply py-3 px-6 no-underline;
+    }
 }
 .button_pair-inactive {
     @apply block py-2 px-5 text-sm text-gray-400 border border-gray-400 rounded;
