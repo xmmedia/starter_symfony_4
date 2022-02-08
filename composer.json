@@ -22,7 +22,7 @@
         "overblog/graphql-bundle": "^0.14",
         "phpdocumentor/reflection-docblock": "^5.2",
         "prooph/event-store-bus-bridge": "^3.3",
-        "prooph/event-store-symfony-bundle": "^0.9",
+        "prooph/event-store-symfony-bundle": "^0.10",
         "prooph/pdo-event-store": "^1.10",
         "ramsey/uuid": "^4.0",
         "ramsey/uuid-doctrine": "^1.5",
