@@ -73,7 +73,7 @@
         @apply -mr-1 ml-3 px-1;
     }
     &:first-child {
-        @apply ml-0 focus:ml-0 focus:pl-0;
+        @apply ml-0 focus:-ml-1;
     }
 }
 
