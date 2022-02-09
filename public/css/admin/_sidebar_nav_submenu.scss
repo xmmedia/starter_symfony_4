@@ -1,8 +1,6 @@
 .sidebar_nav-submenu-wrap {
     @apply fixed top-0 left-0 right-0 z-0 w-40 h-full opacity-0 invisible text-left bg-gray-800;
     margin-top: $header-height;
-    // hide scrollbar in IE
-    -ms-overflow-style: none;
     @screen md {
         @apply w-64 mt-0;
     }
