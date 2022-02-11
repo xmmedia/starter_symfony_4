@@ -11,6 +11,7 @@
                          :to="cancelTo"
                          class="form-action"><slot name="cancel">Cancel</slot></router-link>
         </slot>
+        <slot v-if="!isSaving && !isSaved" name="additional"></slot>
 
         <span v-if="isSaving" class="ml-4 text-sm italic">
             <span class="loading" aria-hidden="true" />
