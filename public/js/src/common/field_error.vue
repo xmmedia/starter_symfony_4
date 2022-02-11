@@ -17,7 +17,7 @@
                 <template v-else-if="!maxLength">
                     <slot name="maxLength" :v="v">
                         Cannot be more than {{ v.$params.maxLength.max }}
-                        {{ 'character'|pluralize(v.$params.minLength.min) }}.
+                        {{ 'character'|pluralize(v.$params.maxLength.max) }}.
                     </slot>
                 </template>
                 <template v-else-if="!between">
