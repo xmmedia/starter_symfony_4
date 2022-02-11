@@ -34,7 +34,6 @@
     "core-js": "^3.4.3",
     "cuid": "^2.1.6",
     "date-fns": "^2.2.1",
-    "es6-promise": "^4.2.8",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.0",
     "hibp": "^11.0.0",
