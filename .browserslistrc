@@ -1,4 +1,3 @@
 defaults
-not IE_Mob 11
-not safari 5.1
 not IE 11
+not baidu 7
