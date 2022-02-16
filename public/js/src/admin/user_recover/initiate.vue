@@ -19,9 +19,9 @@
 
             <admin-button :saving="state.matches('submitting')">
                 Find Account
-                <router-link #cancel
-                             :to="{ name: 'login' }"
-                             class="form-action">Return to Login</router-link>
+                <template #cancel>
+                    <router-link :to="{ name: 'login' }" class="form-action">Return to Login</router-link>
+                </template>
                 <template #saving>Requesting…</template>
             </admin-button>
         </form>

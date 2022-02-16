@@ -36,9 +36,9 @@
             <admin-button :saving="state.matches('submitting')"
                           :cancel-to="{ name: 'login' }">
                 Activate
-                <router-link #cancel
-                             :to="{ name: 'login' }"
-                             class="form-action">Login</router-link>
+                <template #cancel>
+                    <router-link :to="{ name: 'login' }" class="form-action">Login</router-link>
+                </template>
                 <template #saving>Activating…</template>
             </admin-button>
         </form>
