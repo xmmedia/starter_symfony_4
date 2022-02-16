@@ -20,16 +20,17 @@
                            autocomplete="username email">
                 </div>
 
-                <field-password v-model="password"
+                <field-password id="inputPassword"
+                                v-model="password"
                                 name="_password"
                                 autocomplete="current-password" />
 
                 <div class="field-wrap field-wrap-checkbox">
-                    <input id="remember_me"
+                    <input id="rememberMe"
                            type="checkbox"
                            name="_remember_me"
                            value="on">
-                    <label for="remember_me">Remember me</label>
+                    <label for="rememberMe">Remember me</label>
                 </div>
 
                 <div>
