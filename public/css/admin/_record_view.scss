@@ -41,3 +41,19 @@
 .record_view-icon {
     @apply w-5 h-5 align-text-top fill-current;
 }
+
+.data_view-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-6xl;
+}
+.data_view-cell {
+    @apply sm:col-span-1 text-gray-700 font-normal;
+    &-flex {
+        @apply flex items-center;
+    }
+    .record_list-icon-wrap {
+        @apply justify-start;
+    }
+}
+.data_view-heading {
+    @apply my-0 text-base font-medium text-slate-400;
+}
