@@ -490,8 +490,8 @@
                     </div>
                 </div>
                 <div class="record_list-col record_list-col-actions">
-                    <a href="" class="record_list-action">Action 1</a>
-                    <a href="" class="record_list-action">Action 2</a>
+                    <a href="">Action 1</a>
+                    <a href="">Action 2</a>
                 </div>
             </li>
 
@@ -513,8 +513,8 @@
                     </div>
                 </div>
                 <div class="record_list-col record_list-col-actions">
-                    <a href="" class="record_list-action">Action 1</a>
-                    <a href="" class="record_list-action">Action 2</a>
+                    <a href="">Action 1</a>
+                    <a href="">Action 2</a>
                 </div>
             </li>
 
@@ -535,8 +535,8 @@
                     </div>
                 </div>
                 <div class="record_list-col record_list-col-actions">
-                    <a href="" class="record_list-action">Action 1</a>
-                    <a href="" class="record_list-action">Action 2</a>
+                    <a href="">Action 1</a>
+                    <a href="">Action 2</a>
                 </div>
             </li>
         </ul>
@@ -634,7 +634,7 @@
                         Value 3-{{ i }}
                     </div>
                     <div class="record_list-col record_list-col-actions">
-                        <a href="" class="record_list-action">Action</a>
+                        <a href="">Action</a>
                     </div>
                 </li>
             </ul>

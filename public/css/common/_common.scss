@@ -7,7 +7,7 @@ a, .button-link {
         @apply underline text-blue-700;
     }
     &:focus {
-        @apply -m-1 p-1 underline bg-gray-300;
+        @apply ring-2 ring-blue-500 ring-offset-1 rounded-sm outline-none text-blue-700 underline;
     }
     &:disabled {
         @apply opacity-75;

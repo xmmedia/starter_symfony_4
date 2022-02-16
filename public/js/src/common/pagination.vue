@@ -17,7 +17,7 @@
         <span v-else :class="spanClasses" class="inline-block">&lt;</span>
 
         <span v-if="showBeforeEllipsis"
-              class="hidden lg:inline-block w-4 focus:mx-0 p-1 focus:p-1  text-gray-800">…</span>
+              class="hidden lg:inline-block w-4 p-1 text-gray-800">…</span>
 
         <template v-for="page in pagesInRange">
             <router-link v-if="page !== current"
@@ -32,7 +32,7 @@
         </template>
 
         <span v-if="showAfterEllipsis"
-              class="hidden lg:inline-block w-4 focus:mx-0 p-1 focus:p-1 text-gray-800">…</span>
+              class="hidden lg:inline-block w-4 p-1 text-gray-800">…</span>
 
         <router-link v-if="next !== null"
                      :to="nextRoute"
@@ -95,8 +95,8 @@ export default {
 
     data () {
         return {
-            linkClasses: 'w-12 focus:mx-0 p-1 focus:p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded',
-            spanClasses: 'w-12 focus:mx-0 p-1 focus:p-1 text-gray-800 focus:no-underline rounded',
+            linkClasses: 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded',
+            spanClasses: 'w-12 p-1 text-gray-800 focus:no-underline rounded',
         };
     },
 

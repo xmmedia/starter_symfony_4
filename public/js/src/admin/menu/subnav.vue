@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-between w-full">
         <button :class="{ 'bg-gray-800' : open }"
-                class="sidebar_nav-link mb-0"
+                class="button-link sidebar_nav-link mb-0"
                 @click.stop="toggleMenu">
             <menu-link :label="label" :icon="icon" :has-subnav="true" />
         </button>
@@ -14,7 +14,7 @@
                 <li v-for="(route, anchor) in items" :key="route" class="mb-1">
                     <router-link :to="{ name: route }"
                                  class="sidebar_nav-link block py-2 px-4 hover:bg-blue-800
-                                    focus:py-2 focus:px-5 focus:bg-gray-700 focus:no-underline"
+                                    ring-offset-gray-800 focus:no-underline"
                                  @click.native="subnavItemClicked">
                         {{ anchor }}
                     </router-link>

@@ -28,7 +28,7 @@
             Did you mean
             <button ref="suggestedEmailButton"
                     type="button"
-                    class="button-link underline text-white mx-2 focus:bg-transparent focus:mx-0 focus:px-2"
+                    class="button-link underline text-white mx-2 focus:text-white focus:ring-offset-red-700"
                     @click="useSuggested">{{ suggestedEmail }}</button>?
         </div>
 

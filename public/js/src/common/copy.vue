@@ -1,6 +1,7 @@
 <template>
     <button ref="button"
             :title="title"
+            class="text-gray-400 focus:text-gray-600 hover:text-gray-600"
             type="button">
         <admin-icon icon="copy" class="w-4 h-4 fill-current" />
     </button>

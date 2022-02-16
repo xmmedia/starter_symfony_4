@@ -2,8 +2,8 @@
     <div v-if="ready">
         <nav class="sidebar_nav-wrap" role="navigation" aria-label="Main">
             <router-link :to="logoLinkRoute"
-                         class="flex items-center w-40 lg:w-64 border-b border-gray-700 rounded-none
-                            focus:bg-gray-700 focus:m-0"
+                         class="flex items-center w-40 lg:w-64 border-b border-gray-700
+                                focus:ring-offset-gray-900 rounded-none"
                          style="height: 3.75rem; padding: 0.65rem 0;">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
@@ -15,7 +15,7 @@
 
             <ul class="sidebar_nav-nav">
                 <template v-if="loggedIn">
-                    <!--<li class="mb-2 focus:mb-2 lg:mb-0">
+                    <!--<li class="mb-2 lg:mb-0">
                         <router-link :to="{ name: 'admin-page' }" class="sidebar_nav-link">
                             <menu-link label="Pages" icon="gear" />
                         </router-link>
@@ -47,7 +47,7 @@
 
         <header class="header-wrap-small">
             <menu-small v-if="loggedIn" />
-            <router-link :to="logoLinkRoute" class="ml-auto rounded-none focus:bg-gray-700">
+            <router-link :to="logoLinkRoute" class="ml-auto rounded-none focus:ring-offset-gray-900">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
                      width="70"

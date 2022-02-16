@@ -6,7 +6,7 @@
         @apply text-white bg-blue-800 border-blue-800 no-underline;
     }
     &:focus {
-        @apply py-2 px-4 outline-none ring border-blue-300 no-underline;
+        @apply ring-2 ring-indigo-400 ring-offset-1 outline-none no-underline;
     }
     &:disabled {
         @apply bg-gray-400 border-gray-400 cursor-default;

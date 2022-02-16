@@ -8,6 +8,9 @@
 
     &:hover {
         @apply bg-blue-100;
+        a, .button-link, button, .button {
+            @apply ring-offset-blue-100;
+        }
     }
     &:nth-of-type(2) {
         @apply border-t;
@@ -47,7 +50,7 @@
 }
 
 .record_list-mobile_heading {
-    @apply text-gray-500;
+    @apply my-0 text-base font-normal text-gray-500;
 
     @screen md {
         @apply hidden;
@@ -55,7 +58,7 @@
 }
 
 .record_list-col {
-    @apply table-cell py-1 px-2 align-middle transition-default;
+    @apply table-cell py-1 px-2 align-middle odd:bg-gray-100 md:odd:bg-transparent transition-default;
 }
 .record_list-item-inactive > .record_list-col {
     @apply opacity-50;
@@ -65,16 +68,7 @@
 }
 
 .record_list-col-actions {
-    @apply text-right;
-}
-.record_list-action {
-    @apply ml-4;
-    &:focus {
-        @apply -mr-1 ml-3 px-1;
-    }
-    &:first-child {
-        @apply ml-0 focus:-ml-1;
-    }
+    @apply text-right space-x-4;
 }
 
 .record_list-record_count {

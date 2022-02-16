@@ -61,7 +61,7 @@ textarea,
 select {
     @apply outline-none rounded-sm;
     &:focus {
-        @apply outline-none ring;
+        @apply outline-none ring-2;
     }
 }
 
@@ -135,7 +135,4 @@ select {
 }
 .form-action {
     @apply text-sm ml-4;
-    &:focus {
-        @apply -mx-1 ml-3 px-1;
-    }
 }
