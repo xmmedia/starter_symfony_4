@@ -26,6 +26,16 @@
                         and {{ v.$params.between.max }}.
                     </slot>
                 </template>
+                <template v-else-if="!minValue">
+                    <slot name="minValue" :v="v">
+                        Must be {{ v.$params.minValue.min }} or more.
+                    </slot>
+                </template>
+                <template v-else-if="!maxValue">
+                    <slot name="maxValue" :v="v">
+                        Must be less than or equal to {{ v.$params.maxValue.max }}.
+                    </slot>
+                </template>
                 <template v-else-if="!url">
                     <slot name="url" :v="v">
                         The URL is not valid.
@@ -72,6 +82,12 @@ export default {
         },
         minLength () {
             return this.vuelidateValue('minLength');
+        },
+        minValue () {
+            return this.vuelidateValue('minValue');
+        },
+        maxValue () {
+            return this.vuelidateValue('maxValue');
         },
         required () {
             return this.vuelidateValue('required');
