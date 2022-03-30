@@ -1,24 +1,13 @@
 .w-content, .w-content-narrow, .w-content-copy {
     @apply max-w-11/12 mx-auto break-words;
 }
+// these max widths are set so that the content doesn't touch the edge
 .w-content {
-    @screen xl {
-        @apply max-w-6xl;
-    }
+    @apply xl:max-w-6xl;
 }
 .w-content-narrow {
-    @screen md {
-        @apply max-w-lg;
-    }
-    @screen xl {
-        @apply max-w-3xl;
-    }
+    @apply lg:max-w-4xl;
 }
 .w-content-copy {
-    @screen md {
-        @apply max-w-md;
-    }
-    @screen xl {
-        @apply max-w-xl;
-    }
+    @apply sm:max-w-xl;
 }
