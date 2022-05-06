@@ -20,10 +20,11 @@ export const stringifyQuery = function (query) {
     return result ? ('?' + result) : '';
 };
 
-/*global ga*/
+/*global gtag*/
 export const logPageView = function (to) {
-    if (window.ga) {
-        ga('set', 'page', to.fullPath);
-        ga('send', 'pageview');
+    if (window.gtag) {
+        gtag('event', 'page_view', {
+            page_location: window.location.origin + to.fullPath,
+        });
     }
 };
