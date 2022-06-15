@@ -55,10 +55,10 @@ final class SendActivation extends Command
         Assert::string($payload['email']);
 
         Assert::keyExists($payload, 'firstName');
-        Assert::string($payload['email']);
+        Assert::string($payload['firstName']);
 
         Assert::keyExists($payload, 'lastName');
-        Assert::string($payload['email']);
+        Assert::string($payload['lastName']);
 
         parent::setPayload($payload);
     }
