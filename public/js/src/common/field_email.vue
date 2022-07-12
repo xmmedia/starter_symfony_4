@@ -21,7 +21,7 @@
                :autocomplete="autocomplete"
                type="email"
                maxlength="150"
-               @blur="checkEmail"
+               @blur="checkEmail($event)"
                v-on="inputListeners">
 
         <div v-if="suggestedEmail" class="p-2 bg-emerald-900/70 text-white">
@@ -84,13 +84,13 @@ export default {
     },
 
     methods: {
-        checkEmail () {
-            if (!this.value) {
+        checkEmail (e) {
+            if (!event.target.value) {
                 return;
             }
 
             mailcheck.run({
-                email: this.value,
+                email: event.target.value,
                 suggested: (suggestion) => {
                     this.suggestedEmail = suggestion.full;
 
