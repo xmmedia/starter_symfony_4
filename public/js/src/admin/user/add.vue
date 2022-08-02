@@ -26,8 +26,8 @@
                 <label for="inputActive">Active</label>
             </div>
 
-            <field-name v-model.trim="firstName" :v="$v.firstName">First name</field-name>
-            <field-name v-model.trim="lastName" :v="$v.lastName">Last name</field-name>
+            <field-text v-model.trim="firstName" :v="$v.firstName">First name</field-text>
+            <field-text v-model.trim="lastName" :v="$v.lastName">Last name</field-text>
 
             <field-role v-model="role" :v="$v.role" />
 
@@ -62,7 +62,7 @@ import userValidations from './user.validation';
 
 import fieldEmail from '@/common/field_email';
 import fieldPassword from './component/password';
-import fieldName from '@/common/field_name';
+import fieldText from '@/common/field_text';
 import fieldRole from './component/role';
 
 import { AdminUserAddMutation } from '../queries/admin/user.mutation.graphql';
@@ -93,7 +93,7 @@ export default {
     components: {
         fieldEmail,
         fieldPassword,
-        fieldName,
+        fieldText,
         fieldRole,
     },
 

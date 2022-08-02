@@ -13,14 +13,14 @@
                 Email address
             </field-email>
 
-            <field-name v-model.trim="firstName"
+            <field-text v-model.trim="firstName"
                         :v="$v.firstName"
                         autocomplete="given-name"
-                        @input="changed">First name</field-name>
-            <field-name v-model.trim="lastName"
+                        @input="changed">First name</field-text>
+            <field-text v-model.trim="lastName"
                         :v="$v.lastName"
                         autocomplete="family-name"
-                        @input="changed">Last name</field-name>
+                        @input="changed">Last name</field-text>
 
             <admin-button :saving="state.matches('saving')"
                           :saved="state.matches('saved')">
@@ -42,7 +42,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { logError, waitForValidation } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import fieldEmail from '@/common/field_email';
-import fieldName from '@/common/field_name';
+import fieldText from '@/common/field_text';
 import profileTabs from './component/tabs';
 import { UserUpdateProfile } from '../queries/user.mutation.graphql';
 
@@ -84,7 +84,7 @@ export default {
     components: {
         profileTabs,
         fieldEmail,
-        fieldName,
+        fieldText,
     },
 
     mixins: [
