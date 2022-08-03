@@ -9,6 +9,7 @@
                :type="type"
                :maxlength="v.$params.maxLength.max"
                :autocomplete="autocomplete"
+               :placeholder="placeholder"
                v-on="inputListeners">
 
         <div v-if="hasHelp" class="field-help"><slot name="help"></slot></div>
@@ -34,6 +35,10 @@ export default {
             default: 'text',
         },
         autocomplete: {
+            type: String,
+            default: null,
+        },
+        placeholder: {
             type: String,
             default: null,
         },
