@@ -29,8 +29,8 @@
                             checkbox-label="Change password"
                             @set-password="setPassword = $event" />
 
-            <field-text v-model.trim="firstName" :v="$v.firstName">First name</field-text>
-            <field-text v-model.trim="lastName" :v="$v.lastName">Last name</field-text>
+            <field-input v-model.trim="firstName" :v="$v.firstName">First name</field-input>
+            <field-input v-model.trim="lastName" :v="$v.lastName">Last name</field-input>
 
             <field-role v-model="role" :v="$v.role" />
 
@@ -72,7 +72,7 @@ import userValidations from './user.validation';
 
 import fieldEmail from '@/common/field_email';
 import fieldPassword from './component/password';
-import fieldText from '@/common/field_text';
+import fieldInput from '@/common/field_input';
 import fieldRole from './component/role';
 import activateVerify from './component/activate_verify';
 import sendActivation from './component/send_activation';
@@ -121,7 +121,7 @@ export default {
     components: {
         fieldEmail,
         fieldPassword,
-        fieldText,
+        fieldInput,
         fieldRole,
         activateVerify,
         sendActivation,

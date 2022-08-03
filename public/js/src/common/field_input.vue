@@ -6,9 +6,9 @@
 
         <input :id="id"
                :value="value"
+               :type="type"
                :maxlength="v.$params.maxLength.max"
                :autocomplete="autocomplete"
-               type="text"
                v-on="inputListeners">
 
         <div v-if="hasHelp" class="field-help"><slot name="help"></slot></div>
@@ -28,6 +28,10 @@ export default {
         value: {
             type: String,
             default: null,
+        },
+        type: {
+            type: String,
+            default: 'text',
         },
         autocomplete: {
             type: String,
