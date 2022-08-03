@@ -7,7 +7,7 @@
         <input :id="id"
                :value="value"
                :type="type"
-               :maxlength="v.$params.maxLength.max"
+               :maxlength="maxLength"
                :autocomplete="autocomplete"
                :placeholder="placeholder"
                v-on="inputListeners">
@@ -18,6 +18,7 @@
 
 <script>
 import cuid from 'cuid';
+import has from 'lodash/has';
 import fieldEventMixin from '@/common/field_event_mixin';
 
 export default {
@@ -57,6 +58,14 @@ export default {
     computed: {
         hasHelp () {
             return !!this.$slots.help;
+        },
+
+        maxLength () {
+            if (!has(this.v, 'maxLength')) {
+                return null;
+            }
+
+            return this.v.$params.maxLength.max;
         },
     },
 }
