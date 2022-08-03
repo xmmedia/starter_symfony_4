@@ -46,6 +46,11 @@
                         This email is invalid.
                     </slot>
                 </template>
+                <template v-else-if="!valid">
+                    <slot name="valid" :v="v">
+                        This is not a valid value.
+                    </slot>
+                </template>
             </slot>
         </li>
     </ul>
@@ -94,6 +99,9 @@ export default {
         },
         url () {
             return this.vuelidateValue('url');
+        },
+        valid () {
+            return this.vuelidateValue('valid');
         },
     },
 
