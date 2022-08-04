@@ -164,7 +164,7 @@ export default {
                 return false;
             }
 
-            return !this.state.matches('ready.saving') && !this.state.matches('ready.saved');
+            return this.state.matches('ready.ready');
         },
     },
 
