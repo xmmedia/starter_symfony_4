@@ -185,6 +185,8 @@ export default {
                 this.active = User.active;
 
                 this.stateEvent('LOADED');
+
+                return User;
             },
             error () {
                 this.stateEvent('ERROR');
