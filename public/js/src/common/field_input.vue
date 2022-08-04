@@ -2,7 +2,17 @@
     <div class="field-wrap">
         <label :for="id"><slot></slot></label>
 
-        <field-error :v="v" />
+        <field-error :v="v">
+            <template #required><slot name="required"></slot></template>
+            <template #minLength><slot name="minLength"></slot></template>
+            <template #maxLength><slot name="maxLength"></slot></template>
+            <template #between><slot name="between"></slot></template>
+            <template #minValue><slot name="minValue"></slot></template>
+            <template #maxValue><slot name="maxValue"></slot></template>
+            <template #url><slot name="url"></slot></template>
+            <template #email><slot name="email"></slot></template>
+            <template #valid><slot name="valid"></slot></template>
+        </field-error>
 
         <input :id="id"
                :value="value"
