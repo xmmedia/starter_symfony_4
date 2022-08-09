@@ -16,6 +16,7 @@ use App\Model\User\Token;
 use App\Security\PasswordHasher;
 use App\Security\TokenValidator;
 use App\Tests\BaseTestCase;
+use App\Tests\EmptyProvider;
 use App\Tests\PwnedHttpClientMockTrait;
 use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -29,6 +30,7 @@ use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
 class UserRecoverResetMutationTest extends BaseTestCase
 {
+    use EmptyProvider;
     use PwnedHttpClientMockTrait;
     use UserMockForUserMutationTrait;
 
@@ -427,13 +429,5 @@ class UserRecoverResetMutationTest extends BaseTestCase
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
-    }
-
-    public function emptyProvider(): \Generator
-    {
-        yield [''];
-        yield [' '];
-        yield ['   '];
-        yield [null];
     }
 }

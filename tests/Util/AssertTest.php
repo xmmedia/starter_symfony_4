@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\Util;
 
 use App\Tests\BaseTestCase;
+use App\Tests\EmptyProvider;
 use App\Util\Assert;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class AssertTest extends BaseTestCase
 {
+    use EmptyProvider;
+
     /**
      * @doesNotPerformAssertions
      */
@@ -27,14 +30,6 @@ class AssertTest extends BaseTestCase
         $this->expectExceptionMessage('The password cannot be empty or all whitespace');
 
         Assert::passwordLength($password);
-    }
-
-    public function emptyProvider(): \Generator
-    {
-        yield [''];
-        yield [' '];
-        yield ['   '];
-        yield [null];
     }
 
     public function testPasswordLengthTooShort(): void

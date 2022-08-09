@@ -9,17 +9,12 @@ use App\Model\User\Name;
 use App\Model\User\Token;
 use App\Security\Security;
 use App\Security\TokenValidator;
+use App\Tests\EmptyProvider;
 use Mockery;
 
 trait UserMockForUserMutationTrait
 {
-    public function emptyProvider(): \Generator
-    {
-        yield [''];
-        yield [' '];
-        yield ['   '];
-        yield [null];
-    }
+    use EmptyProvider;
 
     /**
      * @return User|Mockery\MockInterface
