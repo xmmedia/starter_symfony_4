@@ -14,7 +14,8 @@
             <template #valid><slot name="valid"></slot></template>
         </field-error>
 
-        <input :id="id"
+        <input ref="input"
+               :id="id"
                :value="value"
                :type="type"
                :maxlength="maxLength"
