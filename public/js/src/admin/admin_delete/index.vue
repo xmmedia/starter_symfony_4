@@ -11,6 +11,7 @@
                     Are you sure you want to delete this {{ recordDesc }}?
                     This cannot be undone.
                 </div>
+                <slot name="additional"></slot>
                 <div class="mt-8">
                     <button class="button button-critical bg-red-600 text-white"
                             type="button"
