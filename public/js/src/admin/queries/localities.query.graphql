@@ -2,7 +2,7 @@ query CountriesQuery {
     Countries {
         name
         abbreviation
-    },
+    }
 }
 
 query ProvincesQuery {
