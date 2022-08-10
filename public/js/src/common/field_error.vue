@@ -51,6 +51,16 @@
                         This is not a valid value.
                     </slot>
                 </template>
+                <template v-else-if="!unique">
+                    <slot name="unique" :v="v">
+                        This value is not unique.
+                    </slot>
+                </template>
+                <template v-else-if="!alpha">
+                    <slot name="alpha" :v="v">
+                        This must be all letters.
+                    </slot>
+                </template>
             </slot>
         </li>
     </ul>
@@ -102,6 +112,12 @@ export default {
         },
         valid () {
             return this.vuelidateValue('valid');
+        },
+        unique () {
+            return this.vuelidateValue('unique');
+        },
+        alpha () {
+            return this.vuelidateValue('alpha');
         },
     },
 
