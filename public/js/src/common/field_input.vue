@@ -2,7 +2,7 @@
     <div class="field-wrap">
         <label :for="id"><slot></slot></label>
 
-        <field-error :v="v">
+        <field-error v-if="v" :v="v">
             <template #required><slot name="required"></slot></template>
             <template #minLength><slot name="minLength"></slot></template>
             <template #maxLength><slot name="maxLength"></slot></template>
@@ -55,7 +55,7 @@ export default {
         },
         v: {
             type: Object,
-            required: true,
+            default: null,
         },
         id: {
             type: String,
