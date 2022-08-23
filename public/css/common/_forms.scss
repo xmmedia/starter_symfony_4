@@ -16,7 +16,7 @@
 [type=url],
 [type=color],
 textarea {
-    @apply w-full px-2 py-1 text-gray-800 border border-gray-300 rounded-sm bg-gray-100 transition-default outline-none;
+    @apply w-full px-2 py-1 text-gray-800 border border-gray-300 bg-gray-100 transition-default;
     &:focus {
         @apply bg-gray-100;
     }
@@ -26,7 +26,7 @@ textarea {
     @apply align-top text-black;
 }
 select {
-    @apply w-full p-1 text-black border border-gray-300 rounded-sm bg-gray-100 transition-default outline-none;
+    @apply w-full p-1 text-black border border-gray-300 bg-gray-100 transition-default;
     height: 2.14rem;
 }
 
