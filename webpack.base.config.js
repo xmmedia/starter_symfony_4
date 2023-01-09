@@ -59,12 +59,6 @@ module.exports = function (Encore) {
 
         .enableSourceMaps(Encore.isDev() || Encore.isDevServer())
 
-        .copyFiles({
-            from: './node_modules/svgxuse',
-            to: '[name].[hash:8].[ext]',
-            pattern: /\.js$/,
-        })
-
         .configureBabel(null, {
             includeNodeModules: [
                 'vue-apollo', // Object.entries()
