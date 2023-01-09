@@ -63,6 +63,7 @@
         "ekino/phpstan-banned-code": "^1.0",
         "fakerphp/faker": "^1.8",
         "friendsofphp/php-cs-fixer": "^3.0",
+        "jetbrains/phpstorm-attributes": "^1.0",
         "liip/functional-test-bundle": "^4.1",
         "mockery/mockery": "^1.2",
         "overblog/graphiql-bundle": "^0.2.0",
