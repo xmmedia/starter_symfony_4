@@ -56,7 +56,7 @@ import { Machine, interpret } from 'xstate';
 import { hasGraphQlError, logError, waitForValidation } from '@/common/lib';
 import { required, sameAs } from 'vuelidate/lib/validators';
 import fieldPassword from '@/common/field_password_with_errors';
-import { UserVerify } from '@/queries/user.mutation.graphql';
+import { UserVerify } from '@/admin/queries/user.mutation.graphql';
 import stateMixin from '@/common/state_mixin';
 import userValidation from '@/admin/validation/user';
 
