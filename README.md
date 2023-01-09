@@ -80,7 +80,7 @@ running multiple sites on one server.
 
 ## Incorporated Libraries & Tools
 
-  - [Craft Nitro](https://getnitro.sh/) – local dev environment
+  - [Lando](https://lando.dev/) – local dev environment
   - Frontend – full list of dependencies can be found in [package.json](https://github.com/xmmedia/starter_symfony_4/blob/master/package.json)
     - [Vue](https://vuejs.org/) – frontend framework
       - [Vue Router](https://router.vuejs.org/) – routing package for frontend
