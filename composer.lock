@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e359bd83033af3727774190d746c40f7",
+    "content-hash": "bee1d205de328620ebf0d380183a57d6",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3485,16 +3485,16 @@
         },
         {
             "name": "prooph/pdo-event-store",
-            "version": "v1.15.1",
+            "version": "v1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prooph/pdo-event-store.git",
-                "reference": "118e727d9efd90ecf04d712841d67231d84c8f34"
+                "reference": "541fc4dc28f98d6d6d94f4f18d8dd00da4d267cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prooph/pdo-event-store/zipball/118e727d9efd90ecf04d712841d67231d84c8f34",
-                "reference": "118e727d9efd90ecf04d712841d67231d84c8f34",
+                "url": "https://api.github.com/repos/prooph/pdo-event-store/zipball/541fc4dc28f98d6d6d94f4f18d8dd00da4d267cf",
+                "reference": "541fc4dc28f98d6d6d94f4f18d8dd00da4d267cf",
                 "shasum": ""
             },
             "require": {
@@ -3551,9 +3551,9 @@
             "homepage": "http://getprooph.org/",
             "support": {
                 "issues": "https://github.com/prooph/pdo-event-store/issues",
-                "source": "https://github.com/prooph/pdo-event-store/tree/v1.15.1"
+                "source": "https://github.com/prooph/pdo-event-store/tree/v1.15.0"
             },
-            "time": "2022-11-29T16:56:43+00:00"
+            "time": "2022-09-13T18:45:58+00:00"
         },
         {
             "name": "prooph/service-bus",
