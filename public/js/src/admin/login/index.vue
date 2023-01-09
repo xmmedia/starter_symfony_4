@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { AuthLast } from '../queries/auth.query.graphql';
+import { AuthLast } from '@/queries/auth.query.graphql';
 
 export default {
     metaInfo: {
