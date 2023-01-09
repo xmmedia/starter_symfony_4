@@ -32,7 +32,7 @@ class AdminUserUpdateMutation implements MutationInterface
     {
         $userId = UserId::fromString($args['user']['userId']);
         $email = Email::fromString($args['user']['email']);
-        $role = Role::byValue($args['user']['role']);
+        $role = $args['user']['role'];
         $firstName = Name::fromString($args['user']['firstName']);
         $lastName = Name::fromString($args['user']['lastName']);
 
