@@ -33,6 +33,7 @@ services:
             $commandBus: '@messenger.bus.commands'
             $eventBus: '@messenger.bus.events'
             string $adminEmail: '%env(FROM_EMAIL)%'
+            string $userTimezone: '%user_timezone%'
 
     _instanceof:
         GraphQL\Type\Definition\Type:
