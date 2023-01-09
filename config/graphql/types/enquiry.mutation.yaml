@@ -14,17 +14,13 @@ EnquiryInput:
     config:
         description: 'Send Enquiry input.'
         fields:
-            name:
-                type: String!
-            email:
-                type: String!
-            message:
-                type: String!
+            name:    String!
+            email:   String!
+            message: String!
 
 EnquiryPayload:
     type: object
     config:
         description: 'Send Enquiry mutation payload.'
         fields:
-            success:
-                type: Boolean!
+            success: Boolean!

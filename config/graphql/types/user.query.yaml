@@ -40,25 +40,19 @@ UserFilterInput:
     config:
         description: 'Available filters for querying Users. Any passed fields will be applied. Exclude the key/field to skip that filter.'
         fields:
-            roles:
-                type: '[Role!]'
-            email:
-                type: String
-            emailExact:
-                type: String
-            active:
-                type: Boolean
+            roles:      '[Role!]'
+            email:      String
+            emailExact: String
+            active:     Boolean
 
 UserEmailUnique:
     type: object
     config:
         fields:
-            unique:
-                type: Boolean!
+            unique: Boolean!
 
 UserPasswordValid:
     type: object
     config:
         fields:
-            valid:
-                type: Boolean!
+            valid: Boolean!

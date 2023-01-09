@@ -13,7 +13,5 @@ AuthLast:
     config:
         description: 'The last email & last error after a login attempt.'
         fields:
-            email:
-                type: String
-            error:
-                type: String
+            email: String
+            error: String

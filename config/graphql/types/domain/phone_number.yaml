@@ -3,7 +3,5 @@ PhoneNumber:
     config:
         description: 'Phone Number containing the phone number in the E164 format and the extension. The phone number should be formatted showing to the user.'
         fields:
-            phoneNumber:
-                type: String!
-            extension:
-                type: String
+            phoneNumber: String!
+            extension:   String

@@ -3,16 +3,11 @@ User:
     config:
         description: 'The User object.'
         fields:
-            userId:
-                type: UUID!
-            email:
-                type: String!
-            firstName:
-                type: String
-            lastName:
-                type: String
-            name:
-                type: String
+            userId:    UUID!
+            email:     String!
+            firstName: String
+            lastName:  String
+            name:      String
             verified:
                 type: Boolean
                 access: '@=hasRole("ROLE_ADMIN")'

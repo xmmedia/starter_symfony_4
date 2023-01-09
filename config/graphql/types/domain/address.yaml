@@ -3,53 +3,36 @@ Address:
     config:
         description: 'The Address object.'
         fields:
-            line1:
-                type: String!
-            line2:
-                type: String
-            city:
-                type: String!
-            province:
-                type: Province!
-            postalCode:
-                type: String!
-            country:
-                type: Country!
+            line1:      String!
+            line2:      String
+            city:       String!
+            province:   Province!
+            postalCode: String!
+            country:    Country!
 
 AddressInput:
     type: input-object
     config:
         description: 'The Address input object.'
         fields:
-            line1:
-                type: String!
-            line2:
-                type: String
-            city:
-                type: String!
-            province:
-                type: ProvinceInput!
-            postalCode:
-                type: String!
-            country:
-                type: CountryInput!
+            line1:      String!
+            line2:      String
+            city:       String!
+            province:   ProvinceInput!
+            postalCode: String!
+            country:    CountryInput!
 
 Province:
     type: object
     config:
         fields:
-            country:
-                type: Country!
-            name:
-                type: String!
-            abbreviation:
-                type: String!
+            country:      Country!
+            name:         String!
+            abbreviation: String!
 
 Country:
     type: object
     config:
         fields:
-            name:
-                type: String!
-            abbreviation:
-                type: String!
+            name:         String!
+            abbreviation: String!
