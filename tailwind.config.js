@@ -14,6 +14,12 @@ module.exports = {
         '.md-leave-active',
     ],
     theme: {
+        screens: {
+            'xs': '400px',
+            ...defaultTheme.screens,
+            'print': { 'raw': 'print' },
+            'retina': { 'raw': '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)' },
+        },
         extend: {
             colors: {
             },
@@ -24,12 +30,6 @@ module.exports = {
                 '1/2': '50%',
                 '3/5': '60%',
                 '11/12': '91%',
-            },
-            screens: {
-                'xs': '400px',
-                '2xl': '1536px',
-                'print': { 'raw': 'print' },
-                'retina': { 'raw': '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)' },
             },
             fontFamily: {
                 'headings': [
