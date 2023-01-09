@@ -1,4 +1,18 @@
 {
     "//": "Numbers come from https://npmjs.com/advisories/XXXX",
-    "allowlist": []
+    "allowlist": [
+        "GHSA-xvch-5gv4-984h",
+        "GHSA-fwr7-v2mv-hh25",
+        "GHSA-8hfj-j24r-96c4",
+        "GHSA-35jh-r3h4-6jhm",
+        "GHSA-wc69-rhjr-hc9g",
+        "GHSA-p6mc-m468-83gw",
+        "GHSA-x4jg-mjrx-434g",
+        "GHSA-cfm4-qjh2-4765",
+        "GHSA-ww39-953v-wcq6",
+        "GHSA-76p3-8jx3-jpfq",
+        "GHSA-9c47-m6qq-7p4h",
+        "GHSA-phwq-j96m-2c2q",
+        "GHSA-rp65-9cf3-cjxr"
+    ]
 }
