@@ -74,7 +74,7 @@
         "phpstan/phpstan-symfony": "^1.0",
         "phpstan/phpstan-webmozart-assert": "^1.0",
         "phpunit/phpunit": "^9.5",
-        "rector/rector": "^0.12",
+        "rector/rector": "^0.15",
         "symfony/apache-pack": "^1.0",
         "symfony/browser-kit": "*",
         "symfony/css-selector": "*",
@@ -140,7 +140,9 @@
         "cs:fix": "php-cs-fixer fix -v --config=./.php-cs-fixer.dist.php",
         "php-cs-fixer": "@cs",
         "phpcs": "@cs",
-        "static": "php bin/phpstan analyse --memory-limit 2G --xdebug"
+        "static": "php bin/phpstan analyse --memory-limit 2G --xdebug",
+        "rector": "bin/rector --dry-run --xdebug",
+        "rector:fix": "bin/rector --xdebug"
     },
     "conflict": {
         "symfony/symfony": "*"

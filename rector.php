@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
-use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Set\ValueObject\LevelSetList;
+use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\Set\SymfonySetList;
 
 return static function (RectorConfig $config): void {
     $config->paths([
         __DIR__ . '/src',
+        __DIR__ . '/tests',
     ]);
 
     // Define what rule sets will be applied
-    $config->import(LevelSetList::UP_TO_PHP_80);
+    $config->import(SetList::DEAD_CODE);
     $config->import(DoctrineSetList::DOCTRINE_CODE_QUALITY);
     $config->import(DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES);
     $config->import(SymfonySetList::SYMFONY_54);
@@ -24,7 +25,4 @@ return static function (RectorConfig $config): void {
 
     // get services (needed for register a single rule)
     $services = $config->services();
-
-    // register a single rule
-    $services->set(TypedPropertyRector::class);
 };
