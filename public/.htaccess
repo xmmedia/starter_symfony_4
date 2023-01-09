@@ -630,6 +630,11 @@ FileETag None
 
     ExpiresByType application/pdf                       "access plus 0 seconds"
 
+  # XLS/XLSX
+
+    ExpiresByType application/vnd.openxmlformats-officedocument.spreadsheetml.sheet "access plus 0 seconds"
+    ExpiresByType application/vnd.ms-excel  "access plus 0 seconds"
+
 
   # JavaScript
 
