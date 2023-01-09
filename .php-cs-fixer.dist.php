@@ -39,6 +39,7 @@ return (new PhpCsFixer\Config())
         'trailing_comma_in_multiline' => [
             'elements' => ['arrays', 'arguments', 'parameters'],
         ],
+        'single_line_throw' => false,
     ])
     ->setFinder($finder)
 ;
