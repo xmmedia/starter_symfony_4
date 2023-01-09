@@ -9,7 +9,7 @@
         <slot v-if="!isSaving && !isSaved" name="cancel">
             <router-link v-if="cancelTo"
                          :to="cancelTo"
-                         class="form-action"><slot name="cancel">Cancel</slot></router-link>
+                         class="form-action"><slot name="cancel-text">Cancel</slot></router-link>
         </slot>
         <slot v-if="!isSaving && !isSaved" name="additional"></slot>
 
