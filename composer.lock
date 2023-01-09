@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0ba50ee2cefe8bf53f0c007d2d6dfbf",
+    "content-hash": "cfa71bee1be58b3efe43f2d2f8720884",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2925,37 +2925,37 @@
         },
         {
             "name": "overblog/graphql-bundle",
-            "version": "v0.14.1",
+            "version": "v0.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overblog/GraphQLBundle.git",
-                "reference": "a77a31483a725963892523b02960434a0a61c924"
+                "reference": "bf90bae01f079e02f9d2a1cf75f06ab5e602707d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/a77a31483a725963892523b02960434a0a61c924",
-                "reference": "a77a31483a725963892523b02960434a0a61c924",
+                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/bf90bae01f079e02f9d2a1cf75f06ab5e602707d",
+                "reference": "bf90bae01f079e02f9d2a1cf75f06ab5e602707d",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "murtukov/php-code-generator": "^0.1.5",
-                "php": ">=7.4",
+                "php": "^8.0",
                 "phpdocumentor/reflection-docblock": "^5.2",
+                "phpdocumentor/type-resolver": ">1.4.0,<1.6.0",
                 "psr/log": "^1.0 || ^2.0 || ^3.0",
-                "symfony/config": "^4.4.30 || ^5.3.7",
-                "symfony/dependency-injection": "^4.4.30 || ^5.3.7",
-                "symfony/event-dispatcher": "^4.4 || ^5.3",
-                "symfony/expression-language": "^4.4 || ^5.3",
-                "symfony/framework-bundle": "^4.4.30 || ^5.3.7",
-                "symfony/http-foundation": "^4.4.30 || ^5.3.7",
-                "symfony/http-kernel": "^4.4 || ^5.3",
-                "symfony/options-resolver": "^4.4 || ^5.3",
-                "symfony/property-access": "^4.4 || ^5.3",
+                "symfony/config": "^5.4 || ^6.0",
+                "symfony/dependency-injection": "^5.4 || ^6.0",
+                "symfony/event-dispatcher": "^5.4 || ^6.0",
+                "symfony/expression-language": "^5.4 || ^6.0",
+                "symfony/framework-bundle": "^5.4 || ^6.0",
+                "symfony/http-foundation": "^5.4 || ^6.0",
+                "symfony/http-kernel": "^5.4 || ^6.0",
+                "symfony/options-resolver": "^5.4 || ^6.0",
+                "symfony/property-access": "^5.4 || ^6.0",
                 "webonyx/graphql-php": ">=14.5"
             },
             "conflict": {
-                "phpdocumentor/type-resolver": "<1.4.0",
                 "react/promise": "<2.8"
             },
             "require-dev": {
@@ -2968,20 +2968,20 @@
                 "phpstan/phpstan-symfony": "^0.12.6",
                 "phpunit/phpunit": "^9.5.10",
                 "react/promise": "^2.5",
-                "symfony/asset": "^4.4 || ^5.3",
-                "symfony/browser-kit": "^4.4 || ^5.3",
-                "symfony/console": "^4.4.30 || ^5.3",
-                "symfony/css-selector": "^4.4 || ^5.3",
-                "symfony/dom-crawler": "^4.4.30 || ^5.3.7",
-                "symfony/finder": "^4.4.30 || ^5.3.7",
+                "symfony/asset": "^5.4 || ^6.0",
+                "symfony/browser-kit": "^5.4 || ^6.0",
+                "symfony/console": "^5.4 || ^6.0",
+                "symfony/css-selector": "^5.4 || ^6.0",
+                "symfony/dom-crawler": "^5.4 || ^6.0",
+                "symfony/finder": "^5.4 || ^6.0",
                 "symfony/monolog-bundle": "^3.7",
                 "symfony/phpunit-bridge": "^6.0",
-                "symfony/process": "^4.4.30 || ^5.3.7",
-                "symfony/routing": "^4.4 || ^5.3.7",
-                "symfony/security-bundle": "^4.4 || ^5.3",
-                "symfony/validator": "^4.4.30 || ^5.3.7",
-                "symfony/var-dumper": "^4.4.30 || ^5.3.7",
-                "symfony/yaml": "^4.4 || ^5.3",
+                "symfony/process": "^5.4 || ^6.0",
+                "symfony/routing": "^5.4 || ^6.0",
+                "symfony/security-bundle": "^5.4 || ^6.0",
+                "symfony/validator": "^5.4 || ^6.0",
+                "symfony/var-dumper": "^5.4 || ^6.0",
+                "symfony/yaml": "^5.4 || ^6.0",
                 "twig/twig": "^2.10|^3.0"
             },
             "suggest": {
@@ -2993,7 +2993,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.14-dev"
+                    "dev-master": "0.15-dev"
                 }
             },
             "autoload": {
@@ -3018,9 +3018,9 @@
             ],
             "support": {
                 "issues": "https://github.com/overblog/GraphQLBundle/issues",
-                "source": "https://github.com/overblog/GraphQLBundle/tree/v0.14.1"
+                "source": "https://github.com/overblog/GraphQLBundle/tree/v0.15.1"
             },
-            "time": "2021-12-21T09:55:56+00:00"
+            "time": "2022-07-05T07:30:54+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -3134,30 +3134,25 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.6.2",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "48f445a408c131e38cab1c235aa6d2bb7a0bb20d"
+                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/48f445a408c131e38cab1c235aa6d2bb7a0bb20d",
-                "reference": "48f445a408c131e38cab1c235aa6d2bb7a0bb20d",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/a12f7e301eb7258bb68acd89d4aefa05c2906cae",
+                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4 || ^8.0",
+                "php": "^7.2 || ^8.0",
                 "phpdocumentor/reflection-common": "^2.0"
             },
             "require-dev": {
                 "ext-tokenizer": "*",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "^1.8",
-                "phpstan/phpstan-phpunit": "^1.1",
-                "phpunit/phpunit": "^9.5",
-                "rector/rector": "^0.13.9",
-                "vimeo/psalm": "^4.25"
+                "psalm/phar": "^4.8"
             },
             "type": "library",
             "extra": {
@@ -3183,9 +3178,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.2"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.1"
             },
-            "time": "2022-10-14T12:47:21+00:00"
+            "time": "2021-10-02T14:08:47+00:00"
         },
         {
             "name": "prooph/common",
@@ -10760,16 +10755,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.133",
+            "version": "v1.0.134",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "1823a81145375d9f914fb9cea6bddf0e0610421a"
+                "reference": "9002c8a003ad4884fb49dff3ad45337465d2db2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/1823a81145375d9f914fb9cea6bddf0e0610421a",
-                "reference": "1823a81145375d9f914fb9cea6bddf0e0610421a",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/9002c8a003ad4884fb49dff3ad45337465d2db2b",
+                "reference": "9002c8a003ad4884fb49dff3ad45337465d2db2b",
                 "shasum": ""
             },
             "require": {
@@ -10784,7 +10779,7 @@
                 "moneyphp/money": "^3.2 || ^4.0",
                 "nesbot/carbon": "^2.24",
                 "odolbeau/phone-number-bundle": "^3.0",
-                "overblog/graphql-bundle": "^0.12.3 || ^0.13.0 || ^0.14.0",
+                "overblog/graphql-bundle": "^0.12.3 || ^0.13.0 || ^0.14.0 || ^0.15.0",
                 "php": "^7.3 || ^8.0",
                 "prooph/event-store-bus-bridge": "^3.3",
                 "prooph/event-store-symfony-bundle": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0",
@@ -10839,9 +10834,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.133"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.134"
             },
-            "time": "2022-10-12T03:42:40+00:00"
+            "time": "2023-01-09T23:08:21+00:00"
         }
     ],
     "packages-dev": [
@@ -11906,30 +11901,40 @@
         },
         {
             "name": "overblog/graphiql-bundle",
-            "version": "v0.2.1",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overblog/GraphiQLBundle.git",
-                "reference": "3161762574dcc6b264e1b6046e5fd2769e4e87c4"
+                "reference": "be0d4cecac49ee43e61fc31f3534e5eb872eb822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overblog/GraphiQLBundle/zipball/3161762574dcc6b264e1b6046e5fd2769e4e87c4",
-                "reference": "3161762574dcc6b264e1b6046e5fd2769e4e87c4",
+                "url": "https://api.github.com/repos/overblog/GraphiQLBundle/zipball/be0d4cecac49ee43e61fc31f3534e5eb872eb822",
+                "reference": "be0d4cecac49ee43e61fc31f3534e5eb872eb822",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6",
-                "symfony/framework-bundle": "^3.4 || ^4.0 || ^5.0",
-                "symfony/twig-bundle": "^3.4 || ^4.0 || ^5.0"
+                "php": "^8.0",
+                "symfony/http-foundation": "^5.3.7 || ^6.0",
+                "symfony/routing": "^5.3.7 || ^6.0",
+                "symfony/twig-bundle": "^5.3.7 || ^6.0"
             },
             "require-dev": {
-                "overblog/graphql-bundle": ">=0.9",
-                "phpunit/phpunit": "^5.7 || ^6.0",
-                "sensio/framework-extra-bundle": "^3.0 || ^4.0 || ^5.0",
-                "symfony/browser-kit": "^3.4 || ^4.0 || ^5.0",
-                "symfony/templating": "^3.4 || ^4.0 || ^5.0",
-                "symfony/yaml": "^3.4 || ^4.0 || ^5.0"
+                "overblog/graphql-bundle": "dev-master",
+                "phpunit/phpunit": "^9.5.10",
+                "sensio/framework-extra-bundle": "^6.2",
+                "symfony/browser-kit": "^5.3 || ^6.0",
+                "symfony/config": "^5.3.7 || ^6.0",
+                "symfony/console": "^5.3.7 || ^6.0",
+                "symfony/dependency-injection": "^5.3.7 || ^6.0",
+                "symfony/dom-crawler": "^5.3.7 || ^6.0",
+                "symfony/expression-language": "^5.3.7 || ^6.0",
+                "symfony/finder": "^5.3.7 || ^6.0",
+                "symfony/framework-bundle": "^5.3.7 || ^6.0",
+                "symfony/templating": "^5.3.7 || ^6.0",
+                "symfony/yaml": "^5.3.7 || ^6.0",
+                "twig/twig": "^3.3.3",
+                "webonyx/graphql-php": "dev-master"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -11939,11 +11944,8 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Overblog\\GraphiQLBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
+                    "Overblog\\GraphiQLBundle\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -11966,9 +11968,9 @@
             ],
             "support": {
                 "issues": "https://github.com/overblog/GraphiQLBundle/issues",
-                "source": "https://github.com/overblog/GraphiQLBundle/tree/master"
+                "source": "https://github.com/overblog/GraphiQLBundle/tree/v0.3.0"
             },
-            "time": "2020-02-03T16:17:50+00:00"
+            "time": "2021-12-08T11:28:42+00:00"
         },
         {
             "name": "phar-io/manifest",
