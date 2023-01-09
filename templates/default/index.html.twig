@@ -3,6 +3,7 @@
 {% block page_title_wrap %}{{ 'app.parameter.name'|trans }}{% endblock %}
 
 {% block head %}
+    {# @todo-symfony if private app, delete or comment out #}
     {% include 'meta.html.twig' with {
         'description' : '',
         'url' : path('index'),
