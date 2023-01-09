@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase as BaseWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class WebTestCase extends BaseWebTestCase
 {
@@ -14,7 +14,7 @@ class WebTestCase extends BaseWebTestCase
         parent::setUp();
     }
 
-    protected function assertPathInfoMatches(Client $client, $regExp)
+    protected function assertPathInfoMatches(KernelBrowser $client, $regExp)
     {
         $this->assertMatchesRegularExpression(
             $regExp,
