@@ -140,7 +140,7 @@
         "cs:fix": "php-cs-fixer fix -v --config=./.php-cs-fixer.dist.php",
         "php-cs-fixer": "@cs",
         "phpcs": "@cs",
-        "static": "php bin/phpstan analyse --memory-limit 2G"
+        "static": "php bin/phpstan analyse --memory-limit 2G --xdebug"
     },
     "conflict": {
         "symfony/symfony": "*"
