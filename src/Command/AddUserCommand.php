@@ -17,6 +17,7 @@ use App\Util\Assert;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
@@ -30,6 +31,10 @@ use Symfony\Component\Routing\RouterInterface;
 use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Util\Json;
 
+#[AsCommand(
+    name: 'app:user:add',
+    description: 'Add a user.',
+)]
 final class AddUserCommand extends Command
 {
     private const SEND_INVITE = 'send-invite';
@@ -48,9 +53,7 @@ final class AddUserCommand extends Command
 
     protected function configure()
     {
-        $this->setName('app:user:add')
-            ->setDescription('Add a user.')
-            ->addOption(
+        $this->addOption(
                 self::SEND_INVITE,
                 null,
                 InputOption::VALUE_NONE,
