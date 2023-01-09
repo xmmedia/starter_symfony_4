@@ -84,7 +84,7 @@ export default {
     },
 
     methods: {
-        checkEmail (e) {
+        checkEmail () {
             if (!event.target.value) {
                 return;
             }

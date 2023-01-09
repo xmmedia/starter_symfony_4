@@ -14,13 +14,13 @@
             </field-email>
 
             <field-input v-model.trim="firstName"
-                        :v="$v.firstName"
-                        autocomplete="given-name"
-                        @input="changed">First name</field-input>
+                         :v="$v.firstName"
+                         autocomplete="given-name"
+                         @input="changed">First name</field-input>
             <field-input v-model.trim="lastName"
-                        :v="$v.lastName"
-                        autocomplete="family-name"
-                        @input="changed">Last name</field-input>
+                         :v="$v.lastName"
+                         autocomplete="family-name"
+                         @input="changed">Last name</field-input>
 
             <admin-button :saving="state.matches('saving')"
                           :saved="state.matches('saved')">
