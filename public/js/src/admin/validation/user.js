@@ -18,7 +18,7 @@ export default {
                 return true;
             }
 
-            return zxcvbn(value).score > 2;
+            return zxcvbn(value, [ this.firstName, this.lastName, this.email ]).score > 2;
         },
 
         async compromised (value) {
