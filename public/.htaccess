@@ -45,6 +45,7 @@ DirectoryIndex index.php
     # And redirect to https at the same time
     RewriteCond %{HTTP_HOST} !^www\. [NC]
     RewriteCond %{HTTP_HOST} !^dev\. [NC]
+    RewriteCond %{HTTP_HOST} !\.lndo\.site$ [NC]
     RewriteCond %{SERVER_ADDR} !=127.0.0.1
     RewriteCond %{SERVER_ADDR} !=::1
     RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
