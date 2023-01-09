@@ -1,9 +1,11 @@
 import Vue from 'vue';
-import VueApollo from 'vue-apollo';
+// @todo-symfony if using graphql on the public portion of the website, uncomment throughout file
+// import VueApollo from 'vue-apollo';
 import Vuelidate from 'vuelidate';
-import PortalVue from 'portal-vue';
+// @todo-symfony if need portals, uncomment here and below
+// import PortalVue from 'portal-vue';
 
-import apolloProvider from './common/apollo';
+// import apolloProvider from './common/apollo';
 // import * as filters from './common/filters';
 
 import formError from './common/form_error';
@@ -18,16 +20,16 @@ import '@/../../images/icons-public.svg';
 // disable the warning about dev/prod
 Vue.config.productionTip = false;
 
-Vue.use(VueApollo);
+// Vue.use(VueApollo);
 Vue.use(Vuelidate);
-Vue.use(PortalVue);
+// Vue.use(PortalVue);
 
-Vue.component('form-error', formError);
-Vue.component('field-error', fieldError);
+// Vue.component('form-error', formError);
+// Vue.component('field-error', fieldError);
 
 window.App = new Vue({
     el: '#app',
-    apolloProvider,
+    // apolloProvider,
 
     components: {
         'contact-form': () => import(/* webpackChunkName: "public-contact" */ './public/contact/index'),
