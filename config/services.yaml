@@ -19,9 +19,6 @@ parameters:
     email.template.auth.user_invite: 'auth-user_invite'
     email.template.auth.password_reset: 'auth-password_reset'
     email.template.enquiry_received: 'enquiry-received'
-    # this is to fix the error in while configuring the graphql bundle
-    # https://github.com/overblog/GraphQLBundle/issues/588
-    container.build_id: 'a fake build id'
 
 services:
     # default configuration for services in *this* file
