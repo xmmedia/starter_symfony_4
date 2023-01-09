@@ -125,7 +125,7 @@ export default {
 
         setEmailDebounce: debounce(function (email) {
             this.setEmail(email);
-        }, 2000),
+        }, 100, { leading: true }),
         setEmail (email) {
             this.email = email;
             this.changed();
