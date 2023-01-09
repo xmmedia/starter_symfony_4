@@ -107,7 +107,6 @@ running multiple sites on one server.
     - [date-fns](https://date-fns.org/) – helper functions for Dates in JS
     - [PortalVue](https://github.com/LinusBorg/portal-vue) – helps to manage things like modals
     - [Vue-JS-Modal](http://vue-js-modal.yev.io/) – for modals 
-    - [Workbox](https://developers.google.com/web/tools/workbox/) – helps with configuration of service worker/PWA
     - [Faker.js](https://github.com/marak/Faker.js/) – for generating fake data in tests
     - [ESLint](https://eslint.org/) – checks JS for conventions & errors
     - [Stylelint](https://stylelint.io/) – checks CSS for conventions & errors
