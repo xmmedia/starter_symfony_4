@@ -9,21 +9,21 @@ User:
             lastName:  String
             name:      String
             verified:
-                type: Boolean
+                type:   Boolean
                 access: '@=hasRole("ROLE_ADMIN")'
             active:
-                type: Boolean
+                type:   Boolean
                 access: '@=hasRole("ROLE_ADMIN")'
             roles:
-                type: '[Role!]'
-                access: '@=isAuthenticated()'
+                type:    '[Role!]'
+                access:  '@=isAuthenticated()'
                 resolve: '@=query("App\\Infrastructure\\GraphQl\\Query\\User\\UserRoleQuery", value)'
             # if they attempt to access this field when not admin
             # they'll get an access denied + null for the whole user
             # as this field cannot come back as null
             loginCount:
-                type: Int!
+                type:   Int!
                 access: '@=hasRole("ROLE_ADMIN")'
             lastLogin:
-                type: DateTime
+                type:   DateTime
                 access: '@=hasRole("ROLE_ADMIN")'
