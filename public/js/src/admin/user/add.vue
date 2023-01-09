@@ -135,7 +135,7 @@ export default {
         waitForValidation,
 
         async submit () {
-            if (this.state.matches('submitting')) {
+            if (!this.state.matches('ready')) {
                 return;
             }
 
