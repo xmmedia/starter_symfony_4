@@ -54,10 +54,10 @@ export default {
 
     computed: {
         isSaving () {
-            return this.saving || this.status === 'saving';
+            return this.saving || 'saving' === this.status;
         },
         isSaved () {
-            return this.saved || this.status === 'saved';
+            return this.saved || 'saved' === this.status;
         },
     },
 };
