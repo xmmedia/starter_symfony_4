@@ -158,7 +158,6 @@
       <path value="$PROJECT_DIR$/vendor/wildbit/postmark-php" />
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
       <path value="$PROJECT_DIR$/vendor/prooph/event-store-symfony-bundle" />
-      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
       <path value="$PROJECT_DIR$/vendor/prooph/event-store-bus-bridge" />
       <path value="$PROJECT_DIR$/vendor/prooph/pdo-event-store" />
       <path value="$PROJECT_DIR$/vendor/prooph/common" />
@@ -168,7 +167,6 @@
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
-      <path value="$PROJECT_DIR$/vendor/php-cs-fixer/diff" />
       <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
       <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
       <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
