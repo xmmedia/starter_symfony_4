@@ -89,6 +89,10 @@ module.exports = function (Encore) {
         /* eslint-disable no-unused-vars */
         .configureDefinePlugin((options) => {
             const env = require('dotenv').config({ path: '.env.local' });
+
+            if (env.error) {
+                throw env.error;
+            }
         })
         /* eslint-enable no-unused-vars */
     ;
