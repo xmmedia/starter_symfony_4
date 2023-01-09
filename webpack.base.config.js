@@ -93,6 +93,8 @@ module.exports = function (Encore) {
             if (env.error) {
                 throw env.error;
             }
+
+            // options['process.env.STRIPE_PUBLISHABLE_KEY'] = JSON.stringify(env.parsed.STRIPE_PUBLISHABLE_KEY);
         })
         /* eslint-enable no-unused-vars */
     ;
