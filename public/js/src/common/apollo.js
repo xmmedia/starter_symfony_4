@@ -5,7 +5,6 @@ import { createHttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import VueApollo from 'vue-apollo';
-import fetch from 'unfetch';
 
 Vue.use(VueApollo);
 
@@ -35,7 +34,6 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 // http link
 const httpLink = createHttpLink({
     uri: window.location.origin+'/graphql',
-    fetch,
 });
 
 // Create the apollo client
