@@ -10,7 +10,6 @@ use App\Model\User\Role;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
-use Mockery;
 use Ramsey\Uuid\Uuid;
 
 trait UserTestTrait
@@ -23,18 +22,18 @@ trait UserTestTrait
 
     protected function setUp(): void
     {
-        $this->userUniquenessCheckerNone = Mockery::spy(
+        $this->userUniquenessCheckerNone = \Mockery::spy(
             new ChecksUniqueUsersEmailFromReadModel(
-                Mockery::mock(UserFinder::class),
+                \Mockery::mock(UserFinder::class),
             ),
         );
         $this->userUniquenessCheckerNone->shouldReceive('__invoke')
             ->andReturnNull()
             ->byDefault();
 
-        $this->userUniquenessCheckerDuplicate = Mockery::spy(
+        $this->userUniquenessCheckerDuplicate = \Mockery::spy(
             new ChecksUniqueUsersEmailFromReadModel(
-                Mockery::mock(UserFinder::class),
+                \Mockery::mock(UserFinder::class),
             ),
         );
         $this->userUniquenessCheckerDuplicate->shouldReceive('__invoke')

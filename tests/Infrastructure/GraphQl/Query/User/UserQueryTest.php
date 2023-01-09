@@ -9,7 +9,6 @@ use App\Infrastructure\GraphQl\Query\User\UserQuery;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
-use Mockery;
 
 class UserQueryTest extends BaseTestCase
 {
@@ -18,12 +17,12 @@ class UserQueryTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->uuid();
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
             ->once()
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
         $result = (new UserQuery($userFinder))($userId);
@@ -37,10 +36,10 @@ class UserQueryTest extends BaseTestCase
 
         $userId = $faker->uuid();
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
             ->once()
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturnNull();
 
         $result = (new UserQuery($userFinder))($userId);

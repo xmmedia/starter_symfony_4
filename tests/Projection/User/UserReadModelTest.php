@@ -8,13 +8,12 @@ use App\Projection\User\UserReadModel;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Statement;
-use Mockery;
 
 class UserReadModelTest extends BaseTestCase
 {
     public function testInit(): void
     {
-        $connection = Mockery::mock(Connection::class);
+        $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('executeQuery')
             ->twice()
             ->withArgs(function (string $sql) {
@@ -29,7 +28,7 @@ class UserReadModelTest extends BaseTestCase
         $faker = $this->faker();
         $data = $types = ['key' => $faker->string(5)];
 
-        $connection = Mockery::mock(Connection::class);
+        $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('insert')
             ->once()
             ->withArgs(
@@ -59,7 +58,7 @@ class UserReadModelTest extends BaseTestCase
         $userId = $faker->uuid();
         $data = $types = ['key' => $faker->string(5)];
 
-        $connection = Mockery::mock(Connection::class);
+        $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('update')
             ->once()
             ->withArgs(
@@ -91,7 +90,7 @@ class UserReadModelTest extends BaseTestCase
         $userId = $faker->uuid();
         $dateTime = \DateTimeImmutable::createFromMutable($faker->dateTime());
 
-        $statement = Mockery::mock(Statement::class);
+        $statement = \Mockery::mock(Statement::class);
         $statement->shouldReceive('bindValue')
             ->once()
             ->with('last_login', $dateTime, 'datetime');
@@ -101,7 +100,7 @@ class UserReadModelTest extends BaseTestCase
         $statement->shouldReceive('executeQuery')
             ->once();
 
-        $connection = Mockery::mock(Connection::class);
+        $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('prepare')
             ->once()
             ->withArgs(function (string $sql) {

@@ -11,7 +11,6 @@ use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Tests\BaseTestCase;
-use Mockery;
 
 class AdminChangePasswordHandlerTest extends BaseTestCase
 {
@@ -22,19 +21,19 @@ class AdminChangePasswordHandlerTest extends BaseTestCase
         $userId = $faker->userId();
         $password = $faker->password();
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('changePasswordByAdmin')
             ->once();
 
         $command = AdminChangePassword::with($userId, $password);
 
-        $repo = Mockery::mock(UserList::class);
+        $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
         $repo->shouldReceive('save')
             ->once()
-            ->with(Mockery::type(User::class));
+            ->with(\Mockery::type(User::class));
 
         (new AdminChangePasswordHandler($repo))($command);
     }
@@ -48,9 +47,9 @@ class AdminChangePasswordHandlerTest extends BaseTestCase
 
         $command = AdminChangePassword::with($userId, $password);
 
-        $repo = Mockery::mock(UserList::class);
+        $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturnNull();
 
         $this->expectException(UserNotFound::class);

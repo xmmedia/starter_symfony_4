@@ -12,7 +12,6 @@ use App\Model\User\Token;
 use App\Projection\User\UserTokenFinder;
 use App\Security\TokenValidator;
 use App\Tests\BaseTestCase;
-use Mockery;
 
 class TokenValidatorTest extends BaseTestCase
 {
@@ -20,12 +19,12 @@ class TokenValidatorTest extends BaseTestCase
     {
         $token = Token::fromString('string');
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('active')
             ->once()
             ->andReturnTrue();
 
-        $userToken = Mockery::mock(UserToken::class);
+        $userToken = \Mockery::mock(UserToken::class);
         $userToken->shouldReceive('user')
             ->once()
             ->andReturn($user);
@@ -33,7 +32,7 @@ class TokenValidatorTest extends BaseTestCase
             ->once()
             ->andReturn(new \DateTimeImmutable('-5 hours'));
 
-        $tokenFinder = Mockery::mock(UserTokenFinder::class);
+        $tokenFinder = \Mockery::mock(UserTokenFinder::class);
         $tokenFinder->shouldReceive('find')
             ->once()
             ->with($token->toString())
@@ -48,7 +47,7 @@ class TokenValidatorTest extends BaseTestCase
     {
         $token = Token::fromString('string');
 
-        $tokenFinder = Mockery::mock(UserTokenFinder::class);
+        $tokenFinder = \Mockery::mock(UserTokenFinder::class);
         $tokenFinder->shouldReceive('find')
             ->with($token->toString())
             ->andReturnNull();
@@ -62,15 +61,15 @@ class TokenValidatorTest extends BaseTestCase
     {
         $token = Token::fromString('string');
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('active')
             ->andReturnFalse();
 
-        $userToken = Mockery::mock(UserToken::class);
+        $userToken = \Mockery::mock(UserToken::class);
         $userToken->shouldReceive('user')
             ->andReturn($user);
 
-        $tokenFinder = Mockery::mock(UserTokenFinder::class);
+        $tokenFinder = \Mockery::mock(UserTokenFinder::class);
         $tokenFinder->shouldReceive('find')
             ->with($token->toString())
             ->andReturn($userToken);
@@ -84,17 +83,17 @@ class TokenValidatorTest extends BaseTestCase
     {
         $token = Token::fromString('string');
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('active')
             ->andReturnTrue();
 
-        $userToken = Mockery::mock(UserToken::class);
+        $userToken = \Mockery::mock(UserToken::class);
         $userToken->shouldReceive('user')
             ->andReturn($user);
         $userToken->shouldReceive('generatedAt')
             ->andReturn(new \DateTimeImmutable('-48 hours'));
 
-        $tokenFinder = Mockery::mock(UserTokenFinder::class);
+        $tokenFinder = \Mockery::mock(UserTokenFinder::class);
         $tokenFinder->shouldReceive('find')
             ->with($token->toString())
             ->andReturn($userToken);

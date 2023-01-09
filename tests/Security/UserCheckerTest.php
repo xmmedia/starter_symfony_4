@@ -7,7 +7,6 @@ namespace App\Tests\Security;
 use App\Entity\User;
 use App\Security\UserChecker;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Xm\SymfonyBundle\Security\Exception\AccountInactiveException;
 use Xm\SymfonyBundle\Security\Exception\AccountNotVerifiedException;
@@ -18,7 +17,7 @@ class UserCheckerTest extends BaseTestCase
     {
         $checker = new UserChecker();
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldNotReceive('verified');
         $user->shouldNotReceive('active');
 
@@ -29,7 +28,7 @@ class UserCheckerTest extends BaseTestCase
     {
         $checker = new UserChecker();
 
-        $user = Mockery::mock(UserInterface::class);
+        $user = \Mockery::mock(UserInterface::class);
         $user->shouldNotReceive('verified');
         $user->shouldNotReceive('active');
 
@@ -40,7 +39,7 @@ class UserCheckerTest extends BaseTestCase
     {
         $checker = new UserChecker();
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('verified')
             ->once()
             ->andReturnTrue();
@@ -55,7 +54,7 @@ class UserCheckerTest extends BaseTestCase
     {
         $checker = new UserChecker();
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('verified')
             ->once()
             ->andReturnfalse();
@@ -70,7 +69,7 @@ class UserCheckerTest extends BaseTestCase
     {
         $checker = new UserChecker();
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('verified')
             ->once()
             ->andReturnTrue();
@@ -87,7 +86,7 @@ class UserCheckerTest extends BaseTestCase
     {
         $checker = new UserChecker();
 
-        $user = Mockery::mock(UserInterface::class);
+        $user = \Mockery::mock(UserInterface::class);
         $user->shouldNotReceive('verified');
         $user->shouldNotReceive('active');
 

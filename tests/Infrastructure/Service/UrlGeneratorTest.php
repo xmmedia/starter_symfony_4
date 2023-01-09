@@ -6,7 +6,6 @@ namespace App\Tests\Infrastructure\Service;
 
 use App\Infrastructure\Service\UrlGenerator;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -14,7 +13,7 @@ class UrlGeneratorTest extends BaseTestCase
 {
     public function test(): void
     {
-        $router = Mockery::mock(RouterInterface::class);
+        $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
             ->once()
             ->with('test', ['test' => 'test'], UrlGeneratorInterface::ABSOLUTE_URL)

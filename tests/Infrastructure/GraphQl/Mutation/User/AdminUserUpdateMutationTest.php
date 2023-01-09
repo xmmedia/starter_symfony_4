@@ -11,7 +11,6 @@ use App\Model\User\Role;
 use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
-use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -33,13 +32,13 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'role'        => 'ROLE_USER',
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(AdminUpdateUser::class))
+            ->with(\Mockery::type(AdminUpdateUser::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $args = new Argument([
             'user' => $data,
@@ -72,20 +71,20 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'role'        => 'ROLE_USER',
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(AdminUpdateUser::class))
+            ->with(\Mockery::type(AdminUpdateUser::class))
             ->andReturn(new Envelope(new \stdClass()));
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(AdminChangePassword::class))
+            ->with(\Mockery::type(AdminChangePassword::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
-            ->with(Mockery::type(Role::class), $data['password'])
+            ->with(\Mockery::type(Role::class), $data['password'])
             ->andReturn('string');
 
         $args = new Argument([
@@ -128,8 +127,8 @@ class AdminUserUpdateMutationTest extends BaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         (new AdminUserUpdateMutation(
-            Mockery::mock(MessageBusInterface::class),
-            Mockery::mock(PasswordHasher::class),
+            \Mockery::mock(MessageBusInterface::class),
+            \Mockery::mock(PasswordHasher::class),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))(

@@ -11,7 +11,6 @@ use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Tests\BaseTestCase;
-use Mockery;
 
 class VerifyUserHandlerTest extends BaseTestCase
 {
@@ -19,19 +18,19 @@ class VerifyUserHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('verify')
             ->once();
 
         $command = VerifyUser::now($faker->userId());
 
-        $repo = Mockery::mock(UserList::class);
+        $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
         $repo->shouldReceive('save')
             ->once()
-            ->with(Mockery::type(User::class));
+            ->with(\Mockery::type(User::class));
 
         (new VerifyUserHandler($repo))($command);
     }
@@ -42,9 +41,9 @@ class VerifyUserHandlerTest extends BaseTestCase
 
         $command = VerifyUser::now($faker->userId());
 
-        $repo = Mockery::mock(UserList::class);
+        $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturnNull();
 
         $this->expectException(UserNotFound::class);

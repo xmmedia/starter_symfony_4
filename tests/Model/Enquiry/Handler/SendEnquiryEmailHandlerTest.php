@@ -7,7 +7,6 @@ namespace App\Tests\Model\Enquiry\Handler;
 use App\Model\Enquiry\Command\SendEnquiryEmail;
 use App\Model\Enquiry\Handler\SendEnquiryEmailHandler;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
 
@@ -26,7 +25,7 @@ class SendEnquiryEmailHandlerTest extends BaseTestCase
             $faker->string(25),
         );
 
-        $emailGateway = Mockery::mock(EmailGatewayInterface::class);
+        $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
             ->once()
             ->withArgs(function ($templateArg, $email, $payload) use ($template, $adminEmail): bool {

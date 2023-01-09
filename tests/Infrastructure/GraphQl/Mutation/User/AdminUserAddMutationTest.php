@@ -12,7 +12,6 @@ use App\Security\PasswordHasher;
 use App\Security\TokenGenerator;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
-use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -36,18 +35,18 @@ class AdminUserAddMutationTest extends BaseTestCase
             'sendInvite'  => true,
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(AdminAddUser::class))
+            ->with(\Mockery::type(AdminAddUser::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $tokenGenerator = Mockery::mock(TokenGenerator::class);
+        $tokenGenerator = \Mockery::mock(TokenGenerator::class);
         $tokenGenerator->shouldReceive('__invoke')
             ->once()
             ->andReturn(new Token($faker->password()));
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
             ->andReturn('string');
@@ -95,9 +94,9 @@ class AdminUserAddMutationTest extends BaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         (new AdminUserAddMutation(
-            Mockery::mock(MessageBusInterface::class),
-            Mockery::mock(TokenGenerator::class),
-            Mockery::mock(PasswordHasher::class),
+            \Mockery::mock(MessageBusInterface::class),
+            \Mockery::mock(TokenGenerator::class),
+            \Mockery::mock(PasswordHasher::class),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -118,18 +117,18 @@ class AdminUserAddMutationTest extends BaseTestCase
             'sendInvite'  => true,
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(AdminAddUser::class))
+            ->with(\Mockery::type(AdminAddUser::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $tokenGenerator = Mockery::mock(TokenGenerator::class);
+        $tokenGenerator = \Mockery::mock(TokenGenerator::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
-            ->with(Mockery::type(Role::class), $data['password'])
+            ->with(\Mockery::type(Role::class), $data['password'])
             ->andReturn('string');
 
         $args = new Argument([

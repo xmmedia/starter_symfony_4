@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Infrastructure\GraphQl\Query\User\UserPasswordValidQuery;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserPasswordValidQueryTest extends BaseTestCase
@@ -18,15 +17,15 @@ class UserPasswordValidQueryTest extends BaseTestCase
         $faker = $this->faker();
         $password = $faker->password();
 
-        $currentUser = Mockery::mock(User::class);
+        $currentUser = \Mockery::mock(User::class);
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
         $userPasswordHasher->shouldReceive('isPasswordValid')
             ->once()
             ->with($currentUser, $password)
             ->andReturnTrue();
 
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->once()
             ->andReturn($currentUser);
@@ -46,15 +45,15 @@ class UserPasswordValidQueryTest extends BaseTestCase
         $faker = $this->faker();
         $password = $faker->password();
 
-        $currentUser = Mockery::mock(User::class);
+        $currentUser = \Mockery::mock(User::class);
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
         $userPasswordHasher->shouldReceive('isPasswordValid')
             ->once()
             ->with($currentUser, $password)
             ->andReturnFalse();
 
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->once()
             ->andReturn($currentUser);
@@ -73,9 +72,9 @@ class UserPasswordValidQueryTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
 
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->once()
             ->andReturnNull();

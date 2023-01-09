@@ -12,7 +12,6 @@ use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserList;
 use App\Tests\BaseTestCase;
-use Mockery;
 
 class AdminAddUserMinimumHandlerTest extends BaseTestCase
 {
@@ -38,12 +37,12 @@ class AdminAddUserMinimumHandlerTest extends BaseTestCase
             $sendInvite,
         );
 
-        $repo = Mockery::mock(UserList::class);
+        $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('save')
             ->once()
-            ->with(Mockery::type(User::class));
+            ->with(\Mockery::type(User::class));
 
-        $checksUniqueUsersEmail = Mockery::mock(ChecksUniqueUsersEmail::class);
+        $checksUniqueUsersEmail = \Mockery::mock(ChecksUniqueUsersEmail::class);
         $checksUniqueUsersEmail->shouldReceive('__invoke')
             ->andReturnNull();
 

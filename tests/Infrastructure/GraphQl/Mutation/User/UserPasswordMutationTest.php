@@ -13,7 +13,6 @@ use App\Security\PasswordHasher;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
-use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -37,22 +36,22 @@ class UserPasswordMutationTest extends BaseTestCase
             'newPassword'     => $faker->password(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(ChangePassword::class))
+            ->with(\Mockery::type(ChangePassword::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
         $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
             ->andReturn('string');
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
             ->andReturn($userId);
@@ -68,7 +67,7 @@ class UserPasswordMutationTest extends BaseTestCase
         $user->shouldReceive('firstRole')
             ->once()
             ->andReturn(Role::ROLE_USER());
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
 
@@ -99,14 +98,14 @@ class UserPasswordMutationTest extends BaseTestCase
             'newPassword'     => $faker->password(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
-        $user = Mockery::mock(User::class);
-        $security = Mockery::mock(Security::class);
+        $user = \Mockery::mock(User::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
 
@@ -134,16 +133,16 @@ class UserPasswordMutationTest extends BaseTestCase
             'newPassword'     => $faker->password(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
         $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnFalse();
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
-        $user = Mockery::mock(User::class);
-        $security = Mockery::mock(Security::class);
+        $user = \Mockery::mock(User::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
 
@@ -174,16 +173,16 @@ class UserPasswordMutationTest extends BaseTestCase
             'newPassword'     => $empty,
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
         $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
 
@@ -211,16 +210,16 @@ class UserPasswordMutationTest extends BaseTestCase
             'newPassword'     => $faker->string(\App\Model\User\User::PASSWORD_MIN_LENGTH - 1),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
         $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
 
@@ -246,16 +245,16 @@ class UserPasswordMutationTest extends BaseTestCase
             'newPassword'     => $faker->string(PasswordHasherInterface::MAX_PASSWORD_LENGTH + 1),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
         $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
 
@@ -283,16 +282,16 @@ class UserPasswordMutationTest extends BaseTestCase
             'newPassword'     => '123456',
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
         $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
 
@@ -321,16 +320,16 @@ class UserPasswordMutationTest extends BaseTestCase
             'newPassword'     => $password,
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userPasswordHasher = Mockery::mock(UserPasswordHasherInterface::class);
+        $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
         $userPasswordHasher->shouldReceive('isPasswordValid')
             ->andReturnTrue();
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);
 

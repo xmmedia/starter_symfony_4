@@ -15,7 +15,6 @@ use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Security\TokenGeneratorInterface;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Symfony\Component\Routing\RouterInterface;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
@@ -26,7 +25,7 @@ class SendActivationHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
@@ -40,22 +39,22 @@ class SendActivationHandlerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
         );
 
-        $repo = Mockery::mock(UserList::class);
+        $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
         $repo->shouldReceive('save')
             ->once()
-            ->with(Mockery::type(User::class));
+            ->with(\Mockery::type(User::class));
 
-        $emailGateway = Mockery::mock(EmailGatewayInterface::class);
+        $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
             ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
-        $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
+        $tokenGenerator = \Mockery::mock(TokenGeneratorInterface::class);
         $tokenGenerator->shouldReceive('__invoke')
             ->andReturn(Token::fromString('string'));
 
-        $router = Mockery::mock(RouterInterface::class);
+        $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
             ->andReturn('url');
 
@@ -74,7 +73,7 @@ class SendActivationHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('verified')
             ->once()
             ->andReturnTrue();
@@ -86,14 +85,14 @@ class SendActivationHandlerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
         );
 
-        $repo = Mockery::mock(UserList::class);
+        $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $emailGateway = Mockery::mock(EmailGatewayInterface::class);
-        $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
-        $router = Mockery::mock(RouterInterface::class);
+        $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
+        $tokenGenerator = \Mockery::mock(TokenGeneratorInterface::class);
+        $router = \Mockery::mock(RouterInterface::class);
 
         $handler = new SendActivationHandler(
             $repo,
@@ -119,16 +118,16 @@ class SendActivationHandlerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
         );
 
-        $repo = Mockery::mock(UserList::class);
+        $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturnNull();
 
-        $emailGateway = Mockery::mock(EmailGatewayInterface::class);
+        $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
             ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
-        $router = Mockery::mock(RouterInterface::class);
-        $tokenGenerator = Mockery::mock(TokenGeneratorInterface::class);
+        $router = \Mockery::mock(RouterInterface::class);
+        $tokenGenerator = \Mockery::mock(TokenGeneratorInterface::class);
         $tokenGenerator->shouldReceive('__invoke')
             ->andReturn(Token::fromString('string'));
 

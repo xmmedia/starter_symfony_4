@@ -7,7 +7,6 @@ namespace App\Tests\Projection\User;
 use App\Model\User\Event;
 use App\Projection\User\UserTokenProjection;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Prooph\EventStore\Projection\ReadModelProjector;
 
 class UserTokenProjectionTest extends BaseTestCase
@@ -24,7 +23,7 @@ class UserTokenProjectionTest extends BaseTestCase
 
         $projection = new UserTokenProjection();
 
-        $projector = Mockery::mock(ReadModelProjector::class);
+        $projector = \Mockery::mock(ReadModelProjector::class);
         $projector->shouldReceive('fromStream')
             ->once()
             ->with('user')

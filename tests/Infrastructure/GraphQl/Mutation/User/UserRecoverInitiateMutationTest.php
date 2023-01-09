@@ -10,7 +10,6 @@ use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Projection\User\UserFinder;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\Envelope;
@@ -26,13 +25,13 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             'email' => $faker->email(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(InitiatePasswordRecovery::class))
+            ->with(\Mockery::type(InitiatePasswordRecovery::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
             ->andReturn($faker->userId());
@@ -43,10 +42,10 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findOneByEmail')
             ->once()
-            ->with(Mockery::type(Email::class))
+            ->with(\Mockery::type(Email::class))
             ->andReturn($user);
 
         $security = $this->createSecurity(false);
@@ -70,13 +69,13 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             'email' => $email,
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(InitiatePasswordRecovery::class))
+            ->with(\Mockery::type(InitiatePasswordRecovery::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
             ->andReturn($faker->userId());
@@ -87,10 +86,10 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findOneByEmail')
             ->once()->with(
-                Mockery::on(
+                \Mockery::on(
                     function (Email $passedEmail) use ($email): bool {
                         return $passedEmail->toString() === mb_strtolower(
                             $email,
@@ -120,17 +119,17 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             'email' => $faker->email(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('active')
             ->once()
             ->andReturnFalse();
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findOneByEmail')
             ->once()
-            ->with(Mockery::type(Email::class))
+            ->with(\Mockery::type(Email::class))
             ->andReturn($user);
 
         $security = $this->createSecurity(false);
@@ -154,12 +153,12 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             'email' => $faker->email(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findOneByEmail')
             ->once()
-            ->with(Mockery::type(Email::class))
+            ->with(\Mockery::type(Email::class))
             ->andReturnNull();
 
         $security = $this->createSecurity(false);
@@ -183,9 +182,9 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             'email' => $faker->string(3),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
 
         $security = $this->createSecurity(false);
 
@@ -207,9 +206,9 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             'email' => $faker->string(5),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
 
         $security = $this->createSecurity(true);
 
@@ -227,7 +226,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
     private function createSecurity(bool $isGrantedResult): Security
     {
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isGranted')
             ->once()
             ->andReturn($isGrantedResult);

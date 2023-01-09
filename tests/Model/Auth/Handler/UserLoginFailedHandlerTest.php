@@ -9,7 +9,6 @@ use App\Model\Auth\AuthList;
 use App\Model\Auth\Command\UserLoginFailed;
 use App\Model\Auth\Handler\UserLoginFailedHandler;
 use App\Tests\BaseTestCase;
-use Mockery;
 
 class UserLoginFailedHandlerTest extends BaseTestCase
 {
@@ -31,10 +30,10 @@ class UserLoginFailedHandlerTest extends BaseTestCase
             $message,
         );
 
-        $repo = Mockery::mock(AuthList::class);
+        $repo = \Mockery::mock(AuthList::class);
         $repo->shouldReceive('save')
             ->once()
-            ->with(Mockery::type(Auth::class));
+            ->with(\Mockery::type(Auth::class));
 
         (new UserLoginFailedHandler($repo))($command);
     }

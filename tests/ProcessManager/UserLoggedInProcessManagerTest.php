@@ -7,7 +7,6 @@ namespace App\Tests\ProcessManager;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\ProcessManager\UserLoggedInProcessManager;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -17,10 +16,10 @@ class UserLoggedInProcessManagerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(\App\Model\User\Command\UserLoggedIn::class))
+            ->with(\Mockery::type(\App\Model\User\Command\UserLoggedIn::class))
             ->andReturn(new Envelope(new \stdClass()));
 
         $event = UserLoggedIn::now(

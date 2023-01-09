@@ -9,7 +9,6 @@ use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\Model\User\Event\UserActivatedByAdmin;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Symfony\Component\Messenger\Envelope;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
@@ -24,7 +23,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
      */
     public function test(AggregateChanged $message, array $projectionNames): void
     {
-        $projectionRunner = Mockery::mock(ProjectionRunner::class);
+        $projectionRunner = \Mockery::mock(ProjectionRunner::class);
         foreach ($projectionNames as $projectionName) {
             $projectionRunner->shouldReceive('run')
                 ->once()
@@ -59,7 +58,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
 
     public function testNotAggregateChangedMessage(): void
     {
-        $projectionRunner = Mockery::mock(ProjectionRunner::class);
+        $projectionRunner = \Mockery::mock(ProjectionRunner::class);
         $projectionRunner->shouldNotReceive('run');
 
         (new RunProjectionMiddleware($projectionRunner))->handle(
@@ -70,10 +69,10 @@ class RunProjectionMiddlewareTest extends BaseTestCase
 
     public function testMessageInRootNamespace(): void
     {
-        $projectionRunner = Mockery::mock(ProjectionRunner::class);
+        $projectionRunner = \Mockery::mock(ProjectionRunner::class);
         $projectionRunner->shouldNotReceive('run');
 
-        $message = Mockery::mock(AggregateChanged::class);
+        $message = \Mockery::mock(AggregateChanged::class);
 
         (new RunProjectionMiddleware($projectionRunner))->handle(
             new Envelope($message),
@@ -83,10 +82,10 @@ class RunProjectionMiddlewareTest extends BaseTestCase
 
     public function testNotAggregateChanged(): void
     {
-        $projectionRunner = Mockery::mock(ProjectionRunner::class);
+        $projectionRunner = \Mockery::mock(ProjectionRunner::class);
         $projectionRunner->shouldNotReceive('run');
 
-        $message = Mockery::mock(UserLoggedIn::class);
+        $message = \Mockery::mock(UserLoggedIn::class);
 
         (new RunProjectionMiddleware($projectionRunner))->handle(
             new Envelope($message),

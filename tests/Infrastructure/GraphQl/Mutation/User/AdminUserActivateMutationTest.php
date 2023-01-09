@@ -8,7 +8,6 @@ use App\Infrastructure\GraphQl\Mutation\User\AdminUserActivateMutation;
 use App\Model\User\Command\ActivateUserByAdmin;
 use App\Model\User\Command\DeactivateUserByAdmin;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\Envelope;
@@ -25,10 +24,10 @@ class AdminUserActivateMutationTest extends BaseTestCase
             'action' => 'activate',
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(ActivateUserByAdmin::class))
+            ->with(\Mockery::type(ActivateUserByAdmin::class))
             ->andReturn(new Envelope(new \stdClass()));
 
         $args = new Argument([
@@ -55,10 +54,10 @@ class AdminUserActivateMutationTest extends BaseTestCase
             'action' => 'deactivate',
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(DeactivateUserByAdmin::class))
+            ->with(\Mockery::type(DeactivateUserByAdmin::class))
             ->andReturn(new Envelope(new \stdClass()));
 
         $args = new Argument([
@@ -85,7 +84,7 @@ class AdminUserActivateMutationTest extends BaseTestCase
             'action' => 'asdf',
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
         $args = new Argument([
             'user' => $data,

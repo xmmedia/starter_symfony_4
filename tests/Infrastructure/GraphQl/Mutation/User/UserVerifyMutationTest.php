@@ -16,7 +16,6 @@ use App\Security\PasswordHasher;
 use App\Security\TokenValidator;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
-use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -39,17 +38,17 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => $faker->password(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(VerifyUser::class))
+            ->with(\Mockery::type(VerifyUser::class))
             ->andReturn(new Envelope(new \stdClass()));
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(ChangePassword::class))
+            ->with(\Mockery::type(ChangePassword::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
             ->andReturn('string');
@@ -90,9 +89,9 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => $faker->password(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
-        $tokenValidator = Mockery::mock(TokenValidator::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $tokenValidator = \Mockery::mock(TokenValidator::class);
 
         $security = $this->createSecurity(true);
 
@@ -120,9 +119,9 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => $faker->password(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('verified')
@@ -157,18 +156,18 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => $faker->password(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
 
-        $tokenValidator = Mockery::mock(TokenValidator::class);
+        $tokenValidator = \Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
             ->once()
-            ->with(Mockery::type(Token::class))
+            ->with(\Mockery::type(Token::class))
             ->andThrow(TokenHasExpired::before(new Token('string'), '24 hours'));
 
         $security = $this->createSecurity(false);
@@ -198,18 +197,18 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => $faker->password(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
 
-        $tokenValidator = Mockery::mock(TokenValidator::class);
+        $tokenValidator = \Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
             ->once()
-            ->with(Mockery::type(Token::class))
+            ->with(\Mockery::type(Token::class))
             ->andThrow(InvalidToken::tokenDoesntExist(new Token('string')));
 
         $security = $this->createSecurity(false);
@@ -242,9 +241,9 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => $empty,
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
@@ -276,9 +275,9 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => $faker->string(\App\Model\User\User::PASSWORD_MIN_LENGTH - 1),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
@@ -310,9 +309,9 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => $faker->string(PasswordHasherInterface::MAX_PASSWORD_LENGTH + 1),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
@@ -344,9 +343,9 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => $password,
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
@@ -382,9 +381,9 @@ class UserVerifyMutationTest extends BaseTestCase
             'password' => '123456',
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $passwordHasher = Mockery::mock(PasswordHasher::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')

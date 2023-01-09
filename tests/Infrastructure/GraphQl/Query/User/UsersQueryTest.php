@@ -8,15 +8,14 @@ use App\Entity\User;
 use App\Infrastructure\GraphQl\Query\User\UsersQuery;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
-use Mockery;
 
 class UsersQueryTest extends BaseTestCase
 {
     public function test(): void
     {
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findByUserFilters')
             ->once()
             ->andReturn([$user]);
@@ -28,7 +27,7 @@ class UsersQueryTest extends BaseTestCase
 
     public function testNoneFound(): void
     {
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findByUserFilters')
             ->once()
             ->andReturn([]);

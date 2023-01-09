@@ -7,13 +7,12 @@ namespace App\Tests\Projection\User;
 use App\Projection\User\UserTokenReadModel;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
-use Mockery;
 
 class UserTokenReadModelTest extends BaseTestCase
 {
     public function testInit(): void
     {
-        $connection = Mockery::mock(Connection::class);
+        $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('executeQuery')
             ->twice()
             ->withArgs(function (string $sql) {
@@ -28,7 +27,7 @@ class UserTokenReadModelTest extends BaseTestCase
         $faker = $this->faker();
         $data = $types = ['key' => $faker->string(5)];
 
-        $connection = Mockery::mock(Connection::class);
+        $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('insert')
             ->once()
             ->withArgs(
@@ -57,7 +56,7 @@ class UserTokenReadModelTest extends BaseTestCase
         $faker = $this->faker();
         $userId = $faker->uuid();
 
-        $connection = Mockery::mock(Connection::class);
+        $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('delete')
             ->once()
             ->withArgs(

@@ -10,7 +10,6 @@ use App\Model\Enquiry\EnquiryList;
 use App\Model\Enquiry\Handler\SubmitEnquiryHandler;
 use App\Model\Enquiry\Name;
 use App\Tests\BaseTestCase;
-use Mockery;
 
 class SubmitEnquiryHandlerTest extends BaseTestCase
 {
@@ -25,10 +24,10 @@ class SubmitEnquiryHandlerTest extends BaseTestCase
 
         $command = SubmitEnquiry::with($enquiryId, $name, $email, $message);
 
-        $repo = Mockery::mock(EnquiryList::class);
+        $repo = \Mockery::mock(EnquiryList::class);
         $repo->shouldReceive('save')
             ->once()
-            ->with(Mockery::type(Enquiry::class));
+            ->with(\Mockery::type(Enquiry::class));
 
         (new SubmitEnquiryHandler($repo))($command);
     }

@@ -10,7 +10,6 @@ use App\Model\User\Role;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Xm\SymfonyBundle\Util\Tests\AggregateRepositoryFactory;
 
 class UserRepositoryTest extends BaseTestCase
@@ -21,7 +20,7 @@ class UserRepositoryTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $checksUniqueUsersEmail = Mockery::mock(ChecksUniqueUsersEmail::class);
+        $checksUniqueUsersEmail = \Mockery::mock(ChecksUniqueUsersEmail::class);
         $checksUniqueUsersEmail->shouldReceive('__invoke')
             ->andReturnNull();
 

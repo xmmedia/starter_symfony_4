@@ -9,7 +9,6 @@ use App\EventSubscriber\LoginLoggerSubscriber;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Command\UserLoginFailed;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -36,9 +35,9 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $method = LoginLoggerSubscriber::getSubscribedEvents()[InteractiveLoginEvent::class];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
-            ->with(Mockery::type(UserLoggedInSuccessfully::class))
+            ->with(\Mockery::type(UserLoggedInSuccessfully::class))
             ->andReturn(new Envelope(new \stdClass()));
 
         $request = Request::create(
@@ -52,13 +51,13 @@ class LoginLoggerSubscriberTest extends BaseTestCase
             ],
         );
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
         $user->shouldReceive('email')
             ->andReturn(Email::fromString('test@example.com'));
 
-        $token = Mockery::mock(TokenInterface::class);
+        $token = \Mockery::mock(TokenInterface::class);
         $token->shouldReceive('getUser')
             ->andReturn($user);
 
@@ -75,9 +74,9 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $method = LoginLoggerSubscriber::getSubscribedEvents()[LoginFailureEvent::class];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
-            ->with(Mockery::type(UserLoginFailed::class))
+            ->with(\Mockery::type(UserLoginFailed::class))
             ->andReturn(new Envelope(new \stdClass()));
 
         $request = Request::create(
@@ -92,7 +91,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
             ],
         );
 
-        $authenticator = Mockery::mock(AuthenticatorInterface::class);
+        $authenticator = \Mockery::mock(AuthenticatorInterface::class);
 
         $event = new LoginFailureEvent(
             new AuthenticationException(),

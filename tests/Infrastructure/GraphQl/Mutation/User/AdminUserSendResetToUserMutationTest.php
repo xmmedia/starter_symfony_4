@@ -10,7 +10,6 @@ use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -23,13 +22,13 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
         $faker = $this->faker();
         $userId = $faker->uuid();
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(InitiatePasswordRecovery::class))
+            ->with(\Mockery::type(InitiatePasswordRecovery::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
             ->andReturn($faker->userId());
@@ -37,10 +36,10 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
             ->once()
             ->andReturn(Email::fromString($faker->email()));
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
             ->once()
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
         $result = (new AdminUserSendResetToUserMutation(
@@ -56,12 +55,12 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
         $faker = $this->faker();
         $userId = $faker->uuid();
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
 
-        $userFinder = Mockery::mock(UserFinder::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
             ->once()
-            ->with(Mockery::type(UserId::class))
+            ->with(\Mockery::type(UserId::class))
             ->andReturnNull();
 
         $this->expectException(UserError::class);

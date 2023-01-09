@@ -7,7 +7,6 @@ namespace App\Tests\Projection\User;
 use App\Model\User\Event;
 use App\Projection\User\UserProjection;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Prooph\EventStore\Projection\ReadModelProjector;
 use Xm\SymfonyBundle\Tests\ProjectionWhenArgs;
 
@@ -34,7 +33,7 @@ class UserProjectionTest extends BaseTestCase
 
         $projection = new UserProjection();
 
-        $projector = Mockery::mock(ReadModelProjector::class);
+        $projector = \Mockery::mock(ReadModelProjector::class);
         $projector->shouldReceive('fromStream')
             ->once()
             ->with('user')

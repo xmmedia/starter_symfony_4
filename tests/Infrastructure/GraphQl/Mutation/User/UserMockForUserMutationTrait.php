@@ -23,7 +23,7 @@ trait UserMockForUserMutationTrait
     {
         $faker = $this->faker();
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('email')
             ->once()
             ->andReturn($faker->emailVo());
@@ -39,7 +39,7 @@ trait UserMockForUserMutationTrait
 
     private function createSecurity(bool $isGrantedResult): Security
     {
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isGranted')
             ->once()
             ->andReturn($isGrantedResult);
@@ -49,10 +49,10 @@ trait UserMockForUserMutationTrait
 
     private function getTokenValidator(User $user): TokenValidator
     {
-        $tokenValidator = Mockery::mock(TokenValidator::class);
+        $tokenValidator = \Mockery::mock(TokenValidator::class);
         $tokenValidator->shouldReceive('validate')
             ->once()
-            ->with(Mockery::type(Token::class))
+            ->with(\Mockery::type(Token::class))
             ->andReturn($user);
 
         return $tokenValidator;

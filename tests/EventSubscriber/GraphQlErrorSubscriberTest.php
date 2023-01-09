@@ -8,7 +8,6 @@ use App\EventSubscriber\GraphQlErrorSubscriber;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
 use GraphQL\Error\Error;
-use Mockery;
 use Overblog\GraphQLBundle\Event\ErrorFormattingEvent;
 use Overblog\GraphQLBundle\Event\Events;
 
@@ -33,7 +32,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $subscribed = GraphQlErrorSubscriber::getSubscribedEvents();
         $method = $subscribed[Events::ERROR_FORMATTING][0];
 
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
             ->andReturnFalse();
@@ -61,7 +60,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $subscribed = GraphQlErrorSubscriber::getSubscribedEvents();
         $method = $subscribed[Events::ERROR_FORMATTING][0];
 
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
             ->andReturnFalse();
@@ -87,7 +86,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $subscribed = GraphQlErrorSubscriber::getSubscribedEvents();
         $method = $subscribed[Events::ERROR_FORMATTING][0];
 
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
             ->andReturnTrue();
@@ -122,7 +121,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $subscribed = GraphQlErrorSubscriber::getSubscribedEvents();
         $method = $subscribed[Events::ERROR_FORMATTING][0];
 
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
             ->andReturnTrue();
@@ -154,7 +153,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $subscribed = GraphQlErrorSubscriber::getSubscribedEvents();
         $method = $subscribed[Events::ERROR_FORMATTING][0];
 
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
             ->andReturnTrue();
@@ -182,7 +181,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
         $subscribed = GraphQlErrorSubscriber::getSubscribedEvents();
         $method = $subscribed[Events::ERROR_FORMATTING][0];
 
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
             ->andReturnTrue();

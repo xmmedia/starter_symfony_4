@@ -9,7 +9,6 @@ use App\Infrastructure\GraphQl\Mutation\User\UserUpdateProfileMutation;
 use App\Model\User\Command\UpdateUserProfile;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -26,17 +25,17 @@ class UserUpdateProfileMutationTest extends BaseTestCase
             'lastName'  => $faker->name(),
         ];
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(UpdateUserProfile::class))
+            ->with(\Mockery::type(UpdateUserProfile::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $user = Mockery::mock(User::class);
+        $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
             ->once()
             ->andReturn($userId);
-        $security = Mockery::mock(Security::class);
+        $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->once()
             ->andReturn($user);

@@ -10,7 +10,6 @@ use App\Model\User\Name;
 use App\Model\User\Role;
 use App\ProcessManager\UserInviteProcessManager;
 use App\Tests\BaseTestCase;
-use Mockery;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -20,10 +19,10 @@ class UserInviteProcessManagerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
-            ->with(Mockery::type(SendActivation::class))
+            ->with(\Mockery::type(SendActivation::class))
             ->andReturn(new Envelope(new \stdClass()));
 
         $event = UserWasAddedByAdmin::now(
@@ -44,7 +43,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $commandBus = Mockery::mock(MessageBusInterface::class);
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldNotReceive('dispatch');
 
         $event = UserWasAddedByAdmin::now(

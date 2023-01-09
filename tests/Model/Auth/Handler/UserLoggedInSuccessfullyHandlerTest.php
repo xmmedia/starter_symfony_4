@@ -9,7 +9,6 @@ use App\Model\Auth\AuthList;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Handler\UserLoggedInSuccessfullyHandler;
 use App\Tests\BaseTestCase;
-use Mockery;
 
 class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
 {
@@ -31,10 +30,10 @@ class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
             $ipAddress,
         );
 
-        $repo = Mockery::mock(AuthList::class);
+        $repo = \Mockery::mock(AuthList::class);
         $repo->shouldReceive('save')
             ->once()
-            ->with(Mockery::type(Auth::class));
+            ->with(\Mockery::type(Auth::class));
 
         (new UserLoggedInSuccessfullyHandler($repo))($command);
     }
