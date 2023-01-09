@@ -4,8 +4,7 @@ module.exports = {
     mode: 'jit',
     content: [
         './templates/**/*.html.twig',
-        './public/js/src/**/*.vue',
-        './public/js/src/**/*.js',
+        './public/js/src/**/*.{vue,js}',
     ],
     safelist: [
         // vue transition classes: https://vuejs.org/v2/guide/transitions.html#Transition-Classes
