@@ -7,7 +7,6 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Model\User\UserId;
 use App\Security\PasswordHasher;
 use App\Util\Assert;

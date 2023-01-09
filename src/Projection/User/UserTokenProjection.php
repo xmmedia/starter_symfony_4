@@ -17,7 +17,7 @@ class UserTokenProjection implements ReadModelProjection
     {
         $projector->fromStream('user')
             ->when([
-                Event\InviteSent::class => function (
+                Event\InviteSent::class           => function (
                     array $state,
                     Event\InviteSent $event,
                 ): void {
@@ -36,7 +36,7 @@ class UserTokenProjection implements ReadModelProjection
                         ],
                     );
                 },
-                Event\TokenGenerated::class => function (
+                Event\TokenGenerated::class       => function (
                     array $state,
                     Event\TokenGenerated $event,
                 ): void {
@@ -76,7 +76,7 @@ class UserTokenProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserVerified::class => function (
+                Event\UserVerified::class         => function (
                     array $state,
                     Event\UserVerified $event,
                 ): void {
@@ -89,7 +89,7 @@ class UserTokenProjection implements ReadModelProjection
                     );
                 },
 
-                Event\ChangedPassword::class => function (
+                Event\ChangedPassword::class      => function (
                     array $state,
                     Event\ChangedPassword $event,
                 ): void {

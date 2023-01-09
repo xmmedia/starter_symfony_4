@@ -23,7 +23,7 @@ class RunProjectionMiddleware implements MiddlewareInterface
         'App\Model\Enquiry\Event' => [
             self::ENQUIRY,
         ],
-        'App\Model\User\Event' => [
+        'App\Model\User\Event'    => [
             self::USER,
             self::USER_TOKEN,
         ],

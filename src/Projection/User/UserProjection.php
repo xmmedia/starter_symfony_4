@@ -24,7 +24,7 @@ class UserProjection implements ReadModelProjection
 
         $projector->fromStream('user')
             ->when([
-                Event\UserWasAddedByAdmin::class => function (
+                Event\UserWasAddedByAdmin::class        => function (
                     array $state,
                     Event\UserWasAddedByAdmin $event,
                 ) use ($types): void {
@@ -65,7 +65,7 @@ class UserProjection implements ReadModelProjection
                     ], $types);
                 },
 
-                Event\UserWasUpdatedByAdmin::class => function (
+                Event\UserWasUpdatedByAdmin::class      => function (
                     array $state,
                     Event\UserWasUpdatedByAdmin $event,
                 ) use ($types): void {
@@ -85,7 +85,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\AdminChangedPassword::class => function (
+                Event\AdminChangedPassword::class       => function (
                     array $state,
                     Event\AdminChangedPassword $event,
                 ): void {
@@ -101,7 +101,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserVerifiedByAdmin::class => function (
+                Event\UserVerifiedByAdmin::class        => function (
                     array $state,
                     Event\UserVerifiedByAdmin $event,
                 ) use ($types): void {
@@ -118,7 +118,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserActivatedByAdmin::class => function (
+                Event\UserActivatedByAdmin::class       => function (
                     array $state,
                     Event\UserActivatedByAdmin $event,
                 ) use ($types): void {
@@ -135,7 +135,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserDeactivatedByAdmin::class => function (
+                Event\UserDeactivatedByAdmin::class     => function (
                     array $state,
                     Event\UserDeactivatedByAdmin $event,
                 ) use ($types): void {
@@ -152,7 +152,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserUpdatedProfile::class => function (
+                Event\UserUpdatedProfile::class         => function (
                     array $state,
                     Event\UserUpdatedProfile $event,
                 ): void {
@@ -170,7 +170,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\ChangedPassword::class => function (
+                Event\ChangedPassword::class            => function (
                     array $state,
                     Event\ChangedPassword $event,
                 ): void {
@@ -186,7 +186,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\PasswordUpgraded::class => function (
+                Event\PasswordUpgraded::class           => function (
                     array $state,
                     Event\PasswordUpgraded $event,
                 ): void {
@@ -202,7 +202,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserVerified::class => function (
+                Event\UserVerified::class               => function (
                     array $state,
                     Event\UserVerified $event,
                 ) use ($types): void {
@@ -219,7 +219,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserLoggedIn::class => function (
+                Event\UserLoggedIn::class               => function (
                     array $state,
                     Event\UserLoggedIn $event,
                 ): void {

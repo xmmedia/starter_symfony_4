@@ -6,7 +6,6 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Model\User\Command\AdminAddUser;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Model\User\UserId;
 use App\Security\PasswordHasher;
 use App\Security\TokenGenerator;
