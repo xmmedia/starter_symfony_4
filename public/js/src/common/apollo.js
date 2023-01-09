@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
+import { ApolloLink, split } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
+import { BatchHttpLink } from 'apollo-link-batch-http';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { getMainDefinition } from 'apollo-utilities';
 import VueApollo from 'vue-apollo';
 
 Vue.use(VueApollo);
@@ -36,9 +38,23 @@ const httpLink = createHttpLink({
     uri: window.location.origin+'/graphql',
 });
 
+const batchLink = new BatchHttpLink({
+    uri: window.location.origin+'/graphql/batch',
+});
+
+const link = split(
+    // split based on operation type
+    ({ query }) => {
+        const { kind, operation } = getMainDefinition(query)
+        return kind === 'OperationDefinition' && operation === 'subscription'
+    },
+    httpLink,
+    batchLink,
+);
+
 // Create the apollo client
 const apolloClient = new ApolloClient({
-    link: ApolloLink.from([errorLink, httpLink]),
+    link: ApolloLink.from([errorLink, link]),
     // Cache implementation
     cache: new InMemoryCache(),
     defaultOptions: {
