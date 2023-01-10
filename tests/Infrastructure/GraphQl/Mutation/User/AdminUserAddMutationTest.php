@@ -30,7 +30,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             'setPassword' => false,
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => 'ROLE_USER',
+            'role'        => Role::byValue('ROLE_USER'),
             'active'      => true,
             'sendInvite'  => true,
         ];
@@ -82,7 +82,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             'password'    => $faker->string(4097),
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => 'ROLE_USER',
+            'role'        => Role::byValue('ROLE_USER'),
             'active'      => true,
             'sendInvite'  => true,
         ];
@@ -112,7 +112,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             'password'    => $faker->password(),
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => 'ROLE_USER',
+            'role'        => Role::byValue('ROLE_USER'),
             'active'      => true,
             'sendInvite'  => true,
         ];

@@ -29,7 +29,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'setPassword' => false,
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => 'ROLE_USER',
+            'role'        => Role::byValue('ROLE_USER'),
         ];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
@@ -68,7 +68,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'password'    => $faker->password(),
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => 'ROLE_USER',
+            'role'        => Role::byValue('ROLE_USER'),
         ];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
@@ -117,7 +117,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'password'    => $faker->string(4097),
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => 'ROLE_USER',
+            'role'        => Role::byValue('ROLE_USER'),
         ];
 
         $args = new Argument([
