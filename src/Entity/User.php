@@ -45,7 +45,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $lastLogin = null;
 
-    #[ORM\Column(nullable: false, options: ['default' => 0])]
+    #[ORM\Column(options: ['default' => 0])]
     private int $loginCount = 0;
 
     #[ORM\Column(length: 50, nullable: true)]
