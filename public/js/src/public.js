@@ -8,8 +8,8 @@ import Vuelidate from 'vuelidate';
 // import apolloProvider from './common/apollo';
 // import * as filters from './common/filters';
 
-import formError from './common/form_error';
-import fieldError from './common/field_error';
+// import formError from './common/form_error';
+// import fieldError from './common/field_error';
 
 // SASS/CSS
 import '../../css/public.scss';
