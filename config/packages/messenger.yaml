@@ -17,6 +17,9 @@ framework:
                     - App\Messenger\RunProjectionMiddleware
                     - Xm\SymfonyBundle\Messenger\FailureCatcherMiddleware
 
+        # reset services after consuming messages
+        reset_on_message: true
+
         # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
         # failure_transport: failed
 
