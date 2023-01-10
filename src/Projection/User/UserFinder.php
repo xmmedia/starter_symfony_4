@@ -30,9 +30,9 @@ class UserFinder extends ServiceEntityRepository
     public function findByUserFilters(UserFilters $filters): array
     {
         $qb = $this->createQueryBuilder('u')
-            ->addOrderBy('u.email', 'ASC')
-            ->addOrderBy('u.firstName', 'ASC')
-            ->addOrderBy('u.lastName', 'ASC');
+            ->addOrderBy('u.email', \Doctrine\Common\Collections\Criteria::ASC)
+            ->addOrderBy('u.firstName', \Doctrine\Common\Collections\Criteria::ASC)
+            ->addOrderBy('u.lastName', \Doctrine\Common\Collections\Criteria::ASC);
 
         if ($filters->applied(UserFilters::EMAIL)) {
             $qb->andWhere('u.email LIKE :email')

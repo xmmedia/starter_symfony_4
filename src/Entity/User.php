@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
     #[ORM\Column]
     private bool $active = false;
 
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON)]
     private array $roles = [];
 
     #[ORM\Column(nullable: true)]
