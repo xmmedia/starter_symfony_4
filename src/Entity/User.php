@@ -196,7 +196,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
      *
      * @param User|UserInterface $user the user just loaded from the db
      */
-    public function isEqualTo(UserInterface $user): bool
+    public function isEqualTo(self|UserInterface $user): bool
     {
         if (!$user instanceof self) {
             return false;
