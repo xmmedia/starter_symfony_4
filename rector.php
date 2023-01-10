@@ -9,8 +9,8 @@ use Rector\Symfony\Set\SymfonySetList;
 
 return static function (RectorConfig $config): void {
     $config->paths([
-        __DIR__ . '/src',
-        __DIR__ . '/tests',
+        __DIR__.'/src',
+        __DIR__.'/tests',
     ]);
 
     // Define what rule sets will be applied
