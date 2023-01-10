@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\Doctrine\Set\DoctrineSetList;
-use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\Set\SymfonySetList;
 
@@ -24,5 +23,5 @@ return static function (RectorConfig $config): void {
     $config->import(SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES);
 
     // get services (needed for register a single rule)
-    $services = $config->services();
+    $config->services();
 };
