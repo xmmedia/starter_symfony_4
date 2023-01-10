@@ -40,19 +40,6 @@ class RoleTypeTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /**
-     * @dataProvider dateProvider
-     */
-    public function testParseLiteral($expected, ?string $value): void
-    {
-        $valueNode = new EnumValueNode([]);
-        $valueNode->value = $value;
-
-        $result = (new RoleType())->parseLiteral($valueNode);
-
-        $this->assertEquals($expected, $result);
-    }
-
     public function dateProvider(): \Generator
     {
         yield [
@@ -71,6 +58,32 @@ class RoleTypeTest extends TestCase
         ];
     }
 
+    /**
+     * @dataProvider dateProviderParseLiteral
+     */
+    public function testParseLiteral($expected, ?string $value): void
+    {
+        $valueNode = new EnumValueNode([]);
+        $valueNode->value = $value;
+
+        $result = (new RoleType())->parseLiteral($valueNode);
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function dateProviderParseLiteral(): \Generator
+    {
+        yield [
+            Role::ROLE_USER(),
+            'ROLE_USER',
+        ];
+
+        yield [
+            'ROLE_USER',
+            'ROLE_USER',
+        ];
+    }
+
     public function testParseLiteralNotEnum(): void
     {
         $valueNode = new FieldNode([]);
@@ -85,13 +98,6 @@ class RoleTypeTest extends TestCase
         $this->expectException(\Exception::class);
 
         (new RoleType())->parseValue('asdf');
-    }
-
-    public function testParseLiteralNotStringValueNode(): void
-    {
-        $result = (new RoleType())->parseLiteral(new EnumValueNode([]));
-
-        $this->assertNull($result);
     }
 
     public function testAliases(): void
