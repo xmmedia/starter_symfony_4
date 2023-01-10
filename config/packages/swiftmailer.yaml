@@ -3,3 +3,18 @@ swiftmailer:
     spool:
         type: file
         path: '%kernel.project_dir%/var/mail_spool'
+
+when@dev:
+    # See https://symfony.com/doc/current/email/dev_environment.html
+    swiftmailer:
+        delivery_address:   '%env(DEV_EMAIL)%'
+        delivery_whitelist: '%email.whitelist%'
+
+when@test:
+    swiftmailer:
+        # change the spool as disabling delivery doesn't stop spooling to a file
+        spool: { type: memory }
+        disable_delivery: true
+#        delivery_address: admin@xmmedia.com
+#        delivery_whitelist:
+#            - '/@xmmedia\.com$/'

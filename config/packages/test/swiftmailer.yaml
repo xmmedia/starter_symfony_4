@@ -1,7 +1,0 @@
-swiftmailer:
-    # change the spool as disabling delivery doesn't stop spooling to a file
-    spool: { type: memory }
-    disable_delivery: true
-#    delivery_address: admin@xmmedia.com
-#    delivery_whitelist:
-#        - '/@xmmedia\.com$/'
