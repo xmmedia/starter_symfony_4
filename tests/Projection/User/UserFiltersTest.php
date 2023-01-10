@@ -54,10 +54,6 @@ class UserFiltersTest extends BaseTestCase
 
     public function testFromArrayEmpty(): void
     {
-        $faker = $this->faker();
-
-        $email = $faker->email();
-
         $filters = UserFilters::fromArray([]);
 
         foreach ($this->fields as $field) {
