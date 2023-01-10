@@ -37,6 +37,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
+            ->once()
             ->with(\Mockery::type(UserLoggedInSuccessfully::class))
             ->andReturn(new Envelope(new \stdClass()));
 
@@ -53,8 +54,10 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
+            ->once()
             ->andReturn($faker->userId());
         $user->shouldReceive('email')
+            ->once()
             ->andReturn(Email::fromString('test@example.com'));
 
         $token = \Mockery::mock(TokenInterface::class);
@@ -76,6 +79,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
+            ->once()
             ->with(\Mockery::type(UserLoginFailed::class))
             ->andReturn(new Envelope(new \stdClass()));
 
