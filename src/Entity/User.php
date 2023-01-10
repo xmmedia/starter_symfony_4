@@ -183,7 +183,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
             Role::ROLE_ADMIN()->getValue(),
             Role::ROLE_SUPER_ADMIN()->getValue(),
         ];
-        if (\count(array_intersect($adminRoles, $this->roles)) > 0) {
+        if (\count(array_intersect($adminRoles, $this->roles())) > 0) {
             return 'harsh';
         }
 
@@ -224,8 +224,8 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
         }
 
         // check if roles have changed
-        $currentRoles = array_map('strval', (array) $this->roles());
-        $newRoles = array_map('strval', (array) $user->roles());
+        $currentRoles = array_map('strval', $this->roles());
+        $newRoles = array_map('strval', $user->roles());
         $rolesChanged = \count($currentRoles) !== \count($newRoles) || \count($currentRoles) !== \count(array_intersect($currentRoles, $newRoles));
         if ($rolesChanged) {
             return false;
