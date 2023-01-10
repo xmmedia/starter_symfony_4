@@ -8,13 +8,11 @@ use App\Model\User\Command\GenerateUserToken;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 use App\Security\TokenGeneratorInterface;
-use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 
 class GenerateUserTokenHandler
 {
     public function __construct(
         private UserList $userRepo,
-        private EmailGatewayInterface $emailGateway,
         private TokenGeneratorInterface $tokenGenerator,
     ) {
     }
