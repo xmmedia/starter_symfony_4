@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <div>
         <template v-if="state.matches('ready')">
             <button v-if="verified"
                     :disabled="!allow"
@@ -31,7 +31,7 @@
         <div v-if="state.matches('verified')" class="form-action">
             Verified
         </div>
-    </span>
+    </div>
 </template>
 
 <script>
