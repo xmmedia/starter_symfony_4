@@ -28,9 +28,6 @@ public/service-worker.js
 !/var/sessions
 /var/sessions/
 !var/sessions/.gitkeep
-!/var/mail_spool
-/var/mail_spool/
-!var/mail_spool/.gitkeep
 !/var/uploads
 /var/uploads/
 !var/uploads/.gitkeep
