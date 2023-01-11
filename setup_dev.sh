@@ -18,7 +18,7 @@ SHARED="$BASE/shared"
 printf "Current:  ${PWD}\nRoot:     ${BASE}\nReleases: ${RELEASES}\nRelease:  ${RELEASE}\nShared:   ${SHARED}\n\n"
 
 PHP_VERSION=$(php -v|grep --only-matching --perl-regexp "(PHP )\d+\.\\d+\.\\d+"|cut -c 5-7)
-PHP_MINIMUM_VERSION=8.0
+PHP_MINIMUM_VERSION=8.1
 printf "Current PHP version: ${PHP_VERSION}\nMinimum PHP version: ${PHP_MINIMUM_VERSION}\n"
 if [ $(echo "$PHP_VERSION >= $PHP_MINIMUM_VERSION" | bc) -eq 0 ]; then
     echo "************"
@@ -61,9 +61,9 @@ printf "\n\n"
 
 if [ $(echo "$PHP_VERSION >= $PHP_MINIMUM_VERSION" | bc) -eq 0 ]; then
     echo "Switching PHP version to ${PHP_MINIMUM_VERSION}"
-    printf "\nsource /opt/remi/php80/enable" >> ~/.zshrc
-    printf "\nsource /opt/remi/php80/enable" >> ~/.bashrc
-    source /opt/remi/php80/enable
+    printf "\nsource /opt/remi/php81/enable" >> ~/.zshrc
+    printf "\nsource /opt/remi/php81/enable" >> ~/.bashrc
+    source /opt/remi/php81/enable
     php -v
 fi
 

@@ -1,5 +1,5 @@
 default:
-  image: xmmedia/php:8.0-cli
+  image: xmmedia/php:8.1-cli
   timeout: 15m
 
 stages:
@@ -15,7 +15,7 @@ cache:
     - node_modules/
 
 variables:
-  SERVER_PHP_PATH: php80
+  SERVER_PHP_PATH: php81
   APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
@@ -77,7 +77,7 @@ before_script:
   # run composer post update cmds on server
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current && rm -rf var/cache/$APP_ENV/* || true && $SERVER_PHP_PATH composer.phar run-script post-update-cmd"
   # reload php-fpm (to reset cache)
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "sudo /bin/systemctl reload php80-php-fpm"
+  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "sudo /bin/systemctl reload php81-php-fpm"
   # run migrations
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; $SERVER_PHP_PATH bin/console doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration"
   # run all projections (with 2GB memory)
