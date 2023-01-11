@@ -1,0 +1,15 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+
+when@dev:
+    framework:
+        mailer:
+            envelope:
+                # see https://symfony.com/doc/5.4/mailer.html#always-send-to-the-same-address
+                recipients: ['%env(DEV_EMAIL)%']
+
+when@test:
+    framework:
+        mailer:
+            dsn: 'null://null'

@@ -63,9 +63,9 @@ when@prod:
                 handler: buffered
             buffered:
                 type:    buffer
-                handler: swift
-            swift:
-                type:         swift_mailer
+                handler: symfony_mailer
+            symfony_mailer:
+                type:         symfony_mailer
                 from_email:   '%env(FROM_EMAIL)%'
                 to_email:     '%env(ERROR_EMAIL)%'
                 # @todo-symfony
