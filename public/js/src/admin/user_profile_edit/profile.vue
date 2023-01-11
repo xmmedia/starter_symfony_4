@@ -160,7 +160,7 @@ export default {
                     },
                 });
 
-                this.$store.dispatch('updateUser', {
+                await this.$store.dispatch('updateUser', {
                     ...data,
                     name: this.firstName + ' ' + this.lastName,
                 });
