@@ -9,7 +9,7 @@ export const formatPhone = function (phone, format = 'NATIONAL') {
         return;
     }
 
-    let str = phone.phoneNumber;
+    let str = phone.phone.number();
     if (phone.extension) {
         str += ' x'+phone.extension;
     }
