@@ -1,66 +1,66 @@
 controllers:
     resource: ../src/Controller/
-    type: attribute
+    type:     attribute
 
 kernel:
     resource: ../src/Kernel.php
-    type: attribute
+    type:     attribute
 
 #public_default:
-#    path: /public{path}
+#    path:       /public{path}
 #    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
 #    defaults:
 #        template: public.html.twig
-#    methods: [GET]
+#    methods: [ GET ]
 #    requirements:
 #        path: '.*'
 
 # @todo-symfony remove if not using
 contact:
-    path: /contact
+    path:       /contact
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
         template: contact/index.html.twig
-    methods: [GET]
+    methods: [ GET ]
 
 admin_default:
-    path: /admin{path}
+    path:       /admin{path}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
-        path: ''
+        path:     ''
         template: admin.html.twig
-    methods: [GET]
+    methods: [ GET ]
     requirements:
         path: '.*'
 
 user_profile:
-    path: /profile{path}
+    path:       /profile{path}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
         template: admin.html.twig
-    methods: [GET]
+    methods: [ GET ]
     requirements:
         path: '.*'
 
 user_verify:
-    path: /activate/{token}
+    path:       /activate/{token}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
         template: admin.html.twig
-    methods: [GET]
+    methods: [ GET ]
 
 user_reset:
-    path: /recover/reset/{token}
+    path:       /recover/reset/{token}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
         template: admin.html.twig
-    methods: [GET]
+    methods: [ GET ]
 
 user_recover:
-    path: /recover{path}
+    path:       /recover{path}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
         template: admin.html.twig
-    methods: [GET]
+    methods: [ GET ]
     requirements:
         path: '.*'
