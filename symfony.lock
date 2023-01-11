@@ -460,9 +460,6 @@
     "sebastian/version": {
         "version": "2.0.1"
     },
-    "symfony/amqp-messenger": {
-        "version": "v5.1.3"
-    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {
@@ -525,9 +522,6 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.1.6"
-    },
-    "symfony/doctrine-messenger": {
-        "version": "v5.1.3"
     },
     "symfony/dom-crawler": {
         "version": "v4.1.6"
@@ -710,9 +704,6 @@
     "symfony/proxy-manager-bridge": {
         "version": "v5.2.1"
     },
-    "symfony/redis-messenger": {
-        "version": "v5.1.3"
-    },
     "symfony/routing": {
         "version": "5.4",
         "recipe": {
@@ -745,9 +736,6 @@
         "version": "v5.0.5"
     },
     "symfony/security-csrf": {
-        "version": "v5.0.5"
-    },
-    "symfony/security-guard": {
         "version": "v5.0.5"
     },
     "symfony/security-http": {
