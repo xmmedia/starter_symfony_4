@@ -48,6 +48,7 @@
         "symfony/serializer": "*",
         "symfony/string": "*",
         "symfony/templating": "*",
+        "symfony/translation": "*",
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
