@@ -19,7 +19,7 @@ return static function (RectorConfig $config): void {
     // Symfony rules: https://github.com/rectorphp/rector-symfony/blob/main/docs/rector_rules_overview.md
     $config->import(DoctrineSetList::DOCTRINE_CODE_QUALITY);
     $config->import(DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES);
-    $config->import(SymfonySetList::SYMFONY_60);
+    $config->import(SymfonySetList::SYMFONY_62);
     $config->import(SymfonySetList::SYMFONY_CODE_QUALITY);
     $config->import(SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION);
     $config->import(SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES);
