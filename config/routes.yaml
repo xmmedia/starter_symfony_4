@@ -4,12 +4,6 @@ controllers:
         namespace: App\Controller
     type:     attribute
 
-kernel:
-    resource:
-        path: ../src/Kernel.php
-        namespace: App
-    type:     attribute
-
 #public_default:
 #    path:       /public{path}
 #    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
