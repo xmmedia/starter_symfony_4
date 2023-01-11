@@ -7,6 +7,7 @@ namespace App\Security;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class Security
 {
@@ -14,7 +15,7 @@ class Security
     {
     }
 
-    public function getUser(): ?User
+    public function getUser(): User|UserInterface|null
     {
         return $this->security->getUser();
     }
