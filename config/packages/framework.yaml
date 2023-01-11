@@ -4,6 +4,7 @@ framework:
     #default_locale: en
     #csrf_protection: true
     http_method_override: false
+    handle_all_throwables: true
     # @todo-symfony uncomment if it's a private only site
     # don't allow indexing no matter the env
     #disallow_search_engine_index: true
