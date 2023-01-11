@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Mockery;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class UserProviderTest extends BaseTestCase
 {
@@ -45,7 +45,7 @@ class UserProviderTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $user = \Mockery::mock(UserInterface::class);
+        $user = \Mockery::mock(PasswordAuthenticatedUserInterface::class);
 
         $this->commandBus->shouldNotReceive('dispatch');
 
