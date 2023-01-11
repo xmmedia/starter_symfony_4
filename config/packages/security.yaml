@@ -13,26 +13,26 @@ security:
     # https://symfony.com/doc/current/security.html#c-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-            algorithm: 'auto'
+            algorithm:   'auto'
             # values below are meant to take ~2 seconds on 4 core machine
             # use the app:security:password-encode-test to determine what this should be
             # maximum memory (in KiB) that may be used to compute the Argon2 hash
             memory_cost: 128000
             #  number of times the Argon2 hash algorithm will be run
-            time_cost: 10
+            time_cost:   10
         harsh:
-            algorithm: 'auto'
+            algorithm:   'auto'
             memory_cost: 128000
-            time_cost: 15
+            time_cost:   15
 
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            lazy: true
+            lazy:         true
             form_login:
-                check_path: app_login
+                check_path:          app_login
                 # @todo-symfony
                 default_target_path: admin_default
                 # CSRF validation is done in CsrfValidationSubscriber
@@ -70,7 +70,7 @@ when@test:
             # are not important, waste resources and increase test times. The following
             # reduces the work factor to the lowest possible values.
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-                algorithm: auto
-                cost: 4 # Lowest possible value for bcrypt
-                time_cost: 3 # Lowest possible value for argon
+                algorithm:   auto
+                cost:        4 # Lowest possible value for bcrypt
+                time_cost:   3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon

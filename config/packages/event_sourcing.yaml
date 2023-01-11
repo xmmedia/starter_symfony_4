@@ -17,6 +17,6 @@ xm_symfony:
             stream_name:          'user'
 
 services:
-    App\Model\Auth\AuthList: '@auth_list'
+    App\Model\Auth\AuthList:       '@auth_list'
     App\Model\Enquiry\EnquiryList: '@enquiry_list'
-    App\Model\User\UserList: '@user_list'
+    App\Model\User\UserList:       '@user_list'

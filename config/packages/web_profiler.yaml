@@ -1,17 +1,17 @@
 when@dev:
     web_profiler:
-        toolbar: true
+        toolbar:             true
         intercept_redirects: false
         excluded_ajax_paths: '^/(sockjs\-node|dev\-server|((index|app(_[\w]+)?)\.php/)?_wdt)'
 
     framework:
         profiler:
-            only_exceptions: false
+            only_exceptions:         false
             collect_serializer_data: true
 
 when@test:
     web_profiler:
-        toolbar: false
+        toolbar:             false
         intercept_redirects: false
 
     framework:

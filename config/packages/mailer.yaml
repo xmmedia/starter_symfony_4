@@ -11,7 +11,7 @@ when@dev:
         mailer:
             envelope:
                 # see https://symfony.com/doc/5.4/mailer.html#always-send-to-the-same-address
-                recipients: ['%env(DEV_EMAIL)%']
+                recipients: [ '%env(DEV_EMAIL)%' ]
 
 when@test:
     framework:

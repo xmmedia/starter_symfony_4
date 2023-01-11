@@ -1,9 +1,9 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
-    secret: '%env(APP_SECRET)%'
+    secret:                '%env(APP_SECRET)%'
     #default_locale: en
     #csrf_protection: true
-    http_method_override: false
+    http_method_override:  false
     handle_all_throwables: true
     # @todo-symfony uncomment if it's a private only site
     # don't allow indexing no matter the env
@@ -12,13 +12,13 @@ framework:
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     session:
-        storage_factory_id: session.storage.factory.native
-        save_path: '%kernel.project_dir%/var/sessions'
-        cookie_secure: auto
-        cookie_samesite: lax
+        storage_factory_id:     session.storage.factory.native
+        save_path:              '%kernel.project_dir%/var/sessions'
+        cookie_secure:          auto
+        cookie_samesite:        lax
         # configures the length of the string used for the session ID
         # integer; default = 32; valid values = from 22 to 256 (both inclusive)
-        sid_length: 128
+        sid_length:             128
         # configures the number of bits in encoded session ID character
         # integer; default = 4; valid values: 4, 5, or 6.
         sid_bits_per_character: 6
@@ -40,4 +40,4 @@ when@test:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
-            name: MOCKSESSID
+            name:               MOCKSESSID

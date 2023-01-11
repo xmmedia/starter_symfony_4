@@ -4,10 +4,10 @@ services:
     app.event_store.default:
         class: Prooph\EventStore\Pdo\MySqlEventStore
         arguments:
-            $messageFactory: '@prooph_event_store.message_factory'
-            $connection: '@app.pdo_connection'
+            $messageFactory:      '@prooph_event_store.message_factory'
+            $connection:          '@app.pdo_connection'
             $persistenceStrategy: '@Xm\SymfonyBundle\EventStore\PersistenceStrategy\StreamStrategy'
 
     app.pdo_connection:
-        class: PDO
+        class:   PDO
         factory: '@Xm\SymfonyBundle\Doctrine\PdoProvider'
