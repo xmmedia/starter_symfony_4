@@ -23,7 +23,7 @@ class Security
      * @param mixed $attributes
      * @param mixed $subject
      */
-    public function isGranted($attributes, $subject = null): bool
+    public function isGranted(mixed $attributes, mixed $subject = null): bool
     {
         return $this->security->isGranted($attributes, $subject);
     }
