@@ -19,10 +19,6 @@ class Security
         return $this->security->getUser();
     }
 
-    /**
-     * @param mixed $attributes
-     * @param mixed $subject
-     */
     public function isGranted(mixed $attributes, mixed $subject = null): bool
     {
         return $this->security->isGranted($attributes, $subject);
