@@ -5,7 +5,9 @@ when@dev:
         excluded_ajax_paths: '^/(sockjs\-node|dev\-server|((index|app(_[\w]+)?)\.php/)?_wdt)'
 
     framework:
-        profiler: { only_exceptions: false }
+        profiler:
+            only_exceptions: false
+            collect_serializer_data: true
 
 when@test:
     web_profiler:
