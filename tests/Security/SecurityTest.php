@@ -14,7 +14,7 @@ class SecurityTest extends BaseTestCase
     public function testGetUser(): void
     {
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('getUser')
             ->once()
@@ -29,7 +29,7 @@ class SecurityTest extends BaseTestCase
     public function testGetUserNoUser(): void
     {
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('getUser')
             ->once()
@@ -47,7 +47,7 @@ class SecurityTest extends BaseTestCase
         $subject = \Mockery::mock(User::class);
 
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('isGranted')
             ->once()
@@ -64,7 +64,7 @@ class SecurityTest extends BaseTestCase
         $attribute = 'test';
 
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('isGranted')
             ->once()
@@ -79,7 +79,7 @@ class SecurityTest extends BaseTestCase
     public function testIsLoggedInNoToken(): void
     {
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('getToken')
             ->once()
@@ -93,7 +93,7 @@ class SecurityTest extends BaseTestCase
     public function testIsLoggedInTrue(): void
     {
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('getToken')
             ->once()
@@ -111,7 +111,7 @@ class SecurityTest extends BaseTestCase
     public function testIsLoggedInFalse(): void
     {
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('getToken')
             ->once()
@@ -129,7 +129,7 @@ class SecurityTest extends BaseTestCase
     public function testHasAdminRoleTrue(): void
     {
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('isGranted')
             ->once()
@@ -144,7 +144,7 @@ class SecurityTest extends BaseTestCase
     public function testHasAdminRoleFalse(): void
     {
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('isGranted')
             ->once()
@@ -159,7 +159,7 @@ class SecurityTest extends BaseTestCase
     public function testGetToken(): void
     {
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('getToken')
             ->once()
@@ -174,7 +174,7 @@ class SecurityTest extends BaseTestCase
     public function testGetTokenNoToken(): void
     {
         $symfonySecurity = \Mockery::mock(
-            \Symfony\Component\Security\Core\Security::class,
+            \Symfony\Bundle\SecurityBundle\Security::class,
         );
         $symfonySecurity->shouldReceive('getToken')
             ->once()
