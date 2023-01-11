@@ -79,11 +79,6 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
         return $this->email()->toString();
     }
 
-    public function getUsername(): string
-    {
-        return $this->getUserIdentifier();
-    }
-
     public function password(): string
     {
         return $this->password;
