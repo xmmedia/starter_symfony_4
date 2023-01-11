@@ -12,8 +12,8 @@ use Xm\SymfonyBundle\Model\NotificationGatewayId;
 
 class PasswordRecoverySent extends AggregateChanged
 {
-    private Token $token;
-    private NotificationGatewayId $messageId;
+    private readonly Token $token;
+    private readonly NotificationGatewayId $messageId;
 
     public static function now(
         UserId $userId,

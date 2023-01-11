@@ -10,9 +10,9 @@ use Xm\SymfonyBundle\Model\Email;
 
 class EnquiryWasSubmitted extends AggregateChanged
 {
-    private string $name;
-    private Email $email;
-    private string $message;
+    private readonly string $name;
+    private readonly Email $email;
+    private readonly string $message;
 
     public static function now(
         EnquiryId $enquiryId,

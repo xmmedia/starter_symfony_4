@@ -11,9 +11,9 @@ use Xm\SymfonyBundle\Model\Email;
 
 class UserUpdatedProfile extends AggregateChanged
 {
-    private Email $email;
-    private Name $firstName;
-    private Name $lastName;
+    private readonly Email $email;
+    private readonly Name $firstName;
+    private readonly Name $lastName;
 
     public static function now(
         UserId $userId,
