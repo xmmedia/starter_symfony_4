@@ -61,7 +61,7 @@ class RoleTypeTest extends TestCase
     /**
      * @dataProvider dateProviderParseLiteral
      */
-    public function testParseLiteral($expected, ?string $value): void
+    public function testParseLiteral(Role|string $expected, ?string $value): void
     {
         $valueNode = new EnumValueNode([]);
         $valueNode->value = $value;

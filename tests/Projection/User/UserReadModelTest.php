@@ -16,7 +16,7 @@ class UserReadModelTest extends BaseTestCase
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('executeQuery')
             ->twice()
-            ->withArgs(function (string $sql) {
+            ->withArgs(function (string $sql): bool {
                 return (bool) strpos($sql, '`user`');
             });
 
@@ -103,7 +103,7 @@ class UserReadModelTest extends BaseTestCase
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('prepare')
             ->once()
-            ->withArgs(function (string $sql) {
+            ->withArgs(function (string $sql): bool {
                 return (bool) strpos($sql, '`user`');
             })
             ->andReturn($statement);

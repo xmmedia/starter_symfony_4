@@ -30,7 +30,7 @@ class UserTokenProjectionTest extends BaseTestCase
             ->andReturnSelf();
 
         $projector->shouldReceive('when')
-            ->withArgs(function ($eventHandlers) use ($projectedEvents) {
+            ->withArgs(function ($eventHandlers) use ($projectedEvents): bool {
                 if (!\is_array($eventHandlers)) {
                     return false;
                 }

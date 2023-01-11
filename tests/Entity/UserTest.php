@@ -234,7 +234,7 @@ class UserTest extends BaseTestCase
     /**
      * @dataProvider roleProvider
      */
-    public function testEncoder(string $role, $expected): void
+    public function testEncoder(string $role, ?string $expected): void
     {
         $user = new User();
         $reflection = new \ReflectionClass(User::class);

@@ -51,7 +51,7 @@ final class AddUserCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addOption(
                 self::SEND_INVITE,

@@ -9,7 +9,7 @@ use App\Tests\BaseTestCase;
 
 class UserFiltersTest extends BaseTestCase
 {
-    private $fields = [
+    private array $fields = [
         UserFilters::ACTIVE,
         UserFilters::EMAIL,
         UserFilters::EMAIL_EXACT,
