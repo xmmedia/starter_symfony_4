@@ -9,6 +9,7 @@ use App\Model\User\Command\UpgradePassword;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -25,10 +26,10 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     }
 
     /**
-     * @param User|UserInterface $user
+     * @param User|PasswordAuthenticatedUserInterface $user
      */
     public function upgradePassword(
-        UserInterface $user,
+        PasswordAuthenticatedUserInterface $user,
         string $newHashedPassword,
     ): void {
         if (!$user instanceof User) {
