@@ -1,6 +1,10 @@
 framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: '%env(FROM_EMAIL)%'
+        headers:
+            From: '%env(FROM_EMAIL_NAME)% <%env(FROM_EMAIL)%>'
 
 when@dev:
     framework:
