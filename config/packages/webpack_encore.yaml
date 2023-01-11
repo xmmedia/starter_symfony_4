@@ -41,6 +41,10 @@ when@prod:
         # Available in version 1.2
         cache: true
 
+when@dev:
+    webpack_encore:
+        strict_mode: true
+
 when@test:
     webpack_encore:
         strict_mode: false
