@@ -57,7 +57,7 @@
         "twig/extra-bundle": "^3.0",
         "twig/twig": "^3.5",
         "webmozart/assert": "^1.3",
-        "xm/symfony-bundle": "^1.0"
+        "xm/symfony-bundle": "^2.0"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5cc595757505deef98c364c820fde758",
+    "content-hash": "bb57056c87c8837c2b3120609c0a41f9",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3112,6 +3112,65 @@
             "time": "2021-10-02T14:08:47+00:00"
         },
         {
+            "name": "phpstan/phpstan",
+            "version": "1.9.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/60f3d68481eef216199eae7a2603cd5fe124d464",
+                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan-shim": "*"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/phpstan/phpstan/issues",
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.11"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/phpstan",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-01-12T14:04:13+00:00"
+        },
+        {
             "name": "prooph/common",
             "version": "v4.5.2",
             "source": {
@@ -4281,6 +4340,62 @@
                 }
             ],
             "time": "2022-12-20T23:38:28+00:00"
+        },
+        {
+            "name": "rector/rector",
+            "version": "0.15.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rectorphp/rector.git",
+                "reference": "1dcdf54ebf502d9f7cf9b5f89df613da1774d050"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/1dcdf54ebf502d9f7cf9b5f89df613da1774d050",
+                "reference": "1dcdf54ebf502d9f7cf9b5f89df613da1774d050",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0",
+                "phpstan/phpstan": "^1.9.7"
+            },
+            "conflict": {
+                "rector/rector-doctrine": "*",
+                "rector/rector-downgrade-php": "*",
+                "rector/rector-php-parser": "*",
+                "rector/rector-phpunit": "*",
+                "rector/rector-symfony": "*"
+            },
+            "bin": [
+                "bin/rector"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "0.14-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
+            "support": {
+                "issues": "https://github.com/rectorphp/rector/issues",
+                "source": "https://github.com/rectorphp/rector/tree/0.15.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-10T11:09:49+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -10311,16 +10426,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v1.0.138",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "18d48f9a800c011be80b0b2e5c4f30e7e45c7aee"
+                "reference": "dd7537d8eed5826b4554236d1ea1ec95689d7579"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/18d48f9a800c011be80b0b2e5c4f30e7e45c7aee",
-                "reference": "18d48f9a800c011be80b0b2e5c4f30e7e45c7aee",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/dd7537d8eed5826b4554236d1ea1ec95689d7579",
+                "reference": "dd7537d8eed5826b4554236d1ea1ec95689d7579",
                 "shasum": ""
             },
             "require": {
@@ -10335,32 +10450,35 @@
                 "moneyphp/money": "^3.2 || ^4.0",
                 "nesbot/carbon": "^2.24",
                 "odolbeau/phone-number-bundle": "^3.0",
-                "overblog/graphql-bundle": "^0.12.3 || ^0.13.0 || ^0.14.0 || ^0.15.0",
-                "php": "^7.3 || ^8.0",
+                "overblog/graphql-bundle": "^0.15.0",
+                "php": "^8.1",
                 "prooph/event-store-bus-bridge": "^3.3",
-                "prooph/event-store-symfony-bundle": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0",
+                "prooph/event-store-symfony-bundle": "^0.10.0",
                 "prooph/pdo-event-store": "^1.11",
                 "ramsey/collection": "^1.1",
-                "ramsey/uuid": "^3.7.3 || ^4.0",
+                "ramsey/uuid": "^4.0",
                 "ramsey/uuid-doctrine": "^1.5 || ^2.0",
-                "symfony/form": "^4.4 || ^5.0 || ^6.0",
-                "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
-                "symfony/http-client": "^4.4 || ^5.0 || ^6.0",
-                "symfony/messenger": "^4.4 || ^5.0 || ^6.0",
-                "symfony/security-bundle": "^4.4 || ^5.0 || ^6.0",
-                "symfony/validator": "^4.4 || ^5.0 || ^6.0",
+                "rector/rector": "^0.15",
+                "symfony/form": "^6.2",
+                "symfony/framework-bundle": "^6.2",
+                "symfony/http-client": "^6.2",
+                "symfony/messenger": "^6.2",
+                "symfony/security-bundle": "^6.2",
+                "symfony/validator": "^6.2",
                 "symfony/webpack-encore-bundle": "^1.0",
                 "wildbit/postmark-php": "^2.8 || ^3.0 || ^4.0"
             },
             "require-dev": {
+                "ekino/phpstan-banned-code": "^1.0",
                 "fakerphp/faker": "^1.8",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "mockery/mockery": "^1.2",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-deprecation-rules": "^0.12",
-                "phpstan/phpstan-mockery": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpstan/phpstan-webmozart-assert": "^0.12",
+                "phpstan/phpstan": "^1.0",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-mockery": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpstan/phpstan-symfony": "^1.0",
+                "phpstan/phpstan-webmozart-assert": "^1.0",
                 "phpunit/phpunit": "^9.0",
                 "symfony/debug-pack": "^1.0.0",
                 "symfony/maker-bundle": "^1.0",
@@ -10390,9 +10508,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v1.0.138"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.1"
             },
-            "time": "2023-01-12T16:22:04+00:00"
+            "time": "2023-01-12T18:14:46+00:00"
         }
     ],
     "packages-dev": [
@@ -11785,65 +11903,6 @@
             "time": "2022-02-21T01:04:05+00:00"
         },
         {
-            "name": "phpstan/phpstan",
-            "version": "1.9.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/60f3d68481eef216199eae7a2603cd5fe124d464",
-                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0"
-            },
-            "conflict": {
-                "phpstan/phpstan-shim": "*"
-            },
-            "bin": [
-                "phpstan",
-                "phpstan.phar"
-            ],
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "PHPStan - PHP Static Analysis Tool",
-            "keywords": [
-                "dev",
-                "static analysis"
-            ],
-            "support": {
-                "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.11"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/ondrejmirtes",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/phpstan",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-01-12T14:04:13+00:00"
-        },
-        {
             "name": "phpstan/phpstan-deprecation-rules",
             "version": "1.1.1",
             "source": {
@@ -12533,62 +12592,6 @@
                 }
             ],
             "time": "2022-12-09T07:31:23+00:00"
-        },
-        {
-            "name": "rector/rector",
-            "version": "0.15.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rectorphp/rector.git",
-                "reference": "1dcdf54ebf502d9f7cf9b5f89df613da1774d050"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/1dcdf54ebf502d9f7cf9b5f89df613da1774d050",
-                "reference": "1dcdf54ebf502d9f7cf9b5f89df613da1774d050",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.9.7"
-            },
-            "conflict": {
-                "rector/rector-doctrine": "*",
-                "rector/rector-downgrade-php": "*",
-                "rector/rector-php-parser": "*",
-                "rector/rector-phpunit": "*",
-                "rector/rector-symfony": "*"
-            },
-            "bin": [
-                "bin/rector"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "0.14-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
-            "support": {
-                "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.15.4"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/tomasvotruba",
-                    "type": "github"
-                }
-            ],
-            "time": "2023-01-10T11:09:49+00:00"
         },
         {
             "name": "sebastian/cli-parser",
