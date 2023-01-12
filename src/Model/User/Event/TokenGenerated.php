@@ -10,7 +10,7 @@ use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
 class TokenGenerated extends AggregateChanged
 {
-    private readonly Token $token;
+    private Token $token;
 
     public static function now(UserId $userId, Token $token): self
     {

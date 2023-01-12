@@ -9,7 +9,7 @@ use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
 class PasswordUpgraded extends AggregateChanged
 {
-    private readonly string $hashedPassword;
+    private string $hashedPassword;
 
     public static function now(UserId $userId, string $hashedPassword): self
     {

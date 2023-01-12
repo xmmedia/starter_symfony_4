@@ -11,10 +11,10 @@ use Xm\SymfonyBundle\Model\Email;
 
 class UserLoggedIn extends AggregateChanged
 {
-    private readonly UserId $userId;
-    private readonly Email $email;
-    private readonly string $userAgent;
-    private readonly string $ipAddress;
+    private UserId $userId;
+    private Email $email;
+    private string $userAgent;
+    private string $ipAddress;
 
     public static function now(
         AuthId $authId,

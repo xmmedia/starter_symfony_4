@@ -9,10 +9,10 @@ use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
 class UserFailedToLogin extends AggregateChanged
 {
-    private readonly ?string $email;
-    private readonly ?string $userAgent;
-    private readonly string $ipAddress;
-    private readonly ?string $exceptionMessage;
+    private ?string $email;
+    private ?string $userAgent;
+    private string $ipAddress;
+    private ?string $exceptionMessage;
 
     public static function now(
         AuthId $authId,

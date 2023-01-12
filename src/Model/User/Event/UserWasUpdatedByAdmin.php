@@ -12,10 +12,10 @@ use Xm\SymfonyBundle\Model\Email;
 
 class UserWasUpdatedByAdmin extends AggregateChanged
 {
-    private readonly Email $email;
-    private readonly Role $role;
-    private readonly Name $firstName;
-    private readonly Name $lastName;
+    private Email $email;
+    private Role $role;
+    private Name $firstName;
+    private Name $lastName;
 
     public static function now(
         UserId $userId,

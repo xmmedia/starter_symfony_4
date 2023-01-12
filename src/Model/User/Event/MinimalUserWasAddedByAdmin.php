@@ -12,12 +12,12 @@ use Xm\SymfonyBundle\Model\Email;
 
 class MinimalUserWasAddedByAdmin extends AggregateChanged
 {
-    private readonly Email $email;
-    private readonly string $hashedPassword;
-    private readonly Role $role;
-    private readonly ?Name $firstName;
-    private readonly ?Name $lastName;
-    private readonly bool $sendInvite;
+    private Email $email;
+    private string $hashedPassword;
+    private Role $role;
+    private ?Name $firstName;
+    private ?Name $lastName;
+    private bool $sendInvite;
 
     public static function now(
         UserId $userId,
