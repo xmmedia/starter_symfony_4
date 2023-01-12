@@ -4166,22 +4166,23 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "4.7.2",
+            "version": "4.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "008f6cea262fbb26139757e153b451fcd0ac179d"
+                "reference": "433b2014e3979047db08a17a205f410ba3869cf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/008f6cea262fbb26139757e153b451fcd0ac179d",
-                "reference": "008f6cea262fbb26139757e153b451fcd0ac179d",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/433b2014e3979047db08a17a205f410ba3869cf2",
+                "reference": "433b2014e3979047db08a17a205f410ba3869cf2",
                 "shasum": ""
             },
             "require": {
                 "brick/math": "^0.8.8 || ^0.9 || ^0.10",
                 "ext-json": "*",
-                "php": "^8.1"
+                "php": "^8.0",
+                "ramsey/collection": "^1.2 || ^2.0"
             },
             "replace": {
                 "rhumsaa/uuid": "self.version"
@@ -4193,6 +4194,7 @@
                 "doctrine/annotations": "^1.8",
                 "ergebnis/composer-normalize": "^2.15",
                 "mockery/mockery": "^1.3",
+                "paragonie/random-lib": "^2",
                 "php-mock/php-mock": "^2.2",
                 "php-mock/php-mock-mockery": "^1.3",
                 "php-parallel-lint/php-parallel-lint": "^1.1",
@@ -4201,17 +4203,17 @@
                 "phpstan/phpstan": "^1.8",
                 "phpstan/phpstan-mockery": "^1.1",
                 "phpstan/phpstan-phpunit": "^1.1",
-                "phpunit/phpunit": "^9.5",
-                "psalm/plugin-phpunit": "^0.16.1",
+                "phpunit/phpunit": "^8.5 || ^9",
                 "ramsey/composer-repl": "^1.4",
                 "slevomat/coding-standard": "^8.4",
                 "squizlabs/php_codesniffer": "^3.5",
-                "vimeo/psalm": "^4.22"
+                "vimeo/psalm": "^4.9"
             },
             "suggest": {
                 "ext-bcmath": "Enables faster math with arbitrary-precision integers using BCMath.",
                 "ext-gmp": "Enables faster math with arbitrary-precision integers using GMP.",
                 "ext-uuid": "Enables the use of PeclUuidTimeGenerator and PeclUuidRandomGenerator.",
+                "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
                 "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
             "type": "library",
@@ -4240,7 +4242,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ramsey/uuid/issues",
-                "source": "https://github.com/ramsey/uuid/tree/4.7.2"
+                "source": "https://github.com/ramsey/uuid/tree/4.7.3"
             },
             "funding": [
                 {
@@ -4252,7 +4254,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-12T01:45:14+00:00"
+            "time": "2023-01-12T18:13:24+00:00"
         },
         {
             "name": "ramsey/uuid-doctrine",
@@ -10426,16 +10428,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "dd7537d8eed5826b4554236d1ea1ec95689d7579"
+                "reference": "d1e77bea37294622f2a6d2387692c09c5a82f878"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/dd7537d8eed5826b4554236d1ea1ec95689d7579",
-                "reference": "dd7537d8eed5826b4554236d1ea1ec95689d7579",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/d1e77bea37294622f2a6d2387692c09c5a82f878",
+                "reference": "d1e77bea37294622f2a6d2387692c09c5a82f878",
                 "shasum": ""
             },
             "require": {
@@ -10508,9 +10510,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.1"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.2"
             },
-            "time": "2023-01-12T18:14:46+00:00"
+            "time": "2023-01-12T18:58:42+00:00"
         }
     ],
     "packages-dev": [
