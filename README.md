@@ -1,6 +1,6 @@
 # Symfony Starter 4
 
-Used to create new projects using [Symfony 5](https://symfony.com/) at [XM Media](https://www.xmmedia.com/).
+Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media](https://www.xmmedia.com/).
 
 ## Setting Up a New Site
 
