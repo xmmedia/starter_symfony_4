@@ -6,28 +6,27 @@
 </template>
 
 <script>
+import { format as formatDate } from 'date-fns';
+
 export default {
     props: {
         datetime: {
             type: [String, Date],
             required: true,
         },
-        locale: {
-            type: String,
-            default: 'en-CA',
-        },
     },
 
     computed: {
-        localeString () {
-            return new Date(this.datetime).toLocaleString(this.locale, { hour12: false });
+        date () {
+            // just in case it's a string
+            return new Date(this.datetime);
         },
 
         displayDate () {
-            return this.localeString.substring(0, 10);
+            return formatDate(this.date, 'yyyy-MM-dd');
         },
         displayTime () {
-            return this.localeString.substring(12, 17);
+            return formatDate(this.date, 'HH:mm');
         },
     },
 }
