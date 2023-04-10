@@ -135,4 +135,42 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             $args
         );
     }
+
+    public function testRoleAsString(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'userId'      => $faker->uuid(),
+            'email'       => $faker->email(),
+            'setPassword' => false,
+            'firstName'   => $faker->name(),
+            'lastName'    => $faker->name(),
+            'role'        => Role::byValue('ROLE_USER')->getValue(),
+        ];
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldReceive('dispatch')
+            ->once()
+            ->with(\Mockery::type(AdminUpdateUser::class))
+            ->andReturn(new Envelope(new \stdClass()));
+
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $result = (new AdminUserUpdateMutation(
+            $commandBus,
+            $passwordHasher,
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
+        ))($args);
+
+        $expected = [
+            'userId' => $data['userId'],
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
 }

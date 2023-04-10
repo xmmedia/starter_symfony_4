@@ -151,4 +151,55 @@ class AdminUserAddMutationTest extends BaseTestCase
 
         $this->assertEquals($expected, $result);
     }
+
+    public function testRoleAsString(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'userId'      => $faker->uuid(),
+            'email'       => $faker->email(),
+            'setPassword' => false,
+            'firstName'   => $faker->name(),
+            'lastName'    => $faker->name(),
+            'role'        => Role::byValue('ROLE_USER')->getValue(),
+            'active'      => true,
+            'sendInvite'  => true,
+        ];
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldReceive('dispatch')
+            ->once()
+            ->with(\Mockery::type(AdminAddUser::class))
+            ->andReturn(new Envelope(new \stdClass()));
+
+        $tokenGenerator = \Mockery::mock(TokenGenerator::class);
+        $tokenGenerator->shouldReceive('__invoke')
+            ->once()
+            ->andReturn(new Token($faker->password()));
+
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordHasher->shouldReceive('__invoke')
+            ->once()
+            ->andReturn('string');
+
+        $args = new Argument([
+            'user' => $data,
+        ]);
+
+        $result = (new AdminUserAddMutation(
+            $commandBus,
+            $tokenGenerator,
+            $passwordHasher,
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
+        ))($args);
+
+        $expected = [
+            'userId' => $data['userId'],
+            'email'  => $data['email'],
+            'active' => $data['active'],
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
 }

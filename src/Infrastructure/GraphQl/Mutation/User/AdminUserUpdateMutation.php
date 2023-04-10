@@ -7,6 +7,7 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Model\User\UserId;
 use App\Security\PasswordHasher;
 use App\Util\Assert;
@@ -32,6 +33,9 @@ class AdminUserUpdateMutation implements MutationInterface
         $userId = UserId::fromString($args['user']['userId']);
         $email = Email::fromString($args['user']['email']);
         $role = $args['user']['role'];
+        if (!$role instanceof Role) {
+            $role = Role::byValue($role);
+        }
         $firstName = Name::fromString($args['user']['firstName']);
         $lastName = Name::fromString($args['user']['lastName']);
 
