@@ -69,8 +69,7 @@ CREATE TABLE `projections` (
 -- Indexes for table `command_log`
 --
 ALTER TABLE `command_log`
-    ADD PRIMARY KEY (`no`),
-    ADD UNIQUE KEY `command_id` (`command_id`);
+    ADD PRIMARY KEY (`no`);
 
 --
 -- Indexes for table `event_streams`
