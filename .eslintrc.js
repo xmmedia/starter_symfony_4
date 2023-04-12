@@ -22,13 +22,15 @@ module.exports = {
             "exports": "never",
             "functions": "only-multiline",
         }],
+        "vue/multi-word-component-names": "off",
         "space-before-function-paren": ["error", "always"],
         "vue/max-attributes-per-line": ["error", {
             "singleline": 5,
-            "multiline": {
-                "max": 1,
-                "allowFirstLine": true,
-            },
+            "multiline": 1,
+        }],
+        "vue/first-attribute-linebreak": ["error", {
+            "singleline": "beside",
+            "multiline": "beside"
         }],
         "vue/html-indent": ["error", 4],
         "vue/html-self-closing": [
@@ -52,7 +54,7 @@ module.exports = {
     },
     reportUnusedDisableDirectives: true,
     parserOptions: {
-        parser: "babel-eslint",
+        parser: "@babel/eslint-parser",
     },
     plugins: [
         "cypress",

@@ -2,7 +2,7 @@
 // This is for dev, watch and build (production)
 const Encore = require('@symfony/webpack-encore');
 const encoreConfigure = require('./webpack.base.config');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 
 process.env.NODE_ENV = process.env.NODE_ENV || (Encore.isProduction() ? 'production' : 'development');
 
