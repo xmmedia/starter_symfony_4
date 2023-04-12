@@ -3,7 +3,6 @@ import PortalVue from 'portal-vue';
 import VueModal from 'vue-js-modal';
 import VueMeta from 'vue-meta';
 import Vuelidate from 'vuelidate';
-import AsyncComputed from 'vue-async-computed';
 
 import router from './admin/router';
 import store from './admin/store';
@@ -32,7 +31,6 @@ Vue.use(PortalVue);
 Vue.use(VueModal, { componentName: 'vue-modal' });
 Vue.use(VueMeta);
 Vue.use(Vuelidate);
-Vue.use(AsyncComputed);
 
 // global components
 Vue.component('loading-spinner', loadingSpinner);
