@@ -26,6 +26,7 @@ class SendEnquiryMutation implements MutationInterface
         $enquiry = $args['enquiry'];
 
         $message = StringUtil::trim($enquiry['message']);
+        Assert::notNull($message, 'Message must be between %2$s and %3$s characters. Got: 0.');
         Assert::lengthBetween(
             $message,
             10,
