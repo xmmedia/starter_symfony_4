@@ -53,7 +53,8 @@ final class AddUserCommand extends Command
 
     protected function configure(): void
     {
-        $this->addOption(
+        $this
+            ->addOption(
                 self::SEND_INVITE,
                 null,
                 InputOption::VALUE_NONE,
