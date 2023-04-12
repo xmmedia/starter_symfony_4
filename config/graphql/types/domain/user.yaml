@@ -9,10 +9,10 @@ User:
             lastName:  String
             name:      String
             verified:
-                type:   Boolean
+                type:   Boolean!
                 access: '@=hasRole("ROLE_ADMIN")'
             active:
-                type:   Boolean
+                type:   Boolean!
                 access: '@=hasRole("ROLE_ADMIN")'
             roles:
                 type:    '[Role!]'
