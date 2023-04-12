@@ -142,7 +142,7 @@
         "cs:fix": "php-cs-fixer fix -v --config=./.php-cs-fixer.dist.php",
         "php-cs-fixer": "@cs",
         "phpcs": "@cs",
-        "static": "php bin/phpstan analyse --memory-limit 2G --xdebug",
+        "static": "php bin/phpstan analyse --memory-limit 2G",
         "rector": "bin/rector --dry-run --xdebug",
         "rector:fix": "bin/rector --xdebug"
     },
