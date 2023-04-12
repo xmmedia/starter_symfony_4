@@ -23,23 +23,23 @@ return (new PhpCsFixer\Config())
         '@PHP81Migration'             => true,
         '@PHPUnit60Migration:risky'   => true,
         'array_syntax'                => [
-        'syntax' => 'short',
+            'syntax' => 'short',
         ],
         'binary_operator_spaces'      => [
-        'operators' => [
-        '=>' => 'align',
-        ],
+            'operators' => [
+                '=>' => 'align',
+            ],
         ],
         'declare_strict_types'        => true,
         'fopen_flags'                 => false,
         'heredoc_indentation'         => false,
         'method_argument_space'       => [
-        'on_multiline' => 'ensure_fully_multiline',
+            'on_multiline' => 'ensure_fully_multiline',
         ],
         'ordered_imports'             => true,
         'protected_to_private'        => false,
         'trailing_comma_in_multiline' => [
-        'elements' => ['arrays', 'arguments', 'parameters'],
+            'elements' => ['arrays', 'arguments', 'parameters'],
         ],
         'single_line_throw'           => false,
     ])
