@@ -10482,16 +10482,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.9",
+            "version": "v2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "5eb73f10f034e680baa78c9c022b4970b883d742"
+                "reference": "e113e102e7054d52963aaca42be3e14404bb0e6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/5eb73f10f034e680baa78c9c022b4970b883d742",
-                "reference": "5eb73f10f034e680baa78c9c022b4970b883d742",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/e113e102e7054d52963aaca42be3e14404bb0e6c",
+                "reference": "e113e102e7054d52963aaca42be3e14404bb0e6c",
                 "shasum": ""
             },
             "require": {
@@ -10565,9 +10565,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.9"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.10"
             },
-            "time": "2023-04-12T03:59:13+00:00"
+            "time": "2023-04-12T04:15:32+00:00"
         }
     ],
     "packages-dev": [
