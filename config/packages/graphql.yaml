@@ -1,6 +1,5 @@
 overblog_graphql:
     definitions:
-        default_field_resolver: Xm\SymfonyBundle\Infrastructure\GraphQl\Resolver\FieldResolver
         schema:
             # @todo separate public?
             query:    Query
@@ -36,5 +35,4 @@ services:
         resource: '../../vendor/xm/symfony-bundle/Infrastructure/GraphQl/Query/*Query.php'
         tags: [ 'overblog_graphql.query' ]
 
-    Xm\SymfonyBundle\Infrastructure\GraphQl\Resolver\FieldResolver: ~
     Xm\SymfonyBundle\EventSubscriber\GraphQlContextInitialization:  ~
