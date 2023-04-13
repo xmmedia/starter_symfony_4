@@ -83,7 +83,6 @@ module.exports = function (Encore) {
 
         .addAliases({
             '@': resolve('public/js/src'),
-            'vue$': 'vue/dist/vue.esm.js',
         })
 
         /* eslint-disable no-unused-vars */
