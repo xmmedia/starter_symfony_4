@@ -21,6 +21,7 @@ export default {
 
             return !!unique;
         }),
+        $lazy: true,
     },
     currentPassword: {
         required,
