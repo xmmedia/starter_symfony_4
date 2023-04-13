@@ -1,7 +1,7 @@
-import Vue from 'vue';
 import Router from 'vue-router';
 import store from './store';
 import { scrollBehavior, parseQuery, stringifyQuery, logPageView } from '@/common/router_helpers';
+import { apolloClient } from "@/common/apollo";
 
 import { RouteQuery } from './queries/user.query.graphql';
 
@@ -131,23 +131,8 @@ router.beforeEach( async (to, from, next) => {
             return;
         }
 
-        const waitForApollo = function () {
-            return new Promise((resolve) => {
-                (function waitingForApollo (){
-                    if (router.app.$apolloProvider) {
-                        return resolve();
-                    }
-
-                    setTimeout(waitingForApollo, 10);
-                })();
-            });
-        };
-
-        // check if Apollo is setup on the Vue instance
-        await waitForApollo();
-
         // check to see if they're still authenticated
-        const result = await router.app.$apollo.query({
+        const result = await apolloClient.query({
             query: RouteQuery,
         });
         if (!result.data.Me) {
