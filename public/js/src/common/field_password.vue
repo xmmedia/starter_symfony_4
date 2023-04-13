@@ -42,10 +42,11 @@
 import cuid from 'cuid';
 
 import iconsPath from '@/../../images/icons-admin.svg';
+import { defineAsyncComponent } from 'vue';
 
 export default {
     components: {
-        'password-score': () => import(/* webpackChunkName: "password-score" */ './password_score'),
+        'password-score': defineAsyncComponent(() => import(/* webpackChunkName: "password-score" */ './password_score')),
     },
 
     props: {
