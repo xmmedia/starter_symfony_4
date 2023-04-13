@@ -37,5 +37,5 @@ export default {
     beforeDestroy () {
         this.clipboard.destroy();
     },
-};
+}
 </script>

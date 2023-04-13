@@ -70,5 +70,5 @@ export default {
             ].filter(Boolean);
         },
     },
-};
+}
 </script>

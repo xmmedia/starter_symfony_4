@@ -69,5 +69,5 @@ export default {
             this.$modal.hide(this.name);
         },
     },
-};
+}
 </script>
