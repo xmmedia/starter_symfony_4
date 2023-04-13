@@ -73,9 +73,9 @@ export default new Vuex.Store({
         },
         setUser (state, user) {
             if (state.user === null) {
-                Vue.set(state, 'user', { ...user });
+                state.user = { ...user };
             } else {
-                Vue.set(state, 'user', { ...state.user, ...user });
+                state.user = { ...state.user, ...user };
             }
         },
 
