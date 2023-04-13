@@ -59,6 +59,7 @@
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
 import { useVuelidate } from '@vuelidate/core';
+import { sameAs } from '@vuelidate/validators';
 import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import profileTabs from './component/tabs';
@@ -125,7 +126,10 @@ export default {
     validations () {
         return {
             currentPassword: cloneDeep(userValidations.currentPassword),
-            newPassword: cloneDeep(userValidations.newPassword),
+            newPassword: {
+                ...cloneDeep(userValidations.newPassword),
+                sameAs: sameAs(this.repeatPassword),
+            },
             repeatPassword: cloneDeep(userValidations.repeatPassword),
         };
     },

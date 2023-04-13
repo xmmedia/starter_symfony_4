@@ -41,7 +41,6 @@ export default {
     },
     newPassword: {
         ...cloneDeep(userValidation.password),
-        sameAs: sameAs('repeatPassword'),
     },
     repeatPassword: {
         required,
