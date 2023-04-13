@@ -127,8 +127,6 @@ export default {
     },
 
     methods: {
-        waitForValidation,
-
         async submit () {
             if (!this.state.matches('ready')) {
                 return;
@@ -136,8 +134,7 @@ export default {
 
             this.stateEvent('SUBMIT');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

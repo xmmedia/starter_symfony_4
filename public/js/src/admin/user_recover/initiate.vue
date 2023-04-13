@@ -114,8 +114,7 @@ export default {
             this.stateEvent('SUBMIT');
             this.notFound = false;
 
-            this.$v.$touch();
-            if (this.$v.$anyError) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

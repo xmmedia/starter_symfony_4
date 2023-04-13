@@ -18,21 +18,21 @@
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
             <form-error v-if="v$.$error && v$.$invalid" />
 
-            <field-email :value="email"
-                         :v="$v.email"
+            <field-email :model-value="email"
+                         :v="v$.email"
                          autocomplete="off"
                          autofocus
-                         @input="setEmailDebounce" />
+                         @update:modelValue="setEmailDebounce" />
 
             <field-password v-model="password"
-                            :v="$v.password"
+                            :v="v$.password"
                             checkbox-label="Change password"
                             @set-password="setPassword = $event" />
 
-            <field-input v-model.trim="firstName" :v="$v.firstName">First name</field-input>
-            <field-input v-model.trim="lastName" :v="$v.lastName">Last name</field-input>
+            <field-input v-model.trim="firstName" :v="v$.firstName">First name</field-input>
+            <field-input v-model.trim="lastName" :v="v$.lastName">Last name</field-input>
 
-            <field-role v-model="role" :v="$v.role" />
+            <field-role v-model="role" :v="v$.role" />
 
             <admin-button :saving="state.matches('ready.saving')"
                           :saved="state.matches('ready.saved')"
@@ -199,8 +199,6 @@ export default {
     },
 
     methods: {
-        waitForValidation,
-
         setEmailDebounce: debounce(function (email) {
             this.setEmail(email);
         }, 100, { leading: true }),
@@ -215,8 +213,7 @@ export default {
 
             this.stateEvent('SAVE');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

@@ -53,8 +53,8 @@
 <script>
 import cloneDeep from 'lodash/cloneDeep';
 import { Machine, interpret } from 'xstate';
-import { hasGraphQlError, logError, waitForValidation } from '@/common/lib';
 import { required, sameAs } from 'vuelidate/lib/validators';
+import { hasGraphQlError, logError } from '@/common/lib';
 import fieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '@/admin/queries/user.mutation.graphql';
 import stateMixin from '@/common/state_mixin';
@@ -132,13 +132,10 @@ export default {
     },
 
     methods: {
-        waitForValidation,
-
         async submit () {
             this.stateEvent('SUBMIT');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

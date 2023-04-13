@@ -55,7 +55,7 @@
 import { Machine, interpret } from 'xstate';
 import { v4 as uuid4 } from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
-import { logError, waitForValidation } from '@/common/lib';
+import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 
 import userValidations from './user.validation';
@@ -132,7 +132,6 @@ export default {
     },
 
     methods: {
-        waitForValidation,
 
         async submit () {
             if (!this.state.matches('ready')) {
@@ -141,8 +140,7 @@ export default {
 
             this.stateEvent('SUBMIT');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

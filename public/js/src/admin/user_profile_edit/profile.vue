@@ -39,7 +39,7 @@
 import { Machine, interpret } from 'xstate';
 import debounce from 'lodash/debounce';
 import cloneDeep from 'lodash/cloneDeep';
-import { logError, waitForValidation } from '@/common/lib';
+import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import fieldEmail from '@/common/field_email';
 import fieldInput from '@/common/field_input';
@@ -121,7 +121,6 @@ export default {
     },
 
     methods: {
-        waitForValidation,
 
         setEmailDebounce: debounce(function (email) {
             this.setEmail(email);
@@ -138,8 +137,7 @@ export default {
 
             this.stateEvent('SAVE');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

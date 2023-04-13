@@ -147,8 +147,7 @@ export default {
         async submit () {
             this.stateEvent('SEND');
 
-            this.$v.$touch();
-            if (this.$v.$anyError) {
+            if (this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

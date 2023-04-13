@@ -58,7 +58,7 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
-import { logError, waitForValidation } from '@/common/lib';
+import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import profileTabs from './component/tabs';
 import fieldPassword from '@/common/field_password_with_errors';
@@ -126,8 +126,6 @@ export default {
     },
 
     methods: {
-        waitForValidation,
-
         async submit () {
             if (!this.state.matches('ready')) {
                 return;
@@ -135,8 +133,7 @@ export default {
 
             this.stateEvent('SAVE');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
