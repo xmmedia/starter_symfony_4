@@ -68,7 +68,7 @@
 
 <script>
 import has from 'lodash/has';
-import { pluralize } from './filters';
+import { pluralize } from './lib';
 
 export default {
     props: {
