@@ -1,14 +1,8 @@
-import Vue from 'vue';
-import { ApolloClient } from 'apollo-client';
-import { ApolloLink, split } from 'apollo-link';
-import { createHttpLink } from 'apollo-link-http';
-import { BatchHttpLink } from 'apollo-link-batch-http';
-import { onError } from 'apollo-link-error';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { getMainDefinition } from 'apollo-utilities';
-import VueApollo from 'vue-apollo';
-
-Vue.use(VueApollo);
+import { ApolloClient, InMemoryCache, ApolloLink, split, createHttpLink } from '@apollo/client/core';
+import { BatchHttpLink } from '@apollo/client/link/batch-http';
+import { onError } from '@apollo/client/link/error';
+import { getMainDefinition } from '@apollo/client/utilities';
+import { createApolloProvider } from '@vue/apollo-option'
 
 // docs: https://www.apollographql.com/docs/react/features/error-handling/
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -53,7 +47,7 @@ const link = split(
 );
 
 // Create the apollo client
-const apolloClient = new ApolloClient({
+export const apolloClient = new ApolloClient({
     link: ApolloLink.from([errorLink, link]),
     // Cache implementation
     cache: new InMemoryCache(),
@@ -66,8 +60,11 @@ const apolloClient = new ApolloClient({
             fetchPolicy: 'no-cache',
         },
     },
+    // if you want to hide the message about installing apollo dev tools
+    // only applicable to dev
+    // connectToDevTools: false,
 });
 
-export default new VueApollo({
+export default createApolloProvider({
     defaultClient: apolloClient,
 });
