@@ -44,7 +44,7 @@
                             </span>
                         </div>
                         <div class="record_list-col">{{ user.name }}</div>
-                        <div class="record_list-col">{{ user|accountStatus }}</div>
+                        <div class="record_list-col">{{ accountStatus(user) }}</div>
                         <div class="record_list-col user_list-last_login">
                             <template v-if="user.loginCount > 0">
                                 <local-time :datetime="user.lastLogin" /> ({{ user.loginCount }})
