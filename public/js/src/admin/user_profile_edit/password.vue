@@ -114,6 +114,10 @@ export default {
             currentPassword: null,
             newPassword: null,
             repeatPassword: null,
+            // used in the password strength validation
+            email: this.$store.state.user.email,
+            firstName: this.$store.state.user.firstName,
+            lastName: this.$store.state.user.lastName,
         };
     },
 
