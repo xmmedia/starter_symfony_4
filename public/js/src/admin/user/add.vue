@@ -10,7 +10,7 @@
         <form method="post" @submit.prevent="submit">
             <form-error v-if="v$.$error && v$.$invalid" />
 
-            <field-email v-model.trim="email"
+            <field-email :model-value="email"
                          :v="v$.email"
                          autocomplete="off"
                          autofocus

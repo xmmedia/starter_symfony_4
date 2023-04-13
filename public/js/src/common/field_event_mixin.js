@@ -11,7 +11,7 @@ export default {
                 {
                     // This ensures that the component works with v-model
                     input: function (event) {
-                        vm.$emit('input', event.target.value);
+                        vm.$emit('update:modelValue', event.target.value);
                     },
                 },
             );

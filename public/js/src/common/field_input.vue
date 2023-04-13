@@ -16,7 +16,7 @@
 
         <input :id="id"
                ref="input"
-               :value="value"
+               :value="modelValue"
                :type="type"
                :maxlength="maxLength"
                :autocomplete="autocomplete"
@@ -38,7 +38,7 @@ export default {
     ],
 
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: null,
         },

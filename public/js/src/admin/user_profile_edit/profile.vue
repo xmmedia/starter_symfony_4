@@ -5,11 +5,11 @@
         <form class="p-4" method="post" @submit.prevent="submit">
             <form-error v-if="v$.$error && v$.$invalid" />
 
-            <field-email :value="email"
+            <field-email :model-value="email"
                          :v="v$.email"
                          autofocus
                          autocomplete="username email"
-                         @input="setEmailDebounce">
+                         @update:modelValue="setEmailDebounce">
                 Email address
             </field-email>
 

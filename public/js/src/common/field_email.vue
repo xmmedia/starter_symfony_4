@@ -16,7 +16,7 @@
 
         <input :id="id"
                ref="input"
-               :value="value"
+               :value="modelValue"
                :autofocus="autofocus"
                :autocomplete="autocomplete"
                type="email"
@@ -47,7 +47,7 @@ export default {
     ],
 
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: null,
         },
@@ -104,7 +104,7 @@ export default {
             });
         },
         useSuggested () {
-            this.$emit('input', this.suggestedEmail);
+            this.$emit('update:modelValue', this.suggestedEmail);
             this.suggestedEmail = null;
             this.$refs.input.focus();
         },

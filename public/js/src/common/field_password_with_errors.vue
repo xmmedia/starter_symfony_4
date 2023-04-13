@@ -1,12 +1,12 @@
 <template>
     <field-password :id="id"
-                    :value="value"
+                    :model-value="modelValue"
                     :user-data="userData"
                     :show-help="showHelp"
                     :required="false"
                     :autocomplete="autocomplete"
-                    @input="$emit('input', $event)">
                     :minlength="hasVuelidateProp('minLength') ? v.minLength.$params.min : null"
+                    @update:modelValue="$emit('update:modelValue', $event)">
         <template #default><slot></slot></template>
         <template #errors>
             <field-error v-if="v.$error && v.$invalid">
@@ -49,7 +49,7 @@ export default {
     },
 
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: null,
         },
