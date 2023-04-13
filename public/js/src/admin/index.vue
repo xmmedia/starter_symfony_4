@@ -61,7 +61,9 @@
                 <h1 class="header-page_title">
                     <portal-target name="header-page-title" />
                 </h1>
-                <portal-target name="header-actions" class="header-actions" />
+                <div class="header-actions">
+                    <portal-target name="header-actions" />
+                </div>
             </header>
 
             <main class="p-4">
