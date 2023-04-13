@@ -47,7 +47,8 @@
                         <div class="record_list-col">{{ accountStatus(user) }}</div>
                         <div class="record_list-col user_list-last_login">
                             <template v-if="user.loginCount > 0">
-                                <local-time :datetime="user.lastLogin" /> ({{ user.loginCount }})
+                                <local-time v-if="user.lastLogin" :datetime="user.lastLogin" />
+                                ({{ user.loginCount }})
                             </template>
                             <i v-else>Never logged in</i>
                         </div>
