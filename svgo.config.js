@@ -5,7 +5,7 @@ module.exports = {
             params: {
                 overrides: {
                     removeUselessDefs: false,
-                    cleanupIDs: false,
+                    cleanupIds: false,
                 },
             },
         },
