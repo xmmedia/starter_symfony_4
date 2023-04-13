@@ -1,14 +1,12 @@
-import Router from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import store from './store';
 import { scrollBehavior, parseQuery, stringifyQuery, logPageView } from '@/common/router_helpers';
 import { apolloClient } from "@/common/apollo";
 
 import { RouteQuery } from './queries/user.query.graphql';
 
-Vue.use(Router);
-
-const router = new Router({
-    mode: 'history',
+const router = createRouter({
+    history: createWebHistory(),
 
     routes: [
         {
@@ -105,12 +103,12 @@ const router = new Router({
         },
 
         {
-            path: '*',
+            path: '/:pathMatch(.*)*',
             name: '404',
             component: () => import(/* webpackChunkName: "admin-error" */ './error/404'),
         },
         {
-            path: '*',
+            path: '/:pathMatch(.*)*',
             name: '403',
             component: () => import(/* webpackChunkName: "admin-error" */ './error/403'),
         },
@@ -140,6 +138,7 @@ router.beforeEach( async (to, from, next) => {
 
             return;
         }
+
         // JS files have changed
         if (result.data.EntrypointIntegrity !== store.state.entrypointIntegrityHashes.admin) {
             if (result.data.EntrypointIntegrity && store.state.entrypointIntegrityHashes.admin) {
