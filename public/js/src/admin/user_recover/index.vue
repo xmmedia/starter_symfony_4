@@ -1,7 +1,9 @@
 <template>
-    <portal to="header-page-title">Account Recovery</portal>
+    <div>
+        <portal to="header-page-title">Account Recovery</portal>
 
-    <router-view />
+        <router-view />
+    </div>
 </template>
 
 <script>

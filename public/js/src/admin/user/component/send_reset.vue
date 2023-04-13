@@ -1,14 +1,16 @@
 <template>
-    <button v-if="state.matches('ready')"
-            :disabled="!allow"
-            class="button-link form-action"
-            type="button"
-            @click="sendReset">Send Password Reset</button>
-    <div v-if="state.matches('sending')" class="form-action">
-        Sending…
-    </div>
-    <div v-if="state.matches('sent')" class="form-action">
-        Sent
+    <div>
+        <button v-if="state.matches('ready')"
+                :disabled="!allow"
+                class="button-link form-action"
+                type="button"
+                @click="sendReset">Send Password Reset</button>
+        <div v-if="state.matches('sending')" class="form-action">
+            Sending…
+        </div>
+        <div v-if="state.matches('sent')" class="form-action">
+            Sent
+        </div>
     </div>
 </template>
 

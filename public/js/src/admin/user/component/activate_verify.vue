@@ -1,34 +1,36 @@
 <template>
-    <template v-if="state.matches('ready')">
-        <button v-if="verified"
-                :disabled="!allow"
-                class="button-link form-action"
-                type="button"
-                @click="toggleActive">{{ activeButtonText }}</button>
-        <button v-else
-                :disabled="!allow"
-                class="button-link form-action"
-                type="button"
-                @click="verify">Manually Verify User</button>
-    </template>
+    <div>
+        <template v-if="state.matches('ready')">
+            <button v-if="verified"
+                    :disabled="!allow"
+                    class="button-link form-action"
+                    type="button"
+                    @click="toggleActive">{{ activeButtonText }}</button>
+            <button v-else
+                    :disabled="!allow"
+                    class="button-link form-action"
+                    type="button"
+                    @click="verify">Manually Verify User</button>
+        </template>
 
-    <div v-if="state.matches('activating')" class="form-action">
-        Activating…
-    </div>
-    <div v-if="state.matches('activated')" class="form-action">
-        Activated
-    </div>
-    <div v-if="state.matches('deactivating')" class="form-action">
-        Deactivating…
-    </div>
-    <div v-if="state.matches('deactivated')" class="form-action">
-        Deactivated
-    </div>
-    <div v-if="state.matches('verifying')" class="form-action">
-        Verifying…
-    </div>
-    <div v-if="state.matches('verified')" class="form-action">
-        Verified
+        <div v-if="state.matches('activating')" class="form-action">
+            Activating…
+        </div>
+        <div v-if="state.matches('activated')" class="form-action">
+            Activated
+        </div>
+        <div v-if="state.matches('deactivating')" class="form-action">
+            Deactivating…
+        </div>
+        <div v-if="state.matches('deactivated')" class="form-action">
+            Deactivated
+        </div>
+        <div v-if="state.matches('verifying')" class="form-action">
+            Verifying…
+        </div>
+        <div v-if="state.matches('verified')" class="form-action">
+            Verified
+        </div>
     </div>
 </template>
 
