@@ -7,9 +7,13 @@
 </template>
 
 <script>
+import { useHead } from '@vueuse/head';
+
 export default {
-    metaInfo: {
-        title: 'Account Recovery',
+    setup () {
+        useHead({
+            title: 'Account Recovery',
+        });
     },
 }
 </script>

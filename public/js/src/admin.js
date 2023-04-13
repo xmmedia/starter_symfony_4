@@ -1,7 +1,7 @@
 import { createApp, h, defineAsyncComponent } from 'vue';
 import PortalVue from 'portal-vue';
 // import VueModal from 'vue-js-modal';
-import { createMetaManager } from 'vue-meta';
+import { createHead } from '@vueuse/head';
 
 import router from './admin/router';
 import store from './admin/store';
@@ -44,11 +44,6 @@ apolloProvider.defaultClient.query({ query: MeQuery })
             render () {
                 return h(app);
             },
-
-            metaInfo: {
-                // @todo-symfony
-                title: 'Symfony Starter',
-            },
         });
 
         window.App.use(router);
@@ -57,7 +52,7 @@ apolloProvider.defaultClient.query({ query: MeQuery })
 
         window.App.use(PortalVue);
         // window.App.use(VueModal, { componentName: 'vue-modal' });
-        window.App.use(createMetaManager());
+        window.App.use(createHead());
 
         // global components
         window.App.component('loading-spinner', loadingSpinner);

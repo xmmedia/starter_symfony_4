@@ -45,11 +45,14 @@
 </template>
 
 <script>
+import { useHead } from '@vueuse/head';
 import { AuthLast } from '@/admin/queries/auth.query.graphql';
 
 export default {
-    metaInfo: {
-        title: 'Login',
+    setup () {
+        useHead({
+            title: 'Login',
+        });
     },
 
     data () {

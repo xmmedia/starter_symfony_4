@@ -79,23 +79,27 @@
 </template>
 
 <script>
+import { useHead } from '@vueuse/head';
 import { mapState, mapGetters } from 'vuex';
 import menuSubnav from './menu/subnav';
 import menuSmall from './menu/small';
 import menuLink from './menu/link';
 
-export default {
-    metaInfo: {
-        title: 'Dashboard',
-        // @todo-symfony
-        titleTemplate: '%s | Symfony Starter',
-    },
 
+export default {
     components: {
         menuSubnav,
         menuSmall,
         /* eslint-disable vue/no-unused-components */
         menuLink,
+    },
+
+    setup () {
+        useHead({
+            title: 'Dashboard',
+            // @todo-symfony
+            titleTemplate: '%s | Symfony Starter',
+        });
     },
 
     data () {

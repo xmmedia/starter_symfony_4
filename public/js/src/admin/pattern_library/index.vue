@@ -669,9 +669,13 @@
 </template>
 
 <script>
+import { useHead } from '@vueuse/head';
+
 export default {
-    metaInfo: {
-        title: 'Admin Pattern Library',
+    setup () {
+        useHead({
+            title: 'Admin Pattern Library',
+        });
     },
 }
 </script>

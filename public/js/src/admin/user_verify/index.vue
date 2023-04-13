@@ -60,6 +60,7 @@ import fieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '@/admin/queries/user.mutation.graphql';
 import stateMixin from '@/common/state_mixin';
 import userValidation from '@/admin/validation/user';
+import { useHead } from '@vueuse/head';
 
 const stateMachine = Machine({
     id: 'component',
@@ -84,10 +85,6 @@ const stateMachine = Machine({
 });
 
 export default {
-    metaInfo: {
-        title: 'Activate Your Account',
-    },
-
     components: {
         fieldPassword,
     },
@@ -97,6 +94,10 @@ export default {
     ],
 
     setup () {
+        useHead({
+            title: 'Activate Your Account',
+        });
+
         return { v$: useVuelidate() };
     },
 
