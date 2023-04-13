@@ -96,18 +96,6 @@ const stateMachine = Machine({
 });
 
 export default {
-    filters: {
-        accountStatus (user) {
-            if (!user.active) {
-                return 'Inactive';
-            } else if (!user.verified) {
-                return 'Not Verified';
-            }
-
-            return 'Active';
-        },
-    },
-
     mixins: [
         stateMixin,
     ],
@@ -143,6 +131,16 @@ export default {
         refresh () {
             this.stateEvent('REFRESH');
             this.$apollo.queries.users.refetch();
+        },
+
+        accountStatus (user) {
+            if (!user.active) {
+                return 'Inactive';
+            } else if (!user.verified) {
+                return 'Not Verified';
+            }
+
+            return 'Active';
         },
     },
 }
