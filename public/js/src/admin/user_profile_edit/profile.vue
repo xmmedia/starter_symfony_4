@@ -111,9 +111,9 @@ export default {
             stateService: interpret(stateMachine),
             state: stateMachine.initialState,
 
-            email: this.$store.state.user.email,
-            firstName: this.$store.state.user.firstName,
-            lastName: this.$store.state.user.lastName,
+            email: null,
+            firstName: null,
+            lastName: null,
         };
     },
 
@@ -126,6 +126,11 @@ export default {
     },
 
     methods: {
+    created () {
+        this.email = this.$store.state.user.email;
+        this.firstName = this.$store.state.user.firstName;
+        this.lastName = this.$store.state.user.lastName;
+    },
 
         setEmailDebounce: debounce(function (email) {
             this.setEmail(email);
