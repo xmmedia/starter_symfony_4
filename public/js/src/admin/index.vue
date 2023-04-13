@@ -1,5 +1,5 @@
 <template>
-    <div v-if="ready">
+    <template v-if="ready">
         <nav class="sidebar_nav-wrap" role="navigation" aria-label="Main">
             <router-link :to="logoLinkRoute"
                          class="flex items-center w-40 lg:w-64 border-b border-gray-700
@@ -73,7 +73,7 @@
         </div>
 
         <portal-target name="modal" multiple />
-    </div>
+    </template>
 
     <loading-spinner v-else class="mt-8" />
 </template>

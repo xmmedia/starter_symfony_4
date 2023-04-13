@@ -1,52 +1,50 @@
 <template>
-    <div>
-        <form v-if="showForm"
-              class="form-wrap"
-              method="post"
-              @submit.prevent="submit">
-            <form-error v-if="v$.$error && v$.$invalid" />
-            <field-error v-if="invalidToken" class="mb-4">
-                Your activation link is invalid.
-                Please try clicking the button again or copying the link.
-            </field-error>
-            <field-error v-if="tokenExpired" class="mb-4">
-                Your link has expired. Please contact an administrator.
-            </field-error>
+    <form v-if="showForm"
+          class="form-wrap"
+          method="post"
+          @submit.prevent="submit">
+        <form-error v-if="v$.$error && v$.$invalid" />
+        <field-error v-if="invalidToken" class="mb-4">
+            Your activation link is invalid.
+            Please try clicking the button again or copying the link.
+        </field-error>
+        <field-error v-if="tokenExpired" class="mb-4">
+            Your link has expired. Please contact an administrator.
+        </field-error>
 
-            <p :class="{ 'mt-0' : !v$.$error && !invalidToken && !tokenExpired }">
-                To activate your account, enter a password below.
-            </p>
+        <p :class="{ 'mt-0' : !v$.$error && !invalidToken && !tokenExpired }">
+            To activate your account, enter a password below.
+        </p>
 
-            <div class="hidden">
-                <label for="inputEmail">Email</label>
-                <input id="inputEmail"
-                       type="email"
-                       name="email"
-                       autocomplete="username email">
-            </div>
-
-            <field-password v-model="password"
-                            :v="v$.password"
-                            :show-help="true"
-                            autocomplete="new-password" />
-            <field-password v-model="repeatPassword"
-                            :v="v$.repeatPassword"
-                            autocomplete="new-password">Password again</field-password>
-
-            <admin-button :saving="state.matches('submitting')"
-                          :cancel-to="{ name: 'login' }">
-                Activate
-                <template #cancel>
-                    <router-link :to="{ name: 'login' }" class="form-action">Login</router-link>
-                </template>
-                <template #saving>Activating…</template>
-            </admin-button>
-        </form>
-
-        <div v-if="state.matches('verified')" class="alert alert-success max-w-lg" role="alert">
-            Your account is now active.
-            <router-link :to="{ name: 'login' }" class="pl-4">Login</router-link>
+        <div class="hidden">
+            <label for="inputEmail">Email</label>
+            <input id="inputEmail"
+                   type="email"
+                   name="email"
+                   autocomplete="username email">
         </div>
+
+        <field-password v-model="password"
+                        :v="v$.password"
+                        :show-help="true"
+                        autocomplete="new-password" />
+        <field-password v-model="repeatPassword"
+                        :v="v$.repeatPassword"
+                        autocomplete="new-password">Password again</field-password>
+
+        <admin-button :saving="state.matches('submitting')"
+                      :cancel-to="{ name: 'login' }">
+            Activate
+            <template #cancel>
+                <router-link :to="{ name: 'login' }" class="form-action">Login</router-link>
+            </template>
+            <template #saving>Activating…</template>
+        </admin-button>
+    </form>
+
+    <div v-if="state.matches('verified')" class="alert alert-success max-w-lg" role="alert">
+        Your account is now active.
+        <router-link :to="{ name: 'login' }" class="pl-4">Login</router-link>
     </div>
 </template>
 

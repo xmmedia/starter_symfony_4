@@ -1,9 +1,7 @@
 <template>
-    <div>
-        <portal to="header-page-title">Profile</portal>
+    <portal to="header-page-title">Profile</portal>
 
-        <router-view />
-    </div>
+    <router-view />
 </template>
 
 <script>
