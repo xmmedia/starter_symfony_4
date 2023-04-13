@@ -19,7 +19,15 @@ export default {
                 return true;
             }
 
-            return zxcvbn(value, [ this.firstName, this.lastName, this.email ]).score > 2;
+            const userData = [
+                // deal with the values not existing for example when they're using the forgot password
+                this.firstName || null,
+                this.lastName || null,
+                this.email || null,
+                ...document.title.split(/[\s|]+/),
+            ];
+
+            return zxcvbn(value, userData).score > 2;
         },
 
         compromised: helpers.withAsync(async function (value) {
