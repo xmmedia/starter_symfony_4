@@ -1,4 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
+import has from 'lodash/has';
 import { email, helpers, required, requiredIf } from '@vuelidate/validators';
 import userValidation from '../validation/user';
 import { GetDuplicateUsers } from '../queries/user.query.graphql';
@@ -30,7 +31,7 @@ export default {
                 return true;
             }
 
-            if (typeof this.userId === undefined) {
+            if (!has(this, 'userId')) {
                 return 0 < foundUsers.length;
             }
 
