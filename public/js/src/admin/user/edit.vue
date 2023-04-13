@@ -65,7 +65,8 @@
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
-import { logError, waitForValidation } from '@/common/lib';
+import { useVuelidate } from '@vuelidate/core';
+import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 
 import userValidations from './user.validation';
@@ -137,6 +138,10 @@ export default {
             type: String,
             required: true,
         },
+    },
+
+    setup () {
+        return { v$: useVuelidate() };
     },
 
     data () {

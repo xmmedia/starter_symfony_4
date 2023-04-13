@@ -28,11 +28,11 @@
             </div>
 
             <field-password v-model="newPassword"
-                            :v="$v.newPassword"
+                            :v="v$.newPassword"
                             :show-help="true"
                             autocomplete="new-password">New password</field-password>
             <field-password v-model="repeatPassword"
-                            :v="$v.repeatPassword"
+                            :v="v$.repeatPassword"
                             autocomplete="new-password">New password again</field-password>
 
             <admin-button :saving="state.matches('submitting')">
@@ -53,8 +53,9 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
-import { hasGraphQlError, logError, waitForValidation } from '@/common/lib';
-import { required } from 'vuelidate/lib/validators';
+import { useVuelidate } from '@vuelidate/core';
+import { hasGraphQlError, logError } from '@/common/lib';
+import { required } from '@vuelidate/validators';
 import userValidation from '@/admin/validation/user';
 import fieldPassword from '@/common/field_password_with_errors';
 import stateMixin from '@/common/state_mixin';
@@ -90,6 +91,10 @@ export default {
     mixins: [
         stateMixin,
     ],
+
+    setup () {
+        return { v$: useVuelidate() };
+    },
 
     data () {
         return {
@@ -154,7 +159,7 @@ export default {
                 this.repeatPassword = null;
                 this.invalidToken = false;
                 this.tokenExpired = false;
-                this.$v.$reset();
+                this.v$.$reset();
 
                 this.stateEvent('SUBMITTED');
 

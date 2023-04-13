@@ -76,7 +76,7 @@ export default {
                 return null;
             }
 
-            return this.v.$params.maxLength.max;
+            return this.v.maxLength.$params.max;
         },
     },
 }

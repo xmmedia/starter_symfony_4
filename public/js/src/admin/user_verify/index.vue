@@ -13,7 +13,7 @@
                 Your link has expired. Please contact an administrator.
             </field-error>
 
-            <p :class="{ 'mt-0' : !$v.$anyError && !invalidToken && !tokenExpired }">
+            <p :class="{ 'mt-0' : !v$.$error && !invalidToken && !tokenExpired }">
                 To activate your account, enter a password below.
             </p>
 
@@ -26,11 +26,11 @@
             </div>
 
             <field-password v-model="password"
-                            :v="$v.password"
+                            :v="v$.password"
                             :show-help="true"
                             autocomplete="new-password" />
             <field-password v-model="repeatPassword"
-                            :v="$v.repeatPassword"
+                            :v="v$.repeatPassword"
                             autocomplete="new-password">Password again</field-password>
 
             <admin-button :saving="state.matches('submitting')"
@@ -53,7 +53,8 @@
 <script>
 import cloneDeep from 'lodash/cloneDeep';
 import { Machine, interpret } from 'xstate';
-import { required, sameAs } from 'vuelidate/lib/validators';
+import { useVuelidate } from '@vuelidate/core';
+import { required, sameAs } from '@vuelidate/validators';
 import { hasGraphQlError, logError } from '@/common/lib';
 import fieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '@/admin/queries/user.mutation.graphql';
@@ -94,6 +95,10 @@ export default {
     mixins: [
         stateMixin,
     ],
+
+    setup () {
+        return { v$: useVuelidate() };
+    },
 
     data () {
         return {

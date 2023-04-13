@@ -6,7 +6,7 @@
             <form-error v-if="v$.$error && v$.$invalid" />
 
             <field-email :value="email"
-                         :v="$v.email"
+                         :v="v$.email"
                          autofocus
                          autocomplete="username email"
                          @input="setEmailDebounce">
@@ -14,11 +14,11 @@
             </field-email>
 
             <field-input v-model.trim="firstName"
-                         :v="$v.firstName"
+                         :v="v$.firstName"
                          autocomplete="given-name"
                          @input="changed">First name</field-input>
             <field-input v-model.trim="lastName"
-                         :v="$v.lastName"
+                         :v="v$.lastName"
                          autocomplete="family-name"
                          @input="changed">Last name</field-input>
 
@@ -39,6 +39,7 @@
 import { Machine, interpret } from 'xstate';
 import debounce from 'lodash/debounce';
 import cloneDeep from 'lodash/cloneDeep';
+import { useVuelidate } from '@vuelidate/core';
 import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import fieldEmail from '@/common/field_email';
@@ -99,6 +100,10 @@ export default {
         }
 
         next();
+    },
+
+    setup () {
+        return { v$: useVuelidate() };
     },
 
     data () {

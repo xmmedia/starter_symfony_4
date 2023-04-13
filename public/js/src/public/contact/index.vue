@@ -7,43 +7,43 @@
                 <div class="field-wrap">
                     <label for="name">Name</label>
 
-                    <field-error v-if="$v.name.$error">
-                        <template v-if="!$v.name.required">
+                    <field-error v-if="v$.name.$error && v$.name.$invalid">
+                        <template v-if="!v$.name.required">
                             A name is required.
                         </template>
-                        <template v-else-if="!$v.name.minLength || !$v.name.maxLength">
-                            Please enter between {{ $v.name.$params.minLength.min }}
-                            and {{ $v.name.$params.maxLength.max }} characters.
+                        <template v-else-if="!v$.name.minLength || !v$.name.maxLength">
+                            Please enter between {{ v$.name.minLength.$params.min }}
+                            and {{ v$.name.maxLength.$params.max }} characters.
                         </template>
                     </field-error>
 
                     <input id="name"
                            v-model="name"
-                           :maxlength="$v.name.$params.maxLength.max"
+                           :maxlength="v$.name.maxLength.$params.max"
                            type="text"
                            autofocus
                            autocomplete="name">
                 </div>
 
                 <field-email v-model="email"
-                             :v="$v.email"
+                             :v="v$.email"
                              autocomplete="email">Email address</field-email>
 
                 <div class="field-wrap">
                     <label for="message">Message</label>
 
-                    <field-error v-if="$v.message.$error">
-                        <template v-if="!$v.message.required">
+                    <field-error v-if="v$.message.$error && v$.message.$invalid">
+                        <template v-if="!v$.message.required">
                             A message is required.
                         </template>
-                        <template v-else-if="!$v.message.minLength || !$v.message.maxLength">
-                            Please enter more than {{ $v.message.$params.minLength.min }} characters.
+                        <template v-else-if="!v$.message.minLength || !v$.message.maxLength">
+                            Please enter more than {{ v$.message.minLength.$params.min }} characters.
                         </template>
                     </field-error>
 
                     <textarea id="message"
                               v-model="message"
-                              :maxlength="$v.message.$params.maxLength.max"
+                              :maxlength="v$.message.maxLength.$params.max"
                               class="h-32" />
                 </div>
 
@@ -65,12 +65,13 @@
 
 <script>
 import { Machine, interpret } from 'xstate';
+import { useVuelidate } from '@vuelidate/core';
 import {
+    email,
     minLength,
     maxLength,
     required,
-} from 'vuelidate/lib/validators';
-import email from '@/common/email_validator';
+} from '@vuelidate/validators';
 import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import fieldEmail from '@/common/field_email';
@@ -106,6 +107,10 @@ export default {
     mixins: [
         stateMixin,
     ],
+
+    setup () {
+        return { v$: useVuelidate() };
+    },
 
     data () {
         return {

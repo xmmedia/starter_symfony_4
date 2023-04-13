@@ -2,14 +2,14 @@
     <div class="field-wrap">
         <label :for="id"><slot>Email (Username)</slot></label>
 
-            <template v-if="!v.required">
         <field-error v-if="v.$error && v.$invalid">
+            <template v-if="v.required.$invalid">
                 An email is required.
             </template>
-            <template v-else-if="!v.email">
+            <template v-else-if="v.email.$invalid">
                 This email is invalid.
             </template>
-            <template v-else-if="!v.unique">
+            <template v-else-if="v.unique.$invalid">
                 This email has already been used.
             </template>
         </field-error>

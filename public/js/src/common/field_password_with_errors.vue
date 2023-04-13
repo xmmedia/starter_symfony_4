@@ -5,8 +5,8 @@
                     :show-help="showHelp"
                     :required="false"
                     :autocomplete="autocomplete"
-                    :minlength="hasVuelidateProp('minLength') ? v.$params.minLength.min : null"
                     @input="$emit('input', $event)">
+                    :minlength="hasVuelidateProp('minLength') ? v.minLength.$params.min : null"
         <template #default><slot></slot></template>
         <template #errors>
             <field-error v-if="v.$error && v.$invalid">
@@ -14,7 +14,7 @@
                     <slot name="required-msg">A password is required.</slot>
                 </template>
                 <template v-else-if="!minLength">
-                    Passwords must more than {{ v.$params.minLength.min }} characters.
+                    Passwords must more than {{ v.minLength.$params.min }} characters.
                 </template>
                 <template v-else-if="!maxLength">
                     The password is too long.
@@ -112,7 +112,7 @@ export default {
                 return true;
             }
 
-            return this.v[key];
+            return !this.v[key].$invalid;
         },
     },
 }

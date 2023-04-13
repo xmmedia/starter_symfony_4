@@ -10,7 +10,7 @@
             </field-error>
 
             <field-email v-model="email"
-                         :v="$v.email"
+                         :v="v$.email"
                          autofocus
                          autocomplete="username email"
                          @input="changed">
@@ -36,8 +36,8 @@
 
 <script>
 import { Machine, interpret } from 'xstate';
-import { required } from 'vuelidate/lib/validators';
-import email from '@/common/email_validator';
+import { email, required } from '@vuelidate/validators';
+import { useVuelidate } from '@vuelidate/core';
 import { hasGraphQlError, logError } from '@/common/lib';
 import fieldEmail from '@/common/field_email';
 import stateMixin from '@/common/state_mixin';
@@ -73,6 +73,10 @@ export default {
     mixins: [
         stateMixin,
     ],
+
+    setup () {
+        return { v$: useVuelidate() };
+    },
 
     data () {
         return {
@@ -130,7 +134,7 @@ export default {
                 });
 
                 this.email = null;
-                this.$v.$reset();
+                this.v$.$reset();
 
                 this.stateEvent('SUBMITTED');
 

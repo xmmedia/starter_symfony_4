@@ -25,21 +25,21 @@
             </div>
 
             <field-password v-model="currentPassword"
-                            :v="$v.currentPassword"
+                            :v="v$.currentPassword"
                             autocomplete="current-password">
                 Current password
                 <template #required-msg>Your current password is required.</template>
             </field-password>
 
             <field-password v-model="newPassword"
-                            :v="$v.newPassword"
+                            :v="v$.newPassword"
                             :show-help="true"
                             autocomplete="new-password">
                 New password
                 <template #required-msg>A new password is required.</template>
             </field-password>
             <field-password v-model="repeatPassword"
-                            :v="$v.repeatPassword"
+                            :v="v$.repeatPassword"
                             autocomplete="new-password">
                 New password again
                 <template #required-msg>Re-enter your new password.</template>
@@ -58,6 +58,7 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
+import { useVuelidate } from '@vuelidate/core';
 import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import profileTabs from './component/tabs';
@@ -99,6 +100,10 @@ export default {
     mixins: [
         stateMixin,
     ],
+
+    setup () {
+        return { v$: useVuelidate() };
+    },
 
     data () {
         return {
@@ -154,7 +159,7 @@ export default {
                 this.currentPassword = null;
                 this.newPassword = null;
                 this.repeatPassword = null;
-                this.$v.$reset();
+                this.v$.$reset();
 
                 this.stateEvent('SAVED');
 
