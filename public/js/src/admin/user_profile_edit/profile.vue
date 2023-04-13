@@ -125,13 +125,13 @@ export default {
         };
     },
 
-    methods: {
     created () {
         this.email = this.$store.state.user.email;
         this.firstName = this.$store.state.user.firstName;
         this.lastName = this.$store.state.user.lastName;
     },
 
+    methods: {
         setEmailDebounce: debounce(function (email) {
             this.setEmail(email);
         }, 100, { leading: true }),
