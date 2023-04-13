@@ -4,7 +4,7 @@
               class="form-wrap"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
             <field-error v-if="invalidToken" class="mb-4">
                 Your activation link is invalid.
                 Please try clicking the button again or copying the link.

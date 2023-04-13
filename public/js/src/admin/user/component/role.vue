@@ -2,7 +2,7 @@
     <div class="field-wrap">
         <label :for="id">Role</label>
 
-        <field-error v-if="v.$error">
+        <field-error v-if="v.$error && v.$invalid">
             <template v-if="!v.required">
                 A Role is required.
             </template>

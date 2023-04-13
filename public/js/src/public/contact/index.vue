@@ -2,7 +2,7 @@
     <div class="form-wrap p-0">
         <div class="p-4">
             <form v-if="showForm" @submit.prevent="submit">
-                <form-error v-if="$v.$anyError" />
+                <form-error v-if="v$.$error && v$.$invalid" />
 
                 <div class="field-wrap">
                     <label for="name">Name</label>

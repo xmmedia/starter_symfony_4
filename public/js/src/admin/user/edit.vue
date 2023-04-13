@@ -16,7 +16,7 @@
         </div>
 
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
 
             <field-email :value="email"
                          :v="$v.email"

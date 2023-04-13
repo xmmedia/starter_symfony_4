@@ -4,7 +4,7 @@
               class="form-wrap p-4"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
             <field-error v-if="notFound" class="mb-4">
                 An account with that email cannot be found.
             </field-error>

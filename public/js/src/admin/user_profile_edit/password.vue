@@ -3,7 +3,7 @@
         <profile-tabs />
 
         <form class="p-4" method="post" @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
             <div v-if="state.matches('saved')"
                  class="alert alert-success mb-4"
                  role="alert">

@@ -80,7 +80,7 @@ export default {
     computed: {
         hasErrors () {
             if (this.v) {
-                return this.v.$error;
+                return this.v.$error && this.v.$invalid;
             }
 
             return !!this.$slots.default;

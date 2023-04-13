@@ -4,7 +4,7 @@
               class="form-wrap p-4"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
             <field-error v-if="invalidToken" class="mb-4">
                 Your reset link is invalid or has expired.
                 Please try clicking the button again or copying the link.

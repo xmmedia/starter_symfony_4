@@ -8,7 +8,7 @@
 
         <h2 class="mt-0">Add User</h2>
         <form method="post" @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
 
             <field-email v-model.trim="email"
                          :v="$v.email"

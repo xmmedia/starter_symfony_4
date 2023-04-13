@@ -9,7 +9,7 @@
                     @input="$emit('input', $event)">
         <template #default><slot></slot></template>
         <template #errors>
-            <field-error v-if="v.$error">
+            <field-error v-if="v.$error && v.$invalid">
                 <template v-if="!required">
                     <slot name="required-msg">A password is required.</slot>
                 </template>

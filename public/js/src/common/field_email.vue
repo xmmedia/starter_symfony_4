@@ -2,8 +2,8 @@
     <div class="field-wrap">
         <label :for="id"><slot>Email (Username)</slot></label>
 
-        <field-error v-if="v.$error">
             <template v-if="!v.required">
+        <field-error v-if="v.$error && v.$invalid">
                 An email is required.
             </template>
             <template v-else-if="!v.email">
