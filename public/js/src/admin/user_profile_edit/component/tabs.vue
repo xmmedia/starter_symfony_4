@@ -22,8 +22,10 @@ export default {
     methods: {
         linkActiveClass (linkRoute) {
             return {
+                // current link
                 'bg-blue-100 hover:bg-blue-200' : this.$route.name !== linkRoute,
-                'bg-blue-600 text-white' : this.$route.name === linkRoute,
+                // other link
+                'bg-blue-600 text-white hover:text-white cursor-default' : this.$route.name === linkRoute,
             };
         },
     },
