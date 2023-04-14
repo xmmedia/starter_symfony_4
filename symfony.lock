@@ -49,12 +49,12 @@
         "version": "v0.5.3"
     },
     "doctrine/doctrine-bundle": {
-        "version": "2.8",
+        "version": "2.9",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.8",
-            "ref": "c38df294eea859b4e2d5f252d4e973f55a264f84"
+            "ref": "6b43b7b6ff6bf2551f2933ebeb66721fa3db8fbc"
         },
         "files": [
             "config/packages/doctrine.yaml",
@@ -341,25 +341,24 @@
         ]
     },
     "prooph/event-store-symfony-bundle": {
-        "version": "0.4",
+        "version": "0.10",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "0.4",
-            "ref": "a989875619b98a288abc2b636a2b5be36b4833d6"
+            "branch": "main",
+            "version": "0.10",
+            "ref": "3c725fadc54050832fa1073bc16a6c51df68fca8"
         },
         "files": [
-            "config/packages/prooph_event_store.yaml",
-            "src/Command/CreateEventStreamCommand.php"
+            "config/packages/prooph_event_store.yaml"
         ]
     },
     "prooph/pdo-event-store": {
-        "version": "1.7",
+        "version": "1.15",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.7",
-            "ref": "f35cb6fe1edf5853c6d78d429c8ae3564bdd1bd8"
+            "branch": "main",
+            "version": "1.15",
+            "ref": "020f87be92de58907f180d552e1a1b0d8c34cdd1"
         },
         "files": [
             "config/packages/prooph_pdo_event_store.yaml"
