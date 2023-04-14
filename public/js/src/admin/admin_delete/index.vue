@@ -17,7 +17,8 @@
                             type="button"
                             @click="deleteRecord">Delete</button>
                     <button ref="cancel"
-                            class="form-action button-link text-slate-300 focus:ring-offset-4 ring-offset-gray-800 focus:text-slate-400 hover:text-slate-400"
+                            class="form-action button-link text-slate-300
+                                   focus:ring-offset-4 ring-offset-gray-800 focus:text-slate-400 hover:text-slate-400"
                             type="button"
                             @click="close">Cancel</button>
                 </div>
