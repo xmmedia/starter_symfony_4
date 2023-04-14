@@ -134,7 +134,7 @@ deploy to staging:
     - php composer.phar install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
     - yarn install --non-interactive --frozen-lockfile
     - *security-checks
-    - yarn dev
+    - yarn build --mode development
     - *deploy-script
 
 deploy to prod:
