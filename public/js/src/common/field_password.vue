@@ -5,7 +5,7 @@
 
         <div class="relative z-20">
             <input :id="id"
-                   :value="value"
+                   :value="modelValue"
                    :type="fieldType"
                    :required="required"
                    :autocomplete="autocomplete"
@@ -14,7 +14,7 @@
                    autocapitalize="off"
                    autocorrect="off"
                    spellcheck="false"
-                   @input="$emit('input', $event.target.value)"
+                   @input="$emit('update:modelValue', $event.target.value)"
                    @focus="showMeter = true">
             <button type="button"
                     class="absolute button-link block top-0 right-0 w-6 h-6 mr-2
@@ -29,7 +29,7 @@
         </div>
 
         <password-score v-if="showHelp && showMeter"
-                        :password="value"
+                        :password="modelValue"
                         :user-data="userData" />
 
         <div v-if="showHelp" class="field-help relative">
@@ -42,14 +42,15 @@
 import cuid from 'cuid';
 
 import iconsPath from '@/../../images/icons-admin.svg';
+import { defineAsyncComponent } from 'vue';
 
 export default {
     components: {
-        'password-score': () => import(/* webpackChunkName: "password-score" */ './password_score'),
+        'password-score': defineAsyncComponent(() => import('./password_score')),
     },
 
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: null,
         },
@@ -102,8 +103,8 @@ export default {
     },
 
     watch: {
-        value (value) {
-            if (null === value) {
+        modelValue (modelValue) {
+            if (null === modelValue) {
                 this.showMeter = false;
             }
         },

@@ -9,15 +9,16 @@
             <div v-if="!deleting" class="text-center">
                 <div class="my-4">
                     Are you sure you want to delete this {{ recordDesc }}?
-                    This cannot be undone.
+                    <br>This cannot be undone.
                 </div>
                 <slot name="additional" />
                 <div class="mt-8">
-                    <button class="button button-critical bg-red-600 text-white"
+                    <button class="button button-critical bg-red-600 text-white focus:ring-offset-red-800"
                             type="button"
                             @click="deleteRecord">Delete</button>
                     <button ref="cancel"
-                            class="form-action button-link"
+                            class="form-action button-link text-slate-300
+                                   focus:ring-offset-4 ring-offset-gray-800 focus:text-slate-400 hover:text-slate-400"
                             type="button"
                             @click="close">Cancel</button>
                 </div>

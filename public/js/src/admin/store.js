@@ -1,11 +1,8 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 
 import adminMenu from './menu/store';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default createStore({
     namespaced: true,
     strict: process.env.NODE_ENV !== 'production',
 
@@ -73,9 +70,9 @@ export default new Vuex.Store({
         },
         setUser (state, user) {
             if (state.user === null) {
-                Vue.set(state, 'user', { ...user });
+                state.user = { ...user };
             } else {
-                Vue.set(state, 'user', { ...state.user, ...user });
+                state.user = { ...state.user, ...user };
             }
         },
 

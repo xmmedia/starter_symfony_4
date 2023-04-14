@@ -383,7 +383,7 @@
 
                     <ul class="form-extra_actions">
                         <li>
-                            <button class="form-action button-link">Delete</button>
+                            <admin-delete record-desc="Fake" />
                         </li>
                         <li>
                             <a href="" class="form-action">Other Action</a>
@@ -669,9 +669,13 @@
 </template>
 
 <script>
+import { useHead } from '@vueuse/head';
+
 export default {
-    metaInfo: {
-        title: 'Admin Pattern Library',
+    setup () {
+        useHead({
+            title: 'Admin Pattern Library',
+        });
     },
 }
 </script>

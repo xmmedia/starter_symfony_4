@@ -44,10 +44,11 @@
                             </span>
                         </div>
                         <div class="record_list-col">{{ user.name }}</div>
-                        <div class="record_list-col">{{ user|accountStatus }}</div>
+                        <div class="record_list-col">{{ accountStatus(user) }}</div>
                         <div class="record_list-col user_list-last_login">
                             <template v-if="user.loginCount > 0">
-                                <local-time :datetime="user.lastLogin" /> ({{ user.loginCount }})
+                                <local-time v-if="user.lastLogin" :datetime="user.lastLogin" />
+                                ({{ user.loginCount }})
                             </template>
                             <i v-else>Never logged in</i>
                         </div>
@@ -96,18 +97,6 @@ const stateMachine = Machine({
 });
 
 export default {
-    filters: {
-        accountStatus (user) {
-            if (!user.active) {
-                return 'Inactive';
-            } else if (!user.verified) {
-                return 'Not Verified';
-            }
-
-            return 'Active';
-        },
-    },
-
     mixins: [
         stateMixin,
     ],
@@ -143,6 +132,16 @@ export default {
         refresh () {
             this.stateEvent('REFRESH');
             this.$apollo.queries.users.refetch();
+        },
+
+        accountStatus (user) {
+            if (!user.active) {
+                return 'Inactive';
+            } else if (!user.verified) {
+                return 'Not Verified';
+            }
+
+            return 'Active';
         },
     },
 }

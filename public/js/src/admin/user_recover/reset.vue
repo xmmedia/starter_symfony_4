@@ -4,7 +4,7 @@
               class="form-wrap p-4"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
             <field-error v-if="invalidToken" class="mb-4">
                 Your reset link is invalid or has expired.
                 Please try clicking the button again or copying the link.
@@ -28,11 +28,11 @@
             </div>
 
             <field-password v-model="newPassword"
-                            :v="$v.newPassword"
+                            :v="v$.newPassword"
                             :show-help="true"
                             autocomplete="new-password">New password</field-password>
             <field-password v-model="repeatPassword"
-                            :v="$v.repeatPassword"
+                            :v="v$.repeatPassword"
                             autocomplete="new-password">New password again</field-password>
 
             <admin-button :saving="state.matches('submitting')">
@@ -53,8 +53,9 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
-import { hasGraphQlError, logError, waitForValidation } from '@/common/lib';
-import { required } from 'vuelidate/lib/validators';
+import { useVuelidate } from '@vuelidate/core';
+import { hasGraphQlError, logError } from '@/common/lib';
+import { required } from '@vuelidate/validators';
 import userValidation from '@/admin/validation/user';
 import fieldPassword from '@/common/field_password_with_errors';
 import stateMixin from '@/common/state_mixin';
@@ -90,6 +91,10 @@ export default {
     mixins: [
         stateMixin,
     ],
+
+    setup () {
+        return { v$: useVuelidate() };
+    },
 
     data () {
         return {
@@ -127,8 +132,6 @@ export default {
     },
 
     methods: {
-        waitForValidation,
-
         async submit () {
             if (!this.state.matches('ready')) {
                 return;
@@ -136,8 +139,7 @@ export default {
 
             this.stateEvent('SUBMIT');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
@@ -157,7 +159,7 @@ export default {
                 this.repeatPassword = null;
                 this.invalidToken = false;
                 this.tokenExpired = false;
-                this.$v.$reset();
+                this.v$.$reset();
 
                 this.stateEvent('SUBMITTED');
 

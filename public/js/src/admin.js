@@ -1,8 +1,7 @@
-import Vue from 'vue';
+import { createApp, h, defineAsyncComponent } from 'vue';
 import PortalVue from 'portal-vue';
-import VueModal from 'vue-js-modal';
-import VueMeta from 'vue-meta';
-import Vuelidate from 'vuelidate';
+import { createVfm } from 'vue-final-modal';
+import { createHead } from '@vueuse/head';
 
 import router from './admin/router';
 import store from './admin/store';
@@ -19,34 +18,8 @@ import adminIcon from './common/admin_icon';
 
 import { MeQuery } from './admin/queries/user.query.graphql';
 
-import * as filters from './common/filters';
-
 // SASS/CSS
 import '../../css/admin.scss';
-
-// disable the warning about dev/prod
-Vue.config.productionTip = false;
-
-Vue.use(PortalVue);
-Vue.use(VueModal, { componentName: 'vue-modal' });
-Vue.use(VueMeta);
-Vue.use(Vuelidate);
-
-// global components
-Vue.component('loading-spinner', loadingSpinner);
-Vue.component('form-error', formError);
-Vue.component('field-error', fieldError);
-Vue.component('field-password', fieldPassword);
-Vue.component('admin-button', adminButton);
-Vue.component('admin-icon', adminIcon);
-Vue.component('admin-modal', () => import(/* webpackChunkName: "admin-modal" */ './common/modal'));
-Vue.component('admin-delete', () => import(/* webpackChunkName: "admin-delete" */ './admin/admin_delete/index'));
-Vue.component('local-time', () => import(/* webpackChunkName: "local-time" */ './common/local_time'));
-
-Vue.filter('formatPhone', filters.formatPhone);
-Vue.filter('date', filters.date);
-Vue.filter('money', filters.money);
-Vue.filter('pluralize', filters.pluralize);
 
 // run gql query to see if the user is logged in, set state to ready
 // and then initialize
@@ -67,17 +40,30 @@ apolloProvider.defaultClient.query({ query: MeQuery })
 
         store.commit('ready');
 
-        window.App = new Vue({
-            el: '#app',
-            router,
-            store,
-            apolloProvider,
-
-            render: h => h(app),
-
-            metaInfo: {
-                // @todo-symfony
-                title: 'Symfony Starter',
+        window.App = createApp({
+            render () {
+                return h(app);
             },
         });
+
+        window.App.use(router);
+        window.App.use(store);
+        window.App.use(apolloProvider);
+
+        window.App.use(PortalVue);
+        window.App.use(createVfm());
+        window.App.use(createHead());
+
+        // global components
+        window.App.component('loading-spinner', loadingSpinner);
+        window.App.component('form-error', formError);
+        window.App.component('field-error', fieldError);
+        window.App.component('field-password', fieldPassword);
+        window.App.component('admin-button', adminButton);
+        window.App.component('admin-icon', adminIcon);
+        window.App.component('admin-modal', defineAsyncComponent(() => import('./common/modal')));
+        window.App.component('admin-delete', defineAsyncComponent(() => import('./admin/admin_delete/index')));
+        window.App.component('local-time', defineAsyncComponent(() => import('./common/local_time')));
+
+        window.App.mount('#app');
     });

@@ -36,7 +36,7 @@ export default {
             return zxcvbn(this.password || '', this.userDataCompiled);
         },
         score () {
-            if (!userValidation.password.minLength(this.password)) {
+            if (!userValidation.password.minLength.$validator(this.password)) {
                 return 0;
             }
 
@@ -70,5 +70,5 @@ export default {
             ].filter(Boolean);
         },
     },
-};
+}
 </script>

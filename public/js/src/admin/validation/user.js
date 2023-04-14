@@ -1,8 +1,9 @@
 import {
+    helpers,
     minLength,
     maxLength,
     required,
-} from 'vuelidate/lib/validators';
+} from '@vuelidate/validators';
 import { pwnedPassword } from 'hibp';
 import zxcvbn from 'zxcvbn';
 
@@ -18,17 +19,26 @@ export default {
                 return true;
             }
 
-            return zxcvbn(value, [ this.firstName, this.lastName, this.email ]).score > 2;
+            const userData = [
+                // deal with the values not existing for example when they're using the forgot password
+                this.firstName || null,
+                this.lastName || null,
+                this.email || null,
+                ...document.title.split(/[\s|]+/),
+            ];
+
+            return zxcvbn(value, userData).score > 2;
         },
 
-        async compromised (value) {
+        compromised: helpers.withAsync(async function (value) {
             if (null === value || value.length < 12) {
                 return true;
             }
 
             // reject if in more than 3 breaches
             return await pwnedPassword(value) < 3;
-        },
+        }),
+        $lazy: true,
     },
     firstName: {
         required,

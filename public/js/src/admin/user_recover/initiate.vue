@@ -4,16 +4,16 @@
               class="form-wrap p-4"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
             <field-error v-if="notFound" class="mb-4">
                 An account with that email cannot be found.
             </field-error>
 
             <field-email v-model="email"
-                         :v="$v.email"
+                         :v="v$.email"
                          autofocus
                          autocomplete="username email"
-                         @input="changed">
+                         @update:modelValue="changed">
                 Please enter your email address to search for your account:
             </field-email>
 
@@ -36,8 +36,8 @@
 
 <script>
 import { Machine, interpret } from 'xstate';
-import { required } from 'vuelidate/lib/validators';
-import email from '@/common/email_validator';
+import { email, required } from '@vuelidate/validators';
+import { useVuelidate } from '@vuelidate/core';
 import { hasGraphQlError, logError } from '@/common/lib';
 import fieldEmail from '@/common/field_email';
 import stateMixin from '@/common/state_mixin';
@@ -73,6 +73,10 @@ export default {
     mixins: [
         stateMixin,
     ],
+
+    setup () {
+        return { v$: useVuelidate() };
+    },
 
     data () {
         return {
@@ -114,8 +118,7 @@ export default {
             this.stateEvent('SUBMIT');
             this.notFound = false;
 
-            this.$v.$touch();
-            if (this.$v.$anyError) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
@@ -131,7 +134,7 @@ export default {
                 });
 
                 this.email = null;
-                this.$v.$reset();
+                this.v$.$reset();
 
                 this.stateEvent('SUBMITTED');
 

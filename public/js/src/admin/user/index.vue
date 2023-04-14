@@ -7,9 +7,13 @@
 </template>
 
 <script>
+import { useHead } from '@vueuse/head';
+
 export default {
-    metaInfo: {
-        title: 'Users | Admin',
+    setup () {
+        useHead({
+            title: 'Users | Admin',
+        });
     },
 }
 </script>

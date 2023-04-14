@@ -61,7 +61,9 @@
                 <h1 class="header-page_title">
                     <portal-target name="header-page-title" />
                 </h1>
-                <portal-target name="header-actions" class="header-actions" />
+                <div class="header-actions">
+                    <portal-target name="header-actions" />
+                </div>
             </header>
 
             <main class="p-4">
@@ -70,30 +72,35 @@
             </main>
         </div>
 
-        <portal-target name="modal" multiple />
+        <modals-container />
     </div>
 
     <loading-spinner v-else class="mt-8" />
 </template>
 
 <script>
+import { useHead } from '@vueuse/head';
 import { mapState, mapGetters } from 'vuex';
+import { ModalsContainer as modalsContainer } from 'vue-final-modal';
 import menuSubnav from './menu/subnav';
 import menuSmall from './menu/small';
 import menuLink from './menu/link';
 
 export default {
-    metaInfo: {
-        title: 'Dashboard',
-        // @todo-symfony
-        titleTemplate: '%s | Symfony Starter',
-    },
-
     components: {
+        modalsContainer,
         menuSubnav,
         menuSmall,
         /* eslint-disable vue/no-unused-components */
         menuLink,
+    },
+
+    setup () {
+        useHead({
+            title: 'Dashboard',
+            // @todo-symfony
+            titleTemplate: '%s | Symfony Starter',
+        });
     },
 
     data () {

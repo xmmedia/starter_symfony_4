@@ -3,7 +3,7 @@
         <profile-tabs />
 
         <form class="p-4" method="post" @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
             <div v-if="state.matches('saved')"
                  class="alert alert-success mb-4"
                  role="alert">
@@ -25,21 +25,21 @@
             </div>
 
             <field-password v-model="currentPassword"
-                            :v="$v.currentPassword"
+                            :v="v$.currentPassword"
                             autocomplete="current-password">
                 Current password
                 <template #required-msg>Your current password is required.</template>
             </field-password>
 
             <field-password v-model="newPassword"
-                            :v="$v.newPassword"
+                            :v="v$.newPassword"
                             :show-help="true"
                             autocomplete="new-password">
                 New password
                 <template #required-msg>A new password is required.</template>
             </field-password>
             <field-password v-model="repeatPassword"
-                            :v="$v.repeatPassword"
+                            :v="v$.repeatPassword"
                             autocomplete="new-password">
                 New password again
                 <template #required-msg>Re-enter your new password.</template>
@@ -58,7 +58,9 @@
 <script>
 import { Machine, interpret } from 'xstate';
 import cloneDeep from 'lodash/cloneDeep';
-import { logError, waitForValidation } from '@/common/lib';
+import { useVuelidate } from '@vuelidate/core';
+import { sameAs } from '@vuelidate/validators';
+import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import profileTabs from './component/tabs';
 import fieldPassword from '@/common/field_password_with_errors';
@@ -100,6 +102,10 @@ export default {
         stateMixin,
     ],
 
+    setup () {
+        return { v$: useVuelidate() };
+    },
+
     data () {
         return {
             stateService: interpret(stateMachine),
@@ -108,6 +114,10 @@ export default {
             currentPassword: null,
             newPassword: null,
             repeatPassword: null,
+            // used in the password strength validation
+            email: this.$store.state.user.email,
+            firstName: this.$store.state.user.firstName,
+            lastName: this.$store.state.user.lastName,
         };
     },
 
@@ -120,14 +130,15 @@ export default {
     validations () {
         return {
             currentPassword: cloneDeep(userValidations.currentPassword),
-            newPassword: cloneDeep(userValidations.newPassword),
+            newPassword: {
+                ...cloneDeep(userValidations.newPassword),
+                sameAs: sameAs(this.repeatPassword),
+            },
             repeatPassword: cloneDeep(userValidations.repeatPassword),
         };
     },
 
     methods: {
-        waitForValidation,
-
         async submit () {
             if (!this.state.matches('ready')) {
                 return;
@@ -135,8 +146,7 @@ export default {
 
             this.stateEvent('SAVE');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 
@@ -157,7 +167,7 @@ export default {
                 this.currentPassword = null;
                 this.newPassword = null;
                 this.repeatPassword = null;
-                this.$v.$reset();
+                this.v$.$reset();
 
                 this.stateEvent('SAVED');
 

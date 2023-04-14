@@ -2,27 +2,27 @@
     <div class="field-wrap">
         <label :for="id"><slot>Email (Username)</slot></label>
 
-        <field-error v-if="v.$error">
-            <template v-if="!v.required">
+        <field-error v-if="v.$error && v.$invalid">
+            <template v-if="v.required.$invalid">
                 An email is required.
             </template>
-            <template v-else-if="!v.email">
+            <template v-else-if="v.email.$invalid">
                 This email is invalid.
             </template>
-            <template v-else-if="!v.unique">
+            <template v-else-if="v.unique.$invalid">
                 This email has already been used.
             </template>
         </field-error>
 
         <input :id="id"
                ref="input"
-               :value="value"
+               :value="modelValue"
                :autofocus="autofocus"
                :autocomplete="autocomplete"
                type="email"
                maxlength="150"
                @blur="checkEmail($event)"
-               v-on="inputListeners">
+               @input="$emit('update:modelValue', $event.target.value)">
 
         <div v-if="suggestedEmail" class="p-2 bg-emerald-900/70 text-white">
             Did you mean
@@ -39,15 +39,10 @@
 <script>
 import cuid from 'cuid';
 import mailcheck from 'mailcheck';
-import fieldEventMixin from './field_event_mixin';
 
 export default {
-    mixins: [
-        fieldEventMixin,
-    ],
-
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: null,
         },
@@ -104,7 +99,7 @@ export default {
             });
         },
         useSuggested () {
-            this.$emit('input', this.suggestedEmail);
+            this.$emit('update:modelValue', this.suggestedEmail);
             this.suggestedEmail = null;
             this.$refs.input.focus();
         },

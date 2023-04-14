@@ -1,12 +1,9 @@
-import Vue from 'vue';
-// @todo-symfony if using graphql on the public portion of the website, uncomment throughout file
-// import VueApollo from 'vue-apollo';
-import Vuelidate from 'vuelidate';
+import { createApp, defineAsyncComponent } from 'vue';
 // @todo-symfony if need portals, uncomment here and below
 // import PortalVue from 'portal-vue';
 
+// @todo-symfony if using graphql on the public portion of the website, uncomment throughout file
 // import apolloProvider from './common/apollo';
-// import * as filters from './common/filters';
 
 // import formError from './common/form_error';
 // import fieldError from './common/field_error';
@@ -17,22 +14,10 @@ import '../../css/public.scss';
 // images
 import '@/../../images/icons-public.svg';
 
-// disable the warning about dev/prod
-Vue.config.productionTip = false;
 
-// Vue.use(VueApollo);
-Vue.use(Vuelidate);
-// Vue.use(PortalVue);
-
-// Vue.component('form-error', formError);
-// Vue.component('field-error', fieldError);
-
-window.App = new Vue({
-    el: '#app',
-    // apolloProvider,
-
+window.App = createApp({
     components: {
-        'contact-form': () => import(/* webpackChunkName: "public-contact" */ './public/contact/index'),
+        'contact-form': defineAsyncComponent(() => import('./public/contact/index')),
     },
 
     data () {
@@ -53,3 +38,13 @@ window.App = new Vue({
         },
     },
 });
+
+// window.App.use(apolloProvider);
+
+// window.App.use(PortalVue);
+// window.App.use(PortalVue);
+
+// window.App.component('form-error', formError);
+// window.App.component('field-error', fieldError);
+
+window.App.mount('#app');

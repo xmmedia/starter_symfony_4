@@ -3,22 +3,22 @@
         <profile-tabs />
 
         <form class="p-4" method="post" @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
 
-            <field-email :value="email"
-                         :v="$v.email"
+            <field-email :model-value="email"
+                         :v="v$.email"
                          autofocus
                          autocomplete="username email"
-                         @input="setEmailDebounce">
+                         @update:modelValue="setEmailDebounce">
                 Email address
             </field-email>
 
             <field-input v-model.trim="firstName"
-                         :v="$v.firstName"
+                         :v="v$.firstName"
                          autocomplete="given-name"
                          @input="changed">First name</field-input>
             <field-input v-model.trim="lastName"
-                         :v="$v.lastName"
+                         :v="v$.lastName"
                          autocomplete="family-name"
                          @input="changed">Last name</field-input>
 
@@ -39,7 +39,8 @@
 import { Machine, interpret } from 'xstate';
 import debounce from 'lodash/debounce';
 import cloneDeep from 'lodash/cloneDeep';
-import { logError, waitForValidation } from '@/common/lib';
+import { useVuelidate } from '@vuelidate/core';
+import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 import fieldEmail from '@/common/field_email';
 import fieldInput from '@/common/field_input';
@@ -101,14 +102,18 @@ export default {
         next();
     },
 
+    setup () {
+        return { v$: useVuelidate() };
+    },
+
     data () {
         return {
             stateService: interpret(stateMachine),
             state: stateMachine.initialState,
 
-            email: this.$store.state.user.email,
-            firstName: this.$store.state.user.firstName,
-            lastName: this.$store.state.user.lastName,
+            email: null,
+            firstName: null,
+            lastName: null,
         };
     },
 
@@ -120,9 +125,13 @@ export default {
         };
     },
 
-    methods: {
-        waitForValidation,
+    created () {
+        this.email = this.$store.state.user.email;
+        this.firstName = this.$store.state.user.firstName;
+        this.lastName = this.$store.state.user.lastName;
+    },
 
+    methods: {
         setEmailDebounce: debounce(function (email) {
             this.setEmail(email);
         }, 100, { leading: true }),
@@ -138,8 +147,7 @@ export default {
 
             this.stateEvent('SAVE');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

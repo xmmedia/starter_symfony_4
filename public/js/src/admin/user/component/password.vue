@@ -6,14 +6,14 @@
         </div>
 
         <field-password v-show="setPassword"
-                        :value="value"
+                        :model-value="modelValue"
                         :v="v"
                         :user-data="userData"
                         :show-help="true"
                         :required="setPassword"
                         class="ml-6"
                         autocomplete="new-password"
-                        @input="$emit('input', $event)" />
+                        @update:modelValue="$emit('update:modelValue', $event)" />
     </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
     },
 
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: null,
         },

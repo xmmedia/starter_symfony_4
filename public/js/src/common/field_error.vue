@@ -10,30 +10,30 @@
                 </template>
                 <template v-else-if="!minLength">
                     <slot name="minLength" :v="v">
-                        Must be at least {{ v.$params.minLength.min }}
-                        {{ 'character'|pluralize(v.$params.minLength.min) }}.
+                        Must be at least {{ v.minLength.$params.min }}
+                        {{ pluralize('character', v.minLength.$params.min) }}.
                     </slot>
                 </template>
                 <template v-else-if="!maxLength">
                     <slot name="maxLength" :v="v">
-                        Cannot be more than {{ v.$params.maxLength.max }}
-                        {{ 'character'|pluralize(v.$params.maxLength.max) }}.
+                        Cannot be more than {{ v.maxLength.$params.max }}
+                        {{ pluralize('character', v.maxLength.$params.max) }}.
                     </slot>
                 </template>
                 <template v-else-if="!between">
                     <slot name="between" :v="v">
-                        Must be between {{ v.$params.between.min }}
-                        and {{ v.$params.between.max }}.
+                        Must be between {{ v.between.$params.min }}
+                        and {{ v.between.$params.max }}.
                     </slot>
                 </template>
                 <template v-else-if="!minValue">
                     <slot name="minValue" :v="v">
-                        Must be {{ v.$params.minValue.min }} or more.
+                        Must be {{ v.minValue.$params.min }} or more.
                     </slot>
                 </template>
                 <template v-else-if="!maxValue">
                     <slot name="maxValue" :v="v">
-                        Must be less than or equal to {{ v.$params.maxValue.max }}.
+                        Must be less than or equal to {{ v.maxValue.$params.max }}.
                     </slot>
                 </template>
                 <template v-else-if="!url">
@@ -68,6 +68,7 @@
 
 <script>
 import has from 'lodash/has';
+import { pluralize } from './lib';
 
 export default {
     props: {
@@ -80,7 +81,7 @@ export default {
     computed: {
         hasErrors () {
             if (this.v) {
-                return this.v.$error;
+                return this.v.$error && this.v.$invalid;
             }
 
             return !!this.$slots.default;
@@ -122,12 +123,14 @@ export default {
     },
 
     methods: {
+        pluralize,
+
         vuelidateValue (key) {
             if (!this.hasVuelidateProp(key)) {
                 return true;
             }
 
-            return this.v[key];
+            return !this.v[key].$invalid;
         },
         hasVuelidateProp (key) {
             return has(this.v, key);

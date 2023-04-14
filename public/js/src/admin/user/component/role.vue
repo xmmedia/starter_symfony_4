@@ -2,15 +2,15 @@
     <div class="field-wrap">
         <label :for="id">Role</label>
 
-        <field-error v-if="v.$error">
+        <field-error v-if="v.$error && v.$invalid">
             <template v-if="!v.required">
                 A Role is required.
             </template>
         </field-error>
 
         <select :id="id"
-                :value="value"
-                @change="$emit('input', $event.target.value)">
+                :value="modelValue"
+                @change="$emit('update:modelValue', $event.target.value)">
             <option v-for="(name,role) in availableRoles"
                     :key="role"
                     :value="role">{{ name }}</option>
@@ -24,7 +24,7 @@ import { mapState } from 'vuex';
 
 export default {
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: null,
         },

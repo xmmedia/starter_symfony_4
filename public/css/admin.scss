@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 
+@import '../../node_modules/vue-final-modal/dist/style.css';
+
 $header-height: 3.72rem;
 
 @import "common/common";

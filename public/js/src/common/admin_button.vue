@@ -60,5 +60,5 @@ export default {
             return this.saved || 'saved' === this.status;
         },
     },
-};
+}
 </script>

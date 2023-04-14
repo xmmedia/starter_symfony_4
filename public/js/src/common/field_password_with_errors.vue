@@ -1,20 +1,20 @@
 <template>
     <field-password :id="id"
-                    :value="value"
+                    :model-value="modelValue"
                     :user-data="userData"
                     :show-help="showHelp"
                     :required="false"
                     :autocomplete="autocomplete"
-                    :minlength="hasVuelidateProp('minLength') ? v.$params.minLength.min : null"
-                    @input="$emit('input', $event)">
+                    :minlength="hasVuelidateProp('minLength') ? v.minLength.$params.min : null"
+                    @update:modelValue="$emit('update:modelValue', $event)">
         <template #default><slot></slot></template>
         <template #errors>
-            <field-error v-if="v.$error">
+            <field-error v-if="v.$error && v.$invalid">
                 <template v-if="!required">
                     <slot name="required-msg">A password is required.</slot>
                 </template>
                 <template v-else-if="!minLength">
-                    Passwords must more than {{ v.$params.minLength.min }} characters.
+                    Passwords must more than {{ v.minLength.$params.min }} characters.
                 </template>
                 <template v-else-if="!maxLength">
                     The password is too long.
@@ -49,7 +49,7 @@ export default {
     },
 
     props: {
-        value: {
+        modelValue: {
             type: String,
             default: null,
         },
@@ -112,7 +112,7 @@ export default {
                 return true;
             }
 
-            return this.v[key];
+            return !this.v[key].$invalid;
         },
     },
 }

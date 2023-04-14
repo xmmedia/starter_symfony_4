@@ -8,15 +8,16 @@
 
         <h2 class="mt-0">Add User</h2>
         <form method="post" @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
 
-            <field-email v-model.trim="email"
-                         :v="$v.email"
+            <field-email :model-value="email"
+                         :v="v$.email"
                          autocomplete="off"
-                         autofocus />
+                         autofocus
+                         @update:modelValue="setEmailDebounce" />
 
             <field-password v-model="password"
-                            :v="$v.password"
+                            :v="v$.password"
                             :user-data="userDataForPassword"
                             checkbox-label="Set password"
                             @set-password="setPassword = $event" />
@@ -26,10 +27,10 @@
                 <label for="inputActive">Active</label>
             </div>
 
-            <field-input v-model.trim="firstName" :v="$v.firstName">First name</field-input>
-            <field-input v-model.trim="lastName" :v="$v.lastName">Last name</field-input>
+            <field-input v-model.trim="firstName" :v="v$.firstName">First name</field-input>
+            <field-input v-model.trim="lastName" :v="v$.lastName">Last name</field-input>
 
-            <field-role v-model="role" :v="$v.role" />
+            <field-role v-model="role" :v="v$.role" />
 
             <div v-if="!setPassword && active" class="field-wrap">
                 <div class="field-wrap field-wrap-checkbox">
@@ -55,7 +56,9 @@
 import { Machine, interpret } from 'xstate';
 import { v4 as uuid4 } from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
-import { logError, waitForValidation } from '@/common/lib';
+import debounce from 'lodash/debounce';
+import { useVuelidate } from '@vuelidate/core';
+import { logError } from '@/common/lib';
 import stateMixin from '@/common/state_mixin';
 
 import userValidations from './user.validation';
@@ -101,6 +104,10 @@ export default {
         stateMixin,
     ],
 
+    setup () {
+        return { v$: useVuelidate() };
+    },
+
     data () {
         return {
             stateService: interpret(stateMachine),
@@ -132,7 +139,12 @@ export default {
     },
 
     methods: {
-        waitForValidation,
+        setEmailDebounce: debounce(function (email) {
+            this.setEmail(email);
+        }, 100, { leading: true }),
+        setEmail (email) {
+            this.email = email;
+        },
 
         async submit () {
             if (!this.state.matches('ready')) {
@@ -141,8 +153,7 @@ export default {
 
             this.stateEvent('SUBMIT');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

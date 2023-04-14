@@ -4,7 +4,7 @@
               class="form-wrap"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="$v.$anyError" />
+            <form-error v-if="v$.$error && v$.$invalid" />
             <field-error v-if="invalidToken" class="mb-4">
                 Your activation link is invalid.
                 Please try clicking the button again or copying the link.
@@ -13,7 +13,7 @@
                 Your link has expired. Please contact an administrator.
             </field-error>
 
-            <p :class="{ 'mt-0' : !$v.$anyError && !invalidToken && !tokenExpired }">
+            <p :class="{ 'mt-0' : !v$.$error && !invalidToken && !tokenExpired }">
                 To activate your account, enter a password below.
             </p>
 
@@ -26,11 +26,11 @@
             </div>
 
             <field-password v-model="password"
-                            :v="$v.password"
+                            :v="v$.password"
                             :show-help="true"
                             autocomplete="new-password" />
             <field-password v-model="repeatPassword"
-                            :v="$v.repeatPassword"
+                            :v="v$.repeatPassword"
                             autocomplete="new-password">Password again</field-password>
 
             <admin-button :saving="state.matches('submitting')"
@@ -53,12 +53,14 @@
 <script>
 import cloneDeep from 'lodash/cloneDeep';
 import { Machine, interpret } from 'xstate';
-import { hasGraphQlError, logError, waitForValidation } from '@/common/lib';
-import { required, sameAs } from 'vuelidate/lib/validators';
+import { useVuelidate } from '@vuelidate/core';
+import { required, sameAs } from '@vuelidate/validators';
+import { hasGraphQlError, logError } from '@/common/lib';
 import fieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '@/admin/queries/user.mutation.graphql';
 import stateMixin from '@/common/state_mixin';
 import userValidation from '@/admin/validation/user';
+import { useHead } from '@vueuse/head';
 
 const stateMachine = Machine({
     id: 'component',
@@ -83,10 +85,6 @@ const stateMachine = Machine({
 });
 
 export default {
-    metaInfo: {
-        title: 'Activate Your Account',
-    },
-
     components: {
         fieldPassword,
     },
@@ -94,6 +92,14 @@ export default {
     mixins: [
         stateMixin,
     ],
+
+    setup () {
+        useHead({
+            title: 'Activate Your Account',
+        });
+
+        return { v$: useVuelidate() };
+    },
 
     data () {
         return {
@@ -132,13 +138,10 @@ export default {
     },
 
     methods: {
-        waitForValidation,
-
         async submit () {
             this.stateEvent('SUBMIT');
 
-            this.$v.$touch();
-            if (!await this.waitForValidation()) {
+            if (!await this.v$.$validate()) {
                 this.stateEvent('ERROR');
                 window.scrollTo(0, 0);
 

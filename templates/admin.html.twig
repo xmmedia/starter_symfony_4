@@ -2,18 +2,16 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('admin') }}
+    {{ vite_entry_link_tags('admin') }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('admin', attributes={
-        'data-entry': 'admin',
-    }) }}
+    {{ vite_entry_script_tags('admin', { attr: { 'data-entry': 'admin' } }) }}
 
     {% if app.debug %}
         {# makes svgs work with the dev server #}
-        <script defer src="{{ asset('build/svgxuse.min.js') }}"></script>
+        <script defer src="/js/svgxuse.min.js"></script>
     {% endif %}
 {% endblock %}
 

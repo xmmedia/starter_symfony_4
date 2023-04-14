@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { required, requiredIf } from 'vuelidate/lib/validators';
-import email from '@/common/email_validator';
+import has from 'lodash/has';
+import { email, helpers, required, requiredIf } from '@vuelidate/validators';
 import userValidation from '../validation/user';
 import { GetDuplicateUsers } from '../queries/user.query.graphql';
 
@@ -8,8 +8,8 @@ export default {
     email: {
         required,
         email,
-        async unique (value) {
-            if (!email(value)) {
+        unique: helpers.withAsync(async function (value) {
+            if (!email.$validator(value)) {
                 return true;
             }
 
@@ -31,18 +31,20 @@ export default {
                 return true;
             }
 
-            if (typeof this.userId === undefined) {
+            if (!has(this, 'userId')) {
                 return 0 < foundUsers.length;
             }
 
             return 0 === foundUsers.filter(
                 ({ userId }) => this.userId !== userId
             ).length;
-        },
+        }),
     },
     password: {
         ...cloneDeep(userValidation.password),
-        required: requiredIf('setPassword'),
+        required: requiredIf(function () {
+            return this.setPassword;
+        }),
     },
     firstName: {
         ...cloneDeep(userValidation.firstName),
