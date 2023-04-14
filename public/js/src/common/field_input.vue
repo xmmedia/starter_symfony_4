@@ -21,7 +21,7 @@
                :maxlength="maxLength"
                :autocomplete="autocomplete"
                :placeholder="placeholder"
-               v-on="inputListeners">
+               @input="$emit('update:modelValue', $event.target.value)">
 
         <div v-if="hasHelp" class="field-help"><slot name="help"></slot></div>
     </div>
@@ -30,13 +30,8 @@
 <script>
 import cuid from 'cuid';
 import has from 'lodash/has';
-import fieldEventMixin from '@/common/field_event_mixin';
 
 export default {
-    mixins: [
-        fieldEventMixin,
-    ],
-
     props: {
         modelValue: {
             type: String,

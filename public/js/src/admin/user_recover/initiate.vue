@@ -13,7 +13,7 @@
                          :v="v$.email"
                          autofocus
                          autocomplete="username email"
-                         @input="changed">
+                         @update:modelValue="changed">
                 Please enter your email address to search for your account:
             </field-email>
 

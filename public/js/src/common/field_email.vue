@@ -22,7 +22,7 @@
                type="email"
                maxlength="150"
                @blur="checkEmail($event)"
-               v-on="inputListeners">
+               @input="$emit('update:modelValue', $event.target.value)">
 
         <div v-if="suggestedEmail" class="p-2 bg-emerald-900/70 text-white">
             Did you mean
@@ -39,13 +39,8 @@
 <script>
 import cuid from 'cuid';
 import mailcheck from 'mailcheck';
-import fieldEventMixin from './field_event_mixin';
 
 export default {
-    mixins: [
-        fieldEventMixin,
-    ],
-
     props: {
         modelValue: {
             type: String,
