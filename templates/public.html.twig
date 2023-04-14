@@ -2,14 +2,12 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('public') }}
+    {{ vite_entry_link_tags('public') }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('public', attributes={
-        'data-entry': 'public',
-    }) }}
+    {{ vite_entry_script_tags('public', { attr: { 'data-entry': 'public' } }) }}
 
     {% if app.debug %}
         {# makes svgs work with the dev server #}

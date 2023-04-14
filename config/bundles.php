@@ -18,10 +18,10 @@ return [
     Misd\PhoneNumberBundle\MisdPhoneNumberBundle::class                        => ['all' => true],
     Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle::class => ['dev' => true, 'test' => true],
     Liip\FunctionalTestBundle\LiipFunctionalTestBundle::class                  => ['dev' => true, 'test' => true],
-    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class                     => ['all' => true],
     Prooph\Bundle\EventStore\ProophEventStoreBundle::class                     => ['all' => true],
     Overblog\GraphQLBundle\OverblogGraphQLBundle::class                        => ['all' => true],
     Overblog\GraphiQLBundle\OverblogGraphiQLBundle::class                      => ['dev' => true],
     Xm\SymfonyBundle\XmSymfonyBundle::class                                    => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class                          => ['all' => true],
+    Pentatrion\ViteBundle\PentatrionViteBundle::class                          => ['all' => true],
 ];
