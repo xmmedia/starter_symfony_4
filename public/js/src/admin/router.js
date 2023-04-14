@@ -140,13 +140,13 @@ router.beforeEach( async (to, from, next) => {
         }
 
         // JS files have changed
-        if (result.data.EntrypointIntegrity !== store.state.entrypointIntegrityHashes.admin) {
+        /*if (result.data.EntrypointIntegrity !== store.state.entrypointIntegrityHashes.admin) {
             if (result.data.EntrypointIntegrity && store.state.entrypointIntegrityHashes.admin) {
                 window.location.reload();
 
                 return;
             }
-        }
+        }*/
 
         // find the first matched route that has a role
         const routeWithRole = to.matched.find(record => record.meta && record.meta.role);
