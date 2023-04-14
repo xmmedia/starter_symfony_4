@@ -72,7 +72,7 @@
             </main>
         </div>
 
-        <portal-target name="modal" multiple />
+        <modals-container />
     </div>
 
     <loading-spinner v-else class="mt-8" />
@@ -81,13 +81,14 @@
 <script>
 import { useHead } from '@vueuse/head';
 import { mapState, mapGetters } from 'vuex';
+import { ModalsContainer as modalsContainer } from 'vue-final-modal';
 import menuSubnav from './menu/subnav';
 import menuSmall from './menu/small';
 import menuLink from './menu/link';
 
-
 export default {
     components: {
+        modalsContainer,
         menuSubnav,
         menuSmall,
         /* eslint-disable vue/no-unused-components */

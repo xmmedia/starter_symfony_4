@@ -1,6 +1,6 @@
 import { createApp, h, defineAsyncComponent } from 'vue';
 import PortalVue from 'portal-vue';
-// import VueModal from 'vue-js-modal';
+import { createVfm } from 'vue-final-modal';
 import { createHead } from '@vueuse/head';
 
 import router from './admin/router';
@@ -51,7 +51,7 @@ apolloProvider.defaultClient.query({ query: MeQuery })
         window.App.use(apolloProvider);
 
         window.App.use(PortalVue);
-        // window.App.use(VueModal, { componentName: 'vue-modal' });
+        window.App.use(createVfm());
         window.App.use(createHead());
 
         // global components
