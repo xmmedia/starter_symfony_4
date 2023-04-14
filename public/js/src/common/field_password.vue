@@ -46,7 +46,7 @@ import { defineAsyncComponent } from 'vue';
 
 export default {
     components: {
-        'password-score': defineAsyncComponent(() => import(/* webpackChunkName: "password-score" */ './password_score')),
+        'password-score': defineAsyncComponent(() => import('./password_score')),
     },
 
     props: {

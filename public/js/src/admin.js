@@ -61,9 +61,9 @@ apolloProvider.defaultClient.query({ query: MeQuery })
         window.App.component('field-password', fieldPassword);
         window.App.component('admin-button', adminButton);
         window.App.component('admin-icon', adminIcon);
-        window.App.component('admin-modal', defineAsyncComponent(() => import(/* webpackChunkName: "admin-modal" */ './common/modal')));
-        window.App.component('admin-delete', defineAsyncComponent(() => import(/* webpackChunkName: "admin-delete" */ './admin/admin_delete/index')));
-        window.App.component('local-time', defineAsyncComponent(() => import(/* webpackChunkName: "local-time" */ './common/local_time')));
+        window.App.component('admin-modal', defineAsyncComponent(() => import('./common/modal')));
+        window.App.component('admin-delete', defineAsyncComponent(() => import('./admin/admin_delete/index')));
+        window.App.component('local-time', defineAsyncComponent(() => import('./common/local_time')));
 
         window.App.mount('#app');
     });

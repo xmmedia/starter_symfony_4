@@ -17,7 +17,7 @@ import '@/../../images/icons-public.svg';
 
 window.App = createApp({
     components: {
-        'contact-form': defineAsyncComponent(() => import(/* webpackChunkName: "public-contact" */ './public/contact/index')),
+        'contact-form': defineAsyncComponent(() => import('./public/contact/index')),
     },
 
     data () {

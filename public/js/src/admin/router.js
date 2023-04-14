@@ -12,43 +12,43 @@ const router = createRouter({
         {
             name: 'login',
             path: '/login',
-            component: () => import(/* webpackChunkName: "login" */ './login'),
+            component: () => import('./login'),
         },
         {
             path: '/recover',
-            component: () => import(/* webpackChunkName: "user-recover" */ './user_recover'),
+            component: () => import('./user_recover'),
             children: [
                 { path: '', redirect: '/recover/initiate' },
                 {
                     name: 'user-recover-initiate',
                     path: 'initiate',
-                    component: () => import(/* webpackChunkName: "user-recover" */ './user_recover/initiate'),
+                    component: () => import('./user_recover/initiate'),
                 },
                 {
                     name: 'user-recover-reset',
                     path: 'reset/:token',
-                    component: () => import(/* webpackChunkName: "user-recover" */ './user_recover/reset'),
+                    component: () => import('./user_recover/reset'),
                 },
             ],
         },
         {
             name: 'user-verify',
             path: '/activate/:token',
-            component: () => import(/* webpackChunkName: "user-verify" */ './user_verify'),
+            component: () => import('./user_verify'),
         },
         {
             path: '/profile/edit',
-            component: () => import(/* webpackChunkName: "user-profile-edit" */ './user_profile_edit'),
+            component: () => import('./user_profile_edit'),
             children: [
                 {
                     name: 'user-profile-edit',
                     path: '',
-                    component: () => import(/* webpackChunkName: "user-profile-edit" */ './user_profile_edit/profile'),
+                    component: () => import('./user_profile_edit/profile'),
                 },
                 {
                     name: 'user-profile-edit-password',
                     path: 'password',
-                    component: () => import(/* webpackChunkName: "user-profile-edit" */ './user_profile_edit/password'),
+                    component: () => import('./user_profile_edit/password'),
                 },
             ],
             meta: {
@@ -59,7 +59,7 @@ const router = createRouter({
         {
             name: 'admin-dashboard',
             path: '/admin',
-            component: () => import(/* webpackChunkName: "admin-dashboard" */ './admin_dashboard'),
+            component: () => import('./admin_dashboard'),
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_ADMIN',
@@ -67,22 +67,22 @@ const router = createRouter({
         },
         {
             path: '/admin/user',
-            component: () => import(/* webpackChunkName: "admin-user" */ './user'),
+            component: () => import('./user'),
             children: [
                 {
                     name: 'admin-user',
                     path: '',
-                    component: () => import(/* webpackChunkName: "admin-user" */ './user/list'),
+                    component: () => import('./user/list'),
                 },
                 {
                     name: 'admin-user-add',
                     path: 'add',
-                    component: () => import(/* webpackChunkName: "admin-user" */ './user/add'),
+                    component: () => import('./user/add'),
                 },
                 {
                     name: 'admin-user-edit',
                     path: ':userId/edit',
-                    component: () => import(/* webpackChunkName: "admin-user" */ './user/edit'),
+                    component: () => import('./user/edit'),
                     props: true,
                 },
             ],
@@ -95,7 +95,7 @@ const router = createRouter({
         {
             path: '/admin/pattern-library',
             name: 'pattern-library',
-            component: () => import(/* webpackChunkName: "admin-pattern_library" */ './pattern_library'),
+            component: () => import('./pattern_library'),
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_SUPER_ADMIN',
@@ -105,12 +105,12 @@ const router = createRouter({
         {
             path: '/:pathMatch(.*)*',
             name: '404',
-            component: () => import(/* webpackChunkName: "admin-error" */ './error/404'),
+            component: () => import('./error/404'),
         },
         {
             path: '/:pathMatch(.*)*',
             name: '403',
-            component: () => import(/* webpackChunkName: "admin-error" */ './error/403'),
+            component: () => import('./error/403'),
         },
     ],
 
