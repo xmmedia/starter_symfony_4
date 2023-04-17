@@ -21,6 +21,7 @@ return (new PhpCsFixer\Config())
         '@PHP74Migration'             => true,
         '@PHP80Migration'             => true,
         '@PHP81Migration'             => true,
+        '@PHP82Migration'             => true,
         '@PHPUnit60Migration:risky'   => true,
         'array_syntax'                => [
             'syntax' => 'short',

@@ -35,7 +35,7 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
 
 ## System Requirements
 
-  - PHP 8.1
+  - PHP 8.2
   - MySQL 5.7+
   - Node 14
   - [Yarn](https://yarnpkg.com/en/docs/install)

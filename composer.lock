@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a847e53fa3c2dc562abbc5b0ed13ac09",
+    "content-hash": "5ddac5e45d375e297a3df72c6d78f6f0",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -10462,16 +10462,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.12",
+            "version": "v2.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "399e238ad11cb47fb7749efb9c78ed4ff215fbb5"
+                "reference": "317894f865b5a966dab525ba1c038f43dc41f0cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/399e238ad11cb47fb7749efb9c78ed4ff215fbb5",
-                "reference": "399e238ad11cb47fb7749efb9c78ed4ff215fbb5",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/317894f865b5a966dab525ba1c038f43dc41f0cd",
+                "reference": "317894f865b5a966dab525ba1c038f43dc41f0cd",
                 "shasum": ""
             },
             "require": {
@@ -10487,7 +10487,7 @@
                 "nesbot/carbon": "^2.24",
                 "odolbeau/phone-number-bundle": "^3.0",
                 "overblog/graphql-bundle": "^0.15.0",
-                "php": "^8.1",
+                "php": "^8.1 || ^8.2",
                 "prooph/event-store-bus-bridge": "^3.3",
                 "prooph/event-store-symfony-bundle": "^0.10.0",
                 "prooph/pdo-event-store": "^1.11",
@@ -10545,9 +10545,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.12"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.13"
             },
-            "time": "2023-04-14T20:50:17+00:00"
+            "time": "2023-04-17T20:28:24+00:00"
         }
     ],
     "packages-dev": [
@@ -14320,7 +14320,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "8.1.*",
+        "php": "8.2.*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
