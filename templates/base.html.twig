@@ -26,30 +26,27 @@
         {% endblock %}
     </head>
     <body{% if body_attributes is defined %}{{ body_attributes }}{% endif %}>
-        {# #app is what Vue.js mounts to #}
-        <div id="app">
-            {% block body %}
-                {% block header %}
-                    <header>
-                        <div><a href="{{ path('index') }}"><img src="/images/logo.svg" width="250" alt="{{ 'app.parameter.name'|trans }}"></a></div>
-                    </header>
-                {% endblock header %}
-                {% block content_wrap %}
-                    <main>
-                        {% block content %}
-                            {% include 'flash_messages.html.twig' %}
-                        {% endblock content %}
-                    </main>
-                {% endblock content_wrap %}
-                {% block footer %}
-                    <footer>
-                        <div class="text-sm">
-                            ©{{ 'now'|date('Y') }} {{ 'app.parameter.name'|trans }} {{ "app.string.all_rights_reserved"|trans }}
-                        </div>
-                    </footer>
-                {% endblock footer %}
-            {% endblock body %}
-        </div>
+        {% block body %}
+            {% block header %}
+                <header>
+                    <div><a href="{{ path('index') }}"><img src="/images/logo.svg" width="250" alt="{{ 'app.parameter.name'|trans }}"></a></div>
+                </header>
+            {% endblock header %}
+            {% block content_wrap %}
+                <main>
+                    {% block content %}
+                        {% include 'flash_messages.html.twig' %}
+                    {% endblock content %}
+                </main>
+            {% endblock content_wrap %}
+            {% block footer %}
+                <footer>
+                    <div class="text-sm">
+                        ©{{ 'now'|date('Y') }} {{ 'app.parameter.name'|trans }} {{ "app.string.all_rights_reserved"|trans }}
+                    </div>
+                </footer>
+            {% endblock footer %}
+        {% endblock body %}
 
         {% block javascripts %}{% endblock %}
     </body>

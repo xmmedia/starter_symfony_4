@@ -16,9 +16,12 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'flash_messages.html.twig' %}
+    {# #app is what Vue.js mounts to #}
+    <div id="app">
+        {% include 'flash_messages.html.twig' %}
 
-    <div class="flex justify-center items-center mt-8">
-        <div class="loading" aria-hidden="true"></div> Loading…
+        <div class="flex justify-center items-center mt-8">
+            <div class="loading" aria-hidden="true"></div> Loading…
+        </div>
     </div>
 {% endblock body %}
