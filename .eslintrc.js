@@ -51,6 +51,8 @@ module.exports = {
         "vue/multiline-html-element-content-newline": "off",
         "vue/singleline-html-element-content-newline": "off",
         "vue/component-definition-name-casing": ["error", "kebab-case"],
+        // disabled because it warns about the public.js file containing to createApp's
+        "vue/one-component-per-file": "off",
     },
     reportUnusedDisableDirectives: true,
     parserOptions: {
