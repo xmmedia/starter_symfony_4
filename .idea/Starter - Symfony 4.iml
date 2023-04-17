@@ -190,7 +190,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/postmark-mailer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/masterminds/html5" />
       <excludeFolder url="file://$MODULE_DIR$/public/build" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bin/.phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/pentatrion/vite-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
