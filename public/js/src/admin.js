@@ -7,7 +7,7 @@ import router from './admin/router';
 import store from './admin/store';
 import apolloProvider from './common/apollo';
 
-import app from './admin/index';
+import appIndex from './admin/index';
 
 import loadingSpinner from './common/loading_spinner';
 import formError from './common/form_error';
@@ -40,30 +40,30 @@ apolloProvider.defaultClient.query({ query: MeQuery })
 
         store.commit('ready');
 
-        window.App = createApp({
+        const app = createApp({
             render () {
-                return h(app);
+                return h(appIndex);
             },
         });
 
-        window.App.use(router);
-        window.App.use(store);
-        window.App.use(apolloProvider);
+        app.use(router);
+        app.use(store);
+        app.use(apolloProvider);
 
-        window.App.use(PortalVue);
-        window.App.use(createVfm());
-        window.App.use(createHead());
+        app.use(PortalVue);
+        app.use(createVfm());
+        app.use(createHead());
 
         // global components
-        window.App.component('loading-spinner', loadingSpinner);
-        window.App.component('form-error', formError);
-        window.App.component('field-error', fieldError);
-        window.App.component('field-password', fieldPassword);
-        window.App.component('admin-button', adminButton);
-        window.App.component('admin-icon', adminIcon);
-        window.App.component('admin-modal', defineAsyncComponent(() => import('./common/modal')));
-        window.App.component('admin-delete', defineAsyncComponent(() => import('./admin/admin_delete/index')));
-        window.App.component('local-time', defineAsyncComponent(() => import('./common/local_time')));
+        app.component('loading-spinner', loadingSpinner);
+        app.component('form-error', formError);
+        app.component('field-error', fieldError);
+        app.component('field-password', fieldPassword);
+        app.component('admin-button', adminButton);
+        app.component('admin-icon', adminIcon);
+        app.component('admin-modal', defineAsyncComponent(() => import('./common/modal')));
+        app.component('admin-delete', defineAsyncComponent(() => import('./admin/admin_delete/index')));
+        app.component('local-time', defineAsyncComponent(() => import('./common/local_time')));
 
-        window.App.mount('#app');
+        app.mount('#app');
     });
