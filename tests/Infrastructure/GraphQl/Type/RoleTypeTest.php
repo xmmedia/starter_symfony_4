@@ -16,7 +16,7 @@ class RoleTypeTest extends TestCase
     /**
      * @dataProvider dateProvider
      */
-    public function testSerialize(\App\Model\User\Role|string|null $value, ?string $expected): void
+    public function testSerialize(Role|string|null $value, ?string $expected): void
     {
         $result = (new RoleType())->serialize($value);
 
@@ -33,7 +33,7 @@ class RoleTypeTest extends TestCase
     /**
      * @dataProvider dateProvider
      */
-    public function testParseValue(\App\Model\User\Role|string|null $expected, ?string $value): void
+    public function testParseValue(Role|string|null $expected, ?string $value): void
     {
         $result = (new RoleType())->parseValue($value);
 
