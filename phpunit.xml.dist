@@ -30,11 +30,6 @@
         </include>
     </coverage>
 
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-        <listener class="Mockery\Adapter\Phpunit\TestListener" />
-    </listeners>
-
     <!-- Run `composer require symfony/panther` before enabling this extension -->
     <!--
     <extensions>
