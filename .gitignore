@@ -37,7 +37,6 @@ public/service-worker.js
 # ignore everything in bin, except...
 /bin/*
 !/bin/console
-!/bin/symfony_requirements
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
