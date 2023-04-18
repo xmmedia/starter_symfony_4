@@ -107,6 +107,7 @@ static:
     - php bin/phpstan analyse --no-progress --memory-limit 1G src
     - bin/console lint:yaml config
     - bin/console lint:twig templates
+    - bin/console lint:container
     # lint JS
     - yarn lint:js
     - yarn lint:css
