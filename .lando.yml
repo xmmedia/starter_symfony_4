@@ -1,4 +1,4 @@
-# DB URL: mysql://symfony:symfony@database:3306/symfony?serverVersion=5.7
+# DB URL: mysql://symfony:symfony@database:3306/symfony?serverVersion=5.7&charset=utf8mb4
 # @todo-symfony update
 name: symfonystarter
 recipe: symfony
