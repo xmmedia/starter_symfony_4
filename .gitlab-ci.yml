@@ -142,7 +142,7 @@ deploy to prod:
   stage: deploy
   allow_failure: false
   only:
-    - master
+    - $CI_DEFAULT_BRANCH
   environment:
     name: production
     url: $PROD_URL
