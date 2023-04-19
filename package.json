@@ -18,8 +18,8 @@
     "lint:js:fix": "eslint --ext .js,.vue public/js *.js",
     "lint:css": "stylelint public/css/**/*.scss",
     "lint:css:fix": "stylelint public/css/**/*.scss --fix",
-    "audit:moderate": "audit-ci --moderate --config audit-ci.json --report-type summary",
-    "audit:high": "audit-ci --high --config audit-ci.json --report-type summary",
+    "audit:moderate": "audit-ci --moderate --config .audit-ci.jsonc --report-type summary",
+    "audit:high": "audit-ci --high --config .audit-ci.jsonc --report-type summary",
     "browserlist": "browserslist"
   },
   "dependencies": {
