@@ -1,18 +1,14 @@
 import { defineConfig } from 'vite';
+import { fileURLToPath, URL } from 'node:url';
 import basicSslPlugin from '@vitejs/plugin-basic-ssl';
 import vuePlugin from '@vitejs/plugin-vue';
 import graphqlPlugin from '@rollup/plugin-graphql';
 import manifestSRIPlugin from 'vite-plugin-manifest-sri';
 import symfonyPlugin from 'vite-plugin-symfony';
 import liveReload from 'vite-plugin-live-reload';
-import path from 'path';
 import dns from 'dns'
 
 dns.setDefaultResultOrder('verbatim');
-
-function resolve (dir) {
-    return path.join(__dirname, '.', dir);
-}
 
 export default defineConfig({
     root: 'public',
@@ -38,8 +34,9 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@': resolve('public/js/src'),
+            '@': fileURLToPath(new URL('./public/js/src', import.meta.url)),
         },
+        // the default plus .vue
         extensions: ['.vue', '.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
     },
     css: {
