@@ -1,3 +1,4 @@
+/* eslint-env node */
 module.exports = {
     root: true,
     env: {
@@ -5,7 +6,7 @@ module.exports = {
         browser: true,
         "cypress/globals": true,
     },
-    extends: ['plugin:vue/recommended', 'eslint:recommended'],
+    extends: ['plugin:vue/vue3-essential', 'eslint:recommended'],
     rules: {
         "no-console": "error",
         "no-debugger": "error",
@@ -57,6 +58,7 @@ module.exports = {
     reportUnusedDisableDirectives: true,
     parserOptions: {
         parser: "@babel/eslint-parser",
+        ecmaVersion: 'latest',
     },
     plugins: [
         "cypress",

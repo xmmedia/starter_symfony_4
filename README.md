@@ -75,7 +75,8 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
       - [Vue Devtools](https://github.com/vuejs/vue-devtools) – makes debugging in the browser easier
       - [Vue Templates](https://vuejs.org/v2/guide/syntax.html) – the syntax for .vue files
       - [Vue Test Utils](https://vue-test-utils.vuejs.org/) – to help testing Vue components
-    - [Vue CLI](https://cli.vuejs.org/) – to manage & run the frontend compilation & testing
+    - [Vite](https://vitejs.dev/) – frontend build tool
+    - [Vitest](https://vitest.dev/) – to manage & run the frontend testing
     - [GraphQL](https://graphql.org/) – the communication (query) language for the API
       - [Apollo Client](https://www.apollographql.com/docs/react/) through [Vue Apollo](https://vue-apollo.netlify.com) – frontend GraphQL 
     - [SASS](https://sass-lang.com/) – CSS preprocessor (uses [node-sass](https://www.npmjs.com/package/node-sass))
