@@ -56,9 +56,6 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@babel/preset-env": "^7.0.0",
     "@faker-js/faker": "^7.6.0",
     "@rollup/plugin-graphql": "^2.0.3",
     "@tailwindcss/typography": "^0.5.0",

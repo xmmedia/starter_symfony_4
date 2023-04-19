@@ -57,7 +57,6 @@ module.exports = {
     },
     reportUnusedDisableDirectives: true,
     parserOptions: {
-        parser: "@babel/eslint-parser",
         ecmaVersion: 'latest',
     },
     plugins: [

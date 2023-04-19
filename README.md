@@ -80,7 +80,6 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
     - [GraphQL](https://graphql.org/) – the communication (query) language for the API
       - [Apollo Client](https://www.apollographql.com/docs/react/) through [Vue Apollo](https://vue-apollo.netlify.com) – frontend GraphQL 
     - [SASS](https://sass-lang.com/) – CSS preprocessor (uses [node-sass](https://www.npmjs.com/package/node-sass))
-    - [Babel](https://babeljs.io/) – transforms JS to work in all browsers
     - [PostCSS](https://github.com/postcss/postcss) – transforms CSS
     - [Autoprefixer](ub.com/postcss/autoprefixer) – for adding browser prefixes
     - [SVGO](https://github.com/svg/svgo) – optimizes SVG files
