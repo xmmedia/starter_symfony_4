@@ -34,7 +34,7 @@ export default {
         });
     },
 
-    beforeDestroy () {
+    beforeUnmount () {
         this.clipboard.destroy();
     },
 }
