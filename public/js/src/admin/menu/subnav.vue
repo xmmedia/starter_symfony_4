@@ -15,7 +15,7 @@
                     <router-link :to="{ name: route }"
                                  class="sidebar_nav-link block py-2 px-4 hover:bg-blue-800
                                     ring-offset-gray-800 focus:no-underline"
-                                 @click.native="subnavItemClicked">
+                                 @click="subnavItemClicked">
                         {{ anchor }}
                     </router-link>
                 </li>
