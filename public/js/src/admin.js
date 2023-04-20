@@ -1,4 +1,4 @@
-import { createApp, h, defineAsyncComponent } from 'vue';
+import { createApp, defineAsyncComponent } from 'vue';
 import PortalVue from 'portal-vue';
 import { createVfm } from 'vue-final-modal';
 import { createHead } from '@vueuse/head';
@@ -40,11 +40,7 @@ apolloProvider.defaultClient.query({ query: MeQuery })
 
         store.commit('ready');
 
-        const app = createApp({
-            render () {
-                return h(appIndex);
-            },
-        });
+        const app = createApp(appIndex);
 
         app.use(router);
         app.use(store);
