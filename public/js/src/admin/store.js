@@ -16,9 +16,9 @@ export default createStore({
             ROLE_SUPER_ADMIN: 'Super Admin',
         },
 
-        entrypointIntegrityHashes: {
-            admin: null,
-        },
+        // entrypointIntegrityHashes: {
+        //     admin: null,
+        // },
     },
 
     getters: {
@@ -53,7 +53,7 @@ export default createStore({
             commit('setUser', user);
         },
 
-        setIntegrityHash ({ commit, state }, { entrypoint, hash }) {
+        /*setIntegrityHash ({ commit, state }, { entrypoint, hash }) {
             if (state.entrypointIntegrityHashes[entrypoint]) {
                 // eslint-disable-next-line no-console
                 console.error('Integrity hash already set for '+entrypoint+' entry point. Won\'t update.');
@@ -61,7 +61,7 @@ export default createStore({
             }
 
             commit('setIntegrityHash', { entrypoint, hash });
-        },
+        },*/
     },
 
     mutations: {
@@ -76,9 +76,9 @@ export default createStore({
             }
         },
 
-        setIntegrityHash (state, { entrypoint, hash }) {
+        /*setIntegrityHash (state, { entrypoint, hash }) {
             state.entrypointIntegrityHashes[entrypoint] = hash;
-        },
+        },*/
     },
 
     modules: {

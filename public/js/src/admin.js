@@ -30,13 +30,13 @@ apolloProvider.defaultClient.query({ query: MeQuery })
             await store.dispatch('updateUser', result.data.Me);
         }
 
-        const entrypointScript = document.querySelector('script[data-entry="admin"]');
+        /*const entrypointScript = document.querySelector('script[data-entry="admin"]');
         if (entrypointScript && entrypointScript.integrity) {
             await store.dispatch('setIntegrityHash', {
                 entrypoint: 'admin',
                 hash: entrypointScript.integrity,
             });
-        }
+        }*/
 
         store.commit('ready');
 
