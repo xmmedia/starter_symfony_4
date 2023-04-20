@@ -21,9 +21,7 @@
                            text-gray-600 hover:text-gray-800 focus:ring-offset-gray-100"
                     style="margin-top: 0.3rem;"
                     @click.prevent="visible = !visible">
-                <svg class="w-6 h-6 fill-current" width="24" height="24">
-                    <use :xlink:href="iconsPath+icon"></use>
-                </svg>
+                <admin-icon :icon="icon" class="w-6 h-6 fill-current" width="24" height="24" />
                 <span class="sr-only">Show password</span>
             </button>
         </div>
@@ -98,7 +96,7 @@ export default {
             return this.visible ? 'text' : 'password';
         },
         icon () {
-            return this.visible ? '#visible' : '#invisible';
+            return this.visible ? 'visible' : 'invisible';
         },
     },
 
