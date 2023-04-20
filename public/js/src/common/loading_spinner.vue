@@ -5,13 +5,13 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        spinnerClasses: {
-            type: String,
-            default: null,
-        },
+<script setup>
+import { defineProps } from 'vue';
+
+defineProps({
+    spinnerClasses: {
+        type: String,
+        default: null,
     },
-}
+});
 </script>

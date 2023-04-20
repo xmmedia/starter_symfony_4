@@ -1,16 +1,16 @@
 <template>
     <div>
-        <portal to="header-actions">
-            <router-link :to="{ name: 'admin-user-add' }"
-                         class="header-action header-action-main">Add User</router-link>
+        <Portal to="header-actions">
+            <RouterLink :to="{ name: 'admin-user-add' }"
+                        class="header-action header-action-main">Add User</RouterLink>
             <div class="header-secondary_actions">
                 <button type="button" class="button-link" @click="refresh">Refresh</button>
             </div>
-        </portal>
+        </Portal>
 
-        <loading-spinner v-if="state.matches('loading')">
+        <LoadingSpinner v-if="state.matches('loading')">
             Loading users…
-        </loading-spinner>
+        </LoadingSpinner>
         <div v-if="state.matches('error')" class="italic text-center">
             There was a problem loading the user list. Please try again later.
         </div>
@@ -47,17 +47,17 @@
                         <div class="record_list-col">{{ accountStatus(user) }}</div>
                         <div class="record_list-col user_list-last_login">
                             <template v-if="user.loginCount > 0">
-                                <local-time v-if="user.lastLogin" :datetime="user.lastLogin" />
+                                <LocalTime v-if="user.lastLogin" :datetime="user.lastLogin" />
                                 ({{ user.loginCount }})
                             </template>
                             <i v-else>Never logged in</i>
                         </div>
-                        <div class="record_list-col">{{ availableRoles[user.roles[0]] }}</div>
+                        <div class="record_list-col">{{ store.state.availableRoles[user.roles[0]] }}</div>
 
                         <div class="record_list-col record_list-col-actions">
-                            <router-link :to="{ name: 'admin-user-edit', params: { userId: user.userId } }">
+                            <RouterLink :to="{ name: 'admin-user-edit', params: { userId: user.userId } }">
                                 Edit
-                            </router-link>
+                            </RouterLink>
                         </div>
                     </li>
                 </ul>
@@ -66,16 +66,21 @@
     </div>
 </template>
 
-<script>
-import { Machine, interpret } from 'xstate';
-import { mapState } from 'vuex';
-import stateMixin from '@/common/state_mixin';
+<script setup>
+import { ref } from 'vue';
+import { createMachine } from 'xstate';
+import { useMachine } from '@xstate/vue';
+import { useStore } from 'vuex';
+import { useQuery } from '@vue/apollo-composable';
 import { GetUsersQuery } from '../queries/user.query.graphql';
 
-const stateMachine = Machine({
+const store = useStore();
+
+const stateMachine = createMachine({
     id: 'component',
     initial: 'loading',
     strict: true,
+    predictableActionArguments: true,
     states: {
         loading: {
             on: {
@@ -96,53 +101,31 @@ const stateMachine = Machine({
     },
 });
 
-export default {
-    mixins: [
-        stateMixin,
-    ],
+const { state, send: sendEvent } = useMachine(stateMachine);
 
-    data () {
-        return {
-            stateService: interpret(stateMachine),
-            state: stateMachine.initialState,
-        };
-    },
+const users = ref();
 
-    computed: {
-        ...mapState([
-            'availableRoles',
-        ]),
-    },
+const { onResult, onError, refetch: usersRefetch } = useQuery(GetUsersQuery);
+onResult(({ data: { Users }}) => {
+    users.value = Users;
+    sendEvent('LOADED');
+});
+onError(() => {
+    sendEvent('ERROR');
+});
 
-    apollo: {
-        users: {
-            query: GetUsersQuery,
-            update ({ Users }) {
-                this.stateEvent('LOADED');
+function refresh () {
+    sendEvent('REFRESH');
+    usersRefetch();
+}
 
-                return Users;
-            },
-            error () {
-                this.stateEvent('ERROR');
-            },
-        },
-    },
+function accountStatus (user) {
+    if (!user.active) {
+        return 'Inactive';
+    } else if (!user.verified) {
+        return 'Not Verified';
+    }
 
-    methods: {
-        refresh () {
-            this.stateEvent('REFRESH');
-            this.$apollo.queries.users.refetch();
-        },
-
-        accountStatus (user) {
-            if (!user.active) {
-                return 'Inactive';
-            } else if (!user.verified) {
-                return 'Not Verified';
-            }
-
-            return 'Active';
-        },
-    },
+    return 'Active';
 }
 </script>

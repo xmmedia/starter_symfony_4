@@ -5,25 +5,29 @@ import { createHead } from '@vueuse/head';
 
 import router from './admin/router';
 import store from './admin/store';
-import apolloProvider from './common/apollo';
+
+import { apolloClient } from './common/apollo';
+import { provideApolloClient } from '@vue/apollo-composable';
 
 import appIndex from './admin/index';
 
-import loadingSpinner from './common/loading_spinner';
-import formError from './common/form_error';
-import fieldError from './common/field_error';
-import fieldPassword from './common/field_password';
-import adminButton from './common/admin_button';
-import adminIcon from './common/admin_icon';
+import LoadingSpinner from './common/loading_spinner';
+import FormError from './common/form_error';
+import FieldError from './common/field_error';
+import FieldPassword from './common/field_password';
+import AdminButton from './common/admin_button';
+import AdminIcon from './common/admin_icon';
 
 import { MeQuery } from './admin/queries/user.query.graphql';
 
 // SASS/CSS
 import '../../css/admin.scss';
 
+provideApolloClient(apolloClient);
+
 // run gql query to see if the user is logged in, set state to ready
 // and then initialize
-apolloProvider.defaultClient.query({ query: MeQuery })
+apolloClient.query({ query: MeQuery })
     .then(async (result) =>  {
         // don't set a user if we didn't get anything
         if (result.data.Me) {
@@ -44,22 +48,23 @@ apolloProvider.defaultClient.query({ query: MeQuery })
 
         app.use(router);
         app.use(store);
-        app.use(apolloProvider);
 
         app.use(PortalVue);
         app.use(createVfm());
         app.use(createHead());
 
+        // app.provide(DefaultApolloClient, apolloClient);
+
         // global components
-        app.component('loading-spinner', loadingSpinner);
-        app.component('form-error', formError);
-        app.component('field-error', fieldError);
-        app.component('field-password', fieldPassword);
-        app.component('admin-button', adminButton);
-        app.component('admin-icon', adminIcon);
-        app.component('admin-modal', defineAsyncComponent(() => import('./common/modal')));
-        app.component('admin-delete', defineAsyncComponent(() => import('./admin/admin_delete/index')));
-        app.component('local-time', defineAsyncComponent(() => import('./common/local_time')));
+        app.component('LoadingSpinner', LoadingSpinner);
+        app.component('FormError', FormError);
+        app.component('FieldError', FieldError);
+        app.component('FieldPassword', FieldPassword);
+        app.component('AdminButton', AdminButton);
+        app.component('AdminIcon', AdminIcon);
+        app.component('AdminModal', defineAsyncComponent(() => import('./common/modal')));
+        app.component('AdminDelete', defineAsyncComponent(() => import('./admin/admin_delete/index')));
+        app.component('LocalTime', defineAsyncComponent(() => import('./common/local_time')));
 
         app.mount('#app');
     });

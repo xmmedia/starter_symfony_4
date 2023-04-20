@@ -7,9 +7,9 @@
             <slot>Save</slot>
         </button>
         <slot v-if="!isSaving && !isSaved" name="cancel">
-            <router-link v-if="cancelTo"
-                         :to="cancelTo"
-                         class="form-action"><slot name="cancel-text">Cancel</slot></router-link>
+            <RouterLink v-if="cancelTo"
+                        :to="cancelTo"
+                        class="form-action"><slot name="cancel-text">Cancel</slot></RouterLink>
         </slot>
         <slot v-if="!isSaving && !isSaved" name="additional"></slot>
 
@@ -23,42 +23,36 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        status: {
-            type: String,
-            default: null,
-        },
-        saving: {
-            type: Boolean,
-            default: false,
-        },
-        saved: {
-            type: Boolean,
-            default: false,
-        },
-        cancelTo: {
-            type: [Object, String],
-            default: null,
-        },
-        showButton: {
-            type: Boolean,
-            default: true,
-        },
-        disableButton: {
-            type: Boolean,
-            default: false,
-        },
-    },
+<script setup>
+import { computed } from 'vue';
 
-    computed: {
-        isSaving () {
-            return this.saving || 'saving' === this.status;
-        },
-        isSaved () {
-            return this.saved || 'saved' === this.status;
-        },
+const props = defineProps({
+    status: {
+        type: String,
+        default: null,
     },
-}
+    saving: {
+        type: Boolean,
+        default: false,
+    },
+    saved: {
+        type: Boolean,
+        default: false,
+    },
+    cancelTo: {
+        type: [Object, String],
+        default: null,
+    },
+    showButton: {
+        type: Boolean,
+        default: true,
+    },
+    disableButton: {
+        type: Boolean,
+        default: false,
+    },
+});
+
+const isSaving = computed(() => props.saving || 'saving' === props.status);
+const isSaved = computed(() => props.saved || 'saved' === props.status);
 </script>

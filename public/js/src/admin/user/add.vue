@@ -1,36 +1,36 @@
 <template>
     <div class="form-wrap">
-        <portal to="header-actions">
+        <Portal to="header-actions">
             <div class="header-secondary_actions">
-                <router-link :to="{ name: 'admin-user' }">Return to list</router-link>
+                <RouterLink :to="{ name: 'admin-user' }">Return to list</RouterLink>
             </div>
-        </portal>
+        </Portal>
 
         <h2 class="mt-0">Add User</h2>
         <form method="post" @submit.prevent="submit">
-            <form-error v-if="v$.$error && v$.$invalid" />
+            <FormError v-if="v$.$error && v$.$invalid" />
 
-            <field-email :model-value="email"
-                         :v="v$.email"
-                         autocomplete="off"
-                         autofocus
-                         @update:modelValue="setEmailDebounce" />
+            <FieldEmail :model-value="email"
+                        :v="v$.email"
+                        autocomplete="off"
+                        autofocus
+                        @update:modelValue="setEmailDebounce" />
 
-            <field-password v-model="password"
-                            :v="v$.password"
-                            :user-data="userDataForPassword"
-                            checkbox-label="Set password"
-                            @set-password="setPassword = $event" />
+            <FieldPassword v-model="password"
+                           :v="v$.password"
+                           :user-data="userDataForPassword"
+                           checkbox-label="Set password"
+                           @set-password="setPassword = $event" />
 
             <div class="field-wrap field-wrap-checkbox">
                 <input id="inputActive" v-model="active" type="checkbox">
                 <label for="inputActive">Active</label>
             </div>
 
-            <field-input v-model.trim="firstName" :v="v$.firstName">First name</field-input>
-            <field-input v-model.trim="lastName" :v="v$.lastName">Last name</field-input>
+            <FieldInput v-model.trim="firstName" :v="v$.firstName">First name</FieldInput>
+            <FieldInput v-model.trim="lastName" :v="v$.lastName">Last name</FieldInput>
 
-            <field-role v-model="role" :v="v$.role" />
+            <FieldRole v-model="role" :v="v$.role" />
 
             <div v-if="!setPassword && active" class="field-wrap">
                 <div class="field-wrap field-wrap-checkbox">
@@ -43,37 +43,41 @@
                 </div>
             </div>
 
-            <admin-button :saving="state.matches('submitting')"
-                          :saved="state.matches('saved')"
-                          :cancel-to="{ name: 'admin-user' }">
+            <AdminButton :saving="state.matches('submitting')"
+                         :saved="state.matches('saved')"
+                         :cancel-to="{ name: 'admin-user' }">
                 Add User
-            </admin-button>
+            </AdminButton>
         </form>
     </div>
 </template>
 
-<script>
-import { Machine, interpret } from 'xstate';
-import { v4 as uuid4 } from 'uuid';
+<script setup>
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useMachine } from '@xstate/vue';
+import { createMachine } from 'xstate';
+import { useVuelidate } from '@vuelidate/core';
+import { useMutation } from '@vue/apollo-composable';
 import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
-import { useVuelidate } from '@vuelidate/core';
+import { v4 as uuid4 } from 'uuid';
 import { logError } from '@/common/lib';
-import stateMixin from '@/common/state_mixin';
-
-import userValidations from './user.validation';
-
-import fieldEmail from '@/common/field_email';
-import fieldPassword from './component/password';
-import fieldInput from '@/common/field_input';
-import fieldRole from './component/role';
-
+import FieldEmail from '@/common/field_email';
+import FieldPassword from './component/password';
+import FieldInput from '@/common/field_input';
+import FieldRole from './component/role';
 import { AdminUserAddMutation } from '../queries/admin/user.mutation.graphql';
+import userValidations from './user.validation';
+import { requiredIf } from '@vuelidate/validators';
 
-const stateMachine = Machine({
+const router = useRouter();
+
+const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
     strict: true,
+    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -92,106 +96,80 @@ const stateMachine = Machine({
     },
 });
 
-export default {
-    components: {
-        fieldEmail,
-        fieldPassword,
-        fieldInput,
-        fieldRole,
+const { state, send: sendEvent } = useMachine(stateMachine);
+
+const email = ref(null);
+const setPassword = ref(false);
+const password = ref(null);
+const role = ref('ROLE_USER');
+const active = ref(true);
+const firstName = ref(null);
+const lastName = ref(null);
+const sendInvite = ref(true);
+
+const userDataForPassword = computed(() => [
+    email.value,
+    firstName.value,
+    lastName.value,
+]);
+
+const v$ = useVuelidate({
+    ...cloneDeep(userValidations),
+    password: {
+        ...cloneDeep(userValidations.password),
+        required: requiredIf(setPassword.value),
     },
+}, { email, password, firstName, lastName, role });
 
-    mixins: [
-        stateMixin,
-    ],
+const setEmailDebounce = debounce(function (email) {
+    setEmail(email);
+}, 100, { leading: true });
+function setEmail (value) {
+    email.value = value;
+}
 
-    setup () {
-        return { v$: useVuelidate() };
-    },
+async function submit () {
+    if (!state.value.matches('ready')) {
+        return;
+    }
 
-    data () {
-        return {
-            stateService: interpret(stateMachine),
-            state: stateMachine.initialState,
+    sendEvent('SUBMIT');
 
-            email: null,
-            setPassword: false,
-            password: null,
-            role: 'ROLE_USER',
-            active: true,
-            firstName: null,
-            lastName: null,
-            sendInvite: true,
-        };
-    },
+    if (!await v$.value.$validate()) {
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
 
-    computed: {
-        userDataForPassword () {
-            return [
-                this.email,
-                this.firstName,
-                this.lastName,
-            ];
-        },
-    },
+        return;
+    }
 
-    validations () {
-        return cloneDeep(userValidations);
-    },
+    try {
+        const { mutate: sendUserAdd } = useMutation(AdminUserAddMutation);
+        await sendUserAdd({
+            user: {
+                userId: uuid4(),
+                email: email.value,
+                setPassword: setPassword.value,
+                password: password.value,
+                role: role.value,
+                active: active.value,
+                firstName: firstName.value,
+                lastName: lastName.value,
+                sendInvite: setPassword.value || !active.value ? false : sendInvite.value,
+            },
+        });
 
-    methods: {
-        setEmailDebounce: debounce(function (email) {
-            this.setEmail(email);
-        }, 100, { leading: true }),
-        setEmail (email) {
-            this.email = email;
-        },
+        sendEvent('SUBMITTED');
 
-        async submit () {
-            if (!this.state.matches('ready')) {
-                return;
-            }
+        setTimeout(() => {
+            router.push({ name: 'admin-user' });
+        }, 1500);
 
-            this.stateEvent('SUBMIT');
+    } catch (e) {
+        logError(e);
+        alert('There was a problem saving. Please try again later.');
 
-            if (!await this.v$.$validate()) {
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-
-                return;
-            }
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: AdminUserAddMutation,
-                    variables: {
-                        user: {
-                            userId: uuid4(),
-                            email: this.email,
-                            setPassword: this.setPassword,
-                            password: this.password,
-                            role: this.role,
-                            active: this.active,
-                            firstName: this.firstName,
-                            lastName: this.lastName,
-                            sendInvite: this.setPassword || !this.active ? false : this.sendInvite,
-                        },
-                    },
-                });
-
-                this.stateEvent('SUBMITTED');
-
-                setTimeout(() => {
-                    this.$router.push({ name: 'admin-user' });
-                }, 1500);
-
-            } catch (e) {
-                logError(e);
-                alert('There was a problem saving. Please try again later.');
-
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-            }
-        },
-    },
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+    }
 }
 </script>

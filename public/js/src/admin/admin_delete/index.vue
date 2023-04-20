@@ -5,7 +5,7 @@
                 type="button"
                 @click="show = true">Delete</button>
 
-        <admin-modal v-if="show" @closed="show = false" @opened="opened">
+        <AdminModal v-if="show" @closed="show = false" @opened="opened">
             <div v-if="!deleting" class="text-center">
                 <div class="my-4">
                     Are you sure you want to delete this {{ recordDesc }}?
@@ -24,42 +24,45 @@
                 </div>
             </div>
 
-            <loading-spinner v-else class="p-12 text-center">
+            <LoadingSpinner v-else class="p-12 text-center">
                 Deleting {{ recordDesc }}…
-            </loading-spinner>
-        </admin-modal>
+            </LoadingSpinner>
+        </AdminModal>
     </span>
 </template>
 
-<script>
-export default {
-    props: {
-        recordDesc: {
-            type: String,
-            required: true,
-        },
-    },
+<script setup>
+import { defineEmits, ref } from 'vue';
 
-    data () {
-        return {
-            show: false,
-            deleting: false,
-        };
+defineProps({
+    recordDesc: {
+        type: String,
+        required: true,
     },
+});
 
-    methods: {
-        opened () {
-            this.$refs.cancel.focus();
-        },
-        deleteRecord () {
-            this.deleting = true;
-            this.$emit('delete');
-        },
-        close () {
-            this.show = false;
-            this.deleting = false;
-            this.$refs.link.focus();
-        },
-    },
+const emit = defineEmits(['delete']);
+
+const show = ref(false);
+const deleting = ref(false);
+
+const cancel = ref(null);
+const link = ref(null);
+
+function opened () {
+    if (!deleting.value) {
+        cancel.value.focus();
+    }
+}
+
+function deleteRecord () {
+    deleting.value = true;
+    emit('delete');
+}
+
+function close () {
+    show.value = false;
+    deleting.value = false;
+    link.value.focus();
 }
 </script>

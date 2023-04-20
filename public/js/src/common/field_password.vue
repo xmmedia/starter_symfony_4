@@ -21,14 +21,14 @@
                            text-gray-600 hover:text-gray-800 focus:ring-offset-gray-100"
                     style="margin-top: 0.3rem;"
                     @click.prevent="visible = !visible">
-                <admin-icon :icon="icon" class="w-6 h-6 fill-current" width="24" height="24" />
+                <AdminIcon :icon="icon" class="w-6 h-6 fill-current" width="24" height="24" />
                 <span class="sr-only">Show password</span>
             </button>
         </div>
 
-        <password-score v-if="showHelp && showMeter"
-                        :password="modelValue"
-                        :user-data="userData" />
+        <PasswordScore v-if="showHelp && showMeter"
+                       :password="modelValue"
+                       :user-data="userData" />
 
         <div v-if="showHelp" class="field-help relative">
             Must be at least {{ minLength }} characters long.
@@ -36,76 +36,55 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import cuid from 'cuid';
+import { computed, ref, watch } from 'vue';
+import PasswordScore from './password_score';
 
-import iconsPath from '@/../../images/icons-admin.svg';
-import { defineAsyncComponent } from 'vue';
-
-export default {
-    components: {
-        'password-score': defineAsyncComponent(() => import('./password_score')),
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: null,
     },
-
-    props: {
-        modelValue: {
-            type: String,
-            default: null,
-        },
-        name: {
-            type: String,
-            default: null,
-        },
-        required: {
-            type: Boolean,
-            default: true,
-        },
-        autocomplete: {
-            type: String,
-            default: null,
-        },
-        showHelp: {
-            type: Boolean,
-            default: false,
-        },
-        userData: {
-            type: Array,
-            default () {
-                return [];
-            },
-        },
-        id: {
-            type: String,
-            default: function () {
-                return cuid();
-            },
+    name: {
+        type: String,
+        default: null,
+    },
+    required: {
+        type: Boolean,
+        default: true,
+    },
+    autocomplete: {
+        type: String,
+        default: null,
+    },
+    showHelp: {
+        type: Boolean,
+        default: false,
+    },
+    userData: {
+        type: Array,
+        default () {
+            return [];
         },
     },
-
-    data () {
-        return {
-            visible: false,
-            showMeter: false,
-            minLength: 12,
-            iconsPath,
-        };
-    },
-
-    computed: {
-        fieldType () {
-            return this.visible ? 'text' : 'password';
-        },
-        icon () {
-            return this.visible ? 'visible' : 'invisible';
+    id: {
+        type: String,
+        default: function () {
+            return cuid();
         },
     },
+});
 
-    watch: {
-        modelValue (modelValue) {
-            if (null === modelValue) {
-                this.showMeter = false;
-            }
-        },
-    },
-}
+const visible = ref(false);
+const showMeter = ref(false);
+const minLength = 12;
+const fieldType = computed(() => visible.value ? 'text' : 'password');
+const icon = computed(() => visible.value ? 'visible' : 'invisible');
+
+watch(() => props.modelValue, (modelValue) => {
+    if (null === modelValue) {
+        showMeter.value = false;
+    }
+});
 </script>

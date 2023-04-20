@@ -3,7 +3,7 @@
         <button :class="{ 'bg-gray-800' : open }"
                 class="button-link sidebar_nav-link mb-0"
                 @click.stop="toggleMenu">
-            <menu-link :label="label" :icon="icon" :has-subnav="true" />
+            <MenuLink :label="label" :icon="icon" :has-subnav="true" />
         </button>
 
         <div ref="submenu"
@@ -12,97 +12,80 @@
             <div class="sidebar_nav-submenu_header">{{ label }}</div>
             <ul class="h-full pt-2 list-none pl-0 overflow-y-scroll">
                 <li v-for="(route, anchor) in items" :key="route" class="mb-1">
-                    <router-link :to="{ name: route }"
-                                 class="sidebar_nav-link block py-2 px-4 hover:bg-blue-800
-                                    ring-offset-gray-800 focus:no-underline"
-                                 @click="subnavItemClicked">
+                    <RouterLink :to="{ name: route }"
+                                class="sidebar_nav-link block py-2 px-4 hover:bg-blue-800
+                                       ring-offset-gray-800 focus:no-underline"
+                                @click="subnavItemClicked">
                         {{ anchor }}
-                    </router-link>
+                    </RouterLink>
                 </li>
             </ul>
         </div>
     </div>
 </template>
 
-<script>
-import { mapState } from 'vuex';
-import menuLink from './link';
+<script setup>
+import { computed, ref, watch } from 'vue';
+import { useStore } from 'vuex';
+import cuid from 'cuid';
+import MenuLink from './link';
 
-export default {
-    components: {
-        menuLink,
+const store = useStore();
+
+defineProps({
+    label: {
+        type: String,
+        required: true,
     },
-
-    props: {
-        label: {
-            type: String,
-            required: true,
-        },
-        items: {
-            type: Object,
-            required: true,
-        },
-        icon: {
-            type: String,
-            required: true,
-        },
+    items: {
+        type: Object,
+        required: true,
     },
-
-    data () {
-        return {
-            id: Math.random().toString(36).substring(7),
-            open: false,
-        };
+    icon: {
+        type: String,
+        required: true,
     },
+});
 
-    computed: {
-        ...mapState('adminMenu', {
-            mobileMenuIsOpen: 'mobileMenuIsOpen',
-            subNavOpen: 'subNavOpen',
-        }),
-    },
+const open = ref(false);
+const submenu = ref(null);
 
-    watch: {
-        mobileMenuIsOpen (mobileMenuIsOpen) {
-            if (!mobileMenuIsOpen) {
-                this.close();
-            }
-        },
-        subNavOpen (openMenuId) {
-            if (openMenuId !== this.id) {
-                this.close();
-            }
-        },
-    },
+watch(computed(() => store.state.adminMenu.mobileMenuIsOpen), (mobileMenuIsOpen) => {
+    if (!mobileMenuIsOpen) {
+        close();
+    }
+});
+watch(computed(() => store.state.adminMenu.subNavOpen), (subNavOpen) => {
+    if (!subNavOpen) {
+        close();
+    }
+});
 
-    methods: {
-        toggleMenu () {
-            this.open = !this.open;
+function toggleMenu () {
+    open.value = !open.value;
 
-            if (this.open) {
-                this.$store.dispatch('adminMenu/subNavOpened', this.id);
-                document.documentElement.addEventListener('click', this.htmlClick);
-            } else {
-                this.$store.dispatch('adminMenu/subNavClosed');
-                this.close();
-            }
-        },
+    if (open.value) {
+        store.dispatch('adminMenu/subNavOpened', cuid());
+        document.documentElement.addEventListener('click', htmlClick);
+    } else {
+        store.dispatch('adminMenu/subNavClosed');
+        close();
+    }
+}
 
-        subnavItemClicked () {
-            this.toggleMenu();
-            this.$store.dispatch('adminMenu/closeAllMenus');
-        },
+function subnavItemClicked () {
+    toggleMenu();
+    store.dispatch('adminMenu/closeAllMenus');
+}
 
-        close () {
-            this.open = false;
-        },
+function close () {
+    open.value = false;
+}
 
-        htmlClick (e) {
-            if (!this.$refs.submenu.contains(e.target)) {
-                this.$store.dispatch('adminMenu/subNavClosed');
-                this.close();
-            }
-        },
-    },
+function htmlClick (e) {
+    if (!submenu.value.contains(e.target)) {
+        store.dispatch('adminMenu/subNavClosed');
+        close();
+    }
 }
 </script>

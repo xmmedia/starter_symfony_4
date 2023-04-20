@@ -1,8 +1,8 @@
 <template>
     <div>
-        <portal to="header-page-title">Users</portal>
+        <Portal to="header-page-title">Users</Portal>
 
-        <router-view />
+        <RouterView />
     </div>
 </template>
 

@@ -3,52 +3,50 @@
             @click.stop="toggleMenu">Menu</button>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { computed, nextTick, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-    computed: {
-        ...mapState('adminMenu', {
-            open: 'mobileMenuIsOpen',
-        }),
-    },
+const store = useStore();
 
-    mounted () {
-        this.$nextTick(() => {
-            this.setContentHeight();
-            window.addEventListener('resize', this.windowResize);
-        });
-    },
+const open = computed(() => store.state.adminMenu.mobileMenuIsOpen);
 
-    methods: {
-        toggleMenu () {
-            if (this.open) {
-                this.$store.dispatch('adminMenu/closeMobileMenu');
-            } else {
-                this.$store.dispatch('adminMenu/openMobileMenu');
-                document.documentElement.addEventListener('click', this.htmlClick);
-            }
-        },
-        windowResize () {
-            this.$store.dispatch('adminMenu/closeMobileMenu');
+onMounted(() => {
+    nextTick(() => {
+        setContentHeight();
+        window.addEventListener('resize', windowResize);
+    });
+});
 
-            this.setContentHeight();
-        },
-        setContentHeight () {
-            document.querySelectorAll('.js-content-wrap')[0].style.minHeight = this.getWindowHeight() + 'px';
-        },
-        getWindowHeight () {
-            let d = document,
-                e = d.documentElement,
-                g = d.body;
+function toggleMenu () {
+    if (open.value) {
+        store.dispatch('adminMenu/closeMobileMenu');
+    } else {
+        store.dispatch('adminMenu/openMobileMenu');
+        document.documentElement.addEventListener('click', htmlClick);
+    }
+}
 
-            return window.innerHeight || e.clientHeight || g.clientHeight;
-        },
+function windowResize () {
+    store.dispatch('adminMenu/closeMobileMenu');
 
-        htmlClick () {
-            this.$store.dispatch('adminMenu/closeMobileMenu');
-            document.documentElement.removeEventListener('click', this.htmlClick);
-        },
-    },
+    setContentHeight();
+}
+
+function setContentHeight () {
+    document.querySelectorAll('.js-content-wrap')[0].style.minHeight = getWindowHeight() + 'px';
+}
+
+function getWindowHeight () {
+    let d = document,
+        e = d.documentElement,
+        g = d.body;
+
+    return window.innerHeight || e.clientHeight || g.clientHeight;
+}
+
+function htmlClick () {
+    store.dispatch('adminMenu/closeMobileMenu');
+    document.documentElement.removeEventListener('click', htmlClick);
 }
 </script>

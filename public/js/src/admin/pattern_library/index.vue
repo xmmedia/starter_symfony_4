@@ -383,7 +383,7 @@
 
                     <ul class="form-extra_actions">
                         <li>
-                            <admin-delete record-desc="Fake" />
+                            <AdminDelete record-desc="Fake" />
                         </li>
                         <li>
                             <a href="" class="form-action">Other Action</a>
@@ -482,10 +482,10 @@
                 </div>
                 <div class="record_list-col">
                     <div class="flex justify-center">
-                        <admin-icon icon="check"
-                                    class="record_list-icon text-green-600"
-                                    width="20"
-                                    height="20" />
+                        <AdminIcon icon="check"
+                                   class="record_list-icon text-green-600"
+                                   width="20"
+                                   height="20" />
                         <span class="record_list-mobile_heading">[True]</span>
                     </div>
                 </div>
@@ -505,10 +505,10 @@
                 </div>
                 <div class="record_list-col">
                     <div class="flex justify-center">
-                        <admin-icon icon="check"
-                                    class="record_list-icon fill-current text-green-600"
-                                    width="20"
-                                    height="20" />
+                        <AdminIcon icon="check"
+                                   class="record_list-icon fill-current text-green-600"
+                                   width="20"
+                                   height="20" />
                         <span class="record_list-mobile_heading">[True]</span>
                     </div>
                 </div>
@@ -527,10 +527,10 @@
                 </div>
                 <div class="record_list-col">
                     <div class="flex justify-center">
-                        <admin-icon icon="check"
-                                    class="record_list-icon fill-current text-gray-800"
-                                    width="20"
-                                    height="20" />
+                        <AdminIcon icon="check"
+                                   class="record_list-icon fill-current text-gray-800"
+                                   width="20"
+                                   height="20" />
                         <span class="record_list-mobile_heading">[True]</span>
                     </div>
                 </div>
@@ -555,10 +555,10 @@
                 <div class="record_view-item_label">Is True</div>
                 <div class="record_view-item_value">
                     <span title="A Checkmark">
-                        <admin-icon icon="check"
-                                    class="record_list-icon text-green-600"
-                                    width="20"
-                                    height="20" />
+                        <AdminIcon icon="check"
+                                   class="record_list-icon text-green-600"
+                                   width="20"
+                                   height="20" />
                     </span>
                 </div>
             </div>
@@ -668,14 +668,10 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { useHead } from '@vueuse/head';
 
-export default {
-    setup () {
-        useHead({
-            title: 'Admin Pattern Library',
-        });
-    },
-}
+useHead({
+    title: 'Admin Pattern Library',
+});
 </script>

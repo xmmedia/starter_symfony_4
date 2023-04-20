@@ -1,8 +1,9 @@
 import { formatNumber as libFormatPhone } from 'libphonenumber-js';
 import Flatpickr from 'flatpickr';
 import pluralizeFunction from 'pluralize';
-import upperFirst from 'lodash/upperFirst';
+import has from 'lodash/has';
 import lowerCase from 'lodash/lowerCase';
+import upperFirst from 'lodash/upperFirst';
 
 export const logError = function (e) {
     if (console && e !== undefined) {
@@ -57,4 +58,16 @@ export const pluralize = function (string, count) {
 
 export const upperFirstFilter = function (string) {
     return upperFirst(lowerCase(string));
+};
+
+export const hasVuelidateProp = function (v, key) {
+    return has(v, key);
+}
+
+export const vuelidateValue = function (v, key) {
+    if (!hasVuelidateProp(v, key)) {
+        return true;
+    }
+
+    return !v[key].$invalid;
 };

@@ -2,7 +2,6 @@ import { ApolloClient, InMemoryCache, ApolloLink, split, createHttpLink } from '
 import { BatchHttpLink } from '@apollo/client/link/batch-http';
 import { onError } from '@apollo/client/link/error';
 import { getMainDefinition } from '@apollo/client/utilities';
-import { createApolloProvider } from '@vue/apollo-option'
 
 // docs: https://www.apollographql.com/docs/react/features/error-handling/
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -63,8 +62,4 @@ export const apolloClient = new ApolloClient({
     // if you want to hide the message about installing apollo dev tools
     // only applicable to dev
     // connectToDevTools: false,
-});
-
-export default createApolloProvider({
-    defaultClient: apolloClient,
 });

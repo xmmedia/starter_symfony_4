@@ -1,15 +1,15 @@
 <template>
-    <field-password :id="id"
-                    :model-value="modelValue"
-                    :user-data="userData"
-                    :show-help="showHelp"
-                    :required="false"
-                    :autocomplete="autocomplete"
-                    :minlength="hasVuelidateProp('minLength') ? v.minLength.$params.min : null"
-                    @update:modelValue="$emit('update:modelValue', $event)">
+    <FieldPassword :id="id"
+                   :model-value="modelValue"
+                   :user-data="userData"
+                   :show-help="showHelp"
+                   :required="false"
+                   :autocomplete="autocomplete"
+                   :minlength="hasVuelidateProp(v, 'minLength') ? v.minLength.$params.min : null"
+                   @update:modelValue="$emit('update:modelValue', $event)">
         <template #default><slot></slot></template>
         <template #errors>
-            <field-error v-if="v.$error && v.$invalid">
+            <FieldError v-if="v.$error && v.$invalid">
                 <template v-if="!required">
                     <slot name="required-msg">A password is required.</slot>
                 </template>
@@ -33,87 +33,53 @@
                     It appears that this password was part of a data breach
                     and may not be accepted. Consider using a different password.
                 </template>
-            </field-error>
+            </FieldError>
         </template>
-    </field-password>
+    </FieldPassword>
 </template>
 
-<script>
-import has from 'lodash/has';
+<script setup>
 import cuid from 'cuid';
-import fieldPassword from './field_password';
+import FieldPassword from './field_password';
+import { computed } from 'vue';
+import { hasVuelidateProp, vuelidateValue } from '@/common/lib';
 
-export default {
-    components: {
-        fieldPassword,
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: null,
     },
-
-    props: {
-        modelValue: {
-            type: String,
-            default: null,
-        },
-        autocomplete: {
-            type: String,
-            default: null,
-        },
-        showHelp: {
-            type: Boolean,
-            default: false,
-        },
-        v: {
-            type: Object,
-            required: true,
-        },
-        userData: {
-            type: Array,
-            default () {
-                return [];
-            },
-        },
-        id: {
-            type: String,
-            default: function () {
-                return cuid();
-            },
+    autocomplete: {
+        type: String,
+        default: null,
+    },
+    showHelp: {
+        type: Boolean,
+        default: false,
+    },
+    v: {
+        type: Object,
+        required: true,
+    },
+    userData: {
+        type: Array,
+        default () {
+            return [];
         },
     },
-    computed: {
-        required () {
-            return this.vuelidateValue('required');
-        },
-        minLength () {
-            return this.vuelidateValue('minLength');
-        },
-        maxLength () {
-            return this.vuelidateValue('maxLength');
-        },
-        sameAs () {
-            return this.vuelidateValue('sameAs');
-        },
-        valid () {
-            return this.vuelidateValue('valid');
-        },
-        strength () {
-            return this.vuelidateValue('strength');
-        },
-        compromised () {
-            return this.vuelidateValue('compromised');
+    id: {
+        type: String,
+        default: function () {
+            return cuid();
         },
     },
+});
 
-    methods: {
-        hasVuelidateProp (key) {
-            return has(this.v, key);
-        },
-
-        vuelidateValue (key) {
-            if (!this.hasVuelidateProp(key)) {
-                return true;
-            }
-
-            return !this.v[key].$invalid;
-        },
-    },
-}
+const required = computed(() => vuelidateValue(props.v, 'required'));
+const minLength = computed(() => vuelidateValue(props.v, 'minLength'));
+const maxLength = computed(() => vuelidateValue(props.v, 'maxLength'));
+const sameAs = computed(() => vuelidateValue(props.v, 'sameAs'));
+const valid = computed(() => vuelidateValue(props.v, 'valid'));
+const strength = computed(() => vuelidateValue(props.v, 'strength'));
+const compromised = computed(() => vuelidateValue(props.v, 'compromised'));
 </script>

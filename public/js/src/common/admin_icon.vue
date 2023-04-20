@@ -2,21 +2,13 @@
     <svg><use :xlink:href="iconsPath+'#'+icon"></use></svg>
 </template>
 
-<script>
+<script setup>
 import iconsPath from '@/../../images/icons-admin.svg';
 
-export default {
-    props: {
-        icon: {
-            type: String,
-            required: true,
-        },
+defineProps({
+    icon: {
+        type: String,
+        required: true,
     },
-
-    data () {
-        return {
-            iconsPath,
-        };
-    },
-}
+});
 </script>

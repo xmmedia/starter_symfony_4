@@ -5,29 +5,21 @@
     </time>
 </template>
 
-<script>
+<script setup>
 import { format as formatDate } from 'date-fns';
+import { computed } from 'vue';
 
-export default {
-    props: {
-        datetime: {
-            type: [String, Date],
-            required: true,
-        },
+const props = defineProps({
+    datetime: {
+        type: [String, Date],
+        required: true,
     },
+});
 
-    computed: {
-        date () {
-            // just in case it's a string
-            return new Date(this.datetime);
-        },
-
-        displayDate () {
-            return formatDate(this.date, 'yyyy-MM-dd');
-        },
-        displayTime () {
-            return formatDate(this.date, 'HH:mm');
-        },
-    },
-}
+const date = computed(() => {
+    // just in case it's a string
+    return new Date(props.datetime);
+});
+const displayDate = computed(() => formatDate(date.value, 'yyyy-MM-dd'));
+const displayTime = computed(() => formatDate(date.value, 'HH:mm'));
 </script>

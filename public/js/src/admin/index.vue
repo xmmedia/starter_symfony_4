@@ -1,28 +1,28 @@
 <template>
     <div v-if="ready">
         <nav class="sidebar_nav-wrap" role="navigation" aria-label="Main">
-            <router-link :to="logoLinkRoute"
-                         class="flex items-center w-40 lg:w-64 border-b border-gray-700
+            <RouterLink :to="logoLinkRoute"
+                        class="flex items-center w-40 lg:w-64 border-b border-gray-700
                                 focus:ring-offset-gray-900 rounded-none"
-                         style="height: 3.75rem; padding: 0.65rem 0;">
+                        style="height: 3.75rem; padding: 0.65rem 0;">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
                      width="70"
                      height="70"
                      class="h-10"
                      alt="Logo">
-            </router-link>
+            </RouterLink>
 
             <ul class="sidebar_nav-nav">
                 <template v-if="loggedIn">
                     <!--<li class="mb-2 lg:mb-0">
-                        <router-link :to="{ name: 'admin-page' }" class="sidebar_nav-link">
-                            <menu-link label="Pages" icon="gear" />
-                        </router-link>
+                        <RouterLink :to="{ name: 'admin-page' }" class="sidebar_nav-link">
+                            <MenuLink label="Pages" icon="gear" />
+                        </RouterLink>
                     </li>-->
 
                     <li v-if="hasRole('ROLE_ADMIN')">
-                        <menu-subnav :items="adminMenuItems" label="Admin" icon="gear" />
+                        <MenuSubnav :items="adminMenuItems" label="Admin" icon="gear" />
                     </li>
                 </template>
             </ul>
@@ -30,9 +30,9 @@
             <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-300 font-extralight">
                 <div class="flex items-end justify-between px-4">
                     <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap: break-word;">
-                        <router-link :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
+                        <RouterLink :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
                             {{ profileLinkText }}
-                        </router-link>
+                        </RouterLink>
                     </div>
                     <div v-if="loggedIn" class="pb-2 pl-4 text-xs">
                         <a href="/logout" class="sidebar_nav-bottom_links whitespace-nowrap">Sign Out</a>
@@ -46,96 +46,79 @@
         </nav>
 
         <header class="header-wrap-small">
-            <menu-small v-if="loggedIn" />
-            <router-link :to="logoLinkRoute" class="ml-auto rounded-none focus:ring-offset-gray-900">
+            <MenuSmall v-if="loggedIn" />
+            <RouterLink :to="logoLinkRoute" class="ml-auto rounded-none focus:ring-offset-gray-900">
                 <!-- @todo-symfony alt -->
                 <img src="/images/logo.svg"
                      width="70"
                      height="70"
                      class="h-10 -mt-4 mr-4"
                      alt="Logo">
-            </router-link>
+            </RouterLink>
         </header>
         <div class="content-wrap js-content-wrap">
             <header class="header-wrap">
                 <h1 class="header-page_title">
-                    <portal-target name="header-page-title" />
+                    <PortalTarget name="header-page-title" />
                 </h1>
                 <div class="header-actions">
-                    <portal-target name="header-actions" />
+                    <PortalTarget name="header-actions" />
                 </div>
             </header>
 
             <main class="p-4">
                 <!-- *** where the router component is placed *** -->
-                <router-view />
+                <RouterView />
             </main>
         </div>
 
-        <modals-container />
+        <ModalsContainer />
     </div>
 
-    <loading-spinner v-else class="mt-8" />
+    <LoadingSpinner v-else class="mt-8" />
 </template>
 
-<script>
+<script setup>
+import { computed, ref } from 'vue';
 import { useHead } from '@vueuse/head';
-import { mapState, mapGetters } from 'vuex';
-import { ModalsContainer as modalsContainer } from 'vue-final-modal';
-import menuSubnav from './menu/subnav';
-import menuSmall from './menu/small';
-import menuLink from './menu/link';
+import { useStore } from 'vuex';
 
-export default {
-    components: {
-        modalsContainer,
-        menuSubnav,
-        menuSmall,
-        /* eslint-disable vue/no-unused-components */
-        menuLink,
-    },
+import { ModalsContainer } from 'vue-final-modal';
+import MenuSubnav from './menu/subnav';
+import MenuSmall from './menu/small';
+/* eslint-disable no-unused-vars */
+import MenuLink from './menu/link';
 
-    setup () {
-        useHead({
-            title: 'Dashboard',
-            // @todo-symfony
-            titleTemplate: '%s | Symfony Starter',
-        });
-    },
+const store = useStore();
 
-    data () {
-        return {
-            adminMenuItems: {
-                'Users': 'admin-user',
-            },
+useHead({
+    title: 'Dashboard',
+    // @todo-symfony
+    titleTemplate: '%s | Symfony Starter',
+});
 
-            copyrightYear: new Date().getFullYear(),
-        };
-    },
+const adminMenuItems = ref({
+    'Users': 'admin-user',
+});
 
-    computed: {
-        ...mapState([
-            'ready',
-        ]),
-        ...mapGetters([
-            'loggedIn',
-            'hasRole',
-        ]),
+const copyrightYear = ref(new Date().getFullYear());
 
-        logoLinkRoute () {
-            if (this.loggedIn) {
-                return { name: 'admin-dashboard' };
-            }
+const ready = computed(() => store.state.ready);
+const loggedIn = computed(() => store.getters.loggedIn);
+const hasRole = computed(() => store.getters.hasRole);
 
-            return { name: 'login' };
-        },
-        profileLinkText () {
-            if (this.loggedIn && this.$store.state.user.name) {
-                return this.$store.state.user.name;
-            }
+const logoLinkRoute = computed(() => {
+    if (loggedIn.value) {
+        return { name: 'admin-dashboard' };
+    }
 
-            return 'Profile';
-        },
-    },
-}
+    return { name: 'login' };
+});
+const profileLinkText = computed(() => {
+    if (loggedIn.value && store.state.user.name) {
+        return store.state.user.name;
+    }
+
+    return 'Profile';
+});
 </script>

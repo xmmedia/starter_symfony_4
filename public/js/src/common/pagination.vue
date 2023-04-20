@@ -1,30 +1,30 @@
 <template>
     <div v-if="pageCount > 1" class="my-4 mx-auto text-center flow-root">
-        <global-events v-if="arrowEvents"
-                       @keydown.left="goToPrevious"
-                       @keydown.right="goToNext" />
+        <GlobalEvents v-if="arrowEvents"
+                      @keydown.left="goToPrevious"
+                      @keydown.right="goToNext" />
 
-        <router-link v-if="current !== 1"
-                     :to="pageRoute(0)"
-                     :class="linkClasses"
-                     class="inline-block">&lt;&lt;</router-link>
+        <RouterLink v-if="current !== 1"
+                    :to="pageRoute(0)"
+                    :class="linkClasses"
+                    class="inline-block">&lt;&lt;</RouterLink>
         <span v-else :class="spanClasses" class="inline-block">&lt;&lt;</span>
 
-        <router-link v-if="previous !== null"
-                     :to="previousRoute"
-                     :class="linkClasses"
-                     class="inline-block">&lt;</router-link>
+        <RouterLink v-if="previous !== null"
+                    :to="previousRoute"
+                    :class="linkClasses"
+                    class="inline-block">&lt;</RouterLink>
         <span v-else :class="spanClasses" class="inline-block">&lt;</span>
 
         <span v-if="showBeforeEllipsis"
               class="hidden lg:inline-block w-4 p-1 text-gray-800">…</span>
 
         <template v-for="page in pagesInRange">
-            <router-link v-if="page !== current"
-                         :key="page"
-                         :to="pageRoute(page - 1)"
-                         :class="linkClasses"
-                         class="hidden lg:inline-block">{{ page }}</router-link>
+            <RouterLink v-if="page !== current"
+                        :key="page"
+                        :to="pageRoute(page - 1)"
+                        :class="linkClasses"
+                        class="hidden lg:inline-block">{{ page }}</RouterLink>
             <span v-else
                   :key="page"
                   :class="spanClasses"
@@ -34,203 +34,173 @@
         <span v-if="showAfterEllipsis"
               class="hidden lg:inline-block w-4 p-1 text-gray-800">…</span>
 
-        <router-link v-if="next !== null"
-                     :to="nextRoute"
-                     :class="linkClasses"
-                     class="inline-block">&gt;</router-link>
+        <RouterLink v-if="next !== null"
+                    :to="nextRoute"
+                    :class="linkClasses"
+                    class="inline-block">&gt;</RouterLink>
         <span v-else :class="spanClasses" class="inline-block">&gt;</span>
 
-        <router-link v-if="offset !== last"
-                     :to="{ name: routeName, query: { offset: last } }"
-                     :class="linkClasses"
-                     class="inline-block">&gt;&gt;</router-link>
+        <RouterLink v-if="offset !== last"
+                    :to="{ name: routeName, query: { offset: last } }"
+                    :class="linkClasses"
+                    class="inline-block">&gt;&gt;</RouterLink>
         <span v-else :class="spanClasses" class="inline-block">&gt;&gt;</span>
     </div>
 </template>
 
-<script>
+<script setup>
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import range from 'lodash/range';
 import GlobalEvents from 'vue-global-events';
 
-export default {
-    components: {
-        GlobalEvents,
-    },
+const router = useRouter();
 
-    props: {
-        routeName: {
-            type: String,
-            required: true,
-        },
-        routeQueryAdditions: {
-            type: Object,
-            default () {
-                return {};
-            },
-        },
-        count: {
-            type: Number,
-            required: true,
-        },
-        itemsPerPage: {
-            type: Number,
-            default: 30,
-        },
-        /**
-         * The offset, not the page number.
-         */
-        offset: {
-            type: Number,
-            default: 0,
-        },
-        pageRange: {
-            type: Number,
-            default: 5,
-        },
-        arrowEvents: {
-            type: Boolean,
-            default: true,
+const props = defineProps({
+    routeName: {
+        type: String,
+        required: true,
+    },
+    routeQueryAdditions: {
+        type: Object,
+        default () {
+            return {};
         },
     },
-
-    data () {
-        return {
-            linkClasses: 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded',
-            spanClasses: 'w-12 p-1 text-gray-800 focus:no-underline rounded',
-        };
+    count: {
+        type: Number,
+        required: true,
     },
-
-    computed: {
-        /**
-         * Current page number.
-         */
-        current () {
-            if (this.offset === 0) {
-                return 1;
-            }
-            if (this.offset > this.count) {
-                return this.last / this.itemsPerPage;
-            }
-
-            return Math.ceil(this.offset / this.itemsPerPage) + 1;
-        },
-
-        pageCount () {
-            return Math.ceil(this.count / this.itemsPerPage);
-        },
-
-        /**
-         * Previous page number.
-         */
-        previous () {
-            if (this.current > 1) {
-                return this.current - 1;
-            }
-
-            return null;
-        },
-
-        /**
-         * Next page number.
-         */
-        next () {
-            if (this.current < this.pageCount) {
-                return this.current + 1;
-            }
-
-            return null;
-        },
-
-        /**
-         * Last page number.
-         */
-        last () {
-            return (this.pageCount - 1) * this.itemsPerPage;
-        },
-
-        rangeDelta () {
-            return Math.ceil(this.pageRange / 2);
-        },
-
-        /**
-         * Array of page numbers.
-         */
-        pagesInRange () {
-            let delta = this.rangeDelta;
-
-            // if at the end of the range
-            if (this.current - delta > this.pageCount - this.pageRange) {
-                let start = this.pageCount - this.pageRange + 1;
-                if (start < 1) {
-                    start = 1;
-                }
-
-                // range doesn't include the end number
-                return range(start, this.pageCount + 1);
-            }
-
-            if (this.current - delta < 0) {
-                delta = this.current;
-            }
-
-            const start = this.current - delta + 1;
-            let end = this.pageCount;
-            if (end > this.pageRange) {
-                end = this.pageRange;
-            }
-
-            // if anywhere before the end
-            return range(start, start + end);
-        },
-
-        showBeforeEllipsis () {
-            return this.pagesInRange && this.pagesInRange[0] > 1;
-        },
-        showAfterEllipsis () {
-            return !(this.current - this.rangeDelta + 1 > this.pageCount - this.pageRange);
-        },
-
-        previousRoute () {
-            return {
-                name: this.routeName,
-                query: {
-                    ...this.routeQueryAdditions,
-                    offset: (this.previous - 1) * this.itemsPerPage,
-                },
-            };
-        },
-        nextRoute () {
-            return {
-                name: this.routeName,
-                query: {
-                    ...this.routeQueryAdditions,
-                    offset: (this.next - 1) * this.itemsPerPage,
-                },
-            };
-        },
+    itemsPerPage: {
+        type: Number,
+        default: 30,
     },
-
-    methods: {
-        goToPrevious () {
-            if (this.previous) {
-                this.$router.push(this.previousRoute);
-            }
-        },
-        goToNext () {
-            if (this.next) {
-                this.$router.push(this.nextRoute);
-            }
-        },
-
-        pageRoute (offset) {
-            return {
-                name: this.routeName,
-                query: {
-                    ...this.routeQueryAdditions,
-                    offset: offset * this.itemsPerPage,
-                },
-            };
-        },
+    /**
+     * The offset, not the page number.
+     */
+    offset: {
+        type: Number,
+        default: 0,
     },
+    pageRange: {
+        type: Number,
+        default: 5,
+    },
+    arrowEvents: {
+        type: Boolean,
+        default: true,
+    },
+});
+
+const linkClasses = 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded';
+const spanClasses = 'w-12 p-1 text-gray-800 focus:no-underline rounded';
+
+const current = computed(() => {
+    if (props.offset === 0) {
+        return 1;
+    }
+    if (props.offset > props.count) {
+        return last.value / props.itemsPerPage;
+    }
+
+    return Math.ceil(props.offset / props.itemsPerPage) + 1;
+});
+const pageCount = computed(() => Math.ceil(props.count / props.itemsPerPage));
+
+/**
+ * Previous page number.
+ */
+const previous = computed(() => {
+    if (current.value === 1) {
+        return null;
+    }
+
+    return current.value - 1;
+});
+/**
+ * Next page number.
+ */
+const next = computed(() => {
+    if (current.value === pageCount.value) {
+        return null;
+    }
+
+    return current.value + 1;
+});
+/**
+ * Last page number.
+ */
+const last = computed(() => (pageCount.value - 1) * props.itemsPerPage);
+
+const rangeDelta = computed(() => Math.ceil(props.pageRange / 2));
+const pagesInRange = computed(() => {
+    let delta = rangeDelta.value;
+
+    // if at the end of the range
+    if (current.value - delta.value > pageCount.value - props.pageRange) {
+        let start = pageCount.value - props.pageRange + 1;
+        if (start < 1) {
+            start = 1;
+        }
+
+        // range doesn't include the end number
+        return range(start, pageCount.value + 1);
+    }
+
+    if (current.value - delta.value < 0) {
+        delta.value = current.value;
+    }
+
+    const start = current.value - delta.value + 1;
+    let end = pageCount.value;
+    if (end.value > props.pageRange) {
+        end.value = props.pageRange;
+    }
+
+    // if anywhere before the end
+    return range(start, start + end.value);
+});
+
+const showBeforeEllipsis = computed(() => pagesInRange.value && pagesInRange.value[0] > 1);
+const showAfterEllipsis = computed(() => !(current.value - rangeDelta.value + 1 > pageCount.value - props.pageRange));
+
+const previousRoute = computed(() => {
+    return {
+        name: props.routeName,
+        query: {
+            ...props.routeQueryAdditions,
+            offset: (previous.value - 1) * props.itemsPerPage,
+        },
+    };
+});
+const nextRoute = computed(() => {
+    return {
+        name: props.routeName,
+        query: {
+            ...props.routeQueryAdditions,
+            offset: (next.value - 1) * props.itemsPerPage,
+        },
+    };
+});
+
+function goToPrevious () {
+    if (previous.value) {
+        router.push(previousRoute.value);
+    }
+}
+function goToNext () {
+    if (next.value) {
+        router.push(nextRoute.value);
+    }
+}
+
+function pageRoute (offset) {
+    return {
+        name: props.routeName,
+        query: {
+            ...props.routeQueryAdditions,
+            offset: offset * props.itemsPerPage,
+        },
+    };
 }
 </script>
