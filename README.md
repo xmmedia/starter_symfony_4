@@ -97,6 +97,12 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
     - [Symfony](https://symfony.com/doc/current/index.html#gsc.tab=0) – backend framework
     - [GraphQLBundle](https://github.com/overblog/GraphQLBundle) – provides GraphQL in PHP using [graphql-php](https://github.com/webonyx/graphql-php)
       - [GraphQiL](https://github.com/graphql/graphiql) is available at `/graphiql` (on dev only)
+    - [Doctrine](https://www.doctrine-project.org/) – ORM
+    - [Doctrine Migrations](https://www.doctrine-project.org/projects/doctrine-migrations.html) – for database migrations
+    - [Nelmio CORS Bundle](https://github.com/nelmio/NelmioCorsBundle) – for CORS
+    - [Symfony Messenger](https://symfony.com/doc/current/messenger.html) – for async messaging
+    - [Symfony Mailer](https://symfony.com/doc/current/mailer.html) – for sending emails
+    - [Symfony Security](https://symfony.com/doc/current/security.html) – for authentication & authorization
     - [Twig](https://twig.symfony.com/) – server side templating language (limited use)
     - [Prooph PDO Event Store](https://github.com/prooph/pdo-event-store) & Bridge/Bundle – for doing Event Sourcing
     - [Doctrine](https://www.doctrine-project.org/) – for reading from read models

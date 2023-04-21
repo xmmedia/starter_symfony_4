@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return [
     Sentry\SentryBundle\SentryBundle::class                                    => ['prod' => true],
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class                      => ['all' => true],
@@ -17,6 +15,7 @@ return [
     Xm\SymfonyBundle\XmSymfonyBundle::class                                    => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class                          => ['all' => true],
     Pentatrion\ViteBundle\PentatrionViteBundle::class                          => ['all' => true],
+    Nelmio\CorsBundle\NelmioCorsBundle::class                                  => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class                              => ['dev' => true],
     Overblog\GraphiQLBundle\OverblogGraphiQLBundle::class                      => ['dev' => true],
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class                  => ['dev' => true, 'test' => true],

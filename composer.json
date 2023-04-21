@@ -16,6 +16,7 @@
         "egulias/email-validator": "^3.0",
         "knplabs/knp-paginator-bundle": "^6.0",
         "moneyphp/money": "^4.0",
+        "nelmio/cors-bundle": "^2.3",
         "nesbot/carbon": "^2.4",
         "odolbeau/phone-number-bundle": "^3.0",
         "overblog/graphql-bundle": "^0.15",
