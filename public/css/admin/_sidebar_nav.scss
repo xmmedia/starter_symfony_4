@@ -1,7 +1,12 @@
 .sidebar_nav-wrap {
-    @apply fixed left-0 z-10 w-40 h-full text-white bg-gray-900 fill-current text-sm;
+    // shift the menu to the left so it's hidden when the content (.content-wrap) jumps up & down on scroll
+    @apply fixed left-[-10rem] z-10 w-40 h-full text-white bg-gray-900 fill-current text-sm;
     @screen lg {
-        @apply w-64 text-base;
+        @apply left-0 w-64 text-base;
+    }
+
+    .sidebar_nav-visible & {
+        @apply left-0;
     }
 }
 

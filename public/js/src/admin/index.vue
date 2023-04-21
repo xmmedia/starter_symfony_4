@@ -56,7 +56,7 @@
                      alt="Logo">
             </RouterLink>
         </header>
-        <div class="content-wrap js-content-wrap">
+        <div class="content-wrap">
             <header class="header-wrap">
                 <h1 class="header-page_title">
                     <PortalTarget name="header-page-title" />

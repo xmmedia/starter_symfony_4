@@ -13,7 +13,6 @@ const open = computed(() => menuStore.mobileMenuIsOpen);
 
 onMounted(() => {
     nextTick(() => {
-        setContentHeight();
         window.addEventListener('resize', windowResize);
     });
 });
@@ -29,12 +28,6 @@ function toggleMenu () {
 
 function windowResize () {
     menuStore.closeMobileMenu();
-
-    setContentHeight();
-}
-
-function setContentHeight () {
-    document.querySelectorAll('.js-content-wrap')[0].style.minHeight = getWindowHeight() + 'px';
 }
 
 function getWindowHeight () {
