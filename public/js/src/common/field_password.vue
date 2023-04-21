@@ -38,8 +38,8 @@
 
 <script setup>
 import cuid from 'cuid';
-import { computed, ref, watch } from 'vue';
-import PasswordScore from './password_score';
+import { computed, defineAsyncComponent, ref, watch } from 'vue';
+const PasswordScore = defineAsyncComponent(() => import('./password_score'));
 
 const props = defineProps({
     modelValue: {
