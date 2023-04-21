@@ -168,7 +168,7 @@ const v$ = useVuelidate({
     ...cloneDeep(userValidations),
     password: {
         ...cloneDeep(userValidations.password),
-        required: requiredIf(setPassword.value),
+        required: requiredIf(setPassword),
     },
 }, { email, password, firstName, lastName, role });
 
