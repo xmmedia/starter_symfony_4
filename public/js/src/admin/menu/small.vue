@@ -30,14 +30,6 @@ function windowResize () {
     menuStore.closeMobileMenu();
 }
 
-function getWindowHeight () {
-    let d = document,
-        e = d.documentElement,
-        g = d.body;
-
-    return window.innerHeight || e.clientHeight || g.clientHeight;
-}
-
 function htmlClick () {
     menuStore.closeMobileMenu();
     document.documentElement.removeEventListener('click', htmlClick);
