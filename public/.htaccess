@@ -349,6 +349,27 @@ Options -MultiViews
 </IfModule>
 
 # ----------------------------------------------------------------------
+# | Permissions-Policy                                                 |
+# ----------------------------------------------------------------------
+
+<IfModule mod_headers.c>
+
+    # The `Permissions-Policy` response header allows a site to control which features and APIs can be used in the browser.
+    # Generated from: https://www.permissionspolicy.com/
+    # everything, excluding picture-in-picture, publickey-credentials-get, sync-xhr, clipboard-write, hid, sync-script
+    Header set Permissions-Policy "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), screen-wake-lock=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), idle-detection=(), interest-cohort=(), serial=(), trust-token-redemption=(), unload=(), window-placement=(), vertical-scroll=()"
+
+    # `mod_headers` cannot match based on the content-type, however,
+    # the `Permissions-Policy` response header should be send only for
+    # HTML documents and not for the other resources.
+
+    <FilesMatch "\.(appcache|atom|bbaw|bmp|br|crx|css|cur|eot|f4[abpv]|flv|geojson|gif|gz|htc|ic[os]|jpe?g|m?js|json(ld)?|m4[av]|manifest|map|markdown|md|mp4|oex|og[agv]|opus|otf|pdf|png|rdf|rss|safariextz|svgz?|swf|topojson|tt[cf]|txt|vcard|vcf|vtt|wasm|webapp|web[mp]|webmanifest|woff2?|xloc|xml|xpi)$">
+        Header unset Permissions-Policy
+    </FilesMatch>
+
+</IfModule>
+
+# ----------------------------------------------------------------------
 # | Content Security Policy (CSP)                                      |
 # ----------------------------------------------------------------------
 
