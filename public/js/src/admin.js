@@ -56,8 +56,6 @@ apolloClient.query({ query: MeQuery })
             .use(createVfm())
             .use(createHead());
 
-        // app.provide(DefaultApolloClient, apolloClient);
-
         // global components
         app.component('LoadingSpinner', LoadingSpinner)
             .component('FormError', FormError)
