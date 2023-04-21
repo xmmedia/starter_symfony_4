@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep';
 import has from 'lodash/has';
-import { email, helpers, required, requiredIf } from '@vuelidate/validators';
+import { email, helpers, required } from '@vuelidate/validators';
+import { apolloClient } from '@/common/apollo';
 import userValidation from '../validation/user';
 import { GetDuplicateUsers } from '../queries/user.query.graphql';
 
@@ -13,7 +14,7 @@ export default {
                 return true;
             }
 
-            const { data: { Users: foundUsers } } = await this.$apollo.query({
+            const { data: { Users: foundUsers } } = await apolloClient.query({
                 query: GetDuplicateUsers,
                 variables: {
                     filters: {
@@ -42,9 +43,7 @@ export default {
     },
     password: {
         ...cloneDeep(userValidation.password),
-        required: requiredIf(function () {
-            return this.setPassword;
-        }),
+        required,
     },
     firstName: {
         ...cloneDeep(userValidation.firstName),

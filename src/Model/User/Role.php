@@ -7,7 +7,7 @@ namespace App\Model\User;
 use Xm\SymfonyBundle\Model\Enum;
 
 /**
- * Also in Vuex & security.yaml.
+ * Also in Pinia & security.yaml.
  *
  * @method static Role ROLE_USER();
  * @method static Role ROLE_ADMIN();

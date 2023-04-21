@@ -1,4 +1,4 @@
-mutation SendEnquiry($enquiry: EnquiryInput!) {
+mutation SendEnquiryMutation($enquiry: EnquiryInput!) {
     SendEnquiry(enquiry: $enquiry) {
         success
     }

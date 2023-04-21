@@ -5,59 +5,50 @@
             <label :for="id">{{ checkboxLabel }}</label>
         </div>
 
-        <field-password v-show="setPassword"
-                        :model-value="modelValue"
-                        :v="v"
-                        :user-data="userData"
-                        :show-help="true"
-                        :required="setPassword"
-                        class="ml-6"
-                        autocomplete="new-password"
-                        @update:modelValue="$emit('update:modelValue', $event)" />
+        <FieldPassword v-show="setPassword"
+                       :model-value="modelValue"
+                       :v="v"
+                       :user-data="userData"
+                       :show-help="true"
+                       :required="setPassword"
+                       class="ml-6"
+                       autocomplete="new-password"
+                       @update:modelValue="$emit('update:modelValue', $event)" />
     </div>
 </template>
 
-<script>
+<script setup>
 import cuid from 'cuid';
-import fieldPassword from '@/common/field_password_with_errors';
+import FieldPassword from '@/common/field_password_with_errors';
+import { ref, watch } from 'vue';
 
-export default {
-    components: {
-        fieldPassword,
+defineProps({
+    modelValue: {
+        type: String,
+        default: null,
     },
-
-    props: {
-        modelValue: {
-            type: String,
-            default: null,
-        },
-        checkboxLabel: {
-            type: String,
-            default: 'Set Password',
-        },
-        v: {
-            type: Object,
-            required: true,
-        },
-        userData: {
-            type: Array,
-            default () {
-                return [];
-            },
+    checkboxLabel: {
+        type: String,
+        default: 'Set Password',
+    },
+    v: {
+        type: Object,
+        required: true,
+    },
+    userData: {
+        type: Array,
+        default () {
+            return [];
         },
     },
+});
 
-    data () {
-        return {
-            setPassword: false,
-            id: cuid(),
-        };
-    },
+const emit = defineEmits(['set-password', 'update:modelValue']);
 
-    watch: {
-        setPassword (val) {
-            this.$emit('set-password', val);
-        },
-    },
-}
+const setPassword = ref(false);
+const id = cuid();
+
+watch(setPassword, (val) => {
+    emit('set-password', val);
+});
 </script>

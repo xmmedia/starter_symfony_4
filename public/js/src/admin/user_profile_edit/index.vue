@@ -1,19 +1,15 @@
 <template>
     <div>
-        <portal to="header-page-title">Profile</portal>
+        <Portal to="header-page-title">Profile</Portal>
 
-        <router-view />
+        <RouterView />
     </div>
 </template>
 
-<script>
+<script setup>
 import { useHead } from '@vueuse/head';
 
-export default {
-    setup () {
-        useHead({
-            title: 'Profile',
-        });
-    },
-}
+useHead({
+    title: 'Profile',
+});
 </script>

@@ -2,7 +2,7 @@
     <div class="field-wrap">
         <label :for="id"><slot></slot></label>
 
-        <field-error v-if="v" :v="v">
+        <FieldError v-if="v" :v="v">
             <template #required><slot name="required"></slot></template>
             <template #minLength><slot name="minLength"></slot></template>
             <template #maxLength><slot name="maxLength"></slot></template>
@@ -12,7 +12,7 @@
             <template #url><slot name="url"></slot></template>
             <template #email><slot name="email"></slot></template>
             <template #valid><slot name="valid"></slot></template>
-        </field-error>
+        </FieldError>
 
         <input :id="id"
                ref="input"
@@ -23,56 +23,42 @@
                :placeholder="placeholder"
                @input="$emit('update:modelValue', $event.target.value)">
 
-        <div v-if="hasHelp" class="field-help"><slot name="help"></slot></div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
     </div>
 </template>
 
-<script>
+<script setup>
 import cuid from 'cuid';
 import has from 'lodash/has';
 
-export default {
-    props: {
-        modelValue: {
-            type: String,
-            default: null,
-        },
-        type: {
-            type: String,
-            default: 'text',
-        },
-        autocomplete: {
-            type: String,
-            default: null,
-        },
-        placeholder: {
-            type: String,
-            default: null,
-        },
-        v: {
-            type: Object,
-            default: null,
-        },
-        id: {
-            type: String,
-            default: function () {
-                return cuid();
-            },
+const props = defineProps({
+    modelValue: {
+        type: String,
+        default: null,
+    },
+    type: {
+        type: String,
+        default: 'text',
+    },
+    autocomplete: {
+        type: String,
+        default: null,
+    },
+    placeholder: {
+        type: String,
+        default: null,
+    },
+    v: {
+        type: Object,
+        default: null,
+    },
+    id: {
+        type: String,
+        default: function () {
+            return cuid();
         },
     },
+});
 
-    computed: {
-        hasHelp () {
-            return !!this.$slots.help;
-        },
-
-        maxLength () {
-            if (!has(this.v, 'maxLength')) {
-                return null;
-            }
-
-            return this.v.maxLength.$params.max;
-        },
-    },
-}
+const maxLength = has(props.v, 'maxLength') ? props.v.maxLength.$params.max : null;
 </script>

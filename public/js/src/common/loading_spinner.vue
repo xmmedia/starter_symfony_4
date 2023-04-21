@@ -5,13 +5,11 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        spinnerClasses: {
-            type: String,
-            default: null,
-        },
+<script setup>
+defineProps({
+    spinnerClasses: {
+        type: String,
+        default: null,
     },
-}
+});
 </script>

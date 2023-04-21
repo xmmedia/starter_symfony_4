@@ -1,19 +1,15 @@
 <template>
     <div>
-        <portal to="header-page-title">Account Recovery</portal>
+        <Portal to="header-page-title">Account Recovery</Portal>
 
-        <router-view />
+        <RouterView />
     </div>
 </template>
 
-<script>
+<script setup>
 import { useHead } from '@vueuse/head';
 
-export default {
-    setup () {
-        useHead({
-            title: 'Account Recovery',
-        });
-    },
-}
+useHead({
+    title: 'Account Recovery',
+});
 </script>

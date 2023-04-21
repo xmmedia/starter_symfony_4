@@ -2,12 +2,13 @@
     <div class="form-wrap p-0">
         <div class="p-4">
             <form v-if="showForm" @submit.prevent="submit">
-                <form-error v-if="v$.$error && v$.$invalid" />
+                <FormError v-if="v$.$error && v$.$invalid" />
 
+                <!-- @todo can we use the field_name component? -->
                 <div class="field-wrap">
                     <label for="name">Name</label>
 
-                    <field-error v-if="v$.name.$error && v$.name.$invalid">
+                    <FieldError v-if="v$.name.$error && v$.name.$invalid">
                         <template v-if="!v$.name.required">
                             A name is required.
                         </template>
@@ -15,7 +16,7 @@
                             Please enter between {{ v$.name.minLength.$params.min }}
                             and {{ v$.name.maxLength.$params.max }} characters.
                         </template>
-                    </field-error>
+                    </FieldError>
 
                     <input id="name"
                            v-model="name"
@@ -25,21 +26,21 @@
                            autocomplete="name">
                 </div>
 
-                <field-email v-model="email"
-                             :v="v$.email"
-                             autocomplete="email">Email address</field-email>
+                <FieldEmail v-model="email"
+                            :v="v$.email"
+                            autocomplete="email">Email address</FieldEmail>
 
                 <div class="field-wrap">
                     <label for="message">Message</label>
 
-                    <field-error v-if="v$.message.$error && v$.message.$invalid">
+                    <FieldError v-if="v$.message.$error && v$.message.$invalid">
                         <template v-if="!v$.message.required">
                             A message is required.
                         </template>
                         <template v-else-if="!v$.message.minLength || !v$.message.maxLength">
                             Please enter more than {{ v$.message.minLength.$params.min }} characters.
                         </template>
-                    </field-error>
+                    </FieldError>
 
                     <textarea id="message"
                               v-model="message"
@@ -63,24 +64,22 @@
     </div>
 </template>
 
-<script>
-import { Machine, interpret } from 'xstate';
+<script setup>
+import { createMachine } from 'xstate';
+import { useMachine } from '@xstate/vue';
 import { useVuelidate } from '@vuelidate/core';
-import {
-    email,
-    minLength,
-    maxLength,
-    required,
-} from '@vuelidate/validators';
+import { maxLength, minLength, required } from '@vuelidate/validators';
+import { ref } from 'vue';
 import { logError } from '@/common/lib';
-import stateMixin from '@/common/state_mixin';
-import fieldEmail from '@/common/field_email';
-import { SendEnquiry } from '../queries/enquiry.mutation.graphql';
+import { useMutation } from '@vue/apollo-composable';
+import FieldEmail from '@/common/components/field_email.vue';
+import { SendEnquiryMutation } from '../queries/enquiry.mutation.graphql';
 
-const stateMachine = Machine({
+const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
     strict: true,
+    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -99,88 +98,57 @@ const stateMachine = Machine({
     },
 });
 
-export default {
-    components: {
-        fieldEmail,
+const { state, send: sendEvent } = useMachine(stateMachine);
+
+const name = ref(null);
+const email = ref(null);
+const message = ref(null);
+
+const v$ = useVuelidate({
+    name: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(50),
     },
-
-    mixins: [
-        stateMixin,
-    ],
-
-    setup () {
-        return { v$: useVuelidate() };
+    email: {
+        required,
+        email,
     },
-
-    data () {
-        return {
-            stateService: interpret(stateMachine),
-            state: stateMachine.initialState,
-
-            name: null,
-            email: null,
-            message: null,
-        };
+    message: {
+        required,
+        minLength: minLength(10),
+        maxLength: maxLength(10000),
     },
+}, { name, email, message });
 
-    computed: {
-        showForm () {
-            return !this.state.done;
-        },
-    },
+async function submit () {
+    sendEvent('SEND');
 
-    validations () {
-        return {
-            name: {
-                required,
-                minLength: minLength(3),
-                maxLength: maxLength(50),
+    if (v$.$validate()) {
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+
+        return;
+    }
+
+    try {
+        const { mutate: sendEnquiry } = useMutation(SendEnquiryMutation);
+        await sendEnquiry({
+            enquiry: {
+                name: name.value,
+                email: email.value,
+                message: message.value,
             },
-            email: {
-                required,
-                email,
-            },
-            message: {
-                required,
-                minLength: minLength(10),
-                maxLength: maxLength(10000),
-            },
-        };
-    },
+        });
 
-    methods: {
-        async submit () {
-            this.stateEvent('SEND');
+        sendEvent('SENT');
 
-            if (this.v$.$validate()) {
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
+    } catch (e) {
+        logError(e);
+        alert('There was a problem sending your enquiry. Please try again later.');
 
-                return;
-            }
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: SendEnquiry,
-                    variables: {
-                        enquiry: {
-                            name: this.name,
-                            email: this.email,
-                            message: this.message,
-                        },
-                    },
-                });
-
-                this.stateEvent('SENT');
-
-            } catch (e) {
-                logError(e);
-                alert('There was a problem sending your enquiry. Please try again later.');
-
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-            }
-        },
-    },
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+    }
 }
 </script>

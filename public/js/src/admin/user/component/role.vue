@@ -2,48 +2,38 @@
     <div class="field-wrap">
         <label :for="id">Role</label>
 
-        <field-error v-if="v.$error && v.$invalid">
+        <FieldError v-if="v.$error && v.$invalid">
             <template v-if="!v.required">
                 A Role is required.
             </template>
-        </field-error>
+        </FieldError>
 
         <select :id="id"
                 :value="modelValue"
                 @change="$emit('update:modelValue', $event.target.value)">
-            <option v-for="(name,role) in availableRoles"
+            <option v-for="(name,role) in rootStore.availableRoles"
                     :key="role"
                     :value="role">{{ name }}</option>
         </select>
     </div>
 </template>
 
-<script>
+<script setup>
 import cuid from 'cuid';
-import { mapState } from 'vuex';
+import { useRootStore } from '@/admin/stores/root';
 
-export default {
-    props: {
-        modelValue: {
-            type: String,
-            default: null,
-        },
-        v: {
-            type: Object,
-            required: true,
-        },
-    },
+const rootStore = useRootStore();
 
-    data () {
-        return {
-            id: cuid(),
-        };
+defineProps({
+    modelValue: {
+        type: String,
+        default: null,
     },
+    v: {
+        type: Object,
+        required: true,
+    },
+});
 
-    computed: {
-        ...mapState([
-            'availableRoles',
-        ]),
-    },
-}
+const id = cuid();
 </script>

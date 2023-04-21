@@ -1,6 +1,6 @@
 <template>
     <div>
-        <portal to="header-page-title">Sign In</portal>
+        <Portal to="header-page-title">Sign In</Portal>
 
         <div class="form-wrap">
             <h1 class="mt-0 leading-none">Sign In</h1>
@@ -20,10 +20,10 @@
                            autocomplete="username email">
                 </div>
 
-                <field-password id="inputPassword"
-                                v-model="password"
-                                name="_password"
-                                autocomplete="current-password" />
+                <FieldPassword id="inputPassword"
+                               v-model="password"
+                               name="_password"
+                               autocomplete="current-password" />
 
                 <div class="field-wrap field-wrap-checkbox">
                     <input id="rememberMe"
@@ -35,52 +35,47 @@
 
                 <div>
                     <button class="button">Sign In</button>
-                    <router-link :to="{ name: 'user-recover-initiate' }" class="form-action">
+                    <RouterLink :to="{ name: 'user-recover-initiate' }" class="form-action">
                         Forgot your password?
-                    </router-link>
+                    </RouterLink>
                 </div>
             </form>
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import { useHead } from '@vueuse/head';
+import { useRouter } from 'vue-router';
+import { useQuery } from '@vue/apollo-composable';
+import { useRootStore } from '@/admin/stores/root';
 import { AuthLast } from '@/admin/queries/auth.query.graphql';
 
-export default {
-    setup () {
-        useHead({
-            title: 'Login',
-        });
-    },
+const rootStore = useRootStore();
+const router = useRouter();
 
-    data () {
-        return {
-            email: null,
-            password: null,
-            errorMsg: null,
-        };
-    },
+useHead({
+    title: 'Login',
+});
 
-    apollo: {
-        lastAuth: {
-            query: AuthLast,
-            update (data) {
-                if (!this.email) {
-                    this.email = data.AuthLast.email;
-                }
-                if (data.AuthLast.error) {
-                    this.errorMsg = data.AuthLast.error;
-                }
-            },
-        },
-    },
+const email = ref(null);
+const password = ref(null);
+const errorMsg = ref(null);
 
-    mounted () {
-        if (this.$store.getters.loggedIn) {
-            this.$router.replace({ name: 'login' });
-        }
-    },
-}
+const { onResult } = useQuery(AuthLast);
+onResult(({ data: { AuthLast }}) => {
+    if (!email.value) {
+        email.value = AuthLast.email ?? null;
+    }
+    if (AuthLast.error) {
+        errorMsg.value = AuthLast.error ?? null;
+    }
+});
+
+onMounted(() => {
+    if (rootStore.loggedIn) {
+        router.replace({ name: 'login' });
+    }
+});
 </script>

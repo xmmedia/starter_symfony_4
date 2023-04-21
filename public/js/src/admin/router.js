@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import store from './store';
+import { useRootStore } from './stores/root';
 import { scrollBehavior, parseQuery, stringifyQuery, logPageView } from '@/common/router_helpers';
 import { apolloClient } from "@/common/apollo";
 
@@ -121,9 +121,10 @@ const router = createRouter({
 
 router.beforeEach( async (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+    const rootStore = useRootStore();
 
     if (requiresAuth) {
-        if (!store.getters.loggedIn) {
+        if (!rootStore.loggedIn) {
             window.location = router.resolve({ name: 'login' }).href;
 
             return;
@@ -140,8 +141,8 @@ router.beforeEach( async (to, from, next) => {
         }
 
         // JS files have changed
-        /*if (result.data.EntrypointIntegrity !== store.state.entrypointIntegrityHashes.admin) {
-            if (result.data.EntrypointIntegrity && store.state.entrypointIntegrityHashes.admin) {
+        /*if (result.data.EntrypointIntegrity !== rootStore.entrypointIntegrityHashes.admin) {
+            if (result.data.EntrypointIntegrity && rootStore.entrypointIntegrityHashes.admin) {
                 window.location.reload();
 
                 return;
@@ -152,7 +153,7 @@ router.beforeEach( async (to, from, next) => {
         const routeWithRole = to.matched.find(record => record.meta && record.meta.role);
 
         // this route requires auth, therefore check if they have the right role
-        if (store.getters.hasRole(routeWithRole.meta.role)) {
+        if (rootStore.hasRole(routeWithRole.meta.role)) {
             next();
         } else {
             next({ name: '403' });

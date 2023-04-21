@@ -34,19 +34,22 @@
     </div>
 </template>
 
-<script>
-import { Machine, interpret } from 'xstate';
-import stateMixin from '@/common/state_mixin';
+<script setup>
+import { computed } from 'vue';
+import { createMachine } from 'xstate';
+import { useMachine } from '@xstate/vue';
 import {
     AdminUserActivateMutation,
     AdminUserVerifyMutation,
 } from '@/admin/queries/admin/user.mutation.graphql';
 import { logError } from '@/common/lib';
+import { useMutation } from '@vue/apollo-composable';
 
-const stateMachine = Machine({
+const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
     strict: true,
+    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -91,113 +94,94 @@ const stateMachine = Machine({
     },
 });
 
-export default {
-    mixins: [
-        stateMixin,
-    ],
+const { state, send: sendEvent } = useMachine(stateMachine);
 
-    props: {
-        userId: {
-            type: String,
-            required: true,
-        },
-        verified: {
-            type: Boolean,
-            required: true,
-        },
-        active: {
-            type: Boolean,
-            required: true,
-        },
-        allow: {
-            type: Boolean,
-            required: true,
-        },
+const emit = defineEmits(['activated', 'deactivated', 'verified']);
+
+const props = defineProps({
+    userId: {
+        type: String,
+        required: true,
     },
-
-    data () {
-        return {
-            stateService: interpret(stateMachine),
-            state: stateMachine.initialState,
-        };
+    verified: {
+        type: Boolean,
+        required: true,
     },
-
-    computed: {
-        allowSave () {
-            return this.allow && this.state.matches('ready');
-        },
-        activeButtonText () {
-            return this.active ? 'Deactivate User' : 'Activate User';
-        },
+    active: {
+        type: Boolean,
+        required: true,
     },
-
-    methods: {
-        async toggleActive () {
-            if (!this.allowSave) {
-                return;
-            }
-
-            this.stateEvent(this.active ? 'DEACTIVATE' : 'ACTIVATE');
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: AdminUserActivateMutation,
-                    variables: {
-                        user: {
-                            userId: this.userId,
-                            action: this.active ? 'deactivate' : 'activate',
-                        },
-                    },
-                });
-
-                this.$emit(this.active ? 'deactivated' : 'activated');
-                this.stateEvent('COMPLETE');
-
-                this.delayedReset();
-
-            } catch (e) {
-                logError(e);
-                alert('There was a problem toggling the active state. Please try again later.');
-
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-            }
-        },
-
-        async verify () {
-            if (!this.allowSave) {
-                return;
-            }
-
-            this.stateEvent('VERIFY');
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: AdminUserVerifyMutation,
-                    variables: {
-                        userId: this.userId,
-                    },
-                });
-
-                this.$emit('verified');
-                this.stateEvent('COMPLETE');
-
-                this.delayedReset();
-
-            } catch (e) {
-                logError(e);
-                alert('There was a problem verifying the user. Please try again later.');
-
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-            }
-        },
-
-        delayedReset () {
-            setTimeout(() => {
-                this.stateEvent('RESET');
-            }, 3000);
-        },
+    allow: {
+        type: Boolean,
+        required: true,
     },
+});
+
+const allowSave = computed(() => props.allow && state.value.matches('ready'));
+const activeButtonText = computed(() => props.active ? 'Deactivate User' : 'Activate User');
+
+async function toggleActive () {
+    if (!allowSave.value) {
+        return;
+    }
+
+    sendEvent(props.active ? 'DEACTIVATE' : 'ACTIVATE');
+
+    try {
+        const { mutate: sendUserActivate } = useMutation(AdminUserActivateMutation);
+        await sendUserActivate({
+            user: {
+                userId: props.userId,
+                action: props.active ? 'deactivate' : 'activate',
+            },
+        });
+
+        emit(props.active ? 'deactivated' : 'activated');
+        sendEvent('COMPLETE');
+
+        delayedReset();
+
+    } catch (e) {
+        logError(e);
+        alert('There was a problem toggling the active state. Please try again later.');
+
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+    }
+}
+
+async function verify () {
+    if (!allowSave.value) {
+        return;
+    }
+
+    sendEvent('VERIFY');
+
+    try {
+        const { mutate: sendUserVerify } = useMutation(AdminUserVerifyMutation);
+        await sendUserVerify({
+            user: {
+                userId: props.userId,
+            },
+        });
+
+        emit('verified');
+        sendEvent('COMPLETE');
+
+        delayedReset();
+
+    } catch (e) {
+        logError(e);
+        alert('There was a problem verifying the user. Please try again later.');
+
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+    }
+}
+
+function delayedReset () {
+    setTimeout(() => {
+        sendEvent('RESET');
+    }, 3000);
 }
 </script>

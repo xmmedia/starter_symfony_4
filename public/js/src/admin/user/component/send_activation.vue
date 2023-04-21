@@ -14,16 +14,18 @@
     </div>
 </template>
 
-<script>
-import { Machine, interpret } from 'xstate';
+<script setup>
+import { useMachine } from '@xstate/vue';
+import { createMachine } from 'xstate';
+import { useMutation } from '@vue/apollo-composable';
 import { logError } from '@/common/lib';
-import stateMixin from '@/common/state_mixin';
 import { AdminUserSendActivationMutation } from '@/admin/queries/admin/user.mutation.graphql';
 
-const stateMachine = Machine({
+const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
     strict: true,
+    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -44,59 +46,44 @@ const stateMachine = Machine({
     },
 });
 
-export default {
-    mixins: [
-        stateMixin,
-    ],
+const { state, send: sendEvent } = useMachine(stateMachine);
 
-    props: {
-        userId: {
-            type: String,
-            required: true,
-        },
-        allow: {
-            type: Boolean,
-            required: true,
-        },
+const props = defineProps({
+    userId: {
+        type: String,
+        required: true,
     },
-
-    data () {
-        return {
-            stateService: interpret(stateMachine),
-            state: stateMachine.initialState,
-        };
+    allow: {
+        type: Boolean,
+        required: true,
     },
+});
 
-    methods: {
-        async sendReset () {
-            if (!this.allow || !this.state.matches('ready')) {
-                return;
-            }
+async function sendReset () {
+    if (!props.allow || !state.value.matches('ready')) {
+        return;
+    }
 
-            this.stateEvent('SEND');
+    sendEvent('SEND');
 
-            try {
-                await this.$apollo.mutate({
-                    mutation: AdminUserSendActivationMutation,
-                    variables: {
-                        userId: this.userId,
-                    },
-                });
+    try {
+        const { mutate: sendUserActivation } = useMutation(AdminUserSendActivationMutation);
+        await sendUserActivation({
+            userId: props.userId,
+        });
 
-                this.stateEvent('SENT');
+        sendEvent('SENT');
 
-                setTimeout(() => {
-                    this.stateEvent('RESET');
-                }, 3000);
+        setTimeout(() => {
+            sendEvent('RESET');
+        }, 3000);
 
-            } catch (e) {
-                logError(e);
-                alert('There was a problem sending the activation link. Please try again later.');
+    } catch (e) {
+        logError(e);
+        alert('There was a problem sending the activation link. Please try again later.');
 
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-            }
-        },
-    },
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+    }
 }
 </script>

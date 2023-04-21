@@ -3,39 +3,31 @@
             :title="title"
             class="text-gray-400 focus:text-gray-600 hover:text-gray-600"
             type="button">
-        <admin-icon icon="copy" class="w-4 h-4 fill-current" />
+        <AdminIcon icon="copy" class="w-4 h-4 fill-current" />
     </button>
 </template>
 
-<script>
+<script setup>
+import { ref, onUnmounted } from 'vue';
 import ClipboardJs from 'clipboard';
 
-export default {
-    props: {
-        text: {
-            type: String,
-            required: true,
-        },
-        title: {
-            type: String,
-            default: null,
-        },
+const props = defineProps({
+    text: {
+        type: String,
+        required: true,
     },
+    title: {
+        type: String,
+        default: null,
+    },
+});
 
-    data () {
-        return {
-            clipboard: null,
-        };
-    },
+const button = ref(null);
+const clipboard = new ClipboardJs(button, {
+    text: () => props.text,
+});
 
-    mounted () {
-        this.clipboard = new ClipboardJs(this.$refs.button, {
-            text: () => this.text,
-        });
-    },
-
-    beforeUnmount () {
-        this.clipboard.destroy();
-    },
-}
+onUnmounted(() => {
+    clipboard.destroy();
+});
 </script>

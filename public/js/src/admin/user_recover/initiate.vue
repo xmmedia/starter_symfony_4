@@ -4,49 +4,57 @@
               class="form-wrap p-4"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="v$.$error && v$.$invalid" />
-            <field-error v-if="notFound" class="mb-4">
+            <FormError v-if="v$.$error && v$.$invalid" />
+            <FieldError v-if="notFound" class="mb-4">
                 An account with that email cannot be found.
-            </field-error>
+            </FieldError>
 
-            <field-email v-model="email"
-                         :v="v$.email"
-                         autofocus
-                         autocomplete="username email"
-                         @update:modelValue="changed">
+            <FieldEmail v-model="email"
+                        :v="v$.email"
+                        autofocus
+                        autocomplete="username email"
+                        @update:modelValue="changed">
                 Please enter your email address to search for your account:
-            </field-email>
+            </FieldEmail>
 
-            <admin-button :saving="state.matches('submitting')">
+            <AdminButton :saving="state.matches('submitting')">
                 Find Account
                 <template #cancel>
-                    <router-link :to="{ name: 'login' }" class="form-action">Return to Login</router-link>
+                    <RouterLink :to="{ name: 'login' }" class="form-action">Return to Login</RouterLink>
                 </template>
                 <template #saving>Requesting…</template>
-            </admin-button>
+            </AdminButton>
         </form>
 
         <div v-if="state.matches('requested')" class="alert alert-success max-w-lg" role="alert">
             A password reset link has been sent by email.
             Please follow the instructions within the email to reset your password.
-            <router-link :to="{ name: 'login' }" class="w-64 pl-4 text-sm">Return to Login</router-link>
+            <RouterLink :to="{ name: 'login' }" class="w-64 pl-4 text-sm">Return to Login</RouterLink>
         </div>
     </div>
 </template>
 
-<script>
-import { Machine, interpret } from 'xstate';
-import { email, required } from '@vuelidate/validators';
+<script setup>
+import { computed, onMounted, ref } from 'vue';
+import { useRootStore } from '@/admin/stores/root';
+import { useMachine } from '@xstate/vue';
+import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
+import { useRouter } from 'vue-router';
+import { useMutation } from '@vue/apollo-composable';
+import { email as emailValidator, required } from '@vuelidate/validators';
 import { hasGraphQlError, logError } from '@/common/lib';
-import fieldEmail from '@/common/field_email';
-import stateMixin from '@/common/state_mixin';
+import FieldEmail from '@/common/field_email';
 import { UserRecoverInitiate } from '../queries/user.mutation.graphql';
 
-const stateMachine = Machine({
+const rootStore = useRootStore();
+const router = useRouter();
+
+const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
     strict: true,
+    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -65,104 +73,75 @@ const stateMachine = Machine({
     },
 });
 
-export default {
-    components: {
-        fieldEmail,
+const { state, send: sendEvent } = useMachine(stateMachine);
+
+const notFound = ref(false);
+const email = ref(null);
+
+const v$ = useVuelidate({
+    email: {
+        required,
+        email: emailValidator,
     },
+}, { email });
 
-    mixins: [
-        stateMixin,
-    ],
+const showForm = computed(() => !state.value.done);
 
-    setup () {
-        return { v$: useVuelidate() };
-    },
+onMounted(() => {
+    if (rootStore.loggedIn) {
+        router.replace({ name: 'login' });
+    }
+});
 
-    data () {
-        return {
-            stateService: interpret(stateMachine),
-            state: stateMachine.initialState,
-            notFound: false,
+async function submit () {
+    if (!state.value.matches('ready')) {
+        return;
+    }
 
-            email: null,
-        };
-    },
+    sendEvent('SUBMIT');
+    notFound.value = false;
 
-    computed: {
-        showForm () {
-            return !this.state.done;
-        },
-    },
+    if (!await v$.value.$validate()) {
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
 
-    validations () {
-        return {
-            email: {
-                required,
-                email,
-            },
-        };
-    },
+        return;
+    }
 
-    mounted () {
-        if (this.$store.getters.loggedIn) {
-            this.$router.replace({ name: 'login' });
+    try {
+        const { mutate: sendRecoverInitiate } = useMutation(UserRecoverInitiate);
+        await sendRecoverInitiate({
+            email: email.value,
+        });
+
+        email.value = null;
+        v$.value.$reset();
+
+        sendEvent('SUBMITTED');
+
+    } catch (e) {
+        if (hasGraphQlError(e)) {
+            if (e.graphQLErrors[0].code === 404) {
+                notFound.value = true;
+            } else {
+                logError(e);
+                showError();
+            }
+        } else {
+            logError(e);
+            showError();
         }
-    },
 
-    methods: {
-        async submit () {
-            if (!this.state.matches('ready')) {
-                return;
-            }
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+    }
 
-            this.stateEvent('SUBMIT');
-            this.notFound = false;
+    function showError () {
+        alert('There was a problem requesting a password reset. Please try again later.');
+    }
+}
 
-            if (!await this.v$.$validate()) {
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-
-                return;
-            }
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: UserRecoverInitiate,
-                    variables: {
-                        email: this.email,
-                    },
-                });
-
-                this.email = null;
-                this.v$.$reset();
-
-                this.stateEvent('SUBMITTED');
-
-            } catch (e) {
-                if (hasGraphQlError(e)) {
-                    if (e.graphQLErrors[0].code === 404) {
-                        this.notFound = true;
-                    } else {
-                        logError(e);
-                        this.showError();
-                    }
-                } else {
-                    logError(e);
-                    this.showError();
-                }
-
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-            }
-        },
-
-        showError () {
-            alert('There was a problem requesting a password reset. Please try again later.');
-        },
-
-        changed () {
-            this.notFound = false;
-        },
-    },
+function changed () {
+    notFound.value = false;
 }
 </script>

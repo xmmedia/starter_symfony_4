@@ -13,62 +13,57 @@
     </transition>
 </template>
 
-<script>
+<script setup>
 import zxcvbn from 'zxcvbn';
 import userValidation from '@/admin/validation/user';
+import { computed } from 'vue';
 
-export default {
-    props: {
-        password: {
-            type: String,
-            default: undefined,
-        },
-        userData: {
-            type: Array,
-            default () {
-                return [];
-            },
+const props = defineProps({
+    password: {
+        type: String,
+        default: undefined,
+    },
+    userData: {
+        type: Array,
+        default () {
+            return [];
         },
     },
+});
 
-    computed: {
-        zxcvbn () {
-            return zxcvbn(this.password || '', this.userDataCompiled);
-        },
-        score () {
-            if (!userValidation.password.minLength.$validator(this.password)) {
-                return 0;
-            }
+const result = computed(() => zxcvbn(props.password || '', userDataCompiled));
+const score = computed(() => {
+    if (!userValidation.password.minLength.$validator(props.password)) {
+        return 0;
+    }
 
-            return this.zxcvbn.score;
-        },
-        passwordWarning () {
-            if (!this.zxcvbn || !this.zxcvbn.feedback.warning) {
-                return undefined;
-            }
+    return result.value.score;
+});
+const passwordWarning = computed(() => {
+    if (!result.value || !result.value.feedback.warning) {
+        return undefined;
+    }
 
-            return this.zxcvbn.feedback.warning;
-        },
-        scoreBackgroundClasses () {
-            switch (this.score) {
-                case 1 :
-                    return 'w-1/4 p-1 bg-red-700';
-                case 2 :
-                    return 'w-1/2 p-1 bg-yellow-600';
-                case 3 :
-                    return 'w-3/4 p-1 bg-orange-700';
-                case 4 :
-                    return 'w-full p-1 bg-green-600';
-            }
-
-            return 'w-1 bg-red-700';
-        },
-        userDataCompiled () {
-            return [
-                ...this.userData,
-                ...document.title.split(/[\s|]+/),
-            ].filter(Boolean);
-        },
-    },
-}
+    return result.value.feedback.warning;
+});
+const scoreBackgroundClasses = computed(() => {
+    switch (score.value) {
+        case 1 :
+            return 'w-1/4 p-1 bg-red-700';
+        case 2 :
+            return 'w-1/2 p-1 bg-yellow-600';
+        case 3 :
+            return 'w-3/4 p-1 bg-orange-700';
+        case 4 :
+            return 'w-full p-1 bg-green-700';
+        default :
+            return 'w-0 p-1 bg-gray-500';
+    }
+});
+const userDataCompiled = computed(() => {
+    return [
+        ...props.userData,
+        ...document.title.split(/[\s|]+/),
+    ].filter(Boolean);
+});
 </script>

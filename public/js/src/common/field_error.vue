@@ -66,75 +66,36 @@
     </ul>
 </template>
 
-<script>
-import has from 'lodash/has';
-import { pluralize } from './lib';
+<script setup>
+import { computed, useSlots } from 'vue';
+import { vuelidateValue, pluralize } from './lib';
 
-export default {
-    props: {
-        v: {
-            type: Object,
-            default: null,
-        },
+const slots = useSlots();
+
+const props = defineProps({
+    v: {
+        type: Object,
+        default: null,
     },
+});
 
-    computed: {
-        hasErrors () {
-            if (this.v) {
-                return this.v.$error && this.v.$invalid;
-            }
+const hasErrors = computed(() => {
+    if (props.v) {
+        return props.v.$error && props.v.$invalid;
+    }
 
-            return !!this.$slots.default;
-        },
+    return !!slots.default;
+});
 
-        between () {
-            return this.vuelidateValue('between');
-        },
-        email () {
-            return this.vuelidateValue('email');
-        },
-        maxLength () {
-            return this.vuelidateValue('maxLength');
-        },
-        minLength () {
-            return this.vuelidateValue('minLength');
-        },
-        minValue () {
-            return this.vuelidateValue('minValue');
-        },
-        maxValue () {
-            return this.vuelidateValue('maxValue');
-        },
-        required () {
-            return this.vuelidateValue('required');
-        },
-        url () {
-            return this.vuelidateValue('url');
-        },
-        valid () {
-            return this.vuelidateValue('valid');
-        },
-        unique () {
-            return this.vuelidateValue('unique');
-        },
-        alpha () {
-            return this.vuelidateValue('alpha');
-        },
-    },
-
-    methods: {
-        pluralize,
-
-        vuelidateValue (key) {
-            if (!this.hasVuelidateProp(key)) {
-                return true;
-            }
-
-            return !this.v[key].$invalid;
-        },
-        hasVuelidateProp (key) {
-            return has(this.v, key);
-        },
-    },
-}
+const between = computed(() => vuelidateValue(props.v, 'between'));
+const email = computed(() => vuelidateValue(props.v, 'email'));
+const maxLength = computed(() => vuelidateValue(props.v, 'maxLength'));
+const minLength = computed(() => vuelidateValue(props.v, 'minLength'));
+const minValue = computed(() => vuelidateValue(props.v, 'minValue'));
+const maxValue = computed(() => vuelidateValue(props.v, 'maxValue'));
+const required = computed(() => vuelidateValue(props.v, 'required'));
+const url = computed(() => vuelidateValue(props.v, 'url'));
+const valid = computed(() => vuelidateValue(props.v, 'valid'));
+const unique = computed(() => vuelidateValue(props.v, 'unique'));
+const alpha = computed(() => vuelidateValue(props.v, 'alpha'));
 </script>

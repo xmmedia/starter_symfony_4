@@ -3,52 +3,50 @@
             @click.stop="toggleMenu">Menu</button>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup>
+import { computed, nextTick, onMounted } from 'vue';
+import { useMenuStore } from '@/admin/stores/menu';
 
-export default {
-    computed: {
-        ...mapState('adminMenu', {
-            open: 'mobileMenuIsOpen',
-        }),
-    },
+const menuStore = useMenuStore();
 
-    mounted () {
-        this.$nextTick(() => {
-            this.setContentHeight();
-            window.addEventListener('resize', this.windowResize);
-        });
-    },
+const open = computed(() => menuStore.mobileMenuIsOpen);
 
-    methods: {
-        toggleMenu () {
-            if (this.open) {
-                this.$store.dispatch('adminMenu/closeMobileMenu');
-            } else {
-                this.$store.dispatch('adminMenu/openMobileMenu');
-                document.documentElement.addEventListener('click', this.htmlClick);
-            }
-        },
-        windowResize () {
-            this.$store.dispatch('adminMenu/closeMobileMenu');
+onMounted(() => {
+    nextTick(() => {
+        setContentHeight();
+        window.addEventListener('resize', windowResize);
+    });
+});
 
-            this.setContentHeight();
-        },
-        setContentHeight () {
-            document.querySelectorAll('.js-content-wrap')[0].style.minHeight = this.getWindowHeight() + 'px';
-        },
-        getWindowHeight () {
-            let d = document,
-                e = d.documentElement,
-                g = d.body;
+function toggleMenu () {
+    if (open.value) {
+        menuStore.closeMobileMenu();
+    } else {
+        menuStore.openMobileMenu();
+        document.documentElement.addEventListener('click', htmlClick);
+    }
+}
 
-            return window.innerHeight || e.clientHeight || g.clientHeight;
-        },
+function windowResize () {
+    menuStore.closeMobileMenu();
 
-        htmlClick () {
-            this.$store.dispatch('adminMenu/closeMobileMenu');
-            document.documentElement.removeEventListener('click', this.htmlClick);
-        },
-    },
+    setContentHeight();
+}
+
+function setContentHeight () {
+    document.querySelectorAll('.js-content-wrap')[0].style.minHeight = getWindowHeight() + 'px';
+}
+
+function getWindowHeight () {
+    let d = document,
+        e = d.documentElement,
+        g = d.body;
+
+    return window.innerHeight || e.clientHeight || g.clientHeight;
+}
+
+function htmlClick () {
+    menuStore.closeMobileMenu();
+    document.documentElement.removeEventListener('click', htmlClick);
 }
 </script>

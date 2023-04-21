@@ -4,19 +4,19 @@
               class="form-wrap p-4"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="v$.$error && v$.$invalid" />
-            <field-error v-if="invalidToken" class="mb-4">
+            <FormError v-if="v$.$error && v$.$invalid" />
+            <FieldError v-if="invalidToken" class="mb-4">
                 Your reset link is invalid or has expired.
                 Please try clicking the button again or copying the link.
-                Or you can <router-link :to="{ name: 'user-recover-initiate' }">try again</router-link>.
-            </field-error>
-            <field-error v-if="tokenExpired" class="mb-4">
+                Or you can <RouterLink :to="{ name: 'user-recover-initiate' }">try again</RouterLink>.
+            </FieldError>
+            <FieldError v-if="tokenExpired" class="mb-4">
                 Your link has expired.
                 Please try
-                <router-link :to="{ name: 'user-recover-initiate' }">
+                <RouterLink :to="{ name: 'user-recover-initiate' }">
                     requesting a new password reset link
-                </router-link>.
-            </field-error>
+                </RouterLink>.
+            </FieldError>
 
             <div class="hidden">
                 <label for="inputEmail">Email</label>
@@ -27,44 +27,53 @@
                        autocomplete="username email">
             </div>
 
-            <field-password v-model="newPassword"
-                            :v="v$.newPassword"
-                            :show-help="true"
-                            autocomplete="new-password">New password</field-password>
-            <field-password v-model="repeatPassword"
-                            :v="v$.repeatPassword"
-                            autocomplete="new-password">New password again</field-password>
+            <FieldPassword v-model="newPassword"
+                           :v="v$.newPassword"
+                           :show-help="true"
+                           autocomplete="new-password">New password</FieldPassword>
+            <FieldPassword v-model="repeatPassword"
+                           :v="v$.repeatPassword"
+                           autocomplete="new-password">New password again</FieldPassword>
 
-            <admin-button :saving="state.matches('submitting')">
+            <AdminButton :saving="state.matches('submitting')">
                 Set Password
                 <template #cancel>
-                    <router-link :to="{ name: 'login' }" class="form-action">Return to Login</router-link>
+                    <RouterLink :to="{ name: 'login' }" class="form-action">Return to Login</RouterLink>
                 </template>
-            </admin-button>
+            </AdminButton>
         </form>
 
         <div v-if="state.matches('changed')" class="alert alert-success max-w-lg" role="alert">
             Your password has been reset.
-            <router-link :to="{ name: 'login' }" class="pl-4">Login</router-link>
+            <RouterLink :to="{ name: 'login' }" class="pl-4">Login</RouterLink>
         </div>
     </div>
 </template>
 
-<script>
-import { Machine, interpret } from 'xstate';
-import cloneDeep from 'lodash/cloneDeep';
+<script setup>
+import { computed, onMounted, ref } from 'vue';
+import { useRootStore } from '@/admin/stores/root';
+import { useMachine } from '@xstate/vue';
+import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
-import { hasGraphQlError, logError } from '@/common/lib';
+import { useRoute, useRouter } from 'vue-router';
+import { useMutation } from '@vue/apollo-composable';
+import cloneDeep from 'lodash/cloneDeep';
 import { required } from '@vuelidate/validators';
-import userValidation from '@/admin/validation/user';
-import fieldPassword from '@/common/field_password_with_errors';
-import stateMixin from '@/common/state_mixin';
+import { hasGraphQlError, logError } from '@/common/lib';
+import FieldPassword from '@/common/field_password_with_errors';
 import { UserRecoverReset } from '../queries/user.mutation.graphql';
+import userValidation from '@/admin/validation/user';
 
-const stateMachine = Machine({
+const rootStore = useRootStore();
+const router = useRouter();
+const route = useRoute();
+
+const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
     strict: true,
+    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -83,113 +92,83 @@ const stateMachine = Machine({
     },
 });
 
-export default {
-    components: {
-        fieldPassword,
+const { state, send: sendEvent } = useMachine(stateMachine);
+
+const invalidToken = ref(false);
+const tokenExpired = ref(false);
+const newPassword = ref(null);
+const repeatPassword = ref(null);
+
+const v$ = useVuelidate({
+    newPassword: {
+        ...cloneDeep(userValidation.password),
     },
-
-    mixins: [
-        stateMixin,
-    ],
-
-    setup () {
-        return { v$: useVuelidate() };
+    repeatPassword: {
+        required,
     },
+}, { newPassword, repeatPassword });
 
-    data () {
-        return {
-            stateService: interpret(stateMachine),
-            state: stateMachine.initialState,
-            invalidToken: false,
-            tokenExpired: false,
+const showForm = computed(() => !state.value.done);
 
-            newPassword: null,
-            repeatPassword: null,
-        };
-    },
+onMounted(() => {
+    if (rootStore.loggedIn) {
+        router.replace({ name: 'login' });
+    }
+});
 
-    computed: {
-        showForm () {
-            return !this.state.done;
-        },
-    },
+async function submit () {
+    if (!state.value.matches('ready')) {
+        return;
+    }
 
-    validations () {
-        return {
-            newPassword: {
-                ...cloneDeep(userValidation.password),
-            },
-            repeatPassword: {
-                required,
-            },
-        };
-    },
+    sendEvent('SUBMIT');
 
-    mounted () {
-        if (this.$store.getters.loggedIn) {
-            this.$router.replace({ name: 'login' });
+    if (!await v$.value.$validate()) {
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+
+        return;
+    }
+
+    try {
+        const { mutate: sendRecoverReset } = useMutation(UserRecoverReset);
+        await sendRecoverReset({
+            token: route.params.token,
+            newPassword: newPassword.value,
+        });
+
+        newPassword.value = null;
+        repeatPassword.value = null;
+        invalidToken.value = false;
+        tokenExpired.value = false;
+        v$.value.$reset();
+
+        sendEvent('SUBMITTED');
+
+        setTimeout(() => {
+            window.location = router.resolve({ name: 'login' }).href;
+        }, 5000);
+    } catch (e) {
+        if (hasGraphQlError(e)) {
+            if (e.graphQLErrors[0].code === 404) {
+                invalidToken.value = true;
+            } else if (e.graphQLErrors[0].code === 405) {
+                tokenExpired.value = true;
+            } else {
+                logError(e);
+                showError();
+            }
+        } else {
+            logError(e);
+            showError();
         }
-    },
 
-    methods: {
-        async submit () {
-            if (!this.state.matches('ready')) {
-                return;
-            }
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+    }
 
-            this.stateEvent('SUBMIT');
-
-            if (!await this.v$.$validate()) {
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-
-                return;
-            }
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: UserRecoverReset,
-                    variables: {
-                        token: this.$route.params.token,
-                        newPassword: this.newPassword,
-                    },
-                });
-
-                this.newPassword = null;
-                this.repeatPassword = null;
-                this.invalidToken = false;
-                this.tokenExpired = false;
-                this.v$.$reset();
-
-                this.stateEvent('SUBMITTED');
-
-                setTimeout(() => {
-                    window.location = this.$router.resolve({ name: 'login' }).href;
-                }, 5000);
-
-            } catch (e) {
-                if (hasGraphQlError(e)) {
-                    if (e.graphQLErrors[0].code === 404) {
-                        this.invalidToken = true;
-                    } else if (e.graphQLErrors[0].code === 405) {
-                        this.tokenExpired = true;
-                    } else {
-                        logError(e);
-                        this.showError();
-                    }
-                } else {
-                    logError(e);
-                    this.showError();
-                }
-
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-            }
-        },
-
-        showError () {
-            alert('There was a problem saving your password. Please try again later.');
-        },
-    },
+    function showError () {
+        alert('There was a problem saving your password. Please try again later.');
+    }
 }
 </script>

@@ -4,14 +4,14 @@
               class="form-wrap"
               method="post"
               @submit.prevent="submit">
-            <form-error v-if="v$.$error && v$.$invalid" />
-            <field-error v-if="invalidToken" class="mb-4">
+            <FormError v-if="v$.$error && v$.$invalid" />
+            <FieldError v-if="invalidToken" class="mb-4">
                 Your activation link is invalid.
                 Please try clicking the button again or copying the link.
-            </field-error>
-            <field-error v-if="tokenExpired" class="mb-4">
+            </FieldError>
+            <FieldError v-if="tokenExpired" class="mb-4">
                 Your link has expired. Please contact an administrator.
-            </field-error>
+            </FieldError>
 
             <p :class="{ 'mt-0' : !v$.$error && !invalidToken && !tokenExpired }">
                 To activate your account, enter a password below.
@@ -25,47 +25,55 @@
                        autocomplete="username email">
             </div>
 
-            <field-password v-model="password"
-                            :v="v$.password"
-                            :show-help="true"
-                            autocomplete="new-password" />
-            <field-password v-model="repeatPassword"
-                            :v="v$.repeatPassword"
-                            autocomplete="new-password">Password again</field-password>
+            <FieldPassword v-model="password"
+                           :v="v$.password"
+                           :show-help="true"
+                           autocomplete="new-password" />
+            <FieldPassword v-model="repeatPassword"
+                           :v="v$.repeatPassword"
+                           autocomplete="new-password">Password again</FieldPassword>
 
-            <admin-button :saving="state.matches('submitting')"
-                          :cancel-to="{ name: 'login' }">
+            <AdminButton :saving="state.matches('submitting')"
+                         :cancel-to="{ name: 'login' }">
                 Activate
                 <template #cancel>
-                    <router-link :to="{ name: 'login' }" class="form-action">Login</router-link>
+                    <RouterLink :to="{ name: 'login' }" class="form-action">Login</RouterLink>
                 </template>
                 <template #saving>Activating…</template>
-            </admin-button>
+            </AdminButton>
         </form>
 
         <div v-if="state.matches('verified')" class="alert alert-success max-w-lg" role="alert">
             Your account is now active.
-            <router-link :to="{ name: 'login' }" class="pl-4">Login</router-link>
+            <RouterLink :to="{ name: 'login' }" class="pl-4">Login</RouterLink>
         </div>
     </div>
 </template>
 
-<script>
-import cloneDeep from 'lodash/cloneDeep';
-import { Machine, interpret } from 'xstate';
+<script setup>
+import { computed, onMounted, ref } from 'vue';
+import { useRootStore } from '@/admin/stores/root';
+import { useMachine } from '@xstate/vue';
+import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
+import { useRoute, useRouter } from 'vue-router';
 import { required, sameAs } from '@vuelidate/validators';
-import { hasGraphQlError, logError } from '@/common/lib';
-import fieldPassword from '@/common/field_password_with_errors';
+import FieldPassword from '@/common/field_password_with_errors';
 import { UserVerify } from '@/admin/queries/user.mutation.graphql';
-import stateMixin from '@/common/state_mixin';
 import userValidation from '@/admin/validation/user';
-import { useHead } from '@vueuse/head';
+import cloneDeep from 'lodash/cloneDeep';
+import { hasGraphQlError, logError } from '@/common/lib';
+import { useMutation } from '@vue/apollo-composable';
 
-const stateMachine = Machine({
+const rootStore = useRootStore();
+const router = useRouter();
+const route = useRoute();
+
+const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
     strict: true,
+    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -84,113 +92,81 @@ const stateMachine = Machine({
     },
 });
 
-export default {
-    components: {
-        fieldPassword,
+const { state, send: sendEvent } = useMachine(stateMachine);
+
+const v$ = useVuelidate({
+    password: {
+        ...cloneDeep(userValidation.password),
     },
+    repeatPassword: {
+        required,
+        sameAs: sameAs('password'),
+    },
+});
 
-    mixins: [
-        stateMixin,
-    ],
+const invalidToken = ref(false);
+const tokenExpired = ref(false);
 
-    setup () {
-        useHead({
-            title: 'Activate Your Account',
+const password = ref(null);
+const repeatPassword = ref(null);
+
+const showForm = computed(() => !state.value.done);
+
+onMounted(() => {
+    if (rootStore.loggedIn) {
+        router.replace({ name: 'login' });
+    }
+});
+
+async function submit () {
+    sendEvent('SUBMIT');
+
+    if (!await v$.value.$validate()) {
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+
+        return;
+    }
+
+    try {
+        const { mutate: sendUserVerify } = useMutation(UserVerify);
+        await sendUserVerify({
+            token: route.params.token,
+            password: password.value,
         });
 
-        return { v$: useVuelidate() };
-    },
+        password.value = null;
+        repeatPassword.value = null;
+        invalidToken.value = false;
+        tokenExpired.value = false;
 
-    data () {
-        return {
-            stateService: interpret(stateMachine),
-            state: stateMachine.initialState,
-            invalidToken: false,
-            tokenExpired: false,
+        sendEvent('SUBMITTED');
 
-            password: null,
-            repeatPassword: null,
-        };
-    },
+        setTimeout(() => {
+            window.location = router.resolve({ name: 'login' }).href;
+        }, 5000);
 
-    computed: {
-        showForm () {
-            return !this.state.done;
-        },
-    },
-
-    validations () {
-        return {
-            password: {
-                ...cloneDeep(userValidation.password),
-            },
-            repeatPassword: {
-                required,
-                sameAs: sameAs('password'),
-            },
-        };
-    },
-
-    mounted () {
-        if (this.$store.getters.loggedIn) {
-            this.$router.replace({ name: 'login' });
+    } catch (e) {
+        if (hasGraphQlError(e)) {
+            if (e.graphQLErrors[0].code === 404) {
+                invalidToken.value = true;
+            } else if (e.graphQLErrors[0].code === 405) {
+                tokenExpired.value = true;
+            } else {
+                logError(e);
+                showError();
+            }
+        } else {
+            logError(e);
+            showError();
         }
-    },
 
-    methods: {
-        async submit () {
-            this.stateEvent('SUBMIT');
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+    }
 
-            if (!await this.v$.$validate()) {
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-
-                return;
-            }
-
-            try {
-                await this.$apollo.mutate({
-                    mutation: UserVerify,
-                    variables: {
-                        token: this.$route.params.token,
-                        password: this.password,
-                    },
-                });
-
-                this.stateEvent('SUBMITTED');
-
-                this.password = null;
-                this.repeatPassword = null;
-                this.invalidToken = false;
-                this.tokenExpired = false;
-
-                setTimeout(() => {
-                    window.location = this.$router.resolve({ name: 'login' }).href;
-                }, 5000);
-
-            } catch (e) {
-                if (hasGraphQlError(e)) {
-                    if (e.graphQLErrors[0].code === 404) {
-                        this.invalidToken = true;
-                    } else if (e.graphQLErrors[0].code === 405) {
-                        this.tokenExpired = true;
-                    } else {
-                        logError(e);
-                        this.showError();
-                    }
-                } else {
-                    logError(e);
-                    this.showError();
-                }
-
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-            }
-        },
-
-        showError () {
-            alert('There was a problem activating your account. Please try again later.');
-        },
-    },
+    function showError () {
+        alert('There was a problem activating your account. Please try again later.');
+    }
 }
 </script>

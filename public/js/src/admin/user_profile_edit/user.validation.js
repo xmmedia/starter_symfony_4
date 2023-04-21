@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { email, helpers, required } from '@vuelidate/validators';
+import { apolloClient } from '@/common/apollo';
 import userValidation from '@/admin/validation/user';
 import { UserEmailUnique, UserPasswordValid } from '../queries/user.query.graphql';
 
@@ -12,7 +13,7 @@ export default {
                 return true;
             }
 
-            const { data: { UserEmailUnique: { unique } } } = await this.$apollo.query({
+            const { data: { UserEmailUnique: { unique } } } = await apolloClient.query({
                 query: UserEmailUnique,
                 variables: {
                     email: value,
@@ -30,7 +31,7 @@ export default {
                 return true;
             }
 
-            const { data: { UserPasswordValid: { valid } } } = await this.$apollo.query({
+            const { data: { UserPasswordValid: { valid } } } = await apolloClient.query({
                 query: UserPasswordValid,
                 variables: {
                     password: value,

@@ -1,58 +1,63 @@
 <template>
     <div class="form-wrap p-0">
-        <profile-tabs />
+        <ProfileTabs />
 
         <form class="p-4" method="post" @submit.prevent="submit">
-            <form-error v-if="v$.$error && v$.$invalid" />
+            <FormError v-if="v$.$error && v$.$invalid" />
 
-            <field-email :model-value="email"
-                         :v="v$.email"
-                         autofocus
-                         autocomplete="username email"
-                         @update:modelValue="setEmailDebounce">
+            <FieldEmail :model-value="email"
+                        :v="v$.email"
+                        autofocus
+                        autocomplete="username email"
+                        @update:modelValue="setEmailDebounce">
                 Email address
-            </field-email>
+            </FieldEmail>
 
-            <field-input v-model.trim="firstName"
-                         :v="v$.firstName"
-                         autocomplete="given-name"
-                         @input="changed">First name</field-input>
-            <field-input v-model.trim="lastName"
-                         :v="v$.lastName"
-                         autocomplete="family-name"
-                         @input="changed">Last name</field-input>
+            <FieldInput v-model.trim="firstName"
+                        :v="v$.firstName"
+                        autocomplete="given-name"
+                        @input="changed">First name</FieldInput>
+            <FieldInput v-model.trim="lastName"
+                        :v="v$.lastName"
+                        autocomplete="family-name"
+                        @input="changed">Last name</FieldInput>
 
-            <admin-button :saving="state.matches('saving')"
-                          :saved="state.matches('saved')">
+            <AdminButton :saving="state.matches('saving')"
+                         :saved="state.matches('saved')">
                 Save Profile
                 <template #cancel>
                     <button v-if="state.matches('edited')"
                             class="form-action button-link"
                             @click.prevent="reset">Reset</button>
                 </template>
-            </admin-button>
+            </AdminButton>
         </form>
     </div>
 </template>
 
-<script>
-import { Machine, interpret } from 'xstate';
-import debounce from 'lodash/debounce';
-import cloneDeep from 'lodash/cloneDeep';
+<script setup>
+import { ref } from 'vue';
+import { useRootStore } from '@/admin/stores/root';
+import { useMachine } from '@xstate/vue';
+import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
+import { useMutation } from '@vue/apollo-composable';
+import cloneDeep from 'lodash/cloneDeep';
 import { logError } from '@/common/lib';
-import stateMixin from '@/common/state_mixin';
-import fieldEmail from '@/common/field_email';
-import fieldInput from '@/common/field_input';
-import profileTabs from './component/tabs';
+import ProfileTabs from './component/tabs';
+import FieldEmail from '@/common/field_email';
+import FieldInput from '@/common/field_input';
 import { UserUpdateProfile } from '../queries/user.mutation.graphql';
-
 import userValidations from './user.validation';
+import debounce from 'lodash/debounce';
 
-const stateMachine = Machine({
+const rootStore = useRootStore();
+
+const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
     strict: true,
+    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -81,124 +86,81 @@ const stateMachine = Machine({
     },
 });
 
-export default {
-    components: {
-        profileTabs,
-        fieldEmail,
-        fieldInput,
-    },
+const { state, send: sendEvent } = useMachine(stateMachine);
 
-    mixins: [
-        stateMixin,
-    ],
+const email = ref(rootStore.user.email);
+const firstName = ref(rootStore.user.firstName);
+const lastName = ref(rootStore.user.lastName);
 
-    beforeRouteLeave (to, from, next) {
-        if (this.state.matches('edited')) {
-            if (!confirm('You have unsaved changes. Are you sure you want to leave?')) {
-                return
-            }
-        }
+const v$ = useVuelidate({
+    email: cloneDeep(userValidations.email),
+    firstName: cloneDeep(userValidations.firstName),
+    lastName: cloneDeep(userValidations.lastName),
+}, { email, firstName, lastName });
 
-        next();
-    },
+const setEmailDebounce = debounce(function (email) {
+    setEmail(email);
+}, 100, { leading: true });
+function setEmail (value) {
+    email.value = value;
+    changed();
+}
 
-    setup () {
-        return { v$: useVuelidate() };
-    },
+async function submit () {
+    if (!state.value.matches('ready') && !state.value.matches('edited')) {
+        return;
+    }
 
-    data () {
-        return {
-            stateService: interpret(stateMachine),
-            state: stateMachine.initialState,
+    sendEvent('SAVE');
 
-            email: null,
-            firstName: null,
-            lastName: null,
+    if (!await v$.value.$validate()) {
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+
+        return;
+    }
+
+    try {
+        const data = {
+            email: email.value,
+            firstName: firstName.value,
+            lastName: lastName.value,
         };
-    },
 
-    validations () {
-        return {
-            email: cloneDeep(userValidations.email),
-            firstName: cloneDeep(userValidations.firstName),
-            lastName: cloneDeep(userValidations.lastName),
-        };
-    },
+        const { mutate: sendUserUpdateProfile } = useMutation(UserUpdateProfile);
+        await sendUserUpdateProfile({
+            user: data,
+        });
 
-    created () {
-        this.email = this.$store.state.user.email;
-        this.firstName = this.$store.state.user.firstName;
-        this.lastName = this.$store.state.user.lastName;
-    },
+        rootStore.updateUser({
+            ...data,
+            name: data.firstName + ' ' + data.lastName,
+        });
 
-    methods: {
-        setEmailDebounce: debounce(function (email) {
-            this.setEmail(email);
-        }, 100, { leading: true }),
-        setEmail (email) {
-            this.email = email;
-            this.changed();
-        },
+        sendEvent('SAVED');
 
-        async submit () {
-            if (!this.state.matches('ready') && !this.state.matches('edited')) {
-                return;
-            }
+        setTimeout(() => {
+            sendEvent('RESET');
+        }, 5000);
 
-            this.stateEvent('SAVE');
+    } catch (e) {
+        logError(e);
+        alert('There was a problem saving your profile. Please try again later.');
 
-            if (!await this.v$.$validate()) {
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
+        sendEvent('ERROR');
+        window.scrollTo(0, 0);
+    }
+}
 
-                return;
-            }
+function changed () {
+    sendEvent('EDITED');
+}
 
-            try {
-                const data = {
-                    email: this.email,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                };
+function reset () {
+    email.value = rootStore.user.email;
+    firstName.value = rootStore.user.firstName;
+    lastName.value = rootStore.user.lastName;
 
-                await this.$apollo.mutate({
-                    mutation: UserUpdateProfile,
-                    variables: {
-                        user: data,
-                    },
-                });
-
-                await this.$store.dispatch('updateUser', {
-                    ...data,
-                    name: this.firstName + ' ' + this.lastName,
-                });
-
-                this.stateEvent('SAVED');
-
-                setTimeout(() => {
-                    this.stateEvent('RESET');
-                }, 5000);
-
-            } catch (e) {
-                logError(e);
-                alert('There was a problem saving your profile. Please try again later.');
-
-                this.stateEvent('ERROR');
-                window.scrollTo(0, 0);
-            }
-        },
-
-        changed () {
-            this.stateEvent('EDITED');
-        },
-
-        reset () {
-            this.email = this.$store.state.user.email;
-            this.firstName = this.$store.state.user.firstName;
-            this.lastName = this.$store.state.user.lastName;
-
-            this.stateEvent('RESET');
-        },
-    },
+    sendEvent('RESET');
 }
 </script>
