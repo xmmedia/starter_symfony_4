@@ -9,7 +9,7 @@ import store from './admin/store';
 import { apolloClient } from './common/apollo';
 import { provideApolloClient } from '@vue/apollo-composable';
 
-import appIndex from './admin/index';
+import App from './admin/index';
 
 import LoadingSpinner from './common/loading_spinner';
 import FormError from './common/form_error';
@@ -44,8 +44,8 @@ apolloClient.query({ query: MeQuery })
 
         store.commit('ready');
 
-        const app = createApp(appIndex);
 
+        const app = createApp(App);
         app.use(router);
         app.use(store);
 
