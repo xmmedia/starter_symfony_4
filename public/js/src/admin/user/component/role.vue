@@ -11,7 +11,7 @@
         <select :id="id"
                 :value="modelValue"
                 @change="$emit('update:modelValue', $event.target.value)">
-            <option v-for="(name,role) in store.state.availableRoles"
+            <option v-for="(name,role) in rootStore.availableRoles"
                     :key="role"
                     :value="role">{{ name }}</option>
         </select>
@@ -20,9 +20,9 @@
 
 <script setup>
 import cuid from 'cuid';
-import { useStore } from 'vuex';
+import { useRootStore } from '@/admin/stores/root';
 
-const store = useStore();
+const rootStore = useRootStore();
 
 defineProps({
     modelValue: {

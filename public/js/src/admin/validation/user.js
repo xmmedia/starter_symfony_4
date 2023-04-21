@@ -4,7 +4,7 @@ import {
     maxLength,
     required,
 } from '@vuelidate/validators';
-import store from '@/admin/store';
+import { useRootStore } from '@/admin/stores/root';
 import { pwnedPassword } from 'hibp';
 import zxcvbn from 'zxcvbn';
 
@@ -20,11 +20,12 @@ export default {
                 return true;
             }
 
+            const rootStore = useRootStore();
             const userData = [
                 // deal with the values not existing for example when they're using the forgot password
-                store.state.user?.firstName || null,
-                store.state.user?.lastName || null,
-                store.state.user?.email || null,
+                rootStore.user?.firstName || null,
+                rootStore.user?.lastName || null,
+                rootStore.user?.email || null,
                 ...document.title.split(/[\s|]+/),
             ];
 

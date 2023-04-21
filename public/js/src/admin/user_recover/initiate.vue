@@ -36,7 +36,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { useStore } from 'vuex';
+import { useRootStore } from '@/admin/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
@@ -47,7 +47,7 @@ import { hasGraphQlError, logError } from '@/common/lib';
 import FieldEmail from '@/common/field_email';
 import { UserRecoverInitiate } from '../queries/user.mutation.graphql';
 
-const store = useStore();
+const rootStore = useRootStore();
 const router = useRouter();
 
 const stateMachine = createMachine({
@@ -88,7 +88,7 @@ const v$ = useVuelidate({
 const showForm = computed(() => !state.value.done);
 
 onMounted(() => {
-    if (store.getters.loggedIn) {
+    if (rootStore.loggedIn) {
         router.replace({ name: 'login' });
     }
 });

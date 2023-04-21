@@ -37,7 +37,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useStore } from 'vuex';
+import { useRootStore } from '@/admin/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
@@ -51,7 +51,7 @@ import { UserUpdateProfile } from '../queries/user.mutation.graphql';
 import userValidations from './user.validation';
 import debounce from 'lodash/debounce';
 
-const store = useStore();
+const rootStore = useRootStore();
 
 const stateMachine = createMachine({
     id: 'component',
@@ -88,9 +88,9 @@ const stateMachine = createMachine({
 
 const { state, send: sendEvent } = useMachine(stateMachine);
 
-const email = ref(store.state.user.email);
-const firstName = ref(store.state.user.firstName);
-const lastName = ref(store.state.user.lastName);
+const email = ref(rootStore.user.email);
+const firstName = ref(rootStore.user.firstName);
+const lastName = ref(rootStore.user.lastName);
 
 const v$ = useVuelidate({
     email: cloneDeep(userValidations.email),
@@ -132,7 +132,7 @@ async function submit () {
             user: data,
         });
 
-        await store.dispatch('updateUser', {
+        rootStore.updateUser({
             ...data,
             name: data.firstName + ' ' + data.lastName,
         });
@@ -157,9 +157,9 @@ function changed () {
 }
 
 function reset () {
-    email.value = store.state.user.email;
-    firstName.value = store.state.user.firstName;
-    lastName.value = store.state.user.lastName;
+    email.value = rootStore.user.email;
+    firstName.value = rootStore.user.firstName;
+    lastName.value = rootStore.user.lastName;
 
     sendEvent('RESET');
 }

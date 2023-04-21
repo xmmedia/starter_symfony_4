@@ -5,11 +5,11 @@
 
 <script setup>
 import { computed, nextTick, onMounted } from 'vue';
-import { useStore } from 'vuex';
+import { useMenuStore } from '@/admin/stores/menu';
 
-const store = useStore();
+const menuStore = useMenuStore();
 
-const open = computed(() => store.state.adminMenu.mobileMenuIsOpen);
+const open = computed(() => menuStore.mobileMenuIsOpen);
 
 onMounted(() => {
     nextTick(() => {
@@ -20,15 +20,15 @@ onMounted(() => {
 
 function toggleMenu () {
     if (open.value) {
-        store.dispatch('adminMenu/closeMobileMenu');
+        menuStore.closeMobileMenu();
     } else {
-        store.dispatch('adminMenu/openMobileMenu');
+        menuStore.openMobileMenu();
         document.documentElement.addEventListener('click', htmlClick);
     }
 }
 
 function windowResize () {
-    store.dispatch('adminMenu/closeMobileMenu');
+    menuStore.closeMobileMenu();
 
     setContentHeight();
 }
@@ -46,7 +46,7 @@ function getWindowHeight () {
 }
 
 function htmlClick () {
-    store.dispatch('adminMenu/closeMobileMenu');
+    menuStore.closeMobileMenu();
     document.documentElement.removeEventListener('click', htmlClick);
 }
 </script>

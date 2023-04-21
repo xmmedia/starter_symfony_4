@@ -18,7 +18,7 @@
             <div class="hidden">
                 <label for="inputEmail">Email</label>
                 <input id="inputEmail"
-                       :value="store.state.user.email"
+                       :value="rootStore.user.email"
                        type="email"
                        name="email"
                        autocomplete="username email">
@@ -57,7 +57,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useStore } from 'vuex';
+import { useRootStore } from '@/admin/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
@@ -71,7 +71,7 @@ import FieldPassword from '@/common/field_password_with_errors';
 import { ChangePassword } from '../queries/user.mutation.graphql';
 import userValidations from './user.validation';
 
-const store = useStore();
+const rootStore = useRootStore();
 const router = useRouter();
 
 const stateMachine = createMachine({

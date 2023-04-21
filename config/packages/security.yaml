@@ -5,7 +5,7 @@ security:
         app_provider:
             id: App\Security\UserProvider
 
-    # also in Vuex & \App\Model\User\Role
+    # also in Pinia & \App\Model\User\Role
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN

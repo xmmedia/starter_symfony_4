@@ -52,7 +52,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { useStore } from 'vuex';
+import { useRootStore } from '@/admin/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
@@ -65,7 +65,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { hasGraphQlError, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 
-const store = useStore();
+const rootStore = useRootStore();
 const router = useRouter();
 const route = useRoute();
 
@@ -113,7 +113,7 @@ const repeatPassword = ref(null);
 const showForm = computed(() => !state.value.done);
 
 onMounted(() => {
-    if (store.getters.loggedIn) {
+    if (rootStore.loggedIn) {
         router.replace({ name: 'login' });
     }
 });

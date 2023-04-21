@@ -81,15 +81,14 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useHead } from '@vueuse/head';
-import { useStore } from 'vuex';
-
+import { useRootStore } from './stores/root';
 import { ModalsContainer } from 'vue-final-modal';
 import MenuSubnav from './menu/subnav';
 import MenuSmall from './menu/small';
 /* eslint-disable no-unused-vars */
 import MenuLink from './menu/link';
 
-const store = useStore();
+const rootStore = useRootStore();
 
 useHead({
     title: 'Dashboard',
@@ -103,9 +102,9 @@ const adminMenuItems = ref({
 
 const copyrightYear = ref(new Date().getFullYear());
 
-const ready = computed(() => store.state.ready);
-const loggedIn = computed(() => store.getters.loggedIn);
-const hasRole = computed(() => store.getters.hasRole);
+const ready = computed(() => rootStore.ready);
+const loggedIn = computed(() => rootStore.loggedIn);
+const hasRole = computed(() => rootStore.hasRole);
 
 const logoLinkRoute = computed(() => {
     if (loggedIn.value) {
@@ -115,8 +114,8 @@ const logoLinkRoute = computed(() => {
     return { name: 'login' };
 });
 const profileLinkText = computed(() => {
-    if (loggedIn.value && store.state.user.name) {
-        return store.state.user.name;
+    if (loggedIn.value && rootStore.user.name) {
+        return rootStore.user.name;
     }
 
     return 'Profile';

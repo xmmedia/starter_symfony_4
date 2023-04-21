@@ -41,6 +41,7 @@
     "lodash": "^4.17.11",
     "mailcheck": "^1.1.0",
     "omit-deep-lodash": "^1.1.5",
+    "pinia": "^2.0.34",
     "pluralize": "^8.0.0",
     "portal-vue": "^3.0.0",
     "qs": "^6.7.0",
@@ -52,7 +53,6 @@
     "vue-global-events": "^2.0.0",
     "vue-multiselect": "^2.1.6",
     "vue-router": "^4.0.0",
-    "vuex": "^4.0.0",
     "xstate": "^4.7.3",
     "zxcvbn": "^4.4.2"
   },

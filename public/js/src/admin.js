@@ -1,10 +1,11 @@
 import { createApp, defineAsyncComponent } from 'vue';
+import { createPinia } from 'pinia';
 import PortalVue from 'portal-vue';
 import { createVfm } from 'vue-final-modal';
 import { createHead } from '@vueuse/head';
 
 import router from './admin/router';
-import store from './admin/store';
+import { useRootStore } from '@/admin/stores/root';
 
 import { apolloClient } from './common/apollo';
 import { provideApolloClient } from '@vue/apollo-composable';
@@ -23,32 +24,33 @@ import { MeQuery } from './admin/queries/user.query.graphql';
 // SASS/CSS
 import '../../css/admin.scss';
 
+const pinia = createPinia();
+const rootStore = useRootStore(pinia);
+
 provideApolloClient(apolloClient);
 
 // run gql query to see if the user is logged in, set state to ready
 // and then initialize
 apolloClient.query({ query: MeQuery })
-    .then(async (result) =>  {
+    .then(async ({ data: { Me }}) =>  {
         // don't set a user if we didn't get anything
-        if (result.data.Me) {
-            await store.dispatch('updateUser', result.data.Me);
+        if (Me) {
+            rootStore.updateUser(Me);
         }
 
         /*const entrypointScript = document.querySelector('script[data-entry="admin"]');
         if (entrypointScript && entrypointScript.integrity) {
-            await store.dispatch('setIntegrityHash', {
+            await rootStore.setIntegrityHash({
                 entrypoint: 'admin',
                 hash: entrypointScript.integrity,
             });
         }*/
 
-        store.commit('ready');
-
+        rootStore.ready();
 
         const app = createApp(App);
         app.use(router);
-        app.use(store);
-
+        app.use(pinia);
         app.use(PortalVue);
         app.use(createVfm());
         app.use(createHead());

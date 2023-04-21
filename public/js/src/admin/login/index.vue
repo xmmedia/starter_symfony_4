@@ -47,12 +47,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useHead } from '@vueuse/head';
-import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { useQuery } from '@vue/apollo-composable';
+import { useRootStore } from '@/admin/stores/root';
 import { AuthLast } from '@/admin/queries/auth.query.graphql';
 
-const store = useStore();
+const rootStore = useRootStore();
 const router = useRouter();
 
 useHead({
@@ -74,7 +74,7 @@ onResult(({ data: { AuthLast }}) => {
 });
 
 onMounted(() => {
-    if (store.getters.loggedIn) {
+    if (rootStore.loggedIn) {
         router.replace({ name: 'login' });
     }
 });

@@ -39,7 +39,7 @@
                         class="record_list-item">
                         <div class="record_list-col">
                             {{ user.email }}
-                            <span v-if="user.userId === $store.state.user.userId" class="pl-3 italic">
+                            <span v-if="user.userId === rootStore.user.userId" class="pl-3 italic">
                                 You
                             </span>
                         </div>
@@ -52,7 +52,7 @@
                             </template>
                             <i v-else>Never logged in</i>
                         </div>
-                        <div class="record_list-col">{{ store.state.availableRoles[user.roles[0]] }}</div>
+                        <div class="record_list-col">{{ rootStore.availableRoles[user.roles[0]] }}</div>
 
                         <div class="record_list-col record_list-col-actions">
                             <RouterLink :to="{ name: 'admin-user-edit', params: { userId: user.userId } }">
@@ -70,11 +70,11 @@
 import { ref } from 'vue';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
-import { useStore } from 'vuex';
+import { useRootStore } from '@/admin/stores/root';
 import { useQuery } from '@vue/apollo-composable';
 import { GetUsersQuery } from '../queries/user.query.graphql';
 
-const store = useStore();
+const rootStore = useRootStore();
 
 const stateMachine = createMachine({
     id: 'component',

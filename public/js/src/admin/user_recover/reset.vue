@@ -52,7 +52,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { useStore } from 'vuex';
+import { useRootStore } from '@/admin/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
@@ -65,7 +65,7 @@ import FieldPassword from '@/common/field_password_with_errors';
 import { UserRecoverReset } from '../queries/user.mutation.graphql';
 import userValidation from '@/admin/validation/user';
 
-const store = useStore();
+const rootStore = useRootStore();
 const router = useRouter();
 const route = useRoute();
 
@@ -111,7 +111,7 @@ const v$ = useVuelidate({
 const showForm = computed(() => !state.value.done);
 
 onMounted(() => {
-    if (store.getters.loggedIn) {
+    if (rootStore.loggedIn) {
         router.replace({ name: 'login' });
     }
 });

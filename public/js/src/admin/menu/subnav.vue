@@ -26,11 +26,11 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue';
-import { useStore } from 'vuex';
+import { useMenuStore } from '@/admin/stores/menu';
 import cuid from 'cuid';
 import MenuLink from './link';
 
-const store = useStore();
+const menuStore = useMenuStore();
 
 defineProps({
     label: {
@@ -50,12 +50,12 @@ defineProps({
 const open = ref(false);
 const submenu = ref(null);
 
-watch(computed(() => store.state.adminMenu.mobileMenuIsOpen), (mobileMenuIsOpen) => {
+watch(computed(() => menuStore.mobileMenuIsOpen), (mobileMenuIsOpen) => {
     if (!mobileMenuIsOpen) {
         close();
     }
 });
-watch(computed(() => store.state.adminMenu.subNavOpen), (subNavOpen) => {
+watch(computed(() => menuStore.subNavOpen), (subNavOpen) => {
     if (!subNavOpen) {
         close();
     }
@@ -65,17 +65,17 @@ function toggleMenu () {
     open.value = !open.value;
 
     if (open.value) {
-        store.dispatch('adminMenu/subNavOpened', cuid());
+        menuStore.subNavOpened(cuid());
         document.documentElement.addEventListener('click', htmlClick);
     } else {
-        store.dispatch('adminMenu/subNavClosed');
+        menuStore.subNavClosed();
         close();
     }
 }
 
 function subnavItemClicked () {
     toggleMenu();
-    store.dispatch('adminMenu/closeAllMenus');
+    menuStore.closeAllMenus();
 }
 
 function close () {
@@ -84,7 +84,7 @@ function close () {
 
 function htmlClick (e) {
     if (!submenu.value.contains(e.target)) {
-        store.dispatch('adminMenu/subNavClosed');
+        menuStore.subNavClosed();
         close();
     }
 }
