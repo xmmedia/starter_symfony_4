@@ -49,24 +49,25 @@ apolloClient.query({ query: MeQuery })
         rootStore.ready();
 
         const app = createApp(App);
-        app.use(router);
-        app.use(pinia);
-        app.use(PortalVue);
-        app.use(createVfm());
-        app.use(createHead());
+
+        app.use(router)
+            .use(pinia)
+            .use(PortalVue)
+            .use(createVfm())
+            .use(createHead());
 
         // app.provide(DefaultApolloClient, apolloClient);
 
         // global components
-        app.component('LoadingSpinner', LoadingSpinner);
-        app.component('FormError', FormError);
-        app.component('FieldError', FieldError);
-        app.component('FieldPassword', FieldPassword);
-        app.component('AdminButton', AdminButton);
-        app.component('AdminIcon', AdminIcon);
-        app.component('AdminModal', defineAsyncComponent(() => import('./common/modal')));
-        app.component('AdminDelete', defineAsyncComponent(() => import('./admin/admin_delete/index')));
-        app.component('LocalTime', defineAsyncComponent(() => import('./common/local_time')));
+        app.component('LoadingSpinner', LoadingSpinner)
+            .component('FormError', FormError)
+            .component('FieldError', FieldError)
+            .component('FieldPassword', FieldPassword)
+            .component('AdminButton', AdminButton)
+            .component('AdminIcon', AdminIcon)
+            .component('AdminModal', defineAsyncComponent(() => import('./common/modal')))
+            .component('AdminDelete', defineAsyncComponent(() => import('./admin/admin_delete/index')))
+            .component('LocalTime', defineAsyncComponent(() => import('./common/local_time')));
 
         app.mount('#app');
     });
