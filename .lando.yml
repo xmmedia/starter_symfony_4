@@ -7,6 +7,9 @@ config:
   webroot: public
   xdebug: true
 services:
+  appserver:
+    build_as_root:
+      - a2enmod headers
   phpmyadmin:
     type: phpmyadmin
     hosts:
