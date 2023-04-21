@@ -30,6 +30,12 @@ export default defineConfig({
                 admin: './public/js/src/admin.js',
                 public: './public/js/src/public.js',
             },
+            output: {
+                manualChunks: {
+                    // because it includes a large word list
+                    zxcvbn: ['zxcvbn'],
+                },
+            },
         },
     },
     resolve: {
