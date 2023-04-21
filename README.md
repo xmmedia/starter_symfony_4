@@ -106,6 +106,7 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
     - [Postmark](https://postmarkapp.com/) – for sending email, contains email templates (currently setup under XM Media's account)
     - [Cloudflare](https://www.cloudflare.com/) – DNS & CDN
   - [GitLab](https://gitlab.com/) – deployment
+  - [Sentry](https://sentry.io/) – error tracking
   - Dev Tools
     - [Vue Devtools](https://github.com/vuejs/vue-devtools)
     - [Apollo Devtools](https://github.com/apollographql/apollo-client-devtools)

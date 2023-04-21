@@ -24,4 +24,5 @@ return [
     Xm\SymfonyBundle\XmSymfonyBundle::class                                    => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class                          => ['all' => true],
     Pentatrion\ViteBundle\PentatrionViteBundle::class                          => ['all' => true],
+    Sentry\SentryBundle\SentryBundle::class                                    => ['prod' => true],
 ];

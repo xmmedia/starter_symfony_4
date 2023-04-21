@@ -6,12 +6,14 @@ import graphqlPlugin from '@rollup/plugin-graphql';
 import manifestSRIPlugin from 'vite-plugin-manifest-sri';
 import symfonyPlugin from 'vite-plugin-symfony';
 import liveReload from 'vite-plugin-live-reload';
-import dns from 'dns'
+import dns from 'dns';
 
 dns.setDefaultResultOrder('verbatim');
 
 export default defineConfig({
     root: 'public',
+    // by default Vite looks in the root
+    envDir: '../',
     plugins: [
         basicSslPlugin(),
         vuePlugin(),

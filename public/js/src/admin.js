@@ -10,6 +10,8 @@ import { useRootStore } from '@/admin/stores/root';
 import { apolloClient } from './common/apollo';
 import { provideApolloClient } from '@vue/apollo-composable';
 
+import * as Sentry from '@sentry/vue';
+
 import App from './admin/index';
 
 import LoadingSpinner from './common/loading_spinner';
@@ -49,6 +51,13 @@ apolloClient.query({ query: MeQuery })
         rootStore.ready();
 
         const app = createApp(App);
+
+        if (import.meta.env.PROD) {
+            Sentry.init({
+                app,
+                dsn: import.meta.env.VITE_SENTRY_DSN,
+            });
+        }
 
         app.use(router)
             .use(pinia)
