@@ -4,9 +4,7 @@
             <div class="flex items-center w-full bg-gray-500">
                 <div :class="scoreBackgroundClasses" class="h-6"></div>
                 <span class="absolute py-1 pl-2 text-white">
-                    Strength<template v-if="passwordWarning">:
-                        {{ passwordWarning }}
-                    </template>
+                    Strength<template v-if="passwordWarning">: {{ passwordWarning }}</template>
                 </span>
             </div>
         </div>
