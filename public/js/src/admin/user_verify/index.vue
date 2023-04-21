@@ -94,23 +94,24 @@ const stateMachine = createMachine({
 
 const { state, send: sendEvent } = useMachine(stateMachine);
 
+const invalidToken = ref(false);
+const tokenExpired = ref(false);
+const password = ref(null);
+const repeatPassword = ref(null);
+
+const showForm = computed(() => !state.value.done);
+
 const v$ = useVuelidate({
     password: {
         ...cloneDeep(userValidation.password),
     },
     repeatPassword: {
         required,
-        sameAs: sameAs('password'),
+        sameAs: sameAs(password),
     },
-});
+}, { password, repeatPassword });
 
-const invalidToken = ref(false);
-const tokenExpired = ref(false);
 
-const password = ref(null);
-const repeatPassword = ref(null);
-
-const showForm = computed(() => !state.value.done);
 
 onMounted(() => {
     if (rootStore.loggedIn) {
