@@ -72,7 +72,7 @@ import { maxLength, minLength, required } from '@vuelidate/validators';
 import { ref } from 'vue';
 import { logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
-import FieldEmail from '@/common/components/field_email.vue';
+import FieldEmail from '@/common/field_email.vue';
 import { SendEnquiryMutation } from '../queries/enquiry.mutation.graphql';
 
 const stateMachine = createMachine({
