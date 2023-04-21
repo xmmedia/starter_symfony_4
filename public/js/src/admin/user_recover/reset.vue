@@ -108,7 +108,7 @@ const v$ = useVuelidate({
     },
 }, { newPassword, repeatPassword });
 
-const showForm = computed(() => !store.state.done);
+const showForm = computed(() => !state.value.done);
 
 onMounted(() => {
     if (store.getters.loggedIn) {

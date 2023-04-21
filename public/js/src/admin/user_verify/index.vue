@@ -110,7 +110,7 @@ const tokenExpired = ref(false);
 const password = ref(null);
 const repeatPassword = ref(null);
 
-const showForm = computed(() => !store.state.done);
+const showForm = computed(() => !state.value.done);
 
 onMounted(() => {
     if (store.getters.loggedIn) {

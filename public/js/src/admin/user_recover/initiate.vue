@@ -85,7 +85,7 @@ const v$ = useVuelidate({
     },
 }, { email });
 
-const showForm = computed(() => !store.state.done);
+const showForm = computed(() => !state.value.done);
 
 onMounted(() => {
     if (store.getters.loggedIn) {
