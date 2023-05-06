@@ -142,7 +142,8 @@ deploy to prod:
   stage: deploy
   allow_failure: false
   only:
-    - master
+    variables:
+      - $CI_DEFAULT_BRANCH == $CI_COMMIT_REF_NAME
   environment:
     name: production
     url: $PROD_URL
