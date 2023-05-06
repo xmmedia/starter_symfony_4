@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     Sentry\SentryBundle\SentryBundle::class                                    => ['prod' => true],
     Symfony\Bundle\FrameworkBundle\FrameworkBundle::class                      => ['all' => true],
