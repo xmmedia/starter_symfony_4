@@ -31,7 +31,7 @@ module.exports = {
         }],
         "vue/first-attribute-linebreak": ["error", {
             "singleline": "beside",
-            "multiline": "beside"
+            "multiline": "beside",
         }],
         "vue/html-indent": ["error", 4],
         "vue/html-self-closing": [
