@@ -9,11 +9,11 @@ use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserList;
 
-class AdminAddUserMinimumHandler
+final readonly class AdminAddUserMinimumHandler
 {
     public function __construct(
-        private UserList $userRepo,
-        private ChecksUniqueUsersEmail $checksUniqueUsersEmail,
+        private readonly UserList $userRepo,
+        private readonly ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ) {
     }
 

@@ -8,7 +8,7 @@ use App\Model\Enquiry\Command\SendEnquiryEmail;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 use Xm\SymfonyBundle\Model\Email;
 
-class SendEnquiryEmailHandler
+readonly class SendEnquiryEmailHandler
 {
     public function __construct(
         private EmailGatewayInterface $emailGateway,

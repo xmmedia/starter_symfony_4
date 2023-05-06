@@ -11,7 +11,7 @@ use Xm\SymfonyBundle\Model\Email;
 
 class ChecksUniqueUsersEmailFromReadModel implements ChecksUniqueUsersEmail
 {
-    public function __construct(private UserFinder $userFinder)
+    public function __construct(private readonly UserFinder $userFinder)
     {
     }
 

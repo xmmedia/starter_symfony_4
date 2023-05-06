@@ -20,15 +20,15 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 
-class UserRecoverResetMutation implements MutationInterface
+final readonly class UserRecoverResetMutation implements MutationInterface
 {
     public function __construct(
-        private MessageBusInterface $commandBus,
-        private PasswordHasher $passwordHasher,
-        private TokenValidator $tokenValidator,
-        private Security $security,
-        private ?PasswordStrengthInterface $passwordStrength = null,
-        private ?HttpClientInterface $pwnedHttpClient = null,
+        private readonly MessageBusInterface $commandBus,
+        private readonly PasswordHasher $passwordHasher,
+        private readonly TokenValidator $tokenValidator,
+        private readonly Security $security,
+        private readonly ?PasswordStrengthInterface $passwordStrength = null,
+        private readonly ?HttpClientInterface $pwnedHttpClient = null,
     ) {
     }
 

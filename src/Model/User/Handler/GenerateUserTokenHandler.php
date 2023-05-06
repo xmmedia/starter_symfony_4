@@ -9,11 +9,11 @@ use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 use App\Security\TokenGeneratorInterface;
 
-class GenerateUserTokenHandler
+final readonly class GenerateUserTokenHandler
 {
     public function __construct(
-        private UserList $userRepo,
-        private TokenGeneratorInterface $tokenGenerator,
+        private readonly UserList $userRepo,
+        private readonly TokenGeneratorInterface $tokenGenerator,
     ) {
     }
 

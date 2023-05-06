@@ -13,12 +13,12 @@ use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Xm\SymfonyBundle\Model\Email;
 
-class UserRecoverInitiateMutation implements MutationInterface
+final readonly class UserRecoverInitiateMutation implements MutationInterface
 {
     public function __construct(
-        private MessageBusInterface $commandBus,
-        private UserFinder $userFinder,
-        private Security $security,
+        private readonly MessageBusInterface $commandBus,
+        private readonly UserFinder $userFinder,
+        private readonly Security $security,
     ) {
     }
 

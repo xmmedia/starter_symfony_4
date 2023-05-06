@@ -8,9 +8,9 @@ use App\Model\User\Command\DeactivateUserByAdmin;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 
-class DeactivateUserByAdminHandler
+final readonly class DeactivateUserByAdminHandler
 {
-    public function __construct(private UserList $userRepo)
+    public function __construct(private readonly UserList $userRepo)
     {
     }
 

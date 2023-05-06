@@ -8,7 +8,7 @@ use App\Model\Enquiry\Command\SubmitEnquiry;
 use App\Model\Enquiry\Enquiry;
 use App\Model\Enquiry\EnquiryList;
 
-class SubmitEnquiryHandler
+readonly class SubmitEnquiryHandler
 {
     public function __construct(private EnquiryList $enquiryRepo)
     {

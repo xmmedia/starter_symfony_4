@@ -8,9 +8,9 @@ use App\Entity\User;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
-class UserRoleQuery implements QueryInterface
+final readonly class UserRoleQuery implements QueryInterface
 {
-    public function __construct(private RoleHierarchyInterface $roleHierarchy)
+    public function __construct(private readonly RoleHierarchyInterface $roleHierarchy)
     {
     }
 

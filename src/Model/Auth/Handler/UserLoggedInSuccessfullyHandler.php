@@ -8,7 +8,7 @@ use App\Model\Auth\Auth;
 use App\Model\Auth\AuthList;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 
-class UserLoggedInSuccessfullyHandler
+final readonly class UserLoggedInSuccessfullyHandler
 {
     public function __construct(private AuthList $authRepo)
     {

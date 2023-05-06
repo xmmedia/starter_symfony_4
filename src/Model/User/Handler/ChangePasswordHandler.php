@@ -8,9 +8,9 @@ use App\Model\User\Command\ChangePassword;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 
-class ChangePasswordHandler
+final readonly class ChangePasswordHandler
 {
-    public function __construct(private UserList $userRepo)
+    public function __construct(private readonly UserList $userRepo)
     {
     }
 

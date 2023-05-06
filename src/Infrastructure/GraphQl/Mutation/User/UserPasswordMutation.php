@@ -16,15 +16,15 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 use Xm\SymfonyBundle\Util\StringUtil;
 
-class UserPasswordMutation implements MutationInterface
+final readonly class UserPasswordMutation implements MutationInterface
 {
     public function __construct(
-        private MessageBusInterface $commandBus,
-        private UserPasswordHasherInterface $userPasswordHasher,
-        private PasswordHasher $passwordHasher,
-        private Security $security,
-        private ?PasswordStrengthInterface $passwordStrength = null,
-        private ?HttpClientInterface $pwnedHttpClient = null,
+        private readonly MessageBusInterface $commandBus,
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private readonly PasswordHasher $passwordHasher,
+        private readonly Security $security,
+        private readonly ?PasswordStrengthInterface $passwordStrength = null,
+        private readonly ?HttpClientInterface $pwnedHttpClient = null,
     ) {
     }
 

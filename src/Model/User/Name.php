@@ -8,7 +8,7 @@ use App\Util\Assert;
 use Xm\SymfonyBundle\Model\ValueObject;
 use Xm\SymfonyBundle\Util\StringUtil;
 
-class Name implements ValueObject, \JsonSerializable, \Stringable
+final readonly class Name implements ValueObject, \JsonSerializable, \Stringable
 {
     public const MIN_LENGTH = 2;
     public const MAX_LENGTH = 50;

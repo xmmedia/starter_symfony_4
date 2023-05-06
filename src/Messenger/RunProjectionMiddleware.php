@@ -29,7 +29,7 @@ class RunProjectionMiddleware implements MiddlewareInterface
         ],
     ];
 
-    public function __construct(private ProjectionRunner $projectionRunner)
+    public function __construct(private readonly ProjectionRunner $projectionRunner)
     {
     }
 

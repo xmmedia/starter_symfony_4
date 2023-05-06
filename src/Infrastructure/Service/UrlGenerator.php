@@ -7,9 +7,9 @@ namespace App\Infrastructure\Service;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class UrlGenerator
+final readonly class UrlGenerator
 {
-    public function __construct(private RouterInterface $router)
+    public function __construct(private readonly RouterInterface $router)
     {
     }
 

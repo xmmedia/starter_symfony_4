@@ -13,14 +13,14 @@ use Symfony\Component\Routing\RouterInterface;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 use Xm\SymfonyBundle\Model\Email;
 
-class InitiatePasswordRecoveryHandler
+final readonly class InitiatePasswordRecoveryHandler
 {
     public function __construct(
-        private UserList $userRepo,
-        private EmailGatewayInterface $emailGateway,
-        private string $template,
-        private RouterInterface $router,
-        private TokenGeneratorInterface $tokenGenerator,
+        private readonly UserList $userRepo,
+        private readonly EmailGatewayInterface $emailGateway,
+        private readonly string $template,
+        private readonly RouterInterface $router,
+        private readonly TokenGeneratorInterface $tokenGenerator,
     ) {
     }
 

@@ -26,7 +26,7 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
     private string $tokenName = 'main';
     private string $cookieName = 'CSRF-TOKEN';
 
-    public function __construct(private CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(private readonly CsrfTokenManagerInterface $csrfTokenManager)
     {
     }
 

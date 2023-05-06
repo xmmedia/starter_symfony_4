@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @codeCoverageIgnore
  */
-class DefaultController extends AbstractController
+final class DefaultController extends AbstractController
 {
     /**
      * @todo-symfony if deleted, add "index" route to routes.yaml for email generation

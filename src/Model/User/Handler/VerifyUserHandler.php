@@ -8,9 +8,9 @@ use App\Model\User\Command\VerifyUser;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 
-class VerifyUserHandler
+final readonly class VerifyUserHandler
 {
-    public function __construct(private UserList $userRepo)
+    public function __construct(private readonly UserList $userRepo)
     {
     }
 

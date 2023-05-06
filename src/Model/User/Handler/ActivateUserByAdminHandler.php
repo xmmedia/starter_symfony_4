@@ -8,9 +8,9 @@ use App\Model\User\Command\ActivateUserByAdmin;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 
-class ActivateUserByAdminHandler
+final readonly class ActivateUserByAdminHandler
 {
-    public function __construct(private UserList $userRepo)
+    public function __construct(private readonly UserList $userRepo)
     {
     }
 

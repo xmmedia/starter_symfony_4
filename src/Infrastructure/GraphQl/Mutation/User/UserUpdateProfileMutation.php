@@ -12,9 +12,9 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Xm\SymfonyBundle\Model\Email;
 
-class UserUpdateProfileMutation implements MutationInterface
+final readonly class UserUpdateProfileMutation implements MutationInterface
 {
-    public function __construct(private MessageBusInterface $commandBus, private Security $security)
+    public function __construct(private readonly MessageBusInterface $commandBus, private readonly Security $security)
     {
     }
 

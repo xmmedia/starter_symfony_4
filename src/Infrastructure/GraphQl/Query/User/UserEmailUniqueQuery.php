@@ -9,9 +9,9 @@ use App\Security\Security;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 use Xm\SymfonyBundle\Model\Email;
 
-class UserEmailUniqueQuery implements QueryInterface
+final readonly class UserEmailUniqueQuery implements QueryInterface
 {
-    public function __construct(private UserFinder $userFinder, private Security $security)
+    public function __construct(private readonly UserFinder $userFinder, private readonly Security $security)
     {
     }
 

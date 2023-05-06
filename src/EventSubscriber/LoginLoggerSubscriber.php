@@ -13,7 +13,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 
-class LoginLoggerSubscriber implements EventSubscriberInterface
+readonly class LoginLoggerSubscriber implements EventSubscriberInterface
 {
     public function __construct(private MessageBusInterface $commandBus)
     {

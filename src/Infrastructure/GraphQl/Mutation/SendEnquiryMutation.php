@@ -15,7 +15,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Util\StringUtil;
 
-class SendEnquiryMutation implements MutationInterface
+final readonly class SendEnquiryMutation implements MutationInterface
 {
     public function __construct(private MessageBusInterface $commandBus)
     {

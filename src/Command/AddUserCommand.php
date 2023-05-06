@@ -42,11 +42,11 @@ final class AddUserCommand extends Command
     private const FORMAT = 'format';
 
     public function __construct(
-        private MessageBusInterface $commandBus,
-        private PasswordHasher $passwordHasher,
-        private TokenGenerator $tokenGenerator,
-        private UserTokenFinder $userTokenFinder,
-        private RouterInterface $router,
+        private readonly MessageBusInterface $commandBus,
+        private readonly PasswordHasher $passwordHasher,
+        private readonly TokenGenerator $tokenGenerator,
+        private readonly UserTokenFinder $userTokenFinder,
+        private readonly RouterInterface $router,
     ) {
         parent::__construct();
     }

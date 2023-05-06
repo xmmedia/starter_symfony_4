@@ -8,7 +8,7 @@ use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\User\Command\UserLoggedIn as UserLoggedInCommand;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class UserLoggedInProcessManager
+final readonly class UserLoggedInProcessManager
 {
     public function __construct(private MessageBusInterface $commandBus)
     {

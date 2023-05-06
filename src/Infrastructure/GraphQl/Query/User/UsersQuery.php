@@ -9,9 +9,9 @@ use App\Projection\User\UserFilters;
 use App\Projection\User\UserFinder;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
-class UsersQuery implements QueryInterface
+final readonly class UsersQuery implements QueryInterface
 {
-    public function __construct(private UserFinder $userFinder)
+    public function __construct(private readonly UserFinder $userFinder)
     {
     }
 

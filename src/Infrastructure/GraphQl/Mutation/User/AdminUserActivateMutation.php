@@ -12,9 +12,9 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class AdminUserActivateMutation implements MutationInterface
+final readonly class AdminUserActivateMutation implements MutationInterface
 {
-    public function __construct(private MessageBusInterface $commandBus)
+    public function __construct(private readonly MessageBusInterface $commandBus)
     {
     }
 

@@ -8,9 +8,9 @@ use App\Model\User\Command\VerifyUserByAdmin;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 
-class VerifyUserByAdminHandler
+final readonly class VerifyUserByAdminHandler
 {
-    public function __construct(private UserList $userRepo)
+    public function __construct(private readonly UserList $userRepo)
     {
     }
 

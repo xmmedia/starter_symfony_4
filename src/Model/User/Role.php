@@ -13,7 +13,7 @@ use Xm\SymfonyBundle\Model\Enum;
  * @method static Role ROLE_ADMIN();
  * @method static Role ROLE_SUPER_ADMIN();
  */
-class Role extends Enum
+final class Role extends Enum
 {
     public const ROLE_USER = 'ROLE_USER';
     public const ROLE_ADMIN = 'ROLE_ADMIN';

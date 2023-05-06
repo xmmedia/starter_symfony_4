@@ -8,7 +8,7 @@ use Xm\SymfonyBundle\Model\UuidId;
 use Xm\SymfonyBundle\Model\UuidInterface;
 use Xm\SymfonyBundle\Model\ValueObject;
 
-class UserId implements ValueObject, UuidInterface, UserIdInterface
+final class UserId implements ValueObject, UuidInterface, UserIdInterface
 {
     use UuidId;
 }

@@ -12,7 +12,7 @@ use App\Projection\User\UserTokenFinder;
 
 class TokenValidator
 {
-    public function __construct(private UserTokenFinder $tokenFinder)
+    public function __construct(private readonly UserTokenFinder $tokenFinder)
     {
     }
 

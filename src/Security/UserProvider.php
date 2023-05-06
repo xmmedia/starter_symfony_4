@@ -20,7 +20,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 
     public function __construct(
         ManagerRegistry $registry,
-        private MessageBusInterface $commandBus,
+        private readonly MessageBusInterface $commandBus,
     ) {
         $this->entityUserProvider = new EntityUserProvider($registry, User::class, 'email');
     }

@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class Security
 {
-    public function __construct(private \Symfony\Bundle\SecurityBundle\Security $security)
+    public function __construct(private readonly \Symfony\Bundle\SecurityBundle\Security $security)
     {
     }
 

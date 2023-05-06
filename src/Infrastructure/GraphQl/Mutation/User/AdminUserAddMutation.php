@@ -18,14 +18,14 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 
-class AdminUserAddMutation implements MutationInterface
+final readonly class AdminUserAddMutation implements MutationInterface
 {
     public function __construct(
-        private MessageBusInterface $commandBus,
-        private TokenGenerator $tokenGenerator,
-        private PasswordHasher $passwordHasher,
-        private ?PasswordStrengthInterface $passwordStrength = null,
-        private ?HttpClientInterface $pwnedHttpClient = null,
+        private readonly MessageBusInterface $commandBus,
+        private readonly TokenGenerator $tokenGenerator,
+        private readonly PasswordHasher $passwordHasher,
+        private readonly ?PasswordStrengthInterface $passwordStrength = null,
+        private readonly ?HttpClientInterface $pwnedHttpClient = null,
     ) {
     }
 

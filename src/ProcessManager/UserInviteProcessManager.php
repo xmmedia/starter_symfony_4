@@ -8,7 +8,7 @@ use App\Model\User\Command\SendActivation;
 use App\Model\User\Event\UserWasAddedByAdmin;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class UserInviteProcessManager
+final readonly class UserInviteProcessManager
 {
     public function __construct(private MessageBusInterface $commandBus)
     {

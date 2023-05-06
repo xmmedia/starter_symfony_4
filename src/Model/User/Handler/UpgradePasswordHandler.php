@@ -8,9 +8,9 @@ use App\Model\User\Command\UpgradePassword;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 
-class UpgradePasswordHandler
+final readonly class UpgradePasswordHandler
 {
-    public function __construct(private UserList $userRepo)
+    public function __construct(private readonly UserList $userRepo)
     {
     }
 

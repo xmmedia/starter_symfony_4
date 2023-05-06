@@ -8,7 +8,7 @@ use App\Model\Enquiry\Command\SendEnquiryEmail;
 use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class EnquirySubmittedProcessManager
+final readonly class EnquirySubmittedProcessManager
 {
     public function __construct(private MessageBusInterface $commandBus)
     {

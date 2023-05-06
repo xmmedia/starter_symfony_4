@@ -8,11 +8,11 @@ use App\Security\Security;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserPasswordValidQuery implements QueryInterface
+final readonly class UserPasswordValidQuery implements QueryInterface
 {
     public function __construct(
-        private UserPasswordHasherInterface $userPasswordHasher,
-        private Security $security,
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private readonly Security $security,
     ) {
     }
 

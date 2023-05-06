@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @codeCoverageIgnore
  */
-class SecurityController extends AbstractController
+final class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
     public function login(): Response

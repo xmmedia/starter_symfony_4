@@ -7,7 +7,7 @@ namespace App\Model\Auth\Event;
 use App\Model\Auth\AuthId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
-class UserFailedToLogin extends AggregateChanged
+final class UserFailedToLogin extends AggregateChanged
 {
     private ?string $email;
     private ?string $userAgent;

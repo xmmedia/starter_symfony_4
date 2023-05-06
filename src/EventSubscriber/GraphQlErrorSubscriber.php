@@ -10,7 +10,7 @@ use Overblog\GraphQLBundle\Event\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class GraphQlErrorSubscriber implements EventSubscriberInterface
+readonly class GraphQlErrorSubscriber implements EventSubscriberInterface
 {
     public function __construct(private Security $security)
     {

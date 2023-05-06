@@ -8,7 +8,7 @@ use App\Model\Auth\Auth;
 use App\Model\Auth\AuthList;
 use App\Model\Auth\Command\UserLoginFailed;
 
-class UserLoginFailedHandler
+final readonly class UserLoginFailedHandler
 {
     public function __construct(private AuthList $authRepo)
     {
