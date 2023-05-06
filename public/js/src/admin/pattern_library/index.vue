@@ -664,7 +664,7 @@
             <a href="" class="pl-4">×</a>
         </div>
 
-        <admin-delete record-desc="test" />
+        <AdminDelete record-desc="test" />
     </div>
 </template>
 
