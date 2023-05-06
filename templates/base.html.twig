@@ -20,7 +20,9 @@
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
 
-                    gtag('config', '{{ ga_tracking_id }}');
+                    gtag('config', '{{ ga_tracking_id }}', {
+                        anonymize_ip: true,
+                    });
                 </script>
             {% endif %}
         {% endblock %}
