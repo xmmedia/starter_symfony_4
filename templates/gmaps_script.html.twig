@@ -1,0 +1,2 @@
+{# Usage: {% include 'gmaps_script.html.twig' with { libraries: ['places'] } %} #}
+<script src="https://maps.googleapis.com/maps/api/js?key={{ google_browser_api_key }}&libraries={{ libraries|default([])|join(',') }}&region=CA" defer></script>

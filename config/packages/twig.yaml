@@ -4,6 +4,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         ga_tracking_id: '%env(GA_TRACKING_ID)%'
+        google_browser_api_key: '%env(GOOGLE_BROWSER_API_KEY)%'
         form_themes:
             - 'Form/fields.html.twig'
 #            - 'VichUploaderBundle:Form:fields.html.twig'
