@@ -17,10 +17,10 @@
         <input :id="id"
                ref="input"
                :value="modelValue"
-               :autofocus="autofocus"
                :autocomplete="autocomplete"
                type="email"
                maxlength="150"
+               v-focus="autofocus"
                @blur="checkEmail($event)"
                @input="$emit('update:modelValue', $event.target.value)">
 

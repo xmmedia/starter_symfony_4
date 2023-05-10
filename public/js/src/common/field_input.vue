@@ -21,6 +21,7 @@
                :maxlength="maxLength"
                :autocomplete="autocomplete"
                :placeholder="placeholder"
+               v-focus="autofocus"
                @input="$emit('update:modelValue', $event.target.value)">
 
         <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
@@ -47,6 +48,10 @@ const props = defineProps({
     placeholder: {
         type: String,
         default: null,
+    },
+    autofocus: {
+        type: Boolean,
+        default: false,
     },
     v: {
         type: Object,

@@ -10,6 +10,8 @@ import { useRootStore } from '@/admin/stores/root';
 import { apolloClient } from './common/apollo';
 import { provideApolloClient } from '@vue/apollo-composable';
 
+import vFocus from './common/v_focus';
+
 import * as Sentry from '@sentry/vue';
 
 import App from './admin/index';
@@ -64,6 +66,8 @@ apolloClient.query({ query: MeQuery })
             .use(PortalVue)
             .use(createVfm())
             .use(createHead());
+
+        app.directive('focus', vFocus);
 
         // global components
         app.component('LoadingSpinner', LoadingSpinner)
