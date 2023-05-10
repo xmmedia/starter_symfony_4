@@ -159,7 +159,7 @@ onResult(({ data: { User }}) => {
     active.value = User.active;
 
     sendEvent('LOADED');
-})
+});
 onError(() => {
     sendEvent('ERROR');
 });
