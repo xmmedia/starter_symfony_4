@@ -1,5 +1,5 @@
 <template>
-    <div v-if="pageCount > 1" class="my-4 mx-auto text-center flow-root">
+    <div v-if="pageCount > 1" class="mx-auto text-center flow-root">
         <GlobalEvents v-if="arrowEvents"
                       @keydown.left="goToPrevious"
                       @keydown.right="goToNext" />
@@ -21,12 +21,12 @@
 
         <template v-for="page in pagesInRange">
             <RouterLink v-if="page !== current"
-                        :key="page"
+                        :key="'if-'+page"
                         :to="pageRoute(page - 1)"
                         :class="linkClasses"
                         class="hidden lg:inline-block">{{ page }}</RouterLink>
             <span v-else
-                  :key="page"
+                  :key="'else-'+page"
                   :class="spanClasses"
                   class="hidden lg:inline-block border border-gray-400">{{ page }}</span>
         </template>
@@ -52,7 +52,7 @@
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import range from 'lodash/range';
-import GlobalEvents from 'vue-global-events';
+import { GlobalEvents } from 'vue-global-events';
 
 const router = useRouter();
 
@@ -92,7 +92,7 @@ const props = defineProps({
     },
 });
 
-const linkClasses = 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded';
+const linkClasses = 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded text-center';
 const spanClasses = 'w-12 p-1 text-gray-800 focus:no-underline rounded';
 
 const current = computed(() => {
@@ -137,7 +137,7 @@ const pagesInRange = computed(() => {
     let delta = rangeDelta.value;
 
     // if at the end of the range
-    if (current.value - delta.value > pageCount.value - props.pageRange) {
+    if (current.value - delta > pageCount.value - props.pageRange) {
         let start = pageCount.value - props.pageRange + 1;
         if (start < 1) {
             start = 1;
@@ -147,18 +147,18 @@ const pagesInRange = computed(() => {
         return range(start, pageCount.value + 1);
     }
 
-    if (current.value - delta.value < 0) {
-        delta.value = current.value;
+    if (current.value - delta < 0) {
+        delta = current.value;
     }
 
-    const start = current.value - delta.value + 1;
+    const start = current.value - delta + 1;
     let end = pageCount.value;
-    if (end.value > props.pageRange) {
-        end.value = props.pageRange;
+    if (end > props.pageRange) {
+        end = props.pageRange;
     }
 
     // if anywhere before the end
-    return range(start, start + end.value);
+    return range(start, start + end);
 });
 
 const showBeforeEllipsis = computed(() => pagesInRange.value && pagesInRange.value[0] > 1);
