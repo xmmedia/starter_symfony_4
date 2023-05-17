@@ -1,8 +1,8 @@
 <template>
-    <ul class="flex flex-wrap pl-0 list-none">
-        <Portal to="header-page-title">Admin</Portal>
-        <Portal to="header-actions" />
+    <Portal to="header-page-title">Admin</Portal>
+    <Portal to="header-actions" />
 
+    <ul class="flex flex-wrap pl-0 list-none">
         <li>
             <RouterLink :to="{ name: 'admin-user' }" class="dashboard-link">
                 <AdminIcon icon="users"
