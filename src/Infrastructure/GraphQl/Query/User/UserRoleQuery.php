@@ -10,14 +10,12 @@ use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
 final readonly class UserRoleQuery implements QueryInterface
 {
-    public function __construct(private readonly RoleHierarchyInterface $roleHierarchy)
+    public function __construct(private RoleHierarchyInterface $roleHierarchy)
     {
     }
 
     public function __invoke(User $user): array
     {
-        return array_unique(
-            $this->roleHierarchy->getReachableRoleNames($user->roles()),
-        );
+        return array_unique($this->roleHierarchy->getReachableRoleNames($user->roles()));
     }
 }

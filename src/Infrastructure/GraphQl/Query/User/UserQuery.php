@@ -11,7 +11,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
 final readonly class UserQuery implements QueryInterface
 {
-    public function __construct(private readonly UserFinder $userFinder)
+    public function __construct(private UserFinder $userFinder)
     {
     }
 

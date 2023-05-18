@@ -11,7 +11,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
 
 final readonly class UsersQuery implements QueryInterface
 {
-    public function __construct(private readonly UserFinder $userFinder)
+    public function __construct(private UserFinder $userFinder)
     {
     }
 
@@ -20,8 +20,6 @@ final readonly class UsersQuery implements QueryInterface
      */
     public function __invoke(?array $filters): array
     {
-        return $this->userFinder->findByUserFilters(
-            UserFilters::fromArray($filters),
-        );
+        return $this->userFinder->findByUserFilters(UserFilters::fromArray($filters));
     }
 }
