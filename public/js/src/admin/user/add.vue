@@ -10,31 +10,31 @@
         <form method="post" @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
 
-            <FieldEmail :model-value="email"
-                        :v="v$.email"
+            <FieldEmail :model-value="user.email"
+                        :v="v$.user.email"
                         autocomplete="off"
                         autofocus
                         @update:modelValue="setEmailDebounce" />
 
-            <FieldPassword v-model="password"
-                           :v="v$.password"
+            <FieldPassword v-model="user.password"
+                           :v="v$.user.password"
                            :user-data="userDataForPassword"
                            checkbox-label="Set password"
-                           @set-password="setPassword = $event" />
+                           @set-password="user.setPassword = $event" />
 
             <div class="field-wrap field-wrap-checkbox">
-                <input id="inputActive" v-model="active" type="checkbox">
+                <input id="inputActive" v-model="user.active" type="checkbox">
                 <label for="inputActive">Active</label>
             </div>
 
-            <FieldInput v-model.trim="firstName" :v="v$.firstName">First name</FieldInput>
-            <FieldInput v-model.trim="lastName" :v="v$.lastName">Last name</FieldInput>
+            <FieldInput v-model.trim="user.firstName" :v="v$.user.firstName">First name</FieldInput>
+            <FieldInput v-model.trim="user.lastName" :v="v$.user.lastName">Last name</FieldInput>
 
-            <FieldRole v-model="role" :v="v$.role" />
+            <FieldRole v-model="user.role" :v="v$.user.role" />
 
-            <div v-if="!setPassword && active" class="field-wrap">
+            <div v-if="!user.setPassword && user.active" class="field-wrap">
                 <div class="field-wrap field-wrap-checkbox">
-                    <input id="inputSendInvite" v-model="sendInvite" type="checkbox">
+                    <input id="inputSendInvite" v-model="user.sendInvite" type="checkbox">
                     <label for="inputSendInvite">Send invite</label>
                 </div>
                 <div class="field-help">
@@ -98,34 +98,38 @@ const stateMachine = createMachine({
 
 const { state, send: sendEvent } = useMachine(stateMachine);
 
-const email = ref(null);
-const setPassword = ref(false);
-const password = ref(null);
-const role = ref('ROLE_USER');
-const active = ref(true);
-const firstName = ref(null);
-const lastName = ref(null);
-const sendInvite = ref(true);
+const user = ref({
+    email: null,
+    setPassword: false,
+    password: null,
+    role: 'ROLE_USER',
+    active: true,
+    firstName: null,
+    lastName: null,
+    sendInvite: true,
+});
 
 const userDataForPassword = computed(() => [
-    email.value,
-    firstName.value,
-    lastName.value,
+    user.value.email,
+    user.value.firstName,
+    user.value.lastName,
 ]);
 
 const v$ = useVuelidate({
-    ...cloneDeep(userValidations),
-    password: {
-        ...cloneDeep(userValidations.password),
-        required: requiredIf(setPassword),
+    user: {
+        ...cloneDeep(userValidations),
+        password: {
+            ...cloneDeep(userValidations.password),
+            required: requiredIf(user.value.setPassword),
+        },
     },
-}, { email, password, firstName, lastName, role });
+}, { user });
 
 const setEmailDebounce = debounce(function (email) {
     setEmail(email);
 }, 100, { leading: true });
 function setEmail (value) {
-    email.value = value;
+    user.value.email = value;
 }
 
 async function submit () {
@@ -146,15 +150,9 @@ async function submit () {
         const { mutate: sendUserAdd } = useMutation(AdminUserAddMutation);
         await sendUserAdd({
             user: {
+                ...user.value,
                 userId: uuid4(),
-                email: email.value,
-                setPassword: setPassword.value,
-                password: password.value,
-                role: role.value,
-                active: active.value,
-                firstName: firstName.value,
-                lastName: lastName.value,
-                sendInvite: setPassword.value || !active.value ? false : sendInvite.value,
+                sendInvite: user.value.setPassword || !user.value.active ? false : user.value.sendInvite,
             },
         });
 
