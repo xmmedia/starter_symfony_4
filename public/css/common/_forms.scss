@@ -136,3 +136,17 @@ select {
 .form-action {
     @apply text-sm ml-4;
 }
+
+.button_bar {
+    @apply fixed left-0 bottom-0 hidden sm:flex justify-center items-center w-full
+    p-3 lg:pl-[16.75rem] bg-white border-gray-300 border-t;
+}
+// vue fade transition
+.button_bar-enter-active,
+.button_bar-leave-active {
+    @apply transition-opacity duration-500 ease-in-out;
+}
+.button_bar-enter-from,
+.button_bar-leave-to {
+    @apply opacity-0;
+}
