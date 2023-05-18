@@ -6,14 +6,10 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { useHead } from '@vueuse/head';
 
-export default {
-    setup () {
-        useHead({
-            title: 'Users | Admin',
-        });
-    },
-}
+useHead({
+    title: 'Users | Admin',
+});
 </script>

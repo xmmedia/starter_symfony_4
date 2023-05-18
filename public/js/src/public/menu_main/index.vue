@@ -23,24 +23,16 @@
     </ul>
 </template>
 
-<script>
-export default {
-    data () {
-        return {
-            showMobileMenu: false,
-        };
-    },
+<script setup>
+import { onMounted, ref } from 'vue';
 
-    mounted () {
-        this.$nextTick(() => {
-            window.addEventListener('resize', () => { this.showMobileMenu = false });
-        });
-    },
+const showMobileMenu = ref(false);
 
-    methods: {
-        toggleMobileMenu () {
-            this.showMobileMenu = !this.showMobileMenu;
-        },
-    },
+onMounted(() => {
+    window.addEventListener('resize', () => { showMobileMenu.value = false });
+});
+
+function toggleMobileMenu () {
+    showMobileMenu.value = !showMobileMenu.value;
 }
 </script>
