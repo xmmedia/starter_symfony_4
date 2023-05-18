@@ -7,9 +7,9 @@
             <slot>Save</slot>
         </button>
         <slot v-if="!isSaving && !isSaved" name="cancel">
-            <RouterLink v-if="cancelTo"
-                        :to="cancelTo"
-                        class="form-action"><slot name="cancel-text">Cancel</slot></RouterLink>
+            <RouterLink v-if="cancelTo" :to="cancelTo" class="form-action">
+                <slot name="cancel-text">Cancel</slot>
+            </RouterLink>
         </slot>
         <slot v-if="!isSaving && !isSaved" name="additional"></slot>
 
