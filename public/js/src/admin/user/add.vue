@@ -43,7 +43,8 @@
                 </div>
             </div>
 
-            <AdminButton :saving="state.matches('submitting')"
+            <AdminButton :edited="edited"
+                         :saving="state.matches('submitting')"
                          :saved="state.matches('saved')"
                          :cancel-to="{ name: 'admin-user' }">
                 Add User
@@ -53,7 +54,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
@@ -108,6 +109,7 @@ const user = ref({
     lastName: null,
     sendInvite: true,
 });
+const edited = ref(false);
 
 const userDataForPassword = computed(() => [
     user.value.email,
@@ -124,6 +126,15 @@ const v$ = useVuelidate({
         },
     },
 }, { user });
+
+watch(user,
+    () => {
+        if (state.value.matches('ready')) {
+            edited.value = true;
+        }
+    },
+    { deep: true, flush: 'sync' },
+);
 
 const setEmailDebounce = debounce(function (email) {
     setEmail(email);

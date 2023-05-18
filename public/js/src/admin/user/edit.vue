@@ -34,7 +34,8 @@
 
             <FieldRole v-model="user.role" :v="v$.user.role" />
 
-            <AdminButton :saving="state.matches('ready.saving')"
+            <AdminButton :edited="edited"
+                         :saving="state.matches('ready.saving')"
                          :saved="state.matches('ready.saved')"
                          :cancel-to="{ name: 'admin-user' }">
                 Update User
@@ -62,7 +63,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
@@ -141,6 +142,7 @@ const user = ref({
 });
 const verified = ref(true);
 const active = ref(true);
+const edited = ref(false);
 
 const showForm = computed(() => state.value.matches('ready') && !state.value.done);
 const allowSave = computed(() => {
@@ -175,6 +177,15 @@ const v$ = useVuelidate({
         },
     },
 }, { user });
+
+watch(user,
+    () => {
+        if (state.value.matches('ready')) {
+            edited.value = true;
+        }
+    },
+    { deep: true, flush: 'sync' },
+);
 
 const setEmailDebounce = debounce(function (email) {
     setEmail(email);
