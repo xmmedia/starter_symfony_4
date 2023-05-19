@@ -14,7 +14,7 @@
                        :checked="value.value === modelValue"
                        :value="value.value"
                        @input="$emit('update:modelValue', $event.target.value)">
-                <label :for="id+'-'+value.value">{{ value.name }}</label>
+                <label :for="id+'-'+value.value">{{ value.label }}</label>
             </div>
         </div>
 
@@ -33,7 +33,7 @@ const props = defineProps({
     },
     /**
      * Either:
-     * [{ value: '', name: ''}, ...]
+     * [{ value: '', label: ''}, ...]
      * or
      * { value: name, ... }
      * The first is used by the component. The second is converted to the first.
@@ -70,7 +70,7 @@ const valuesCollection = computed(() => {
     return Object.keys(props.values).map((value) => {
         return {
             value,
-            name: props.values[value],
+            label: props.values[value],
         };
     });
 });
