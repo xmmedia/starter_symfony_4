@@ -2,6 +2,7 @@ import { formatNumber as libFormatPhone } from 'libphonenumber-js';
 import Flatpickr from 'flatpickr';
 import pluralizeFunction from 'pluralize';
 import has from 'lodash/has';
+import isObject from 'lodash/isObject';
 import lowerCase from 'lodash/lowerCase';
 import upperFirst from 'lodash/upperFirst';
 
@@ -70,4 +71,16 @@ export const vuelidateValue = function (v, key) {
     }
 
     return !v[key].$invalid;
+};
+
+export const omitTypename = function (obj) {
+    for (const key in obj) {
+        if (isObject(obj[key])) {
+            omitTypename(obj[key]);
+        } else if ('__typename' === key) {
+            delete obj[key];
+        }
+    }
+
+    return obj;
 };
