@@ -18,7 +18,7 @@ export const hasGraphQlError = function (e) {
 
 export const formatPhone = function (phone, format = 'NATIONAL') {
     if (!phone) {
-        return;
+        return phone;
     }
 
     let str = phone.phone.number();
