@@ -1,16 +1,13 @@
 <template>
-    <button ref="button"
-            :title="title"
+    <button :title="title"
             class="text-gray-400 focus:text-gray-600 hover:text-gray-600"
-            type="button">
-        <AdminIcon icon="copy" class="w-4 h-4 fill-current" />
+            type="button"
+            @click="copy">
+        <AdminIcon icon="copy" :class="iconClasses" />
     </button>
 </template>
 
 <script setup>
-import { ref, onUnmounted } from 'vue';
-import ClipboardJs from 'clipboard';
-
 const props = defineProps({
     text: {
         type: String,
@@ -20,14 +17,13 @@ const props = defineProps({
         type: String,
         default: null,
     },
+    iconClasses: {
+        type: [String, Array],
+        default: 'w-4 h-4 fill-current',
+    },
 });
 
-const button = ref(null);
-const clipboard = new ClipboardJs(button, {
-    text: () => props.text,
-});
-
-onUnmounted(() => {
-    clipboard.destroy();
-});
+const copy = () => {
+    navigator.clipboard.writeText(props.text);
+};
 </script>
