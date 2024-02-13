@@ -13,17 +13,10 @@ security:
     # https://symfony.com/doc/current/security.html#c-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-            algorithm:   'auto'
-            # values below are meant to take ~2 seconds on 4 core machine
-            # use the app:security:password-encode-test to determine what this should be
-            # maximum memory (in KiB) that may be used to compute the Argon2 hash
-            memory_cost: 128000
-            #  number of times the Argon2 hash algorithm will be run
-            time_cost:   10
+            algorithm: auto
         harsh:
-            algorithm:   'auto'
-            memory_cost: 128000
-            time_cost:   15
+            algorithm: auto
+            cost:      15
 
     firewalls:
         dev:
