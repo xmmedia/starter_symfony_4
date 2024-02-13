@@ -132,7 +132,6 @@ const autocompleteOptions = {
     },
 };
 let autocompleteTimeoutCount = 0;
-const localities = ref(null);
 
 const ids = {
     line1: cuid(),
@@ -177,9 +176,9 @@ const provinces = computed(() => {
     });
 });
 
-const { onResult } = useQuery(LocalitiesQuery, null, { fetchPolicy: 'cache-first' });
-onResult(({ data }) => {
-    localities.value = data;
+const { result: localitiesResult } = useQuery(LocalitiesQuery, null, { fetchPolicy: 'cache-first' });
+const localities = computed(() => {
+    return localitiesResult.value;
 });
 
 onMounted(() => {
