@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ vite_entry_link_tags('user') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ vite_entry_script_tags('user', { attr: { 'data-entry': 'user' } }) }}
+
+    {% if app.debug %}
+        {# makes svgs work with the dev server #}
+        <script defer src="/js/svgxuse.min.js"></script>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {# #app is what Vue.js mounts to #}
+    <div id="app">
+        {% include 'flash_messages.html.twig' %}
+
+        <div class="flex justify-center items-center mt-8">
+            <div class="loading" aria-hidden="true"></div> Loading…
+        </div>
+    </div>
+{% endblock body %}
