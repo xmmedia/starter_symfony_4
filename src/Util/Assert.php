@@ -19,9 +19,9 @@ class Assert extends \Xm\SymfonyBundle\Util\Assert
         Email $email,
         Name $firstName,
         Name $lastName,
-        int $minimum = null,
-        PasswordStrengthInterface $passwordStrength = null,
-        HttpClientInterface $pwnedHttpClient = null,
+        ?int $minimum = null,
+        ?PasswordStrengthInterface $passwordStrength = null,
+        ?HttpClientInterface $pwnedHttpClient = null,
     ): void {
         self::passwordLength($password);
         self::passwordComplexity(
