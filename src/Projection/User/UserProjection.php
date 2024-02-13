@@ -25,7 +25,7 @@ class UserProjection implements ReadModelProjection
 
         $projector->fromStream('user')
             ->when([
-                Event\UserWasAddedByAdmin::class        => function (
+                Event\UserWasAddedByAdmin::class => function (
                     array $state,
                     Event\UserWasAddedByAdmin $event,
                 ) use ($types): void {
@@ -36,8 +36,8 @@ class UserProjection implements ReadModelProjection
                         'user_id'    => $event->aggregateId(),
                         'email'      => mb_strtolower($event->email()->toString()),
                         'password'   => $event->hashedPassword(),
-                        // if sent an invite, then account is not verified
-                        // if they didn't send an invite, then account is verified
+                        // if sent an invitation, then account is not verified
+                        // if they didn't send an invitation, then account is verified
                         // because there's no way for them to verify the account
                         'verified'   => !$event->sendInvite(),
                         'active'     => $event->active(),
@@ -67,7 +67,7 @@ class UserProjection implements ReadModelProjection
                     ], $types);
                 },
 
-                Event\UserWasUpdatedByAdmin::class      => function (
+                Event\UserWasUpdatedByAdmin::class => function (
                     array $state,
                     Event\UserWasUpdatedByAdmin $event,
                 ) use ($types): void {
@@ -82,12 +82,13 @@ class UserProjection implements ReadModelProjection
                             'roles'      => [$event->role()->getValue()],
                             'first_name' => $event->firstName()->toString(),
                             'last_name'  => $event->lastName()->toString(),
+                            'user_data'  => $event->userData()->toArray(),
                         ],
                         $types,
                     );
                 },
 
-                Event\AdminChangedPassword::class       => function (
+                Event\AdminChangedPassword::class => function (
                     array $state,
                     Event\AdminChangedPassword $event,
                 ): void {
@@ -103,7 +104,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserVerifiedByAdmin::class        => function (
+                Event\UserVerifiedByAdmin::class => function (
                     array $state,
                     Event\UserVerifiedByAdmin $event,
                 ) use ($types): void {
@@ -120,7 +121,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserActivatedByAdmin::class       => function (
+                Event\UserActivatedByAdmin::class => function (
                     array $state,
                     Event\UserActivatedByAdmin $event,
                 ) use ($types): void {
@@ -137,7 +138,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserDeactivatedByAdmin::class     => function (
+                Event\UserDeactivatedByAdmin::class => function (
                     array $state,
                     Event\UserDeactivatedByAdmin $event,
                 ) use ($types): void {
@@ -154,7 +155,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserUpdatedProfile::class         => function (
+                Event\UserUpdatedProfile::class => function (
                     array $state,
                     Event\UserUpdatedProfile $event,
                 ) use ($types): void {
@@ -174,7 +175,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\ChangedPassword::class            => function (
+                Event\ChangedPassword::class => function (
                     array $state,
                     Event\ChangedPassword $event,
                 ): void {
@@ -190,7 +191,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\PasswordUpgraded::class           => function (
+                Event\PasswordUpgraded::class => function (
                     array $state,
                     Event\PasswordUpgraded $event,
                 ): void {
@@ -206,7 +207,7 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserVerified::class               => function (
+                Event\UserVerified::class  => function (
                     array $state,
                     Event\UserVerified $event,
                 ) use ($types): void {
@@ -222,8 +223,24 @@ class UserProjection implements ReadModelProjection
                         $types,
                     );
                 },
+                Event\UserActivated::class => function (
+                    array $state,
+                    Event\UserActivated $event,
+                ) use ($types): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'update',
+                        $event->userId()->toString(),
+                        [
+                            'verified' => true,
+                        ],
+                        $types,
+                    );
+                },
 
-                Event\UserLoggedIn::class               => function (
+                Event\UserLoggedIn::class => function (
                     array $state,
                     Event\UserLoggedIn $event,
                 ): void {
@@ -234,6 +251,19 @@ class UserProjection implements ReadModelProjection
                         'loggedIn',
                         $event->userId()->toString(),
                         $event->createdAt(),
+                    );
+                },
+
+                Event\UserWasDeletedByAdmin::class => function (
+                    array $state,
+                    Event\UserWasDeletedByAdmin $event,
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'remove',
+                        $event->userId()->toString(),
                     );
                 },
             ]);

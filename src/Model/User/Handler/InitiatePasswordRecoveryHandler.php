@@ -7,49 +7,61 @@ namespace App\Model\User\Handler;
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
-use App\Security\TokenGeneratorInterface;
+use App\Projection\User\UserFinder;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 use Xm\SymfonyBundle\Model\Email;
 
 final readonly class InitiatePasswordRecoveryHandler
 {
     public function __construct(
-        private readonly UserList $userRepo,
-        private readonly EmailGatewayInterface $emailGateway,
-        private readonly string $template,
-        private readonly RouterInterface $router,
-        private readonly TokenGeneratorInterface $tokenGenerator,
+        private UserList $userRepo,
+        private UserFinder $userFinder,
+        private EmailGatewayInterface $emailGateway,
+        private string $template,
+        private string $emailFrom,
+        private RouterInterface $router,
+        private ResetPasswordHelperInterface $resetPasswordHelper,
     ) {
     }
 
     public function __invoke(InitiatePasswordRecovery $command): void
     {
-        $user = $this->userRepo->get($command->userId());
+        $userAr = $this->userRepo->get($command->userId());
+        if (!$userAr) {
+            throw UserNotFound::withUserId($command->userId());
+        }
+
+        $user = $this->userFinder->find($command->userId());
         if (!$user) {
             throw UserNotFound::withUserId($command->userId());
         }
 
-        $token = ($this->tokenGenerator)();
+        $token = $this->resetPasswordHelper->generateResetToken($user);
 
         $resetUrl = $this->router->generate(
-            'user_reset',
-            ['token' => $token],
+            'user_reset_token',
+            ['token' => $token->getToken()],
             UrlGeneratorInterface::ABSOLUTE_URL,
         );
-        // @todo consider nonce: bin2hex(random_bytes(16)) + check how validated here: https://symfony.com/doc/current/security/custom_authentication_provider.html#the-authentication-provider
+
         $messageId = $this->emailGateway->send(
             $this->template,
-            Email::fromString($command->email()->toString()),
+            $user->email(),
             [
                 'resetUrl' => $resetUrl,
                 'email'    => $command->email()->toString(),
             ],
+            null,
+            null,
+            null, // add References header to prevent message threading in Gmail
+            ['References' => $this->emailGateway->getReferencesEmail(Email::fromString($this->emailFrom))],
         );
 
-        $user->passwordRecoverySent($token, $messageId);
+        $userAr->passwordRecoverySent($messageId);
 
-        $this->userRepo->save($user);
+        $this->userRepo->save($userAr);
     }
 }

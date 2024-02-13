@@ -8,7 +8,7 @@ use App\Model\User\UserId;
 use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 
-final class GenerateUserToken extends Command
+final class SendPasswordChangedNotification extends Command
 {
     public static function now(UserId $userId): self
     {

@@ -22,10 +22,10 @@ use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 final readonly class AdminUserUpdateMutation implements MutationInterface
 {
     public function __construct(
-        private readonly MessageBusInterface $commandBus,
-        private readonly PasswordHasher $passwordHasher,
-        private readonly ?PasswordStrengthInterface $passwordStrength = null,
-        private readonly ?HttpClientInterface $pwnedHttpClient = null,
+        private MessageBusInterface $commandBus,
+        private PasswordHasher $passwordHasher,
+        private ?PasswordStrengthInterface $passwordStrength = null,
+        private ?HttpClientInterface $pwnedHttpClient = null,
     ) {
     }
 

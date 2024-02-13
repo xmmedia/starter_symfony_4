@@ -27,40 +27,56 @@ class UserFinder extends ServiceEntityRepository
     /**
      * @return User[]
      */
-    public function findByUserFilters(UserFilters $filters): array
+    public function findByFilters(UserFilters $filters): array
     {
-        $qb = $this->createQueryBuilder('u')
-            ->addOrderBy('u.email', \Doctrine\Common\Collections\Criteria::ASC)
-            ->addOrderBy('u.firstName', \Doctrine\Common\Collections\Criteria::ASC)
-            ->addOrderBy('u.lastName', \Doctrine\Common\Collections\Criteria::ASC);
+        $rsm = $this->createResultSetMappingBuilder('u');
+        $select = $rsm->generateSelectClause();
+        $queryParts = (new UserFilterQueryBuilder())->queryParts($filters);
 
-        if ($filters->applied(UserFilters::EMAIL)) {
-            $qb->andWhere('u.email LIKE :email')
-                ->setParameter('email', '%'.$filters->get(UserFilters::EMAIL).'%');
+        $sql = <<<Query
+SELECT {$select}
+FROM `user` u
+{$queryParts['join']}
+WHERE {$queryParts['where']}
+GROUP BY u.user_id
+ORDER BY {$queryParts['order']}
+Query;
+
+        $sql .= ' LIMIT :offset, :maxResults';
+
+        if ($filters->applied(UserFilters::OFFSET)) {
+            $queryParts['parameters']['offset'] = (int) $filters->get(UserFilters::OFFSET);
+        } else {
+            $queryParts['parameters']['offset'] = 0;
         }
+        $queryParts['parameters']['maxResults'] = 30;
 
-        if ($filters->applied(UserFilters::EMAIL_EXACT)) {
-            $qb->andWhere('u.email LIKE :email')
-                ->setParameter('email', $filters->get(UserFilters::EMAIL_EXACT));
-        }
+        $query = $this->_em->createNativeQuery($sql, $rsm);
+        $query->setParameters($queryParts['parameters']);
 
-        if ($filters->applied(UserFilters::ACTIVE)) {
-            $qb->andWhere('u.active = true')
-                ->andWhere('u.verified = true');
-        }
+        return $query->getResult();
+    }
 
-        if ($filters->applied(UserFilters::ROLES)) {
-            $roleQueries = [];
+    /**
+     * Retrieve the total count based on filters.
+     */
+    public function countByFilters(UserFilters $filters): int
+    {
+        $queryParts = (new UserFilterQueryBuilder())->queryParts($filters);
 
-            foreach ($filters->get(UserFilters::ROLES) as $i => $role) {
-                $roleQueries[] = sprintf('JSON_CONTAINS(u.roles, :role%d) = 1', $i);
-                $qb->setParameter('role'.$i, sprintf('"%s"', $role));
-            }
+        $sql = <<<Query
+SELECT COUNT(DISTINCT u.user_id)
+FROM `user` u
+{$queryParts['join']}
+WHERE {$queryParts['where']}
+Query;
 
-            $qb->andWhere($qb->expr()->orX(...$roleQueries));
-        }
-
-        return $qb->getQuery()
-            ->getResult();
+        return (int) $this->_em->getConnection()
+            ->executeQuery(
+                $sql,
+                $queryParts['parameters'],
+                $queryParts['parameterTypes'],
+            )
+            ->fetchNumeric()[0];
     }
 }

@@ -20,6 +20,7 @@ class User extends AggregateRoot implements Entity
     private UserId $userId;
     private bool $verified = false;
     private bool $active = false;
+    private bool $deleted = false;
 
     public static function addByAdmin(
         UserId $userId,
@@ -98,6 +99,10 @@ class User extends AggregateRoot implements Entity
         UserData $userData,
         ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): void {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'update (by admin)');
+        }
+
         if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
             if (!$this->userId->sameValueAs($duplicateUserId)) {
                 throw Exception\DuplicateEmail::withEmail($email, $duplicateUserId);
@@ -118,6 +123,10 @@ class User extends AggregateRoot implements Entity
 
     public function changePasswordByAdmin(string $hashedPassword): void
     {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'change password (by admin)');
+        }
+
         $this->recordThat(
             Event\AdminChangedPassword::now($this->userId, $hashedPassword),
         );
@@ -125,6 +134,10 @@ class User extends AggregateRoot implements Entity
 
     public function verifyByAdmin(): void
     {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'verify (by admin)');
+        }
+
         if ($this->verified) {
             throw Exception\UserAlreadyVerified::triedToVerify($this->userId);
         }
@@ -136,6 +149,10 @@ class User extends AggregateRoot implements Entity
 
     public function activateByAdmin(): void
     {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'activate (by admin)');
+        }
+
         if ($this->active) {
             throw Exception\InvalidUserActiveStatus::triedToActivateWhenAlreadyActive($this->userId);
         }
@@ -147,6 +164,10 @@ class User extends AggregateRoot implements Entity
 
     public function deactivateByAdmin(): void
     {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'deactivate (by admin)');
+        }
+
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToDeactivateWhenAlreadyInactive($this->userId);
         }
@@ -156,31 +177,42 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function inviteSent(
-        Token $token,
-        NotificationGatewayId $messageId,
-    ): void {
+    public function inviteSent(NotificationGatewayId $messageId): void
+    {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'send invite to');
+        }
+
         if ($this->verified) {
             throw Exception\UserAlreadyVerified::triedToSendVerification($this->userId);
         }
 
         $this->recordThat(
-            Event\InviteSent::now($this->userId, $token, $messageId),
+            Event\InviteSent::now($this->userId, $messageId),
         );
     }
 
-    /**
-     * Can be called at any time, including if the account is verified.
-     */
-    public function tokenGenerated(Token $token): void
+    public function verificationSent(NotificationGatewayId $messageId): void
     {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'send invite to');
+        }
+
+        if ($this->verified) {
+            throw Exception\UserAlreadyVerified::triedToSendVerification($this->userId);
+        }
+
         $this->recordThat(
-            Event\TokenGenerated::now($this->userId, $token),
+            Event\VerificationSent::now($this->userId, $messageId),
         );
     }
 
     public function verify(): void
     {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'verify');
+        }
+
         if ($this->verified) {
             throw Exception\UserAlreadyVerified::triedToVerify($this->userId);
         }
@@ -194,16 +226,37 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function passwordRecoverySent(
-        Token $token,
-        NotificationGatewayId $messageId,
-    ): void {
+    public function activate(): void
+    {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'activate');
+        }
+
+        if ($this->verified) {
+            throw Exception\UserAlreadyVerified::triedToActivate($this->userId);
+        }
+
+        if (!$this->active) {
+            throw Exception\InvalidUserActiveStatus::triedToActivateAnInactiveUser($this->userId);
+        }
+
+        $this->recordThat(
+            Event\UserActivated::now($this->userId),
+        );
+    }
+
+    public function passwordRecoverySent(NotificationGatewayId $messageId): void
+    {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'send password recovery to');
+        }
+
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToRequestPasswordReset($this->userId);
         }
 
         $this->recordThat(
-            Event\PasswordRecoverySent::now($this->userId, $token, $messageId),
+            Event\PasswordRecoverySent::now($this->userId, $messageId),
         );
     }
 
@@ -211,8 +264,13 @@ class User extends AggregateRoot implements Entity
         Email $email,
         Name $firstName,
         Name $lastName,
+        UserData $userData,
         ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): void {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'update');
+        }
+
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToUpdateProfile($this->userId);
         }
@@ -229,12 +287,17 @@ class User extends AggregateRoot implements Entity
                 $email,
                 $firstName,
                 $lastName,
+                $userData,
             ),
         );
     }
 
     public function loggedIn(): void
     {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'login');
+        }
+
         if (!$this->verified) {
             throw Exception\UserNotVerified::triedToLogin($this->userId);
         }
@@ -248,6 +311,10 @@ class User extends AggregateRoot implements Entity
 
     public function changePassword(string $hashedPassword): void
     {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'change password');
+        }
+
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToChangePassword($this->userId);
         }
@@ -259,12 +326,27 @@ class User extends AggregateRoot implements Entity
 
     public function upgradePassword(string $hashedPassword): void
     {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'upgrade password');
+        }
+
         if (!$this->active) {
             throw Exception\InvalidUserActiveStatus::triedToUpgradePassword($this->userId);
         }
 
         $this->recordThat(
             Event\PasswordUpgraded::now($this->userId, $hashedPassword),
+        );
+    }
+
+    public function delete(): void
+    {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedToDelete($this->userId);
+        }
+
+        $this->recordThat(
+            Event\UserWasDeletedByAdmin::now($this->userId),
         );
     }
 
@@ -312,27 +394,28 @@ class User extends AggregateRoot implements Entity
         // noop
     }
 
-    protected function whenAdminChangedPassword(
-        Event\AdminChangedPassword $event,
-    ): void {
+    protected function whenAdminChangedPassword(Event\AdminChangedPassword $event): void
+    {
         // noop
     }
 
-    protected function whenUserVerifiedByAdmin(
-        Event\UserVerifiedByAdmin $event,
-    ): void {
+    protected function whenUserVerifiedByAdmin(Event\UserVerifiedByAdmin $event): void
+    {
         $this->verified = true;
     }
 
-    protected function whenUserActivatedByAdmin(
-        Event\UserActivatedByAdmin $event,
-    ): void {
+    protected function whenUserActivated(Event\UserActivated $event): void
+    {
+        $this->verified = true;
+    }
+
+    protected function whenUserActivatedByAdmin(Event\UserActivatedByAdmin $event): void
+    {
         $this->active = true;
     }
 
-    protected function whenUserDeactivatedByAdmin(
-        Event\UserDeactivatedByAdmin $event,
-    ): void {
+    protected function whenUserDeactivatedByAdmin(Event\UserDeactivatedByAdmin $event): void
+    {
         $this->active = false;
     }
 
@@ -341,7 +424,7 @@ class User extends AggregateRoot implements Entity
         // noop
     }
 
-    protected function whenTokenGenerated(Event\TokenGenerated $event): void
+    protected function whenVerificationSent(Event\VerificationSent $event): void
     {
         // noop
     }
@@ -351,15 +434,13 @@ class User extends AggregateRoot implements Entity
         $this->verified = true;
     }
 
-    protected function whenPasswordRecoverySent(
-        Event\PasswordRecoverySent $event,
-    ): void {
+    protected function whenPasswordRecoverySent(Event\PasswordRecoverySent $event): void
+    {
         // noop
     }
 
-    protected function whenUserUpdatedProfile(
-        Event\UserUpdatedProfile $event,
-    ): void {
+    protected function whenUserUpdatedProfile(Event\UserUpdatedProfile $event): void
+    {
         // noop
     }
 
@@ -378,8 +459,13 @@ class User extends AggregateRoot implements Entity
         // noop
     }
 
+    protected function whenUserWasDeletedByAdmin(Event\UserWasDeletedByAdmin $event): void
+    {
+        $this->deleted = true;
+    }
+
     /**
-     * @param User|Entity $other
+     * @param User $other
      */
     public function sameIdentityAs(Entity $other): bool
     {

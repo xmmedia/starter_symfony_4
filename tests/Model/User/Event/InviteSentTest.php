@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\InviteSent;
-use App\Model\User\Token;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
 use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
@@ -19,13 +18,11 @@ class InviteSentTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId();
-        $token = Token::fromString($faker->asciify('token'));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
-        $event = InviteSent::now($userId, $token, $messageId);
+        $event = InviteSent::now($userId, $messageId);
 
         $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($token, $event->token());
         $this->assertEquals($messageId, $event->messageId());
     }
 
@@ -34,7 +31,6 @@ class InviteSentTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId();
-        $token = Token::fromString($faker->asciify('token'));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
         /** @var InviteSent $event */
@@ -42,7 +38,6 @@ class InviteSentTest extends BaseTestCase
             InviteSent::class,
             $userId->toString(),
             [
-                'token'     => $token->toString(),
                 'messageId' => $messageId->toString(),
             ],
         );
@@ -50,7 +45,6 @@ class InviteSentTest extends BaseTestCase
         $this->assertInstanceOf(InviteSent::class, $event);
 
         $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($token, $event->token());
         $this->assertEquals($messageId, $event->messageId());
     }
 }

@@ -35,6 +35,7 @@ class UserRepositoryTest extends BaseTestCase
             $checksUniqueUsersEmail,
         );
 
+        /** @var UserRepository $repository */
         $repository = $this->getRepository(UserRepository::class, User::class);
 
         $repository->save($user);
@@ -50,8 +51,9 @@ class UserRepositoryTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $fetchedUser = $this->getRepository(UserRepository::class, User::class)
-            ->get($faker->userId());
+        /** @var UserRepository $repository */
+        $repository = $this->getRepository(UserRepository::class, User::class);
+        $fetchedUser = $repository->get($faker->userId());
 
         $this->assertNull($fetchedUser);
     }

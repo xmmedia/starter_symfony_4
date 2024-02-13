@@ -28,7 +28,9 @@ class UserProjectionTest extends BaseTestCase
             Event\ChangedPassword::class,
             Event\PasswordUpgraded::class,
             Event\UserVerified::class,
+            Event\UserActivated::class,
             Event\UserLoggedIn::class,
+            Event\UserWasDeletedByAdmin::class,
         ];
 
         $projection = new UserProjection();

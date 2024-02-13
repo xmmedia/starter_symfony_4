@@ -9,7 +9,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 final readonly class UrlGenerator
 {
-    public function __construct(private readonly RouterInterface $router)
+    public function __construct(private RouterInterface $router)
     {
     }
 
@@ -20,5 +20,10 @@ final readonly class UrlGenerator
             $params,
             UrlGeneratorInterface::ABSOLUTE_URL,
         );
+    }
+
+    public function profile(): string
+    {
+        return $this->generate('user_profile');
     }
 }

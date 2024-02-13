@@ -11,7 +11,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     /**
      * @dataProvider urlProvider
      */
-    public function testPageIsSuccessful(string $url, string $redirectUrl = null): void
+    public function testPageIsSuccessful(string $url, ?string $redirectUrl = null): void
     {
         $client = self::createClient();
         $client->request('GET', $url);
@@ -36,8 +36,9 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/admin/users', '/login'];
         yield ['/profile', '/login'];
         yield ['/profile/password', '/login'];
-        yield ['/activate/'.$faker->lexify(str_repeat('?', 10))];
-        yield ['/recover/reset/'.$faker->lexify(str_repeat('?', 10))];
+        yield ['/activate/'.$faker->lexify(str_repeat('?', 10)), '/activate'];
+        yield ['/recover/reset/'.$faker->lexify(str_repeat('?', 10)), '/recover/reset'];
+        yield ['/verify/'.$faker->lexify(str_repeat('?', 10)), '/verify'];
         yield ['/recover/initiate'];
     }
 }

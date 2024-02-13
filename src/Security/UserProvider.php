@@ -28,10 +28,8 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     /**
      * @param User|PasswordAuthenticatedUserInterface $user
      */
-    public function upgradePassword(
-        PasswordAuthenticatedUserInterface $user,
-        string $newHashedPassword,
-    ): void {
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    {
         if (!$user instanceof User) {
             return;
         }

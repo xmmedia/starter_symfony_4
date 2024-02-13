@@ -15,7 +15,7 @@ use Xm\SymfonyBundle\Model\Email;
 
 final readonly class UserUpdateProfileMutation implements MutationInterface
 {
-    public function __construct(private readonly MessageBusInterface $commandBus, private readonly Security $security)
+    public function __construct(private MessageBusInterface $commandBus, private Security $security)
     {
     }
 

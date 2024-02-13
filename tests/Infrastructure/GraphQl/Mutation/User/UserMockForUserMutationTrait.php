@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\GraphQl\Mutation\User;
 
+use App\Controller\SecurityController;
 use App\Entity\User;
 use App\Model\User\Name;
-use App\Model\User\Token;
 use App\Security\Security;
-use App\Security\TokenValidator;
 use App\Tests\EmptyProvider;
-use Mockery;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 
 trait UserMockForUserMutationTrait
 {
     use EmptyProvider;
 
-    /**
-     * @return User|Mockery\MockInterface
-     */
-    private function getUserMock(): User
+    private function getUserMock(): User|\Mockery\MockInterface
     {
         $faker = $this->faker();
 
@@ -37,7 +34,7 @@ trait UserMockForUserMutationTrait
         return $user;
     }
 
-    private function createSecurity(bool $isGrantedResult): Security
+    private function createSecurity(bool $isGrantedResult): Security|\Mockery\MockInterface
     {
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isGranted')
@@ -47,14 +44,45 @@ trait UserMockForUserMutationTrait
         return $security;
     }
 
-    private function getTokenValidator(User $user): TokenValidator
+    private function getResetPasswordHelper(User $user, bool $successful = true): ResetPasswordHelperInterface|\Mockery\MockInterface
     {
-        $tokenValidator = \Mockery::mock(TokenValidator::class);
-        $tokenValidator->shouldReceive('validate')
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
+        $resetPasswordHelper->shouldReceive('validateTokenAndFetchUser')
             ->once()
-            ->with(\Mockery::type(Token::class))
+            ->with(\Mockery::type('string'))
             ->andReturn($user);
+        if ($successful) {
+            $resetPasswordHelper->shouldReceive('removeResetRequest')
+                ->once()
+                ->with(\Mockery::type('string'));
+        }
 
-        return $tokenValidator;
+        return $resetPasswordHelper;
+    }
+
+    private function getRequestInfoProvider(bool $successful = true): RequestInfoProvider|\Mockery\MockInterface
+    {
+        $session = \Mockery::mock(\Symfony\Component\HttpFoundation\Session\SessionInterface::class);
+        $session->shouldReceive('get')
+            ->once()
+            ->with(SecurityController::TOKEN_SESSION_KEY)
+            ->andReturn($this->faker()->password());
+        if ($successful) {
+            $session->shouldReceive('remove')
+                ->once()
+                ->with(SecurityController::TOKEN_SESSION_KEY);
+        }
+
+        $request = \Mockery::mock(\Symfony\Component\HttpFoundation\Request::class);
+        $request->shouldReceive('getSession')
+            ->once()
+            ->andReturn($session);
+
+        $requestProvider = \Mockery::mock(RequestInfoProvider::class);
+        $requestProvider->shouldReceive('currentRequest')
+            ->once()
+            ->andReturn($request);
+
+        return $requestProvider;
     }
 }

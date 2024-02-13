@@ -14,7 +14,7 @@ class WebTestCase extends BaseWebTestCase
         parent::setUp();
     }
 
-    protected function assertPathInfoMatches(KernelBrowser $client, string $regExp)
+    protected function assertPathInfoMatches(KernelBrowser $client, string $regExp): void
     {
         $this->assertMatchesRegularExpression(
             $regExp,

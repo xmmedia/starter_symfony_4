@@ -10,7 +10,7 @@ use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 use Xm\SymfonyBundle\Model\Email;
 
-class MinimalUserWasAddedByAdmin extends AggregateChanged
+final class MinimalUserWasAddedByAdmin extends AggregateChanged
 {
     private Email $email;
     private string $hashedPassword;

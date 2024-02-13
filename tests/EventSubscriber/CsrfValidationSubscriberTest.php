@@ -219,7 +219,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         $method = $subscribed[KernelEvents::RESPONSE][0];
 
         $kernel = \Mockery::mock(HttpKernelInterface::class);
-        $request = Request::create('/', \Symfony\Component\HttpFoundation\Request::METHOD_POST);
+        $request = Request::create('/', Request::METHOD_POST);
         $response = new Response();
 
         $event = new ResponseEvent(

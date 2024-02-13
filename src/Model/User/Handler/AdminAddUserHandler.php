@@ -12,8 +12,8 @@ use App\Model\User\UserList;
 final readonly class AdminAddUserHandler
 {
     public function __construct(
-        private readonly UserList $userRepo,
-        private readonly ChecksUniqueUsersEmail $checksUniqueUsersEmail,
+        private UserList $userRepo,
+        private ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ) {
     }
 

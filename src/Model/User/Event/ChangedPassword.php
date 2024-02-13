@@ -7,7 +7,7 @@ namespace App\Model\User\Event;
 use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
-class ChangedPassword extends AggregateChanged
+final class ChangedPassword extends AggregateChanged
 {
     private string $hashedPassword;
 

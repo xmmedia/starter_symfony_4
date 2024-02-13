@@ -17,7 +17,11 @@ parameters:
         #- '/@mail-tester\.com$/'
     # email templates
     email.template.auth.user_invite: 'auth-user_invite'
+    email.template.auth.user_verification: 'auth-user_verification'
+    email.template.user.login_link: 'login_link'
     email.template.auth.password_reset: 'auth-password_reset'
+    email.template.user.profile_updated: 'profile_updated'
+    email.template.user.password_changed: 'password_changed'
 
 services:
     # default configuration for services in *this* file
@@ -69,12 +73,29 @@ services:
             $template: '%email.template.auth.user_invite%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+    App\Model\User\Handler\SendVerificationHandler:
+        arguments:
+            $template: '%email.template.auth.user_verification%'
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
     App\Model\User\Handler\InitiatePasswordRecoveryHandler:
         arguments:
             $template: '%email.template.auth.password_reset%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+    App\Model\User\Handler\SendProfileUpdatedNotificationHandler:
         arguments:
+            $template: '%email.template.user.profile_updated%'
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+    App\Model\User\Handler\SendPasswordChangedNotificationHandler:
+        arguments:
+            $template: '%email.template.user.password_changed%'
+        tags:
+            - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
+    App\Model\User\Handler\SendLoginLinkHandler:
+        arguments:
+            $template: '%email.template.user.login_link%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 

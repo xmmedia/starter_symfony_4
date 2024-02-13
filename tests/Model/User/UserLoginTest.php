@@ -46,4 +46,17 @@ class UserLoginTest extends BaseTestCase
 
         $user->loggedIn();
     }
+
+    public function testLoggedInDeleted(): void
+    {
+        $user = $this->getUserInactive();
+        $user->delete();
+
+        $this->expectException(Exception\UserIsDeleted::class);
+        $this->expectExceptionMessage(
+            sprintf('Tried to login deleted User with ID "%s"', $user->userId()),
+        );
+
+        $user->loggedIn();
+    }
 }

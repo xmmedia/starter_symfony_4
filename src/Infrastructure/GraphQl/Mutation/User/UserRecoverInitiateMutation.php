@@ -6,26 +6,26 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Projection\User\UserFinder;
-use App\Security\Security;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
+use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException;
 use Xm\SymfonyBundle\Model\Email;
 
 final readonly class UserRecoverInitiateMutation implements MutationInterface
 {
     public function __construct(
-        private readonly MessageBusInterface $commandBus,
-        private readonly UserFinder $userFinder,
-        private readonly Security $security,
+        private MessageBusInterface $commandBus,
+        private UserFinder $userFinder,
+        private bool $testing = false,
     ) {
     }
 
     public function __invoke(Argument $args): array
     {
-        if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new UserError('Logged in users cannot change their password this way.', 404);
+        if (!$this->testing) {
+            sleep(rand(0, 3));
         }
 
         $user = $this->userFinder->findOneByEmail(
@@ -36,9 +36,13 @@ final readonly class UserRecoverInitiateMutation implements MutationInterface
             throw new UserError('An account with that email cannot be found.', 404);
         }
 
-        $this->commandBus->dispatch(
-            InitiatePasswordRecovery::now($user->userId(), $user->email()),
-        );
+        try {
+            $this->commandBus->dispatch(
+                InitiatePasswordRecovery::now($user->userId(), $user->email()),
+            );
+        } catch (TooManyPasswordRequestsException $e) {
+            throw new UserError('Too many password resets have been requested', 429, $e);
+        }
 
         return [
             'success' => true,

@@ -11,7 +11,7 @@ use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 use Xm\SymfonyBundle\Model\Email;
 
-class UserWasUpdatedByAdmin extends AggregateChanged
+final class UserWasUpdatedByAdmin extends AggregateChanged
 {
     private Email $email;
     private Role $role;

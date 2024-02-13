@@ -10,8 +10,8 @@ use App\Model\User\UserData;
 use App\Model\User\UserId;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -19,7 +19,7 @@ use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Util\StringUtil;
 
 #[ORM\Entity(repositoryClass: \App\Projection\User\UserFinder::class, readOnly: true)]
-class User implements UserInterface, PasswordHasherAwareInterface, EquatableInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @var \Ramsey\Uuid\Uuid
@@ -40,7 +40,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
     #[ORM\Column]
     private bool $active = false;
 
-    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::JSON)]
+    #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
 
     #[ORM\Column(nullable: true)]
@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
     /**
      * @var UserToken[]|Collection|ArrayCollection
      */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: \App\Entity\UserToken::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserToken::class)]
     private array|Collection $tokens;
 
     public function __construct()
@@ -154,7 +154,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
 
     public function firstName(): ?Name
     {
-        if (!isset($this->firstName) || null === $this->firstName) {
+        if (!isset($this->firstName)) {
             return null;
         }
 
@@ -163,7 +163,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
 
     public function lastName(): ?Name
     {
-        if (!isset($this->lastName) || null === $this->lastName) {
+        if (!isset($this->lastName)) {
             return null;
         }
 
@@ -177,17 +177,13 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
         );
     }
 
-    public function getPasswordHasherName(): ?string
+    public function userData(): ?UserData
     {
-        $adminRoles = [
-            Role::ROLE_ADMIN()->getValue(),
-            Role::ROLE_SUPER_ADMIN()->getValue(),
-        ];
-        if (\count(array_intersect($adminRoles, $this->roles())) > 0) {
-            return 'harsh';
+        if (null === $this->userData) {
+            return null;
         }
 
-        return null;
+        return UserData::fromArray($this->userData);
     }
 
     /**

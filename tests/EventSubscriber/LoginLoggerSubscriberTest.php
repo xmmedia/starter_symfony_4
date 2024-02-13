@@ -43,7 +43,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $request = Request::create(
             '',
-            \Symfony\Component\HttpFoundation\Request::METHOD_GET,
+            Request::METHOD_GET,
             [],
             [],
             [],
@@ -85,7 +85,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $request = Request::create(
             '',
-            \Symfony\Component\HttpFoundation\Request::METHOD_GET,
+            Request::METHOD_GET,
             [],
             [],
             [],

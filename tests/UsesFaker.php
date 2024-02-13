@@ -13,7 +13,7 @@ trait UsesFaker
     private Faker\Generator $faker;
 
     /**
-     * @return Faker\Generator|BundleProviders\AddressFakerProvider|BundleProviders\DateFakerProvider|BundleProviders\EmailFakerProvider|BundleProviders\GenderFakerProvider|BundleProviders\InternetFakerProvider|BundleProviders\NameFakerProvider|BundleProviders\PhoneNumberFakerProvider|BundleProviders\StringFakerProvider|BundleProviders\UuidFakerProvider|Provider\UuidFakerProvider
+     * @return Faker\Generator|BundleProviders\AddressFakerProvider|BundleProviders\DateFakerProvider|BundleProviders\EmailFakerProvider|BundleProviders\GenderFakerProvider|BundleProviders\InternetFakerProvider|BundleProviders\NameFakerProvider|BundleProviders\PhoneNumberFakerProvider|BundleProviders\StringFakerProvider|BundleProviders\UuidFakerProvider|Provider\UserFakerProvider|Provider\UuidFakerProvider
      */
     protected function faker(): Faker\Generator
     {
@@ -34,6 +34,7 @@ trait UsesFaker
         $this->faker->addProvider(new BundleProviders\PhoneNumberFakerProvider($this->faker));
         $this->faker->addProvider(new BundleProviders\StringFakerProvider($this->faker));
         $this->faker->addProvider(new BundleProviders\UuidFakerProvider($this->faker));
+        $this->faker->addProvider(new Provider\UserFakerProvider($this->faker));
         $this->faker->addProvider(new Provider\UuidFakerProvider($this->faker));
 
         return $this->faker;

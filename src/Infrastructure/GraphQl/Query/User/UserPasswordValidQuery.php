@@ -11,8 +11,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 final readonly class UserPasswordValidQuery implements QueryInterface
 {
     public function __construct(
-        private readonly UserPasswordHasherInterface $userPasswordHasher,
-        private readonly Security $security,
+        private UserPasswordHasherInterface $userPasswordHasher,
+        private Security $security,
     ) {
     }
 

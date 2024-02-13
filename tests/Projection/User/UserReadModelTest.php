@@ -47,7 +47,6 @@ class UserReadModelTest extends BaseTestCase
 
         $reflection = new \ReflectionClass(UserReadModel::class);
         $method = $reflection->getMethod('insert');
-        $method->setAccessible(true);
 
         $method->invokeArgs(new UserReadModel($connection), [$data, $types]);
     }
@@ -79,7 +78,6 @@ class UserReadModelTest extends BaseTestCase
 
         $reflection = new \ReflectionClass(UserReadModel::class);
         $method = $reflection->getMethod('update');
-        $method->setAccessible(true);
 
         $method->invokeArgs(new UserReadModel($connection), [$userId, $data, $types]);
     }
@@ -110,8 +108,33 @@ class UserReadModelTest extends BaseTestCase
 
         $reflection = new \ReflectionClass(UserReadModel::class);
         $method = $reflection->getMethod('loggedIn');
-        $method->setAccessible(true);
 
         $method->invokeArgs(new UserReadModel($connection), [$userId, $dateTime]);
+    }
+
+    public function testRemove(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->uuid();
+
+        $connection = \Mockery::mock(Connection::class);
+        $connection->shouldReceive('delete')
+            ->once()
+            ->withArgs(
+                function (
+                    string $table,
+                    array $passedCriteria,
+                ) use ($userId): bool {
+                    $this->assertEquals('user', $table);
+                    $this->assertEquals(['user_id' => $userId], $passedCriteria);
+
+                    return true;
+                },
+            );
+
+        $reflection = new \ReflectionClass(UserReadModel::class);
+        $method = $reflection->getMethod('remove');
+
+        $method->invokeArgs(new UserReadModel($connection), [$userId]);
     }
 }

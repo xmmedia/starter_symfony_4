@@ -61,6 +61,24 @@ CREATE TABLE `projections` (
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_token`
+--
+
+CREATE TABLE `user_token` (
+    `user_token_id` char(36) COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
+    `user_id` char(36) COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
+    `selector` varchar(20) COLLATE utf8mb4_bin NOT NULL,
+    `hashed_token` varchar(100) COLLATE utf8mb4_bin NOT NULL,
+    `requested_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+    `expires_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+
+-- --------------------------------------------------------
+
 --
 -- Indexes for dumped tables
 --
@@ -85,6 +103,13 @@ ALTER TABLE `event_streams`
 ALTER TABLE `projections`
     ADD PRIMARY KEY (`no`),
     ADD UNIQUE KEY `ix_name` (`name`);
+
+--
+-- Indexes for table `user_token`
+--
+ALTER TABLE `user_token`
+    ADD PRIMARY KEY (`user_token_id`),
+    ADD KEY `user_id` (`user_id`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables

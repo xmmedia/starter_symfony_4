@@ -20,6 +20,6 @@ final readonly class UsersQuery implements QueryInterface
      */
     public function __invoke(?array $filters): array
     {
-        return $this->userFinder->findByUserFilters(UserFilters::fromArray($filters));
+        return $this->userFinder->findByFilters(UserFilters::fromArray($filters));
     }
 }

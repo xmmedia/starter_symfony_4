@@ -10,7 +10,6 @@ use App\Model\User\Role;
 use App\Model\User\UserData;
 use App\Model\User\UserId;
 use App\Security\PasswordHasher;
-use App\Security\TokenGenerator;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
@@ -22,11 +21,10 @@ use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 final readonly class AdminUserAddMutation implements MutationInterface
 {
     public function __construct(
-        private readonly MessageBusInterface $commandBus,
-        private readonly TokenGenerator $tokenGenerator,
-        private readonly PasswordHasher $passwordHasher,
-        private readonly ?PasswordStrengthInterface $passwordStrength = null,
-        private readonly ?HttpClientInterface $pwnedHttpClient = null,
+        private MessageBusInterface $commandBus,
+        private PasswordHasher $passwordHasher,
+        private ?PasswordStrengthInterface $passwordStrength = null,
+        private ?HttpClientInterface $pwnedHttpClient = null,
     ) {
     }
 
@@ -42,7 +40,8 @@ final readonly class AdminUserAddMutation implements MutationInterface
         $lastName = Name::fromString($args['user']['lastName']);
 
         if (!$args['user']['setPassword']) {
-            $password = ($this->tokenGenerator)()->toString();
+            // a random password with some of the extras removed/trimmed off
+            $password = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
         } else {
             $password = $args['user']['password'];
         }

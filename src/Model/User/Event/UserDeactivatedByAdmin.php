@@ -7,7 +7,7 @@ namespace App\Model\User\Event;
 use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
-class UserDeactivatedByAdmin extends AggregateChanged
+final class UserDeactivatedByAdmin extends AggregateChanged
 {
     public static function now(UserId $userId): self
     {

@@ -9,4 +9,6 @@ interface UserList
     public function save(User $user): void;
 
     public function get(UserId $userId): ?User;
+
+    public function getEvents(UserId $userId, ?string $eventName = null): \Iterator;
 }

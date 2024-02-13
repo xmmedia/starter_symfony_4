@@ -10,7 +10,7 @@ use App\Model\User\UserList;
 
 final readonly class VerifyUserByAdminHandler
 {
-    public function __construct(private readonly UserList $userRepo)
+    public function __construct(private UserList $userRepo)
     {
     }
 

@@ -16,7 +16,7 @@ class UsersQueryTest extends BaseTestCase
         $user = \Mockery::mock(User::class);
 
         $userFinder = \Mockery::mock(UserFinder::class);
-        $userFinder->shouldReceive('findByUserFilters')
+        $userFinder->shouldReceive('findByFilters')
             ->once()
             ->andReturn([$user]);
 
@@ -28,7 +28,7 @@ class UsersQueryTest extends BaseTestCase
     public function testNoneFound(): void
     {
         $userFinder = \Mockery::mock(UserFinder::class);
-        $userFinder->shouldReceive('findByUserFilters')
+        $userFinder->shouldReceive('findByFilters')
             ->once()
             ->andReturn([]);
 

@@ -34,6 +34,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
             true,
+            $faker->userData(),
         );
 
         (new UserInviteProcessManager($commandBus))($event);
@@ -55,6 +56,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
             false,
+            $faker->userData(),
         );
 
         (new UserInviteProcessManager($commandBus))($event);

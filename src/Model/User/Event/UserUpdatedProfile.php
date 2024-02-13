@@ -10,7 +10,7 @@ use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 use Xm\SymfonyBundle\Model\Email;
 
-class UserUpdatedProfile extends AggregateChanged
+final class UserUpdatedProfile extends AggregateChanged
 {
     private Email $email;
     private Name $firstName;

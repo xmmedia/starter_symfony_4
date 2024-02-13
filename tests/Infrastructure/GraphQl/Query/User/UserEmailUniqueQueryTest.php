@@ -39,7 +39,7 @@ class UserEmailUniqueQueryTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserEmailUniqueQuery($userFinder, $security))(
+        $result = (new UserEmailUniqueQuery($userFinder, $security, true))(
             $faker->email()
         );
 
@@ -71,7 +71,7 @@ class UserEmailUniqueQueryTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserEmailUniqueQuery($userFinder, $security))(
+        $result = (new UserEmailUniqueQuery($userFinder, $security, true))(
             $faker->email()
         );
 
@@ -95,26 +95,50 @@ class UserEmailUniqueQueryTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserEmailUniqueQuery($userFinder, $security))(
+        $result = (new UserEmailUniqueQuery($userFinder, $security, true))(
             $faker->email()
         );
 
         $this->assertEquals(['unique' => true], $result);
     }
 
-    public function testNotLoggedIn(): void
+    public function testNotLoggedInNoUser(): void
     {
         $faker = $this->faker();
 
         $userFinder = \Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findOneByEmail')
+            ->once()
+            ->with(\Mockery::type(Email::class))
+            ->andReturnNull();
 
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->once()
             ->andReturnNull();
 
-        $this->expectException(\RuntimeException::class);
+        $result = (new UserEmailUniqueQuery($userFinder, $security, true))($faker->email());
 
-        (new UserEmailUniqueQuery($userFinder, $security))($faker->email());
+        $this->assertEquals(['unique' => true], $result);
+    }
+
+    public function testNotLoggedInOtherUser(): void
+    {
+        $faker = $this->faker();
+
+        $userFinder = \Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findOneByEmail')
+            ->once()
+            ->with(\Mockery::type(Email::class))
+            ->andReturn(\Mockery::mock(User::class));
+
+        $security = \Mockery::mock(Security::class);
+        $security->shouldReceive('getUser')
+            ->once()
+            ->andReturnNull();
+
+        $result = (new UserEmailUniqueQuery($userFinder, $security, true))($faker->email());
+
+        $this->assertEquals(['unique' => false], $result);
     }
 }

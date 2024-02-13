@@ -8,60 +8,67 @@ use App\Model\User\Command\SendActivation;
 use App\Model\User\Exception\UserAlreadyVerified;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
-use App\Security\TokenGeneratorInterface;
+use App\Projection\User\UserFinder;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 use Xm\SymfonyBundle\Model\Email;
-use Xm\SymfonyBundle\Util\StringUtil;
 
 final readonly class SendActivationHandler
 {
     public function __construct(
-        private readonly UserList $userRepo,
-        private readonly EmailGatewayInterface $emailGateway,
-        private readonly string $template,
-        private readonly RouterInterface $router,
-        private readonly TokenGeneratorInterface $tokenGenerator,
+        private UserList $userRepo,
+        private UserFinder $userFinder,
+        private EmailGatewayInterface $emailGateway,
+        private string $template,
+        private string $emailFrom,
+        private RouterInterface $router,
+        private ResetPasswordHelperInterface $resetPasswordHelper,
     ) {
     }
 
     public function __invoke(SendActivation $command): void
     {
-        $user = $this->userRepo->get($command->userId());
+        $userAr = $this->userRepo->get($command->userId());
+        if (!$userAr) {
+            throw UserNotFound::withUserId($command->userId());
+        }
+
+        if ($userAr->verified()) {
+            throw UserAlreadyVerified::triedToSendVerification($command->userId());
+        }
+
+        $user = $this->userFinder->find($command->userId());
         if (!$user) {
             throw UserNotFound::withUserId($command->userId());
         }
 
-        if ($user->verified()) {
-            throw UserAlreadyVerified::triedToSendVerification($command->userId());
-        }
-
-        $name = StringUtil::trim(sprintf(
-            '%s %s',
-            $command->firstName(),
-            $command->lastName(),
-        ));
-        $token = ($this->tokenGenerator)();
+        $token = $this->resetPasswordHelper->generateResetToken($user);
 
         $verifyUrl = $this->router->generate(
-            'user_verify',
-            ['token' => $token],
+            'user_activate_token',
+            ['token' => $token->getToken()],
             UrlGeneratorInterface::ABSOLUTE_URL,
         );
 
         $messageId = $this->emailGateway->send(
             $this->template,
-            Email::fromString($command->email()->toString(), $name),
+            $user->email(),
             [
                 'verifyUrl' => $verifyUrl,
-                'name'      => $name,
+                'name'      => $user->name(),
                 'email'     => $command->email()->toString(),
             ],
+            null,
+            null,
+            null,
+            // add References header to prevent message threading in Gmail
+            ['References' => $this->emailGateway->getReferencesEmail(Email::fromString($this->emailFrom))],
         );
 
-        $user->inviteSent($token, $messageId);
+        $userAr->inviteSent($messageId);
 
-        $this->userRepo->save($user);
+        $this->userRepo->save($userAr);
     }
 }

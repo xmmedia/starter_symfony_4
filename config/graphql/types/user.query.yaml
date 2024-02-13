@@ -4,10 +4,18 @@ UserQuery:
     config:
         fields:
             Users:
-                type:        '[User!]'
+                type:        '[User!]!'
                 description: 'Retrieve all Users or a subset based on the passed filters.'
                 access:      '@=hasRole("ROLE_ADMIN")'
                 resolve:     '@=query("App\\Infrastructure\\GraphQl\\Query\\User\\UsersQuery", args["filters"])'
+                args:
+                    filters: UserFilterInput
+
+            UserCount:
+                type:        'Int!'
+                description: 'Retrieve the Users count.'
+                access:      '@=hasRole("ROLE_ADMIN")'
+                resolve:     '@=query("App\\Infrastructure\\GraphQl\\Query\\User\\UserCountQuery", args["filters"])'
                 args:
                     filters: UserFilterInput
 
@@ -35,15 +43,25 @@ UserQuery:
                 args:
                     password: String!
 
+            UserRecoverResetPasswordStrength:
+                type:        UserPasswordAllowed!
+                description: 'Check if users password meets the minimum strength requirements. Token is stored in the session.'
+                resolve:     '@=query("App\\Infrastructure\\GraphQl\\Query\\User\\UserRecoverResetPasswordStrengthQuery", args["newPassword"])'
+                args:
+                    newPassword: String!
+
 UserFilterInput:
     type: input-object
     config:
-        description: 'Available filters for querying Users. Any passed fields will be applied. Exclude the key/field to skip that filter.'
+        description: 'Available filters for querying Users. Any passed fields will be applied if not empty. Exclude the key/field to skip that filter.'
         fields:
-            roles:      '[Role!]'
-            email:      String
-            emailExact: String
-            active:     Boolean
+            q:              String
+            roles:          '[Role!]'
+            email:          String
+            emailExact:     String
+            active:         Boolean
+            accountStatus:  String
+            offset:         Int
 
 UserEmailUnique:
     type: object
@@ -56,3 +74,9 @@ UserPasswordValid:
     config:
         fields:
             valid: Boolean!
+
+UserPasswordAllowed:
+    type: object
+    config:
+        fields:
+            allowed: Boolean!

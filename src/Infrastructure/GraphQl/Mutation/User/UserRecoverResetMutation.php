@@ -4,50 +4,50 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\GraphQl\Mutation\User;
 
+use App\Controller\SecurityController;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
-use App\Model\User\Exception\InvalidToken;
-use App\Model\User\Exception\TokenHasExpired;
-use App\Model\User\Token;
 use App\Security\PasswordHasher;
-use App\Security\Security;
-use App\Security\TokenValidator;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
+use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 
 final readonly class UserRecoverResetMutation implements MutationInterface
 {
     public function __construct(
-        private readonly MessageBusInterface $commandBus,
-        private readonly PasswordHasher $passwordHasher,
-        private readonly TokenValidator $tokenValidator,
-        private readonly Security $security,
-        private readonly ?PasswordStrengthInterface $passwordStrength = null,
-        private readonly ?HttpClientInterface $pwnedHttpClient = null,
+        private MessageBusInterface $commandBus,
+        private PasswordHasher $passwordHasher,
+        private ResetPasswordHelperInterface $resetPasswordHelper,
+        private RequestInfoProvider $requestProvider,
+        private ?PasswordStrengthInterface $passwordStrength = null,
+        private ?HttpClientInterface $pwnedHttpClient = null,
     ) {
     }
 
     public function __invoke(Argument $args): array
     {
-        if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new UserError('Logged in users cannot change their password this way.', 404);
-        }
-
+        $session = $this->requestProvider->currentRequest()->getSession();
+        $token = $session->get(SecurityController::TOKEN_SESSION_KEY);
         $newPassword = $args['newPassword'];
 
+        if (!$token) {
+            throw new UserError('The token is invalid.', 404);
+        }
+
         try {
-            $user = $this->tokenValidator->validate(
-                Token::fromString($args['token']),
-            );
-        } catch (InvalidToken $e) {
+            $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
+        } catch (InvalidResetPasswordTokenException $e) {
             // 404 -> not found
             throw new UserError('The token is invalid.', 404, $e);
-        } catch (TokenHasExpired $e) {
+        } catch (ExpiredResetPasswordTokenException $e) {
             // 405 -> method not allowed
             throw new UserError('The link has expired.', 405, $e);
         }
@@ -76,6 +76,9 @@ final readonly class UserRecoverResetMutation implements MutationInterface
         $this->commandBus->dispatch(
             ChangePassword::forUser($user->userId(), $hashedPassword),
         );
+
+        $this->resetPasswordHelper->removeResetRequest($token);
+        $session->remove(SecurityController::TOKEN_SESSION_KEY);
 
         // we would log the user in right away, but as we don't have a request
         // and the projection might not be caught up, we don't try

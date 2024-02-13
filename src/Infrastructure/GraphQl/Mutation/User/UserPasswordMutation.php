@@ -19,12 +19,12 @@ use Xm\SymfonyBundle\Util\StringUtil;
 final readonly class UserPasswordMutation implements MutationInterface
 {
     public function __construct(
-        private readonly MessageBusInterface $commandBus,
-        private readonly UserPasswordHasherInterface $userPasswordHasher,
-        private readonly PasswordHasher $passwordHasher,
-        private readonly Security $security,
-        private readonly ?PasswordStrengthInterface $passwordStrength = null,
-        private readonly ?HttpClientInterface $pwnedHttpClient = null,
+        private MessageBusInterface $commandBus,
+        private UserPasswordHasherInterface $userPasswordHasher,
+        private PasswordHasher $passwordHasher,
+        private Security $security,
+        private ?PasswordStrengthInterface $passwordStrength = null,
+        private ?HttpClientInterface $pwnedHttpClient = null,
     ) {
     }
 

@@ -14,8 +14,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 final readonly class AdminUserSendActivationToUserMutation implements MutationInterface
 {
     public function __construct(
-        private readonly MessageBusInterface $commandBus,
-        private readonly UserFinder $userFinder,
+        private MessageBusInterface $commandBus,
+        private UserFinder $userFinder,
     ) {
     }
 

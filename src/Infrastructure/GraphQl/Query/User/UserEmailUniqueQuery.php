@@ -11,8 +11,11 @@ use Xm\SymfonyBundle\Model\Email;
 
 final readonly class UserEmailUniqueQuery implements QueryInterface
 {
-    public function __construct(private readonly UserFinder $userFinder, private readonly Security $security)
-    {
+    public function __construct(
+        private UserFinder $userFinder,
+        private Security $security,
+        private bool $testing = false,
+    ) {
     }
 
     /**
@@ -24,8 +27,9 @@ final readonly class UserEmailUniqueQuery implements QueryInterface
     public function __invoke(string $email): array
     {
         $currentUser = $this->security->getUser();
-        if (!$currentUser) {
-            throw new \RuntimeException('Must be logged in to access.');
+
+        if (!$currentUser && !$this->testing) {
+            sleep(rand(0, 5));
         }
 
         $user = $this->userFinder->findOneByEmail(
@@ -34,6 +38,11 @@ final readonly class UserEmailUniqueQuery implements QueryInterface
 
         if (!$user) {
             return ['unique' => true];
+        }
+
+        // another user is already using the same email
+        if (!$currentUser) {
+            return ['unique' => false];
         }
 
         return [

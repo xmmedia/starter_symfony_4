@@ -76,6 +76,34 @@ class UserUpdateTest extends BaseTestCase
         );
     }
 
+    public function testUpdateByAdminDeleted(): void
+    {
+        $faker = $this->faker();
+
+        $user = $this->getUserActive();
+        $user->delete();
+
+        $email = $faker->emailVo();
+        $role = Role::ROLE_USER();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
+
+        $this->expectException(Exception\UserIsDeleted::class);
+        $this->expectExceptionMessage(
+            sprintf('Tried to update (by admin) deleted User with ID "%s"', $user->userId()),
+        );
+
+        $user->updateByAdmin(
+            $email,
+            $role,
+            $firstName,
+            $lastName,
+            $userData,
+            $this->userUniquenessCheckerNone,
+        );
+    }
+
     public function testUpdate(): void
     {
         $faker = $this->faker();
@@ -152,6 +180,32 @@ class UserUpdateTest extends BaseTestCase
             $lastName,
             $userData,
             $this->userUniquenessCheckerDuplicate,
+        );
+    }
+
+    public function testUpdateDeleted(): void
+    {
+        $faker = $this->faker();
+
+        $user = $this->getUserActive();
+        $user->delete();
+
+        $email = $faker->emailVo();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
+
+        $this->expectException(Exception\UserIsDeleted::class);
+        $this->expectExceptionMessage(
+            sprintf('Tried to update deleted User with ID "%s"', $user->userId()),
+        );
+
+        $user->update(
+            $email,
+            $firstName,
+            $lastName,
+            $userData,
+            $this->userUniquenessCheckerNone,
         );
     }
 }

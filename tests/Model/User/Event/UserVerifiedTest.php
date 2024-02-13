@@ -20,7 +20,7 @@ class UserVerifiedTest extends BaseTestCase
 
         $event = UserVerified::now($userId);
 
-        $this->assertEquals($userId, $event->userId());
+        $this->assertSameValueAs($userId, $event->userId());
     }
 
     public function testFromArray(): void
@@ -37,6 +37,6 @@ class UserVerifiedTest extends BaseTestCase
 
         $this->assertInstanceOf(UserVerified::class, $event);
 
-        $this->assertEquals($userId, $event->userId());
+        $this->assertSameValueAs($userId, $event->userId());
     }
 }

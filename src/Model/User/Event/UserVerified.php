@@ -7,7 +7,7 @@ namespace App\Model\User\Event;
 use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
-class UserVerified extends AggregateChanged
+final class UserVerified extends AggregateChanged
 {
     public static function now(UserId $userId): self
     {

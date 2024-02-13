@@ -1,6 +1,6 @@
 controllers:
     resource:
-        path: ../src/Controller/
+        path:      ../src/Controller/
         namespace: App\Controller
     type:     attribute
 
@@ -35,30 +35,52 @@ user_profile:
     path:       /profile{path}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
-        template: admin.html.twig
+        path:     ''
+        template: user.html.twig
     methods: [ GET ]
     requirements:
         path: '.*'
 
-user_verify:
-    path:       /activate/{token}
+# activating a user when they were added by the admin
+# the token is already stored in the session
+user_activate:
+    path:       /activate
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
-        template: admin.html.twig
+        template: user.html.twig
     methods: [ GET ]
 
-user_reset:
-    path:       /recover/reset/{token}
+# verifying a user's email address when they register themselves
+# the token is already stored in the session
+user_verify:
+    path:       /verify
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
-        template: admin.html.twig
+        template: user.html.twig
+    methods: [ GET ]
+
+# the token is already stored in the session
+user_reset:
+    path:       /recover/reset
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        template: user.html.twig
     methods: [ GET ]
 
 user_recover:
     path:       /recover{path}
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
     defaults:
-        template: admin.html.twig
+        template: user.html.twig
+    methods: [ GET ]
+    requirements:
+        path: '.*'
+
+user_default:
+    path:       /{path}
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        template: user.html.twig
     methods: [ GET ]
     requirements:
         path: '.*'

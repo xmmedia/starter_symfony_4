@@ -6,7 +6,6 @@ namespace App\Tests\Model\User;
 
 use App\Model\User\Event;
 use App\Model\User\Exception;
-use App\Model\User\Token;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
 
@@ -37,6 +36,21 @@ class UserPasswordTest extends BaseTestCase
         $this->assertCount(1, $events);
     }
 
+    public function testChangePasswordByAdminDeleted(): void
+    {
+        $faker = $this->faker();
+
+        $user = $this->getUserActive();
+        $user->delete();
+
+        $this->expectException(Exception\UserIsDeleted::class);
+        $this->expectExceptionMessage(
+            sprintf('Tried to change password (by admin) deleted User with ID "%s"', $user->userId()),
+        );
+
+        $user->changePasswordByAdmin($faker->password());
+    }
+
     public function testPasswordRecoverySent(): void
     {
         $faker = $this->faker();
@@ -44,17 +58,15 @@ class UserPasswordTest extends BaseTestCase
         $user = $this->getUserActive();
         $this->popRecordedEvent($user);
 
-        $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
-        $user->passwordRecoverySent($token, $messageId);
+        $user->passwordRecoverySent($messageId);
 
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
             Event\PasswordRecoverySent::class,
             [
-                'token'     => $token->toString(),
                 'messageId' => $messageId->toString(),
             ],
             $events,
@@ -69,12 +81,28 @@ class UserPasswordTest extends BaseTestCase
 
         $user = $this->getUserInactive();
 
-        $token = Token::fromString($faker->asciify(str_repeat('*', 25)));
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
         $this->expectException(Exception\InvalidUserActiveStatus::class);
 
-        $user->passwordRecoverySent($token, $messageId);
+        $user->passwordRecoverySent($messageId);
+    }
+
+    public function testPasswordRecoverySentDeleted(): void
+    {
+        $faker = $this->faker();
+
+        $user = $this->getUserInactive();
+        $user->delete();
+
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
+
+        $this->expectException(Exception\UserIsDeleted::class);
+        $this->expectExceptionMessage(
+            sprintf('Tried to send password recovery to deleted User with ID "%s"', $user->userId()),
+        );
+
+        $user->passwordRecoverySent($messageId);
     }
 
     public function testChangePassword(): void
@@ -111,6 +139,21 @@ class UserPasswordTest extends BaseTestCase
         $user->changePassword($password);
     }
 
+    public function testChangePasswordDeleted(): void
+    {
+        $faker = $this->faker();
+
+        $user = $this->getUserInactive();
+        $user->delete();
+
+        $this->expectException(Exception\UserIsDeleted::class);
+        $this->expectExceptionMessage(
+            sprintf('Tried to change password deleted User with ID "%s"', $user->userId()),
+        );
+
+        $user->changePassword($faker->password());
+    }
+
     public function testUpgradePassword(): void
     {
         $faker = $this->faker();
@@ -136,12 +179,25 @@ class UserPasswordTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $password = $faker->password();
-
         $user = $this->getUserInactive();
 
         $this->expectException(Exception\InvalidUserActiveStatus::class);
 
-        $user->upgradePassword($password);
+        $user->upgradePassword($faker->password());
+    }
+
+    public function testUpgradePasswordDeleted(): void
+    {
+        $faker = $this->faker();
+
+        $user = $this->getUserInactive();
+        $user->delete();
+
+        $this->expectException(Exception\UserIsDeleted::class);
+        $this->expectExceptionMessage(
+            sprintf('Tried to upgrade password deleted User with ID "%s"', $user->userId()),
+        );
+
+        $user->upgradePassword($faker->password());
     }
 }

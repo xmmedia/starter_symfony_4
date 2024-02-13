@@ -82,7 +82,7 @@ class Auth extends AggregateRoot implements Entity
     }
 
     /**
-     * @param Auth|Entity $other
+     * @param Auth $other
      */
     public function sameIdentityAs(Entity $other): bool
     {

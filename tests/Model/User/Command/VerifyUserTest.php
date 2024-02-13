@@ -17,6 +17,6 @@ class VerifyUserTest extends BaseTestCase
 
         $command = VerifyUser::now($userId);
 
-        $this->assertTrue($userId->sameValueAs($command->userId()));
+        $this->assertSameValueAs($userId, $command->userId());
     }
 }

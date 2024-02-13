@@ -32,6 +32,14 @@ final class InvalidUserActiveStatus extends \RuntimeException
         ));
     }
 
+    public static function triedToActivateAnInactiveUser(UserId $userId): self
+    {
+        return new self(sprintf(
+            'Tried to verify the user "%s" that\'s currently inactive.',
+            $userId,
+        ));
+    }
+
     public static function triedToRequestPasswordReset(UserId $userId): self
     {
         return new self(sprintf(

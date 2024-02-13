@@ -9,13 +9,14 @@ use App\Model\User\Exception\UserAlreadyVerified;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Handler\SendActivationHandler;
 use App\Model\User\Name;
-use App\Model\User\Token;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
-use App\Security\TokenGeneratorInterface;
+use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
 use Symfony\Component\Routing\RouterInterface;
+use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
 
@@ -41,29 +42,51 @@ class SendActivationHandlerTest extends BaseTestCase
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
+            ->once()
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
         $repo->shouldReceive('save')
             ->once()
             ->with(\Mockery::type(User::class));
 
+        $user = \Mockery::mock(\App\Entity\User::class);
+        $user->shouldReceive('email')
+            ->once()
+            ->andReturn($command->email());
+        $user->shouldReceive('name')
+            ->once()
+            ->andReturn($faker->name());
+
+        $userFinder = \Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('find')
+            ->once()
+            ->with(\Mockery::type(UserId::class))
+            ->andReturn($user);
+
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
+        $emailGateway->shouldReceive('getReferencesEmail')
+            ->once()
+            ->andReturn($faker->email());
         $emailGateway->shouldReceive('send')
             ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
-        $tokenGenerator = \Mockery::mock(TokenGeneratorInterface::class);
-        $tokenGenerator->shouldReceive('__invoke')
-            ->andReturn(Token::fromString('string'));
 
         $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
             ->andReturn('url');
 
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
+        $resetPasswordHelper->shouldReceive('generateResetToken')
+            ->once()
+            ->andReturn(new ResetPasswordToken('1234', new \DateTimeImmutable(), time()));
+
         $handler = new SendActivationHandler(
             $repo,
+            $userFinder,
             $emailGateway,
             $faker->string(10),
+            $faker->email(),
             $router,
-            $tokenGenerator,
+            $resetPasswordHelper,
         );
 
         $handler($command);
@@ -85,21 +108,25 @@ class SendActivationHandlerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
         );
 
+        $userFinder = \Mockery::mock(UserFinder::class);
+
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
-        $tokenGenerator = \Mockery::mock(TokenGeneratorInterface::class);
         $router = \Mockery::mock(RouterInterface::class);
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
 
         $handler = new SendActivationHandler(
             $repo,
+            $userFinder,
             $emailGateway,
             $faker->string(10),
+            $faker->email(),
             $router,
-            $tokenGenerator,
+            $resetPasswordHelper,
         );
 
         $this->expectException(UserAlreadyVerified::class);
@@ -107,7 +134,7 @@ class SendActivationHandlerTest extends BaseTestCase
         $handler($command);
     }
 
-    public function testUserNotFound(): void
+    public function testUserArNotFound(): void
     {
         $faker = $this->faker();
 
@@ -120,25 +147,72 @@ class SendActivationHandlerTest extends BaseTestCase
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
+            ->once()
             ->with(\Mockery::type(UserId::class))
             ->andReturnNull();
 
+        $userFinder = \Mockery::mock(UserFinder::class);
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
-        $emailGateway->shouldReceive('send')
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
         $router = \Mockery::mock(RouterInterface::class);
-        $tokenGenerator = \Mockery::mock(TokenGeneratorInterface::class);
-        $tokenGenerator->shouldReceive('__invoke')
-            ->andReturn(Token::fromString('string'));
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
 
         $this->expectException(UserNotFound::class);
 
         $handler = new SendActivationHandler(
             $repo,
+            $userFinder,
             $emailGateway,
             $faker->string(10),
+            $faker->email(),
             $router,
-            $tokenGenerator,
+            $resetPasswordHelper,
+        );
+
+        $handler($command);
+    }
+
+    public function testUserEntityNotFound(): void
+    {
+        $faker = $this->faker();
+
+        $command = SendActivation::now(
+            $faker->userId(),
+            $faker->emailVo(),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
+        );
+
+        $user = \Mockery::mock(User::class);
+        $user->shouldReceive('verified')
+            ->once()
+            ->andReturnFalse();
+
+        $repo = \Mockery::mock(UserList::class);
+        $repo->shouldReceive('get')
+            ->once()
+            ->with(\Mockery::type(UserId::class))
+            ->andReturn($user);
+
+        $userFinder = \Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('find')
+            ->once()
+            ->with(\Mockery::type(UserId::class))
+            ->andReturnNull();
+
+        $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
+        $router = \Mockery::mock(RouterInterface::class);
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
+
+        $this->expectException(UserNotFound::class);
+
+        $handler = new SendActivationHandler(
+            $repo,
+            $userFinder,
+            $emailGateway,
+            $faker->string(10),
+            $faker->email(),
+            $router,
+            $resetPasswordHelper,
         );
 
         $handler($command);

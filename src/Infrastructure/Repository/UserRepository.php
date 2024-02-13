@@ -20,4 +20,9 @@ final class UserRepository extends AggregateRepository implements UserList
     {
         return $this->getAggregateRoot($userId->toString());
     }
+
+    public function getEvents(UserId $userId, ?string $eventName = null): \Iterator
+    {
+        return $this->getAggregateRootEvents($userId->toString(), $eventName);
+    }
 }

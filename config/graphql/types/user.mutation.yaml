@@ -11,6 +11,13 @@ UserMutation:
                 args:
                     user: UserUpdateProfileInput!
 
+            UserLoginLink:
+                type:        UserResultPayload!
+                description: 'Send a magic login link to the user.'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserLoginLinkMutation", args)'
+                args:
+                    email: String!
+
             ChangePassword:
                 type:        UserMutationPayload!
                 description: 'Change User password.'
@@ -28,19 +35,22 @@ UserMutation:
 
             UserRecoverReset:
                 type:        UserResultPayload!
-                description: 'Set User password with User token.'
+                description: 'Set User password. Token is stored in the session.'
                 resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", args)'
                 args:
-                    token:       String!
                     newPassword: String!
+
+            UserActivate:
+                type:        UserResultPayload!
+                description: 'Activate User account with password. Token is stored in the session.'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserActivateMutation", args)'
+                args:
+                    password: String!
 
             UserVerify:
                 type:        UserResultPayload!
-                description: 'Verify (activate) User account with password and User token.'
+                description: 'Verify User account. Token is stored in the session.'
                 resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\UserVerifyMutation", args)'
-                args:
-                    token:    String!
-                    password: String!
 
             AdminUserAdd:
                 type:        AdminUserAddMutationPayload!
@@ -90,6 +100,14 @@ UserMutation:
                 args:
                     userId: UUID!
 
+            AdminUserDelete:
+                type:        UserDeleteMutationPayload!
+                description: 'Delete User.'
+                access:      '@=hasRole("ROLE_ADMIN")'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserDeleteMutation", args["userId"])'
+                args:
+                    userId: UUID!
+
 UserUpdateProfileInput:
     type: input-object
     config:
@@ -125,6 +143,7 @@ AdminUserInput:
             password:  String
             firstName: String!
             lastName:  String!
+            userData:  UserDataInput!
 
 AdminUserAddInput:
     type: input-object
@@ -183,3 +202,10 @@ AdminUserAddMutationPayload:
         fields:
             email:  String!
             active: Boolean!
+
+UserDeleteMutationPayload:
+    type: object
+    config:
+        description: 'User delete mutation payload.'
+        fields:
+            success: Boolean!

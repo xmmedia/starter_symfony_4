@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Model\User\Command\AdminAddUserMinimum;
-use App\Model\User\Command\GenerateUserToken;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\User;
 use App\Model\User\UserId;
-use App\Projection\User\UserTokenFinder;
+use App\Projection\User\UserFinder;
 use App\Security\PasswordHasher;
-use App\Security\TokenGenerator;
 use App\Util\Assert;
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
@@ -28,6 +26,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Util\Json;
 
@@ -44,8 +43,8 @@ final class AddUserCommand extends Command
     public function __construct(
         private readonly MessageBusInterface $commandBus,
         private readonly PasswordHasher $passwordHasher,
-        private readonly TokenGenerator $tokenGenerator,
-        private readonly UserTokenFinder $userTokenFinder,
+        private readonly UserFinder $userFinder,
+        private readonly ResetPasswordHelperInterface $resetPasswordHelper,
         private readonly RouterInterface $router,
     ) {
         parent::__construct();
@@ -91,7 +90,8 @@ final class AddUserCommand extends Command
         if (!$sendInvite || $generateActivationToken) {
             $password = $this->askForPassword($io);
         } else {
-            $password = ($this->tokenGenerator)()->toString();
+            // a random password with some of the extras removed/trimmed off
+            $password = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
         }
         $role = Role::byValue($this->askForRole($io));
         $firstName = Name::fromString($this->askForName('First name', $io));
@@ -112,12 +112,11 @@ final class AddUserCommand extends Command
         );
 
         if ($generateActivationToken) {
-            $this->commandBus->dispatch(GenerateUserToken::now($userId));
+            $activationToken = $this->resetPasswordHelper->generateResetToken($this->userFinder->find($userId));
 
-            $activationToken = $this->userTokenFinder->findOneBy(['user' => $userId])->token();
             $resetUrl = $this->router->generate(
-                'user_reset',
-                ['token' => $activationToken],
+                'user_reset_token',
+                ['token' => $activationToken->getToken()],
                 UrlGeneratorInterface::ABSOLUTE_URL,
             );
         }
@@ -130,7 +129,7 @@ final class AddUserCommand extends Command
             ];
 
             if ($generateActivationToken) {
-                $results['activationToken'] = $activationToken->toString();
+                $results['activationToken'] = $activationToken->getToken();
                 $results['resetUrl'] = $resetUrl;
             }
 
@@ -152,7 +151,7 @@ final class AddUserCommand extends Command
             $io->writeln(sprintf('Invite sent to %s.', $email));
         }
         if ($generateActivationToken) {
-            $io->writeln(sprintf('Activation token %s.', $activationToken));
+            $io->writeln(sprintf('Activation token %s.', $activationToken->getToken()));
             $io->writeln(sprintf('Reset URL %s.', $resetUrl));
         }
 

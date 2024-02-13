@@ -5,16 +5,44 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\User;
+use App\Model\User\Command\ActivateUser;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Http\HttpUtils;
+use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 use Xm\SymfonyBundle\Security\Exception\AccountInactiveException;
 use Xm\SymfonyBundle\Security\Exception\AccountNotVerifiedException;
 
-class UserChecker implements UserCheckerInterface
+readonly class UserChecker implements UserCheckerInterface
 {
+    public function __construct(
+        private RequestInfoProvider $requestInfoProvider,
+        private HttpUtils $httpUtils,
+        private MessageBusInterface $commandBus,
+        private ManagerRegistry $doctrine,
+    ) {
+    }
+
     public function checkPreAuth(UserInterface $user): void
     {
-        // noop
+        if (!$user instanceof User) {
+            return;
+        }
+
+        if (!$this->httpUtils->checkRequestPath($this->requestInfoProvider->currentRequest(), 'app_login_link')) {
+            return;
+        }
+
+        // successfully logged in via magic link, but their account has not been verified
+        if (!$user->verified()) {
+            $this->commandBus->dispatch(
+                ActivateUser::now($user->userId()),
+            );
+
+            $this->doctrine->getManagerForClass(User::class)->refresh($user);
+        }
     }
 
     /**

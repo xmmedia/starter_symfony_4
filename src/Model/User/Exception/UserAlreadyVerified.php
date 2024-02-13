@@ -16,6 +16,14 @@ final class UserAlreadyVerified extends \RuntimeException
         ));
     }
 
+    public static function triedToActivate(UserId $userId): self
+    {
+        return new self(sprintf(
+            'Tried to activate the user "%s" that\'s already verified.',
+            $userId,
+        ));
+    }
+
     public static function triedToSendVerification(UserId $userId): self
     {
         return new self(sprintf(
