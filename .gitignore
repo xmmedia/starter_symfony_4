@@ -9,7 +9,6 @@ sftp-config.json
 .sass-cache
 /node_modules/
 npm-debug.log
-yarn-error.log
 /composer.phar
 webpack-stats.json
 public/service-worker.js
@@ -90,6 +89,10 @@ public/service-worker.js
 /public/build/
 ###< pentatrion/vite-bundle ###
 
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
+
 ###< yarn ###
 .pnp.*
 .yarn/*
@@ -100,3 +103,6 @@ public/service-worker.js
 !.yarn/versions
 yarn-error.log
 ###< yarn ###
+
+# Sentry Config File
+.env.sentry-build-plugin
