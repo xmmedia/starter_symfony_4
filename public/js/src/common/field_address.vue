@@ -81,7 +81,7 @@
 
 <script setup>
 /*global google*/
-import { computed, defineEmits, onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import cuid from 'cuid';
 import filter from 'lodash/filter';
 import FieldInput from './field_input';

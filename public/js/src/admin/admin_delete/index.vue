@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { defineEmits, ref } from 'vue';
+import { ref } from 'vue';
 
 defineProps({
     recordDesc: {
