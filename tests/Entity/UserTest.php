@@ -20,7 +20,6 @@ class UserTest extends BaseTestCase
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('userId');
-        $property->setAccessible(true);
         $property->setValue($user, $userId);
 
         $this->assertEquals($userId->toString(), $user->userId()->toString());
@@ -35,7 +34,6 @@ class UserTest extends BaseTestCase
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user, $email);
 
         $this->assertEquals($email, $user->email()->toString());
@@ -52,7 +50,6 @@ class UserTest extends BaseTestCase
 
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user, $password);
 
         $this->assertEquals($password, $user->password());
@@ -67,7 +64,6 @@ class UserTest extends BaseTestCase
 
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user, $faker->password());
 
         // this shouldn't do anything so just make sure the password still returns value
@@ -85,10 +81,8 @@ class UserTest extends BaseTestCase
 
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('verified');
-        $property->setAccessible(true);
         $property->setValue($user, true);
         $property = $reflection->getProperty('active');
-        $property->setAccessible(true);
         $property->setValue($user, true);
 
         $this->assertTrue($user->verified());
@@ -112,10 +106,8 @@ class UserTest extends BaseTestCase
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('firstName');
-        $property->setAccessible(true);
         $property->setValue($user, $firstName);
         $property = $reflection->getProperty('lastName');
-        $property->setAccessible(true);
         // note the added space
         $property->setValue($user, $lastName.' ');
 
@@ -147,7 +139,6 @@ class UserTest extends BaseTestCase
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('lastLogin');
-        $property->setAccessible(true);
         $property->setValue($user, $lastLogin);
 
         $this->assertEquals($lastLogin, $user->lastLogin());
@@ -165,7 +156,6 @@ class UserTest extends BaseTestCase
 
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('loginCount');
-        $property->setAccessible(true);
         $property->setValue($user, $loginCount);
 
         $this->assertEquals($loginCount, $user->loginCount());
@@ -191,7 +181,6 @@ class UserTest extends BaseTestCase
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user, [
             Role::ROLE_USER()->getValue(),
         ]);
@@ -205,7 +194,6 @@ class UserTest extends BaseTestCase
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user, [
             Role::ROLE_USER()->getValue(),
             Role::ROLE_USER()->getValue(),
@@ -220,7 +208,6 @@ class UserTest extends BaseTestCase
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user, [
             Role::ROLE_ADMIN()->getValue(),
         ]);
@@ -237,7 +224,6 @@ class UserTest extends BaseTestCase
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user, [$role]);
 
         $this->assertEquals($expected, $user->getPasswordHasherName());
@@ -265,13 +251,11 @@ class UserTest extends BaseTestCase
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user1, $faker->password());
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user2, $faker->password());
 
         // password has changed
@@ -282,19 +266,15 @@ class UserTest extends BaseTestCase
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user1, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user1, $faker->email());
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user2, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user2, $faker->email());
 
         // email (username) has changed
@@ -306,22 +286,17 @@ class UserTest extends BaseTestCase
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user1, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user1, $email);
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user2, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user2, $email);
         $property = $reflection->getProperty('active');
-        $property->setAccessible(true);
         $property->setValue($user2, false);
 
         // no longer active
@@ -333,25 +308,19 @@ class UserTest extends BaseTestCase
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user1, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user1, $email);
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user2, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user2, $email);
         $property = $reflection->getProperty('active');
-        $property->setAccessible(true);
         $property->setValue($user2, true);
         $property = $reflection->getProperty('verified');
-        $property->setAccessible(true);
         $property->setValue($user2, false);
 
         // no longer verified
@@ -363,31 +332,23 @@ class UserTest extends BaseTestCase
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user1, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user1, $email);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user1, ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user2, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user2, $email);
         $property = $reflection->getProperty('active');
-        $property->setAccessible(true);
         $property->setValue($user2, true);
         $property = $reflection->getProperty('verified');
-        $property->setAccessible(true);
         $property->setValue($user2, true);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user2, ['ROLE_ADMIN']);
 
         // roles have changed (no longer has super admin)
@@ -399,31 +360,23 @@ class UserTest extends BaseTestCase
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user1, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user1, $email);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user1, ['ROLE_ADMIN']);
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user2, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user2, $email);
         $property = $reflection->getProperty('active');
-        $property->setAccessible(true);
         $property->setValue($user2, true);
         $property = $reflection->getProperty('verified');
-        $property->setAccessible(true);
         $property->setValue($user2, true);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user2, ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
 
         // roles have changed (gained super admin)
@@ -435,31 +388,23 @@ class UserTest extends BaseTestCase
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user1, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user1, $email);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user1, ['ROLE_USER']);
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user2, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user2, $email);
         $property = $reflection->getProperty('active');
-        $property->setAccessible(true);
         $property->setValue($user2, true);
         $property = $reflection->getProperty('verified');
-        $property->setAccessible(true);
         $property->setValue($user2, true);
         $property = $reflection->getProperty('roles');
-        $property->setAccessible(true);
         $property->setValue($user2, ['ROLE_ADMIN']);
 
         // roles have changed (switched from user to admin)
@@ -471,25 +416,19 @@ class UserTest extends BaseTestCase
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user1, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user1, $email);
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
         $property = $reflection->getProperty('password');
-        $property->setAccessible(true);
         $property->setValue($user2, $password);
         $property = $reflection->getProperty('email');
-        $property->setAccessible(true);
         $property->setValue($user2, $email);
         $property = $reflection->getProperty('active');
-        $property->setAccessible(true);
         $property->setValue($user2, true);
         $property = $reflection->getProperty('verified');
-        $property->setAccessible(true);
         $property->setValue($user2, true);
 
         // equal
