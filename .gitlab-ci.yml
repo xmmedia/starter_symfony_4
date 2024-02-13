@@ -24,6 +24,9 @@ variables:
 before_script:
   # install composer
   - wget --no-verbose -O composer.phar https://getcomposer.org/composer-2.phar
+  # install node with nvm
+  - export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
+  - nvm install
 
 .versions-script: &versions-script
   - php -v
