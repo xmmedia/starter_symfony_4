@@ -15,9 +15,7 @@ export const parseQuery = function (query) {
 
 // set custom query stringifier
 export const stringifyQuery = function (query) {
-    const result = qs.stringify(query);
-
-    return result ? ('?' + result) : '';
+    return qs.stringify(query);
 };
 
 /*global gtag*/
