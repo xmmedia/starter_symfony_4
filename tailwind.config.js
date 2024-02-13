@@ -5,7 +5,9 @@ module.exports = {
     mode: 'jit',
     content: [
         './templates/**/*.html.twig',
-        './public/js/src/**/*.{vue,js}',
+        // very specific because a broad include of the js/src dir results in detecting classes in the tinymce code
+        './public/js/src/*.{vue,js}',
+        './public/js/src/{admin,common,public,user}/**/*.{vue,js}',
     ],
     safelist: [
         // vue transition classes: https://vuejs.org/v2/guide/transitions.html#Transition-Classes
