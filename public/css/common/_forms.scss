@@ -99,8 +99,8 @@ select {
 
 .field-errors {
     @apply mb-1 pl-0 list-none;
-    li {
-        @apply mb-1 p-2 bg-gray-200 border-l-10 border-red-700;
+    > li {
+        @apply mb-1 px-2 py-1.5 bg-gray-200 border-l-10 border-red-700;
     }
 }
 
@@ -137,16 +137,16 @@ select {
     @apply text-sm ml-4;
 }
 
-.button_bar {
+.form-button_bar {
     @apply fixed left-0 bottom-0 hidden sm:flex justify-center items-center w-full
-    p-3 lg:pl-[16.75rem] bg-white border-gray-300 border-t;
+        p-3 bg-white border-gray-300 border-t;
 }
 // vue fade transition
-.button_bar-enter-active,
-.button_bar-leave-active {
+.form-button_bar-enter-active,
+.form-button_bar-leave-active {
     @apply transition-opacity duration-500 ease-in-out;
 }
-.button_bar-enter-from,
-.button_bar-leave-to {
+.form-button_bar-enter-from,
+.form-button_bar-leave-to {
     @apply opacity-0;
 }

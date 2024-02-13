@@ -1,11 +1,13 @@
 @tailwind base;
 @tailwind components;
 
+@import '../../node_modules/vue-multiselect/dist/vue-multiselect.css';
+
 @import "common/common";
 
 // global styles on the most common elements
 html {
-    @apply font-sans leading-normal text-gray-800;
+    @apply font-user leading-normal text-gray-800;
 }
 
 // common styles
@@ -14,15 +16,16 @@ html {
     "common/content",
     "common/headings",
     "common/forms",
+    "common/radios",
     "common/modal",
-    "common/embed";
+    "common/embed",
+    "common/loading";
 
 // public only styles
-@import "public/buttons",
-
-    "public/headings",
-    "public/header",
-    "public/footer";
+@import "user/buttons",
+    "user/headings",
+    "user/header",
+    "user/footer";
 
 // page specific
 //@import ;

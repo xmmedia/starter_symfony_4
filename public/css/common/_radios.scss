@@ -2,7 +2,7 @@
 
 // adapted from: https://scottaohara.github.io/a11y_styled_form_controls/src/radio-button--pill/
 .radio-pill {
-    @apply inline-block relative mr-3;
+    @apply inline-block relative;
 
     input {
         @apply absolute w-full h-full top-0 left-0 border-2 appearance-none;
@@ -12,10 +12,9 @@
     }
 
     label {
-        @apply block py-1 px-5 text-blue-800 rounded-full border-2 border-transparent cursor-pointer;
+        @apply block py-1 px-5 text-blue-800 rounded-full border-2 border-transparent cursor-pointer text-sm;
         &:after {
-            @apply absolute inset-0 border-2 border-gray-400 rounded-full cursor-pointer;
-            content: "";
+            @apply absolute inset-0 border-2 border-gray-400 rounded-full cursor-pointer content-[''];
             transition:
                 bottom 200ms ease-in-out,
                 border-color 200ms ease-in-out,

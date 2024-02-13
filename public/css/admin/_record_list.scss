@@ -78,3 +78,8 @@
 .record_list-icon {
     @apply w-5 h-5 align-text-top fill-current;
 }
+
+// needs to be here to override previous
+.record_list-wrap-subgrid {
+    @apply grid grid-cols-subgrid col-span-full;
+}
