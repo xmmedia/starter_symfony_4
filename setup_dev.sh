@@ -67,6 +67,8 @@ if [ $(echo "$PHP_VERSION >= $PHP_MINIMUM_VERSION" | bc) -eq 0 ]; then
     php -v
 fi
 
+touch $SHARED/.env.local
+
 echo "Creating dirs in ${BASE}"
 cd $BASE || exit
 mkdir -p $RELEASE/public/media
