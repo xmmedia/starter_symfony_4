@@ -20,8 +20,8 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
 11. Add nitro site: `nitro add` (updating .env won't do anything).
 12. Create database with event streams & projections tables from `db_create.sql` using `nitro db import`. 
     - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`
-13. Create one or more event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth`.
-14. Run all projections once: `bin/console event-store:projection:run user_projection -o && bin/console event-store:projection:run user_token_projection -o`.
+13. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
+14. Run all projections once: `bin/console event-store:projection:run user_projection -o` (or if using lando: `lando console event-store:projection:run user_projection -o`).
 15. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`).
 16. Find and make changes near `@todo-symfony` comments throughout the site.
 17. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.

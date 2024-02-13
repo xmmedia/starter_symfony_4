@@ -41,7 +41,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
 
         yield [
             UserActivatedByAdmin::now($faker->userId()),
-            ['user_projection', 'user_token_projection'],
+            ['user_projection'],
         ];
     }
 
