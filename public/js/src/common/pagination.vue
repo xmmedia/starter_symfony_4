@@ -17,22 +17,22 @@
         <span v-else :class="spanClasses" class="inline-block">&lt;</span>
 
         <span v-if="showBeforeEllipsis"
-              class="hidden lg:inline-block w-4 p-1 text-gray-800">…</span>
+              class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
 
         <template v-for="page in pagesInRange">
             <RouterLink v-if="page !== current"
                         :key="'if-'+page"
                         :to="pageRoute(page - 1)"
                         :class="linkClasses"
-                        class="hidden lg:inline-block">{{ page }}</RouterLink>
+                        class="hidden sm:inline-block">{{ page }}</RouterLink>
             <span v-else
                   :key="'else-'+page"
                   :class="spanClasses"
-                  class="hidden lg:inline-block border border-gray-400">{{ page }}</span>
+                  class="hidden sm:inline-block text-gray-800 border border-gray-400">{{ page }}</span>
         </template>
 
         <span v-if="showAfterEllipsis"
-              class="hidden lg:inline-block w-4 p-1 text-gray-800">…</span>
+              class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
 
         <RouterLink v-if="next !== null"
                     :to="nextRoute"
@@ -93,7 +93,7 @@ const props = defineProps({
 });
 
 const linkClasses = 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded text-center';
-const spanClasses = 'w-12 p-1 text-gray-800 focus:no-underline rounded';
+const spanClasses = 'w-12 p-1 text-gray-400 focus:no-underline rounded';
 
 const current = computed(() => {
     if (props.offset === 0) {
