@@ -21,9 +21,9 @@ public/service-worker.js
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
-!/var/cache
-/var/cache/
-!var/cache/.gitkeep
+!/cache
+/cache/
+!cache/.gitkeep
 !/var/log
 /var/log/
 !var/log/.gitkeep
