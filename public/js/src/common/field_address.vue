@@ -222,7 +222,7 @@ function setupAutocomplete () {
     }
 }
 function startAutocompleteLoadTimer () {
-    setTimeout(setupAutocomplete, 2000);
+    setTimeout(setupAutocomplete, autocompleteTimeoutCount > 2 ? 2000 : 500);
 }
 
 function completeAddress () {
