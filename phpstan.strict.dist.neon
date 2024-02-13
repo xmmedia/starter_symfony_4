@@ -1,0 +1,17 @@
+# for a stricter analysis
+# see https://phpstan.org/user-guide/rule-levels
+includes:
+    - phpstan.dist.neon
+
+parameters:
+    level: 6
+    ignoreErrors:
+        -
+            message: '#Call to an undefined method Faker\\Generator::#'
+            path: test/
+        -
+            message: '#is not subtype of native type Faker\\Generator#'
+            paths:
+                - tests/BaseTestCase.php
+                - tests/ApplicationAvailabilityFunctionalTest.php
+#        - '#Static call to instance method Carbon\\CarbonInterval::[a-zA-Z]+\(\)#'
