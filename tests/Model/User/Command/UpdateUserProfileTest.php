@@ -18,12 +18,14 @@ class UpdateUserProfileTest extends BaseTestCase
         $email = $faker->emailVo();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
-        $command = UpdateUserProfile::with($userId, $email, $firstName, $lastName);
+        $command = UpdateUserProfile::with($userId, $email, $firstName, $lastName, $userData);
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
         $this->assertTrue($email->sameValueAs($command->email()));
         $this->assertTrue($firstName->sameValueAs($command->firstName()));
         $this->assertTrue($lastName->sameValueAs($command->lastName()));
+        $this->assertSameValueAs($userData, $command->userData());
     }
 }

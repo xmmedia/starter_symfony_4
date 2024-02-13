@@ -30,6 +30,7 @@ class User extends AggregateRoot implements Entity
         Name $firstName,
         Name $lastName,
         bool $sendInvite,
+        UserData $userData,
         ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): self {
         if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
@@ -52,6 +53,7 @@ class User extends AggregateRoot implements Entity
                 $firstName,
                 $lastName,
                 $sendInvite,
+                $userData,
             ),
         );
 
@@ -93,6 +95,7 @@ class User extends AggregateRoot implements Entity
         Role $role,
         Name $firstName,
         Name $lastName,
+        UserData $userData,
         ChecksUniqueUsersEmail $checksUniqueUsersEmail,
     ): void {
         if ($duplicateUserId = $checksUniqueUsersEmail($email)) {
@@ -108,6 +111,7 @@ class User extends AggregateRoot implements Entity
                 $role,
                 $firstName,
                 $lastName,
+                $userData,
             ),
         );
     }

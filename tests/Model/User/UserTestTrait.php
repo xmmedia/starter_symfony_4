@@ -58,6 +58,7 @@ trait UserTestTrait
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $user = User::addByAdmin(
             $userId,
@@ -68,6 +69,7 @@ trait UserTestTrait
             $firstName,
             $lastName,
             $sendInvite,
+            $userData,
             $this->userUniquenessCheckerNone,
         );
         $this->popRecordedEvent($user);

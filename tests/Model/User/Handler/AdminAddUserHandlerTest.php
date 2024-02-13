@@ -25,6 +25,7 @@ class AdminAddUserHandlerTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $command = AdminAddUser::with(
             $userId,
@@ -35,6 +36,7 @@ class AdminAddUserHandlerTest extends BaseTestCase
             $firstName,
             $lastName,
             false,
+            $userData,
         );
 
         $repo = \Mockery::mock(UserList::class);

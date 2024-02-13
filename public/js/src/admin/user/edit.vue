@@ -38,6 +38,8 @@
                          :saving="state.matches('ready.saving')"
                          :saved="state.matches('ready.saved')"
                          :cancel-to="{ name: 'admin-user' }">
+            <FieldInput v-model="user.phoneNumber" type="tel" :v="v$.user.phoneNumber">Phone number</FieldInput>
+
                 Update User
             </AdminButton>
 
@@ -139,6 +141,7 @@ const user = ref({
     role: 'ROLE_USER',
     firstName: null,
     lastName: null,
+    phoneNumber: null,
 });
 const verified = ref(true);
 const active = ref(true);
@@ -164,6 +167,10 @@ onResult(({ data: { User }}) => {
     active.value = User.active;
 
     sendEvent('LOADED');
+    if (User.userData) {
+        user.value.phoneNumber = formatPhone(User.userData.phoneNumber);
+    }
+
 });
 onError(() => {
     sendEvent('ERROR');
@@ -215,6 +222,9 @@ async function submit () {
             user: {
                 ...user.value,
                 userId: props.userId,
+                userData: {
+                    phoneNumber: user.value.phoneNumber,
+                },
             },
         });
 

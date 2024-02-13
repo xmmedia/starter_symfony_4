@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\User\Event;
 
 use App\Model\User\Name;
+use App\Model\User\UserData;
 use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 use Xm\SymfonyBundle\Model\Email;
@@ -14,22 +15,26 @@ class UserUpdatedProfile extends AggregateChanged
     private Email $email;
     private Name $firstName;
     private Name $lastName;
+    private UserData $userData;
 
     public static function now(
         UserId $userId,
         Email $email,
         Name $firstName,
         Name $lastName,
+        UserData $userData,
     ): self {
         $event = self::occur($userId->toString(), [
             'email'     => $email->toString(),
             'firstName' => $firstName->toString(),
             'lastName'  => $lastName->toString(),
+            'userData'  => $userData->toArray(),
         ]);
 
         $event->email = $email;
         $event->firstName = $firstName;
         $event->lastName = $lastName;
+        $event->userData = $userData;
 
         return $event;
     }
@@ -64,5 +69,14 @@ class UserUpdatedProfile extends AggregateChanged
         }
 
         return $this->lastName;
+    }
+
+    public function userData(): UserData
+    {
+        if (!isset($this->userData)) {
+            $this->userData = UserData::fromArray($this->payload['userData']);
+        }
+
+        return $this->userData;
     }
 }

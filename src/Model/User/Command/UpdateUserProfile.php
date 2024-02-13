@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\User\Command;
 
 use App\Model\User\Name;
+use App\Model\User\UserData;
 use App\Model\User\UserId;
 use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
@@ -17,12 +18,14 @@ final class UpdateUserProfile extends Command
         Email $email,
         Name $firstName,
         Name $lastName,
+        UserData $userData,
     ): self {
         return new self([
             'userId'    => $userId->toString(),
             'email'     => $email->toString(),
             'firstName' => $firstName->toString(),
             'lastName'  => $lastName->toString(),
+            'userData'  => $userData->toArray(),
         ]);
     }
 
@@ -46,6 +49,11 @@ final class UpdateUserProfile extends Command
         return Name::fromString($this->payload['lastName']);
     }
 
+    public function userData(): UserData
+    {
+        return UserData::fromArray($this->payload['userData']);
+    }
+
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'userId');
@@ -59,6 +67,9 @@ final class UpdateUserProfile extends Command
 
         Assert::keyExists($payload, 'lastName');
         Assert::string($payload['lastName']);
+
+        Assert::keyExists($payload, 'userData');
+        Assert::isArray($payload['userData']);
 
         parent::setPayload($payload);
     }

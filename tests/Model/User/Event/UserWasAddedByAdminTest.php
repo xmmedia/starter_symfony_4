@@ -26,6 +26,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
+        $userData = $faker->userData();
 
         $event = UserWasAddedByAdmin::now(
             $userId,
@@ -36,6 +37,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
             $firstName,
             $lastName,
             $sendInvite,
+            $userData,
         );
 
         $this->assertEquals($userId, $event->userId());
@@ -46,6 +48,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $this->assertEquals($firstName, $event->firstName());
         $this->assertEquals($lastName, $event->lastName());
         $this->assertEquals($sendInvite, $event->sendInvite());
+        $this->assertSameValueAs($userData, $event->userData());
     }
 
     public function testFromArray(): void
@@ -60,6 +63,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
+        $userData = $faker->userData();
 
         /** @var UserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(
@@ -73,6 +77,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
                 'sendInvite'     => $sendInvite,
+                'userData'       => $userData->toArray(),
             ],
         );
 
@@ -86,5 +91,6 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $this->assertEquals($firstName, $event->firstName());
         $this->assertEquals($lastName, $event->lastName());
         $this->assertEquals($sendInvite, $event->sendInvite());
+        $this->assertSameValueAs($userData, $event->userData());
     }
 }

@@ -6,6 +6,7 @@ namespace App\Model\User\Event;
 
 use App\Model\User\Name;
 use App\Model\User\Role;
+use App\Model\User\UserData;
 use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 use Xm\SymfonyBundle\Model\Email;
@@ -19,6 +20,7 @@ class UserWasAddedByAdmin extends AggregateChanged
     private Name $firstName;
     private Name $lastName;
     private bool $sendInvite;
+    private UserData $userData;
 
     public static function now(
         UserId $userId,
@@ -29,6 +31,7 @@ class UserWasAddedByAdmin extends AggregateChanged
         Name $firstName,
         Name $lastName,
         bool $sendInvite,
+        UserData $userData,
     ): self {
         $event = self::occur($userId->toString(), [
             'email'          => $email->toString(),
@@ -38,6 +41,7 @@ class UserWasAddedByAdmin extends AggregateChanged
             'firstName'      => $firstName->toString(),
             'lastName'       => $lastName->toString(),
             'sendInvite'     => $sendInvite,
+            'userData'       => $userData->toArray(),
         ]);
 
         $event->email = $email;
@@ -47,6 +51,7 @@ class UserWasAddedByAdmin extends AggregateChanged
         $event->firstName = $firstName;
         $event->lastName = $lastName;
         $event->sendInvite = $sendInvite;
+        $event->userData = $userData;
 
         return $event;
     }
@@ -121,5 +126,14 @@ class UserWasAddedByAdmin extends AggregateChanged
         }
 
         return $this->sendInvite;
+    }
+
+    public function userData(): UserData
+    {
+        if (!isset($this->userData)) {
+            $this->userData = UserData::fromArray($this->payload['userData']);
+        }
+
+        return $this->userData;
     }
 }

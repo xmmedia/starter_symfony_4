@@ -30,6 +30,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
             'role'        => Role::byValue('ROLE_USER'),
+            'userData'    => $faker->userData()->toArray(),
         ];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
@@ -69,6 +70,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
             'role'        => Role::byValue('ROLE_USER'),
+            'userData'    => $faker->userData()->toArray(),
         ];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
@@ -118,6 +120,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
             'role'        => Role::byValue('ROLE_USER'),
+            'userData'    => $faker->userData()->toArray(),
         ];
 
         $args = new Argument([
@@ -146,6 +149,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
             'role'        => Role::byValue('ROLE_USER')->getValue(),
+            'userData'    => $faker->userData()->toArray(),
         ];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);

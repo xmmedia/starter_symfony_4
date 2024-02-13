@@ -29,6 +29,7 @@ final readonly class UpdateUserProfileHandler
             $command->email(),
             $command->firstName(),
             $command->lastName(),
+            $command->userData(),
             $this->checksUniqueUsersEmail,
         );
 

@@ -23,14 +23,16 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
-        $event = UserWasUpdatedByAdmin::now($userId, $email, $role, $firstName, $lastName);
+        $event = UserWasUpdatedByAdmin::now($userId, $email, $role, $firstName, $lastName, $userData);
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
         $this->assertEquals($role, $event->role());
         $this->assertEquals($firstName, $event->firstName());
         $this->assertEquals($lastName, $event->lastName());
+        $this->assertSameValueAs($userData, $event->userData());
     }
 
     public function testFromArray(): void
@@ -42,6 +44,7 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         /** @var UserWasUpdatedByAdmin $event */
         $event = $this->createEventFromArray(
@@ -52,6 +55,7 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
                 'role'      => $role->getValue(),
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
+                'userData'  => $userData->toArray(),
             ],
         );
 
@@ -62,5 +66,6 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
         $this->assertEquals($role, $event->role());
         $this->assertEquals($firstName, $event->firstName());
         $this->assertEquals($lastName, $event->lastName());
+        $this->assertSameValueAs($userData, $event->userData());
     }
 }

@@ -26,6 +26,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $command = AdminUpdateUser::with(
             $userId,
@@ -33,6 +34,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
             $role,
             $firstName,
             $lastName,
+            $userData,
         );
 
         $user = \Mockery::mock(User::class);
@@ -63,6 +65,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $command = AdminUpdateUser::with(
             $userId,
@@ -70,6 +73,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
             $role,
             $firstName,
             $lastName,
+            $userData,
         );
 
         $repo = \Mockery::mock(UserList::class);

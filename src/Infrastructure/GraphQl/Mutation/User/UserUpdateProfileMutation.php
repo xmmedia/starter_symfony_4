@@ -6,6 +6,7 @@ namespace App\Infrastructure\GraphQl\Mutation\User;
 
 use App\Model\User\Command\UpdateUserProfile;
 use App\Model\User\Name;
+use App\Model\User\UserData;
 use App\Security\Security;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
@@ -38,6 +39,7 @@ final readonly class UserUpdateProfileMutation implements MutationInterface
             Email::fromString($data['email']),
             Name::fromString($data['firstName']),
             Name::fromString($data['lastName']),
+            UserData::fromArray($data['userData']),
         ];
     }
 }

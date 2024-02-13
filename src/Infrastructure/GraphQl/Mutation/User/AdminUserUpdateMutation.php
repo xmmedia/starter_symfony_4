@@ -8,6 +8,7 @@ use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
 use App\Model\User\Role;
+use App\Model\User\UserData;
 use App\Model\User\UserId;
 use App\Security\PasswordHasher;
 use App\Util\Assert;
@@ -60,6 +61,7 @@ final readonly class AdminUserUpdateMutation implements MutationInterface
                 $role,
                 $firstName,
                 $lastName,
+                UserData::fromArray($args['user']['userData']),
             ),
         );
 

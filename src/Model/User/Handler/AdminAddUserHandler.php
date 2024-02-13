@@ -28,6 +28,7 @@ final readonly class AdminAddUserHandler
             $command->firstName(),
             $command->lastName(),
             $command->sendInvite(),
+            $command->userData(),
             $this->checksUniqueUsersEmail,
         );
 

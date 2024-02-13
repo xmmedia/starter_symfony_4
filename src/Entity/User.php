@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Model\User\Name;
 use App\Model\User\Role;
+use App\Model\User\UserData;
 use App\Model\User\UserId;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -53,6 +54,9 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $lastName = null;
+
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $userData = null;
 
     /**
      * @var UserToken[]|Collection|ArrayCollection

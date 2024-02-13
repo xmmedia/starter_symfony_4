@@ -98,6 +98,14 @@ UserUpdateProfileInput:
             email:     String!
             firstName: String!
             lastName:  String!
+            userData:  UserDataInput!
+
+UserDataInput:
+    type: input-object
+    config:
+        description: 'User data input.'
+        fields:
+            phoneNumber: String
 
 UserPasswordInput:
     type: input-object

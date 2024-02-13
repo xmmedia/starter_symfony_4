@@ -21,6 +21,7 @@ class AdminAddUserTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $command = AdminAddUser::with(
             $userId,
@@ -31,6 +32,7 @@ class AdminAddUserTest extends BaseTestCase
             $firstName,
             $lastName,
             false,
+            $userData,
         );
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
@@ -41,5 +43,6 @@ class AdminAddUserTest extends BaseTestCase
         $this->assertTrue($firstName->sameValueAs($command->firstName()));
         $this->assertTrue($lastName->sameValueAs($command->lastName()));
         $this->assertFalse($command->sendInvite());
+        $this->assertSameValueAs($userData, $command->userData());
     }
 }

@@ -30,6 +30,7 @@ final readonly class AdminUpdateUserHandler
             $command->role(),
             $command->firstName(),
             $command->lastName(),
+            $command->userData(),
             $this->checksUniqueUsersEmail,
         );
 

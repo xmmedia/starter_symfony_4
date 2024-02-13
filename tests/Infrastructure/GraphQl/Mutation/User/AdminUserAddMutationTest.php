@@ -33,6 +33,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             'role'        => Role::byValue('ROLE_USER'),
             'active'      => true,
             'sendInvite'  => true,
+            'userData'    => $faker->userData()->toArray(),
         ];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
@@ -85,6 +86,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             'role'        => Role::byValue('ROLE_USER'),
             'active'      => true,
             'sendInvite'  => true,
+            'userData'    => $faker->userData()->toArray(),
         ];
 
         $args = new Argument([
@@ -115,6 +117,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             'role'        => Role::byValue('ROLE_USER'),
             'active'      => true,
             'sendInvite'  => true,
+            'userData'    => $faker->userData()->toArray(),
         ];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
@@ -164,6 +167,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             'role'        => Role::byValue('ROLE_USER')->getValue(),
             'active'      => true,
             'sendInvite'  => true,
+            'userData'    => $faker->userData()->toArray(),
         ];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);

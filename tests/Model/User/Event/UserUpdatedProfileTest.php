@@ -21,13 +21,15 @@ class UserUpdatedProfileTest extends BaseTestCase
         $email = $faker->emailVo();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
-        $event = UserUpdatedProfile::now($userId, $email, $firstName, $lastName);
+        $event = UserUpdatedProfile::now($userId, $email, $firstName, $lastName, $userData);
 
         $this->assertEquals($userId, $event->userId());
         $this->assertEquals($email, $event->email());
         $this->assertEquals($firstName, $event->firstName());
         $this->assertEquals($lastName, $event->lastName());
+        $this->assertSameValueAs($userData, $event->userData());
     }
 
     public function testFromArray(): void
@@ -38,6 +40,7 @@ class UserUpdatedProfileTest extends BaseTestCase
         $email = $faker->emailVo();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         /** @var UserUpdatedProfile $event */
         $event = $this->createEventFromArray(
@@ -47,6 +50,7 @@ class UserUpdatedProfileTest extends BaseTestCase
                 'email'     => $email->toString(),
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
+                'userData'  => $userData->toArray(),
             ],
         );
 
@@ -56,5 +60,6 @@ class UserUpdatedProfileTest extends BaseTestCase
         $this->assertEquals($email, $event->email());
         $this->assertEquals($firstName, $event->firstName());
         $this->assertEquals($lastName, $event->lastName());
+        $this->assertSameValueAs($userData, $event->userData());
     }
 }

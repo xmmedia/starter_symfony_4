@@ -25,6 +25,7 @@ class UserAddTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $user = User::addByAdmin(
             $userId,
@@ -35,6 +36,7 @@ class UserAddTest extends BaseTestCase
             $firstName,
             $lastName,
             false,
+            $userData,
             $this->userUniquenessCheckerNone,
         );
 
@@ -52,6 +54,7 @@ class UserAddTest extends BaseTestCase
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
                 'sendInvite'     => false,
+                'userData'       => $userData->toArray(),
             ],
             $events,
         );
@@ -73,6 +76,7 @@ class UserAddTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $user = User::addByAdmin(
             $userId,
@@ -83,6 +87,7 @@ class UserAddTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
+            $userData,
             $this->userUniquenessCheckerNone,
         );
 
@@ -100,6 +105,7 @@ class UserAddTest extends BaseTestCase
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
                 'sendInvite'     => true,
+                'userData'       => $userData->toArray(),
             ],
             $events,
         );
@@ -121,6 +127,7 @@ class UserAddTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $user = User::addByAdmin(
             $userId,
@@ -131,6 +138,7 @@ class UserAddTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
+            $userData,
             $this->userUniquenessCheckerNone,
         );
 
@@ -148,6 +156,7 @@ class UserAddTest extends BaseTestCase
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
                 'sendInvite'     => false,
+                'userData'       => $userData->toArray(),
             ],
             $events,
         );
@@ -169,6 +178,7 @@ class UserAddTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $this->expectException(Exception\DuplicateEmail::class);
 
@@ -181,6 +191,7 @@ class UserAddTest extends BaseTestCase
             $firstName,
             $lastName,
             true,
+            $userData,
             $this->userUniquenessCheckerDuplicate,
         );
     }

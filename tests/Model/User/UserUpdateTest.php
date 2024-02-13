@@ -24,12 +24,14 @@ class UserUpdateTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $user->updateByAdmin(
             $email,
             $role,
             $firstName,
             $lastName,
+            $userData,
             $this->userUniquenessCheckerNone,
         );
 
@@ -42,6 +44,7 @@ class UserUpdateTest extends BaseTestCase
                 'role'      => $role->getValue(),
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
+                'userData'  => $userData->toArray(),
             ],
             $events,
         );
@@ -59,6 +62,7 @@ class UserUpdateTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $this->expectException(Exception\DuplicateEmail::class);
 
@@ -67,6 +71,7 @@ class UserUpdateTest extends BaseTestCase
             $role,
             $firstName,
             $lastName,
+            $userData,
             $this->userUniquenessCheckerDuplicate,
         );
     }
@@ -80,11 +85,13 @@ class UserUpdateTest extends BaseTestCase
         $email = $faker->emailVo();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $user->update(
             $email,
             $firstName,
             $lastName,
+            $userData,
             $this->userUniquenessCheckerNone,
         );
 
@@ -96,6 +103,7 @@ class UserUpdateTest extends BaseTestCase
                 'email'     => $email->toString(),
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
+                'userData'  => $userData->toArray(),
             ],
             $events,
         );
@@ -112,6 +120,7 @@ class UserUpdateTest extends BaseTestCase
         $email = $faker->emailVo();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $this->expectException(Exception\InvalidUserActiveStatus::class);
 
@@ -119,6 +128,7 @@ class UserUpdateTest extends BaseTestCase
             $email,
             $firstName,
             $lastName,
+            $userData,
             $this->userUniquenessCheckerNone,
         );
     }
@@ -132,6 +142,7 @@ class UserUpdateTest extends BaseTestCase
         $email = $faker->emailVo();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $this->expectException(Exception\DuplicateEmail::class);
 
@@ -139,6 +150,7 @@ class UserUpdateTest extends BaseTestCase
             $email,
             $firstName,
             $lastName,
+            $userData,
             $this->userUniquenessCheckerDuplicate,
         );
     }

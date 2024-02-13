@@ -6,6 +6,7 @@ namespace App\Model\User\Command;
 
 use App\Model\User\Name;
 use App\Model\User\Role;
+use App\Model\User\UserData;
 use App\Model\User\UserId;
 use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
@@ -22,6 +23,7 @@ final class AdminAddUser extends Command
         Name $firstName,
         Name $lastName,
         bool $sendInvite,
+        UserData $userData,
     ): self {
         return new self([
             'userId'         => $userId->toString(),
@@ -32,6 +34,7 @@ final class AdminAddUser extends Command
             'firstName'      => $firstName->toString(),
             'lastName'       => $lastName->toString(),
             'sendInvite'     => $sendInvite,
+            'userData'       => $userData->toArray(),
         ]);
     }
 
@@ -75,6 +78,11 @@ final class AdminAddUser extends Command
         return $this->payload['sendInvite'];
     }
 
+    public function userData(): UserData
+    {
+        return UserData::fromArray($this->payload['userData']);
+    }
+
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'userId');
@@ -101,6 +109,9 @@ final class AdminAddUser extends Command
 
         Assert::keyExists($payload, 'sendInvite');
         Assert::boolean($payload['sendInvite']);
+
+        Assert::keyExists($payload, 'userData');
+        Assert::isArray($payload['userData']);
 
         parent::setPayload($payload);
     }

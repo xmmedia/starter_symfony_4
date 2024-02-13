@@ -23,6 +23,7 @@ class UserUpdateProfileMutationTest extends BaseTestCase
             'email'     => $faker->email(),
             'firstName' => $faker->name(),
             'lastName'  => $faker->name(),
+            'userData'  => $faker->userData()->toArray(),
         ];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);

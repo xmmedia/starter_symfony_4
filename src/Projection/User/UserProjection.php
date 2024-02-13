@@ -17,9 +17,10 @@ class UserProjection implements ReadModelProjection
     public function project(ReadModelProjector $projector): ReadModelProjector
     {
         $types = [
-            'verified' => 'boolean',
-            'active'   => 'boolean',
-            'roles'    => 'json',
+            'verified'  => 'boolean',
+            'active'    => 'boolean',
+            'roles'     => 'json',
+            'user_data' => 'json',
         ];
 
         $projector->fromStream('user')
@@ -43,6 +44,7 @@ class UserProjection implements ReadModelProjection
                         'roles'      => [$event->role()->getValue()],
                         'first_name' => $event->firstName()->toString(),
                         'last_name'  => $event->lastName()->toString(),
+                        'user_data'  => $event->userData()->toArray(),
                     ], $types);
                 },
 
@@ -155,7 +157,7 @@ class UserProjection implements ReadModelProjection
                 Event\UserUpdatedProfile::class         => function (
                     array $state,
                     Event\UserUpdatedProfile $event,
-                ): void {
+                ) use ($types): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -166,7 +168,9 @@ class UserProjection implements ReadModelProjection
                             'email'      => mb_strtolower($event->email()->toString()),
                             'first_name' => $event->firstName()->toString(),
                             'last_name'  => $event->lastName()->toString(),
+                            'user_data'  => $event->userData()->toArray(),
                         ],
+                        $types,
                     );
                 },
 

@@ -20,6 +20,7 @@ class AdminUpdateUserTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $command = AdminUpdateUser::with(
             $userId,
@@ -27,6 +28,7 @@ class AdminUpdateUserTest extends BaseTestCase
             $role,
             $firstName,
             $lastName,
+            $userData,
         );
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
@@ -34,5 +36,6 @@ class AdminUpdateUserTest extends BaseTestCase
         $this->assertEquals($role, $command->role());
         $this->assertTrue($firstName->sameValueAs($command->firstName()));
         $this->assertTrue($lastName->sameValueAs($command->lastName()));
+        $this->assertSameValueAs($userData, $command->userData());
     }
 }

@@ -27,3 +27,11 @@ User:
             lastLogin:
                 type:   DateTime
                 access: '@=hasRole("ROLE_ADMIN")'
+            userData:  UserData
+
+UserData:
+    type: object
+    config:
+        description: 'Additional data regarding user.'
+        fields:
+            phoneNumber: PhoneNumber

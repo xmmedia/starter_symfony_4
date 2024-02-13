@@ -164,6 +164,9 @@ async function submit () {
                 ...user.value,
                 userId: uuid4(),
                 sendInvite: user.value.setPassword || !user.value.active ? false : user.value.sendInvite,
+                userData: {
+                    phoneNumber: user.value.phoneNumber,
+                },
             },
         });
 

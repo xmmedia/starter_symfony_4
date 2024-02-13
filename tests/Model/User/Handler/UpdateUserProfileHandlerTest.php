@@ -24,12 +24,14 @@ class UpdateUserProfileHandlerTest extends BaseTestCase
         $email = $faker->emailVo();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $command = UpdateUserProfile::with(
             $userId,
             $email,
             $firstName,
             $lastName,
+            $userData,
         );
 
         $user = \Mockery::mock(User::class);
@@ -59,12 +61,14 @@ class UpdateUserProfileHandlerTest extends BaseTestCase
         $email = $faker->emailVo();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
+        $userData = $faker->userData();
 
         $command = UpdateUserProfile::with(
             $userId,
             $email,
             $firstName,
             $lastName,
+            $userData,
         );
 
         $repo = \Mockery::mock(UserList::class);
