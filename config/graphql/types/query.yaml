@@ -9,9 +9,9 @@ Query:
                 access:      '@=isAuthenticated()'
                 resolve:     '@=getUser()'
 
-#            EntrypointIntegrity:
-#                type:        String
-#                description: 'Retrieve the current integrity hash for a script (JavaScript) file.'
-#                resolve:     '@=query("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Query\\EntrypointIntegrityHashQuery", args["entrypoint"])'
-#                args:
-#                    entrypoint: String!
+            EntrypointIntegrity:
+                type:        String
+                description: 'Retrieve the current integrity hash for a script (JavaScript) file.'
+                resolve:     '@=query("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Query\\EntrypointIntegrityHashQuery", args["entrypoint"])'
+                args:
+                    entrypoint: String!
