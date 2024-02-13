@@ -8,53 +8,57 @@
             <FieldError v-if="notFound" class="mb-4">
                 An account with that email cannot be found.
             </FieldError>
+            <FieldError v-if="tooMany" class="mb-4">
+                You have already requested a reset password email.
+                Please check your email or try again soon.
+            </FieldError>
 
             <FieldEmail v-model="email"
                         :v="v$.email"
                         autofocus
                         autocomplete="username email"
-                        @update:modelValue="changed">
+                        @update:model-value="changed">
                 Please enter your email address to search for your account:
             </FieldEmail>
 
-            <AdminButton :saving="state.matches('submitting')">
+            <FormButton :saving="state.matches('submitting')">
                 Find Account
                 <template #cancel>
-                    <RouterLink :to="{ name: 'login' }" class="form-action">Return to Login</RouterLink>
+                    <RouterLink v-if="!rootStore.loggedIn"
+                                :to="{ name: 'login' }"
+                                class="form-action">Return to Sign In</RouterLink>
                 </template>
                 <template #saving>Requesting…</template>
-            </AdminButton>
+            </FormButton>
         </form>
 
         <div v-if="state.matches('requested')" class="alert alert-success max-w-lg" role="alert">
             A password reset link has been sent by email.
             Please follow the instructions within the email to reset your password.
-            <RouterLink :to="{ name: 'login' }" class="w-64 pl-4 text-sm">Return to Login</RouterLink>
+            <RouterLink v-if="!rootStore.loggedIn"
+                        :to="{ name: 'login' }"
+                        class="w-64 pl-4 text-sm">Return to Sign In</RouterLink>
         </div>
     </div>
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { useRootStore } from '@/admin/stores/root';
+import { useRootStore } from '@/user/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
-import { useRouter } from 'vue-router';
 import { useMutation } from '@vue/apollo-composable';
 import { email as emailValidator, required } from '@vuelidate/validators';
 import { hasGraphQlError, logError } from '@/common/lib';
 import FieldEmail from '@/common/field_email';
-import { UserRecoverInitiate } from '../queries/user.mutation.graphql';
+import { UserRecoverInitiate } from '../../user/queries/user.mutation.graphql';
 
 const rootStore = useRootStore();
-const router = useRouter();
 
 const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
-    strict: true,
-    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -72,10 +76,10 @@ const stateMachine = createMachine({
         },
     },
 });
-
-const { state, send: sendEvent } = useMachine(stateMachine);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const notFound = ref(false);
+const tooMany = ref(false);
 const email = ref(null);
 
 const v$ = useVuelidate({
@@ -89,7 +93,7 @@ const showForm = computed(() => !state.value.done);
 
 onMounted(() => {
     if (rootStore.loggedIn) {
-        router.replace({ name: 'login' });
+        email.value = rootStore.user.email;
     }
 });
 
@@ -98,11 +102,12 @@ async function submit () {
         return;
     }
 
-    sendEvent('SUBMIT');
+    sendEvent({ type: 'SUBMIT' });
     notFound.value = false;
+    tooMany.value = false;
 
     if (!await v$.value.$validate()) {
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
 
         return;
@@ -117,12 +122,14 @@ async function submit () {
         email.value = null;
         v$.value.$reset();
 
-        sendEvent('SUBMITTED');
+        sendEvent({ type: 'SUBMITTED' });
 
     } catch (e) {
         if (hasGraphQlError(e)) {
-            if (e.graphQLErrors[0].code === 404) {
+            if (404 === e.graphQLErrors[0].code) {
                 notFound.value = true;
+            } else if (429 === e.graphQLErrors[0].code) {
+                tooMany.value = true;
             } else {
                 logError(e);
                 showError();
@@ -132,7 +139,7 @@ async function submit () {
             showError();
         }
 
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
 

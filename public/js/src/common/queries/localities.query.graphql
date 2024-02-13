@@ -1,0 +1,31 @@
+query LocalitiesQuery {
+    Countries {
+        name
+        abbreviation
+    }
+    Provinces {
+        country {
+            abbreviation
+        }
+        name
+        abbreviation
+    }
+}
+
+query CountriesQuery {
+    Countries {
+        name
+        abbreviation
+    }
+}
+
+query ProvincesQuery {
+    Provinces {
+        country {
+            name
+            abbreviation
+          }
+          name
+          abbreviation
+    }
+}

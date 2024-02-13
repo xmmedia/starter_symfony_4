@@ -22,8 +22,8 @@
         </span>
     </div>
 
-    <Transition name="button_bar">
-        <div v-if="edited && showSaveBar" class="button_bar">
+    <Transition name="form-button_bar">
+        <div v-if="edited && showButtonBar" class="form-button_bar">
             <button v-if="showButton"
                     type="submit"
                     class="button"
@@ -50,6 +50,7 @@
 
 <script setup>
 import { computed, onMounted, onBeforeUnmount, ref } from 'vue';
+import { onBeforeRouteLeave } from 'vue-router';
 
 const props = defineProps({
     status: {
@@ -83,11 +84,11 @@ const props = defineProps({
 });
 
 const wrapper = ref();
-const showSaveBar = ref(true);
+const showButtonBar = ref(true);
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(({ isIntersecting }) => {
-        showSaveBar.value = !isIntersecting;
+        showButtonBar.value = !isIntersecting;
     });
 }, { rootMargin: "0px 0px 10px 0px" });
 onMounted(() => {
@@ -99,4 +100,24 @@ onBeforeUnmount(() => {
 
 const isSaving = computed(() => props.saving || 'saving' === props.status);
 const isSaved = computed(() => props.saved || 'saved' === props.status);
+
+onBeforeRouteLeave((to, from, next) => {
+    const msg = 'Are you sure you want to leave? You have unsaved changes.';
+    if (props.edited && !isSaved.value && !confirm(msg)) {
+        return next(false);
+    }
+
+    next();
+});
+
+const unload = (e) => {
+    if (props.edited && !isSaved.value) {
+        e.preventDefault();
+    }
+};
+
+window.addEventListener('beforeunload', unload);
+onBeforeUnmount(() => {
+    window.removeEventListener('beforeunload', unload);
+});
 </script>

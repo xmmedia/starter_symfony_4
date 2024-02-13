@@ -1,0 +1,41 @@
+mutation UserLoginLink($email: String!) {
+    UserLoginLink(email: $email) {
+        success
+    }
+}
+
+mutation UserRecoverInitiate($email: String!) {
+    UserRecoverInitiate(email: $email) {
+        success
+    }
+}
+
+mutation UserRecoverReset($newPassword: String!) {
+    UserRecoverReset(newPassword: $newPassword) {
+        success
+    }
+}
+
+mutation UserActivate($password: String!) {
+    UserActivate(password: $password) {
+        success
+    }
+}
+
+mutation UserVerify {
+    UserVerify {
+        success
+    }
+}
+
+mutation UserUpdateProfile($user: UserUpdateProfileInput!) {
+    UserUpdateProfile(user: $user) {
+        success
+    }
+}
+
+mutation ChangePassword($user: UserPasswordInput!) {
+    ChangePassword(user: $user) {
+        success
+    }
+}

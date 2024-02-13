@@ -6,8 +6,8 @@
             <label :for="ids.country">Country</label>
             <FieldError :v="v.country" />
             <select v-if="localities"
-                    v-model="value.country"
                     :id="ids.country"
+                    v-model="value.country"
                     autocomplete="country"
                     @change="countryChanged($event.target.value)">
                 <option :value="null">– Select one –</option>
@@ -31,10 +31,10 @@
                    @keypress.enter.prevent>
         </div>
 
-        <FieldInput v-model="value.line2"
+        <FieldInput :model-value="value.line2"
                     :v="v.line2"
                     autocomplete="address-line2"
-                    @update:modelValue="input('line2', $event)">
+                    @update:model-value="input('line2', $event)">
             Line 2
         </FieldInput>
 
@@ -53,11 +53,11 @@
                        @keypress.enter.prevent>
             </div>
 
-            <FieldInput v-model="value.postalCode"
+            <FieldInput :model-value="value.postalCode"
                         :v="v.postalCode"
                         class="flex-1"
                         autocomplete="postal-code"
-                        @input="input('postalCode', $event)">
+                        @update:model-value="inputPostalCode($event)">
                 {{ labels.postalCode }}
             </FieldInput>
         </div>
@@ -66,8 +66,8 @@
             <label :for="ids.province">{{ labels.province }}</label>
             <FieldError :v="v.province" />
             <select v-if="localities"
-                    v-model="value.province"
                     :id="ids.province"
+                    v-model="value.province"
                     autocomplete="address-level1"
                     @change="input('province', $event.target.value)">
                 <option :value="null">– Select one –</option>
@@ -81,12 +81,13 @@
 
 <script setup>
 /*global google*/
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import cuid from 'cuid';
 import filter from 'lodash/filter';
 import FieldInput from './field_input';
-import { LocalitiesQuery } from '@/admin/queries/localities.query.graphql';
+import { LocalitiesQuery } from '@/common/queries/localities.query.graphql';
 import { useQuery } from '@vue/apollo-composable';
+import { Loader as MapsLoader } from '@googlemaps/js-api-loader';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -110,28 +111,6 @@ const value = computed({
         return props.modelValue;
     },
 });
-
-/**
- * @type {Autocomplete}
- * @link https://developers.google.com/maps/documentation/javascript/reference#Autocomplete
- */
-const autocomplete = {
-    address: null,
-    city: null,
-};
-const autocompleteOptions = {
-    address: {
-        types: ['geocode'],
-        fields: ['address_component'],
-        componentRestrictions: { country: props.modelValue.country },
-    },
-    city: {
-        types: ['(cities)'],
-        fields: ['address_component'],
-        componentRestrictions: { country: props.modelValue.country },
-    },
-};
-let autocompleteTimeoutCount = 0;
 
 const ids = {
     line1: cuid(),
@@ -181,15 +160,22 @@ const localities = computed(() => {
     return localitiesResult.value;
 });
 
-onMounted(() => {
-    startAutocompleteLoadTimer();
-});
-
 function input (field, value) {
     emit('update:modelValue', {
         ...props.modelValue,
         [field]: value,
     });
+}
+
+function inputPostalCode (value) {
+    if (typeof value === 'string') {
+        value = value.toUpperCase();
+        if (value.length >= 7) {
+            value = value.trim();
+        }
+    }
+
+    input('postalCode', value);
 }
 
 function countryChanged (country) {
@@ -200,32 +186,44 @@ function countryChanged (country) {
     });
 }
 
-function setupAutocomplete () {
-    ++autocompleteTimeoutCount;
+const autocompletes = {
+    /**
+     * @type {Autocomplete}
+     * @link https://developers.google.com/maps/documentation/javascript/reference#Autocomplete
+     */
+    line1: null,
+    city: null,
+};
 
-    if (google?.maps?.places) {
-        autocomplete.address = new google.maps.places.Autocomplete(
-            inputLine1.value,
-            autocompleteOptions.address,
-        );
-        autocomplete.address.addListener('place_changed', completeAddress);
+// options: https://developers.google.com/maps/documentation/javascript/load-maps-js-api#js-api-loader
+new MapsLoader({
+    apiKey: null,
+    region: 'CA',
+}).load().then(async () => {
+    const { Autocomplete } = await google.maps.importLibrary('places');
 
-        autocomplete.city = new google.maps.places.Autocomplete(
-            inputCity.value,
-            autocompleteOptions.city,
-        );
-        autocomplete.city.addListener('place_changed', completeCity);
+    autocompletes.line1 = new Autocomplete(
+        inputLine1.value,
+        {
+            types: ['geocode'],
+            fields: ['address_component'],
+            componentRestrictions: { country: props.modelValue.country },
+        },
+    );
+    autocompletes.line1.addListener('place_changed', completeAddress);
 
-    } else if (autocompleteTimeoutCount < 60) {
-        // retry 60 times so ~120 seconds
-        startAutocompleteLoadTimer();
-    }
-}
-function startAutocompleteLoadTimer () {
-    setTimeout(setupAutocomplete, autocompleteTimeoutCount > 2 ? 2000 : 500);
-}
+    autocompletes.city = new Autocomplete(
+        inputCity.value,
+        {
+            types: ['(cities)'],
+            fields: ['address_component'],
+            componentRestrictions: { country: props.modelValue.country },
+        },
+    );
+    autocompletes.city.addListener('place_changed', completeCity);
+});
 
-function completeAddress () {
+const completeAddress = () => {
     emit('update:modelValue', {
         ...props.modelValue,
         line1: getAddressLine1(),
@@ -234,19 +232,19 @@ function completeAddress () {
         province: getAddressComponent('administrative_area_level_1'),
         country: props.showCountry ? getAddressComponent('country') : props.modelValue.country,
     });
-}
+};
 
-function completeCity () {
+const completeCity = () => {
     emit('update:modelValue', {
         ...props.modelValue,
         city: getAddressComponent('locality', 'city'),
         province: getAddressComponent('administrative_area_level_1', 'city'),
         country: props.showCountry ? getAddressComponent('country') : props.modelValue.country,
     });
-}
+};
 
-function getAddressComponent (type, autocompleteName = 'address') {
-    const addressComponents = autocomplete[autocompleteName].getPlace().address_components;
+const getAddressComponent = (type, autocompleteName = 'line1') => {
+    const addressComponents = autocompletes[autocompleteName].getPlace().address_components;
     const components = filter(addressComponents, (component) => {
         return ([type].indexOf(component.types[0]) > -1);
     });
@@ -256,7 +254,7 @@ function getAddressComponent (type, autocompleteName = 'address') {
     } else {
         return null;
     }
-}
+};
 
 /**
  * Will pull out the street number and route (street name) and combine.
@@ -265,8 +263,8 @@ function getAddressComponent (type, autocompleteName = 'address') {
  * added as a prefix to the suggested address as it's assumed it's
  * a unit number.
  */
-function getAddressLine1 () {
-    const addressComponents = autocomplete.address.getPlace().address_components;
+const getAddressLine1 = () => {
+    const addressComponents = autocompletes.line1.getPlace().address_components;
 
     return filter(addressComponents, (component) => {
         return (['street_number', 'route'].indexOf(component.types[0]) > -1);
@@ -275,5 +273,5 @@ function getAddressLine1 () {
             return component.short_name;
         })
         .join(' ');
-}
+};
 </script>

@@ -30,9 +30,11 @@
             <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-300 font-extralight">
                 <div class="flex items-end justify-between px-4">
                     <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap: break-word;">
-                        <RouterLink :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
+                        <!-- @todo-symfony if admin only system -->
+                        <!--<RouterLink :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
                             {{ profileLinkText }}
-                        </RouterLink>
+                        </RouterLink>-->
+                        <a href="/profile/edit" class="sidebar_nav-bottom_links">{{ profileLinkText }}</a>
                     </div>
                     <div v-if="loggedIn" class="pb-2 pl-4 text-xs">
                         <a href="/logout" class="sidebar_nav-bottom_links whitespace-nowrap">Sign Out</a>
@@ -40,7 +42,7 @@
                 </div>
                 <div class="py-2 pl-4 text-xs text-gray-400 border-t border-gray-600">
                     <!-- @todo-symfony -->
-                    ©{{ copyrightYear }} XM Media Inc.
+                    ©{{ new Date().getFullYear() }} XM Media Inc.
                 </div>
             </div>
         </nav>
@@ -68,7 +70,7 @@
 
             <main class="p-4">
                 <!-- *** where the router component is placed *** -->
-                <RouterView />
+                <RouterView :key="$route.path" />
             </main>
         </div>
 
@@ -80,7 +82,7 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import { useHead } from '@vueuse/head';
+import { useHead } from '@unhead/vue';
 import { useRootStore } from './stores/root';
 import { ModalsContainer } from 'vue-final-modal';
 import MenuSubnav from './menu/subnav';
@@ -99,8 +101,6 @@ useHead({
 const adminMenuItems = ref({
     'Users': 'admin-user',
 });
-
-const copyrightYear = ref(new Date().getFullYear());
 
 const ready = computed(() => rootStore.ready);
 const loggedIn = computed(() => rootStore.loggedIn);

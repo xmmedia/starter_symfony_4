@@ -2,7 +2,7 @@ import { createApp, defineAsyncComponent } from 'vue';
 import { createPinia } from 'pinia';
 import PortalVue from 'portal-vue';
 import { createVfm } from 'vue-final-modal';
-import { createHead } from '@vueuse/head';
+import { createHead } from '@unhead/vue';
 
 import router from './admin/router';
 import { useRootStore } from '@/admin/stores/root';
@@ -20,7 +20,7 @@ import LoadingSpinner from './common/loading_spinner';
 import FormError from './common/form_error';
 import FieldError from './common/field_error';
 import FieldPassword from './common/field_password';
-import AdminButton from './common/admin_button';
+import FormButton from './common/form_button.vue';
 import AdminIcon from './common/admin_icon';
 
 import { MeQuery } from './admin/queries/user.query.graphql';
@@ -42,13 +42,13 @@ apolloClient.query({ query: MeQuery })
             rootStore.updateUser(Me);
         }
 
-        /*const entrypointScript = document.querySelector('script[data-entry="admin"]');
+        const entrypointScript = document.querySelector('script[data-entry="admin"]');
         if (entrypointScript && entrypointScript.integrity) {
             await rootStore.setIntegrityHash({
                 entrypoint: 'admin',
                 hash: entrypointScript.integrity,
             });
-        }*/
+        }
 
         rootStore.ready();
 
@@ -59,6 +59,9 @@ apolloClient.query({ query: MeQuery })
                 app,
                 dsn: import.meta.env.VITE_SENTRY_DSN,
             });
+            if (Me) {
+                Sentry.setUser({ userId: Me.userId });
+            }
         }
 
         app.use(router)
@@ -74,7 +77,7 @@ apolloClient.query({ query: MeQuery })
             .component('FormError', FormError)
             .component('FieldError', FieldError)
             .component('FieldPassword', FieldPassword)
-            .component('AdminButton', AdminButton)
+            .component('FormButton', FormButton)
             .component('AdminIcon', AdminIcon)
             .component('AdminModal', defineAsyncComponent(() => import('./common/modal')))
             .component('AdminDelete', defineAsyncComponent(() => import('./admin/admin_delete/index')))

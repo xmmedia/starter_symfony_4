@@ -1,0 +1,6 @@
+query RouteQuery($entrypoint: String!) {
+    Me {
+        userId
+    }
+    EntrypointIntegrity(entrypoint: $entrypoint)
+}

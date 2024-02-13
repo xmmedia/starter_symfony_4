@@ -1,0 +1,34 @@
+query MeQuery {
+    Me {
+        userId
+        email
+        name
+        firstName
+        lastName
+        roles
+        userData {
+            phoneNumber {
+                phoneNumber
+                extension
+            }
+        }
+    }
+}
+
+query UserPasswordValid($password: String!) {
+    UserPasswordValid(password: $password) {
+        valid
+    }
+}
+
+query UserPasswordAllowed($newPassword: String!) {
+    UserRecoverResetPasswordStrength(newPassword: $newPassword) {
+        allowed
+    }
+}
+
+query GetDuplicateUsers($filters: UserFilterInput) {
+    Users(filters: $filters) {
+        userId
+    }
+}

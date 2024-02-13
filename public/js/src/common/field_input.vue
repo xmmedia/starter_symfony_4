@@ -1,6 +1,8 @@
 <template>
     <div class="field-wrap">
-        <label :for="id"><slot></slot></label>
+        <slot :id="id" name="label">
+            <label :for="id"><slot></slot></label>
+        </slot>
 
         <FieldError v-if="v" :v="v">
             <template #required><slot name="required"></slot></template>
@@ -14,15 +16,23 @@
             <template #valid><slot name="valid"></slot></template>
         </FieldError>
 
+        <slot name="prefix"></slot>
         <input :id="id"
                ref="input"
+               v-focus="autofocus"
                :value="modelValue"
                :type="type"
                :maxlength="maxLength"
                :autocomplete="autocomplete"
                :placeholder="placeholder"
-               v-focus="autofocus"
-               @input="$emit('update:modelValue', $event.target.value)">
+               :min="min"
+               :max="max"
+               :step="step"
+               :class="inputClasses"
+               @input="$emit('update:modelValue', $event.target.value)"
+               @focus="$emit('focus')"
+               @blur="$emit('blur')">
+        <slot name="suffix"></slot>
 
         <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
     </div>
@@ -31,10 +41,13 @@
 <script setup>
 import cuid from 'cuid';
 import has from 'lodash/has';
+import { ref } from 'vue';
+
+defineEmits([ 'update:modelValue', 'focus', 'blur' ]);
 
 const props = defineProps({
     modelValue: {
-        type: String,
+        type: [ String, Number ],
         default: null,
     },
     type: {
@@ -53,6 +66,22 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    min: {
+        type: [ Number, String ],
+        default: null,
+    },
+    max: {
+        type: [ Number, String ],
+        default: null,
+    },
+    step: {
+        type: [ Number, String ],
+        default: null,
+    },
+    inputClasses: {
+        type: [ String, Array, Object ],
+        default: null,
+    },
     v: {
         type: Object,
         default: null,
@@ -65,5 +94,8 @@ const props = defineProps({
     },
 });
 
+const input = ref();
 const maxLength = has(props.v, 'maxLength') ? props.v.maxLength.$params.max : null;
+
+defineExpose({ input });
 </script>

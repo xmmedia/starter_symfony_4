@@ -28,52 +28,50 @@
             <FieldPassword v-model="password"
                            :v="v$.password"
                            :show-help="true"
-                           autocomplete="new-password" />
+                           autocomplete="new-password"
+                           icon-component="PublicIcon" />
             <FieldPassword v-model="repeatPassword"
                            :v="v$.repeatPassword"
-                           autocomplete="new-password">Password again</FieldPassword>
+                           autocomplete="new-password"
+                           icon-component="PublicIcon">Password again</FieldPassword>
 
-            <AdminButton :saving="state.matches('submitting')"
-                         :cancel-to="{ name: 'login' }">
+            <FormButton :saving="state.matches('submitting')"
+                        :cancel-to="{ name: 'login' }">
                 Activate
                 <template #cancel>
-                    <RouterLink :to="{ name: 'login' }" class="form-action">Login</RouterLink>
+                    <RouterLink :to="{ name: 'login' }" class="form-action">Sign In</RouterLink>
                 </template>
                 <template #saving>Activating…</template>
-            </AdminButton>
+            </FormButton>
         </form>
 
         <div v-if="state.matches('verified')" class="alert alert-success max-w-lg" role="alert">
             Your account is now active.
-            <RouterLink :to="{ name: 'login' }" class="pl-4">Login</RouterLink>
+            <RouterLink :to="{ name: 'login' }" class="pl-4">Sign In</RouterLink>
         </div>
     </div>
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { useRootStore } from '@/admin/stores/root';
+import { useRootStore } from '@/user/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { required, sameAs } from '@vuelidate/validators';
 import FieldPassword from '@/common/field_password_with_errors';
-import { UserVerify } from '@/admin/queries/user.mutation.graphql';
-import userValidation from '@/admin/validation/user';
-import cloneDeep from 'lodash/cloneDeep';
+import { UserActivate } from '@/user/queries/user.mutation.graphql';
+import userValidation from '@/common/validation/user';
 import { hasGraphQlError, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 
 const rootStore = useRootStore();
 const router = useRouter();
-const route = useRoute();
 
 const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
-    strict: true,
-    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -91,8 +89,7 @@ const stateMachine = createMachine({
         },
     },
 });
-
-const { state, send: sendEvent } = useMachine(stateMachine);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const invalidToken = ref(false);
 const tokenExpired = ref(false);
@@ -102,16 +99,12 @@ const repeatPassword = ref(null);
 const showForm = computed(() => !state.value.done);
 
 const v$ = useVuelidate({
-    password: {
-        ...cloneDeep(userValidation.password),
-    },
+    password: userValidation().password,
     repeatPassword: {
         required,
         sameAs: sameAs(password),
     },
 }, { password, repeatPassword });
-
-
 
 onMounted(() => {
     if (rootStore.loggedIn) {
@@ -120,19 +113,18 @@ onMounted(() => {
 });
 
 async function submit () {
-    sendEvent('SUBMIT');
+    sendEvent({ type: 'SUBMIT' });
 
     if (!await v$.value.$validate()) {
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
 
         return;
     }
 
     try {
-        const { mutate: sendUserVerify } = useMutation(UserVerify);
-        await sendUserVerify({
-            token: route.params.token,
+        const { mutate: sendUserActivate } = useMutation(UserActivate);
+        await sendUserActivate({
             password: password.value,
         });
 
@@ -141,17 +133,17 @@ async function submit () {
         invalidToken.value = false;
         tokenExpired.value = false;
 
-        sendEvent('SUBMITTED');
+        sendEvent({ type: 'SUBMITTED' });
 
         setTimeout(() => {
-            window.location = router.resolve({ name: 'login' }).href;
+            router.push({ name: 'login' });
         }, 5000);
 
     } catch (e) {
         if (hasGraphQlError(e)) {
-            if (e.graphQLErrors[0].code === 404) {
+            if (404 === e.graphQLErrors[0].code) {
                 invalidToken.value = true;
-            } else if (e.graphQLErrors[0].code === 405) {
+            } else if (405 === e.graphQLErrors[0].code) {
                 tokenExpired.value = true;
             } else {
                 logError(e);
@@ -162,7 +154,7 @@ async function submit () {
             showError();
         }
 
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
 

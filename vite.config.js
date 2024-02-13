@@ -1,44 +1,40 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
-import basicSslPlugin from '@vitejs/plugin-basic-ssl';
+import mkcert from'vite-plugin-mkcert';
 import vuePlugin from '@vitejs/plugin-vue';
 import graphqlPlugin from '@rollup/plugin-graphql';
 import manifestSRIPlugin from 'vite-plugin-manifest-sri';
 import symfonyPlugin from 'vite-plugin-symfony';
-import liveReload from 'vite-plugin-live-reload';
 import dns from 'dns';
 
 dns.setDefaultResultOrder('verbatim');
 
 export default defineConfig({
-    root: 'public',
-    // by default Vite looks in the root
-    envDir: '../',
     plugins: [
-        basicSslPlugin(),
+        mkcert(),
         vuePlugin(),
         graphqlPlugin(),
         manifestSRIPlugin(),
-        symfonyPlugin(),
-        liveReload([
-            // edit live reload paths according to your source code
-            __dirname + '/(templates)/**/*.php',
-        ]),
+        symfonyPlugin({
+            refresh: true,
+            // sriAlgorithm: 'sha384',
+        }),
+        sentryVitePlugin({
+            // @todo-symfony
+            org: 'xm-media',
+            project: 'symfony-starter',
+        }),
     ],
     build: {
-        outDir: 'build',
+        outDir: 'public/build',
         rollupOptions: {
             input: {
                 admin: './public/js/src/admin.js',
-                public: './public/js/src/public.js',
-            },
-            output: {
-                manualChunks: {
-                    // because it includes a large word list
-                    zxcvbn: ['zxcvbn'],
-                },
+                user: './public/js/src/user.js',
             },
         },
+        sourcemap: true,
     },
     resolve: {
         alias: {
@@ -52,9 +48,15 @@ export default defineConfig({
     },
     server: {
         host: true,
-        // @todo-symfony set these to a unique port for each project
         port: 9008,
         origin: 'https://localhost:9008',
         strictPort: true,
+        https: true,
+        watch: {
+            // this is in part needed because the symfony plugin ignores the public dir completely
+            ignored: ['**/vendor/**', '**/var/**'],
+        },
     },
+    appType: 'custom',
+    clearScreen: false,
 });

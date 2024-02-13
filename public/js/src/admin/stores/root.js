@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { formatPhone } from '@/common/lib';
 
 export const useRootStore = defineStore('rootStore', {
     state: () => ({
@@ -9,9 +10,9 @@ export const useRootStore = defineStore('rootStore', {
             ROLE_ADMIN: 'Admin',
             ROLE_SUPER_ADMIN: 'Super Admin',
         },
-        // entrypointIntegrityHashes: {
-        //     admin: null,
-        // },
+        entrypointIntegrityHashes: {
+            admin: null,
+        },
     }),
 
     getters: {
@@ -48,6 +49,10 @@ export const useRootStore = defineStore('rootStore', {
             this.ready = true;
         },
         updateUser (user) {
+            if (user.phoneNumber) {
+                user.phoneNumber = formatPhone(user.phoneNumber);
+            }
+
             if (this.user === null) {
                 this.user = { ...user };
             } else {
@@ -55,7 +60,7 @@ export const useRootStore = defineStore('rootStore', {
             }
         },
 
-        /*setIntegrityHash ({ entrypoint, hash }) {
+        setIntegrityHash ({ entrypoint, hash }) {
             if (this.entrypointIntegrityHashes[entrypoint]) {
                 // eslint-disable-next-line no-console
                 console.error('Integrity hash already set for '+entrypoint+' entry point. Won\'t update.');
@@ -63,6 +68,6 @@ export const useRootStore = defineStore('rootStore', {
             }
 
             this.entrypointIntegrityHashes[entrypoint] = hash
-        },*/
+        },
     },
 });

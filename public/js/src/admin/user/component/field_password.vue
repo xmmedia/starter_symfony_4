@@ -11,9 +11,9 @@
                        :user-data="userData"
                        :show-help="true"
                        :required="setPassword"
+                       :autocomplete="autocomplete"
                        class="ml-6"
-                       autocomplete="new-password"
-                       @update:modelValue="$emit('update:modelValue', $event)" />
+                       @update:model-value="$emit('update:modelValue', $event)" />
     </div>
 </template>
 
@@ -30,6 +30,10 @@ defineProps({
     checkboxLabel: {
         type: String,
         default: 'Set Password',
+    },
+    autocomplete: {
+        type: String,
+        default: 'new-password',
     },
     v: {
         type: Object,

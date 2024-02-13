@@ -30,50 +30,48 @@
             <FieldPassword v-model="newPassword"
                            :v="v$.newPassword"
                            :show-help="true"
-                           autocomplete="new-password">New password</FieldPassword>
+                           autocomplete="new-password"
+                           icon-component="PublicIcon">New password</FieldPassword>
             <FieldPassword v-model="repeatPassword"
                            :v="v$.repeatPassword"
-                           autocomplete="new-password">New password again</FieldPassword>
+                           autocomplete="new-password"
+                           icon-component="PublicIcon">New password again</FieldPassword>
 
-            <AdminButton :saving="state.matches('submitting')">
+            <FormButton :saving="state.matches('submitting')">
                 Set Password
                 <template #cancel>
-                    <RouterLink :to="{ name: 'login' }" class="form-action">Return to Login</RouterLink>
+                    <RouterLink :to="{ name: 'login' }" class="form-action">Return to Sign In</RouterLink>
                 </template>
-            </AdminButton>
+            </FormButton>
         </form>
 
         <div v-if="state.matches('changed')" class="alert alert-success max-w-lg" role="alert">
             Your password has been reset.
-            <RouterLink :to="{ name: 'login' }" class="pl-4">Login</RouterLink>
+            <RouterLink :to="{ name: 'login' }" class="pl-4">Sign In</RouterLink>
         </div>
     </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue';
-import { useRootStore } from '@/admin/stores/root';
+import { computed, ref } from 'vue';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useMutation } from '@vue/apollo-composable';
-import cloneDeep from 'lodash/cloneDeep';
-import { required } from '@vuelidate/validators';
+import { helpers, required } from '@vuelidate/validators';
+import { apolloClient } from '@/common/apollo';
 import { hasGraphQlError, logError } from '@/common/lib';
 import FieldPassword from '@/common/field_password_with_errors';
-import { UserRecoverReset } from '../queries/user.mutation.graphql';
-import userValidation from '@/admin/validation/user';
+import { UserPasswordAllowed } from '../../user/queries/user.query.graphql';
+import { UserRecoverReset } from '../../user/queries/user.mutation.graphql';
+import userValidation from '@/common/validation/user';
 
-const rootStore = useRootStore();
 const router = useRouter();
-const route = useRoute();
 
 const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
-    strict: true,
-    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -91,17 +89,39 @@ const stateMachine = createMachine({
         },
     },
 });
-
-const { state, send: sendEvent } = useMachine(stateMachine);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const invalidToken = ref(false);
 const tokenExpired = ref(false);
 const newPassword = ref(null);
 const repeatPassword = ref(null);
 
+const userValidationGenerated = userValidation();
 const v$ = useVuelidate({
     newPassword: {
-        ...cloneDeep(userValidation.password),
+        ...userValidationGenerated.password,
+        strength: helpers.withAsync(async function (value) {
+            if (!userValidationGenerated.password.strength(value)) {
+                return false;
+            }
+
+            try {
+                // use apolloClient directly so we can async
+                const result = await apolloClient.query({
+                    query: UserPasswordAllowed,
+                    variables: {
+                        newPassword: value,
+                    },
+                });
+
+                return result.data.UserRecoverResetPasswordStrength.allowed;
+            } catch (e) {
+                logError(e);
+
+                // more than likely it's okay and if it isn't the mutation will fail
+                return true;
+            }
+        }),
     },
     repeatPassword: {
         required,
@@ -110,21 +130,15 @@ const v$ = useVuelidate({
 
 const showForm = computed(() => !state.value.done);
 
-onMounted(() => {
-    if (rootStore.loggedIn) {
-        router.replace({ name: 'login' });
-    }
-});
-
 async function submit () {
     if (!state.value.matches('ready')) {
         return;
     }
 
-    sendEvent('SUBMIT');
+    sendEvent({ type: 'SUBMIT' });
 
     if (!await v$.value.$validate()) {
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
 
         return;
@@ -133,7 +147,6 @@ async function submit () {
     try {
         const { mutate: sendRecoverReset } = useMutation(UserRecoverReset);
         await sendRecoverReset({
-            token: route.params.token,
             newPassword: newPassword.value,
         });
 
@@ -143,16 +156,16 @@ async function submit () {
         tokenExpired.value = false;
         v$.value.$reset();
 
-        sendEvent('SUBMITTED');
+        sendEvent({ type: 'SUBMITTED' });
 
         setTimeout(() => {
-            window.location = router.resolve({ name: 'login' }).href;
+            router.push({ name: 'login' });
         }, 5000);
     } catch (e) {
         if (hasGraphQlError(e)) {
-            if (e.graphQLErrors[0].code === 404) {
+            if (404 === e.graphQLErrors[0].code) {
                 invalidToken.value = true;
-            } else if (e.graphQLErrors[0].code === 405) {
+            } else if (405 === e.graphQLErrors[0].code) {
                 tokenExpired.value = true;
             } else {
                 logError(e);
@@ -163,7 +176,7 @@ async function submit () {
             showError();
         }
 
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
 

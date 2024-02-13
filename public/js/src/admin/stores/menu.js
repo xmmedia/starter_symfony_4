@@ -11,9 +11,6 @@ export const useMenuStore = defineStore('menuStore', {
         },
     }),
 
-    getters: {
-    },
-
     actions: {
         openMobileMenu () {
             this.mobileMenuIsOpen = true;

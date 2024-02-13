@@ -1,34 +1,40 @@
 <template>
-    <span>
+    <!-- !! Note: !! -->
+    <!-- Using this slot and replacing the whole button will result in the refocusing of the button not working -->
+    <slot name="button" :open="open">
         <button ref="link"
-                class="button-link form-action"
+                :disabled="disabled"
+                :class="linkClasses"
+                :title="buttonTitle"
                 type="button"
-                @click="show = true">Delete</button>
+                @click="open">Delete</button>
+    </slot>
 
-        <AdminModal v-if="show" @closed="show = false" @opened="opened">
-            <div v-if="!deleting" class="text-center">
-                <div class="my-4">
+    <AdminModal v-if="show" @closed="closed" @opened="opened">
+        <div v-if="!deleting" class="text-center">
+            <div class="my-4">
+                <slot>
                     Are you sure you want to delete this {{ recordDesc }}?
                     <br>This cannot be undone.
-                </div>
-                <slot name="additional" />
-                <div class="mt-8">
-                    <button class="button button-critical bg-red-600 text-white focus:ring-offset-red-800"
-                            type="button"
-                            @click="deleteRecord">Delete</button>
-                    <button ref="cancel"
-                            class="form-action button-link text-slate-300
-                                   focus:ring-offset-4 ring-offset-gray-800 focus:text-slate-400 hover:text-slate-400"
-                            type="button"
-                            @click="close">Cancel</button>
-                </div>
+                </slot>
             </div>
+            <slot name="additional" />
+            <div class="mt-8">
+                <button class="button button-critical bg-red-600 text-white focus:ring-offset-red-800"
+                        type="button"
+                        @click="deleteRecord">Delete</button>
+                <button ref="cancel"
+                        class="form-action button-link text-slate-300
+                               focus:ring-offset-4 ring-offset-gray-800 focus:text-slate-400 hover:text-slate-400"
+                        type="button"
+                        @click="close">Cancel</button>
+            </div>
+        </div>
 
-            <LoadingSpinner v-else class="p-12 text-center">
-                Deleting {{ recordDesc }}…
-            </LoadingSpinner>
-        </AdminModal>
-    </span>
+        <LoadingSpinner v-else class="p-12 text-center">
+            Deleting {{ recordDesc }}…
+        </LoadingSpinner>
+    </AdminModal>
 </template>
 
 <script setup>
@@ -38,6 +44,18 @@ defineProps({
     recordDesc: {
         type: String,
         required: true,
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+    linkClasses: {
+        type: String,
+        default: 'button-link form-action',
+    },
+    buttonTitle: {
+        type: String,
+        default: null,
     },
 });
 
@@ -49,9 +67,23 @@ const deleting = ref(false);
 const cancel = ref(null);
 const link = ref(null);
 
+function open () {
+    show.value = true;
+}
+
 function opened () {
     if (!deleting.value) {
         cancel.value.focus();
+    }
+}
+
+function closed ()  {
+    show.value = false;
+    // reset everything else
+    deleting.value = false;
+    cancel.value = null;
+    if (link.value) {
+        link.value.focus();
     }
 }
 
@@ -63,6 +95,8 @@ function deleteRecord () {
 function close () {
     show.value = false;
     deleting.value = false;
-    link.value.focus();
+    if (link.value) {
+        link.value.focus();
+    }
 }
 </script>

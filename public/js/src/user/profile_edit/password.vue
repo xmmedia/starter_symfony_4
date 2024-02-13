@@ -11,7 +11,7 @@
                     Your password has been updated.<br>
                     You will need to login again.
                 </div>
-                <a :href="loginUrl" class="pl-4">Go to Login</a>
+                <a href="/login" class="pl-4">Go to Sign In</a>
             </div>
 
             <!-- this is for the browser so it can generate a new password -->
@@ -26,59 +26,62 @@
 
             <FieldPassword v-model="currentPassword"
                            :v="v$.currentPassword"
-                           autocomplete="current-password">
+                           :show-help="true"
+                           autocomplete="current-password"
+                           icon-component="PublicIcon">
                 Current password
                 <template #required-msg>Your current password is required.</template>
+                <template #help>
+                    If you don't know your current password,
+                    <RouterLink :to="{ name: 'user-recover-initiate' }">click here to reset it</RouterLink>.
+                </template>
             </FieldPassword>
 
             <FieldPassword v-model="newPassword"
                            :v="v$.newPassword"
                            :show-help="true"
-                           autocomplete="new-password">
+                           autocomplete="new-password"
+                           icon-component="PublicIcon">
                 New password
                 <template #required-msg>A new password is required.</template>
             </FieldPassword>
             <FieldPassword v-model="repeatPassword"
                            :v="v$.repeatPassword"
-                           autocomplete="new-password">
+                           autocomplete="new-password"
+                           icon-component="PublicIcon">
                 New password again
                 <template #required-msg>Re-enter your new password.</template>
             </FieldPassword>
 
-            <div class="mb-4 text-sm">After changing your password, you will need to login again.</div>
+            <div class="mb-4 text-sm">After changing your password, you will need to sign in again.</div>
 
-            <AdminButton :saving="state.matches('saving')"
-                         :cancel-to="{ name: 'user-profile-edit' }">
+            <FormButton :saving="state.matches('saving')"
+                        :cancel-to="{ name: 'user-profile-edit' }">
                 Change Password
-            </AdminButton>
+            </FormButton>
         </form>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { useRootStore } from '@/admin/stores/root';
+import { useRootStore } from '@/user/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
-import { useRouter } from 'vue-router';
 import { useMutation } from '@vue/apollo-composable';
-import cloneDeep from 'lodash/cloneDeep';
 import { sameAs } from '@vuelidate/validators';
 import { logError } from '@/common/lib';
-import ProfileTabs from './component/tabs';
-import FieldPassword from '@/common/field_password_with_errors';
-import { ChangePassword } from '../queries/user.mutation.graphql';
-import userValidations from './user.validation';
+import ProfileTabs from './component/tabs.vue';
+import FieldPassword from '@/common/field_password_with_errors.vue';
+import { ChangePassword } from '../../user/queries/user.mutation.graphql';
+import userValidation from './user.validation';
 
 const rootStore = useRootStore();
-const router = useRouter();
 
 const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
-    strict: true,
-    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -98,33 +101,35 @@ const stateMachine = createMachine({
         },
     },
 });
-
-const { state, send: sendEvent } = useMachine(stateMachine);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const currentPassword = ref(null);
 const newPassword = ref(null);
 const repeatPassword = ref(null);
 
+const userValidations = userValidation([
+    rootStore.user.email,
+    rootStore.user.firstName,
+    rootStore.user.lastName,
+]);
 const v$ = useVuelidate({
-    currentPassword: cloneDeep(userValidations.currentPassword),
+    currentPassword: userValidations.currentPassword,
     newPassword: {
-        ...cloneDeep(userValidations.newPassword),
+        ...userValidations.newPassword,
         sameAs: sameAs(repeatPassword),
     },
-    repeatPassword: cloneDeep(userValidations.repeatPassword),
+    repeatPassword: userValidations.repeatPassword,
 }, { currentPassword, newPassword, repeatPassword } );
-
-const loginUrl = router.resolve({ name: 'login' }).href;
 
 async function submit () {
     if (!state.value.matches('ready')) {
         return;
     }
 
-    sendEvent('SAVE');
+    sendEvent({ type: 'SAVE' });
 
     if (!await v$.value.$validate()) {
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
 
         return;
@@ -144,17 +149,17 @@ async function submit () {
         repeatPassword.value = null;
         v$.value.$reset();
 
-        sendEvent('SAVED');
+        sendEvent({ type: 'SAVED' });
 
         setTimeout(() => {
-            window.location = loginUrl;
+            window.location = '/login';
         }, 30000);
 
     } catch (e) {
         logError(e);
         alert('There was a problem saving your password. Please try again later.');
 
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
 }

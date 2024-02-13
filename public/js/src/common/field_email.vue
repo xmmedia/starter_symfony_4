@@ -1,26 +1,28 @@
 <template>
     <div class="field-wrap">
-        <label :for="id"><slot>Email (Username)</slot></label>
+        <slot :id="id" name="label">
+            <label :for="id"><slot>Email (Username)</slot></label>
+        </slot>
 
         <FieldError v-if="v.$error && v.$invalid">
             <template v-if="v.required.$invalid">
-                An email is required.
+                <slot name="required">An email is required.</slot>
             </template>
             <template v-else-if="v.email.$invalid">
-                This email is invalid.
+                <slot name="invalid">This email is invalid.</slot>
             </template>
             <template v-else-if="v.unique.$invalid">
-                This email has already been used.
+                <slot name="unique">This email has already been used.</slot>
             </template>
         </FieldError>
 
         <input :id="id"
                ref="input"
+               v-focus="autofocus"
                :value="modelValue"
                :autocomplete="autocomplete"
                type="email"
                maxlength="150"
-               v-focus="autofocus"
                @blur="checkEmail($event)"
                @input="$emit('update:modelValue', $event.target.value)">
 

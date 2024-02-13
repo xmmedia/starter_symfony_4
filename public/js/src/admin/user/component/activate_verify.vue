@@ -41,15 +41,13 @@ import { useMachine } from '@xstate/vue';
 import {
     AdminUserActivateMutation,
     AdminUserVerifyMutation,
-} from '@/admin/queries/admin/user.mutation.graphql';
+} from '@/admin/queries/user.mutation.graphql';
 import { logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 
 const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
-    strict: true,
-    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -93,8 +91,7 @@ const stateMachine = createMachine({
         },
     },
 });
-
-const { state, send: sendEvent } = useMachine(stateMachine);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const emit = defineEmits(['activated', 'deactivated', 'verified']);
 
@@ -125,7 +122,7 @@ async function toggleActive () {
         return;
     }
 
-    sendEvent(props.active ? 'DEACTIVATE' : 'ACTIVATE');
+    sendEvent({ type: props.active ? 'DEACTIVATE' : 'ACTIVATE' });
 
     try {
         const { mutate: sendUserActivate } = useMutation(AdminUserActivateMutation);
@@ -137,7 +134,7 @@ async function toggleActive () {
         });
 
         emit(props.active ? 'deactivated' : 'activated');
-        sendEvent('COMPLETE');
+        sendEvent({ type: 'COMPLETE' });
 
         delayedReset();
 
@@ -145,7 +142,7 @@ async function toggleActive () {
         logError(e);
         alert('There was a problem toggling the active state. Please try again later.');
 
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
 }
@@ -155,18 +152,16 @@ async function verify () {
         return;
     }
 
-    sendEvent('VERIFY');
+    sendEvent({ type: 'VERIFY' });
 
     try {
         const { mutate: sendUserVerify } = useMutation(AdminUserVerifyMutation);
         await sendUserVerify({
-            user: {
-                userId: props.userId,
-            },
+            userId: props.userId,
         });
 
         emit('verified');
-        sendEvent('COMPLETE');
+        sendEvent({ type: 'COMPLETE' });
 
         delayedReset();
 
@@ -174,14 +169,14 @@ async function verify () {
         logError(e);
         alert('There was a problem verifying the user. Please try again later.');
 
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
 }
 
 function delayedReset () {
     setTimeout(() => {
-        sendEvent('RESET');
+        sendEvent({ type: 'RESET' });
     }, 3000);
 }
 </script>

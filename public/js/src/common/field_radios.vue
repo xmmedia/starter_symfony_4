@@ -6,11 +6,13 @@
             <template #required><slot name="required"></slot></template>
         </FieldError>
 
-        <div :class="{ 'flex flex-col xs:flex-row xs:flex-wrap' : row }">
-            <div v-for="value in valuesCollection" :key="value.value" class="field-wrap-radio">
+        <div :class="inputWrapperClasses">
+            <div v-for="value in valuesCollection"
+                 :key="value.value"
+                 :class="{ 'field-wrap-radio' : !pills, 'radio-pill' : pills }">
                 <input :id="id+'-'+value.value"
                        type="radio"
-                       :name="'organization-type-'+id"
+                       :name="'radios-'+id"
                        :checked="value.value === modelValue"
                        :value="value.value"
                        @input="$emit('update:modelValue', $event.target.value)">
@@ -25,6 +27,8 @@
 <script setup>
 import cuid from 'cuid';
 import { computed } from 'vue';
+
+defineEmits(['update:modelValue']);
 
 const props = defineProps({
     modelValue: {
@@ -50,6 +54,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    pills: {
+        type: Boolean,
+        default: false,
+    },
     v: {
         type: Object,
         default: null,
@@ -60,6 +68,18 @@ const props = defineProps({
             return cuid();
         },
     },
+});
+
+const inputWrapperClasses = computed(() => {
+    if (props.pills) {
+        return 'flex gap-2 flex-wrap';
+    }
+
+    if (props.row) {
+        return 'flex flex-col xs:flex-row xs:flex-wrap';
+    }
+
+    return undefined;
 });
 
 const valuesCollection = computed(() => {

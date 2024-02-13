@@ -1,10 +1,12 @@
 import qs from 'qs';
+import { apolloClient } from '@/common/apollo.js';
+import { RouteQuery } from '@/common/queries/route.query.graphql';
 
 export const scrollBehavior = function (to, from, savedPosition) {
     if (savedPosition) {
         return savedPosition;
     } else {
-        return { x: 0, y: 0 };
+        return { top: 0 };
     }
 };
 
@@ -26,3 +28,54 @@ export const logPageView = function (to) {
         });
     }
 };
+
+export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
+    return async (to, from) => {
+        // don't do any checks if we're staying on the same route
+        // this is most likely when changing the query string
+        if (typeof to.name !== 'undefined' && typeof from.name !== 'undefined' && to.name === from.name) {
+            return;
+        }
+
+        const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+        const rootStore = useRootStore();
+
+        if (requiresAuth) {
+            if (!rootStore.loggedIn) {
+                window.location = loginUrl + '?_target_path=' + window.location.href;
+
+                return false;
+            }
+
+            // check to see if they're still authenticated
+            const result = await apolloClient.query({
+                query: RouteQuery,
+                variables: {
+                    entrypoint: integrityHashKey,
+                },
+            });
+            if (!result.data.Me) {
+                window.location = loginUrl + '?_target_path=' + window.location.href;
+
+                return false;
+            }
+
+            // JS files have changed
+            if (result.data.EntrypointIntegrity && rootStore.entrypointIntegrityHashes[integrityHashKey]) {
+                if (result.data.EntrypointIntegrity !== rootStore.entrypointIntegrityHashes[integrityHashKey]) {
+                    window.location.reload();
+
+                    return false;
+                }
+            }
+
+            // find the first matched route that has a role
+            const routeWithRole = to.matched.find(record => !!record.meta?.role);
+
+            // this route requires auth, therefore check if they have the right role
+            if (!rootStore.hasRole(routeWithRole.meta.role)) {
+                return { name: '403' };
+            }
+        }
+    };
+}

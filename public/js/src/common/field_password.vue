@@ -1,6 +1,8 @@
 <template>
     <div class="field-wrap">
-        <label :for="id"><slot>Password</slot></label>
+        <slot :id="id" name="label">
+            <label :for="id"><slot>Password</slot></label>
+        </slot>
         <slot name="errors"></slot>
 
         <div class="relative z-20">
@@ -21,7 +23,7 @@
                            text-gray-600 hover:text-gray-800 focus:ring-offset-gray-100"
                     style="margin-top: 0.3rem;"
                     @click.prevent="visible = !visible">
-                <AdminIcon :icon="icon" class="w-6 h-6 fill-current" width="24" height="24" />
+                <component :is="iconComponent" :icon="icon" class="w-6 h-6 fill-current" width="24" height="24" />
                 <span class="sr-only">Show password</span>
             </button>
         </div>
@@ -31,7 +33,9 @@
                        :user-data="userData" />
 
         <div v-if="showHelp" class="field-help relative">
-            Must be at least {{ minLength }} characters long.
+            <slot name="help">
+                Must be at least {{ minLength }} characters long.
+            </slot>
         </div>
     </div>
 </template>
@@ -39,7 +43,10 @@
 <script setup>
 import cuid from 'cuid';
 import { computed, defineAsyncComponent, ref, watch } from 'vue';
+import { passwordMinLength } from './validation/user.js';
 const PasswordScore = defineAsyncComponent(() => import('./password_score'));
+
+defineEmits(['update:modelValue']);
 
 const props = defineProps({
     modelValue: {
@@ -68,6 +75,10 @@ const props = defineProps({
             return [];
         },
     },
+    iconComponent: {
+        type: String,
+        default: 'AdminIcon',
+    },
     id: {
         type: String,
         default: function () {
@@ -78,7 +89,7 @@ const props = defineProps({
 
 const visible = ref(false);
 const showMeter = ref(false);
-const minLength = 12;
+const minLength = passwordMinLength;
 const fieldType = computed(() => visible.value ? 'text' : 'password');
 const icon = computed(() => visible.value ? 'visible' : 'invisible');
 

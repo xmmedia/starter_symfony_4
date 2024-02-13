@@ -2,7 +2,9 @@
     <div class="form-wrap">
         <Portal to="header-actions">
             <div class="header-secondary_actions">
-                <RouterLink :to="{ name: 'admin-user' }">Return to list</RouterLink>
+                <RouterLink :to="{ name: 'admin-user-view', params: { userId: props.userId } }">
+                    Return to user
+                </RouterLink>
             </div>
         </Portal>
 
@@ -11,8 +13,13 @@
         <LoadingSpinner v-if="state.matches('loading')">
             Loading user…
         </LoadingSpinner>
+        <div v-else-if="state.matches('not_found')" class="italic text-center">
+            <p>Unable to find the user. Please try again later.</p>
+            <p><RouterLink :to="{ name: 'admin-user' }">Return to user list</RouterLink></p>
+        </div>
         <div v-else-if="state.matches('error')" class="italic text-center">
-            There was a problem loading the user. Please try again later.
+            <p>There was a problem loading the user. Please try again later.</p>
+            <p><RouterLink :to="{ name: 'admin-user' }">Return to user list</RouterLink></p>
         </div>
 
         <form v-else-if="showForm" method="post" @submit.prevent="submit">
@@ -22,11 +29,12 @@
                         :v="v$.user.email"
                         autocomplete="off"
                         autofocus
-                        @update:modelValue="setEmailDebounce" />
+                        @update:model-value="setEmailDebounce" />
 
             <FieldPassword v-model="user.password"
                            :v="v$.user.password"
                            checkbox-label="Change password"
+                           autocomplete="off"
                            @set-password="user.setPassword = $event" />
 
             <FieldInput v-model.trim="user.firstName" :v="v$.user.firstName">First name</FieldInput>
@@ -34,30 +42,33 @@
 
             <FieldRole v-model="user.role" :v="v$.user.role" />
 
-            <AdminButton :edited="edited"
-                         :saving="state.matches('ready.saving')"
-                         :saved="state.matches('ready.saved')"
-                         :cancel-to="{ name: 'admin-user' }">
             <FieldInput v-model="user.phoneNumber" type="tel" :v="v$.user.phoneNumber">Phone number</FieldInput>
 
+            <FormButton :edited="edited"
+                        :saving="state.matches('ready.saving')"
+                        :saved="state.matches('ready.saved')"
+                        :cancel-to="{ name: 'admin-user-view', params: { userId: props.userId } }">
                 Update User
-            </AdminButton>
+            </FormButton>
 
             <ul class="form-extra_actions">
                 <li>
-                    <activate-verify :user-id="userId"
-                                     :verified="verified"
-                                     :active="active"
-                                     :allow="allowSave"
-                                     @activated="active = true"
-                                     @deactivated="active = false"
-                                     @verified="verified = true" />
+                    <ActivateVerify :user-id="userId"
+                                    :verified="verified"
+                                    :active="active"
+                                    :allow="allowSave"
+                                    @activated="active = true"
+                                    @deactivated="active = false"
+                                    @verified="verified = true" />
                 </li>
                 <li v-if="!verified">
                     <SendActivation :user-id="userId" :allow="allowSave" />
                 </li>
                 <li v-if="active">
                     <SendReset :user-id="userId" :allow="allowSave" />
+                </li>
+                <li>
+                    <AdminDelete record-desc="user" :disabled="!allowSave" @delete="deleteUser" />
                 </li>
             </ul>
         </form>
@@ -69,11 +80,11 @@ import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
+import { edit as stateMachineConfig } from '@/common/state_machines';
 import { useVuelidate } from '@vuelidate/core';
 import { useMutation, useQuery } from '@vue/apollo-composable';
-import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
-import { logError } from '@/common/lib';
+import { formatPhone, logError } from '@/common/lib';
 import FieldEmail from '@/common/field_email';
 import FieldPassword from './component/field_password.vue';
 import FieldInput from '@/common/field_input';
@@ -82,50 +93,18 @@ import ActivateVerify from './component/activate_verify';
 import SendActivation from './component/send_activation';
 import SendReset from './component/send_reset';
 import { GetUserQuery } from '../queries/user.query.graphql';
-import { AdminUserUpdateMutation } from '../queries/admin/user.mutation.graphql';
-import userValidations from './user.validation';
+import {
+    AdminUserUpdateMutation,
+    AdminUserDeleteMutation,
+} from '../queries/user.mutation.graphql';
+import userValidation from './user.validation';
 import { requiredIf } from '@vuelidate/validators';
+import { pick } from 'lodash';
 
 const router = useRouter();
 
-const stateMachine = createMachine({
-    id: 'component',
-    initial: 'loading',
-    strict: true,
-    predictableActionArguments: true,
-    states: {
-        loading: {
-            on: {
-                LOADED: 'ready',
-                ERROR: 'error',
-            },
-        },
-        ready: {
-            initial: 'ready',
-            states: {
-                ready: {
-                    on: {
-                        SAVE: 'saving',
-                    },
-                },
-                saving: {
-                    on: {
-                        SAVED: 'saved',
-                        ERROR: 'ready',
-                    },
-                },
-                saved: {
-                    type: 'final',
-                },
-            },
-        },
-        error: {
-            type: 'final',
-        },
-    },
-});
-
-const { state, send: sendEvent } = useMachine(stateMachine);
+const stateMachine = createMachine(stateMachineConfig);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const props = defineProps({
     userId: {
@@ -158,6 +137,12 @@ const allowSave = computed(() => {
 
 const { onResult, onError } = useQuery(GetUserQuery, { userId: props.userId });
 onResult(({ data: { User }}) => {
+    if (!User) {
+        sendEvent({ type: 'NOT_FOUND' });
+
+        return;
+    }
+
     user.value.email = User.email;
     user.value.role = User.roles[0];
     user.value.firstName = User.firstName;
@@ -166,27 +151,35 @@ onResult(({ data: { User }}) => {
     verified.value = User.verified;
     active.value = User.active;
 
-    sendEvent('LOADED');
     if (User.userData) {
         user.value.phoneNumber = formatPhone(User.userData.phoneNumber);
     }
 
+    sendEvent({ type: 'LOADED' });
 });
 onError(() => {
-    sendEvent('ERROR');
+    sendEvent({ type: 'ERROR' });
 });
 
+const userDataForPassword = computed(() => [
+    user.value.email,
+    user.value.firstName,
+    user.value.lastName,
+]);
+
+const userValidations = userValidation(userDataForPassword.value);
 const v$ = useVuelidate({
     user: {
-        ...cloneDeep(userValidations),
+        ...userValidations,
         password: {
-            ...cloneDeep(userValidations.password),
+            ...userValidations.password,
             required: requiredIf(user.value.setPassword),
         },
     },
 }, { user });
 
-watch(user,
+watch(
+    user,
     () => {
         if (state.value.matches('ready')) {
             edited.value = true;
@@ -207,10 +200,10 @@ async function submit () {
         return;
     }
 
-    sendEvent('SAVE');
+    sendEvent({ type: 'SAVE' });
 
     if (!await v$.value.$validate()) {
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
 
         return;
@@ -220,7 +213,7 @@ async function submit () {
         const { mutate: sendUserUpdate } = useMutation(AdminUserUpdateMutation);
         await sendUserUpdate({
             user: {
-                ...user.value,
+                ...pick(user.value, ['email', 'setPassword', 'password', 'role', 'active', 'firstName', 'lastName']),
                 userId: props.userId,
                 userData: {
                     phoneNumber: user.value.phoneNumber,
@@ -228,7 +221,36 @@ async function submit () {
             },
         });
 
-        sendEvent('SAVED');
+        sendEvent({ type: 'SAVED' });
+
+        setTimeout(() => {
+            router.push({ name: 'admin-user-view', params: { userId: props.userId } });
+        }, 500);
+
+    } catch (e) {
+        logError(e);
+        alert('There was a problem saving. Please try again later.');
+
+        sendEvent({ type: 'ERROR' });
+        window.scrollTo(0, 0);
+    }
+}
+
+const deleteUser = async () => {
+    if (!allowSave.value) {
+        return;
+    }
+
+    sendEvent({ type: 'DELETE' });
+
+    try {
+        const { mutate: sendUserDelete } = useMutation(AdminUserDeleteMutation);
+        await sendUserDelete({
+            userId: props.userId,
+        });
+
+        edited.value = false;
+        sendEvent({ type: 'DELETED' });
 
         setTimeout(() => {
             router.push({ name: 'admin-user' });
@@ -236,10 +258,10 @@ async function submit () {
 
     } catch (e) {
         logError(e);
-        alert('There was a problem saving. Please try again later.');
+        alert('There was a problem deleting the user. Please try again later.');
 
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
-}
+};
 </script>

@@ -1,5 +1,6 @@
 <template>
     <VueFinalModal v-model="show"
+                   :click-to-close="props.clickToClose"
                    class="flex justify-center items-center"
                    content-class="flex flex-col max-w-xl mx-4 p-4 text-slate-300 bg-gray-800
                                   border border-gray-700 rounded-lg space-y-2"
@@ -10,7 +11,7 @@
                    @before-close="$emit('before-close', $event)"
                    @closed="$emit('closed')">
         <div class="relative">
-            <div class="absolute top-0 right-0 text-4xl leading-3">
+            <div v-if="props.showClose" class="absolute top-0 right-0 text-4xl leading-3">
                 <button class="text-slate-600 hover:text-slate-300 transition-colors duration-300"
                         type="button"
                         @click="close">×</button>
@@ -26,6 +27,19 @@
 <script setup>
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { VueFinalModal } from 'vue-final-modal';
+
+const props = defineProps({
+    showClose: {
+        type: Boolean,
+        default: true,
+    },
+    clickToClose: {
+        type: Boolean,
+        default: true,
+    },
+});
+
+defineEmits(['before-open', 'opened', 'before-close', 'closed']);
 
 const show = ref(false);
 

@@ -18,14 +18,12 @@
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useMutation } from '@vue/apollo-composable';
-import { logError } from '@/common/lib';
-import { AdminUserSendResetMutation } from '@/admin/queries/admin/user.mutation.graphql';
+import { hasGraphQlError, logError } from '@/common/lib';
+import { AdminUserSendResetMutation } from '@/admin/queries/user.mutation.graphql';
 
 const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
-    strict: true,
-    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -45,8 +43,7 @@ const stateMachine = createMachine({
         },
     },
 });
-
-const { state, send: sendEvent } = useMachine(stateMachine);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const props = defineProps({
     userId: {
@@ -64,7 +61,7 @@ async function sendReset () {
         return;
     }
 
-    sendEvent('SEND');
+    sendEvent({ type: 'SEND' });
 
     try {
         const { mutate: sendUserReset } = useMutation(AdminUserSendResetMutation);
@@ -72,17 +69,24 @@ async function sendReset () {
             userId: props.userId,
         });
 
-        sendEvent('SENT');
+        sendEvent({ type: 'SENT' });
 
         setTimeout(() => {
-            sendEvent('RESET');
+            sendEvent({ type: 'RESET' });
         }, 3000);
 
     } catch (e) {
+        if (hasGraphQlError(e) && 429 === e.graphQLErrors[0].code)  {
+            alert('Too many password requests have been sent. Only 1 password reset can be requested every hour. Please try again later.');
+            sendEvent({ type: 'ERROR' });
+
+            return;
+        }
+
         logError(e);
         alert('There was a problem sending the reset. Please try again later.');
 
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
 }

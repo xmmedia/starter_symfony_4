@@ -1,29 +1,65 @@
-mutation UserRecoverInitiate($email: String!) {
-    UserRecoverInitiate(email: $email) {
+mutation AdminUserAddMutation($user: AdminUserAddInput!) {
+    AdminUserAdd(user: $user) {
+        userId
+    }
+}
+
+mutation AdminUserUpdateMutation($user: AdminUserUpdateInput!) {
+    AdminUserUpdate(user: $user) {
+        userId
+    }
+}
+
+mutation AdminUserActivateMutation($user: AdminUserActivateInput!) {
+    AdminUserActivate(user: $user) {
+        userId
+    }
+}
+
+mutation AdminUserVerifyMutation($userId: UUID!) {
+    AdminUserVerify(userId: $userId) {
+        userId
+    }
+}
+
+mutation AdminUserSendResetMutation($userId: UUID!) {
+    AdminUserSendReset(userId: $userId) {
+        userId
+    }
+}
+
+mutation AdminUserSendActivationMutation($userId: UUID!) {
+    AdminUserSendActivation(userId: $userId) {
+        userId
+    }
+}
+
+mutation AdminUserDeleteMutation($userId: UUID!) {
+    AdminUserDelete(userId: $userId) {
         success
     }
 }
 
-mutation UserRecoverReset($token: String!, $newPassword: String!) {
-    UserRecoverReset(token: $token, newPassword: $newPassword) {
-        success
+mutation AdminUserCourseAddMutation($userCourse: UserCourseInput!) {
+    UserCourseAdd(userCourse: $userCourse) {
+        userCourse {
+            userCourseId
+        }
     }
 }
 
-mutation UserVerify($token: String!, $password: String!) {
-    UserVerify(token: $token, password: $password) {
-        success
+mutation AdminUserCourseAddMultipleMutation($courseId: UUID!, $emails: [String!]!) {
+    UserCourseAddMultiple(courseId: $courseId, emails: $emails) {
+        counts {
+            success
+            failed
+        }
+        errors
     }
 }
 
-mutation UserUpdateProfile($user: UserUpdateProfileInput!) {
-    UserUpdateProfile(user: $user) {
-        success
-    }
-}
-
-mutation ChangePassword($user: UserPasswordInput!) {
-    ChangePassword(user: $user) {
+mutation AdminUserCourseRemoveMutation($userCourseId: UUID!) {
+    UserCourseRemove(userCourseId: $userCourseId) {
         success
     }
 }

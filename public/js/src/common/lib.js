@@ -1,4 +1,4 @@
-import parsePhoneNumber from 'libphonenumber-js';
+import { formatNumber as libFormatPhone } from 'libphonenumber-js';
 import Flatpickr from 'flatpickr';
 import pluralizeFunction from 'pluralize';
 import has from 'lodash/has';
@@ -28,7 +28,7 @@ export const formatPhone = function (phone, format = 'NATIONAL') {
         str += ' x'+phone.extension;
     }
 
-    return parsePhoneNumber(str).format(format);
+    return libFormatPhone(str, 'CA', format);
 };
 
 export const date = function (date, format = 'M j, Y') {

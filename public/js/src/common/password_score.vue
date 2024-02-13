@@ -1,5 +1,6 @@
 <template>
     <transition appear name="password-slide">
+        <!-- eslint-disable-next-line vue/require-toggle-inside-transition -->
         <div class="text-xs password-slide">
             <div class="flex items-center w-full bg-gray-500">
                 <div :class="scoreBackgroundClasses" class="h-6"></div>
@@ -13,7 +14,7 @@
 
 <script setup>
 import zxcvbn from 'zxcvbn';
-import userValidation from '@/admin/validation/user';
+import userValidation from '@/common/validation/user';
 import { computed } from 'vue';
 
 const props = defineProps({
@@ -31,7 +32,7 @@ const props = defineProps({
 
 const result = computed(() => zxcvbn(props.password || '', userDataCompiled));
 const score = computed(() => {
-    if (!userValidation.password.minLength.$validator(props.password)) {
+    if (!userValidation().password.minLength.$validator(props.password)) {
         return 0;
     }
 

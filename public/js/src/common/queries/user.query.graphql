@@ -1,0 +1,5 @@
+query UserEmailUnique($email: String!) {
+    UserEmailUnique(email: $email) {
+        unique
+    }
+}

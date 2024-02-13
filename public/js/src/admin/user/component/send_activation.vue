@@ -19,13 +19,11 @@ import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useMutation } from '@vue/apollo-composable';
 import { logError } from '@/common/lib';
-import { AdminUserSendActivationMutation } from '@/admin/queries/admin/user.mutation.graphql';
+import { AdminUserSendActivationMutation } from '@/admin/queries/user.mutation.graphql';
 
 const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
-    strict: true,
-    predictableActionArguments: true,
     states: {
         ready: {
             on: {
@@ -45,8 +43,7 @@ const stateMachine = createMachine({
         },
     },
 });
-
-const { state, send: sendEvent } = useMachine(stateMachine);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const props = defineProps({
     userId: {
@@ -64,7 +61,7 @@ async function sendReset () {
         return;
     }
 
-    sendEvent('SEND');
+    sendEvent({ type: 'SEND' });
 
     try {
         const { mutate: sendUserActivation } = useMutation(AdminUserSendActivationMutation);
@@ -72,17 +69,17 @@ async function sendReset () {
             userId: props.userId,
         });
 
-        sendEvent('SENT');
+        sendEvent({ type: 'SENT' });
 
         setTimeout(() => {
-            sendEvent('RESET');
+            sendEvent({ type: 'RESET' });
         }, 3000);
 
     } catch (e) {
         logError(e);
         alert('There was a problem sending the activation link. Please try again later.');
 
-        sendEvent('ERROR');
+        sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
 }

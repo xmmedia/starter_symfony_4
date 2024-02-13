@@ -6,7 +6,8 @@
                    :required="false"
                    :autocomplete="autocomplete"
                    :minlength="hasVuelidateProp(v, 'minLength') ? v.minLength.$params.min : null"
-                   @update:modelValue="$emit('update:modelValue', $event)">
+                   :icon-component="iconComponent"
+                   @update:model-value="$emit('update:modelValue', $event)">
         <template #default><slot></slot></template>
         <template #errors>
             <FieldError v-if="v.$error && v.$invalid">
@@ -35,6 +36,7 @@
                 </template>
             </FieldError>
         </template>
+        <template #help><slot name="help"></slot></template>
     </FieldPassword>
 </template>
 
@@ -43,6 +45,8 @@ import cuid from 'cuid';
 import FieldPassword from './field_password';
 import { computed } from 'vue';
 import { hasVuelidateProp, vuelidateValue } from '@/common/lib';
+
+defineEmits(['update:modelValue']);
 
 const props = defineProps({
     modelValue: {
@@ -66,6 +70,10 @@ const props = defineProps({
         default () {
             return [];
         },
+    },
+    iconComponent: {
+        type: String,
+        default: null,
     },
     id: {
         type: String,

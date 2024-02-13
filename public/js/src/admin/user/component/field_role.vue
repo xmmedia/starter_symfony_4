@@ -20,6 +20,8 @@ import { useRootStore } from '@/admin/stores/root';
 
 const rootStore = useRootStore();
 
+defineEmits(['update:modelValue']);
+
 defineProps({
     modelValue: {
         type: String,

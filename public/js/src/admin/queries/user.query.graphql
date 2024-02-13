@@ -3,28 +3,7 @@ query MeQuery {
         userId
         email
         name
-        firstName
-        lastName
         roles
-    }
-}
-
-query RouteQuery {
-    Me {
-        userId
-    }
-#    EntrypointIntegrity(entrypoint: "admin")
-}
-
-query UserEmailUnique($email: String!) {
-    UserEmailUnique(email: $email) {
-        unique
-    }
-}
-
-query UserPasswordValid($password: String!) {
-    UserPasswordValid(password: $password) {
-        valid
     }
 }
 
@@ -41,6 +20,29 @@ query GetUsersQuery($filters: UserFilterInput) {
     }
 }
 
+query GetUserCountQuery($filters: UserFilterInput) {
+    UserCount(filters: $filters)
+}
+
+query GetUserViewQuery($userId: UUID!) {
+    User(userId: $userId) {
+        userId
+        email
+        roles
+        name
+        verified
+        active
+        lastLogin
+        loginCount
+        userData {
+            phoneNumber {
+                phoneNumber
+                extension
+            }
+        }
+    }
+}
+
 query GetUserQuery($userId: UUID!) {
     User(userId: $userId) {
         userId
@@ -50,11 +52,24 @@ query GetUserQuery($userId: UUID!) {
         lastName
         verified
         active
+        userData {
+            phoneNumber {
+                phoneNumber
+                extension
+            }
+        }
     }
 }
 
 query GetDuplicateUsers($filters: UserFilterInput) {
     Users(filters: $filters) {
         userId
+    }
+}
+
+query GetUserCourseAddDataQuery($userId: UUID!) {
+    User(userId: $userId) {
+        email
+        name
     }
 }

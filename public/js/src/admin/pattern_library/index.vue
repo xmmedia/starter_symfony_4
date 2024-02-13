@@ -195,11 +195,72 @@
                     Horizontal radios
                     <template #help>Some help…</template>
                 </FieldRadios>
+                <fieldset class="field-wrap-radios">
+                    <legend>Horizontal radios</legend>
+                    <div class="flex flex-row">
+                        <div class="field-wrap-radio">
+                            <input id="pattern-library-radio-01"
+                                   type="radio"
+                                   name="pattern-library-radio-1">
+                            <label for="pattern-library-radio-01">Option 1</label>
+                        </div>
+                        <div class="field-wrap-radio">
+                            <input id="pattern-library-radio-02"
+                                   type="radio"
+                                   name="pattern-library-radio-1">
+                            <label for="pattern-library-radio-02">Option 2</label>
+                        </div>
+                        <div class="field-wrap-radio">
+                            <input id="pattern-library-radio-03"
+                                   type="radio"
+                                   name="pattern-library-radio-1">
+                            <label for="pattern-library-radio-03">Option 3</label>
+                        </div>
+                    </div>
+                    <div class="field-help">Some help…</div>
+                </fieldset>
+
                 <FieldRadios :values="radios2Values" :row="false">
                     Vertical radios
                     <template #help>Some help…</template>
                 </FieldRadios>
+                <fieldset class="field-wrap-radios">
+                    <legend>Vertical Radios</legend>
+                    <div class="field-wrap-radio">
+                        <input id="pattern-library-radio-04"
+                               type="radio"
+                               name="pattern-library-radio-2">
+                        <label for="pattern-library-radio-04">Radio button</label>
+                    </div>
+                    <div class="field-wrap-radio">
+                        <input id="pattern-library-radio-05"
+                               type="radio"
+                               name="pattern-library-radio-2">
+                        <label for="pattern-library-radio-05">Radio button</label>
+                    </div>
+                    <div class="field-wrap-radio">
+                        <input id="pattern-library-radio-06"
+                               type="radio"
+                               name="pattern-library-radio-2">
+                        <label for="pattern-library-radio-06">Radio button</label>
+                    </div>
+                    <div class="field-wrap-radio">
+                        <input id="pattern-library-radio-07"
+                               type="radio"
+                               name="pattern-library-radio-2">
+                        <label for="pattern-library-radio-07">
+                            Radio button Maecenas sed diam eget risus varius blandit sit amet non magna.
+                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                            eget lacinia odio sem nec elit.
+                        </label>
+                    </div>
+                    <div class="field-help">Some help…</div>
+                </fieldset>
 
+
+                <FieldCheckboxes v-model="checkboxesValue" :values="checkboxesValues">
+                    Multiple checkboxes
+                </FieldCheckboxes>
                 <fieldset class="field-wrap-checkboxes">
                     <legend>Multiple checkboxes</legend>
                     <div class="field-wrap-checkbox">
@@ -262,22 +323,24 @@
 
                 <fieldset class="field-wrap-radios mb-5">
                     <legend>Radio pills</legend>
-                    <span class="radio-pill radio-pill-bad">
-                        <input id="radio-pill-1"
-                               name="radio-pill"
-                               value="yes"
-                               type="radio">
-                        <label for="radio-pill-1">Yes</label>
-                    </span>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="radio-pill radio-pill-bad">
+                            <input id="radio-pill-1"
+                                   name="radio-pill"
+                                   value="yes"
+                                   type="radio">
+                            <label for="radio-pill-1">Yes</label>
+                        </span>
 
-                    <span class="radio-pill radio-pill-good">
-                        <input id="radio-pill-2"
-                               name="radio-pill"
-                               value="no"
-                               type="radio"
-                               class="radio-pill-red">
-                        <label for="radio-pill-2">No</label>
-                    </span>
+                        <span class="radio-pill radio-pill-good">
+                            <input id="radio-pill-2"
+                                   name="radio-pill"
+                                   value="no"
+                                   type="radio"
+                                   class="radio-pill-red">
+                            <label for="radio-pill-2">No</label>
+                        </span>
+                    </div>
                 </fieldset>
 
                 <fieldset class="mt-6 mb-4 p-4 border border-gray-300">
@@ -620,18 +683,23 @@
 </template>
 
 <script setup>
-import { useHead } from '@vueuse/head';
+import { ref } from 'vue';
+import { useHead } from '@unhead/vue';
 import FieldRadios from '@/common/field_radios.vue';
+import FieldCheckboxes from '@/common/field_checkboxes.vue';
 
 useHead({
     title: 'Admin Pattern Library',
 });
 
-const radios1Values = [{ value: 1, name: 'Option 1'}, { value: 2, name: 'Option 2'}, { value: 3, name: 'Option 3'}];
+const radios1Values = [{ value: 1, label: 'Option 1'}, { value: 2, label: 'Option 2'}, { value: 3, label: 'Option 3'}];
 const radios2Values = [
-    { value: 1, name: 'Option 1' },
-    { value: 2, name: 'Option 2' },
-    { value: 3, name: 'Option 3' },
-    { value: 4, name: 'Radio button Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.' },
+    { value: 1, label: 'Option 1' },
+    { value: 2, label: 'Option 2' },
+    { value: 3, label: 'Option 3' },
+    { value: 4, label: 'Radio button Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.' },
 ];
+
+const checkboxesValue = ref([]);
+const checkboxesValues = [{ value: 1, label: 'Item 1'}, { value: 2, label: 'Item 2'}, { value: 3, label: 'Item 3'}];
 </script>

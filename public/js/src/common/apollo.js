@@ -1,7 +1,9 @@
-import { ApolloClient, InMemoryCache, ApolloLink, split, createHttpLink } from '@apollo/client/core';
+import { ApolloClient, InMemoryCache, ApolloLink, split } from '@apollo/client/core';
 import { BatchHttpLink } from '@apollo/client/link/batch-http';
+import createUploadLink from 'apollo-upload-client/createUploadLink.mjs';
+import extractFiles from 'extract-files/extractFiles.mjs';
+import isExtractableFile from 'extract-files/isExtractableFile.mjs';
 import { onError } from '@apollo/client/link/error';
-import { getMainDefinition } from '@apollo/client/utilities';
 
 // docs: https://www.apollographql.com/docs/react/features/error-handling/
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -26,23 +28,15 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     }
 });
 
-// http link
-const httpLink = createHttpLink({
-    uri: window.location.origin+'/graphql',
-});
-
-const batchLink = new BatchHttpLink({
-    uri: window.location.origin+'/graphql/batch',
-});
-
 const link = split(
-    // split based on operation type
-    ({ query }) => {
-        const { kind, operation } = getMainDefinition(query)
-        return kind === 'OperationDefinition' && operation === 'subscription'
-    },
-    httpLink,
-    batchLink,
+    // split based if there's an upload
+    operation => extractFiles(operation, isExtractableFile).files.size > 0,
+    createUploadLink({
+        uri: window.location.origin+'/graphql',
+    }),
+    new BatchHttpLink({
+        uri: window.location.origin+'/graphql/batch',
+    }),
 );
 
 // Create the apollo client
@@ -61,5 +55,5 @@ export const apolloClient = new ApolloClient({
     },
     // if you want to hide the message about installing apollo dev tools
     // only applicable to dev
-    // connectToDevTools: false,
+    connectToDevTools: false,
 });
