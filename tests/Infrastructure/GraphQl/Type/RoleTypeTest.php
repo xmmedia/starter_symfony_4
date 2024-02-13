@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 class RoleTypeTest extends TestCase
 {
     /**
-     * @dataProvider dateProvider
+     * @dataProvider roleProvider
      */
     public function testSerialize(Role|string|null $value, ?string $expected): void
     {
@@ -31,7 +31,7 @@ class RoleTypeTest extends TestCase
     }
 
     /**
-     * @dataProvider dateProvider
+     * @dataProvider roleProvider
      */
     public function testParseValue(Role|string|null $expected, ?string $value): void
     {
@@ -40,7 +40,7 @@ class RoleTypeTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function dateProvider(): \Generator
+    public function roleProvider(): \Generator
     {
         yield [
             Role::ROLE_USER(),
@@ -59,7 +59,7 @@ class RoleTypeTest extends TestCase
     }
 
     /**
-     * @dataProvider dateProviderParseLiteral
+     * @dataProvider roleProviderParseLiteral
      */
     public function testParseLiteral(Role|string $expected, ?string $value): void
     {
@@ -71,7 +71,7 @@ class RoleTypeTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function dateProviderParseLiteral(): \Generator
+    public function roleProviderParseLiteral(): \Generator
     {
         yield [
             Role::ROLE_USER(),
