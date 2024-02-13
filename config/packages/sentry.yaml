@@ -1,27 +1,19 @@
 when@prod:
     sentry:
-        dsn: '%env(SENTRY_DSN)%'
+        dsn:                     '%env(SENTRY_DSN)%'
 
-#        If you are using Monolog, you also need this additional configuration to log the errors correctly:
-#        https://docs.sentry.io/platforms/php/guides/symfony/#monolog-integration
+        # If you are using Monolog, you also need this additional configuration to log the errors correctly:
+        # https://docs.sentry.io/platforms/php/guides/symfony/#monolog-integration
         register_error_listener: false
-        register_error_handler: false
+        register_error_handler:  false
         options:
             ignore_exceptions:
                 - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
                 - Symfony\Component\Security\Core\Exception\AccessDeniedException
+            attach_stacktrace: true
+            send_default_pii:  true
 
-    monolog:
-        handlers:
-            main_sentry:
-                type: fingers_crossed
-                action_level: error
-                handler: sentry
-                excluded_http_codes: [404, 405]
-            sentry:
-                type: sentry
-                level: !php/const Monolog\Logger::ERROR
-                hub_id: Sentry\State\HubInterface
+    # monolog integration in monolog.yaml
 
     services:
         Monolog\Processor\PsrLogMessageProcessor:

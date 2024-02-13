@@ -43,22 +43,33 @@ when@prod:
             main:
                 type:         fingers_crossed
                 action_level: error
-                handler:      nested
+                handler:      deduplicated
                 excluded_http_codes: [ 404, 405 ]
                 buffer_size:  50 # How many messages should be saved? Prevent memory leaks
-            nested:
+            deduplicated:
+                type:    deduplication
+                handler: group
+            group:
+                type:    group
+                # send to all 3 handlers below
+                members: [ file, deprecation, sentry ]
+            file:
                 type:      stream
-                path:      php://stderr
+                path:      '%kernel.logs_dir%/%kernel.environment%.log'
                 level:     debug
-                formatter: monolog.formatter.json
+                formatter: monolog.formatter.line
+            sentry:
+                type:   sentry
+                level:  !php/const Monolog\Logger::ERROR
+                hub_id: Sentry\State\HubInterface
+            deprecation:
+                type:     stream
+                channels: [ deprecation ]
+                path:     '%kernel.logs_dir%/%kernel.environment%.deprecations.log'
             console:
                 type:                   console
                 process_psr_3_messages: false
-                channels: [ '!event', '!doctrine' ]
-            deprecation:
-                type: stream
-                channels: [ deprecation ]
-                path: php://stderr
+                channels:               [ '!event', '!doctrine' ]
 
 services:
     Symfony\Bridge\Monolog\Processor\WebProcessor:
