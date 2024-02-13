@@ -6,9 +6,18 @@ when@prod:
 #        https://docs.sentry.io/platforms/php/guides/symfony/#monolog-integration
         register_error_listener: false
         register_error_handler: false
+        options:
+            ignore_exceptions:
+                - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                - Symfony\Component\Security\Core\Exception\AccessDeniedException
 
     monolog:
         handlers:
+            main_sentry:
+                type: fingers_crossed
+                action_level: error
+                handler: sentry
+                excluded_http_codes: [404, 405]
             sentry:
                 type: sentry
                 level: !php/const Monolog\Logger::ERROR
