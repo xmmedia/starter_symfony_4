@@ -26,20 +26,55 @@
                                         "name": "UserFilterInput",
                                         "ofType": null
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
-                                "kind": "LIST",
+                                "kind": "NON_NULL",
                                 "name": null,
                                 "ofType": {
-                                    "kind": "NON_NULL",
+                                    "kind": "LIST",
                                     "name": null,
                                     "ofType": {
-                                        "kind": "OBJECT",
-                                        "name": "User",
-                                        "ofType": null
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "OBJECT",
+                                            "name": "User",
+                                            "ofType": null
+                                        }
                                     }
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "UserCount",
+                            "description": "Retrieve the Users count.",
+                            "args": [
+                                {
+                                    "name": "filters",
+                                    "description": null,
+                                    "type": {
+                                        "kind": "INPUT_OBJECT",
+                                        "name": "UserFilterInput",
+                                        "ofType": null
+                                    },
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
+                                }
+                            ],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "Int",
+                                    "ofType": null
                                 }
                             },
                             "isDeprecated": false,
@@ -61,7 +96,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -88,7 +125,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -119,7 +158,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -128,6 +169,39 @@
                                 "ofType": {
                                     "kind": "OBJECT",
                                     "name": "UserPasswordValid",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "UserRecoverResetPasswordStrength",
+                            "description": "Check if users password meets the minimum strength requirements. Token is stored in the session.",
+                            "args": [
+                                {
+                                    "name": "newPassword",
+                                    "description": null,
+                                    "type": {
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "SCALAR",
+                                            "name": "String",
+                                            "ofType": null
+                                        }
+                                    },
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
+                                }
+                            ],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "UserPasswordAllowed",
                                     "ofType": null
                                 }
                             },
@@ -209,6 +283,35 @@
                             },
                             "isDeprecated": false,
                             "deprecationReason": null
+                        },
+                        {
+                            "name": "EntrypointIntegrity",
+                            "description": "Retrieve the current integrity hash for a script (JavaScript) file.",
+                            "args": [
+                                {
+                                    "name": "entrypoint",
+                                    "description": null,
+                                    "type": {
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "SCALAR",
+                                            "name": "String",
+                                            "ofType": null
+                                        }
+                                    },
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
+                                }
+                            ],
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "inputFields": null,
@@ -219,9 +322,21 @@
                 {
                     "kind": "INPUT_OBJECT",
                     "name": "UserFilterInput",
-                    "description": "Available filters for querying Users. Any passed fields will be applied. Exclude the key\/field to skip that filter.",
+                    "description": "Available filters for querying Users. Any passed fields will be applied if not empty. Exclude the key\/field to skip that filter.",
                     "fields": null,
                     "inputFields": [
+                        {
+                            "name": "q",
+                            "description": null,
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
                         {
                             "name": "roles",
                             "description": null,
@@ -238,7 +353,9 @@
                                     }
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "email",
@@ -248,7 +365,9 @@
                                 "name": "String",
                                 "ofType": null
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "emailExact",
@@ -258,7 +377,9 @@
                                 "name": "String",
                                 "ofType": null
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "active",
@@ -268,9 +389,45 @@
                                 "name": "Boolean",
                                 "ofType": null
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "accountStatus",
+                            "description": null,
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "offset",
+                            "description": null,
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "Int",
+                                "ofType": null
+                            },
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
+                    "interfaces": null,
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "description": "The `String` scalar type represents textual data, represented as UTF-8\ncharacter sequences. The String type is most often used by GraphQL to\nrepresent free-form human-readable text.",
+                    "fields": null,
+                    "inputFields": null,
                     "interfaces": null,
                     "enumValues": null,
                     "possibleTypes": null
@@ -306,8 +463,8 @@
                 },
                 {
                     "kind": "SCALAR",
-                    "name": "String",
-                    "description": "The `String` scalar type represents textual data, represented as UTF-8\ncharacter sequences. The String type is most often used by GraphQL to\nrepresent free-form human-readable text.",
+                    "name": "Boolean",
+                    "description": "The `Boolean` scalar type represents `true` or `false`.",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
@@ -316,8 +473,8 @@
                 },
                 {
                     "kind": "SCALAR",
-                    "name": "Boolean",
-                    "description": "The `Boolean` scalar type represents `true` or `false`.",
+                    "name": "Int",
+                    "description": "The `Int` scalar type represents non-fractional signed whole numeric\nvalues. Int can represent values between -(2^31) and 2^31 - 1. ",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
@@ -476,6 +633,18 @@
                             },
                             "isDeprecated": false,
                             "deprecationReason": null
+                        },
+                        {
+                            "name": "userData",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "OBJECT",
+                                "name": "UserData",
+                                "ofType": null
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "inputFields": null,
@@ -495,8 +664,8 @@
                 },
                 {
                     "kind": "SCALAR",
-                    "name": "Int",
-                    "description": "The `Int` scalar type represents non-fractional signed whole numeric\nvalues. Int can represent values between -(2^31) and 2^31 - 1. ",
+                    "name": "DateTime",
+                    "description": "Date & time represented as string. The serialized date will be in the RFC3339 format and will include the server timezone (UTC). The input should be a string in a format understood by PHP DateTime constructors and containing the user's timezone. If the input timezone is not included, UTC will be assumed.",
                     "fields": null,
                     "inputFields": null,
                     "interfaces": null,
@@ -504,12 +673,64 @@
                     "possibleTypes": null
                 },
                 {
-                    "kind": "SCALAR",
-                    "name": "DateTime",
-                    "description": "Date & time represented as string. The serialized date will be in the RFC3339 format and will include the server timezone (UTC). The input should be a string in a format understood by PHP DateTime constructors and containing the user's timezone. If the input timezone is not included, UTC will be assumed.",
-                    "fields": null,
+                    "kind": "OBJECT",
+                    "name": "UserData",
+                    "description": "Additional data regarding user.",
+                    "fields": [
+                        {
+                            "name": "phoneNumber",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "OBJECT",
+                                "name": "PhoneNumber",
+                                "ofType": null
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        }
+                    ],
                     "inputFields": null,
-                    "interfaces": null,
+                    "interfaces": [],
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "OBJECT",
+                    "name": "PhoneNumber",
+                    "description": "Phone Number containing the phone number in the E164 format and the extension. The phone number should be formatted showing to the user.",
+                    "fields": [
+                        {
+                            "name": "phoneNumber",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "extension",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        }
+                    ],
+                    "inputFields": null,
+                    "interfaces": [],
                     "enumValues": null,
                     "possibleTypes": null
                 },
@@ -547,6 +768,33 @@
                     "fields": [
                         {
                             "name": "valid",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "Boolean",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        }
+                    ],
+                    "inputFields": null,
+                    "interfaces": [],
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "OBJECT",
+                    "name": "UserPasswordAllowed",
+                    "description": null,
+                    "fields": [
+                        {
+                            "name": "allowed",
                             "description": null,
                             "args": [],
                             "type": {
@@ -710,37 +958,6 @@
                     "description": "Main Mutations",
                     "fields": [
                         {
-                            "name": "SendEnquiry",
-                            "description": null,
-                            "args": [
-                                {
-                                    "name": "enquiry",
-                                    "description": null,
-                                    "type": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "INPUT_OBJECT",
-                                            "name": "EnquiryInput",
-                                            "ofType": null
-                                        }
-                                    },
-                                    "defaultValue": null
-                                }
-                            ],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "OBJECT",
-                                    "name": "EnquiryPayload",
-                                    "ofType": null
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
                             "name": "UserUpdateProfile",
                             "description": "Update User profile.",
                             "args": [
@@ -756,7 +973,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -765,6 +984,39 @@
                                 "ofType": {
                                     "kind": "OBJECT",
                                     "name": "UserMutationPayload",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "UserLoginLink",
+                            "description": "Send a magic login link to the user.",
+                            "args": [
+                                {
+                                    "name": "email",
+                                    "description": null,
+                                    "type": {
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "SCALAR",
+                                            "name": "String",
+                                            "ofType": null
+                                        }
+                                    },
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
+                                }
+                            ],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "UserResultPayload",
                                     "ofType": null
                                 }
                             },
@@ -787,7 +1039,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -818,7 +1072,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -835,22 +1091,8 @@
                         },
                         {
                             "name": "UserRecoverReset",
-                            "description": "Set User password with User token.",
+                            "description": "Set User password. Token is stored in the session.",
                             "args": [
-                                {
-                                    "name": "token",
-                                    "description": null,
-                                    "type": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "SCALAR",
-                                            "name": "String",
-                                            "ofType": null
-                                        }
-                                    },
-                                    "defaultValue": null
-                                },
                                 {
                                     "name": "newPassword",
                                     "description": null,
@@ -863,7 +1105,42 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
+                                }
+                            ],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "OBJECT",
+                                    "name": "UserResultPayload",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "UserActivate",
+                            "description": "Activate User account with password. Token is stored in the session.",
+                            "args": [
+                                {
+                                    "name": "password",
+                                    "description": null,
+                                    "type": {
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "SCALAR",
+                                            "name": "String",
+                                            "ofType": null
+                                        }
+                                    },
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -880,37 +1157,8 @@
                         },
                         {
                             "name": "UserVerify",
-                            "description": "Verify (activate) User account with password and User token.",
-                            "args": [
-                                {
-                                    "name": "token",
-                                    "description": null,
-                                    "type": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "SCALAR",
-                                            "name": "String",
-                                            "ofType": null
-                                        }
-                                    },
-                                    "defaultValue": null
-                                },
-                                {
-                                    "name": "password",
-                                    "description": null,
-                                    "type": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "SCALAR",
-                                            "name": "String",
-                                            "ofType": null
-                                        }
-                                    },
-                                    "defaultValue": null
-                                }
-                            ],
+                            "description": "Verify User account. Token is stored in the session.",
+                            "args": [],
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -939,7 +1187,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -970,7 +1220,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -1001,7 +1253,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -1032,7 +1286,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -1063,7 +1319,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -1094,7 +1352,9 @@
                                             "ofType": null
                                         }
                                     },
-                                    "defaultValue": null
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -1108,81 +1368,34 @@
                             },
                             "isDeprecated": false,
                             "deprecationReason": null
-                        }
-                    ],
-                    "inputFields": null,
-                    "interfaces": [],
-                    "enumValues": null,
-                    "possibleTypes": null
-                },
-                {
-                    "kind": "INPUT_OBJECT",
-                    "name": "EnquiryInput",
-                    "description": "Send Enquiry input.",
-                    "fields": null,
-                    "inputFields": [
-                        {
-                            "name": "name",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
                         },
                         {
-                            "name": "email",
-                            "description": null,
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
+                            "name": "AdminUserDelete",
+                            "description": "Delete User.",
+                            "args": [
+                                {
+                                    "name": "userId",
+                                    "description": null,
+                                    "type": {
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "SCALAR",
+                                            "name": "UUID",
+                                            "ofType": null
+                                        }
+                                    },
+                                    "defaultValue": null,
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
-                            },
-                            "defaultValue": null
-                        },
-                        {
-                            "name": "message",
-                            "description": null,
+                            ],
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
                                 "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "String",
-                                    "ofType": null
-                                }
-                            },
-                            "defaultValue": null
-                        }
-                    ],
-                    "interfaces": null,
-                    "enumValues": null,
-                    "possibleTypes": null
-                },
-                {
-                    "kind": "OBJECT",
-                    "name": "EnquiryPayload",
-                    "description": "Send Enquiry mutation payload.",
-                    "fields": [
-                        {
-                            "name": "success",
-                            "description": null,
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "Boolean",
+                                    "kind": "OBJECT",
+                                    "name": "UserDeleteMutationPayload",
                                     "ofType": null
                                 }
                             },
@@ -1213,7 +1426,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "firstName",
@@ -1227,7 +1442,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "lastName",
@@ -1241,7 +1458,48 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "userData",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "UserDataInput",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        }
+                    ],
+                    "interfaces": null,
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UserDataInput",
+                    "description": "User data input.",
+                    "fields": null,
+                    "inputFields": [
+                        {
+                            "name": "phoneNumber",
+                            "description": null,
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "interfaces": null,
@@ -1252,6 +1510,33 @@
                     "kind": "OBJECT",
                     "name": "UserMutationPayload",
                     "description": "User mutation payload.",
+                    "fields": [
+                        {
+                            "name": "success",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "Boolean",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        }
+                    ],
+                    "inputFields": null,
+                    "interfaces": [],
+                    "enumValues": null,
+                    "possibleTypes": null
+                },
+                {
+                    "kind": "OBJECT",
+                    "name": "UserResultPayload",
+                    "description": "Payload if the User mutation was successful.",
                     "fields": [
                         {
                             "name": "success",
@@ -1293,7 +1578,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "newPassword",
@@ -1307,37 +1594,12 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
-                        }
-                    ],
-                    "interfaces": null,
-                    "enumValues": null,
-                    "possibleTypes": null
-                },
-                {
-                    "kind": "OBJECT",
-                    "name": "UserResultPayload",
-                    "description": "Payload if the User mutation was successful.",
-                    "fields": [
-                        {
-                            "name": "success",
-                            "description": null,
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "SCALAR",
-                                    "name": "Boolean",
-                                    "ofType": null
-                                }
-                            },
+                            "defaultValue": null,
                             "isDeprecated": false,
                             "deprecationReason": null
                         }
                     ],
-                    "inputFields": null,
-                    "interfaces": [],
+                    "interfaces": null,
                     "enumValues": null,
                     "possibleTypes": null
                 },
@@ -1359,7 +1621,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "email",
@@ -1373,7 +1637,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "password",
@@ -1383,7 +1649,9 @@
                                 "name": "String",
                                 "ofType": null
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "firstName",
@@ -1397,7 +1665,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "lastName",
@@ -1411,7 +1681,25 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "userData",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "UserDataInput",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "setPassword",
@@ -1425,7 +1713,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "role",
@@ -1439,7 +1729,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "active",
@@ -1453,7 +1745,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "sendInvite",
@@ -1467,7 +1761,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "interfaces": null,
@@ -1551,7 +1847,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "email",
@@ -1565,7 +1863,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "password",
@@ -1575,7 +1875,9 @@
                                 "name": "String",
                                 "ofType": null
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "firstName",
@@ -1589,7 +1891,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "lastName",
@@ -1603,7 +1907,25 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "userData",
+                            "description": null,
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "UserDataInput",
+                                    "ofType": null
+                                }
+                            },
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "setPassword",
@@ -1617,7 +1939,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "role",
@@ -1631,7 +1955,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "interfaces": null,
@@ -1683,7 +2009,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         },
                         {
                             "name": "action",
@@ -1697,7 +2025,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "interfaces": null,
@@ -1705,22 +2035,29 @@
                     "possibleTypes": null
                 },
                 {
-                    "kind": "SCALAR",
-                    "name": "ID",
-                    "description": "The `ID` scalar type represents a unique identifier, often used to\nrefetch an object or as key for a cache. The ID type appears in a JSON\nresponse as a String; however, it is not intended to be human-readable.\nWhen expected as an input type, any string (such as `\"4\"`) or integer\n(such as `4`) input value will be accepted as an ID.",
-                    "fields": null,
+                    "kind": "OBJECT",
+                    "name": "UserDeleteMutationPayload",
+                    "description": "User delete mutation payload.",
+                    "fields": [
+                        {
+                            "name": "success",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "Boolean",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        }
+                    ],
                     "inputFields": null,
-                    "interfaces": null,
-                    "enumValues": null,
-                    "possibleTypes": null
-                },
-                {
-                    "kind": "SCALAR",
-                    "name": "Float",
-                    "description": "The `Float` scalar type represents signed double-precision fractional\nvalues as specified by\n[IEEE 754](http:\/\/en.wikipedia.org\/wiki\/IEEE_floating_point). ",
-                    "fields": null,
-                    "inputFields": null,
-                    "interfaces": null,
+                    "interfaces": [],
                     "enumValues": null,
                     "possibleTypes": null
                 },
@@ -1880,7 +2217,9 @@
                                         "name": "Boolean",
                                         "ofType": null
                                     },
-                                    "defaultValue": "false"
+                                    "defaultValue": "false",
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -1951,7 +2290,9 @@
                                         "name": "Boolean",
                                         "ofType": null
                                     },
-                                    "defaultValue": "false"
+                                    "defaultValue": "false",
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
                                 }
                             ],
                             "type": {
@@ -1973,7 +2314,20 @@
                         {
                             "name": "inputFields",
                             "description": null,
-                            "args": [],
+                            "args": [
+                                {
+                                    "name": "includeDeprecated",
+                                    "description": null,
+                                    "type": {
+                                        "kind": "SCALAR",
+                                        "name": "Boolean",
+                                        "ofType": null
+                                    },
+                                    "defaultValue": "false",
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
+                                }
+                            ],
                             "type": {
                                 "kind": "LIST",
                                 "name": null,
@@ -2103,7 +2457,20 @@
                         {
                             "name": "args",
                             "description": null,
-                            "args": [],
+                            "args": [
+                                {
+                                    "name": "includeDeprecated",
+                                    "description": null,
+                                    "type": {
+                                        "kind": "SCALAR",
+                                        "name": "Boolean",
+                                        "ofType": null
+                                    },
+                                    "defaultValue": "false",
+                                    "isDeprecated": false,
+                                    "deprecationReason": null
+                                }
+                            ],
                             "type": {
                                 "kind": "NON_NULL",
                                 "name": null,
@@ -2234,6 +2601,34 @@
                             },
                             "isDeprecated": false,
                             "deprecationReason": null
+                        },
+                        {
+                            "name": "isDeprecated",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "Boolean",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "deprecationReason",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "String",
+                                "ofType": null
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "inputFields": null,
@@ -2342,30 +2737,6 @@
                             "deprecationReason": null
                         },
                         {
-                            "name": "args",
-                            "description": null,
-                            "args": [],
-                            "type": {
-                                "kind": "NON_NULL",
-                                "name": null,
-                                "ofType": {
-                                    "kind": "LIST",
-                                    "name": null,
-                                    "ofType": {
-                                        "kind": "NON_NULL",
-                                        "name": null,
-                                        "ofType": {
-                                            "kind": "OBJECT",
-                                            "name": "__InputValue",
-                                            "ofType": null
-                                        }
-                                    }
-                                }
-                            },
-                            "isDeprecated": false,
-                            "deprecationReason": null
-                        },
-                        {
                             "name": "isRepeatable",
                             "description": null,
                             "args": [],
@@ -2397,6 +2768,30 @@
                                         "ofType": {
                                             "kind": "ENUM",
                                             "name": "__DirectiveLocation",
+                                            "ofType": null
+                                        }
+                                    }
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
+                            "name": "args",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "NON_NULL",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "LIST",
+                                    "name": null,
+                                    "ofType": {
+                                        "kind": "NON_NULL",
+                                        "name": null,
+                                        "ofType": {
+                                            "kind": "OBJECT",
+                                            "name": "__InputValue",
                                             "ofType": null
                                         }
                                     }
@@ -2554,7 +2949,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "locations": [
@@ -2579,7 +2976,9 @@
                                     "ofType": null
                                 }
                             },
-                            "defaultValue": null
+                            "defaultValue": null,
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "locations": [
@@ -2594,18 +2993,22 @@
                     "args": [
                         {
                             "name": "reason",
-                            "description": "Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted using the Markdown syntax (as specified by [CommonMark](https:\/\/commonmark.org\/).",
+                            "description": "Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted using the Markdown syntax, as specified by [CommonMark](https:\/\/commonmark.org\/).",
                             "type": {
                                 "kind": "SCALAR",
                                 "name": "String",
                                 "ofType": null
                             },
-                            "defaultValue": "\"No longer supported\""
+                            "defaultValue": "\"No longer supported\"",
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "locations": [
                         "FIELD_DEFINITION",
-                        "ENUM_VALUE"
+                        "ENUM_VALUE",
+                        "ARGUMENT_DEFINITION",
+                        "INPUT_FIELD_DEFINITION"
                     ]
                 }
             ]
