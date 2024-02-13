@@ -42,6 +42,12 @@ security:
             user_checker: App\Security\UserChecker
             logout:
                 path: app_logout
+                # the available options are 'cache', 'cookies', 'storage', 'executionContexts'
+                # you can also use the '*' wildcard to clear all data
+                clear_site_data:
+                    - cache
+                    - storage
+                    - executionContexts
 
             remember_me:
                 secret:   '%kernel.secret%'
