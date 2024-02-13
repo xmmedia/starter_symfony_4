@@ -49,12 +49,6 @@ public/service-worker.js
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
 
-###> cypress ###
-cypress/videos
-cypress/screenshots
-cypress/integration/examples
-###< cypress ###
-
 ###> phpstorm ###
 # User-specific stuff:
 .idea/**/workspace.xml
