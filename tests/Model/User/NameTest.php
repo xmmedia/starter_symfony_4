@@ -47,6 +47,18 @@ class NameTest extends BaseTestCase
         Name::fromString($faker->asciify(str_repeat('*', 51)));
     }
 
+    public function testTrailingSpaces(): void
+    {
+        $faker = $this->faker();
+        $nameStr = $faker->name();
+
+        $name = Name::fromString($nameStr.'   ');
+
+        $this->assertSame($nameStr, $name->name());
+        $this->assertSame($nameStr, $name->toString());
+        $this->assertSame($nameStr, (string) $name);
+    }
+
     public function testSameValueAs(): void
     {
         $faker = $this->faker();
