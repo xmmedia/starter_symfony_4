@@ -37,7 +37,7 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
 
   - PHP 8.2
   - MySQL 5.7+
-  - Node 14
+  - Node 18
   - [Yarn](https://yarnpkg.com/en/docs/install)
 
 ## Commands
@@ -46,7 +46,6 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
   - Dev JS/CSS build: `yarn dev`
   - Preview production JS/CSS build: `yarn preview`
   - JS Tests ([Jest](https://jestjs.io/)): `yarn test:unit`
-  - E2E Tests ([Cypress](https://www.cypress.io/)): `yarn test:e2e`
   - Linting:
     - JS ([ESLint](https://eslint.org/)): `yarn lint:js` or `yarn lint:js:fix`
     - CSS: `yarn lint:css` or `yarn lint:css:fix`
@@ -85,7 +84,6 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
     - [SVGO](https://github.com/svg/svgo) – optimizes SVG files
     - [Tailwind](https://tailwindcss.com/docs/what-is-tailwind/) – utility first styling framework
     - [Jest](https://jestjs.io/) – JS unit testing
-    - [Cypress](https://www.cypress.io/) – end-to-end (e2e) testing
     - [Lodash](https://lodash.com/) – helper functions for JS
     - [date-fns](https://date-fns.org/) – helper functions for Dates in JS
     - [PortalVue](https://github.com/LinusBorg/portal-vue) – helps to manage things like modals
