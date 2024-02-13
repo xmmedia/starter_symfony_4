@@ -1,0 +1,6 @@
+Subscription:
+    type: object
+    config:
+        fields:
+            id:
+                type: ID!
