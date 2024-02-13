@@ -8,8 +8,8 @@ stages:
 
 # Select what we should cache
 cache:
-  # cache per stage & branch
-  key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
+  # cache per job & branch
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
   paths:
     - vendor/
     - node_modules/
