@@ -16,6 +16,8 @@ class RunProjectionMiddleware implements MiddlewareInterface
     private const USER = 'user_projection';
     private const USER_TOKEN = 'user_token_projection';
 
+    private bool $paused = false;
+
     /**
      * Event namespace to projections.
      */
@@ -35,6 +37,10 @@ class RunProjectionMiddleware implements MiddlewareInterface
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
+        if ($this->paused) {
+            return $stack->next()->handle($envelope, $stack);
+        }
+
         $message = $envelope->getMessage();
 
         if ($message instanceof AggregateChanged) {
@@ -46,6 +52,16 @@ class RunProjectionMiddleware implements MiddlewareInterface
         }
 
         return $stack->next()->handle($envelope, $stack);
+    }
+
+    public function pause(): void
+    {
+        $this->paused = true;
+    }
+
+    public function resume(): void
+    {
+        $this->paused = false;
     }
 
     private function getProjectionName(AggregateChanged $message): array
