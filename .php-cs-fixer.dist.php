@@ -7,7 +7,9 @@ declare(strict_types=1);
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude('var')
-    ->exclude('node_modules');
+    ->exclude('cache')
+    ->exclude('node_modules')
+    ->exclude('public/js');
 
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
