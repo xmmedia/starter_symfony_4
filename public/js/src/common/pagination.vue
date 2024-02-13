@@ -41,7 +41,7 @@
         <span v-else :class="spanClasses" class="inline-block">&gt;</span>
 
         <RouterLink v-if="offset !== last"
-                    :to="{ name: routeName, query: { offset: last } }"
+                    :to="lastRoute"
                     :class="linkClasses"
                     class="inline-block">&gt;&gt;</RouterLink>
         <span v-else :class="spanClasses" class="inline-block">&gt;&gt;</span>
@@ -164,24 +164,9 @@ const pagesInRange = computed(() => {
 const showBeforeEllipsis = computed(() => pagesInRange.value && pagesInRange.value[0] > 1);
 const showAfterEllipsis = computed(() => !(current.value - rangeDelta.value + 1 > pageCount.value - props.pageRange));
 
-const previousRoute = computed(() => {
-    return {
-        name: props.routeName,
-        query: {
-            ...props.routeQueryAdditions,
-            offset: (previous.value - 1) * props.itemsPerPage,
-        },
-    };
-});
-const nextRoute = computed(() => {
-    return {
-        name: props.routeName,
-        query: {
-            ...props.routeQueryAdditions,
-            offset: (next.value - 1) * props.itemsPerPage,
-        },
-    };
-});
+const previousRoute = computed(() => pageRoute(previous.value - 1));
+const nextRoute = computed(() => pageRoute(next.value - 1));
+const lastRoute = computed(() => pageRoute(last.value / props.itemsPerPage));
 
 function goToPrevious () {
     if (previous.value) {
