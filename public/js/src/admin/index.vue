@@ -6,7 +6,7 @@
                                 focus:ring-offset-gray-900 rounded-none"
                         style="height: 3.75rem; padding: 0.65rem 0;">
                 <!-- @todo-symfony alt -->
-                <img src="/images/logo.svg"
+                <img src="../../../images/logo.svg"
                      width="70"
                      height="70"
                      class="h-10"
@@ -49,7 +49,7 @@
             <MenuSmall v-if="loggedIn" />
             <RouterLink :to="logoLinkRoute" class="ml-auto rounded-none focus:ring-offset-gray-900">
                 <!-- @todo-symfony alt -->
-                <img src="/images/logo.svg"
+                <img src="../../../images/logo.svg"
                      width="70"
                      height="70"
                      class="h-10 -mt-4 mr-4"
