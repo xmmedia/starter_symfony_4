@@ -22,6 +22,11 @@ overblog_graphql:
 
     batching_method: 'apollo'
 
+#when@dev:
+#    overblog_graphql:
+#        definitions:
+#            show_debug_info: true
+
 services:
     _defaults:
         autowire:      true
