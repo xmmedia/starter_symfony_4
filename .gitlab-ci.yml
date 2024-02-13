@@ -22,8 +22,6 @@ variables:
   TRUSTED_PROXIES: ''
 
 before_script:
-  # ensure everything up to date
-  - apt-get update -yqq
   # install composer
   - wget --no-verbose -O composer.phar https://getcomposer.org/composer-2.phar
 
