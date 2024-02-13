@@ -33,7 +33,7 @@ const props = defineProps({
     },
     /**
      * Either:
-     * [{ value: '', label: ''}, ...]
+     * [{ value: '', label: '' }, ...]
      * or
      * { value: name, ... }
      * The first is used by the component. The second is converted to the first.

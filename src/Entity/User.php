@@ -53,6 +53,7 @@ class User implements UserInterface, PasswordHasherAwareInterface, EquatableInte
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $lastName = null;
+
     /**
      * @var UserToken[]|Collection|ArrayCollection
      */

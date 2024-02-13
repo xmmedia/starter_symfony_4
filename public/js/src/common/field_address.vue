@@ -107,7 +107,7 @@ const props = defineProps({
 
 const value = computed({
     get () {
-        return props.modelValue
+        return props.modelValue;
     },
 });
 

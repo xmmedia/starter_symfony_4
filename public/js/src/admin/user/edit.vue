@@ -159,6 +159,7 @@ onResult(({ data: { User }}) => {
     user.value.role = User.roles[0];
     user.value.firstName = User.firstName;
     user.value.lastName = User.lastName;
+
     verified.value = User.verified;
     active.value = User.active;
 

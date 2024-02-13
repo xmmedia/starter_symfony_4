@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useRootStore } from './stores/root';
 import { scrollBehavior, parseQuery, stringifyQuery, logPageView } from '@/common/router_helpers';
-import { apolloClient } from "@/common/apollo";
+import { apolloClient } from '@/common/apollo';
 
 import { RouteQuery } from './queries/user.query.graphql';
 
