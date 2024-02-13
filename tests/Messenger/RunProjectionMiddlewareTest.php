@@ -6,7 +6,6 @@ namespace App\Tests\Messenger;
 
 use App\Messenger\RunProjectionMiddleware;
 use App\Model\Auth\Event\UserLoggedIn;
-use App\Model\Enquiry\Event\EnquiryWasSubmitted;
 use App\Model\User\Event\UserActivatedByAdmin;
 use App\Tests\BaseTestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -43,16 +42,6 @@ class RunProjectionMiddlewareTest extends BaseTestCase
         yield [
             UserActivatedByAdmin::now($faker->userId()),
             ['user_projection', 'user_token_projection'],
-        ];
-
-        yield [
-            EnquiryWasSubmitted::now(
-                $faker->enquiryId(),
-                $faker->name(),
-                $faker->emailVo(),
-                $faker->string(5),
-            ),
-            ['enquiry_projection'],
         ];
     }
 

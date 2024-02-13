@@ -12,7 +12,6 @@ use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
 
 class RunProjectionMiddleware implements MiddlewareInterface
 {
-    private const ENQUIRY = 'enquiry_projection';
     private const USER = 'user_projection';
     private const USER_TOKEN = 'user_token_projection';
 
@@ -22,9 +21,6 @@ class RunProjectionMiddleware implements MiddlewareInterface
      * Event namespace to projections.
      */
     private array $namespaceToProjection = [
-        'App\Model\Enquiry\Event' => [
-            self::ENQUIRY,
-        ],
         'App\Model\User\Event'    => [
             self::USER,
             self::USER_TOKEN,

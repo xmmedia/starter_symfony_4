@@ -18,7 +18,6 @@ parameters:
     # email templates
     email.template.auth.user_invite: 'auth-user_invite'
     email.template.auth.password_reset: 'auth-password_reset'
-    email.template.enquiry_received: 'enquiry-received'
 
 services:
     # default configuration for services in *this* file
@@ -75,9 +74,7 @@ services:
             $template: '%email.template.auth.password_reset%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
-    App\Model\Enquiry\Handler\SendEnquiryEmailHandler:
         arguments:
-            $template: '%email.template.enquiry_received%'
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
