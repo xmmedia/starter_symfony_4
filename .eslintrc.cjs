@@ -4,9 +4,8 @@ module.exports = {
     env: {
         node: true,
         browser: true,
-        "cypress/globals": true,
     },
-    extends: ['plugin:vue/vue3-essential', 'eslint:recommended'],
+    extends: ['plugin:vue/vue3-recommended', 'eslint:recommended'],
     rules: {
         "no-console": "error",
         "no-debugger": "error",
@@ -34,6 +33,7 @@ module.exports = {
             "multiline": "beside",
         }],
         "vue/html-indent": ["error", 4],
+        "vue/script-indent": ["error", 4, { "switchCase": 1 }],
         "vue/html-self-closing": [
             "error", {
                 "html": {
@@ -58,7 +58,4 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 'latest',
     },
-    plugins: [
-        "cypress",
-    ],
 };
