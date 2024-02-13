@@ -99,7 +99,7 @@ static:
     # install php dependencies
     - php composer.phar install --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
-    - yarn install --non-interactive --frozen-lockfile
+    - yarn install --immutable
     - *security-checks
     # cache warmup for phpstan
     - php bin/console cache:warmup --env=dev
@@ -132,7 +132,7 @@ deploy to staging:
     - *deploy-setup-script
     # install dependencies
     - php composer.phar install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
-    - yarn install --non-interactive --frozen-lockfile
+    - yarn install --immutable
     - *security-checks
     - yarn build --mode development
     - *deploy-script
@@ -151,7 +151,7 @@ deploy to prod:
     - *deploy-setup-script
     # install dependencies (not php dev dependencies)
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
-    - yarn install --non-interactive --frozen-lockfile
+    - yarn install --immutable
     - *security-checks
     - yarn build
     - *deploy-script
