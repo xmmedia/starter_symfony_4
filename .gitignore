@@ -94,3 +94,14 @@ cypress/integration/examples
 /node_modules/
 /public/build/
 ###< pentatrion/vite-bundle ###
+
+###< yarn ###
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+yarn-error.log
+###< yarn ###
