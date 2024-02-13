@@ -120,6 +120,14 @@ const router = createRouter({
 });
 
 router.beforeEach( async (to, from, next) => {
+    // don't do any checks if we're staying on the same route
+    // this is most likely when changing the query string
+    if (typeof to.name !== 'undefined' && typeof from.name !== 'undefined' && to.name === from.name) {
+        next();
+
+        return;
+    }
+
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const rootStore = useRootStore();
 
