@@ -35,12 +35,6 @@ final class SecurityController extends AbstractController
         throw new \LogicException('Shouldn\'t have gotten to the login link action');
     }
 
-    #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(): void
-    {
-        throw new \LogicException('Shouldn\'t have gotten to the logout action');
-    }
-
     #[Route(path: '/activate/{token}', name: 'user_activate_token', methods: ['GET'])]
     public function activateRedirect(Request $request, string $token): RedirectResponse
     {
