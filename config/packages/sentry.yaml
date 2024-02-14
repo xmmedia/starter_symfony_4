@@ -1,6 +1,11 @@
 when@prod:
     sentry:
-        dsn:                     '%env(SENTRY_DSN)%'
+        dsn: '%env(SENTRY_DSN)%'
+        # this hooks into critical paths of the framework (and vendors) to perform
+        # automatic instrumentation (there might be some performance penalty)
+        # https://docs.sentry.io/platforms/php/guides/symfony/performance/instrumentation/automatic-instrumentation/
+        tracing:
+            enabled: false
 
         # If you are using Monolog, you also need this additional configuration to log the errors correctly:
         # https://docs.sentry.io/platforms/php/guides/symfony/#monolog-integration
