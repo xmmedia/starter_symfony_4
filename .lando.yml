@@ -12,6 +12,8 @@ services:
   appserver:
     build_as_root:
       - a2enmod headers
+  database:
+    type: mysql:5.7.43
   phpmyadmin:
     type: phpmyadmin
     ssl: true
