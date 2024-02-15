@@ -9,7 +9,7 @@ use Money\Formatter\IntlMoneyFormatter;
 use Xm\SymfonyBundle\Model\MoneyFactory;
 use Xm\SymfonyBundle\Model\ValueObject;
 
-class Money implements ValueObject
+class Money implements ValueObject, \Stringable
 {
     public const MIN = 0;
     public const MAX = 100_000_00; // $100,000.00
