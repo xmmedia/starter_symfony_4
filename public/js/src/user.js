@@ -1,4 +1,4 @@
-import { createApp, defineAsyncComponent } from 'vue';
+import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import PortalVue from 'portal-vue';
 import { createVfm } from 'vue-final-modal';
@@ -22,6 +22,9 @@ import FieldError from './common/field_error';
 import FieldPassword from './common/field_password';
 import FormButton from './common/form_button.vue';
 import PublicIcon from './common/public_icon';
+import AdminModal from './common/modal';
+import AdminDelete from './admin/admin_delete/index';
+import LocalTime from './common/local_time';
 
 import { MeQuery } from './user/queries/user.query.graphql';
 
@@ -79,9 +82,9 @@ apolloClient.query({ query: MeQuery })
             .component('FieldPassword', FieldPassword)
             .component('FormButton', FormButton)
             .component('PublicIcon', PublicIcon)
-            .component('AdminModal', defineAsyncComponent(() => import('./common/modal')))
-            .component('AdminDelete', defineAsyncComponent(() => import('./admin/admin_delete/index')))
-            .component('LocalTime', defineAsyncComponent(() => import('./common/local_time')));
+            .component('AdminModal', AdminModal)
+            .component('AdminDelete', AdminDelete)
+            .component('LocalTime', LocalTime);
 
         app.mount('#app');
     });
