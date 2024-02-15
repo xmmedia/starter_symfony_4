@@ -154,7 +154,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
 
     public function firstName(): ?Name
     {
-        if (!isset($this->firstName)) {
+        if (null === $this->firstName) {
             return null;
         }
 
@@ -163,7 +163,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
 
     public function lastName(): ?Name
     {
-        if (!isset($this->lastName)) {
+        if (null === $this->lastName) {
             return null;
         }
 
