@@ -30,7 +30,7 @@ final class SecurityController extends AbstractController
     }
 
     #[Route(path: '/login-link', name: 'app_login_link')]
-    public function loginLink(): void
+    public function loginLink(): never
     {
         throw new \LogicException('Shouldn\'t have gotten to the login link action');
     }
