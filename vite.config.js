@@ -33,6 +33,12 @@ export default defineConfig({
                 admin: './public/js/src/admin.js',
                 user: './public/js/src/user.js',
             },
+            output: {
+                manualChunks: {
+                    'vue-final-modal': ['vue-final-modal'],
+                    zxcvbn: ['zxcvbn'],
+                }
+            }
         },
         sourcemap: true,
     },
