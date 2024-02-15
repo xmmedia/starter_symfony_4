@@ -55,7 +55,7 @@ final readonly class Name implements ValueObject, \JsonSerializable, \Stringable
      */
     public function sameValueAs(ValueObject $other): bool
     {
-        if (static::class !== $other::class) {
+        if (self::class !== $other::class) {
             return false;
         }
 
