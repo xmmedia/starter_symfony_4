@@ -80,7 +80,7 @@
         "phpstan/phpstan-symfony": "^1.0",
         "phpstan/phpstan-webmozart-assert": "^1.0",
         "phpunit/phpunit": "^9.5",
-        "rector/rector": "^0.18",
+        "rector/rector": "^1.0",
         "symfony/apache-pack": "^1.0",
         "symfony/browser-kit": "*",
         "symfony/css-selector": "*",
