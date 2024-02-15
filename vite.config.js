@@ -18,7 +18,7 @@ export default defineConfig({
         manifestSRIPlugin(),
         symfonyPlugin({
             refresh: true,
-            // sriAlgorithm: 'sha384',
+            sriAlgorithm: 'sha384',
         }),
         sentryVitePlugin({
             // @todo-symfony
