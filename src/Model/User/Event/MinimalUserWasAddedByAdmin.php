@@ -64,11 +64,7 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function hashedPassword(): string
     {
         if (!isset($this->hashedPassword)) {
-            if (\array_key_exists('hashedPassword', $this->payload)) {
-                $this->hashedPassword = $this->payload['hashedPassword'];
-            } else {
-                $this->hashedPassword = $this->payload['encodedPassword'];
-            }
+            $this->hashedPassword = $this->payload['hashedPassword'];
         }
 
         return $this->hashedPassword;
@@ -86,11 +82,7 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function firstName(): ?Name
     {
         if (!isset($this->firstName)) {
-            if (!\array_key_exists('firstName', $this->payload)) {
-                $this->firstName = null;
-            } else {
-                $this->firstName = Name::fromString($this->payload['firstName']);
-            }
+            $this->firstName = Name::fromString($this->payload['firstName']);
         }
 
         return $this->firstName;
@@ -99,11 +91,7 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function lastName(): ?Name
     {
         if (!isset($this->lastName)) {
-            if (!\array_key_exists('lastName', $this->payload)) {
-                $this->lastName = null;
-            } else {
-                $this->lastName = Name::fromString($this->payload['lastName']);
-            }
+            $this->lastName = Name::fromString($this->payload['lastName']);
         }
 
         return $this->lastName;
@@ -112,11 +100,7 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function sendInvite(): bool
     {
         if (!isset($this->sendInvite)) {
-            if (!\array_key_exists('sendInvite', $this->payload)) {
-                $this->sendInvite = false;
-            } else {
-                $this->sendInvite = $this->payload['sendInvite'];
-            }
+            $this->sendInvite = $this->payload['sendInvite'];
         }
 
         return $this->sendInvite;
