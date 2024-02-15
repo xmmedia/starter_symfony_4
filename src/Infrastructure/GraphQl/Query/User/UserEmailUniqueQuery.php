@@ -29,7 +29,7 @@ final readonly class UserEmailUniqueQuery implements QueryInterface
         $currentUser = $this->security->getUser();
 
         if (!$currentUser && !$this->testing) {
-            sleep(rand(0, 5));
+            sleep(random_int(0, 5));
         }
 
         $user = $this->userFinder->findOneByEmail(
