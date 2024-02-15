@@ -39,7 +39,7 @@ final class UserReadModel extends AbstractReadModel
         $tableName = self::TABLE;
 
         $sql = <<<EOT
-UPDATE `$tableName` SET login_count = login_count + 1, last_login = :last_login WHERE user_id = :user_id;
+UPDATE `{$tableName}` SET login_count = login_count + 1, last_login = :last_login WHERE user_id = :user_id;
 EOT;
 
         $statement = $this->connection->prepare($sql);
@@ -60,7 +60,7 @@ EOT;
         $tableName = self::TABLE;
 
         $sql = <<<EOT
-CREATE TABLE `$tableName` (
+CREATE TABLE `{$tableName}` (
   `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
   `email` varchar(150) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
@@ -78,7 +78,7 @@ EOT;
         $this->connection->executeQuery($sql);
 
         $sql = <<<EOT
-ALTER TABLE `$tableName`
+ALTER TABLE `{$tableName}`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `email` (`email`) USING BTREE;
 EOT;
