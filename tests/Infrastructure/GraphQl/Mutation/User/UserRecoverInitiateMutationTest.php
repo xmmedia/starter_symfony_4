@@ -132,11 +132,9 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $userFinder->shouldReceive('findOneByEmail')
             ->once()->with(
                 \Mockery::on(
-                    function (Email $passedEmail) use ($email): bool {
-                        return $passedEmail->toString() === mb_strtolower(
-                            $email,
-                        );
-                    },
+                    fn(Email $passedEmail): bool => $passedEmail->toString() === mb_strtolower(
+                        $email,
+                    ),
                 ),
             )
             ->andReturn($user);
