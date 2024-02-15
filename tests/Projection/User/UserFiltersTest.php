@@ -43,7 +43,7 @@ class UserFiltersTest extends BaseTestCase
 
         foreach ($this->fields as $field) {
             $this->assertTrue($filters->applied($field), $field.' should be applied, but not.');
-            $this->assertEquals($$field, $filters->get($field));
+            $this->assertEquals(${$field}, $filters->get($field));
         }
     }
 
