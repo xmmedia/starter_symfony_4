@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
-    private EntityUserProvider $entityUserProvider;
+    private readonly EntityUserProvider $entityUserProvider;
 
     public function __construct(
         ManagerRegistry $registry,
