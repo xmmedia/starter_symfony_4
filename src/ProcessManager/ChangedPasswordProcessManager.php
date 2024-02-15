@@ -15,7 +15,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 final readonly class ChangedPasswordProcessManager
 {
-    public function __construct(private UserList $userRepo, private EventStore $eventStore, private MessageBusInterface $commandBus)
+    public function __construct(private UserList $userRepo, private MessageBusInterface $commandBus)
     {
     }
 
