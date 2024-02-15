@@ -160,7 +160,7 @@ final class AddUserCommand extends Command
 
     private function askForEmail(SymfonyStyle $io): string
     {
-        return $io->ask('Email', null, function (?string $email): string {
+        return $io->ask('Email', null, static function (?string $email) : string {
             Assert::notEmpty($email, 'A valid email address is required.');
 
             Assert::true(
@@ -174,7 +174,7 @@ final class AddUserCommand extends Command
 
     private function askForPassword(SymfonyStyle $io): string
     {
-        return $io->askHidden('Password', function (?string $password): string {
+        return $io->askHidden('Password', static function (?string $password) : string {
             Assert::notEmpty($password, 'A password is required.');
             Assert::minLength(
                 $password,
@@ -198,7 +198,7 @@ final class AddUserCommand extends Command
 
     private function askForName(string $label, SymfonyStyle $io): string
     {
-        return $io->ask($label, null, function (?string $name): string {
+        return $io->ask($label, null, static function (?string $name) : string {
             Name::fromString($name);
 
             return trim($name);
