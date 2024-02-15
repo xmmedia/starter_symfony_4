@@ -10,7 +10,6 @@ use App\Model\User\Event\UserActivated;
 use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\UserList;
 use Carbon\CarbonImmutable;
-use Prooph\EventStore\EventStore;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final readonly class ChangedPasswordProcessManager
