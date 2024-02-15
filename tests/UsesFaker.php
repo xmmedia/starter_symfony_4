@@ -17,7 +17,7 @@ trait UsesFaker
      */
     protected function faker(): Faker\Generator
     {
-        return !isset($this->faker) ? $this->makeFaker() : $this->faker;
+        return $this->faker ?? $this->makeFaker();
     }
 
     private function makeFaker(): Faker\Generator
