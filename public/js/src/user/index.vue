@@ -56,6 +56,7 @@ import { useRootStore } from './stores/root';
 const rootStore = useRootStore();
 
 useHead({
+    // @todo-symfony
     title: 'Symfony Starter',
     titleTemplate: '%s | Symfony Starter',
 });

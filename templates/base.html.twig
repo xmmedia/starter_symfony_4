@@ -31,6 +31,7 @@
         {% block body %}
             {% block header %}
                 <header>
+                    {# @todo-symfony this isn't visible if all SPA #}
                     <div><a href="{{ path('index') }}"><img src="/images/logo.svg" width="250" alt="{{ 'app.parameter.name'|trans }}"></a></div>
                 </header>
             {% endblock header %}
