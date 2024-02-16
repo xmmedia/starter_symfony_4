@@ -10,7 +10,9 @@
                      width="70"
                      height="70"
                      class="h-10"
-                     alt="Logo">
+                     alt="Logo"
+                     loading="lazy"
+                     decoding="async">
             </RouterLink>
 
             <ul class="sidebar_nav-nav">
@@ -55,7 +57,9 @@
                      width="70"
                      height="70"
                      class="h-10 -mt-4 mr-4"
-                     alt="Logo">
+                     alt="Logo"
+                     loading="lazy"
+                     decoding="async">
             </RouterLink>
         </header>
         <div class="content-wrap">
