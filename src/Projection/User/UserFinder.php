@@ -40,9 +40,8 @@ FROM `user` u
 WHERE {$queryParts['where']}
 GROUP BY u.user_id
 ORDER BY {$queryParts['order']}
+LIMIT :offset, :maxResults
 Query;
-
-        $sql .= ' LIMIT :offset, :maxResults';
 
         if ($filters->applied(UserFilters::OFFSET)) {
             $queryParts['parameters']['offset'] = (int) $filters->get(UserFilters::OFFSET);
