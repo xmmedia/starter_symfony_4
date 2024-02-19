@@ -4809,18 +4809,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"portal-vue@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "portal-vue@npm:3.0.0"
-  peerDependencies:
-    vue: ^3.0.4
-  peerDependenciesMeta:
-    vue:
-      optional: true
-  checksum: c1b75685c7c2fb868f81f5bff79f51c513daef45e01e40cb505d0a29d4c1b52aece839de7dafbf04db70fefbd4dd40369a1180fa603904ff1a0f308e77d1090b
-  languageName: node
-  linkType: hard
-
 "postcss-import@npm:^15.1.0":
   version: 15.1.0
   resolution: "postcss-import@npm:15.1.0"
@@ -6621,7 +6609,6 @@ __metadata:
     omit-deep-lodash: ^1.1.5
     pinia: ^2.0.34
     pluralize: ^8.0.0
-    portal-vue: ^3.0.0
     postcss: ^8.2.1
     qs: ^6.7.0
     sass: ^1.62.1

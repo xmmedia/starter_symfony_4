@@ -1,12 +1,13 @@
 <template>
     <div>
-        <Portal to="header-actions">
+        <Teleport to="#header-page-title">Users</Teleport>
+        <Teleport to="#header-actions">
             <RouterLink :to="{ name: 'admin-user-add' }"
                         class="header-action header-action-main">Add User</RouterLink>
             <div class="header-secondary_actions">
                 <button type="button" class="button-link" @click="refresh">Refresh</button>
             </div>
-        </Portal>
+        </Teleport>
 
         <FilterForm v-model="filters" @reset="resetFilters" />
 

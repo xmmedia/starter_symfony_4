@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import PortalVue from 'portal-vue';
 import { createVfm } from 'vue-final-modal';
 import { createHead } from '@unhead/vue';
 
@@ -69,7 +68,6 @@ apolloClient.query({ query: MeQuery })
 
         app.use(router)
             .use(pinia)
-            .use(PortalVue)
             .use(createVfm())
             .use(createHead());
 

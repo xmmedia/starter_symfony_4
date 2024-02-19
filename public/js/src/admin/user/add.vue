@@ -1,10 +1,10 @@
 <template>
     <div class="form-wrap">
-        <Portal to="header-actions">
+        <Teleport to="#header-actions">
             <div class="header-secondary_actions">
                 <RouterLink :to="{ name: 'admin-user' }">Return to list</RouterLink>
             </div>
-        </Portal>
+        </Teleport>
 
         <h2 class="mt-0">Add User</h2>
         <form method="post" @submit.prevent="submit">

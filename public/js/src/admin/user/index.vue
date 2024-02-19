@@ -1,9 +1,5 @@
 <template>
-    <div>
-        <Portal to="header-page-title">Users</Portal>
-
-        <RouterView />
-    </div>
+    <RouterView />
 </template>
 
 <script setup>

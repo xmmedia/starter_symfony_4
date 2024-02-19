@@ -1,6 +1,6 @@
 <template>
-    <Portal to="header-page-title">Admin</Portal>
-    <Portal to="header-actions" />
+    <Teleport to="#header-page-title">Admin</Teleport>
+    <Teleport to="#header-actions" />
 
     <ul class="flex flex-wrap pl-0 list-none">
         <li>

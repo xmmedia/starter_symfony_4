@@ -1,12 +1,12 @@
 <template>
     <div class="form-wrap">
-        <Portal to="header-actions">
+        <Teleport to="#header-actions">
             <div class="header-secondary_actions">
                 <RouterLink :to="{ name: 'admin-user-view', params: { userId: props.userId } }">
                     Return to user
                 </RouterLink>
             </div>
-        </Portal>
+        </Teleport>
 
         <h2 class="mt-0">Edit User</h2>
 

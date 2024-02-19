@@ -1,12 +1,12 @@
 <template>
-    <Portal to="header-actions">
+    <Teleport to="#header-actions">
         <div class="header-secondary_actions">
             <RouterLink :to="{ name: 'admin-user' }">Return to list</RouterLink>
             <RouterLink v-if="state.matches('loaded')"
                         :to="{ name: 'admin-user-edit', params: { userId: props.userId } }"
                         class="header-action header-action-main">Edit User</RouterLink>
         </div>
-    </Portal>
+    </Teleport>
 
     <LoadingSpinner v-if="state.matches('loading')">
         Loading user…
@@ -21,7 +21,7 @@
     </div>
 
     <template v-if="state.matches('loaded')">
-        <Portal to="header-page-title">{{ user.name }}</Portal>
+        <Teleport to="#header-page-title">{{ user.name }}</Teleport>
 
         <div class="record_view-item_wrap">
             <div class="record_view-item">

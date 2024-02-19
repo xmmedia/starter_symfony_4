@@ -64,12 +64,8 @@
         </header>
         <div class="content-wrap">
             <header class="header-wrap">
-                <h1 class="header-page_title">
-                    <PortalTarget name="header-page-title" />
-                </h1>
-                <div class="header-actions">
-                    <PortalTarget name="header-actions" />
-                </div>
+                <h1 id="header-page-title" class="header-page_title"></h1>
+                <div id="header-actions" class="header-actions"></div>
             </header>
 
             <main class="p-4">
