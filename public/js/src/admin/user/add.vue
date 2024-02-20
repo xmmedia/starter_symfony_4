@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
@@ -94,13 +94,7 @@ const user = ref({
 });
 const edited = ref(false);
 
-const userDataForPassword = computed(() => [
-    user.value.email,
-    user.value.firstName,
-    user.value.lastName,
-]);
-
-const userValidations = userValidation(userDataForPassword.value);
+const userValidations = userValidation();
 const v$ = useVuelidate({
     user: {
         ...userValidations,

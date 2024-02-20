@@ -107,11 +107,7 @@ const currentPassword = ref(null);
 const newPassword = ref(null);
 const repeatPassword = ref(null);
 
-const userValidations = userValidation([
-    rootStore.user.email,
-    rootStore.user.firstName,
-    rootStore.user.lastName,
-]);
+const userValidations = userValidation();
 const v$ = useVuelidate({
     currentPassword: userValidations.currentPassword,
     newPassword: {
@@ -119,7 +115,14 @@ const v$ = useVuelidate({
         sameAs: sameAs(repeatPassword),
     },
     repeatPassword: userValidations.repeatPassword,
-}, { currentPassword, newPassword, repeatPassword } );
+}, {
+    currentPassword,
+    newPassword,
+    repeatPassword,
+    email: rootStore.user.email,
+    firstName: rootStore.user.firstName,
+    lastName: rootStore.user.lastName,
+});
 
 async function submit () {
     if (!state.value.matches('ready')) {

@@ -102,13 +102,7 @@ const user = ref({
     phoneNumber: formatPhone(rootStore.user.userData?.phoneNumber || null),
 });
 
-const userDataForPassword = computed(() => [
-    user.value.email,
-    user.value.firstName,
-    user.value.lastName,
-]);
-
-const userValidations = userValidation(userDataForPassword.value);
+const userValidations = userValidation();
 const v$ = useVuelidate({
     user: {
         email: userValidations.email,

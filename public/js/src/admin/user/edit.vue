@@ -161,13 +161,7 @@ onError(() => {
     sendEvent({ type: 'ERROR' });
 });
 
-const userDataForPassword = computed(() => [
-    user.value.email,
-    user.value.firstName,
-    user.value.lastName,
-]);
-
-const userValidations = userValidation(userDataForPassword.value);
+const userValidations = userValidation();
 const v$ = useVuelidate({
     user: {
         ...userValidations,

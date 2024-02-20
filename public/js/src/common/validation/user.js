@@ -13,7 +13,7 @@ import { UserEmailUnique } from '@/common/queries/user.query.graphql';
 
 export const passwordMinLength = 12;
 
-export default (userData = []) => {
+export default () => {
     return {
         email: {
             required,
@@ -41,17 +41,18 @@ export default (userData = []) => {
             // this is different from the backend:
             // there's no real point other than security to the check in the backend
             maxLength: maxLength(1000),
-            strength (value) {
+            strength (value, user) {
                 if (null === value || value.length < passwordMinLength) {
                     return true;
                 }
 
                 return zxcvbn(value, [
-                    ...userData,
+                    user?.email,
+                    user?.firstName,
+                    user?.lastName,
                     ...document.title.split(/[\s|]+/),
                 ]).score > 2;
             },
-
             compromised: helpers.withAsync(async function (value) {
                 if (null === value || value.length < 12) {
                     return true;

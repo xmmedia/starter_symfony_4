@@ -4,8 +4,8 @@ import { apolloClient } from '@/common/apollo';
 import userValidation from '@/common/validation/user';
 import { GetDuplicateUsers } from '../queries/user.query.graphql';
 
-export default (userData = []) => {
-    const validations = userValidation(userData);
+export default () => {
+    const validations = userValidation();
 
     return {
         email: {
