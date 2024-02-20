@@ -33,6 +33,7 @@
 
             <FieldPassword v-model="user.password"
                            :v="v$.user.password"
+                           :user-data="userDataForPassword"
                            checkbox-label="Change password"
                            autocomplete="off"
                            @set-password="user.setPassword = $event" />
@@ -76,19 +77,13 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { edit as stateMachineConfig } from '@/common/state_machines';
-import { useVuelidate } from '@vuelidate/core';
 import { useMutation, useQuery } from '@vue/apollo-composable';
-import debounce from 'lodash/debounce';
 import { formatPhone, logError } from '@/common/lib';
-import FieldEmail from '@/common/field_email';
-import FieldPassword from './component/field_password.vue';
-import FieldInput from '@/common/field_input';
-import FieldRole from './component/field_role.vue';
 import ActivateVerify from './component/activate_verify';
 import SendActivation from './component/send_activation';
 import SendReset from './component/send_reset';
@@ -97,9 +92,8 @@ import {
     AdminUserUpdateMutation,
     AdminUserDeleteMutation,
 } from '../queries/user.mutation.graphql';
-import userValidation from './user.validation';
-import { requiredIf } from '@vuelidate/validators';
 import { pick } from 'lodash';
+import { useForm } from '@/admin/user/form';
 
 const router = useRouter();
 
@@ -113,18 +107,23 @@ const props = defineProps({
     },
 });
 
-const user = ref({
-    email: null,
-    setPassword: false,
-    password: null,
-    role: 'ROLE_USER',
-    firstName: null,
-    lastName: null,
-    phoneNumber: null,
-});
+const {
+    user,
+    userDataForPassword,
+
+    FieldEmail,
+    FieldPassword,
+    FieldInput,
+    FieldRole,
+
+    edited,
+    v$,
+
+    setEmailDebounce,
+} = useForm(state);
+
 const verified = ref(true);
 const active = ref(true);
-const edited = ref(false);
 
 const showForm = computed(() => state.value.matches('ready') && !state.value.done);
 const allowSave = computed(() => {
@@ -160,34 +159,6 @@ onResult(({ data: { User }}) => {
 onError(() => {
     sendEvent({ type: 'ERROR' });
 });
-
-const userValidations = userValidation();
-const v$ = useVuelidate({
-    user: {
-        ...userValidations,
-        password: {
-            ...userValidations.password,
-            required: requiredIf(user.value.setPassword),
-        },
-    },
-}, { user });
-
-watch(
-    user,
-    () => {
-        if (state.value.matches('ready')) {
-            edited.value = true;
-        }
-    },
-    { deep: true, flush: 'sync' },
-);
-
-const setEmailDebounce = debounce(function (email) {
-    setEmail(email);
-}, 100, { leading: true });
-function setEmail (value) {
-    user.value.email = value;
-}
 
 async function submit () {
     if (!allowSave.value) {

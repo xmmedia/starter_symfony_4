@@ -57,70 +57,36 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { add as stateMachineConfig } from '@/common/state_machines';
-import { useVuelidate } from '@vuelidate/core';
 import { useMutation } from '@vue/apollo-composable';
-import debounce from 'lodash/debounce';
 import { v4 as uuid4 } from 'uuid';
 import { logError } from '@/common/lib';
-import FieldEmail from '@/common/field_email';
-import FieldPassword from './component/field_password.vue';
-import FieldInput from '@/common/field_input';
-import FieldRole from './component/field_role.vue';
 import { AdminUserAddMutation } from '../queries/user.mutation.graphql';
-import userValidation from './user.validation';
-import { requiredIf } from '@vuelidate/validators';
 import { pick } from 'lodash';
+import { useForm } from './form';
 
 const router = useRouter();
 
 const stateMachine = createMachine(stateMachineConfig);
 const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
-const user = ref({
-    email: null,
-    setPassword: false,
-    password: null,
-    role: 'ROLE_USER',
-    active: true,
-    firstName: null,
-    lastName: null,
-    sendInvite: false,
-    phoneNumber: null,
-});
-const edited = ref(false);
-
-const userValidations = userValidation();
-const v$ = useVuelidate({
-    user: {
-        ...userValidations,
-        password: {
-            ...userValidations.password,
-            required: requiredIf(user.value.setPassword),
-        },
-    },
-}, { user });
-
-watch(
+const {
     user,
-    () => {
-        if (state.value.matches('ready')) {
-            edited.value = true;
-        }
-    },
-    { deep: true, flush: 'sync' },
-);
+    userDataForPassword,
 
-const setEmailDebounce = debounce(function (email) {
-    setEmail(email);
-}, 100, { leading: true });
-function setEmail (value) {
-    user.value.email = value;
-}
+    FieldEmail,
+    FieldPassword,
+    FieldInput,
+    FieldRole,
+
+    edited,
+    v$,
+
+    setEmailDebounce,
+} = useForm(state);
 
 async function submit () {
     if (!state.value.matches('ready')) {
