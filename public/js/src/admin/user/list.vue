@@ -121,6 +121,7 @@ const stateMachine = createMachine({
         error: {
             on: {
                 REFRESH: 'loading',
+                UPDATE: 'loading',
             },
         },
     },
