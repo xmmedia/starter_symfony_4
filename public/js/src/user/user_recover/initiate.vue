@@ -3,7 +3,8 @@
         <form v-if="showForm"
               class="form-wrap p-4"
               method="post"
-              @submit.prevent="submit">
+              @submit.prevent="submit"
+              novalidate>
             <FormError v-if="v$.$error && v$.$invalid" />
             <FieldError v-if="notFound" class="mb-4">
                 An account with that email cannot be found.

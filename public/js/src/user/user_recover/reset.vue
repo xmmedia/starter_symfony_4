@@ -3,7 +3,8 @@
         <form v-if="showForm"
               class="form-wrap p-4"
               method="post"
-              @submit.prevent="submit">
+              @submit.prevent="submit"
+              novalidate>
             <FormError v-if="v$.$error && v$.$invalid" />
             <FieldError v-if="invalidToken" class="mb-4">
                 Your reset link is invalid or has expired.

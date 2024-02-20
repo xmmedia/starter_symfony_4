@@ -2,7 +2,7 @@
     <div class="form-wrap p-0">
         <ProfileTabs />
 
-        <form class="p-4" method="post" @submit.prevent="submit">
+        <form class="p-4" method="post" @submit.prevent="submit" novalidate>
             <FormError v-if="v$.$error && v$.$invalid" />
 
             <FieldEmail :model-value="user.email"
