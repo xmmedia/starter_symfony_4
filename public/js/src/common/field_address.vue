@@ -197,7 +197,7 @@ const autocompletes = {
 
 // options: https://developers.google.com/maps/documentation/javascript/load-maps-js-api#js-api-loader
 new MapsLoader({
-    apiKey: null,
+    apiKey: import.meta.env.VITE_GOOGLE_BROWSER_API_KEY,
     region: 'CA',
 }).load().then(async () => {
     const { Autocomplete } = await google.maps.importLibrary('places');
