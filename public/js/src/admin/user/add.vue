@@ -7,7 +7,7 @@
         </Teleport>
 
         <h2 class="mt-0">Add User</h2>
-        <form method="post" @submit.prevent="submit" novalidate>
+        <form method="post" novalidate @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
 
             <FieldEmail :model-value="user.email"

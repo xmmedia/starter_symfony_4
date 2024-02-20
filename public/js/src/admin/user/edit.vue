@@ -22,7 +22,7 @@
             <p><RouterLink :to="{ name: 'admin-user' }">Return to user list</RouterLink></p>
         </div>
 
-        <form v-else-if="showForm" method="post" @submit.prevent="submit" novalidate>
+        <form v-else-if="showForm" method="post" novalidate @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
 
             <FieldEmail :model-value="user.email"

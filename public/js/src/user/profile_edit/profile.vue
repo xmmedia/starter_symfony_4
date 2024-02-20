@@ -2,7 +2,7 @@
     <div class="form-wrap p-0">
         <ProfileTabs />
 
-        <form class="p-4" method="post" @submit.prevent="submit" novalidate>
+        <form class="p-4" method="post" novalidate @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
 
             <FieldEmail :model-value="user.email"
@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useRootStore } from '@/user/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';

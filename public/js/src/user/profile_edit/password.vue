@@ -2,7 +2,7 @@
     <div class="form-wrap p-0">
         <ProfileTabs />
 
-        <form class="p-4" method="post" @submit.prevent="submit" novalidate>
+        <form class="p-4" method="post" novalidate @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
             <div v-if="state.matches('saved')"
                  class="alert alert-success mb-4"

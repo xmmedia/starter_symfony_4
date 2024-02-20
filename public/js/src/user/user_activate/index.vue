@@ -3,8 +3,8 @@
         <form v-if="showForm"
               class="form-wrap"
               method="post"
-              @submit.prevent="submit"
-              novalidate>
+              novalidate
+              @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
             <FieldError v-if="invalidToken" class="mb-4">
                 Your activation link is invalid.
