@@ -199,7 +199,7 @@ const autocompletes = {
 new MapsLoader({
     apiKey: import.meta.env.VITE_GOOGLE_BROWSER_API_KEY,
     region: 'CA',
-}).load().then(async () => {
+}).importLibrary('places').then(async () => {
     const { Autocomplete } = await google.maps.importLibrary('places');
 
     autocompletes.line1 = new Autocomplete(
