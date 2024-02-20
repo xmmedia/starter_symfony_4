@@ -39,27 +39,3 @@ mutation AdminUserDeleteMutation($userId: UUID!) {
         success
     }
 }
-
-mutation AdminUserCourseAddMutation($userCourse: UserCourseInput!) {
-    UserCourseAdd(userCourse: $userCourse) {
-        userCourse {
-            userCourseId
-        }
-    }
-}
-
-mutation AdminUserCourseAddMultipleMutation($courseId: UUID!, $emails: [String!]!) {
-    UserCourseAddMultiple(courseId: $courseId, emails: $emails) {
-        counts {
-            success
-            failed
-        }
-        errors
-    }
-}
-
-mutation AdminUserCourseRemoveMutation($userCourseId: UUID!) {
-    UserCourseRemove(userCourseId: $userCourseId) {
-        success
-    }
-}
