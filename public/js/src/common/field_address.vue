@@ -80,7 +80,6 @@
 </template>
 
 <script setup>
-/*global google*/
 import { computed, ref, watch } from 'vue';
 import cuid from 'cuid';
 import filter from 'lodash/filter';
