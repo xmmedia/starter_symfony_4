@@ -274,11 +274,22 @@ const getAddressComponent = (type, autocompleteName = 'line1') => {
  */
 const getAddressLine1 = () => {
     try {
+        let unitNumber = null;
+        if (props.modelValue.line1) {
+            unitNumber = props.modelValue.line1.substr(0, props.modelValue.line1.indexOf(' '));
+        }
+
         const addressComponents = autocompletes.line1.getPlace().address_components;
 
-        return filter(addressComponents, (component) => ([ 'street_number', 'route' ].includes(component.types[0])))
+        let line1 = filter(addressComponents, (component) => ([ 'street_number', 'route' ].includes(component.types[0])))
             .map((component) => component.short_name)
             .join(' ');
+
+        if (unitNumber && !line1.startsWith(unitNumber)) {
+            return unitNumber+' '+line1;
+        }
+
+        return line1;
     } catch (e) {
         logError(e);
         return props.modelValue.line1;
