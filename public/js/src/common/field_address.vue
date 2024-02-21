@@ -81,13 +81,14 @@
 
 <script setup>
 /*global google*/
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import cuid from 'cuid';
 import filter from 'lodash/filter';
 import FieldInput from './field_input';
 import { LocalitiesQuery } from '@/common/queries/localities.query.graphql';
 import { useQuery } from '@vue/apollo-composable';
 import { Loader as MapsLoader } from '@googlemaps/js-api-loader';
+import { logError } from '@/common/lib';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -188,7 +189,7 @@ function countryChanged (country) {
 
 const autocompletes = {
     /**
-     * @type {Autocomplete}
+     * @type {google.maps.places.Autocomplete}
      * @link https://developers.google.com/maps/documentation/javascript/reference#Autocomplete
      */
     line1: null,
@@ -199,15 +200,12 @@ const autocompletes = {
 new MapsLoader({
     apiKey: import.meta.env.VITE_GOOGLE_BROWSER_API_KEY,
     region: 'CA',
-}).importLibrary('places').then(async () => {
-    const { Autocomplete } = await google.maps.importLibrary('places');
-
+}).importLibrary('places').then(async ({ Autocomplete }) => {
     autocompletes.line1 = new Autocomplete(
         inputLine1.value,
         {
             types: ['geocode'],
             fields: ['address_component'],
-            componentRestrictions: { country: props.modelValue.country },
         },
     );
     autocompletes.line1.addListener('place_changed', completeAddress);
@@ -217,10 +215,16 @@ new MapsLoader({
         {
             types: ['(cities)'],
             fields: ['address_component'],
-            componentRestrictions: { country: props.modelValue.country },
         },
     );
     autocompletes.city.addListener('place_changed', completeCity);
+});
+
+watch(() => props.modelValue.country, (country) => {
+    if (country) {
+        autocompletes.line1.setComponentRestrictions({ country });
+        autocompletes.city.setComponentRestrictions({ country });
+    }
 });
 
 const completeAddress = () => {
@@ -244,15 +248,20 @@ const completeCity = () => {
 };
 
 const getAddressComponent = (type, autocompleteName = 'line1') => {
-    const addressComponents = autocompletes[autocompleteName].getPlace().address_components;
-    const components = filter(addressComponents, (component) => {
-        return ([type].indexOf(component.types[0]) > -1);
-    });
+    try {
+        const addressComponents = autocompletes[autocompleteName].getPlace().address_components;
+        const components = filter(addressComponents, (component) => {
+            return ([ type ].indexOf(component.types[0]) > -1);
+        });
 
-    if (components.length > 0) {
-        return components[0].short_name;
-    } else {
-        return null;
+        if (components.length > 0) {
+            return components[0].short_name;
+        } else {
+            return null;
+        }
+    } catch (e) {
+        logError(e);
+        return props.modelValue[type];
     }
 };
 
@@ -264,14 +273,15 @@ const getAddressComponent = (type, autocompleteName = 'line1') => {
  * a unit number.
  */
 const getAddressLine1 = () => {
-    const addressComponents = autocompletes.line1.getPlace().address_components;
+    try {
+        const addressComponents = autocompletes.line1.getPlace().address_components;
 
-    return filter(addressComponents, (component) => {
-        return (['street_number', 'route'].indexOf(component.types[0]) > -1);
-    })
-        .map((component) => {
-            return component.short_name;
-        })
-        .join(' ');
+        return filter(addressComponents, (component) => ([ 'street_number', 'route' ].includes(component.types[0])))
+            .map((component) => component.short_name)
+            .join(' ');
+    } catch (e) {
+        logError(e);
+        return props.modelValue.line1;
+    }
 };
 </script>
