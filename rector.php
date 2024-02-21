@@ -6,12 +6,11 @@ use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
     ->withPreparedSets(
-        deadCode: true,
         codeQuality: true,
         codingStyle: true,
-        typeDeclarations: true,
         strictBooleans: true,
         // no privatization, naming, instanceOf, and earlyReturn
+        // no deadCode and typeDeclarations as they're below
     )
     ->withAttributesSets(symfony: true, doctrine: true)
     ->withPhpSets()
