@@ -43,6 +43,7 @@ readonly class LoginLoggerSubscriber implements EventSubscriberInterface
                 $user->email(),
                 $request->headers->get('User-Agent'),
                 $request->getClientIp(),
+                $request->attributes->get('_route'),
             ),
         );
     }
@@ -62,6 +63,7 @@ readonly class LoginLoggerSubscriber implements EventSubscriberInterface
                 $request->headers->get('User-Agent'),
                 $request->getClientIp(),
                 $event->getException()->getMessage(),
+                $request->attributes->get('_route'),
             ),
         );
     }

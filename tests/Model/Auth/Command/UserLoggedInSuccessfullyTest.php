@@ -18,6 +18,7 @@ class UserLoggedInSuccessfullyTest extends BaseTestCase
         $email = $faker->emailVo();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
 
         $command = UserLoggedInSuccessfully::now(
             $authId,
@@ -25,12 +26,14 @@ class UserLoggedInSuccessfullyTest extends BaseTestCase
             $email,
             $userAgent,
             $ipAddress,
+            $route,
         );
 
-        $this->assertTrue($authId->sameValueAs($command->authId()));
-        $this->assertEquals($userId, $command->userId());
-        $this->assertEquals($email, $command->email());
-        $this->assertEquals($userAgent, $command->userAgent());
-        $this->assertEquals($ipAddress, $command->ipAddress());
+        $this->assertSameValueAs($authId, $command->authId());
+        $this->assertSameValueAs($userId, $command->userId());
+        $this->assertSameValueAs($email, $command->email());
+        $this->assertSame($userAgent, $command->userAgent());
+        $this->assertSame($ipAddress, $command->ipAddress());
+        $this->assertSame($route, $command->route());
     }
 }

@@ -21,6 +21,7 @@ class UserLoginFailedHandlerTest extends BaseTestCase
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
+        $route = $faker->slug();
 
         $command = UserLoginFailed::now(
             $authId,
@@ -28,6 +29,7 @@ class UserLoginFailedHandlerTest extends BaseTestCase
             $userAgent,
             $ipAddress,
             $message,
+            $route,
         );
 
         $repo = \Mockery::mock(AuthList::class);

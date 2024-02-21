@@ -16,6 +16,7 @@ final class UserLoginFailed extends Command
         ?string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage,
+        string $route,
     ): self {
         return new self([
             'authId'           => $authId->toString(),
@@ -23,6 +24,7 @@ final class UserLoginFailed extends Command
             'userAgent'        => $userAgent,
             'ipAddress'        => $ipAddress,
             'exceptionMessage' => $exceptionMessage,
+            'route'            => $route,
         ]);
     }
 
@@ -51,20 +53,31 @@ final class UserLoginFailed extends Command
         return $this->payload['exceptionMessage'];
     }
 
+    public function route(): string
+    {
+        return $this->payload['route'];
+    }
+
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'authId');
         Assert::uuid($payload['authId']);
 
         Assert::keyExists($payload, 'email');
+        Assert::nullOrString($payload['email']);
 
         Assert::keyExists($payload, 'userAgent');
+        Assert::nullOrString($payload['userAgent']);
 
         Assert::keyExists($payload, 'ipAddress');
         Assert::notEmpty($payload['ipAddress']);
         Assert::string($payload['ipAddress']);
 
         Assert::keyExists($payload, 'exceptionMessage');
+        Assert::nullOrString($payload['exceptionMessage']);
+
+        Assert::keyExists($payload, 'route');
+        Assert::notEmpty($payload['route']);
 
         parent::setPayload($payload);
     }

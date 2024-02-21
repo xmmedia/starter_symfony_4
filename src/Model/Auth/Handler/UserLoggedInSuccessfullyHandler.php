@@ -22,6 +22,7 @@ final readonly class UserLoggedInSuccessfullyHandler
             $command->email(),
             $command->userAgent(),
             $command->ipAddress(),
+            $command->route(),
         );
 
         $this->authRepo->save($auth);

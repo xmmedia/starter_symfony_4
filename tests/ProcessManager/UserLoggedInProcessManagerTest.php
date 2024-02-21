@@ -28,6 +28,7 @@ class UserLoggedInProcessManagerTest extends BaseTestCase
             $faker->emailVo(),
             $faker->userAgent(),
             $faker->ipv4(),
+            $faker->slug(),
         );
 
         (new UserLoggedInProcessManager($commandBus))($event);

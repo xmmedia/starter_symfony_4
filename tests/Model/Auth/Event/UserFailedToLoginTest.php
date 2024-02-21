@@ -21,6 +21,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
+        $route = $faker->slug();
 
         $event = UserFailedToLogin::now(
             $authId,
@@ -28,13 +29,15 @@ class UserFailedToLoginTest extends BaseTestCase
             $userAgent,
             $ipAddress,
             $message,
+            $route,
         );
 
-        $this->assertEquals($authId, $event->authId());
-        $this->assertEquals($email, $event->email());
-        $this->assertEquals($userAgent, $event->userAgent());
-        $this->assertEquals($ipAddress, $event->ipAddress());
-        $this->assertEquals($message, $event->exceptionMessage());
+        $this->assertSameValueAs($authId, $event->authId());
+        $this->assertSame($email, $event->email());
+        $this->assertSame($userAgent, $event->userAgent());
+        $this->assertSame($ipAddress, $event->ipAddress());
+        $this->assertSame($message, $event->exceptionMessage());
+        $this->assertSame($route, $event->route());
     }
 
     public function testOccurNullValues(): void
@@ -44,6 +47,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $authId = $faker->authId();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
+        $route = $faker->slug();
 
         $event = UserFailedToLogin::now(
             $authId,
@@ -51,6 +55,7 @@ class UserFailedToLoginTest extends BaseTestCase
             null,
             $ipAddress,
             $message,
+            $route,
         );
 
         $this->assertNull($event->email());
@@ -66,6 +71,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->string(100);
+        $route = $faker->slug();
 
         /** @var UserFailedToLogin $event */
         $event = $this->createEventFromArray(
@@ -76,16 +82,18 @@ class UserFailedToLoginTest extends BaseTestCase
                 'userAgent'        => $userAgent,
                 'ipAddress'        => $ipAddress,
                 'exceptionMessage' => $message,
+                'route'            => $route,
             ],
         );
 
         $this->assertInstanceOf(UserFailedToLogin::class, $event);
 
-        $this->assertEquals($authId, $event->authId());
-        $this->assertEquals($email, $event->email());
-        $this->assertEquals($userAgent, $event->userAgent());
-        $this->assertEquals($ipAddress, $event->ipAddress());
-        $this->assertEquals($message, $event->exceptionMessage());
+        $this->assertSameValueAs($authId, $event->authId());
+        $this->assertSame($email, $event->email());
+        $this->assertSame($userAgent, $event->userAgent());
+        $this->assertSame($ipAddress, $event->ipAddress());
+        $this->assertSame($message, $event->exceptionMessage());
+        $this->assertSame($route, $event->route());
     }
 
     public function testFromArrayNullValues(): void
@@ -95,6 +103,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $authId = $faker->authId();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
+        $route = $faker->slug();
 
         /** @var UserFailedToLogin $event */
         $event = $this->createEventFromArray(
@@ -105,6 +114,7 @@ class UserFailedToLoginTest extends BaseTestCase
                 'userAgent'        => null,
                 'ipAddress'        => $ipAddress,
                 'exceptionMessage' => $message,
+                'route'            => $route,
             ],
         );
 

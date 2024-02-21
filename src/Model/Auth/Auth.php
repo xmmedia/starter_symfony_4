@@ -22,6 +22,7 @@ class Auth extends AggregateRoot implements Entity
         Email $email,
         string $userAgent,
         string $ipAddress,
+        string $route,
     ): self {
         $self = new self();
         $self->recordThat(
@@ -31,6 +32,7 @@ class Auth extends AggregateRoot implements Entity
                 $email,
                 substr($userAgent, 0, 500),
                 $ipAddress,
+                $route,
             ),
         );
 
@@ -43,6 +45,7 @@ class Auth extends AggregateRoot implements Entity
         ?string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage,
+        string $route,
     ): self {
         $self = new self();
         $self->recordThat(
@@ -52,6 +55,7 @@ class Auth extends AggregateRoot implements Entity
                 null !== $userAgent ? substr($userAgent, 0, 500) : null,
                 $ipAddress,
                 $exceptionMessage,
+                $route,
             ),
         );
 

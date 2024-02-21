@@ -23,6 +23,7 @@ class AuthRepositoryTest extends BaseTestCase
             $faker->emailVo(),
             $faker->userAgent(),
             $faker->ipv4(),
+            $faker->slug(),
         );
 
         /** @var AuthRepository $repository */

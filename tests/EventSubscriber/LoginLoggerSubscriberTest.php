@@ -51,6 +51,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
                 'REMOTE_ADDR' => $faker->ipv4(),
             ],
         );
+        $request->attributes->set('_route', $faker->slug());
 
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
@@ -94,6 +95,7 @@ class LoginLoggerSubscriberTest extends BaseTestCase
                 'HTTP_USER_AGENT' => $faker->userAgent(),
             ],
         );
+        $request->attributes->set('_route', $faker->slug());
 
         $authenticator = \Mockery::mock(AuthenticatorInterface::class);
 

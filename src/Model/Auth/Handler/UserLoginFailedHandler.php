@@ -22,6 +22,7 @@ final readonly class UserLoginFailedHandler
             $command->userAgent(),
             $command->ipAddress(),
             $command->exceptionMessage(),
+            $command->route(),
         );
 
         $this->authRepo->save($auth);

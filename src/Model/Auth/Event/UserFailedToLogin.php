@@ -13,6 +13,7 @@ class UserFailedToLogin extends AggregateChanged
     private ?string $userAgent;
     private string $ipAddress;
     private ?string $exceptionMessage;
+    private string $route;
 
     public static function now(
         AuthId $authId,
@@ -20,18 +21,21 @@ class UserFailedToLogin extends AggregateChanged
         ?string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage,
+        string $route,
     ): self {
         $event = self::occur($authId->toString(), [
             'email'            => $email,
             'userAgent'        => $userAgent,
             'ipAddress'        => $ipAddress,
             'exceptionMessage' => $exceptionMessage,
+            'route'            => $route,
         ]);
 
         $event->email = $email;
         $event->userAgent = $userAgent;
         $event->ipAddress = $ipAddress;
         $event->exceptionMessage = $exceptionMessage;
+        $event->route = $route;
 
         return $event;
     }
@@ -75,5 +79,14 @@ class UserFailedToLogin extends AggregateChanged
         }
 
         return $this->exceptionMessage;
+    }
+
+    public function route(): string
+    {
+        if (!isset($this->route)) {
+            $this->route = $this->payload['route'];
+        }
+
+        return $this->route;
     }
 }

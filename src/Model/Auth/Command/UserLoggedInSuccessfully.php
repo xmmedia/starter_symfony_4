@@ -18,6 +18,7 @@ final class UserLoggedInSuccessfully extends Command
         Email $email,
         string $userAgent,
         string $ipAddress,
+        string $route,
     ): self {
         return new self([
             'authId'    => $authId->toString(),
@@ -25,6 +26,7 @@ final class UserLoggedInSuccessfully extends Command
             'email'     => $email->toString(),
             'userAgent' => $userAgent,
             'ipAddress' => $ipAddress,
+            'route'     => $route,
         ]);
     }
 
@@ -53,6 +55,11 @@ final class UserLoggedInSuccessfully extends Command
         return $this->payload['ipAddress'];
     }
 
+    public function route(): string
+    {
+        return $this->payload['route'];
+    }
+
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'authId');
@@ -62,6 +69,7 @@ final class UserLoggedInSuccessfully extends Command
         Assert::uuid($payload['userId']);
 
         Assert::keyExists($payload, 'email');
+        Assert::string($payload['email']);
 
         Assert::keyExists($payload, 'userAgent');
         Assert::notEmpty($payload['userAgent']);
@@ -70,6 +78,9 @@ final class UserLoggedInSuccessfully extends Command
         Assert::keyExists($payload, 'ipAddress');
         Assert::notEmpty($payload['ipAddress']);
         Assert::string($payload['ipAddress']);
+
+        Assert::keyExists($payload, 'route');
+        Assert::notEmpty($payload['route']);
 
         parent::setPayload($payload);
     }

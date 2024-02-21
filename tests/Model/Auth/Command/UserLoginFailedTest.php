@@ -18,6 +18,7 @@ class UserLoginFailedTest extends BaseTestCase
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
+        $route = $faker->slug();
 
         $command = UserLoginFailed::now(
             $authId,
@@ -25,13 +26,15 @@ class UserLoginFailedTest extends BaseTestCase
             $userAgent,
             $ipAddress,
             $message,
+            $route,
         );
 
-        $this->assertTrue($authId->sameValueAs($command->authId()));
-        $this->assertEquals($email, $command->email());
-        $this->assertEquals($userAgent, $command->userAgent());
-        $this->assertEquals($ipAddress, $command->ipAddress());
-        $this->assertEquals($message, $command->exceptionMessage());
+        $this->assertSameValueAs($authId, $command->authId());
+        $this->assertSame($email, $command->email());
+        $this->assertSame($userAgent, $command->userAgent());
+        $this->assertSame($ipAddress, $command->ipAddress());
+        $this->assertSame($message, $command->exceptionMessage());
+        $this->assertSame($route, $command->route());
     }
 
     public function testNowNullValues(): void
@@ -44,6 +47,7 @@ class UserLoginFailedTest extends BaseTestCase
             null,
             $faker->ipv4(),
             null,
+            $faker->slug(),
         );
 
         $this->assertNull($command->email());

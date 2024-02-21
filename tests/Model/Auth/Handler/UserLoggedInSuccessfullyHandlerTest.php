@@ -21,6 +21,7 @@ class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
         $email = $faker->emailVo();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
 
         $command = UserLoggedInSuccessfully::now(
             $authId,
@@ -28,6 +29,7 @@ class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
             $email,
             $userAgent,
             $ipAddress,
+            $route,
         );
 
         $repo = \Mockery::mock(AuthList::class);

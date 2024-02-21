@@ -21,8 +21,9 @@ class AuthTest extends BaseTestCase
         $email = $faker->emailVo();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
 
-        $auth = Auth::success($authId, $userId, $email, $userAgent, $ipAddress);
+        $auth = Auth::success($authId, $userId, $email, $userAgent, $ipAddress, $route);
 
         $this->assertInstanceOf(Auth::class, $auth);
 
@@ -33,6 +34,7 @@ class AuthTest extends BaseTestCase
             'email'     => $email->toString(),
             'userAgent' => $userAgent,
             'ipAddress' => $ipAddress,
+            'route'     => $route,
         ], $events);
 
         $this->assertCount(1, $events);
@@ -49,8 +51,9 @@ class AuthTest extends BaseTestCase
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
+        $route = $faker->slug();
 
-        $auth = Auth::failure($authId, $email, $userAgent, $ipAddress, $message);
+        $auth = Auth::failure($authId, $email, $userAgent, $ipAddress, $message, $route);
 
         $this->assertInstanceOf(Auth::class, $auth);
 
@@ -61,6 +64,7 @@ class AuthTest extends BaseTestCase
             'userAgent'        => $userAgent,
             'ipAddress'        => $ipAddress,
             'exceptionMessage' => $message,
+            'route'            => $route,
         ], $events);
 
         $this->assertCount(1, $events);
@@ -75,8 +79,9 @@ class AuthTest extends BaseTestCase
         $authId = $faker->authId();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
+        $route = $faker->slug();
 
-        $auth = Auth::failure($authId, null, null, $ipAddress, $message);
+        $auth = Auth::failure($authId, null, null, $ipAddress, $message, $route);
 
         $this->assertInstanceOf(Auth::class, $auth);
 
@@ -87,6 +92,7 @@ class AuthTest extends BaseTestCase
             'userAgent'        => null,
             'ipAddress'        => $ipAddress,
             'exceptionMessage' => $message,
+            'route'            => $route,
         ], $events);
 
         $this->assertCount(1, $events);
@@ -101,9 +107,10 @@ class AuthTest extends BaseTestCase
         $email = $faker->emailVo();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
 
-        $auth1 = Auth::success($authId, $userId, $email, $userAgent, $ipAddress);
-        $auth2 = Auth::success($authId, $userId, $email, $userAgent, $ipAddress);
+        $auth1 = Auth::success($authId, $userId, $email, $userAgent, $ipAddress, $route);
+        $auth2 = Auth::success($authId, $userId, $email, $userAgent, $ipAddress, $route);
 
         $this->assertTrue($auth1->sameIdentityAs($auth2));
     }
@@ -116,9 +123,10 @@ class AuthTest extends BaseTestCase
         $email = $faker->emailVo();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
 
-        $auth1 = Auth::success($faker->authId(), $userId, $email, $userAgent, $ipAddress);
-        $auth2 = Auth::success($faker->authId(), $userId, $email, $userAgent, $ipAddress);
+        $auth1 = Auth::success($faker->authId(), $userId, $email, $userAgent, $ipAddress, $route);
+        $auth2 = Auth::success($faker->authId(), $userId, $email, $userAgent, $ipAddress, $route);
 
         $this->assertFalse($auth1->sameIdentityAs($auth2));
     }
@@ -133,6 +141,7 @@ class AuthTest extends BaseTestCase
             $faker->emailVo(),
             $faker->userAgent(),
             $faker->ipv4(),
+            $faker->slug(),
         );
 
         $this->assertFalse($auth->sameIdentityAs(FakeAr::create()));

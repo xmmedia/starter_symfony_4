@@ -15,6 +15,7 @@ class UserLoggedIn extends AggregateChanged
     private Email $email;
     private string $userAgent;
     private string $ipAddress;
+    private string $route;
 
     public static function now(
         AuthId $authId,
@@ -22,18 +23,21 @@ class UserLoggedIn extends AggregateChanged
         Email $email,
         string $userAgent,
         string $ipAddress,
+        string $route,
     ): self {
         $event = self::occur($authId->toString(), [
             'userId'    => $userId->toString(),
             'email'     => $email->toString(),
             'userAgent' => $userAgent,
             'ipAddress' => $ipAddress,
+            'route'     => $route,
         ]);
 
         $event->userId = $userId;
         $event->email = $email;
         $event->userAgent = $userAgent;
         $event->ipAddress = $ipAddress;
+        $event->route = $route;
 
         return $event;
     }
@@ -77,5 +81,14 @@ class UserLoggedIn extends AggregateChanged
         }
 
         return $this->ipAddress;
+    }
+
+    public function route(): string
+    {
+        if (!isset($this->route)) {
+            $this->route = $this->payload['route'];
+        }
+
+        return $this->route;
     }
 }

@@ -21,6 +21,7 @@ class UserLoggedInTest extends BaseTestCase
         $email = $faker->emailVo();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
 
         $event = UserLoggedIn::now(
             $authId,
@@ -28,13 +29,15 @@ class UserLoggedInTest extends BaseTestCase
             $email,
             $userAgent,
             $ipAddress,
+            $route,
         );
 
-        $this->assertEquals($authId, $event->authId());
-        $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($email, $event->email());
-        $this->assertEquals($userAgent, $event->userAgent());
-        $this->assertEquals($ipAddress, $event->ipAddress());
+        $this->assertSameValueAs($authId, $event->authId());
+        $this->assertSameValueAs($userId, $event->userId());
+        $this->assertSameValueAs($email, $event->email());
+        $this->assertSame($userAgent, $event->userAgent());
+        $this->assertSame($ipAddress, $event->ipAddress());
+        $this->assertSame($route, $event->route());
     }
 
     public function testFromArray(): void
@@ -46,6 +49,7 @@ class UserLoggedInTest extends BaseTestCase
         $email = $faker->emailVo();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
 
         /** @var UserLoggedIn $event */
         $event = $this->createEventFromArray(
@@ -56,15 +60,17 @@ class UserLoggedInTest extends BaseTestCase
                 'email'     => $email->toString(),
                 'userAgent' => $userAgent,
                 'ipAddress' => $ipAddress,
+                'route'     => $route,
             ],
         );
 
         $this->assertInstanceOf(UserLoggedIn::class, $event);
 
-        $this->assertEquals($authId, $event->authId());
-        $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($email, $event->email());
-        $this->assertEquals($userAgent, $event->userAgent());
-        $this->assertEquals($ipAddress, $event->ipAddress());
+        $this->assertSameValueAs($authId, $event->authId());
+        $this->assertSameValueAs($userId, $event->userId());
+        $this->assertSameValueAs($email, $event->email());
+        $this->assertSame($userAgent, $event->userAgent());
+        $this->assertSame($ipAddress, $event->ipAddress());
+        $this->assertSame($route, $event->route());
     }
 }
