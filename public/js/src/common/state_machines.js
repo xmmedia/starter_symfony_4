@@ -46,6 +46,40 @@ export const view = {
     },
 };
 
+export const viewWithDelete = {
+    id: 'component',
+    initial: 'loading',
+    states: {
+        loading: {
+            on: {
+                LOADED: 'loaded',
+                NOT_FOUND: 'not_found',
+                ERROR: 'error',
+            },
+        },
+        loaded: {
+            on: {
+                DELETE: 'deleting',
+            },
+        },
+        not_found: {
+            type: 'final',
+        },
+        deleting: {
+            on: {
+                DELETED: 'deleted',
+                ERROR: 'loaded',
+            },
+        },
+        deleted: {
+            type: 'final',
+        },
+        error: {
+            type: 'final',
+        },
+    },
+};
+
 export const add = {
     ...stateMachineDefaults,
     initial: 'ready',
