@@ -8,7 +8,7 @@ parameters:
     router.request_context.host: '%env(REQUEST_CONTEXT_HOST)%'
     router.request_context.scheme: '%env(REQUEST_CONTEXT_SCHEME)%'
     # @todo-symfony
-    user_timezone: 'America/Edmonton'
+    user_time_zone: 'America/Edmonton'
     email.product_name: 'XM Symfony Starter'
     email.company_name: 'XM Media Inc.'
     email.company_address: '123 Street, Big City'
@@ -34,7 +34,7 @@ services:
             $eventBus: '@messenger.bus.events'
             string $emailFrom: '%env(FROM_EMAIL)%'
             string $adminEmail: '%env(ADMIN_EMAIL)%'
-            string $userTimezone: '%user_timezone%'
+            string $userTimeZone: '%user_time_zone%'
 
     _instanceof:
         GraphQL\Type\Definition\Type:
