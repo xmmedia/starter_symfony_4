@@ -1,5 +1,6 @@
 <template>
     <div class="form-wrap">
+        <Teleport to="#header-page-title">Users</Teleport>
         <Teleport to="#header-actions">
             <div class="header-secondary_actions">
                 <RouterLink :to="{ name: 'admin-user' }">Return to list</RouterLink>
