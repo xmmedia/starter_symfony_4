@@ -10,7 +10,7 @@
                 @click="open">Delete</button>
     </slot>
 
-    <AdminModal v-if="show" @closed="closed" @opened="opened">
+    <AdminModal v-if="show" @opened="opened" @closed="closed">
         <div v-if="!deleting" class="text-center">
             <div class="my-4">
                 <slot>
