@@ -22,9 +22,8 @@ final readonly class UserData implements ValueObject
         return new self($data['phoneNumber'] ?? null);
     }
 
-    private function __construct(
-        private ?PhoneNumber $phoneNumber,
-    ) {
+    private function __construct(private ?PhoneNumber $phoneNumber)
+    {
     }
 
     public function phoneNumber(): ?PhoneNumber
