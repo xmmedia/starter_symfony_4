@@ -1,3 +1,12 @@
+// applied to the content inside the modal
+.admin-modal-content {
+    @apply flex flex-col max-w-xl mx-4 p-4 text-slate-300 bg-gray-800 border border-gray-700 rounded-lg space-y-2;
+
+    .field-errors {
+        @apply text-gray-800;
+    }
+}
+
 // transitions, classes applied by Vue
 .md-enter-active,
 .md-leave-active {

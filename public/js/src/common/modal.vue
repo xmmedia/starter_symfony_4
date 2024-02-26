@@ -2,8 +2,7 @@
     <VueFinalModal v-model="show"
                    :click-to-close="props.clickToClose"
                    class="flex justify-center items-center"
-                   content-class="flex flex-col max-w-xl mx-4 p-4 text-slate-300 bg-gray-800
-                                  border border-gray-700 rounded-lg space-y-2"
+                   content-class="admin-modal-content"
                    overlay-transition="vfm-fade"
                    content-transition="vfm-fade"
                    @before-open="$emit('before-open', $event)"
