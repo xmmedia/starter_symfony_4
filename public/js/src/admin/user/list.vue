@@ -244,10 +244,8 @@ const refresh = () => {
 }
 
 function cleanQueryFilters (queryFilters) {
-    if (queryFilters.active) {
-        queryFilters.active = 'true' === queryFilters.active;
-    } else {
-        delete queryFilters.active;
+    if ('ALL' === queryFilters.accountStatus) {
+        delete queryFilters.accountStatus;
     }
     if (!queryFilters.roles) {
         delete queryFilters.roles;
