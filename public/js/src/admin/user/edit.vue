@@ -161,7 +161,7 @@ onError(() => {
     sendEvent({ type: 'ERROR' });
 });
 
-async function submit () {
+const submit = async () => {
     if (!allowSave.value) {
         return;
     }
@@ -200,7 +200,7 @@ async function submit () {
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
-}
+};
 
 const deleteUser = async () => {
     if (!allowSave.value) {
