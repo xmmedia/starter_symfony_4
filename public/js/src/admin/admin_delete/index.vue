@@ -67,17 +67,17 @@ const deleting = ref(false);
 const cancel = ref(null);
 const link = ref(null);
 
-function open () {
+const open = () => {
     show.value = true;
-}
+};
 
-function opened () {
+const opened = () => {
     if (!deleting.value) {
         cancel.value.focus();
     }
-}
+};
 
-function closed ()  {
+const closed = () => {
     show.value = false;
     // reset everything else
     deleting.value = false;
@@ -85,18 +85,18 @@ function closed ()  {
     if (link.value) {
         link.value.focus();
     }
-}
+};
 
-function deleteRecord () {
+const deleteRecord = () => {
     deleting.value = true;
     emit('delete');
-}
+};
 
-function close () {
+const close = () => {
     show.value = false;
     deleting.value = false;
     if (link.value) {
         link.value.focus();
     }
-}
+};
 </script>
