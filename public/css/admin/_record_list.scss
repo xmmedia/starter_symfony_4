@@ -1,10 +1,12 @@
 .record_list-wrap {
-    @apply table list-none min-w-full mt-4;
-    border-collapse: collapse;
+    @apply md:grid pl-0 border-t md:border-none;
+    @screen md {
+        grid-template-columns: repeat(24, 1fr);
+    }
 }
 
 .record_list-item {
-    @apply flex flex-col flex-wrap p-2 border-b border-gray-300 transition-colors duration-150 ease-in-out;
+    @apply flex flex-col flex-wrap md:grid grid-cols-subgrid md:items-center col-span-full border-b border-gray-300 transition-colors duration-150 ease-in-out;
 
     &:hover {
         @apply bg-blue-100;
@@ -12,53 +14,22 @@
             @apply ring-offset-blue-100;
         }
     }
-    &:nth-of-type(2) {
-        @apply border-t;
-    }
 
     @screen md {
-        @apply table-row border-b border-gray-300;
-
-        &:first-of-type {
-            @apply table-row border-none;
-        }
-        &:nth-of-type(2) {
-            @apply border-t-0;
-        }
+        grid-template-columns: repeat(24, 1fr);
     }
 }
 
 .record_list-headers {
-    @apply hidden;
-
-    @screen md {
-        @apply font-bold border-none bg-gray-300;
-        display: table-header-group;
-    }
-}
-
-.record_view-item_wrap > .record_list-wrap {
-    @apply mt-0;
-    .record_list-headers {
-        @apply hidden;
-
-        @screen md {
-            @apply text-gray-600 font-light border-b border-solid border-gray-600 bg-transparent;
-            display: table-header-group;
-        }
-    }
+    @apply hidden md:grid grid-cols-subgrid col-span-full items-center font-bold border-none bg-gray-300 ;
 }
 
 .record_list-mobile_heading {
-    @apply my-0 text-base font-normal text-gray-500;
-
-    @screen md {
-        @apply hidden;
-    }
+    @apply md:hidden my-0 text-base font-normal text-gray-500;
 }
 
 .record_list-col {
-    @apply table-cell px-4 md:px-2 py-2 md:py-1 transition-default;
+    @apply px-4 md:px-2 py-2 md:py-1 transition-default;
 }
 .record_list-item-inactive > .record_list-col {
     @apply opacity-50;
@@ -69,6 +40,17 @@
 
 .record_list-col-actions {
     @apply text-right space-x-4;
+}
+
+.record_view-item_wrap > .record_list-wrap {
+    @apply mt-0;
+    .record_list-headers {
+        @apply hidden;
+
+        @screen md {
+            @apply grid items-center text-gray-600 font-light border-b border-solid border-gray-600 bg-transparent;
+        }
+    }
 }
 
 .record_list-record_count {

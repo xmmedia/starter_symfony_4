@@ -33,40 +33,40 @@
 
                 <ul class="record_list-wrap">
                     <li class="record_list-headers">
-                        <div class="record_list-col">Username</div>
-                        <div class="record_list-col">Name</div>
-                        <div class="record_list-col">Account Status</div>
-                        <div class="record_list-col">Last Login (Count)</div>
-                        <div class="record_list-col">Role</div>
-                        <div class="record_list-col"></div>
+                        <div class="record_list-col col-span-7">Username</div>
+                        <div class="record_list-col col-span-4">Name</div>
+                        <div class="record_list-col col-span-3">Account Status</div>
+                        <div class="record_list-col col-span-5">Last Login (Count)</div>
+                        <div class="record_list-col col-span-3">Role</div>
+                        <div class="record_list-col col-span-2"></div>
                     </li>
 
                     <li v-for="user in users"
                         :key="user.userId"
                         :class="{ 'record_list-item-inactive' : (!user.active || !user.verified) }"
                         class="record_list-item">
-                        <div class="record_list-col">
+                        <div class="record_list-col col-span-7">
                             {{ user.email }}
                             <span v-if="user.userId === rootStore.user.userId" class="pl-3 italic">
                                 You
                             </span>
                         </div>
-                        <div class="record_list-col">
+                        <div class="record_list-col col-span-4">
                             <RouterLink :to="{ name: 'admin-user-view', params: { userId: user.userId } }">
                                 {{ user.name }}
                             </RouterLink>
                         </div>
-                        <div class="record_list-col"><AccountStatus :user="user" /></div>
-                        <div class="record_list-col user_list-last_login">
+                        <div class="record_list-col col-span-3"><AccountStatus :user="user" /></div>
+                        <div class="record_list-col col-span-5 user_list-last_login">
                             <template v-if="user.loginCount > 0">
                                 <LocalTime v-if="user.lastLogin" :datetime="user.lastLogin" />
                                 ({{ user.loginCount }})
                             </template>
                             <i v-else>Never logged in</i>
                         </div>
-                        <div class="record_list-col">{{ rootStore.availableRoles[user.roles[0]] }}</div>
+                        <div class="record_list-col col-span-3">{{ rootStore.availableRoles[user.roles[0]] }}</div>
 
-                        <div class="record_list-col record_list-col-actions">
+                        <div class="record_list-col col-span-2 record_list-col-actions">
                             <RouterLink :to="{ name: 'admin-user-edit', params: { userId: user.userId } }">
                                 Edit
                             </RouterLink>
