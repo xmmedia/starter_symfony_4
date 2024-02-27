@@ -1,20 +1,14 @@
 .header-wrap {
-    @apply flex justify-between items-center py-2 bg-gray-100 border-b border-gray-300;
+    @apply flex justify-between items-center py-2 md:py-0 bg-gray-100 border-b border-gray-300;
     min-height: $header-height + 3.5;
     @screen xs {
         min-height: $header-height;
     }
-    @screen md {
-        @apply py-0;
-    }
 }
 
 .header-wrap-small {
-    @apply flex justify-between items-center relative z-10 pt-4 text-white bg-black border-b border-gray-400;
+    @apply flex lg:hidden justify-between items-center relative z-10 pt-4 text-white bg-black border-b border-gray-400;
     height: $header-height;
-    @screen lg {
-        @apply hidden;
-    }
 
     a {
         @apply text-white;
@@ -22,67 +16,48 @@
 }
 
 .header-page_title {
-    @apply grow shrink-0 w-40 max-w-1/2 px-4 text-xl text-blue-600 font-headings font-extralight truncate;
-    @screen sm {
-        @apply w-auto max-w-xs;
-    }
-    @screen md {
-        @apply text-3xl max-w-full;
-    }
+    @apply grow shrink-0 w-40 sm:w-auto  max-w-1/2 sm:max-w-xs md:max-w-[55%] lg:max-w-[65%] px-4 text-xl md:text-3xl text-blue-600 font-headings font-extralight truncate;
 }
 
 // the order of the HTML elements should match how the elements
 // appear on mobile (mobile first)
 .header-actions {
-    @apply flex flex-wrap justify-end items-center px-4 text-right;
-    @screen md {
-        @apply pb-0;
-    }
+    @apply flex flex-wrap justify-end items-center px-4 md:pb-0 text-right;
 }
 
 // for actions that should show as buttons
 // this styling is similar to buttons
 .header-action {
-    @apply block ml-4 py-2 px-5 text-xs border border-blue-600 border-solid rounded transition-colors duration-150 ease-in-out;
-    &:hover {
-        @apply no-underline bg-white;
-    }
-    &:focus {
-        // to override the base focus styles
-        @apply no-underline;
-    }
+    @apply block ml-4 py-2 px-5 text-xs border border-blue-600 border-solid rounded transition-colors duration-150 ease-in-out hover:no-underline focus:no-underline hover:bg-white;
 
     @media (min-width: 880px) {
-        order: 2;
+        @apply order-2;
     }
 }
 
 // for the main action(s)
 .header-action-main {
-    @apply my-4 text-sm text-center text-white bg-blue-500 border-blue-500;
-    &:hover {
-        @apply bg-blue-600 border-blue-600 text-white;
-    }
-    &:focus {
-        @apply bg-blue-600 rounded ring-offset-gray-100 text-white;
-    }
+    @apply my-2 text-sm text-center text-white hover:text-white focus:text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 border-blue-500 hover:border-blue-600 focus:rounded focus:ring-offset-gray-100;
 
     @media (min-width: 880px) {
-        @apply my-0;
-        order: 3;
+        @apply my-0 order-3;
     }
 }
 
 .header-secondary_actions {
-    @apply mt-2 ml-4 space-x-4 text-xs leading-loose;
+    @apply ml-4 space-x-4 text-xs leading-loose;
     @media (min-width: 560px) {
-        @apply mt-0 leading-none;
+        @apply leading-none;
     }
     @media (min-width: 880px) {
-        @apply mt-1;
-        order: 1;
+        @apply order-1;
     }
-
+    a {
+        @apply focus:py-1;
+    }
+    a.header-action-main {
+        @apply focus:py-2;
+    }
     a, button {
         @apply inline-block focus:ring-offset-gray-100 focus:no-underline;
     }
@@ -91,6 +66,6 @@
 .header-button_pair {
     @apply ml-4;
     @media (min-width: 880px) {
-        order: 4;
+        @apply order-4;
     }
 }
