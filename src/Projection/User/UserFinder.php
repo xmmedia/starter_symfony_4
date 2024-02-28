@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Projection\User;
 
 use App\Entity\User;
+use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,6 +23,29 @@ class UserFinder extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    public function findOrThrow(UserId|string $id): User
+    {
+        $company = $this->find($id);
+        if (!$company) {
+            throw UserNotFound::withUserId($id);
+        }
+
+        return $company;
+    }
+
+    public function findRefreshed(UserId|string $id): ?User
+    {
+        $company = $this->find($id);
+
+        if (!$company) {
+            return null;
+        }
+
+        $this->getEntityManager()->refresh($company);
+
+        return $company;
     }
 
     /**
