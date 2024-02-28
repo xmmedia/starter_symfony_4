@@ -227,6 +227,7 @@
       <path value="$PROJECT_DIR$/vendor/voku/portable-utf8" />
       <path value="$PROJECT_DIR$/vendor/voku/anti-xss" />
       <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/vendor/symfony/doctrine-messenger" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
