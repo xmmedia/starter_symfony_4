@@ -235,13 +235,13 @@ const updateQuery = () => {
         name: 'admin-user',
         query: { ...appliedFilters.value },
     });
-}
+};
 
 const refresh = () => {
     sendEvent({ type: 'REFRESH' });
     usersRefetch();
     userCountRefetch();
-}
+};
 
 function cleanQueryFilters (queryFilters) {
     if ('ALL' === queryFilters.accountStatus) {
@@ -252,12 +252,12 @@ function cleanQueryFilters (queryFilters) {
     }
 
     return queryFilters;
-}
+};
 
 const resetFilters = () => {
     filters.value = {
         ...defaultFilters,
     };
     offset.value = 0;
-}
+};
 </script>
