@@ -102,6 +102,7 @@ import { useMachine } from '@xstate/vue';
 import { AuthLast } from '@/user/queries/auth.query.graphql';
 import { UserLoginLink } from '@/user/queries/user.mutation.graphql';
 import LoadingSpinner from '@/common/loading_spinner.vue';
+import FieldPassword from '@/common/field_password.vue';
 
 const rootStore = useRootStore();
 const router = useRouter();

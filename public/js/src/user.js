@@ -18,7 +18,6 @@ import App from './user/index';
 import LoadingSpinner from './common/loading_spinner';
 import FormError from './common/form_error';
 import FieldError from './common/field_error';
-import FieldPassword from './common/field_password';
 import FormButton from './common/form_button.vue';
 import PublicIcon from './common/public_icon';
 import AdminModal from './common/modal';
@@ -77,7 +76,6 @@ apolloClient.query({ query: MeQuery })
         app.component('LoadingSpinner', LoadingSpinner)
             .component('FormError', FormError)
             .component('FieldError', FieldError)
-            .component('FieldPassword', FieldPassword)
             .component('FormButton', FormButton)
             .component('PublicIcon', PublicIcon)
             .component('AdminModal', AdminModal)
