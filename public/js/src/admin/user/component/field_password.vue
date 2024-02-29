@@ -12,6 +12,7 @@
                        :show-help="true"
                        :required="setPassword"
                        :autocomplete="autocomplete"
+                       icon-component="AdminIcon"
                        class="ml-6"
                        @update:model-value="$emit('update:modelValue', $event)" />
     </div>
