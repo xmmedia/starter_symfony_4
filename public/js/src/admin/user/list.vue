@@ -134,6 +134,16 @@ const defaultFilters = {
     role: 'ALL',
     accountStatus: 'ALL',
 };
+const cleanQueryFilters = (queryFilters) => {
+    if ('ALL' === queryFilters.accountStatus) {
+        delete queryFilters.accountStatus;
+    }
+    if (!queryFilters.roles) {
+        delete queryFilters.roles;
+    }
+
+    return queryFilters;
+};
 const filters = ref({
     ...defaultFilters,
     ...filtersStore.user,
@@ -241,17 +251,6 @@ const refresh = () => {
     sendEvent({ type: 'REFRESH' });
     usersRefetch();
     userCountRefetch();
-};
-
-const cleanQueryFilters = (queryFilters) => {
-    if ('ALL' === queryFilters.accountStatus) {
-        delete queryFilters.accountStatus;
-    }
-    if (!queryFilters.roles) {
-        delete queryFilters.roles;
-    }
-
-    return queryFilters;
 };
 
 const resetFilters = () => {
