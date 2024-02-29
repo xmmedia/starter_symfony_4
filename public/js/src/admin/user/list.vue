@@ -243,7 +243,7 @@ const refresh = () => {
     userCountRefetch();
 };
 
-function cleanQueryFilters (queryFilters) {
+const cleanQueryFilters = (queryFilters) => {
     if ('ALL' === queryFilters.accountStatus) {
         delete queryFilters.accountStatus;
     }
