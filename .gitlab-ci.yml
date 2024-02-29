@@ -72,9 +72,9 @@ before_script:
   # link shared folders
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -rf $RELEASE/var || true; ln -s $SHARED/var $RELEASE/var; rm -rf $RELEASE/public/uploads || true; ln -s $SHARED/public/uploads $RELEASE/public/uploads; rm -rf $RELEASE/config/jwt || true; ln -s $SHARED/config/jwt $RELEASE/config/jwt"
   # copy env file into place; dump env
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cp -a $SHARED/.env.local $RELEASE/.env.local && cd $REMOTE_BASE/current && $SERVER_PHP_PATH composer.phar dump-env"
+  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cp -a $SHARED/.env.local $RELEASE/.env.local && cd $RELEASE && $SERVER_PHP_PATH composer.phar dump-env"
   # run composer post update cmds on server
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current && $SERVER_PHP_PATH composer.phar run-script post-update-cmd"
+  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE && $SERVER_PHP_PATH composer.phar run-script post-update-cmd"
   # switch to new version
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ln -sfn $RELEASE $REMOTE_BASE/current"
   # reload php-fpm (to reset cache)
