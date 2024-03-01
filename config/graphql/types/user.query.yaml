@@ -12,7 +12,7 @@ UserQuery:
                     filters: UserFilterInput
 
             UserCount:
-                type:        'Int!'
+                type:        Int!
                 description: 'Retrieve the Users count.'
                 access:      '@=hasRole("ROLE_ADMIN")'
                 resolve:     '@=query("App\\GraphQl\\Query\\User\\UserCountQuery", args["filters"])'
