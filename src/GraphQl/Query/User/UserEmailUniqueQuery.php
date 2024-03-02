@@ -19,10 +19,8 @@ final readonly class UserEmailUniqueQuery implements QueryInterface
     }
 
     /**
-     * Returns unique => false when the email address is not used
-     * or only used by the current user.
-     * As the email address is stored in lower case,
-     * the email is compared in lowercase.
+     * Returns unique => false when the email address is not used or only used by the current user.
+     * As the email address is stored in lower case, the email is compared in lowercase.
      */
     public function __invoke(string $email): array
     {
@@ -32,9 +30,7 @@ final readonly class UserEmailUniqueQuery implements QueryInterface
             sleep(random_int(0, 5));
         }
 
-        $user = $this->userFinder->findOneByEmail(
-            Email::fromString(mb_strtolower($email)),
-        );
+        $user = $this->userFinder->findOneByEmail(Email::fromString(mb_strtolower($email)));
 
         if (!$user) {
             return ['unique' => true];
