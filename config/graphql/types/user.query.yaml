@@ -30,7 +30,6 @@ UserQuery:
             UserEmailUnique:
                 type:        UserEmailUnique!
                 description: 'Check if an email address is unique. Excludes the current user.'
-                access:      '@=isAuthenticated()'
                 resolve:     '@=query("App\\GraphQl\\Query\\User\\UserEmailUniqueQuery", args["email"])'
                 args:
                     email: String!
