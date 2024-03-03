@@ -16,7 +16,9 @@
                        :checked="value.value === modelValue"
                        :value="value.value"
                        @input="$emit('update:modelValue', $event.target.value)">
-                <label :for="id+'-'+value.value">{{ value.label }}</label>
+                <label v-if="!htmlLabel" :for="id+'-'+value.value">{{ value.label }}</label>
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <label v-else :for="id+'-'+value.value" v-html="value.label" />
             </div>
         </div>
 
@@ -55,6 +57,10 @@ const props = defineProps({
         default: false,
     },
     pills: {
+        type: Boolean,
+        default: false,
+    },
+    htmlLabel: {
         type: Boolean,
         default: false,
     },
