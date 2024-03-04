@@ -1,12 +1,18 @@
 .record_list-wrap {
-    @apply md:grid pl-0 border-t md:border-none;
-    @screen md {
-        grid-template-columns: repeat(24, 1fr);
+    @apply w-full pl-0 border-t md:border-t-0 list-none;
+    th, td {
+        @apply p-1;
+        &:first-child {
+            @apply md:pl-2;
+        }
+        &:last-child {
+            @apply pr-2;
+        }
     }
 }
 
 .record_list-item {
-    @apply flex flex-col flex-wrap md:grid grid-cols-subgrid md:items-center col-span-full border-b border-gray-300 transition-colors duration-150 ease-in-out;
+    @apply flex flex-col flex-wrap md:table-row border-b border-gray-300 transition-colors duration-150 ease-in-out;
 
     &:hover {
         @apply bg-blue-100;
@@ -14,22 +20,18 @@
             @apply ring-offset-blue-100;
         }
     }
-
-    @screen md {
-        grid-template-columns: repeat(24, 1fr);
-    }
 }
 
 .record_list-headers {
-    @apply hidden md:grid grid-cols-subgrid col-span-full items-center font-bold border-none bg-gray-300 ;
+    @apply items-center font-bold border-none bg-gray-300 text-left;
 }
 
 .record_list-mobile_heading {
-    @apply md:hidden my-0 text-base font-normal text-gray-500;
+    @apply md:hidden mr-4 text-gray-500;
 }
 
 .record_list-col {
-    @apply px-4 md:px-2 py-2 md:py-1 transition-default;
+    @apply px-2 py-2 transition-default align-middle;
 }
 .record_list-item-inactive > .record_list-col {
     @apply opacity-50;
@@ -38,30 +40,14 @@
     @apply opacity-100;
 }
 
-.record_list-col-actions {
-    @apply text-right space-x-4;
-}
-
-.record_view-item_wrap > .record_list-wrap {
-    @apply mt-0;
-    .record_list-headers {
-        @apply hidden;
-
-        @screen md {
-            @apply grid items-center text-gray-600 font-light border-b border-solid border-gray-600 bg-transparent;
-        }
-    }
-}
-
 .record_list-record_count {
     @apply text-xs mb-4 text-center text-gray-700;
 }
 
 .record_list-icon {
-    @apply w-5 h-5 align-text-top fill-current;
+    @apply w-5 h-5 mr-1 md:mr-0 align-text-top fill-current;
 }
 
-// needs to be here to override previous
-.record_list-wrap-subgrid {
-    @apply grid grid-cols-subgrid col-span-full;
+.record_list-col-actions {
+    @apply space-x-4 md:text-right;
 }

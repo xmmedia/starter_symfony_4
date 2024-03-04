@@ -30,49 +30,38 @@
                             :route-query-additions="{ filters }"
                             class="my-2" />
                 <div class="record_list-record_count">Showing {{ users.length }} or {{ userCount }}</div>
+                <RecordList :headings="[ 'Username', 'Name', 'Account Status', 'Last Login (Count)', 'Role', '' ]"
+                            :items="users"
+                            :cell-classes="[null, null, null, null, null, 'record_list-col-actions']"
+                            :row-classes="rowClasses">
+                    <template #col1="{ item }">
+                        {{ item.email }}
+                    </template>
+                    <template #col2="{ item }">
+                        <RouterLink :to="{ name: 'admin-user-view', params: { userId: item.userId } }">
+                            {{ item.name }}
+                        </RouterLink>
+                    </template>
+                    <template #col3="{ item }">
+                        <AccountStatus :user="item" />
+                    </template>
+                    <template #col4="{ item }">
+                        <template v-if="item.loginCount > 0">
+                            <LocalTime v-if="item.lastLogin" :datetime="item.lastLogin" />
+                            ({{ item.loginCount }})
+                        </template>
+                        <i v-else>Never logged in</i>
 
-                <ul class="record_list-wrap">
-                    <li class="record_list-headers">
-                        <div class="record_list-col col-span-7">Username</div>
-                        <div class="record_list-col col-span-4">Name</div>
-                        <div class="record_list-col col-span-3">Account Status</div>
-                        <div class="record_list-col col-span-5">Last Login (Count)</div>
-                        <div class="record_list-col col-span-3">Role</div>
-                        <div class="record_list-col col-span-2"></div>
-                    </li>
-
-                    <li v-for="user in users"
-                        :key="user.userId"
-                        :class="{ 'record_list-item-inactive' : (!user.active || !user.verified) }"
-                        class="record_list-item">
-                        <div class="record_list-col col-span-7">
-                            {{ user.email }}
-                            <span v-if="user.userId === rootStore.user.userId" class="pl-3 italic">
-                                You
-                            </span>
-                        </div>
-                        <div class="record_list-col col-span-4">
-                            <RouterLink :to="{ name: 'admin-user-view', params: { userId: user.userId } }">
-                                {{ user.name }}
-                            </RouterLink>
-                        </div>
-                        <div class="record_list-col col-span-3"><AccountStatus :user="user" /></div>
-                        <div class="record_list-col col-span-5 user_list-last_login">
-                            <template v-if="user.loginCount > 0">
-                                <LocalTime v-if="user.lastLogin" :datetime="user.lastLogin" />
-                                ({{ user.loginCount }})
-                            </template>
-                            <i v-else>Never logged in</i>
-                        </div>
-                        <div class="record_list-col col-span-3">{{ rootStore.availableRoles[user.roles[0]] }}</div>
-
-                        <div class="record_list-col col-span-2 record_list-col-actions">
-                            <RouterLink :to="{ name: 'admin-user-edit', params: { userId: user.userId } }">
-                                Edit
-                            </RouterLink>
-                        </div>
-                    </li>
-                </ul>
+                    </template>
+                    <template #col5="{ item }">
+                        {{ rootStore.availableRoles[item.roles[0]] }}
+                    </template>
+                    <template #col6="{ item }">
+                        <RouterLink :to="{ name: 'admin-user-edit', params: { userId: item.userId } }">
+                            Edit
+                        </RouterLink>
+                    </template>
+                </RecordList>
 
                 <Pagination route-name="admin-user"
                             :count="userCount || 0"
@@ -95,6 +84,7 @@ import { GetUsersQuery, GetUserCountQuery } from '../queries/user.query.graphql'
 import FilterForm from './component/filter_form.vue';
 import { useRoute, useRouter } from 'vue-router';
 import Pagination from '@/common/pagination.vue';
+import RecordList from '@/common/record_list.vue';
 import AccountStatus from './component/account_status.vue';
 
 const rootStore = useRootStore();
