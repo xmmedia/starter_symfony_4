@@ -477,134 +477,191 @@
         <!-- ############################# -->
         <!-- ####### Record List ######### -->
         <!-- ############################# -->
-        <h2>Record List</h2>
-        <div class="record_list-record_count">Showing X of X</div>
-        <ul class="record_list-wrap">
-            <li class="record_list-headers">
-                <div class="record_list-col">Col 1</div>
-                <div class="record_list-col">Col 2</div>
-                <div class="record_list-col text-center">Col 2</div>
-                <div class="record_list-col"></div>
-            </li>
+        <div class="my-12">
+            <h2>Record List</h2>
+            <div class="record_list-record_count">Showing X of X</div>
+            <table class="record_list-wrap hidden md:table">
+                <thead class="record_list-headers">
+                <tr>
+                    <!-- <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>-->
+                    <th>Col 1</th>
+                    <th>Col 2</th>
+                    <th>Col Action</th>
+                    <th>Long Value</th>
+                    <th class="text-center">Active</th>
+                    <th class="text-center">Inactive</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="i in 3" :key="i" class="record_list-item">
+                    <td class="record_list-col">
+                        <a href="">Value 1-{{ i }}</a>
+                    </td>
+                    <td class="record_list-col">
+                        Value 2-{{ i }}
+                    </td>
 
-            <li v-for="i in 3" :key="i" class="record_list-item">
-                <div class="record_list-col">
-                    <a href="">Value 1-{{ i }}</a>
-                </div>
-                <div class="record_list-col">
-                    Value 2-{{ i }}
-                </div>
-                <div class="record_list-col">
-                    <div class="flex justify-center">
-                        <AdminIcon icon="check"
-                                   class="record_list-icon text-green-600"
-                                   width="20"
-                                   height="20" />
-                        <span class="record_list-mobile_heading">[True]</span>
-                    </div>
-                </div>
-                <div class="record_list-col record_list-col-actions">
-                    <a href="">Action 1</a>
-                    <a href="">Action 2</a>
-                </div>
-            </li>
+                    <td class="record_list-col">
+                        <a href="" class="block">Action 1</a>
+                        <a href="" class="block">Action 2</a>
+                    </td>
+                    <td>
+                        Nullam quis risus eget urna mollis ornare vel eu leo.
+                        Nullam quis risus eget urna mollis ornare vel eu leo.
+                    </td>
+                    <td class="record_list-col items-center">
+                        <div class="flex justify-center items-center">
+                            <AdminIcon icon="check"
+                                       class="record_list-icon text-green-600"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
+                        </div>
 
-            <li class="record_list-item">
-                <div class="record_list-col">
-                    <a href="">Long Value</a>
-                </div>
-                <div class="record_list-col">
-                    Nullam quis risus eget urna mollis ornare vel eu leo.
-                    Nullam quis risus eget urna mollis ornare vel eu leo.
-                </div>
-                <div class="record_list-col">
-                    <div class="flex justify-center">
-                        <AdminIcon icon="check"
-                                   class="record_list-icon fill-current text-green-600"
-                                   width="20"
-                                   height="20" />
-                        <span class="record_list-mobile_heading">[True]</span>
-                    </div>
-                </div>
-                <div class="record_list-col record_list-col-actions">
-                    <a href="">Action 1</a>
-                    <a href="">Action 2</a>
-                </div>
-            </li>
+                    </td>
+                    <td class="record_list-col items-center">
+                        <div class="flex justify-center items-center">
+                            <AdminIcon icon="check"
+                                       class="record_list-icon fill-current text-gray-800"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
+                        </div>
+                    </td>
 
-            <li class="record_list-item record_list-item-inactive">
-                <div class="record_list-col">
-                    <a href="">Inactive Value 1</a>
-                </div>
-                <div class="record_list-col">
-                    Inactive Value 2
-                </div>
-                <div class="record_list-col">
-                    <div class="flex justify-center">
-                        <AdminIcon icon="check"
-                                   class="record_list-icon fill-current text-gray-800"
-                                   width="20"
-                                   height="20" />
-                        <span class="record_list-mobile_heading">[True]</span>
+                </tr>
+
+                <!-- <tr v-for="(item,i) in items"
+                         :key="i" class="record_list-item"
+                         :class="rowClasses(item)">-->
+                <!--      <template v-for="(heading,j) in headings" :key="i+'-'+j">-->
+                <!--           <td :class="cellClasses[j]" class="record_list-col">-->
+                <!--               <slot :name="`col${j+1}`" :item="item"></slot>-->
+                <!--           </td>-->
+                <!--       </template>-->
+                <!-- </tr>-->
+                </tbody>
+            </table>
+
+            <ul class="record_list-wrap md:hidden">
+                <li v-for="i in 3" :key="i" class="record_list-item">
+                    <div class="record_list-col">
+                        <div class="record_list-mobile_heading">Value 1</div>
+                        <a href="">Value 1-{{ i }}</a>
                     </div>
-                </div>
-                <div class="record_list-col record_list-col-actions">
-                    <a href="">Action 1</a>
-                    <a href="">Action 2</a>
-                </div>
-            </li>
-        </ul>
+                    <div class="record_list-col">
+                        <div class="record_list-mobile_heading">Value 2</div>
+                        <a href="">Value 2-{{ i }}</a>
+                    </div>
+                    <div class="record_list-col">
+                        <a href="" class="block">Action 1</a>
+                        <a href="" class="block">Action 2</a>
+                    </div>
+                    <div class="record_list-col">
+                        <div class="flex md:justify-center">
+                            <AdminIcon icon="check"
+                                       class="record_list-icon text-green-600"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
+                        </div>
+                    </div>
+                    <div class="record_list-col">
+                        <div class="flex md:justify-center">
+                            <AdminIcon icon="check"
+                                       class="record_list-icon fill-current text-gray-800"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
+                        </div>
+                    </div>
+                    <div class="record_list-col">
+                        Nullam quis risus eget urna mollis ornare vel eu leo.
+                        Nullam quis risus eget urna mollis ornare vel eu leo.
+                    </div>
+
+                </li>
+
+                <!--    <li v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">-->
+                <!--        <template v-for="(heading,j) in headings" :key="i+'-'+j">-->
+                <!--            <div :class="cellClasses[j]" class="record_list-col">-->
+                <!--                <div class="record_list-mobile_heading">{{ heading }}</div>-->
+                <!--                <slot :name="`col${j+1}`" :item="item"></slot>-->
+                <!--            </div>-->
+                <!--        </template>-->
+                <!--    </li>-->
+            </ul>
+        </div>
 
         <!-- ############################# -->
         <!-- ####### Record View ######### -->
         <!-- ############################# -->
         <h2>Record View</h2>
-        <div class="record_view-item_wrap">
-            <div class="record_view-item">
-                <div class="record_view-item_label">Name</div>
-                <div class="record_view-item_value">John Smith</div>
-            </div>
 
+        <div class="record_view-item_wrap max-w-4xl">
             <div class="record_view-item">
-                <div class="record_view-item_label">Is True</div>
+                <div class="record_view-item_label">Company Name</div>
+                <div class="record_view-item_value">Name</div>
+            </div>
+            <div class="record_view-item">
+                <div class="record_view-item_label">Parent Company</div>
                 <div class="record_view-item_value">
-                    <span title="A Checkmark">
-                        <AdminIcon icon="check"
-                                   class="record_list-icon text-green-600"
-                                   width="20"
-                                   height="20" />
-                    </span>
+                    Parent Company Name
+                </div>
+            </div>
+            <div class="record_view-item">
+                <div class="record_view-item_label record_view-item_label-horizontal">Active</div>
+                <div class="record_view-item_value record_view-item_value-horizontal">
+                    <AdminIcon icon="check"
+                               class="record_list-icon text-green-600"
+                               width="20"
+                               height="20" />
+                </div>
+            </div>
+            <div class="record_view-item">
+                <div class="record_view-item_label record_view-item_label-horizontal">Inactive</div>
+                <div class="record_view-item_value record_view-item_value-horizontal">
+                    <AdminIcon icon="check"
+                               class="record_list-icon text-gray-600"
+                               width="20"
+                               height="20" />
                 </div>
             </div>
 
             <div class="record_view-item">
-                <div class="record_view-item_label">Is False</div>
-                <div class="record_view-item_value record_view-item_value-inactive">
-                    <em>Not Active</em>
-                </div>
-            </div>
-
-            <div class="record_view-item">
-                <div class="record_view-item_label">List</div>
+                <div class="record_view-item_label">Address</div>
                 <div class="record_view-item_value">
-                    <ul class="pl-4">
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                        <li>Item 3</li>
-                    </ul>
+                    Address
+                    123 Main Street<br>
+                    Cityville, Province<br>
+                    Zip Code: 12345<br>
+                    Country: Imaginaria
+                </div>
+            </div>
+            <div class="record_view-item">
+                <div class="record_view-item_label">
+                    Email
+                </div>
+                <div class="record_view-item_value">
+                   email@example.com
+                </div>
+            </div>
+            <div class="record_view-item">
+                <div class="record_view-item_label">
+                    Phone Number
+
+                </div>
+                <div class="record_view-item_value">
+                   780-123-4756
                 </div>
             </div>
 
             <div class="record_view-item">
-                <div class="record_view-item_label">Multiline</div>
+                <div class="record_view-item_label">Notes</div>
                 <div class="record_view-item_value">
-                    Nullam id dolor id nibh ultricies vehicula ut id elit.<br>
-                    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-                    ut fermentum massa justo sit amet risus.<br>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer suscipit elementum est, in sodales sapien mollis quis. In erat nisl, hendrerit ac convallis ut, pellentesque at arcu. Maecenas quam dolor, suscipit id mauris a, pretium maximus ipsum. Maecenas et dictum risus. Cras elit neque, vestibulum eu euismod quis, luctus vitae justo.
                 </div>
             </div>
-
             <div class="record_view-item_group_wrap">
                 <h4 class="mt-2 mb-0 px-2">Group of Items</h4>
                 <div class="record_view-item">
@@ -618,6 +675,7 @@
             </div>
         </div>
 
+
         <div class="record_view-item_wrap">
             <div class="record_view-header_wrap">
                 <h3 class="m-0">Section Heading</h3>
@@ -626,31 +684,98 @@
                 </div>
             </div>
 
-            <ul class="record_list-wrap">
-                <li class="record_list-headers">
-                    <div class="record_list-col">Col 1</div>
-                    <div class="record_list-col">Col 2</div>
-                    <div class="record_list-col">Col 3</div>
-                    <div class="record_list-col"></div>
+            <table class="record_list-wrap hidden md:table">
+                <thead class="record_list-headers">
+                <tr>
+                    <!-- <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>-->
+                    <th>Col 1</th>
+                    <th>Col 2</th>
+                    <th>Col Action</th>
+                    <th class="text-center">Active</th>
+                    <th class="text-center">Inactive</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="i in 3" :key="i" class="record_list-item">
+                    <td class="record_list-col">
+                        <a href="">Value 1-{{ i }}</a>
+                    </td>
+                    <td class="record_list-col">
+                        Value 2-{{ i }}
+                    </td>
+
+                    <td class="record_list-col">
+                        <a href="" class="block">Action 1</a>
+                        <a href="" class="block">Action 2</a>
+                    </td>
+
+                    <td class="record_list-col">
+                        <div class="flex md:justify-center">
+                            <AdminIcon icon="check"
+                                       class="record_list-icon text-green-600"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
+                        </div>
+                    </td>
+                    <td class="record_list-col">
+                        <div class="flex md:justify-center">
+                            <AdminIcon icon="check"
+                                       class="record_list-icon fill-current text-gray-800"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
+                        </div>
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+
+            <ul class="record_list-wrap md:hidden">
+                <li v-for="i in 3" :key="i" class="record_list-item">
+                    <div class="record_list-col">
+                        <div class="record_list-mobile_heading">Value 1</div>
+                        <a href="">Value 1-{{ i }}</a>
+                    </div>
+                    <div class="record_list-col">
+                        <div class="record_list-mobile_heading">Value 2</div>
+                        <a href="">Value 2-{{ i }}</a>
+                    </div>
+                    <div class="record_list-col">
+                        <a href="" class="block">Action 1</a>
+                        <a href="" class="block">Action 2</a>
+                    </div>
+                    <div class="record_list-col">
+                        <div class="flex md:justify-center">
+                            <AdminIcon icon="check"
+                                       class="record_list-icon text-green-600"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
+                        </div>
+                    </div>
+                    <div class="record_list-col">
+                        <div class="flex md:justify-center">
+                            <AdminIcon icon="check"
+                                       class="record_list-icon fill-current text-gray-800"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
+                        </div>
+                    </div>
+
                 </li>
 
-                <li v-for="i in 5" :key="i" class="record_list-item">
-                    <div class="record_list-col">
-                        <div class="record_list-mobile_heading">Col 1</div>
-                        Value 1-{{ i }}
-                    </div>
-                    <div class="record_list-col">
-                        <div class="record_list-mobile_heading">Col 2</div>
-                        Value 2-{{ i }}
-                    </div>
-                    <div class="record_list-col">
-                        <div class="record_list-mobile_heading">Col 3</div>
-                        Value 3-{{ i }}
-                    </div>
-                    <div class="record_list-col record_list-col-actions">
-                        <a href="">Action</a>
-                    </div>
-                </li>
+                <!--    <li v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">-->
+                <!--        <template v-for="(heading,j) in headings" :key="i+'-'+j">-->
+                <!--            <div :class="cellClasses[j]" class="record_list-col">-->
+                <!--                <div class="record_list-mobile_heading">{{ heading }}</div>-->
+                <!--                <slot :name="`col${j+1}`" :item="item"></slot>-->
+                <!--            </div>-->
+                <!--        </template>-->
+                <!--    </li>-->
             </ul>
         </div>
 
