@@ -18,7 +18,9 @@ export const list = {
             },
         },
         error: {
-            type: 'final',
+            on: {
+                UPDATE: 'loading',
+            },
         },
     },
 };
