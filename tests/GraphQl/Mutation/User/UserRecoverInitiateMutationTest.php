@@ -50,11 +50,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $result = (new UserRecoverInitiateMutation(
-            $commandBus,
-            $userFinder,
-            true,
-        ))($args);
+        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -94,11 +90,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $this->expectException(UserError::class);
         $this->expectExceptionCode(429);
 
-        $result = (new UserRecoverInitiateMutation(
-            $commandBus,
-            $userFinder,
-            true,
-        ))($args);
+        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -141,11 +133,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $result = (new UserRecoverInitiateMutation(
-            $commandBus,
-            $userFinder,
-            true,
-        ))($args);
+        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -175,11 +163,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $this->expectException(UserError::class);
         $this->expectExceptionCode(404);
 
-        (new UserRecoverInitiateMutation(
-            $commandBus,
-            $userFinder,
-            true,
-        ))($args);
+        (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
     }
 
     public function testUserNotFound(): void
@@ -202,11 +186,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
         $this->expectException(UserError::class);
         $this->expectExceptionCode(404);
 
-        (new UserRecoverInitiateMutation(
-            $commandBus,
-            $userFinder,
-            true,
-        ))($args);
+        (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
     }
 
     public function testInvalidEmail(): void
@@ -224,12 +204,6 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        (new UserRecoverInitiateMutation(
-            $commandBus,
-            $userFinder,
-            true,
-        ))(
-            $args
-        );
+        (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
     }
 }
