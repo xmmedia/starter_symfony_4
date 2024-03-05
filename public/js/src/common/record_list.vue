@@ -2,18 +2,18 @@
     <div>
         <table class="record_list-wrap hidden md:table">
             <thead class="record_list-headers">
-            <tr>
-                <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>
-            </tr>
+                <tr>
+                    <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>
+                </tr>
             </thead>
             <tbody>
-            <tr v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
-                <template v-for="(heading,j) in headings" :key="i+'-'+j">
-                    <td :class="cellClasses[j]" class="record_list-col">
-                        <slot :name="`col${j+1}`" :item="item"></slot>
-                    </td>
-                </template>
-            </tr>
+                <tr v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
+                    <template v-for="(heading,j) in headings" :key="i+'-'+j">
+                        <td :class="cellClasses[j]" class="record_list-col">
+                            <slot :name="`col${j+1}`" :item="item"></slot>
+                        </td>
+                    </template>
+                </tr>
             </tbody>
         </table>
 

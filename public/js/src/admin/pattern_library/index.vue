@@ -482,54 +482,54 @@
             <div class="record_list-record_count">Showing X of X</div>
             <table class="record_list-wrap hidden md:table">
                 <thead class="record_list-headers">
-                <tr>
-                    <!-- <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>-->
-                    <th>Col 1</th>
-                    <th>Col 2</th>
-                    <th>Col Action</th>
-                    <th>Long Value</th>
-                    <th class="text-center">Active</th>
-                    <th class="text-center">Inactive</th>
-                </tr>
+                    <tr>
+                        <!-- <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>-->
+                        <th>Col 1</th>
+                        <th>Col 2</th>
+                        <th>Col Action</th>
+                        <th>Long Value</th>
+                        <th class="text-center">Active</th>
+                        <th class="text-center">Inactive</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr v-for="i in 3" :key="i" class="record_list-item">
-                    <td class="record_list-col">
-                        <a href="">Value 1-{{ i }}</a>
-                    </td>
-                    <td class="record_list-col">
-                        Value 2-{{ i }}
-                    </td>
+                    <tr v-for="i in 3" :key="i" class="record_list-item">
+                        <td class="record_list-col">
+                            <a href="">Value 1-{{ i }}</a>
+                        </td>
+                        <td class="record_list-col">
+                            Value 2-{{ i }}
+                        </td>
 
-                    <td class="record_list-col">
-                        <a href="" class="block">Action 1</a>
-                        <a href="" class="block">Action 2</a>
-                    </td>
-                    <td>
-                        Nullam quis risus eget urna mollis ornare vel eu leo.
-                        Nullam quis risus eget urna mollis ornare vel eu leo.
-                    </td>
-                    <td class="record_list-col items-center">
-                        <div class="flex justify-center items-center">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon text-green-600"
-                                       width="20"
-                                       height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
-                        </div>
+                        <td class="record_list-col">
+                            <a href="" class="block">Action 1</a>
+                            <a href="" class="block">Action 2</a>
+                        </td>
+                        <td>
+                            Nullam quis risus eget urna mollis ornare vel eu leo.
+                            Nullam quis risus eget urna mollis ornare vel eu leo.
+                        </td>
+                        <td class="record_list-col items-center">
+                            <div class="flex justify-center items-center">
+                                <AdminIcon icon="check"
+                                           class="record_list-icon text-green-600"
+                                           width="20"
+                                           height="20" />
+                                <span class="record_list-mobile_heading">[True]</span>
+                            </div>
 
-                    </td>
-                    <td class="record_list-col items-center">
-                        <div class="flex justify-center items-center">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon fill-current text-gray-800"
-                                       width="20"
-                                       height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
-                        </div>
-                    </td>
+                        </td>
+                        <td class="record_list-col items-center">
+                            <div class="flex justify-center items-center">
+                                <AdminIcon icon="check"
+                                           class="record_list-icon fill-current text-gray-800"
+                                           width="20"
+                                           height="20" />
+                                <span class="record_list-mobile_heading">[True]</span>
+                            </div>
+                        </td>
 
-                </tr>
+                    </tr>
 
                 <!-- <tr v-for="(item,i) in items"
                          :key="i" class="record_list-item"
@@ -643,7 +643,7 @@
                     Email
                 </div>
                 <div class="record_view-item_value">
-                   email@example.com
+                    email@example.com
                 </div>
             </div>
             <div class="record_view-item">
@@ -652,14 +652,17 @@
 
                 </div>
                 <div class="record_view-item_value">
-                   780-123-4756
+                    780-123-4756
                 </div>
             </div>
 
             <div class="record_view-item">
                 <div class="record_view-item_label">Notes</div>
                 <div class="record_view-item_value">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer suscipit elementum est, in sodales sapien mollis quis. In erat nisl, hendrerit ac convallis ut, pellentesque at arcu. Maecenas quam dolor, suscipit id mauris a, pretium maximus ipsum. Maecenas et dictum risus. Cras elit neque, vestibulum eu euismod quis, luctus vitae justo.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer suscipit elementum est,
+                    in sodales sapien mollis quis. In erat nisl, hendrerit ac convallis ut, pellentesque at arcu.
+                    Maecenas quam dolor, suscipit id mauris a, pretium maximus ipsum. Maecenas et dictum risus.
+                    Cras elit neque, vestibulum eu euismod quis, luctus vitae justo.
                 </div>
             </div>
             <div class="record_view-item_group_wrap">
@@ -686,49 +689,49 @@
 
             <table class="record_list-wrap hidden md:table">
                 <thead class="record_list-headers">
-                <tr>
-                    <!-- <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>-->
-                    <th>Col 1</th>
-                    <th>Col 2</th>
-                    <th>Col Action</th>
-                    <th class="text-center">Active</th>
-                    <th class="text-center">Inactive</th>
-                </tr>
+                    <tr>
+                        <!-- <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>-->
+                        <th>Col 1</th>
+                        <th>Col 2</th>
+                        <th>Col Action</th>
+                        <th class="text-center">Active</th>
+                        <th class="text-center">Inactive</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr v-for="i in 3" :key="i" class="record_list-item">
-                    <td class="record_list-col">
-                        <a href="">Value 1-{{ i }}</a>
-                    </td>
-                    <td class="record_list-col">
-                        Value 2-{{ i }}
-                    </td>
+                    <tr v-for="i in 3" :key="i" class="record_list-item">
+                        <td class="record_list-col">
+                            <a href="">Value 1-{{ i }}</a>
+                        </td>
+                        <td class="record_list-col">
+                            Value 2-{{ i }}
+                        </td>
 
-                    <td class="record_list-col">
-                        <a href="" class="block">Action 1</a>
-                        <a href="" class="block">Action 2</a>
-                    </td>
+                        <td class="record_list-col">
+                            <a href="" class="block">Action 1</a>
+                            <a href="" class="block">Action 2</a>
+                        </td>
 
-                    <td class="record_list-col">
-                        <div class="flex md:justify-center">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon text-green-600"
-                                       width="20"
-                                       height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
-                        </div>
-                    </td>
-                    <td class="record_list-col">
-                        <div class="flex md:justify-center">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon fill-current text-gray-800"
-                                       width="20"
-                                       height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
-                        </div>
-                    </td>
+                        <td class="record_list-col">
+                            <div class="flex md:justify-center">
+                                <AdminIcon icon="check"
+                                           class="record_list-icon text-green-600"
+                                           width="20"
+                                           height="20" />
+                                <span class="record_list-mobile_heading">[True]</span>
+                            </div>
+                        </td>
+                        <td class="record_list-col">
+                            <div class="flex md:justify-center">
+                                <AdminIcon icon="check"
+                                           class="record_list-icon fill-current text-gray-800"
+                                           width="20"
+                                           height="20" />
+                                <span class="record_list-mobile_heading">[True]</span>
+                            </div>
+                        </td>
 
-                </tr>
+                    </tr>
 
                 </tbody>
             </table>
