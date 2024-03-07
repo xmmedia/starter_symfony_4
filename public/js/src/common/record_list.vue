@@ -21,7 +21,7 @@
             <li v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
                 <template v-for="(heading,j) in headings" :key="i+'-'+j">
                     <div :class="cellClasses[j]" class="record_list-col">
-                        <div class="record_list-mobile_heading">{{ heading }}</div>
+                        <div v-if="heading" class="record_list-mobile_heading">{{ heading }}</div>
                         <slot :name="`col${j+1}`" :item="item"></slot>
                     </div>
                 </template>
