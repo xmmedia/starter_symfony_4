@@ -32,8 +32,7 @@
                 <div class="record_list-record_count">Showing {{ users.length }} or {{ userCount }}</div>
                 <RecordList :headings="[ 'Username', 'Name', 'Account Status', 'Last Login (Count)', 'Role', '' ]"
                             :items="users"
-                            :cell-classes="[null, null, null, null, null, 'record_list-col-actions']"
-                            :row-classes="rowClasses">
+                            :cell-classes="[null, null, null, null, null, 'record_list-col-actions']">
                     <template #col1="{ item }">
                         {{ item.email }}
                     </template>
