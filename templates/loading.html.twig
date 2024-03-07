@@ -1,0 +1,28 @@
+<style>
+    .loading-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        color: rgb(31 41 55);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-weight: 300;
+    }
+    .loading {
+        @apply inline-block w-4 h-4 mr-2 bg-black rounded-full;
+        animation: loading 1s infinite ease-in-out;
+    }
+
+    @keyframes loading {
+        0% {
+            transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0;
+        }
+    }
+</style>
+<div class="loading-wrap flex justify-center items-center mt-8">
+    <div class="loading" aria-hidden="true"></div> Loading…
+</div>
