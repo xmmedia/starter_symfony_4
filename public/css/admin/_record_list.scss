@@ -34,6 +34,7 @@
     @apply px-2 py-2 transition-default align-middle;
 }
 
+// style a record_list-col that has a child record_list-icon
 .record_list-col:has(.record_list-icon) {
     @apply flex items-center md:table-cell align-middle;
 }
