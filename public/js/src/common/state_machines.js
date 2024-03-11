@@ -49,7 +49,7 @@ export const view = {
 };
 
 export const viewWithDelete = {
-    id: 'component',
+    ...stateMachineDefaults,
     initial: 'loading',
     states: {
         loading: {
