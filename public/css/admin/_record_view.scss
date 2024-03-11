@@ -14,7 +14,7 @@
     @apply flex justify-between px-2;
 }
 .record_view-header_actions {
-    @apply ml-auto opacity-75 hover:opacity-100 text-sm text-right;
+    @apply space-x-4 opacity-75 hover:opacity-100 text-sm text-right;
 }
 
 .record_view-item_label {
