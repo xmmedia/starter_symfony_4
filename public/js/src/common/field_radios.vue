@@ -9,7 +9,7 @@
         <div :class="inputWrapperClasses">
             <div v-for="value in valuesCollection"
                  :key="value.value"
-                 :class="{ 'field-wrap-radio' : !pills, 'radio-pill' : pills }">
+                 :class="{ 'field-wrap-radio' : !pills, 'radio-pill' : pills, 'radio-pill-dark': darkPills }">
                 <input :id="id+'-'+value.value"
                        type="radio"
                        :name="'radios-'+id"
@@ -61,6 +61,10 @@ const props = defineProps({
         default: false,
     },
     htmlLabel: {
+        type: Boolean,
+        default: false,
+    },
+    darkPills: {
         type: Boolean,
         default: false,
     },

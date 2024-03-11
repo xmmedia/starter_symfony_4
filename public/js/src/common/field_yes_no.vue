@@ -3,6 +3,7 @@
                  :values="{ YES: 'Yes', NO: 'No' }"
                  :v="v"
                  :pills="true"
+                 :dark-pills="darkPills"
                  @update:model-value="$emit('update:modelValue', $event)">
         <slot></slot>
     </FieldRadios>
@@ -17,6 +18,10 @@ defineProps({
     modelValue: {
         type: String,
         default: null,
+    },
+    darkPills: {
+        type: Boolean,
+        default: false,
     },
     v: {
         type: Object,

@@ -50,6 +50,21 @@
         }
     }
 }
+.radio-pill-dark {
+    label {
+        @apply text-gray-300;
+    }
+
+    input:hover ~ label, label:hover {
+        @apply text-gray-700;
+    }
+
+    input:checked + label {
+        &, &:hover {
+            @apply text-white;
+        }
+    }
+}
 
 .radio-pill-green {
     input:hover ~ label, label:hover, input:focus ~ label {
