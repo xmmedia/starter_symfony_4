@@ -428,7 +428,6 @@
             </div>
         </div>
 
-
         <!-- ############################# -->
         <!-- ####### Button Pair ######### -->
         <!-- ############################# -->
@@ -483,7 +482,6 @@
             <table class="record_list-wrap hidden md:table">
                 <thead class="record_list-headers">
                     <tr>
-                        <!-- <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>-->
                         <th>Col 1</th>
                         <th>Col 2</th>
                         <th>Col Action</th>
@@ -500,7 +498,6 @@
                         <td class="record_list-col">
                             Value 2-{{ i }}
                         </td>
-
                         <td class="record_list-col">
                             <a href="" class="block">Action 1</a>
                             <a href="" class="block">Action 2</a>
@@ -517,7 +514,6 @@
                                            height="20" />
                                 <span class="record_list-mobile_heading">[True]</span>
                             </div>
-
                         </td>
                         <td class="record_list-col items-center">
                             <div class="flex justify-center items-center">
@@ -528,18 +524,7 @@
                                 <span class="record_list-mobile_heading">[True]</span>
                             </div>
                         </td>
-
                     </tr>
-
-                <!-- <tr v-for="(item,i) in items"
-                         :key="i" class="record_list-item"
-                         :class="rowClasses(item)">-->
-                <!--      <template v-for="(heading,j) in headings" :key="i+'-'+j">-->
-                <!--           <td :class="cellClasses[j]" class="record_list-col">-->
-                <!--               <slot :name="`col${j+1}`" :item="item"></slot>-->
-                <!--           </td>-->
-                <!--       </template>-->
-                <!-- </tr>-->
                 </tbody>
             </table>
 
@@ -579,17 +564,7 @@
                         Nullam quis risus eget urna mollis ornare vel eu leo.
                         Nullam quis risus eget urna mollis ornare vel eu leo.
                     </div>
-
                 </li>
-
-                <!--    <li v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">-->
-                <!--        <template v-for="(heading,j) in headings" :key="i+'-'+j">-->
-                <!--            <div :class="cellClasses[j]" class="record_list-col">-->
-                <!--                <div class="record_list-mobile_heading">{{ heading }}</div>-->
-                <!--                <slot :name="`col${j+1}`" :item="item"></slot>-->
-                <!--            </div>-->
-                <!--        </template>-->
-                <!--    </li>-->
             </ul>
         </div>
 
@@ -597,7 +572,6 @@
         <!-- ####### Record View ######### -->
         <!-- ############################# -->
         <h2>Record View</h2>
-
         <div class="record_view-item_wrap max-w-4xl">
             <div class="record_view-item">
                 <div class="record_view-item_label">Company Name</div>
@@ -627,7 +601,6 @@
                                height="20" />
                 </div>
             </div>
-
             <div class="record_view-item">
                 <div class="record_view-item_label">Address</div>
                 <div class="record_view-item_value">
@@ -655,7 +628,6 @@
                     780-123-4756
                 </div>
             </div>
-
             <div class="record_view-item">
                 <div class="record_view-item_label">Notes</div>
                 <div class="record_view-item_value">
@@ -678,7 +650,6 @@
             </div>
         </div>
 
-
         <div class="record_view-item_wrap">
             <div class="record_view-header_wrap">
                 <h3 class="m-0">Section Heading</h3>
@@ -690,7 +661,6 @@
             <table class="record_list-wrap hidden md:table">
                 <thead class="record_list-headers">
                     <tr>
-                        <!-- <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>-->
                         <th>Col 1</th>
                         <th>Col 2</th>
                         <th>Col Action</th>
@@ -706,12 +676,10 @@
                         <td class="record_list-col">
                             Value 2-{{ i }}
                         </td>
-
                         <td class="record_list-col">
                             <a href="" class="block">Action 1</a>
                             <a href="" class="block">Action 2</a>
                         </td>
-
                         <td class="record_list-col">
                             <div class="flex md:justify-center">
                                 <AdminIcon icon="check"
@@ -730,9 +698,7 @@
                                 <span class="record_list-mobile_heading">[True]</span>
                             </div>
                         </td>
-
                     </tr>
-
                 </tbody>
             </table>
 
@@ -770,15 +736,6 @@
                     </div>
 
                 </li>
-
-                <!--    <li v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">-->
-                <!--        <template v-for="(heading,j) in headings" :key="i+'-'+j">-->
-                <!--            <div :class="cellClasses[j]" class="record_list-col">-->
-                <!--                <div class="record_list-mobile_heading">{{ heading }}</div>-->
-                <!--                <slot :name="`col${j+1}`" :item="item"></slot>-->
-                <!--            </div>-->
-                <!--        </template>-->
-                <!--    </li>-->
             </ul>
         </div>
 
