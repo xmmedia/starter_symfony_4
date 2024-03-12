@@ -48,3 +48,12 @@ address {
 td {
     @apply align-top;
 }
+
+.no_first_last_margin {
+    &>:first-child {
+        @apply mt-0;
+    }
+    &>:last-child {
+        @apply mb-0;
+    }
+}
