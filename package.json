@@ -19,8 +19,7 @@
     "lint:css": "stylelint public/css/**/*.scss",
     "lint:css:fix": "stylelint public/css/**/*.scss --fix",
     "audit:moderate": "audit-ci --moderate --config .audit-ci.jsonc --report-type summary",
-    "audit:high": "audit-ci --high --config .audit-ci.jsonc --report-type summary",
-    "browserlist": "browserslist"
+    "audit:high": "audit-ci --high --config .audit-ci.jsonc --report-type summary"
   },
   "dependencies": {
     "@apollo/client": "^3.7.12",
