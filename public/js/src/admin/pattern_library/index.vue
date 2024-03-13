@@ -478,7 +478,39 @@
         <!-- ############################# -->
         <div class="my-12">
             <h2>Record List</h2>
+            <h4 class="mt-8 mb-2">RecordList component</h4>
+
             <div class="record_list-record_count">Showing X of X</div>
+            <RecordList :headings="[ 'Col 1', 'Col 1', 'Col Action', 'Long Value', 'Active', 'Inactive', '' ]"
+                        :items="recordListItems"
+                        :cell-classes="[null, null, null, null, 'md:text-center', 'md:text-center', 'record_list-col-actions']">
+                <template #col1="{ item }">
+                    {{ item.col1 }}
+                </template>
+                <template #col2="{ item }">
+                    {{ item.col2 }}
+                </template>
+                <template #col3="{ item }">
+                    {{ item.col3 }}
+                </template>
+                <template #col4="{ item }">
+                    {{ item.col4 }}
+                </template>
+                <template #col5="{ item }">
+                    <AdminIcon icon="check"
+                               class="record_list-icon text-green-600"
+                               width="20"
+                               height="20" />
+                </template>
+                <template #col6="{ item }">
+                    <AdminIcon icon="check"
+                               class="record_list-icon fill-current text-gray-800"
+                               width="20"
+                               height="20" />
+                </template>
+            </RecordList>
+
+            <h4 class="mt-8 mb-2">Custom table (hidden below md)</h4>
             <table class="record_list-wrap hidden md:table">
                 <thead class="record_list-headers">
                     <tr>
@@ -506,14 +538,14 @@
                             Nullam quis risus eget urna mollis ornare vel eu leo.
                             Nullam quis risus eget urna mollis ornare vel eu leo.
                         </td>
-                        <td class="record_list-col items-center">
-                                <AdminIcon icon="check"
-                                           class="record_list-icon text-green-600"
-                                           width="20"
-                                           height="20" />
-                                <span class="record_list-mobile_heading">[True]</span>
+                        <td class="record_list-col">
+                            <AdminIcon icon="check"
+                                       class="record_list-icon text-green-600"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
                         </td>
-                        <td class="record_list-col items-center">
+                        <td class="record_list-col">
                             <AdminIcon icon="check"
                                        class="record_list-icon fill-current text-gray-800"
                                        width="20"
@@ -524,6 +556,7 @@
                 </tbody>
             </table>
 
+            <h4 class="mt-8 mb-2">Custom mobile (hidden above md)</h4>
             <ul class="record_list-wrap md:hidden">
                 <li v-for="i in 3" :key="i" class="record_list-item">
                     <div class="record_list-col">
@@ -755,6 +788,8 @@ import { ref } from 'vue';
 import { useHead } from '@unhead/vue';
 import FieldRadios from '@/common/field_radios.vue';
 import FieldCheckboxes from '@/common/field_checkboxes.vue';
+import RecordList from '@/common/record_list.vue';
+import AccountStatus from '@/admin/user/component/account_status.vue';
 
 useHead({
     title: 'Admin Pattern Library',
@@ -770,4 +805,31 @@ const radios2Values = [
 
 const checkboxesValue = ref([]);
 const checkboxesValues = [{ value: 1, label: 'Item 1'}, { value: 2, label: 'Item 2'}, { value: 3, label: 'Item 3'}];
+
+const recordListItems = [
+    {
+        col1: 'Value 1',
+        col2: 'Value 2',
+        col3: 'Action 1',
+        col4: 'Nullam quis risus eget urna mollis ornare vel eu leo. Nullam quis risus eget urna mollis ornare vel eu leo.',
+        col5: true,
+        col6: false
+    },
+    {
+        col1: 'Value 1',
+        col2: 'Value 2',
+        col3: 'Action 1',
+        col4: 'Nullam quis risus eget urna mollis ornare vel eu leo. Nullam quis risus eget urna mollis ornare vel eu leo.',
+        col5: true,
+        col6: false
+    },
+    {
+        col1: 'Value 1',
+        col2: 'Value 2',
+        col3: 'Action 1',
+        col4: 'Nullam quis risus eget urna mollis ornare vel eu leo. Nullam quis risus eget urna mollis ornare vel eu leo.',
+        col5: true,
+        col6: false
+    },
+];
 </script>
