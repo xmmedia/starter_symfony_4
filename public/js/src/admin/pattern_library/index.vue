@@ -507,22 +507,18 @@
                             Nullam quis risus eget urna mollis ornare vel eu leo.
                         </td>
                         <td class="record_list-col items-center">
-                            <div class="flex justify-center items-center">
                                 <AdminIcon icon="check"
                                            class="record_list-icon text-green-600"
                                            width="20"
                                            height="20" />
                                 <span class="record_list-mobile_heading">[True]</span>
-                            </div>
                         </td>
                         <td class="record_list-col items-center">
-                            <div class="flex justify-center items-center">
-                                <AdminIcon icon="check"
-                                           class="record_list-icon fill-current text-gray-800"
-                                           width="20"
-                                           height="20" />
-                                <span class="record_list-mobile_heading">[True]</span>
-                            </div>
+                            <AdminIcon icon="check"
+                                       class="record_list-icon fill-current text-gray-800"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
                         </td>
                     </tr>
                 </tbody>
@@ -543,22 +539,18 @@
                         <a href="" class="block">Action 2</a>
                     </div>
                     <div class="record_list-col">
-                        <div class="flex md:justify-center">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon text-green-600"
-                                       width="20"
-                                       height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
-                        </div>
+                        <AdminIcon icon="check"
+                                   class="record_list-icon text-green-600"
+                                   width="20"
+                                   height="20" />
+                        <span class="record_list-mobile_heading">[True]</span>
                     </div>
                     <div class="record_list-col">
-                        <div class="flex md:justify-center">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon fill-current text-gray-800"
-                                       width="20"
-                                       height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
-                        </div>
+                        <AdminIcon icon="check"
+                                   class="record_list-icon fill-current text-gray-800"
+                                   width="20"
+                                   height="20" />
+                        <span class="record_list-mobile_heading">[True]</span>
                     </div>
                     <div class="record_list-col">
                         Nullam quis risus eget urna mollis ornare vel eu leo.
@@ -681,22 +673,18 @@
                             <a href="" class="block">Action 2</a>
                         </td>
                         <td class="record_list-col">
-                            <div class="flex md:justify-center">
-                                <AdminIcon icon="check"
-                                           class="record_list-icon text-green-600"
-                                           width="20"
-                                           height="20" />
-                                <span class="record_list-mobile_heading">[True]</span>
-                            </div>
+                            <AdminIcon icon="check"
+                                       class="record_list-icon text-green-600"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
                         </td>
                         <td class="record_list-col">
-                            <div class="flex md:justify-center">
-                                <AdminIcon icon="check"
-                                           class="record_list-icon fill-current text-gray-800"
-                                           width="20"
-                                           height="20" />
-                                <span class="record_list-mobile_heading">[True]</span>
-                            </div>
+                            <AdminIcon icon="check"
+                                       class="record_list-icon fill-current text-gray-800"
+                                       width="20"
+                                       height="20" />
+                            <span class="record_list-mobile_heading">[True]</span>
                         </td>
                     </tr>
                 </tbody>
@@ -717,24 +705,19 @@
                         <a href="" class="block">Action 2</a>
                     </div>
                     <div class="record_list-col">
-                        <div class="flex md:justify-center">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon text-green-600"
-                                       width="20"
-                                       height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
-                        </div>
+                        <AdminIcon icon="check"
+                                   class="record_list-icon text-green-600"
+                                   width="20"
+                                   height="20" />
+                        <span class="record_list-mobile_heading">[True]</span>
                     </div>
                     <div class="record_list-col">
-                        <div class="flex md:justify-center">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon fill-current text-gray-800"
-                                       width="20"
-                                       height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
-                        </div>
+                        <AdminIcon icon="check"
+                                   class="record_list-icon fill-current text-gray-800"
+                                   width="20"
+                                   height="20" />
+                        <span class="record_list-mobile_heading">[True]</span>
                     </div>
-
                 </li>
             </ul>
         </div>
