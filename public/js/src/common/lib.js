@@ -31,12 +31,27 @@ export const formatPhone = function (phone, format = 'NATIONAL') {
     return libFormatPhone(str, 'CA', format);
 };
 
-export const date = function (date, format = 'M j, Y') {
-    if (null === date) {
+export const date = function (_date, format = 'M j, Y') {
+    if (null === _date) {
         return null;
     }
 
-    return Flatpickr.formatDate(Flatpickr.parseDate(date, 'Y-m-d'), format);
+    if (!(_date instanceof Date)) {
+        _date = Flatpickr.parseDate(_date, 'Y-m-d');
+    }
+
+    return Flatpickr.formatDate(_date, format);
+};
+export const dateTime = function (_dateTime, format ='l F j, Y \\a\\t h:iK') {
+    if (null === _dateTime) {
+        return null;
+    }
+
+    if (!(_dateTime instanceof Date)) {
+        _dateTime = Flatpickr.parseDate(_dateTime, 'Y-m-d H:i:s');
+    }
+
+    return Flatpickr.formatDate(_dateTime, format);
 };
 
 export const money = function (value, decimals = 2) {
