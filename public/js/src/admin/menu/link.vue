@@ -5,7 +5,7 @@
                        class="w-5 h-5 mr-3 mb-0"
                        width="20"
                        height="20" />
-            <span class="w-2/3 lg:w-4/5 leading-none">{{ label }}</span>
+            <span class="w-2/3 lg:w-4/5 leading-snug">{{ label }}</span>
         </span>
         <AdminIcon v-if="hasSubnav"
                    icon="gt"
