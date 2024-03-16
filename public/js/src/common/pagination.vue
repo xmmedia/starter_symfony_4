@@ -8,13 +8,13 @@
                     :to="pageRoute(0)"
                     :class="linkClasses"
                     class="inline-block">&lt;&lt;</RouterLink>
-        <span v-else :class="spanClasses" class="inline-block">&lt;&lt;</span>
+        <span v-else :class="spanClasses" class="inline-block"><slot name="first-page">&lt;&lt;</slot></span>
 
         <RouterLink v-if="previous !== null"
                     :to="previousRoute"
                     :class="linkClasses"
                     class="inline-block">&lt;</RouterLink>
-        <span v-else :class="spanClasses" class="inline-block">&lt;</span>
+        <span v-else :class="spanClasses" class="inline-block"><slot name="previous-page">&lt;</slot></span>
 
         <span v-if="showBeforeEllipsis"
               class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
@@ -27,7 +27,7 @@
                         class="hidden sm:inline-block">{{ page }}</RouterLink>
             <span v-else
                   :key="'else-'+page"
-                  :class="spanClasses"
+                  :class="spanClasses + ' ' + currentClasses"
                   class="hidden sm:inline-block text-gray-800 border border-gray-400">{{ page }}</span>
         </template>
 
@@ -38,13 +38,13 @@
                     :to="nextRoute"
                     :class="linkClasses"
                     class="inline-block">&gt;</RouterLink>
-        <span v-else :class="spanClasses" class="inline-block">&gt;</span>
+        <span v-else :class="spanClasses" class="inline-block"><slot name="next-page">&gt;</slot></span>
 
         <RouterLink v-if="offset !== last"
                     :to="lastRoute"
                     :class="linkClasses"
                     class="inline-block">&gt;&gt;</RouterLink>
-        <span v-else :class="spanClasses" class="inline-block">&gt;&gt;</span>
+        <span v-else :class="spanClasses" class="inline-block"><slot name="last-page">&gt;&gt;</slot></span>
     </div>
 </template>
 
@@ -90,10 +90,32 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
+    /**
+     * Additional classes to add to the active links.
+     */
+    linkClasses: {
+        type: String,
+        default: '',
+    },
+    /**
+     * Additional classes to add to the disabled items (<span>'s).
+     * Applies to: first, previous, current, next, last.
+     */
+    disableClasses: {
+        type: String,
+        default: '',
+    },
+    /**
+     * Additional classes to add to the current page number (<span>'s), which is disabled.
+     */
+    currentClasses: {
+        type: String,
+        default: '',
+    },
 });
 
-const linkClasses = 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded text-center';
-const spanClasses = 'w-12 p-1 text-gray-400 focus:no-underline rounded';
+const linkClasses = 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded text-center ' + props.linkClasses;
+const spanClasses = 'w-12 p-1 text-gray-400 focus:no-underline rounded ' + props.disableClasses;
 
 const current = computed(() => {
     if (props.offset === 0) {
