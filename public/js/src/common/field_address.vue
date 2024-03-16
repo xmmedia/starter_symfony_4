@@ -28,7 +28,7 @@
                    type="text"
                    autocomplete="address-line1"
                    @input="input('line1', $event.target.value)"
-                   @keypress.enter.prevent>
+                   @keydown.enter.prevent>
         </div>
 
         <FieldInput :model-value="value.line2"
@@ -50,7 +50,7 @@
                        type="text"
                        autocomplete="address-level2"
                        @input="input('city', $event.target.value)"
-                       @keypress.enter.prevent>
+                       @keydown.enter.prevent>
             </div>
 
             <FieldInput :model-value="value.postalCode"
