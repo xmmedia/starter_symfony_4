@@ -17,21 +17,21 @@ onMounted(() => {
     });
 });
 
-function toggleMenu () {
+const toggleMenu = () => {
     if (open.value) {
         menuStore.closeMobileMenu();
     } else {
         menuStore.openMobileMenu();
         document.documentElement.addEventListener('click', htmlClick);
     }
-}
+};
 
-function windowResize () {
+const windowResize = () => {
     menuStore.closeMobileMenu();
-}
+};
 
-function htmlClick () {
+const htmlClick = () => {
     menuStore.closeMobileMenu();
     document.documentElement.removeEventListener('click', htmlClick);
-}
+};
 </script>
