@@ -70,7 +70,6 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
   - Frontend – full list of dependencies can be found in [package.json](https://github.com/xmmedia/starter_symfony_4/blob/master/package.json)
     - [Vue](https://vuejs.org/) – frontend framework
       - [Vue Router](https://router.vuejs.org/) – routing package for frontend
-      - [Vue Devtools](https://github.com/vuejs/vue-devtools) – makes debugging in the browser easier
       - [Vue Templates](https://vuejs.org/v2/guide/syntax.html) – the syntax for .vue files
       - [Vue Test Utils](https://vue-test-utils.vuejs.org/) – to help testing Vue components
     - [Pinia](https://pinia.vuejs.org/) - global state management
