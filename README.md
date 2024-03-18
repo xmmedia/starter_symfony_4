@@ -38,7 +38,7 @@ Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media
   - PHP 8.2
   - MySQL 5.7+
   - Node 18
-  - [Yarn](https://yarnpkg.com/en/docs/install)
+  - [Yarn v3](https://v3.yarnpkg.com/getting-started/install)
 
 ## Commands
 
