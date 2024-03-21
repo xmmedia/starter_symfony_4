@@ -138,8 +138,7 @@ select {
 }
 
 .form-button_bar {
-    @apply fixed left-0 bottom-0 hidden sm:flex justify-center items-center w-full
-        p-3 bg-white border-gray-300 border-t;
+    @apply fixed left-0 bottom-0 hidden sm:flex justify-center items-center w-full p-3 bg-white border-gray-300 border-t;
 }
 // vue fade transition
 .form-button_bar-enter-active,
