@@ -25,7 +25,7 @@
     }
 
     input:hover ~ label, label:hover {
-        @apply bg-gray-200 border-gray-600 ;
+        @apply bg-gray-200 border-gray-600;
         &:after {
             @apply border-gray-600;
         }

@@ -24,8 +24,8 @@ query ProvincesQuery {
         country {
             name
             abbreviation
-          }
-          name
-          abbreviation
+        }
+        name
+        abbreviation
     }
 }
