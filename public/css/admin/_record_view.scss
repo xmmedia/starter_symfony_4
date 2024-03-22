@@ -18,7 +18,7 @@
 }
 
 .record_view-item_label {
-    @apply col-span-12 xs:col-span-4 md:col-span-3 min-w-[5rem] mr-6 mb-1 text-gray-500;
+    @apply col-span-12 xs:col-span-4 md:col-span-3 min-w-20 mr-6 mb-1 text-gray-500;
     &-horizontal {
         @apply col-span-6 xs:col-span-4 md:col-span-3;
     }
