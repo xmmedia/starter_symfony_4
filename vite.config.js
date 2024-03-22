@@ -41,6 +41,8 @@ export default defineConfig({
             },
         },
         sourcemap: true,
+        // don't inline assets
+        assetsInlineLimit: 0,
     },
     resolve: {
         alias: {
