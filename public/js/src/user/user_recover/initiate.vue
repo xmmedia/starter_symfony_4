@@ -22,7 +22,8 @@
                 Please enter your email address to search for your account:
             </FieldEmail>
 
-            <FormButton :saving="state.matches('submitting')">
+            <FormButton :saving="state.matches('submitting')"
+                        :disable-button="!email || !emailValidator.$validator(email)">
                 Find Account
                 <template #cancel>
                     <RouterLink v-if="!rootStore.loggedIn"
