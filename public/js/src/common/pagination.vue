@@ -7,13 +7,13 @@
         <RouterLink v-if="current !== 1"
                     :to="pageRoute(0)"
                     :class="linkClasses"
-                    class="inline-block">&lt;&lt;</RouterLink>
+                    class="inline-block"><slot name="first-page">&lt;&lt;</slot></RouterLink>
         <span v-else :class="spanClasses" class="inline-block"><slot name="first-page">&lt;&lt;</slot></span>
 
         <RouterLink v-if="previous !== null"
                     :to="previousRoute"
                     :class="linkClasses"
-                    class="inline-block">&lt;</RouterLink>
+                    class="inline-block"><slot name="previous-page">&lt;</slot></RouterLink>
         <span v-else :class="spanClasses" class="inline-block"><slot name="previous-page">&lt;</slot></span>
 
         <span v-if="showBeforeEllipsis"
@@ -37,13 +37,13 @@
         <RouterLink v-if="next !== null"
                     :to="nextRoute"
                     :class="linkClasses"
-                    class="inline-block">&gt;</RouterLink>
+                    class="inline-block"><slot name="next-page">&gt;</slot></RouterLink>
         <span v-else :class="spanClasses" class="inline-block"><slot name="next-page">&gt;</slot></span>
 
         <RouterLink v-if="offset !== last"
                     :to="lastRoute"
                     :class="linkClasses"
-                    class="inline-block">&gt;&gt;</RouterLink>
+                    class="inline-block"><slot name="last-page">&gt;&gt;</slot></RouterLink>
         <span v-else :class="spanClasses" class="inline-block"><slot name="last-page">&gt;&gt;</slot></span>
     </div>
 </template>
