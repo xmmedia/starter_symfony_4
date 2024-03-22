@@ -17,6 +17,7 @@
         <span v-else :class="spanClasses" class="inline-block"><slot name="previous-page">&lt;</slot></span>
 
         <span v-if="showBeforeEllipsis"
+              :class="ellipsisClasses"
               class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
 
         <template v-for="page in pagesInRange">
@@ -32,6 +33,7 @@
         </template>
 
         <span v-if="showAfterEllipsis"
+              :class="ellipsisClasses"
               class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
 
         <RouterLink v-if="next !== null"
@@ -101,7 +103,7 @@ const props = defineProps({
      * Additional classes to add to the disabled items (<span>'s).
      * Applies to: first, previous, current, next, last.
      */
-    disableClasses: {
+    disabledClasses: {
         type: String,
         default: '',
     },
@@ -112,10 +114,17 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    /**
+     * Additional classes to add to the ellipsis (<span>'s).
+     */
+    ellipsisClasses: {
+        type: String,
+        default: null,
+    },
 });
 
 const linkClasses = 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded text-center ' + props.linkClasses;
-const spanClasses = 'w-12 p-1 text-gray-400 focus:no-underline rounded ' + props.disableClasses;
+const spanClasses = 'w-12 p-1 text-gray-400 focus:no-underline rounded ' + props.disabledClasses;
 
 const current = computed(() => {
     if (props.offset === 0) {
