@@ -1,5 +1,7 @@
 <template>
     <div ref="wrapper">
+        <slot name="before"></slot>
+
         <button v-if="showButton"
                 type="submit"
                 class="button"
@@ -24,6 +26,8 @@
 
     <Transition name="form-button_bar">
         <div v-if="edited && showButtonBar" class="form-button_bar">
+            <slot name="before"></slot>
+
             <button v-if="showButton"
                     type="submit"
                     class="button"
