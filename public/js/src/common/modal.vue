@@ -1,8 +1,8 @@
 <template>
     <VueFinalModal v-model="show"
                    :click-to-close="props.clickToClose"
+                   :content-class="contentClass"
                    class="flex justify-center items-center"
-                   content-class="admin-modal-content"
                    overlay-transition="vfm-fade"
                    content-transition="vfm-fade"
                    @before-open="$emit('before-open', $event)"
@@ -28,6 +28,10 @@ import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { VueFinalModal } from 'vue-final-modal';
 
 const props = defineProps({
+    contentClass: {
+        type: String,
+        default: 'admin-modal-content',
+    },
     showClose: {
         type: Boolean,
         default: true,
