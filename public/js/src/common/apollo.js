@@ -46,6 +46,7 @@ export const apolloClient = new ApolloClient({
     cache: new InMemoryCache(),
     defaultOptions: {
         query: {
+            // options: https://www.apollographql.com/docs/react/data/queries/#supported-fetch-policies
             // docs: https://www.apollographql.com/docs/react/api/core/ApolloClient/#ApolloClient.watchQuery
             fetchPolicy: 'no-cache',
         },
