@@ -190,18 +190,18 @@ const previousRoute = computed(() => pageRoute(previous.value - 1));
 const nextRoute = computed(() => pageRoute(next.value - 1));
 const lastRoute = computed(() => pageRoute(last.value / props.itemsPerPage));
 
-function goToPrevious () {
+const goToPrevious = () => {
     if (previous.value) {
         router.push(previousRoute.value);
     }
-}
-function goToNext () {
+};
+const goToNext = () => {
     if (next.value) {
         router.push(nextRoute.value);
     }
-}
+};
 
-function pageRoute (offset) {
+const pageRoute = (offset) => {
     return {
         name: props.routeName,
         query: {
@@ -209,5 +209,5 @@ function pageRoute (offset) {
             offset: offset * props.itemsPerPage,
         },
     };
-}
+};
 </script>
