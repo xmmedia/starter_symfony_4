@@ -21,9 +21,11 @@ export default defineConfig({
             sriAlgorithm: 'sha384',
         }),
         sentryVitePlugin({
+            disable: process.env.NODE_ENV !== 'production',
             // @todo-symfony
             org: 'xm-media',
             project: 'symfony-starter',
+            telemetry: process.env.NODE_ENV === 'production',
         }),
     ],
     build: {
