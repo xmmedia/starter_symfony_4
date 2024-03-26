@@ -2,6 +2,25 @@ const stateMachineDefaults = {
     id: 'component',
 };
 
+export const basic = {
+    ...stateMachineDefaults,
+    initial: 'loading',
+    states: {
+        loading: {
+            on: {
+                LOADED: 'ready',
+                ERROR: 'error',
+            },
+        },
+        ready: {
+            type: 'final',
+        },
+        error: {
+            type: 'final',
+        },
+    },
+};
+
 export const list = {
     ...stateMachineDefaults,
     initial: 'loading',
