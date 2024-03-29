@@ -19,7 +19,7 @@
                    @input="$emit('update:modelValue', $event.target.value)"
                    @focus="showMeter = true">
             <button type="button"
-                    class="field-button-password_view"
+                    class="button-link field-button-password_view"
                     style="margin-top: 0.3rem;"
                     @click.prevent="visible = !visible">
                 <component :is="iconComponent" :icon="icon" class="w-6 h-6 fill-current" width="24" height="24" />
