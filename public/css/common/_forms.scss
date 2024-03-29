@@ -119,7 +119,8 @@ select {
 }
 
 .field-button-password_view {
-    @apply absolute button-link block top-0 right-0 w-6 h-6 mr-2 text-gray-600 hover:text-gray-800 focus:ring-offset-gray-100;
+    @extend .button-link;
+    @apply absolute block top-0 right-0 w-6 h-6 mr-2 text-gray-600 hover:text-gray-800 focus:ring-offset-gray-100;
 }
 
 // 100% width wraps help when within a flexbox (ex. for a checkbox).
