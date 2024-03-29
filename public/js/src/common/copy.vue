@@ -3,7 +3,7 @@
             class="text-gray-400 focus:text-gray-600 hover:text-gray-600"
             type="button"
             @click="copy">
-        <AdminIcon icon="copy" :class="iconClasses" />
+        <component :is="iconComponent" icon="copy" :class="iconClasses" />
     </button>
 </template>
 
@@ -18,8 +18,12 @@ const props = defineProps({
         default: null,
     },
     iconClasses: {
-        type: [String, Array],
+        type: [ String, Array ],
         default: 'w-4 h-4 fill-current',
+    },
+    iconComponent: {
+        type: String,
+        default: 'AdminIcon',
     },
 });
 
