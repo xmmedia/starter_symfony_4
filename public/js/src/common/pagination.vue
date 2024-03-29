@@ -36,17 +36,18 @@
               :class="ellipsisClasses"
               class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
 
-        <RouterLink v-if="next !== null"
-                    :to="nextRoute"
-                    :class="linkClasses"
-                    class="inline-block"><slot name="next-page">&gt;</slot></RouterLink>
-        <span v-else :class="spanClasses" class="inline-block"><slot name="next-page">&gt;</slot></span>
-
-        <RouterLink v-if="offset !== last"
-                    :to="lastRoute"
-                    :class="linkClasses"
-                    class="inline-block"><slot name="last-page">&gt;&gt;</slot></RouterLink>
-        <span v-else :class="spanClasses" class="inline-block"><slot name="last-page">&gt;&gt;</slot></span>
+        <template v-if="next !== null">
+            <RouterLink :to="nextRoute"
+                        :class="linkClasses"
+                        class="inline-block"><slot name="next-page">&gt;</slot></RouterLink>
+            <RouterLink :to="lastRoute"
+                        :class="linkClasses"
+                        class="inline-block"><slot name="last-page">&gt;&gt;</slot></RouterLink>
+        </template>
+        <template v-else>
+            <span :class="spanClasses" class="inline-block"><slot name="next-page">&gt;</slot></span>
+            <span :class="spanClasses" class="inline-block"><slot name="last-page">&gt;&gt;</slot></span>
+        </template>
     </div>
 </template>
 
