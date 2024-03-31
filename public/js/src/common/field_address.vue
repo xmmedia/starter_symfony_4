@@ -82,7 +82,6 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import cuid from 'cuid';
-import filter from 'lodash/filter';
 import FieldInput from './field_input';
 import { LocalitiesQuery } from '@/common/queries/localities.query.graphql';
 import { useQuery } from '@vue/apollo-composable';
@@ -230,7 +229,7 @@ const completeAddress = () => {
     emit('update:modelValue', {
         ...props.modelValue,
         line1: getAddressLine1(),
-        city: getAddressComponent('locality'),
+        city: getAddressComponent(['locality', 'postal_town']),
         postalCode: getAddressComponent('postal_code'),
         province: getAddressComponent('administrative_area_level_1'),
         country: props.showCountry ? getAddressComponent('country') : props.modelValue.country,
@@ -240,17 +239,21 @@ const completeAddress = () => {
 const completeCity = () => {
     emit('update:modelValue', {
         ...props.modelValue,
-        city: getAddressComponent('locality', 'city'),
+        city: getAddressComponent(['locality', 'postal_town'], 'city'),
         province: getAddressComponent('administrative_area_level_1', 'city'),
         country: props.showCountry ? getAddressComponent('country') : props.modelValue.country,
     });
 };
 
-const getAddressComponent = (type, autocompleteName = 'line1') => {
+const getAddressComponent = (types, autocompleteName = 'line1') => {
     try {
+        if (!Array.isArray(types)) {
+            types = [ types ];
+        }
+
         const addressComponents = autocompletes[autocompleteName].getPlace().address_components;
-        const components = filter(addressComponents, (component) => {
-            return ([ type ].indexOf(component.types[0]) > -1);
+        const components = addressComponents.filter((component) => {
+            return types.includes(component.types[0]);
         });
 
         if (components.length > 0) {
@@ -260,7 +263,7 @@ const getAddressComponent = (type, autocompleteName = 'line1') => {
         }
     } catch (e) {
         logError(e);
-        return props.modelValue[type];
+        return address.value[types[0]];
     }
 };
 
@@ -280,7 +283,7 @@ const getAddressLine1 = () => {
 
         const addressComponents = autocompletes.line1.getPlace().address_components;
 
-        let line1 = filter(addressComponents, (component) => ([ 'street_number', 'route' ].includes(component.types[0])))
+        let line1 = addressComponents.filter((component) => ([ 'street_number', 'route' ].includes(component.types[0])))
             .map((component) => component.short_name)
             .join(' ');
 
