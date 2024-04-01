@@ -26,8 +26,7 @@ textarea {
     @apply align-top text-black;
 }
 select {
-    @apply w-full px-2 py-1 text-black border border-gray-300 bg-gray-100 transition-default;
-    height: 2.14rem;
+    @apply w-full h-[2.14rem] px-2 py-1 text-black border border-gray-300 bg-gray-100 transition-default;
 }
 
 // make sure everything shows a pointer on hover
