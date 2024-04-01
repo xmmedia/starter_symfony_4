@@ -216,14 +216,22 @@ new MapsLoader({
         },
     );
     autocompletes.city.addListener('place_changed', completeCity);
+
+    if (address.value.country) {
+        setComponentRestrictions(address.value.country);
+    }
 });
 
 watch(() => props.modelValue.country, (country) => {
     if (country) {
-        autocompletes.line1.setComponentRestrictions({ country });
-        autocompletes.city.setComponentRestrictions({ country });
+        setComponentRestrictions(country);
     }
 });
+
+const setComponentRestrictions = (country) => {
+    autocompletes.line1.setComponentRestrictions({ country });
+    autocompletes.city.setComponentRestrictions({ country });
+};
 
 const completeAddress = () => {
     emit('update:modelValue', {
