@@ -609,8 +609,8 @@
                 </div>
             </div>
             <div class="record_view-item">
-                <div class="record_view-item_label record_view-item_label-horizontal">Active</div>
-                <div class="record_view-item_value record_view-item_value-horizontal">
+                <div class="record_view-item_label">Active</div>
+                <div class="record_view-item_value">
                     <AdminIcon icon="check"
                                class="record_list-icon text-green-600"
                                width="20"
@@ -618,8 +618,8 @@
                 </div>
             </div>
             <div class="record_view-item">
-                <div class="record_view-item_label record_view-item_label-horizontal">Inactive</div>
-                <div class="record_view-item_value record_view-item_value-horizontal">
+                <div class="record_view-item_label">Inactive</div>
+                <div class="record_view-item_value">
                     <AdminIcon icon="check"
                                class="record_list-icon text-gray-600"
                                width="20"
@@ -647,7 +647,6 @@
             <div class="record_view-item">
                 <div class="record_view-item_label">
                     Phone Number
-
                 </div>
                 <div class="record_view-item_value">
                     780-123-4756
