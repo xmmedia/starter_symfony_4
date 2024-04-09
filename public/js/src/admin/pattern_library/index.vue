@@ -501,13 +501,15 @@
                 </template>
                 <template #col5="{ item }">
                     <AdminIcon icon="check"
-                               class="record_list-icon text-green-600"
+                               class="record_list-icon text-gray-500"
+                               :class="{ 'text-green-600' : item.col5 }"
                                width="20"
                                height="20" />
                 </template>
                 <template #col6="{ item }">
                     <AdminIcon icon="check"
-                               class="record_list-icon text-gray-800"
+                               class="record_list-icon text-gray-500"
+                               :class="{ 'text-green-600' : item.col6 }"
                                width="20"
                                height="20" />
                 </template>
