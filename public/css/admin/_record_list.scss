@@ -36,7 +36,7 @@
 
 // style a record_list-col that has a child record_list-icon
 .record_list-col:has(.record_list-icon) {
-    @apply flex items-center md:table-cell align-middle;
+    @apply flex md:table-cell items-center align-middle;
     > * {
         @apply md:mx-auto;
     }
