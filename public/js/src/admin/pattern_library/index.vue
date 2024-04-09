@@ -484,7 +484,9 @@
             <!-- md:text-center is needed for the headings as the flexbox styling isn't applied to headings -->
             <RecordList :headings="[ 'Col 1', 'Col 1', 'Col Action', 'Long Value', 'Active', 'Inactive', '' ]"
                         :items="recordListItems"
-                        :cell-classes="[null, null, null, null, 'md:text-center', 'md:text-center', 'record_list-col-actions']">
+                        :cell-classes="[
+                            null, null, null, null, 'md:text-center', 'md:text-center', 'record_list-col-actions'
+                        ]">
                 <template #col1="{ item }">
                     {{ item.col1 }}
                 </template>
@@ -787,7 +789,6 @@ import { useHead } from '@unhead/vue';
 import FieldRadios from '@/common/field_radios.vue';
 import FieldCheckboxes from '@/common/field_checkboxes.vue';
 import RecordList from '@/common/record_list.vue';
-import AccountStatus from '@/admin/user/component/account_status.vue';
 
 useHead({
     title: 'Admin Pattern Library',
@@ -811,7 +812,7 @@ const recordListItems = [
         col3: 'Action 1',
         col4: 'Nullam quis risus eget urna mollis ornare vel eu leo. Nullam quis risus eget urna mollis ornare vel eu leo.',
         col5: true,
-        col6: false
+        col6: false,
     },
     {
         col1: 'Value 1',
@@ -819,7 +820,7 @@ const recordListItems = [
         col3: 'Action 1',
         col4: 'Nullam quis risus eget urna mollis ornare vel eu leo. Nullam quis risus eget urna mollis ornare vel eu leo.',
         col5: true,
-        col6: false
+        col6: false,
     },
     {
         col1: 'Value 1',
@@ -827,7 +828,7 @@ const recordListItems = [
         col3: 'Action 1',
         col4: 'Nullam quis risus eget urna mollis ornare vel eu leo. Nullam quis risus eget urna mollis ornare vel eu leo.',
         col5: true,
-        col6: false
+        col6: false,
     },
 ];
 </script>
