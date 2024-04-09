@@ -552,7 +552,7 @@
                         </td>
                         <td class="record_list-col">
                             <AdminIcon icon="check"
-                                       class="record_list-icon text-gray-800"
+                                       class="record_list-icon text-gray-500"
                                        width="20"
                                        height="20" />
                             <span class="record_list-mobile_heading">[True]</span>
@@ -585,7 +585,7 @@
                     </div>
                     <div class="record_list-col">
                         <AdminIcon icon="check"
-                                   class="record_list-icon text-gray-800"
+                                   class="record_list-icon text-gray-500"
                                    width="20"
                                    height="20" />
                         <span class="record_list-mobile_heading">[True]</span>
@@ -626,7 +626,7 @@
                 <div class="record_view-item_label">Inactive</div>
                 <div class="record_view-item_value">
                     <AdminIcon icon="check"
-                               class="record_list-icon text-gray-600"
+                               class="record_list-icon text-gray-500"
                                width="20"
                                height="20" />
                 </div>
@@ -717,7 +717,7 @@
                         </td>
                         <td class="record_list-col">
                             <AdminIcon icon="check"
-                                       class="record_list-icon text-gray-800"
+                                       class="record_list-icon text-gray-500"
                                        width="20"
                                        height="20" />
                         </td>
@@ -748,7 +748,7 @@
                     </div>
                     <div class="record_list-col">
                         <AdminIcon icon="check"
-                                   class="record_list-icon text-gray-800"
+                                   class="record_list-icon text-gray-500"
                                    width="20"
                                    height="20" />
                         <span class="record_list-mobile_heading">[True]</span>
