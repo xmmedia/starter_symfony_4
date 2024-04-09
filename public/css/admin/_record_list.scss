@@ -40,6 +40,15 @@
     > * {
         @apply md:mx-auto;
     }
+
+    // reverse the order of the heading & icon on mobile when an icon is present
+    // this will also impact desktop, but it's a table cell at that point so order doesn't do anything
+    .record_list-mobile_heading {
+        @apply order-2;
+    }
+    .record_list-icon {
+        @apply order-1;
+    }
 }
 
 .record_list-item-inactive > .record_list-col {
