@@ -1,7 +1,7 @@
 .record_list-wrap {
     @apply w-full pl-0 border-t md:border-t-0 list-none;
     th, td {
-        @apply p-1;
+        @apply px-2 py-1;
         &:first-child {
             @apply md:pl-2;
         }
@@ -12,7 +12,7 @@
 }
 
 .record_list-item {
-    @apply flex flex-col flex-wrap md:table-row border-b border-gray-300 transition-colors duration-150 ease-in-out;
+    @apply flex flex-col flex-wrap md:table-row px-2 border-b border-gray-300 transition-colors duration-150 ease-in-out;
 
     &:hover {
         @apply bg-blue-100;
