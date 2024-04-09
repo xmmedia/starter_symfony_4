@@ -34,6 +34,10 @@
     @apply px-2 py-2 transition-default align-middle;
 }
 
+.record_list-icon {
+    @apply w-5 h-5 mr-1 md:mx-0 fill-current;
+}
+
 // style a record_list-col that has a child record_list-icon
 .record_list-col:has(.record_list-icon) {
     @apply flex md:table-cell items-center align-middle;
@@ -58,18 +62,14 @@
     @apply opacity-100;
 }
 
-.record_list-record_count {
-    @apply text-xs mb-4 text-center text-gray-700;
-}
-
-.record_list-icon {
-    @apply w-5 h-5 mr-1 md:mx-0 fill-current;
-}
-
 .record_list-empty {
     @apply text-gray-400 italic text-sm;
 }
 
 .record_list-col-actions {
     @apply space-x-4 md:text-right;
+}
+
+.record_list-record_count {
+    @apply text-xs mb-4 text-center text-gray-700;
 }
