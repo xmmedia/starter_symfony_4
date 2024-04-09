@@ -481,6 +481,7 @@
             <h4 class="mt-8 mb-2">RecordList component</h4>
 
             <div class="record_list-record_count">Showing X of X</div>
+            <!-- md:text-center is needed for the headings as the flexbox styling isn't applied to headings -->
             <RecordList :headings="[ 'Col 1', 'Col 1', 'Col Action', 'Long Value', 'Active', 'Inactive', '' ]"
                         :items="recordListItems"
                         :cell-classes="[null, null, null, null, 'md:text-center', 'md:text-center', 'record_list-col-actions']">
