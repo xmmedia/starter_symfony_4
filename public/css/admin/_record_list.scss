@@ -57,6 +57,10 @@
     @apply w-5 h-5 mr-1 md:mx-0 fill-current;
 }
 
+.record_list-empty {
+    @apply text-gray-400 italic text-sm;
+}
+
 .record_list-col-actions {
     @apply space-x-4 md:text-right;
 }
