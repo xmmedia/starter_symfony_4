@@ -710,14 +710,12 @@
                                        class="record_list-icon text-green-600"
                                        width="20"
                                        height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
                         </td>
                         <td class="record_list-col">
                             <AdminIcon icon="check"
                                        class="record_list-icon fill-current text-gray-800"
                                        width="20"
                                        height="20" />
-                            <span class="record_list-mobile_heading">[True]</span>
                         </td>
                     </tr>
                 </tbody>
