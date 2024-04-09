@@ -5,7 +5,7 @@ Query:
         fields:
             Me:
                 type:        User
-                description: 'The current User object or null.'
+                description: 'The current User object or null if not authenticated.'
                 access:      '@=isAuthenticated()'
                 resolve:     '@=getUser()'
 
