@@ -2,7 +2,7 @@ doctrine:
     dbal:
         connections:
             default:
-                url: '%env(resolve:DATABASE_URL)%'
+                url: '%env(DATABASE_URL)%'
                 profiling_collect_backtrace: '%kernel.debug%'
                 use_savepoints: true
         types:
