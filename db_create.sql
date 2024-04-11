@@ -18,12 +18,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `command_log` (
-    `no`         bigint(20)                       NOT NULL,
+    `no`         bigint(20)                       NOT NULL AUTO_INCREMENT,
     `command_id` char(36) COLLATE utf8mb4_bin     NOT NULL,
     `command`    varchar(100) COLLATE utf8mb4_bin NOT NULL,
     `payload`    json                             NOT NULL,
     `metadata`   json                             NOT NULL,
-    `sent_at`    datetime(6)                      NOT NULL
+    `sent_at`    datetime(6)                      NOT NULL,
+    PRIMARY KEY (`no`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_bin;
@@ -35,11 +36,14 @@ CREATE TABLE `command_log` (
 --
 
 CREATE TABLE `event_streams` (
-    `no`               bigint(20)                    NOT NULL,
+    `no`               bigint(20)                    NOT NULL AUTO_INCREMENT,
     `real_stream_name` varchar(150) COLLATE utf8_bin NOT NULL,
     `stream_name`      char(41) COLLATE utf8_bin     NOT NULL,
     `metadata`         json                          DEFAULT NULL,
-    `category`         varchar(150) COLLATE utf8_bin DEFAULT NULL
+    `category`         varchar(150) COLLATE utf8_bin DEFAULT NULL,
+    PRIMARY KEY (`no`),
+    UNIQUE KEY `ix_rsn` (`real_stream_name`),
+    KEY `ix_cat` (`category`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -51,12 +55,14 @@ CREATE TABLE `event_streams` (
 --
 
 CREATE TABLE `projections` (
-    `no`           bigint(20)                    NOT NULL,
+    `no`           bigint(20)                    NOT NULL AUTO_INCREMENT,
     `name`         varchar(150) COLLATE utf8_bin NOT NULL,
     `position`     json                      DEFAULT NULL,
     `state`        json                      DEFAULT NULL,
     `status`       varchar(28) COLLATE utf8_bin  NOT NULL,
-    `locked_until` char(26) COLLATE utf8_bin DEFAULT NULL
+    `locked_until` char(26) COLLATE utf8_bin DEFAULT NULL,
+    PRIMARY KEY (`no`),
+    UNIQUE KEY `ix_name` (`name`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -73,63 +79,9 @@ CREATE TABLE `user_token` (
     `selector` varchar(20) COLLATE utf8mb4_bin NOT NULL,
     `hashed_token` varchar(100) COLLATE utf8mb4_bin NOT NULL,
     `requested_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-    `expires_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)'
+    `expires_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+    PRIMARY KEY (`user_token_id`),
+    KEY `user_id` (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-
--- --------------------------------------------------------
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `command_log`
---
-ALTER TABLE `command_log`
-    ADD PRIMARY KEY (`no`);
-
---
--- Indexes for table `event_streams`
---
-ALTER TABLE `event_streams`
-    ADD PRIMARY KEY (`no`),
-    ADD UNIQUE KEY `ix_rsn` (`real_stream_name`),
-    ADD KEY `ix_cat` (`category`);
-
---
--- Indexes for table `projections`
---
-ALTER TABLE `projections`
-    ADD PRIMARY KEY (`no`),
-    ADD UNIQUE KEY `ix_name` (`name`);
-
---
--- Indexes for table `user_token`
---
-ALTER TABLE `user_token`
-    ADD PRIMARY KEY (`user_token_id`),
-    ADD KEY `user_id` (`user_id`) USING BTREE;
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `command_log`
---
-ALTER TABLE `command_log`
-    MODIFY `no` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `event_streams`
---
-ALTER TABLE `event_streams`
-    MODIFY `no` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `projections`
---
-ALTER TABLE `projections`
-    MODIFY `no` bigint(20) NOT NULL AUTO_INCREMENT;
 COMMIT;
