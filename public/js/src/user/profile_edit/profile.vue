@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRootStore } from '@/user/stores/root';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
@@ -95,12 +95,7 @@ const stateMachine = createMachine({
 });
 const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
-const user = ref({
-    email: rootStore.user.email,
-    firstName: rootStore.user.firstName,
-    lastName: rootStore.user.lastName,
-    phoneNumber: formatPhone(rootStore.user.userData?.phoneNumber || null),
-});
+const user = ref({});
 
 const userValidations = userValidation();
 const v$ = useVuelidate({
@@ -112,9 +107,14 @@ const v$ = useVuelidate({
     },
 }, { user });
 
+onMounted(() => {
+    reset();
+});
+
 const setEmailDebounce = debounce(function (email) {
     setEmail(email);
 }, 100, { leading: true });
+
 function setEmail (value) {
     user.value.email = value;
     changed();
