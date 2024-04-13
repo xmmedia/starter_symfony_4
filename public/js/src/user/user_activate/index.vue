@@ -97,7 +97,7 @@ const tokenExpired = ref(false);
 const password = ref(null);
 const repeatPassword = ref(null);
 
-const showForm = computed(() => !state.value.done);
+const showForm = computed(() => state.value.matches('verfieid'));
 
 const v$ = useVuelidate({
     password: userValidation().password,

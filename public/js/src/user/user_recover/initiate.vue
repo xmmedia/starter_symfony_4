@@ -91,7 +91,7 @@ const v$ = useVuelidate({
     },
 }, { email });
 
-const showForm = computed(() => !state.value.done);
+const showForm = computed(() => !state.value.matches('requested'));
 
 onMounted(() => {
     if (rootStore.loggedIn) {

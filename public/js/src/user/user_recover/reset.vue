@@ -129,7 +129,7 @@ const v$ = useVuelidate({
     },
 }, { newPassword, repeatPassword });
 
-const showForm = computed(() => !state.value.done);
+const showForm = computed(() => !state.value.matches('changed'));
 
 async function submit () {
     if (!state.value.matches('ready')) {
