@@ -9,6 +9,7 @@
             <FieldError v-if="invalidToken" class="mb-4">
                 Your activation link is invalid.
                 Please try clicking the button again or copying the link.
+                Or you can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>.
             </FieldError>
             <FieldError v-if="tokenExpired" class="mb-4">
                 Your link has expired. Please contact an administrator.
