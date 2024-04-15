@@ -5,6 +5,7 @@ import has from 'lodash/has';
 import isObject from 'lodash/isObject';
 import lowerCase from 'lodash/lowerCase';
 import upperFirst from 'lodash/upperFirst';
+import { watch } from 'vue';
 
 export const logError = function (e) {
     if (console && e !== undefined) {
@@ -100,3 +101,15 @@ export const omitTypename = function (obj) {
 
     return obj;
 };
+
+export const addEditedWatcher = function (state, edited, variable) {
+    watch(
+        variable,
+        () => {
+            if (state.value.matches('ready')) {
+                edited.value = true;
+            }
+        },
+        { deep: true, flush: 'sync' },
+    );
+}

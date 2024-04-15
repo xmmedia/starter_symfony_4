@@ -7,6 +7,7 @@ import userValidation from '@/admin/user/user.validation';
 import { useVuelidate } from '@vuelidate/core';
 import { requiredIf } from '@vuelidate/validators';
 import debounce from 'lodash/debounce';
+import { addEditedWatcher, editedWatcher } from '@/common/lib';
 
 export function useForm (state) {
     const user = ref({
@@ -39,15 +40,7 @@ export function useForm (state) {
     }, { user });
 
     const edited = ref(false);
-    watch(
-        user,
-        () => {
-            if (state.value.matches('ready')) {
-                edited.value = true;
-            }
-        },
-        { deep: true, flush: 'sync' },
-    );
+    addEditedWatcher(state, edited, user);
 
     const setEmailDebounce = debounce(function (email) {
         setEmail(email);
