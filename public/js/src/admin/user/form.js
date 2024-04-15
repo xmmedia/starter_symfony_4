@@ -1,4 +1,4 @@
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import FieldEmail from '@/common/field_email';
 import FieldPassword from './component/field_password.vue';
 import FieldInput from '@/common/field_input';
@@ -7,7 +7,7 @@ import userValidation from '@/admin/user/user.validation';
 import { useVuelidate } from '@vuelidate/core';
 import { requiredIf } from '@vuelidate/validators';
 import debounce from 'lodash/debounce';
-import { addEditedWatcher, editedWatcher } from '@/common/lib';
+import { addEditedWatcher } from '@/common/lib';
 
 export function useForm (state) {
     const user = ref({
