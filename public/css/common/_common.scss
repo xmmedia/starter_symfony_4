@@ -56,4 +56,8 @@ td {
     &>:last-child {
         @apply mb-0;
     }
+
+img {
+    // this is to override tailwind's base which sets images to block
+    @apply inline;
 }
