@@ -11,22 +11,22 @@
                     @click="verify">Manually Verify User</button>
         </template>
 
-        <div v-if="state.matches('activating')" class="form-action">
+        <div v-if="state.matches('activating')" class="text-sm">
             Activating…
         </div>
-        <div v-if="state.matches('activated')" class="form-action">
+        <div v-if="state.matches('activated')" class="text-sm">
             Activated
         </div>
-        <div v-if="state.matches('deactivating')" class="form-action">
+        <div v-if="state.matches('deactivating')" class="text-sm">
             Deactivating…
         </div>
-        <div v-if="state.matches('deactivated')" class="form-action">
+        <div v-if="state.matches('deactivated')" class="text-sm">
             Deactivated
         </div>
-        <div v-if="state.matches('verifying')" class="form-action">
+        <div v-if="state.matches('verifying')" class="text-sm">
             Verifying…
         </div>
-        <div v-if="state.matches('verified')" class="form-action">
+        <div v-if="state.matches('verified')" class="text-sm">
             Verified
         </div>
     </div>

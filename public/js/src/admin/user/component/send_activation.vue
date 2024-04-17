@@ -4,10 +4,10 @@
                 class="button text-sm"
                 type="button"
                 @click="sendReset">Resend Activation Email</button>
-        <div v-if="state.matches('sending')" class="form-action">
+        <div v-if="state.matches('sending')" class="text-sm">
             Sending…
         </div>
-        <div v-if="state.matches('sent')" class="form-action">
+        <div v-if="state.matches('sent')" class="text-sm">
             Sent
         </div>
     </div>
