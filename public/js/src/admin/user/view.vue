@@ -1,6 +1,6 @@
 <template>
     <Teleport to="#header-actions">
-        <RouterLink v-if="showView"
+        <RouterLink v-if="state.matches('loaded')"
                     :to="{ name: 'admin-user-edit', params: { userId: props.userId } }"
                     class="header-action header-action-main">Edit User</RouterLink>
         <div class="header-secondary_actions">
