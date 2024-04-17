@@ -2,13 +2,11 @@
     <div>
         <template v-if="state.matches('ready')">
             <button v-if="verified"
-                    :disabled="!allow"
-                    class="button-link form-action"
+                    class="button text-sm"
                     type="button"
                     @click="toggleActive">{{ activeButtonText }}</button>
             <button v-else
-                    :disabled="!allow"
-                    class="button-link form-action"
+                    class="button text-sm"
                     type="button"
                     @click="verify">Manually Verify User</button>
         </template>
@@ -108,13 +106,9 @@ const props = defineProps({
         type: Boolean,
         required: true,
     },
-    allow: {
-        type: Boolean,
-        required: true,
-    },
 });
 
-const allowSave = computed(() => props.allow && state.value.matches('ready'));
+const allowSave = computed(() => state.value.matches('ready'));
 const activeButtonText = computed(() => props.active ? 'Deactivate User' : 'Activate User');
 
 async function toggleActive () {

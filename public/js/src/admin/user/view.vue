@@ -1,6 +1,6 @@
 <template>
     <Teleport to="#header-actions">
-        <RouterLink v-if="state.matches('loaded')"
+        <RouterLink v-if="showView"
                     :to="{ name: 'admin-user-edit', params: { userId: props.userId } }"
                     class="header-action header-action-main">Edit User</RouterLink>
         <div class="header-secondary_actions">
@@ -20,96 +20,131 @@
         <p><RouterLink :to="{ name: 'admin-user' }">Return to list</RouterLink></p>
     </div>
 
-    <template v-if="state.matches('loaded')">
+    <template v-if="showView">
         <Teleport to="#header-page-title">{{ user.name }}</Teleport>
 
-        <div class="record_view-item_wrap">
-            <div class="record_view-item">
-                <div class="record_view-item_label">Name</div>
-                <div class="record_view-item_value">{{ user.name }}</div>
-            </div>
-            <div class="record_view-item">
-                <div class="record_view-item_label">
-                    Email
-                    <Copy :text="user.email" />
-                </div>
-                <div class="record_view-item_value">
-                    <a :href="'mailto:'+user.email">{{ user.email }}</a>
-                </div>
-            </div>
-            <div class="record_view-item">
-                <div class="record_view-item_label">
-                    Phone Number
-                    <Copy v-if="user.userData?.phoneNumber" :text="formatPhone(user.userData.phoneNumber)" />
-                </div>
-                <div class="record_view-item_value">
-                    <ViewPhone v-if="user.userData?.phoneNumber" :phone-number="user.userData.phoneNumber" />
-                    <template v-else>–</template>
-                </div>
-            </div>
-            <div class="record_view-item">
-                <div class="record_view-item_label">Account Status</div>
-                <div class="record_view-item_value"><AccountStatus :user="user" /></div>
-            </div>
-            <div class="record_view-item">
-                <div class="record_view-item_label">Email Verified</div>
-                <div class="record_view-item_value">
-                    <AdminIcon icon="check"
-                               :class="{ 'text-green-500' : user.verified }"
-                               class="record_list-icon text-gray-500" />
-                </div>
-            </div>
-            <div class="record_view-item">
-                <div class="record_view-item_label">Active</div>
-                <div class="record_view-item_value">
-                    <AdminIcon icon="check"
-                               :class="{ 'text-green-500' : user.active }"
-                               class="record_list-icon text-gray-500" />
-                </div>
-            </div>
-            <div class="record_view-item">
-                <div class="record_view-item_label">Last Login</div>
-                <div class="record_view-item_value">
-                    <LocalTime v-if="user.loginCount > 0 && user.lastLogin" :datetime="user.lastLogin" />
-                    <i v-else>Never logged in</i>
-                </div>
-            </div>
-            <div v-if="user.loginCount > 0" class="record_view-item">
-                <div class="record_view-item_label">Login Count</div>
-                <div class="record_view-item_value">
-                    {{ user.loginCount }}
-                </div>
-            </div>
-            <div class="record_view-item">
-                <div class="record_view-item_label">System Role</div>
-                <div class="record_view-item_value">
-                    {{ rootStore.availableRoles[user.roles[0]] }}
-                </div>
-            </div>
-            <div class="record_view-item">
-                <div class="record_view-item_label">
-                    Request Login Link
-                    <Copy :text="requestLoginLink" />
-                </div>
-                <div class="record_view-item_value">{{ requestLoginLink }}</div>
-            </div>
+        <LoadingSpinner v-if="state.matches('deleting')" class="my-8">
+            Deleting user…
+        </LoadingSpinner>
+        <div v-else-if="state.matches('deleted')" class="my-8 italic text-center">
+            The user has been deleted.
         </div>
+        <template v-else>
+            <div class="record_view-item_wrap">
+                <div class="record_view-item">
+                    <div class="record_view-item_label">Name</div>
+                    <div class="record_view-item_value">{{ user.name }}</div>
+                </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">
+                        Email
+                        <Copy :text="user.email" />
+                    </div>
+                    <div class="record_view-item_value">
+                        <a :href="'mailto:'+user.email">{{ user.email }}</a>
+                    </div>
+                </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">
+                        Phone Number
+                        <Copy v-if="user.userData?.phoneNumber" :text="formatPhone(user.userData.phoneNumber)" />
+                    </div>
+                    <div class="record_view-item_value">
+                        <ViewPhone v-if="user.userData?.phoneNumber" :phone-number="user.userData.phoneNumber" />
+                        <template v-else>–</template>
+                    </div>
+                </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">Account Status</div>
+                    <div class="record_view-item_value"><AccountStatus :user="user" /></div>
+                </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">Email Verified</div>
+                    <div class="record_view-item_value">
+                        <AdminIcon icon="check"
+                                   :class="{ 'text-green-500' : user.verified }"
+                                   class="record_list-icon text-gray-500" />
+                    </div>
+                </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">Active</div>
+                    <div class="record_view-item_value">
+                        <AdminIcon icon="check"
+                                   :class="{ 'text-green-500' : user.active }"
+                                   class="record_list-icon text-gray-500" />
+                    </div>
+                </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">Last Login</div>
+                    <div class="record_view-item_value">
+                        <LocalTime v-if="user.loginCount > 0 && user.lastLogin" :datetime="user.lastLogin" />
+                        <i v-else>Never logged in</i>
+                    </div>
+                </div>
+                <div v-if="user.loginCount > 0" class="record_view-item">
+                    <div class="record_view-item_label">Login Count</div>
+                    <div class="record_view-item_value">
+                        {{ user.loginCount }}
+                    </div>
+                </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">System Role</div>
+                    <div class="record_view-item_value">
+                        {{ rootStore.availableRoles[user.roles[0]] }}
+                    </div>
+                </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">
+                        Request Login Link
+                        <Copy :text="requestLoginLink" />
+                    </div>
+                    <div class="record_view-item_value">{{ requestLoginLink }}</div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-x-8 gap-y-4 mt-16">
+                <ActivateVerify :user-id="userId"
+                                :verified="user.verified"
+                                :active="user.active"
+                                class="self-center"
+                                @activated="user.active = true"
+                                @deactivated="user.active = false"
+                                @verified="user.verified = true" />
+                <SendActivation v-if="!user.verified" :user-id="userId" class="self-center" />
+                <SendReset v-if="user.active" :user-id="userId" class="self-center" />
+
+                <AdminDelete record-desc="user" @delete="deleteUser">
+                    <template #button="{ open }">
+                        <button ref="link"
+                                class="button button-critical self-center text-sm"
+                                type="button"
+                                @click="open">
+                            Delete User
+                        </button>
+                    </template>
+                </AdminDelete>
+            </div>
+        </template>
     </template>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
 import { useRootStore } from '@/admin/stores/root';
-import { view as stateMachineConfig } from "@/common/state_machines";
-import { formatPhone } from '@/common/lib';
-import { useQuery } from '@vue/apollo-composable';
+import { viewWithDelete as stateMachineConfig } from "@/common/state_machines";
+import { formatPhone, logError } from '@/common/lib';
+import { useMutation, useQuery } from '@vue/apollo-composable';
 import { GetUserViewQuery } from '../queries/user.query.graphql';
+import { AdminUserDeleteMutation } from '../queries/user.mutation.graphql';
 import { useHead } from '@unhead/vue';
 import Copy from '@/common/copy.vue';
 import ViewPhone from '@/common/view_phone.vue';
 import AccountStatus from './component/account_status.vue';
+import SendActivation from './component/send_activation.vue';
+import ActivateVerify from './component/activate_verify.vue';
+import SendReset from './component/send_reset.vue';
 
 const rootStore = useRootStore();
 
@@ -146,4 +181,32 @@ onResult(({ data: { User }}) => {
 onError(() => {
     sendEvent({ type: 'ERROR' });
 });
+
+const showView = computed(
+    () => state.value.matches('loaded') || state.value.matches('deleting') || state.value.matches('deleted'),
+);
+
+const deleteUser = async () => {
+    sendEvent({ type: 'DELETE' });
+
+    try {
+        const { mutate: sendUserDelete } = useMutation(AdminUserDeleteMutation);
+        await sendUserDelete({
+            userId: props.userId,
+        });
+
+        sendEvent({ type: 'DELETED' });
+
+        setTimeout(() => {
+            router.push({ name: 'admin-user' });
+        }, 1500);
+
+    } catch (e) {
+        logError(e);
+        alert('There was a problem deleting the user. Please try again later.');
+
+        sendEvent({ type: 'ERROR' });
+        window.scrollTo(0, 0);
+    }
+};
 </script>

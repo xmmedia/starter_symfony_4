@@ -1,8 +1,7 @@
 <template>
     <div>
         <button v-if="state.matches('ready')"
-                :disabled="!allow"
-                class="button-link form-action"
+                class="button text-sm"
                 type="button"
                 @click="sendReset">Resend Activation Email</button>
         <div v-if="state.matches('sending')" class="form-action">
@@ -50,14 +49,10 @@ const props = defineProps({
         type: String,
         required: true,
     },
-    allow: {
-        type: Boolean,
-        required: true,
-    },
 });
 
 async function sendReset () {
-    if (!props.allow || !state.value.matches('ready')) {
+    if (!state.value.matches('ready')) {
         return;
     }
 

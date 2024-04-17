@@ -52,27 +52,6 @@
                         :cancel-to="{ name: 'admin-user-view', params: { userId: props.userId } }">
                 Update User
             </FormButton>
-
-            <ul class="form-extra_actions">
-                <li>
-                    <ActivateVerify :user-id="userId"
-                                    :verified="verified"
-                                    :active="active"
-                                    :allow="allowSave"
-                                    @activated="active = true"
-                                    @deactivated="active = false"
-                                    @verified="verified = true" />
-                </li>
-                <li v-if="!verified">
-                    <SendActivation :user-id="userId" :allow="allowSave" />
-                </li>
-                <li v-if="active">
-                    <SendReset :user-id="userId" :allow="allowSave" />
-                </li>
-                <li>
-                    <AdminDelete record-desc="user" :disabled="!allowSave" @delete="deleteUser" />
-                </li>
-            </ul>
         </form>
     </div>
 </template>
@@ -85,14 +64,8 @@ import { createMachine } from 'xstate';
 import { edit as stateMachineConfig } from '@/common/state_machines';
 import { useMutation, useQuery } from '@vue/apollo-composable';
 import { formatPhone, logError } from '@/common/lib';
-import ActivateVerify from './component/activate_verify';
-import SendActivation from './component/send_activation';
-import SendReset from './component/send_reset';
 import { GetUserQuery } from '../queries/user.query.graphql';
-import {
-    AdminUserUpdateMutation,
-    AdminUserDeleteMutation,
-} from '../queries/user.mutation.graphql';
+import { AdminUserUpdateMutation } from '../queries/user.mutation.graphql';
 import { pick } from 'lodash';
 import { useForm } from '@/admin/user/form';
 
@@ -200,34 +173,5 @@ const submit = async () => {
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
-};
-
-const deleteUser = async () => {
-    if (!allowSave.value) {
-        return;
-    }
-
-    sendEvent({ type: 'DELETE' });
-
-    try {
-        const { mutate: sendUserDelete } = useMutation(AdminUserDeleteMutation);
-        await sendUserDelete({
-            userId: props.userId,
-        });
-
-        edited.value = false;
-        sendEvent({ type: 'DELETED' });
-
-        setTimeout(() => {
-            router.push({ name: 'admin-user' });
-        }, 1500);
-
-    } catch (e) {
-        logError(e);
-        alert('There was a problem deleting the user. Please try again later.');
-
-        sendEvent({ type: 'ERROR' });
-        window.scrollTo(0, 0);
-    }
-};
+}
 </script>
