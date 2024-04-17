@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\GraphQl\Mutation\User;
+namespace App\GraphQl\Mutation\User;
 
 use App\Entity\User;
 use App\Model\User\Command\SendLoginLink;
