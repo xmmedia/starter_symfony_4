@@ -75,7 +75,6 @@ async function sendReset () {
         alert('There was a problem sending the activation link. Please try again later.');
 
         sendEvent({ type: 'ERROR' });
-        window.scrollTo(0, 0);
     }
 }
 </script>

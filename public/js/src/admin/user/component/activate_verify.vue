@@ -137,7 +137,6 @@ async function toggleActive () {
         alert('There was a problem toggling the active state. Please try again later.');
 
         sendEvent({ type: 'ERROR' });
-        window.scrollTo(0, 0);
     }
 }
 
@@ -164,7 +163,6 @@ async function verify () {
         alert('There was a problem verifying the user. Please try again later.');
 
         sendEvent({ type: 'ERROR' });
-        window.scrollTo(0, 0);
     }
 }
 

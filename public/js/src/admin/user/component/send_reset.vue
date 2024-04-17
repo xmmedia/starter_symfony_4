@@ -82,7 +82,6 @@ async function sendReset () {
         alert('There was a problem sending the reset. Please try again later.');
 
         sendEvent({ type: 'ERROR' });
-        window.scrollTo(0, 0);
     }
 }
 </script>
