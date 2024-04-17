@@ -60,9 +60,17 @@ async function sendReset () {
 
     try {
         const { mutate: sendLoginLink } = useMutation(AdminUserSendLoginLinkMutation);
-        await sendLoginLink({
+        const { data: { AdminUserSendLoginLink } } = await sendLoginLink({
             userId: props.userId,
         });
+
+        if (!AdminUserSendLoginLink.success) {
+            alert('There was a problem sending the link. Please try again later.');
+
+            sendEvent({ type: 'ERROR' });
+
+            return;
+        }
 
         sendEvent({ type: 'SENT' });
 
