@@ -19,7 +19,7 @@ final readonly class AdminUserSendLoginLinkMutation implements MutationInterface
     {
     }
 
-    #[ArrayShape(['success' => 'bool', 'user' => User::class|null])]
+    #[ArrayShape(['success' => 'bool', 'user' => User::class | null])]
     public function __invoke(string $userId): array
     {
         $userId = UserId::fromString($userId);
