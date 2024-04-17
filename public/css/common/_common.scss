@@ -49,6 +49,11 @@ td {
     @apply align-top;
 }
 
+img {
+    // this is to override tailwind's base which sets images to block
+    @apply inline;
+}
+
 .no_first_last_margin {
     &>:first-child {
         @apply mt-0;
@@ -56,9 +61,4 @@ td {
     &>:last-child {
         @apply mb-0;
     }
-}
-
-img {
-    // this is to override tailwind's base which sets images to block
-    @apply inline;
 }
