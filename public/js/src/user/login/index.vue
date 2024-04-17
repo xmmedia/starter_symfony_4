@@ -3,7 +3,7 @@
         <div class="form-wrap">
             <h1 class="mt-0 leading-none">Sign In</h1>
 
-            <div v-if="errorMsg" class="alert alert-warning alert-type-warning">{{ errorMsg }}</div>
+            <div v-if="errorMsg" class="alert alert-warning">{{ errorMsg }}</div>
 
             <!-- posts back the current url -->
             <form v-if="!magicLink" method="post">
