@@ -34,6 +34,12 @@ mutation AdminUserSendActivationMutation($userId: UUID!) {
     }
 }
 
+mutation AdminUserSendLoginLinkMutation($userId: UUID!) {
+    AdminUserSendLoginLink(userId: $userId) {
+        success
+    }
+}
+
 mutation AdminUserDeleteMutation($userId: UUID!) {
     AdminUserDelete(userId: $userId) {
         success

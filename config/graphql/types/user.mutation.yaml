@@ -100,6 +100,13 @@ UserMutation:
                 args:
                     userId: UUID!
 
+            AdminUserSendLoginLink:
+                type:        AdminUserLoginLinkMutationPayload!
+                description: 'Send a magic login link to a user.'
+                resolve:     '@=mutation("App\\Infrastructure\\GraphQl\\Mutation\\User\\AdminUserSendLoginLinkMutation", args["userId"])'
+                args:
+                    userId: UUID!
+
             AdminUserDelete:
                 type:        UserDeleteMutationPayload!
                 description: 'Delete User.'
@@ -202,6 +209,14 @@ AdminUserAddMutationPayload:
         fields:
             email:  String!
             active: Boolean!
+
+AdminUserLoginLinkMutationPayload:
+    type: object
+    config:
+        description: 'User login link mutation payload.'
+        fields:
+            success: Boolean!
+            user:    User
 
 UserDeleteMutationPayload:
     type: object

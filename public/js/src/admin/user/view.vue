@@ -111,6 +111,7 @@
                                 @deactivated="user.active = false"
                                 @verified="user.verified = true" />
                 <SendActivation v-if="!user.verified" :user-id="userId" class="self-center" />
+                <SendLoginLink v-if="user.active && user.verified" :user-id="userId" class="self-center" />
                 <SendReset v-if="user.active" :user-id="userId" class="self-center" />
 
                 <AdminDelete record-desc="user" @delete="deleteUser">
@@ -144,6 +145,7 @@ import ViewPhone from '@/common/view_phone.vue';
 import AccountStatus from './component/account_status.vue';
 import SendActivation from './component/send_activation.vue';
 import ActivateVerify from './component/activate_verify.vue';
+import SendLoginLink from './component/send_login_link.vue';
 import SendReset from './component/send_reset.vue';
 
 const rootStore = useRootStore();
