@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\GraphQl\Mutation\User;
 
+use App\Entity\User;
 use App\Model\User\Command\SendLoginLink;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
@@ -18,7 +19,7 @@ final readonly class AdminUserSendLoginLinkMutation implements MutationInterface
     {
     }
 
-    #[ArrayShape(['success' => 'bool', 'user' => 'null|mixed'])]
+    #[ArrayShape(['success' => 'bool', 'user' => User::class|null])]
     public function __invoke(string $userId): array
     {
         $userId = UserId::fromString($userId);
