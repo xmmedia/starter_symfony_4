@@ -28,7 +28,7 @@ final readonly class UserPasswordMutation implements MutationInterface
     ) {
     }
 
-    public function __invoke(Argument $args): array
+    public function __invoke(#[\SensitiveParameter] Argument $args): array
     {
         $user = $this->security->getUser();
 

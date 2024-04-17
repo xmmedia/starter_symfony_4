@@ -174,7 +174,7 @@ final class AddUserCommand extends Command
 
     private function askForPassword(SymfonyStyle $io): string
     {
-        return $io->askHidden('Password', static function (?string $password): string {
+        return $io->askHidden('Password', static function (#[\SensitiveParameter] ?string $password): string {
             Assert::notEmpty($password, 'A password is required.');
             Assert::minLength(
                 $password,

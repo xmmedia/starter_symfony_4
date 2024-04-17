@@ -23,7 +23,7 @@ final readonly class UserRecoverResetPasswordStrengthQuery implements QueryInter
     ) {
     }
 
-    public function __invoke(string $newPassword): array
+    public function __invoke(#[\SensitiveParameter] string $newPassword): array
     {
         $session = $this->requestProvider->currentRequest()->getSession();
         $token = $session->get(SecurityController::TOKEN_SESSION_KEY);

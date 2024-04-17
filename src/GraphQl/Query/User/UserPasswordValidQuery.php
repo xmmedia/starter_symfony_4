@@ -16,7 +16,7 @@ final readonly class UserPasswordValidQuery implements QueryInterface
     ) {
     }
 
-    public function __invoke(string $password): array
+    public function __invoke(#[\SensitiveParameter] string $password): array
     {
         $currentUser = $this->security->getUser();
         if (!$currentUser) {

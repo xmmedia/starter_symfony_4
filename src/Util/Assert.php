@@ -15,7 +15,7 @@ use Xm\SymfonyBundle\Util\StringUtil;
 class Assert extends \Xm\SymfonyBundle\Util\Assert
 {
     public static function passwordAllowed(
-        ?string $password,
+        #[\SensitiveParameter] ?string $password,
         Email $email,
         Name $firstName,
         Name $lastName,
@@ -37,7 +37,7 @@ class Assert extends \Xm\SymfonyBundle\Util\Assert
         self::compromisedPassword($password, $pwnedHttpClient);
     }
 
-    public static function passwordLength(?string $password): void
+    public static function passwordLength(#[\SensitiveParameter] ?string $password): void
     {
         self::notEmpty(
             StringUtil::trim($password),

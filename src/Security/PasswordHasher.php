@@ -14,7 +14,7 @@ class PasswordHasher
     {
     }
 
-    public function __invoke(Role $role, string $password): string
+    public function __invoke(Role $role, #[\SensitiveParameter] string $password): string
     {
         return $this->passwordHasher->hashPassword(
             $this->getUserForRole($role),

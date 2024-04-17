@@ -28,7 +28,7 @@ final readonly class AdminUserAddMutation implements MutationInterface
     ) {
     }
 
-    public function __invoke(Argument $args): array
+    public function __invoke(#[\SensitiveParameter] Argument $args): array
     {
         $userId = UserId::fromString($args['user']['userId']);
         $email = Email::fromString($args['user']['email']);

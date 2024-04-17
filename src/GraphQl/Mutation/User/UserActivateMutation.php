@@ -34,7 +34,7 @@ final readonly class UserActivateMutation implements MutationInterface
     ) {
     }
 
-    public function __invoke(Argument $args): array
+    public function __invoke(#[\SensitiveParameter] Argument $args): array
     {
         if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new UserError('Cannot activate account if logged in.', 404);

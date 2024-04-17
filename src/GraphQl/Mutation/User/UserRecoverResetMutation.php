@@ -32,7 +32,7 @@ final readonly class UserRecoverResetMutation implements MutationInterface
     ) {
     }
 
-    public function __invoke(Argument $args): array
+    public function __invoke(#[\SensitiveParameter] Argument $args): array
     {
         $session = $this->requestProvider->currentRequest()->getSession();
         $token = $session->get(SecurityController::TOKEN_SESSION_KEY);
