@@ -7,6 +7,7 @@
 
         <div class="relative z-20">
             <input :id="id"
+                   v-focus="autofocus"
                    :value="modelValue"
                    :type="fieldType"
                    :required="required"
@@ -63,6 +64,10 @@ const props = defineProps({
     autocomplete: {
         type: String,
         default: null,
+    },
+    autofocus: {
+        type: Boolean,
+        default: false,
     },
     showHelp: {
         type: Boolean,
