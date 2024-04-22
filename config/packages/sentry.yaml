@@ -13,6 +13,9 @@ when@prod:
         register_error_handler:  false
         options:
             ignore_exceptions:
+                # these 2 were defaults before, but in Sentry v5 they are no longer included
+                - Symfony\Component\ErrorHandler\Error\FatalError
+                - Symfony\Component\Debug\Exception\FatalErrorException
                 - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
                 - Symfony\Component\Security\Core\Exception\AccessDeniedException
             attach_stacktrace: true
