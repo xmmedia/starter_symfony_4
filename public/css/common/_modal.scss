@@ -3,7 +3,7 @@
     @apply flex flex-col max-w-xl mx-4 p-4 text-slate-300 bg-gray-800 border border-gray-700 rounded-lg space-y-2;
 
     .field-errors {
-        @apply text-gray-800;
+        @apply text-gray-800 text-left;
     }
 }
 
