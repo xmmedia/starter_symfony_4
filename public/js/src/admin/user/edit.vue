@@ -39,8 +39,8 @@
                            autocomplete="off"
                            @set-password="user.setPassword = $event" />
 
-            <FieldInput v-model.trim="user.firstName" :v="v$.user.firstName">First name</FieldInput>
-            <FieldInput v-model.trim="user.lastName" :v="v$.user.lastName">Last name</FieldInput>
+            <FieldInput v-model="user.firstName" :v="v$.user.firstName">First name</FieldInput>
+            <FieldInput v-model="user.lastName" :v="v$.user.lastName">Last name</FieldInput>
 
             <FieldRole v-model="user.role" :v="v$.user.role" />
 

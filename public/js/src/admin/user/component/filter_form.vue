@@ -1,7 +1,7 @@
 <template>
     <form class="form-wrap w-full max-w-5xl" method="post" @submit.prevent>
         <div class="flex flex-col md:flex-row gap-x-8">
-            <FieldInput v-model.trim="filters.q" class="grow">Search</FieldInput>
+            <FieldInput v-model="filters.q" class="grow">Search</FieldInput>
             <FieldRadios v-model="filters.role" :values="roles" :pills="true">Role</FieldRadios>
             <FieldRadios v-model="filters.accountStatus"
                          :values="accountStatuses"

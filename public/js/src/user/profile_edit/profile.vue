@@ -14,12 +14,12 @@
             </FieldEmail>
 
             <div class="sm:flex gap-x-2">
-                <FieldInput v-model.trim="user.firstName"
+                <FieldInput v-model="user.firstName"
                             :v="v$.user.firstName"
                             autocomplete="given-name"
                             class="grow"
                             @input="changed">First name</FieldInput>
-                <FieldInput v-model.trim="user.lastName"
+                <FieldInput v-model="user.lastName"
                             :v="v$.user.lastName"
                             autocomplete="family-name"
                             class="grow"
