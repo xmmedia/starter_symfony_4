@@ -192,6 +192,8 @@ const gqlFilters = computed(() => {
 
 const { loading, onResult, onError, refetch: usersRefetch } = useQuery(GetUsersQuery, {
     filters: gqlFilters,
+}, {
+    debounce: 500,
 });
 onResult(({ data: { Users }}) => {
     users.value = Users;
