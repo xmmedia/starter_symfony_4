@@ -1,3 +1,7 @@
+.record_list-wrap-wrap {
+    @apply overflow-x-scroll;
+}
+
 .record_list-wrap {
     @apply w-full pl-0 border-t md:border-t-0 list-none;
     th, td {

@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-x-scroll">
+    <div class="record_list-wrap-wrap">
         <table class="record_list-wrap hidden md:table">
             <thead class="record_list-headers">
                 <tr>

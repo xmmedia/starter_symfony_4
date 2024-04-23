@@ -1,5 +1,8 @@
 .record_view-item_wrap {
     @apply max-w-3xl mt-4 first:mt-0 mx-auto p-2 border-4 border-gray-300 rounded;
+    > .record_list-wrap-wrap {
+        @apply p-2;
+    }
 }
 
 .record_view-item_group_wrap {
