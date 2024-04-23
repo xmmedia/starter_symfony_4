@@ -62,6 +62,15 @@
     }
 }
 
+// add this class if you either want the content aligned to the top or if the row gets much taller,
+// add this .record_list-col-top when the row expands
+.record_list-col-top, .record_list-col-top:has(.record_list-icon) {
+    @apply md:align-top;
+    .record_list-icon {
+        @apply my-[2px];
+    }
+}
+
 .record_list-item-inactive > .record_list-col {
     @apply opacity-50;
 }
