@@ -7,9 +7,7 @@
         <input :id="id" v-model="checked" type="checkbox" :value="true">
         <label :for="id"><slot></slot></label>
 
-        <div v-if="!!$slots.help" class="field-help">
-            <slot name="help"></slot>
-        </div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
     </div>
 </template>
 
