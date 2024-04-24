@@ -4,7 +4,7 @@
             <label :for="id"><slot>Email (Username)</slot></label>
         </slot>
 
-        <FieldError v-if="v.$error && v.$invalid">
+        <FieldError v-if="v && v.$error && v.$invalid">
             <template v-if="v.required.$invalid">
                 <slot name="required">An email is required.</slot>
             </template>
@@ -59,7 +59,7 @@ defineProps({
     },
     v: {
         type: Object,
-        required: true,
+        default: null,
     },
     id: {
         type: String,
