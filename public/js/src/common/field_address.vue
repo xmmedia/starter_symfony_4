@@ -4,57 +4,56 @@
 
         <div v-if="showCountry" class="field-wrap flex-1">
             <label :for="ids.country">Country</label>
-            <FieldError :v="v.country" />
+            <FieldError :v="v$.country" />
             <select v-if="localities"
                     :id="ids.country"
-                    v-model="value.country"
+                    v-model="address.country"
                     autocomplete="country"
                     @change="countryChanged($event.target.value)">
-                <option :value="null">– Select one –</option>
+                <option :value="null" disabled>– Select one –</option>
                 <option v-for="country in localities.Countries"
                         :key="country.abbreviation"
                         :value="country.abbreviation">{{ country.name }}</option>
             </select>
         </div>
 
+        <slot name="before-line1"></slot>
+
         <div class="field-wrap">
             <label :for="ids.line1">Line 1</label>
-            <FieldError :v="v.line1" />
+            <FieldError :v="v$.line1" />
             <!-- prevent enter submitting the form as enter may also be used in the suggest -->
             <input :id="ids.line1"
                    ref="inputLine1"
-                   v-model="value.line1"
-                   :maxlength="v.line1.maxLength.$params.max"
+                   v-model="address.line1"
+                   :maxlength="v$.line1.maxLength.$params.max"
                    type="text"
                    autocomplete="address-line1"
-                   @input="input('line1', $event.target.value)"
                    @keydown.enter.prevent>
         </div>
 
-        <FieldInput :model-value="value.line2"
-                    :v="v.line2"
-                    autocomplete="address-line2"
-                    @update:model-value="input('line2', $event)">
+        <FieldInput v-model="address.line2"
+                    :v="v$.line2"
+                    autocomplete="address-line2">
             Line 2
         </FieldInput>
 
         <div class="flex gap-x-4">
             <div class="field-wrap flex-1">
                 <label :for="ids.city">City</label>
-                <FieldError :v="v.city" />
+                <FieldError :v="v$.city" />
                 <!-- prevent enter submitting the form as enter may also be used in the suggest -->
                 <input :id="ids.city"
                        ref="inputCity"
-                       v-model="value.city"
-                       :maxlength="v.city.maxLength.$params.max"
+                       v-model="address.city"
+                       :maxlength="v$.city.maxLength.$params.max"
                        type="text"
                        autocomplete="address-level2"
-                       @input="input('city', $event.target.value)"
                        @keydown.enter.prevent>
             </div>
 
-            <FieldInput :model-value="value.postalCode"
-                        :v="v.postalCode"
+            <FieldInput :model-value="address.postalCode"
+                        :v="v$.postalCode"
                         class="flex-1"
                         autocomplete="postal-code"
                         @update:model-value="inputPostalCode($event)">
@@ -64,13 +63,12 @@
 
         <div class="field-wrap">
             <label :for="ids.province">{{ labels.province }}</label>
-            <FieldError :v="v.province" />
+            <FieldError :v="v$.province" />
             <select v-if="localities"
                     :id="ids.province"
-                    v-model="value.province"
-                    autocomplete="address-level1"
-                    @change="input('province', $event.target.value)">
-                <option :value="null">– Select one –</option>
+                    v-model="address.province"
+                    autocomplete="address-level1">
+                <option :value="null" disabled>– Select one –</option>
                 <option v-for="province in provinces"
                         :key="province.abbreviation"
                         :value="province.abbreviation">{{ province.name }}</option>
@@ -87,6 +85,8 @@ import { LocalitiesQuery } from '@/common/queries/localities.query.graphql';
 import { useQuery } from '@vue/apollo-composable';
 import { Loader as MapsLoader } from '@googlemaps/js-api-loader';
 import { logError } from '@/common/lib';
+import { useVuelidate } from '@vuelidate/core';
+import addressValidation from '@/common/validation/address';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -105,9 +105,12 @@ const props = defineProps({
     },
 });
 
-const value = computed({
+const address = computed({
     get () {
         return props.modelValue;
+    },
+    set (value) {
+        emit('update:modelValue', value);
     },
 });
 
@@ -122,7 +125,7 @@ const inputLine1 = ref(null);
 const inputCity = ref(null);
 
 const labels = computed(() => {
-    switch (props.modelValue.country) {
+    switch (address.value.country) {
         case 'CA' :
             return {
                 postalCode: 'Postal code',
@@ -145,26 +148,28 @@ const provinces = computed(() => {
         return [];
     }
 
-    if (!props.modelValue.country) {
+    if (!address.value.country) {
         return localities.value.Provinces;
     }
 
     return localities.value.Provinces.filter((province) => {
-        return province.country.abbreviation === props.modelValue.country;
+        return province.country.abbreviation === address.value.country;
     });
 });
+
+let v$;
+if (props.v) {
+    v$ = props.v;
+} else {
+    v$ = useVuelidate({
+        ...addressValidation(),
+    }, address);
+}
 
 const { result: localitiesResult } = useQuery(LocalitiesQuery, null, { fetchPolicy: 'cache-first' });
 const localities = computed(() => {
     return localitiesResult.value;
 });
-
-function input (field, value) {
-    emit('update:modelValue', {
-        ...props.modelValue,
-        [field]: value,
-    });
-}
 
 function inputPostalCode (value) {
     if (typeof value === 'string') {
@@ -174,15 +179,15 @@ function inputPostalCode (value) {
         }
     }
 
-    input('postalCode', value);
+    address.value.postalCode = value;
 }
 
 function countryChanged (country) {
-    emit('update:modelValue', {
-        ...props.modelValue,
+    address.value = {
+        ...address.value,
         country,
         province: null,
-    });
+    };
 }
 
 const autocompletes = {
@@ -222,7 +227,7 @@ new MapsLoader({
     }
 });
 
-watch(() => props.modelValue.country, (country) => {
+watch(() => address.value.country, (country) => {
     if (country) {
         setComponentRestrictions(country);
     }
@@ -234,23 +239,23 @@ const setComponentRestrictions = (country) => {
 };
 
 const completeAddress = () => {
-    emit('update:modelValue', {
-        ...props.modelValue,
+    address.value = {
+        ...address.value,
         line1: getAddressLine1(),
         city: getAddressComponent(['locality', 'postal_town']),
         postalCode: getAddressComponent('postal_code'),
         province: getAddressComponent('administrative_area_level_1'),
-        country: props.showCountry ? getAddressComponent('country') : props.modelValue.country,
-    });
+        country: props.showCountry ? getAddressComponent('country') : address.value.country,
+    };
 };
 
 const completeCity = () => {
-    emit('update:modelValue', {
-        ...props.modelValue,
+    address.value = {
+        ...address.value,
         city: getAddressComponent(['locality', 'postal_town'], 'city'),
         province: getAddressComponent('administrative_area_level_1', 'city'),
-        country: props.showCountry ? getAddressComponent('country') : props.modelValue.country,
-    });
+        country: props.showCountry ? getAddressComponent('country') : address.value.country,
+    };
 };
 
 const getAddressComponent = (types, autocompleteName = 'line1') => {
@@ -285,8 +290,8 @@ const getAddressComponent = (types, autocompleteName = 'line1') => {
 const getAddressLine1 = () => {
     try {
         let unitNumber = null;
-        if (props.modelValue.line1) {
-            unitNumber = props.modelValue.line1.substr(0, props.modelValue.line1.indexOf(' '));
+        if (address.value.line1) {
+            unitNumber = address.value.line1.substr(0, address.value.line1.indexOf(' '));
         }
 
         const addressComponents = autocompletes.line1.getPlace().address_components;
@@ -296,13 +301,13 @@ const getAddressLine1 = () => {
             .join(' ');
 
         if (unitNumber && !line1.startsWith(unitNumber)) {
-            return unitNumber+' '+line1;
+            return unitNumber + ' ' + line1;
         }
 
         return line1;
     } catch (e) {
         logError(e);
-        return props.modelValue.line1;
+        return address.value.line1;
     }
 };
 </script>
