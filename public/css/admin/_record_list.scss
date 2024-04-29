@@ -1,6 +1,5 @@
 /*stylelint-disable no-descending-specificity*/
 
-
 .record_list-wrap-wrap {
     @apply overflow-x-scroll;
 }
@@ -64,7 +63,6 @@
         @apply order-1;
     }
 }
-
 // add this class if you either want the content aligned to the top or if the row gets much taller,
 // add this .record_list-col-top when the row expands
 .record_list-col-top, .record_list-col-top:has(.record_list-icon) {
