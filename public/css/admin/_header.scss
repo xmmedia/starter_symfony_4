@@ -33,7 +33,7 @@
 
 // for the main action(s)
 .header-action-main {
-    @apply order-3 my-2 text-sm text-center text-white hover:text-white focus:text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 border-blue-500 hover:border-blue-600 focus:rounded focus:ring-offset-gray-100;
+    @apply order-3 my-2 text-sm text-center text-white hover:text-white focus:text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 border-blue-500 hover:border-blue-600 focus:rounded focus:ring-offset-inherit;
 
     @media (min-width: 880px) {
         @apply my-0;
