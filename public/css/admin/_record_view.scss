@@ -32,13 +32,12 @@
 }
 
 .record_view-item_value {
-    @apply w-full md:w-4/5;
+    @apply flex w-full md:w-4/5;
     // align the loading spinner to the left
     .loading-wrap {
-        @apply justify-start ml-0;
+        @apply justify-start ml-px;
     }
 }
-
-.record_view-icon {
-    @apply w-5 h-5 align-text-top fill-current;
+.record_view-item_value:has(.record_list-icon) {
+    @apply flex items-center;
 }
