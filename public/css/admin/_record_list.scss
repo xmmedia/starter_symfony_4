@@ -40,6 +40,7 @@
     @apply px-2 py-2 transition-default align-middle;
 }
 
+// this is used in both the lists and view
 .record_list-icon {
     @apply w-5 h-5 mr-1 md:mx-0 fill-current;
 }
