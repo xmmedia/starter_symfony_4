@@ -11,11 +11,11 @@
                  :key="value.value"
                  :class="{ 'field-wrap-radio' : !pills, 'radio-pill' : pills, 'radio-pill-dark': darkPills }">
                 <input :id="id+'-'+value.value"
+                       v-model="checked"
                        type="radio"
                        :name="'radios-'+id"
                        :checked="value.value === modelValue"
-                       :value="value.value"
-                       @input="$emit('update:modelValue', $event.target.value)">
+                       :value="value.value">
                 <label v-if="!htmlLabel" :for="id+'-'+value.value">{{ value.label }}</label>
                 <!-- eslint-disable-next-line vue/no-v-html -->
                 <label v-else :for="id+'-'+value.value" v-html="value.label" />
@@ -30,13 +30,9 @@
 import cuid from 'cuid';
 import { computed } from 'vue';
 
-defineEmits(['update:modelValue']);
+const checked = defineModel({ type: [ String, Boolean ]});
 
 const props = defineProps({
-    modelValue: {
-        type: String,
-        default: null,
-    },
     /**
      * Either:
      * [{ value: '', label: '' }, ...]
