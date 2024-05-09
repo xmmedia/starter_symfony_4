@@ -658,6 +658,22 @@
                 </div>
             </div>
             <div class="record_view-item">
+                <div class="record_view-item_label">
+                    Empty value
+                </div>
+                <div class="record_view-item_value">
+                    <span class="record_list-empty">Not complete</span>
+                </div>
+            </div>
+            <div class="record_view-item">
+                <div class="record_view-item_label">
+                    Loading
+                </div>
+                <div class="record_view-item_value">
+                    <LoadingSpinner />
+                </div>
+            </div>
+            <div class="record_view-item">
                 <div class="record_view-item_label">Notes</div>
                 <div class="record_view-item_value">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer suscipit elementum est,
