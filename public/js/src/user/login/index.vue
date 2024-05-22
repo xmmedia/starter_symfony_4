@@ -43,7 +43,7 @@
                     </div>
                     <button type="button"
                             class="button-link form-action"
-                            @click="showLink">Get magic login link</button>
+                            @click="showLink">Send me a login link</button>
                 </div>
             </form>
 

@@ -35,9 +35,11 @@
     @apply flex w-full md:w-4/5;
     // align the loading spinner to the left
     .loading-wrap {
-        @apply justify-start ml-px;
+        @apply justify-start ml-px mb-1;
     }
 }
-.record_view-item_value:has(.record_list-icon) {
-    @apply flex items-center;
+// this should center the icon vertically
+// & align the loading spinner (along with the margin above) to the same spot as the icon
+.record_view-item_value:has(.record_list-icon), .record_view-item_value:has(.loading-wrap) {
+    @apply flex flex-col justify-start;
 }
