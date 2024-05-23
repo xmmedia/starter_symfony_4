@@ -43,5 +43,7 @@ return RectorConfig::configure()
         Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
         Rector\CodeQuality\Rector\If_\CombineIfRector::class,
         Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector::class,
+        // from set "deadCode"
+        Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
     ])
 ;
