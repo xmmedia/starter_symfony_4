@@ -56,7 +56,8 @@ final readonly class InitiatePasswordRecoveryHandler
             ],
             null,
             null,
-            null, // add References header to prevent message threading in Gmail
+            null,
+            // add References header to prevent message threading in Gmail
             ['References' => $this->emailGateway->getReferencesEmail(Email::fromString($this->emailFrom))],
         );
 
