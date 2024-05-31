@@ -1,0 +1,48 @@
+.form-wrap {
+    @apply bg-white max-w-[40rem];
+    &-notification {
+        @apply mt-16 mb-12 p-8 text-center text-sm;
+    }
+}
+
+.field-wrap {
+    label {
+        @apply text-sm uppercase font-semibold text-gray-500;
+    }
+}
+
+.field-wrap-radio, .field-wrap-checkbox {
+    @apply items-center;
+    input {
+        @apply mt-0;
+    }
+    label {
+        @apply normal-case;
+    }
+}
+
+.field-wrap .field-wrap-normal {
+    label { @apply normal-case; }
+}
+
+.form_header-wrap {
+    @apply mb-8 py-6 text-white text-center bg-gray-900;
+}
+
+.form-header {
+    @apply text-[28px] my-0 font-semibold leading-none font-headings;
+}
+
+.form-subheading {
+    @apply text-sm mb-4 font-semibold uppercase text-gray-500;
+}
+
+.form_button-wrap {
+    @apply max-w-[12rem] sm:max-w-full mt-8;
+    > div {
+        @apply flex flex-col sm:flex-row sm:items-center;
+    }
+    .form-action {
+        @apply ml-0 mt-4;
+    }
+}

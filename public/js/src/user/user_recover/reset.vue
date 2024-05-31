@@ -1,17 +1,21 @@
 <template>
-    <div>
-        <form v-if="showForm"
-              class="form-wrap p-4"
-              method="post"
-              novalidate
-              @submit.prevent="submit">
+    <PublicWrap>
+        <template #heading>Password Reset</template>
+
+        <PublicAlert v-if="state.matches('changed')" class="alert-success">
+            Your password has been reset.
+            <RouterLink :to="{ name: 'login' }" class="pl-4">Sign In</RouterLink>
+        </PublicAlert>
+
+        <form v-if="showForm" method="post" @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
-            <FieldError v-if="invalidToken" class="mb-4">
+
+            <FieldError v-if="invalidToken" class="mb-8">
                 Your reset link is invalid or has expired.
                 Please try clicking the button again or copying the link.
                 Or you can <RouterLink :to="{ name: 'user-recover-initiate' }">try again</RouterLink>.
             </FieldError>
-            <FieldError v-if="tokenExpired" class="mb-4">
+            <FieldError v-if="tokenExpired" class="mb-8">
                 Your link has expired.
                 Please try
                 <RouterLink :to="{ name: 'user-recover-initiate' }">
@@ -38,19 +42,16 @@
                            autocomplete="new-password"
                            icon-component="PublicIcon">New password again</FieldPassword>
 
-            <FormButton :saving="state.matches('submitting')">
-                Set Password
-                <template #cancel>
-                    <RouterLink :to="{ name: 'login' }" class="form-action">Return to Sign In</RouterLink>
-                </template>
-            </FormButton>
+            <div class="form_button-wrap">
+                <FormButton :saving="state.matches('submitting')">
+                    Set Password
+                    <template #cancel>
+                        <RouterLink :to="{ name: 'login' }" class="form-action">Return to Sign In</RouterLink>
+                    </template>
+                </FormButton>
+            </div>
         </form>
-
-        <div v-if="state.matches('changed')" class="alert alert-success max-w-lg" role="alert">
-            Your password has been reset.
-            <RouterLink :to="{ name: 'login' }" class="pl-4">Sign In</RouterLink>
-        </div>
-    </div>
+    </PublicWrap>
 </template>
 
 <script setup>
@@ -64,6 +65,8 @@ import { helpers, required } from '@vuelidate/validators';
 import { apolloClient } from '@/common/apollo';
 import { hasGraphQlError, logError } from '@/common/lib';
 import FieldPassword from '@/common/field_password_with_errors';
+import PublicWrap from '@/common/public_wrap.vue';
+import PublicAlert from '@/common/public_alert.vue';
 import { UserPasswordAllowed } from '../../user/queries/user.query.graphql';
 import { UserRecoverReset } from '../../user/queries/user.mutation.graphql';
 import userValidation from '@/common/validation/user';

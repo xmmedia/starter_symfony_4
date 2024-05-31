@@ -1,13 +1,14 @@
 <template>
+    <button v-if="showButton"
+             type="submit"
+             class="button w-full"
+             :disabled="isSaving || isSaved || disableButton">
+        <slot>Save</slot>
+    </button>
     <div ref="wrapper">
+
         <slot name="before"></slot>
 
-        <button v-if="showButton"
-                type="submit"
-                class="button"
-                :disabled="isSaving || isSaved || disableButton">
-            <slot>Save</slot>
-        </button>
         <slot v-if="!isSaving && !isSaved" name="cancel">
             <RouterLink v-if="cancelTo" :to="cancelTo" class="form-action">
                 <slot name="cancel-text">Cancel</slot>

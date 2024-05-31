@@ -1,97 +1,111 @@
 <template>
-    <div>
-        <div class="form-wrap">
-            <h1 class="mt-0 leading-none">Sign In</h1>
+    <PublicWrap>
+        <template #heading>Sign In</template>
 
-            <div v-if="errorMsg" class="alert alert-warning">{{ errorMsg }}</div>
+        <div class="max-w-[40rem] mx-auto mb-12 text-sm">
+            <div>
+                <div class="mt-2 mb-1">You can login by:</div>
 
-            <!-- posts back the current url -->
-            <form v-if="!magicLink" method="post">
-                <!-- field names match what Symfony uses by default -->
-                <div class="field-wrap">
-                    <label for="inputEmail">Email address</label>
-                    <input id="inputEmail"
-                           ref="passwordEmailInput"
-                           v-model="email"
-                           type="email"
-                           name="_username"
-                           required
-                           autofocus
-                           autocomplete="username email">
-                </div>
-
-                <FieldPassword id="inputPassword"
-                               v-model="password"
-                               name="_password"
-                               autocomplete="current-password"
-                               icon-component="PublicIcon" />
-
-                <div class="field-wrap field-wrap-checkbox">
-                    <input id="rememberMe"
-                           type="checkbox"
-                           name="_remember_me"
-                           value="on">
-                    <label for="rememberMe">Remember me</label>
-                </div>
-
-                <div class="flex justify-between">
-                    <div>
-                        <button type="submit" class="button">Sign In</button>
-                        <RouterLink :to="{ name: 'user-recover-initiate' }" class="form-action">
-                            Forgot your password?
+                <ol>
+                    <li class="mb-1">requesting a login link by entering your email below or</li>
+                    <li>by
+                        <RouterLink :to="{ name: 'user-recover-initiate' }">
+                            resetting your password.
                         </RouterLink>
-                    </div>
-                    <button type="button"
-                            class="button-link form-action"
-                            @click="showLink">Send me a login link</button>
-                </div>
-            </form>
+                    </li>
+                </ol>
 
-            <!-- magic link form -->
-            <div v-else>
-                <form v-if="state.matches('ready') || state.matches('sending')"
-                      method="post"
-                      @submit.prevent="sendLoginLink">
-                    <!-- field names match what Symfony uses by default -->
-                    <div class="field-wrap">
-                        <label for="inputEmail">Email address</label>
-                        <input id="inputEmail"
-                               ref="linkEmailInput"
-                               v-model="email"
-                               type="email"
-                               name="_username"
-                               required
-                               autofocus
-                               autocomplete="username email">
-                    </div>
-
-                    <div class="flex justify-between">
-                        <div class="flex gap-x-4">
-                            <button type="submit" class="button">Get Link</button>
-                            <LoadingSpinner v-if="state.matches('sending')"
-                                            class="text-sm italic">Sending…</LoadingSpinner>
-                        </div>
-                        <button type="button"
-                                class="button-link form-action"
-                                @click="showLogin">Sign in with password</button>
-                    </div>
-                </form>
-                <div v-if="state.matches('sent')">
-                    <p>A magic login link has been sent to your email address.<br>
-                        Please check your email and click the link to sign in.</p>
-                    <div class="mt-4">
-                        <button type="button"
-                                class="button-link text-sm"
-                                @click="showLogin">Sign in with password</button>
-                    </div>
-                </div>
+                <p>Questions? Please contact us at
+                    <a href="@TODO">@TODO</a>
+                </p>
             </div>
         </div>
-    </div>
+
+        <PublicAlert v-if="lastErrorMessage" ref="alertEl" class="alert-warning">{{ lastErrorMessage }}</PublicAlert>
+
+        <form v-if="state.matches('ready')" method="post" @submit.prevent="submitStep1">
+            <!-- field names match what Symfony uses by default -->
+            <div class="field-wrap">
+                <label for="inputEmail">Email</label>
+                <input id="inputEmail"
+                       v-model="email"
+                       type="email"
+                       name="_username"
+                       required
+                       autofocus
+                       autocomplete="username email"
+                       placeholder="julie@example.com">
+            </div>
+
+            <button type="submit"
+                    class="button w-full mt-2"
+                    :disabled="!emailIsValid"
+                    :title="!emailIsValid ? 'Enter your email the continue' : null">
+                Continue
+            </button>
+        </form>
+
+        <!-- posts back the current url -->
+        <form v-if="showPasswordForm" ref="passwordFormEl" method="post">
+            <div class="mb-4 text-lg font-semibold">
+                <button type="button"
+                        class="flex items-center gap-x-1"
+                        title="Change email"
+                        @click="sendEvent({ type: 'BACK'})">
+                    <PublicIcon icon="arrow-section" width="12" height="12" class="rotate-90" />
+                    Sign in with {{ email }}
+                </button>
+            </div>
+
+            <!-- field names match what Symfony uses by default -->
+            <input type="hidden" name="_username" :value="email">
+
+            <FieldPassword id="inputPassword"
+                           v-model="password"
+                           autofocus
+                           name="_password"
+                           autocomplete="current-password"
+                           icon-component="PublicIcon" />
+
+            <div class="field-wrap field-wrap-checkbox">
+                <input id="rememberMe" type="checkbox" name="_remember_me" value="on">
+                <label for="rememberMe">Remember me</label>
+            </div>
+
+            <button type="submit" class="button w-full">Sign in</button>
+
+            <div class="flex items-center justify-center gap-x-4 my-6 text-fs-gray-500">
+                <hr class="grow">
+                Or
+                <hr class="grow">
+            </div>
+
+            <button type="button" class="button w-full bg-fs-gray-300 border-fs-gray-300" @click="sendLoginLink">
+                <LoadingSpinner v-if="state.matches('sending')" spinner-classes="bg-white" />
+                <template v-else>Sign in with a link instead</template>
+            </button>
+
+            <p class="text-center text-sm">Go passwordless! We’ll send you an email.</p>
+
+            <RouterLink :to="{ name: 'user-recover-initiate', query: { email } }" class="block mt-8 text-sm">
+                Forgot your password?
+            </RouterLink>
+        </form>
+
+        <div v-if="state.matches('sent')" class="alert alert-success">
+            <div>A magic link has been sent to your email. Click the link in the email to access your account.</div>
+            <button type="button"
+                    class="button-link pl-4 flex items-center gap-x-1 fill-current"
+                    @click="sendEvent({ type: 'BACK' })">
+                <PublicIcon icon="arrow-section" width="12" height="12" class="rotate-90" /> Back
+            </button>
+        </div>
+
+    </PublicWrap>
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted, nextTick, computed } from 'vue';
 import { useHead } from '@unhead/vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useMutation, useQuery } from '@vue/apollo-composable';
@@ -100,9 +114,12 @@ import { logError } from '@/common/lib.js';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
 import { AuthLast } from '@/user/queries/auth.query.graphql';
+import PublicWrap from '@/common/public_wrap.vue';
+import PublicAlert from '@/common/public_alert.vue';
 import { UserLoginLink } from '@/user/queries/user.mutation.graphql';
 import LoadingSpinner from '@/common/loading_spinner.vue';
 import FieldPassword from '@/common/field_password.vue';
+import { email as emailValidator } from '@vuelidate/validators';
 
 const rootStore = useRootStore();
 const router = useRouter();
@@ -142,6 +159,12 @@ const errorMsg = ref(null);
 const magicLink = ref(false);
 const passwordEmailInput = ref(null);
 const linkEmailInput = ref(null);
+const alertEl = ref();
+const passwordFormEl = ref();
+
+
+const emailIsValid = computed(() => email.value && emailValidator.$validator(email.value));
+
 
 const { onResult } = useQuery(AuthLast);
 onResult(({ data: { AuthLast }}) => {
