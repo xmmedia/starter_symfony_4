@@ -1,5 +1,5 @@
 <template>
-    <div class="field-wrap-checkbox">
+    <div class="field-wrap field-wrap-checkbox">
         <FieldError v-if="v" :v="v">
             <template #required><slot name="required"></slot></template>
         </FieldError>
