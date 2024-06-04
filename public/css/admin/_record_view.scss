@@ -32,7 +32,7 @@
 }
 
 .record_view-item_value {
-    @apply flex w-full md:w-4/5;
+    @apply w-full md:w-4/5;
     // align the loading spinner to the left
     .loading-wrap {
         @apply justify-start ml-px mb-1;
