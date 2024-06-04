@@ -682,6 +682,15 @@
                     Cras elit neque, vestibulum eu euismod quis, luctus vitae justo.
                 </div>
             </div>
+            <div class="record_view-item">
+                <div class="record_view-item_label">HTML</div>
+                <div class="record_view-item_value no_first_last_margin">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer suscipit elementum est.</p>
+                    <p>In sodales sapien mollis quis. In erat nisl, hendrerit ac convallis ut, pellentesque at arcu.
+                        Maecenas quam dolor, suscipit id mauris a, pretium maximus ipsum. Maecenas et dictum risus.
+                        Cras elit neque, vestibulum eu euismod quis, luctus vitae justo.</p>
+                </div>
+            </div>
             <div class="record_view-item_group_wrap">
                 <h4 class="mt-2 mb-0 px-2">Group of Items</h4>
                 <div class="record_view-item">
