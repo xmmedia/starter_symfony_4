@@ -1,23 +1,27 @@
 <template>
-    <div>
-        <form v-if="showForm"
-              class="form-wrap"
-              method="post"
-              novalidate
-              @submit.prevent="submit">
+    <PublicWrap>
+        <template #heading>Activate Account</template>
+
+        <PublicAlert v-if="state.matches('verified')" class="alert-success">
+            Your account is now active.
+            <RouterLink :to="{ name: 'login' }" class="pl-4">Sign In</RouterLink>
+        </PublicAlert>
+
+        <form v-if="showForm" method="post" @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
             <FieldError v-if="invalidToken" class="mb-4">
                 Your activation link is invalid.
                 Please try clicking the button again or copying the link.
-                Or you can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>.
+                If you've already set your password, you can
+                <RouterLink :to="{ name: 'login' }">sign in</RouterLink>.
             </FieldError>
             <FieldError v-if="tokenExpired" class="mb-4">
                 Your link has expired. Please contact an administrator.
             </FieldError>
 
-            <p :class="{ 'mt-0' : !v$.$error && !invalidToken && !tokenExpired }">
+            <div :class="{ 'form-subheading' : !v$.$error && !invalidToken && !tokenExpired }">
                 To activate your account, enter a password below.
-            </p>
+            </div>
 
             <div class="hidden">
                 <label for="inputEmail">Email</label>
@@ -37,21 +41,18 @@
                            autocomplete="new-password"
                            icon-component="PublicIcon">Password again</FieldPassword>
 
-            <FormButton :saving="state.matches('submitting')"
-                        :cancel-to="{ name: 'login' }">
-                Activate
-                <template #cancel>
-                    <RouterLink :to="{ name: 'login' }" class="form-action">Sign In</RouterLink>
-                </template>
-                <template #saving>Activating…</template>
-            </FormButton>
+            <div class="form_button-wrap">
+                <FormButton :saving="state.matches('submitting')"
+                            :cancel-to="{ name: 'login' }">
+                    Activate
+                    <template #cancel>
+                        <RouterLink :to="{ name: 'login' }" class="form-action">Sign In</RouterLink>
+                    </template>
+                    <template #saving>Activating…</template>
+                </FormButton>
+            </div>
         </form>
-
-        <div v-if="state.matches('verified')" class="alert alert-success max-w-lg" role="alert">
-            Your account is now active.
-            <RouterLink :to="{ name: 'login' }" class="pl-4">Sign In</RouterLink>
-        </div>
-    </div>
+    </PublicWrap>
 </template>
 
 <script setup>
@@ -67,6 +68,8 @@ import { UserActivate } from '@/user/queries/user.mutation.graphql';
 import userValidation from '@/common/validation/user';
 import { hasGraphQlError, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
+import PublicWrap from '@/common/public_wrap.vue';
+import PublicAlert from '@/common/public_alert.vue';
 
 const rootStore = useRootStore();
 const router = useRouter();
