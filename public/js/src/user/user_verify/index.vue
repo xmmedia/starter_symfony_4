@@ -1,30 +1,35 @@
 <template>
-    <LoadingSpinner v-if="state.matches('verifying')">Verifying your account…</LoadingSpinner>
-    <div v-if="state.matches('verified')">
-        Your account has been verified. You can now sign in.
-        <RouterLink :to="{ name: 'login' }" class="button">Sign In</RouterLink>
-    </div>
-    <div v-if="state.matches('error')">
-        <template v-if="invalidToken">
-            <FieldError class="mb-4">
-                Your activation link is invalid.
-                Please try clicking the button again or copying the link.
-                Or you can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>.
+    <PublicWrap>
+        <template #heading>Verify Account</template>
+        <LoadingSpinner v-if="state.matches('verifying')">Verifying your account…</LoadingSpinner>
+        <div v-if="state.matches('verified')">
+            Your account has been verified. You can now sign in.
+            <RouterLink :to="{ name: 'login' }" class="button w-full">Sign In</RouterLink>
+        </div>
+        <div v-if="state.matches('error')">
+            <template v-if="invalidToken">
+                <FieldError class="mb-4">
+                    Your activation link is invalid.
+                    Please try clicking the button again or copying the link.
+                    Or you can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>.
+                </FieldError>
+                <div class="form_button-wrap">
+                    <RouterLink :to="{ name: 'login' }" class="button w-full">Sign In</RouterLink>
+                </div>
+            </template>
+            <template v-else-if="tokenExpired">
+                <FieldError class="mb-4">
+                    Your verification link has expired.
+                </FieldError>
+                You can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>
+                or get a new verification link by
+                <RouterLink :to="{ name: 'user-recover-initiate'}">requesting a link to reset your password</RouterLink>.
+            </template>
+            <FieldError v-else class="mb-4">
+                There was a problem verifying your account. Please try again later.
             </FieldError>
-            <RouterLink :to="{ name: 'login' }" class="button">Sign In</RouterLink>
-        </template>
-        <template v-else-if="tokenExpired">
-            <FieldError class="mb-4">
-                Your verification link has expired.
-            </FieldError>
-            You can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>
-            or get a new verification link by
-            <RouterLink :to="{ name: 'user-recover-initiate'}">requesting a link to reset your password</RouterLink>.
-        </template>
-        <FieldError v-else class="mb-4">
-            There was a problem verifying your account. Please try again later.
-        </FieldError>
-    </div>
+        </div>
+    </PublicWrap>
 </template>
 
 <script setup>
@@ -37,6 +42,8 @@ import { UserVerify } from '@/user/queries/user.mutation.graphql';
 import { hasGraphQlError, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 import LoadingSpinner from '@/common/loading_spinner.vue';
+import PublicWrap from '@/common/public_wrap.vue';
+import PublicAlert from '@/common/public_alert.vue';
 
 const rootStore = useRootStore();
 const router = useRouter();
