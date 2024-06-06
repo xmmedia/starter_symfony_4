@@ -101,11 +101,17 @@
             </button>
         </div>
 
+        <template #after>
+            <div class="form-wrap form-wrap-notification">
+                <div class="text-lg font-bold">After Notice:</div>
+                <p>Add any additional information here.</p>
+            </div>
+        </template>
     </PublicWrap>
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, computed } from 'vue';
+import { ref, onMounted, computed, nextTick } from 'vue';
 import { useHead } from '@unhead/vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useMutation, useQuery } from '@vue/apollo-composable';
@@ -114,11 +120,11 @@ import { logError } from '@/common/lib.js';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
 import { AuthLast } from '@/user/queries/auth.query.graphql';
-import PublicWrap from '@/common/public_wrap.vue';
-import PublicAlert from '@/common/public_alert.vue';
 import { UserLoginLink } from '@/user/queries/user.mutation.graphql';
 import LoadingSpinner from '@/common/loading_spinner.vue';
 import FieldPassword from '@/common/field_password.vue';
+import PublicWrap from '@/common/public_wrap.vue';
+import PublicAlert from '@/common/public_alert.vue';
 import { email as emailValidator } from '@vuelidate/validators';
 
 const rootStore = useRootStore();
@@ -131,7 +137,13 @@ const stateMachine = createMachine({
     states: {
         ready: {
             on: {
+                NEXT: 'step2',
+            },
+        },
+        step2: {
+            on: {
                 SEND: 'sending',
+                BACK: 'ready',
             },
         },
         sending: {
@@ -142,7 +154,7 @@ const stateMachine = createMachine({
         },
         sent: {
             on: {
-                RESET: 'ready',
+                BACK: 'step2',
             },
         },
     },
@@ -155,24 +167,25 @@ useHead({
 
 const email = ref(null);
 const password = ref(null);
-const errorMsg = ref(null);
-const magicLink = ref(false);
-const passwordEmailInput = ref(null);
-const linkEmailInput = ref(null);
+const lastErrorMessage = ref(null);
 const alertEl = ref();
 const passwordFormEl = ref();
 
-
 const emailIsValid = computed(() => email.value && emailValidator.$validator(email.value));
-
+const showPasswordForm = computed(() => state.value.matches('step2') || state.value.matches('sending'));
 
 const { onResult } = useQuery(AuthLast);
-onResult(({ data: { AuthLast }}) => {
-    if (!email.value) {
-        email.value = AuthLast.email ?? null;
+onResult(({ data: { AuthLast } }) => {
+    if (AuthLast.email) {
+        email.value = AuthLast.email;
+        submitStep1();
     }
+
     if (AuthLast.error) {
-        errorMsg.value = AuthLast.error ?? null;
+        lastErrorMessage.value = AuthLast.error;
+        nextTick(() => {
+            alertEl.value.$el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
     }
 });
 
@@ -183,32 +196,24 @@ onMounted(() => {
         return;
     }
 
-    if (route.query.magic) {
-        showLink();
-    }
-
     if (route.query.email) {
         email.value = route.query.email;
+
+        submitStep1();
     }
 });
 
-const showLogin = () => {
-    magicLink.value = false;
-    sendEvent({ type: 'RESET' });
+const submitStep1 = () => {
+    sendEvent({ type: 'NEXT' });
     nextTick(() => {
-        passwordEmailInput.value.focus();
-    });
-};
-const showLink = () => {
-    magicLink.value = true;
-    errorMsg.value = null;
-    nextTick(() => {
-        linkEmailInput.value.focus();
+        if (!lastErrorMessage.value) {
+            passwordFormEl.value.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     });
 };
 
-async function sendLoginLink () {
-    if (!state.value.matches('ready')) {
+const sendLoginLink = async () => {
+    if (!state.value.matches('step2')) {
         return;
     }
 
@@ -227,5 +232,6 @@ async function sendLoginLink () {
         alert('There was a problem send the magic link. Please try again later or login with your password.');
         sendEvent({ type: 'ERROR' });
     }
-}
+};
 </script>
+
