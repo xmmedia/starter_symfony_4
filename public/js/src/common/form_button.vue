@@ -1,12 +1,14 @@
 <template>
-    <button v-if="showButton"
-             type="submit"
-             class="button w-full"
-             :disabled="isSaving || isSaved || disableButton">
-        <slot>Save</slot>
-    </button>
-    <div ref="wrapper">
-
+    <div ref="wrapper" :class="wrapperClasses">
+        <div :class="buttonWrapperClasses ? buttonWrapperClasses : 'contents'">
+            <button v-if="showButton"
+                    type="submit"
+                    class="button"
+                    :class="buttonClasses"
+                    :disabled="isSaving || isSaved || disableButton">
+                <slot>Save</slot>
+            </button>
+        </div>
         <slot name="before"></slot>
 
         <slot v-if="!isSaving && !isSaved" name="cancel">
@@ -78,6 +80,10 @@ const props = defineProps({
         type: [Object, String],
         default: null,
     },
+    buttonClasses: {
+        type: [String, Array],
+        default: null,
+    },
     showButton: {
         type: Boolean,
         default: true,
@@ -85,6 +91,18 @@ const props = defineProps({
     disableButton: {
         type: Boolean,
         default: false,
+    },
+    wrapperClasses: {
+        type: [String, Array],
+        default: null,
+    },
+    /**
+     * Wraps the before slot and main button.
+     * Doesn't apply to the button bar.
+     */
+    buttonWrapperClasses: {
+        type: [String, Array],
+        default: null,
     },
 });
 

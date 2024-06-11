@@ -2,25 +2,6 @@
     <PublicWrap>
         <template #heading>Sign In</template>
 
-        <div class="max-w-[40rem] mx-auto mb-12 text-sm">
-            <div>
-                <div class="mt-2 mb-1">You can login by:</div>
-
-                <ol>
-                    <li class="mb-1">requesting a login link by entering your email below or</li>
-                    <li>by
-                        <RouterLink :to="{ name: 'user-recover-initiate' }">
-                            resetting your password.
-                        </RouterLink>
-                    </li>
-                </ol>
-
-                <p>Questions? Please contact us at
-                    <a href="@TODO">@TODO</a>
-                </p>
-            </div>
-        </div>
-
         <PublicAlert v-if="lastErrorMessage" ref="alertEl" class="alert-warning">{{ lastErrorMessage }}</PublicAlert>
 
         <form v-if="state.matches('ready')" method="post" @submit.prevent="submitStep1">
@@ -101,12 +82,6 @@
             </button>
         </div>
 
-        <template #after>
-            <div class="form-wrap form-wrap-notification">
-                <div class="text-lg font-bold">After Notice:</div>
-                <p>Add any additional information here.</p>
-            </div>
-        </template>
     </PublicWrap>
 </template>
 

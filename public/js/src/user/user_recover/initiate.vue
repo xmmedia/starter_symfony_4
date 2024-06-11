@@ -30,13 +30,16 @@
                 Please enter your email address to search for your account:
             </FieldEmail>
 
+<!-- @todo .form_button-wrap still needed -->
             <div class="form_button-wrap">
-                <FormButton :saving="state.matches('submitting')">
+                <FormButton :saving="state.matches('submitting')"
+                            button-classes="w-full"
+                            wrapper-classes="flex flex-wrap">
                     Find Account
                     <template #cancel>
                         <RouterLink v-if="!rootStore.loggedIn"
                                     :to="{ name: 'login' }"
-                                    class="form-action">Return to Sign In
+                                    class="form-action block mt-4">Return to Sign In
                         </RouterLink>
                     </template>
                     <template #saving>Requesting…</template>
