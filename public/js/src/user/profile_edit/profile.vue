@@ -1,5 +1,5 @@
 <template>
-    <div class="form-wrap p-0">
+    <div class="form-wrap my-8 p-0">
         <ProfileTabs />
 
         <form class="p-4" method="post" novalidate @submit.prevent="submit">
