@@ -80,6 +80,8 @@ function checkEmail (event) {
         return;
     }
 
+    mailcheck.defaultDomains.push('proton.me');
+
     mailcheck.run({
         email: event.target.value,
         suggested: (suggestion) => {
