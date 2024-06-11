@@ -12,23 +12,23 @@
         </RouterLink>
 
         <div class="text-center w-full mt-4 py-6 bg-gray-700">
-            <ul class="header_nav-nav">
-                <li v-if="loggedIn"><RouterLink :to="{ name: 'dashboard' }">Dashboard</RouterLink></li>
-                <li v-else><a href="/login">Sign In</a></li>
-            </ul>
+            <div v-if="loggedIn" class="header_nav-nav flex divide-x divide-gray-500">
+                <RouterLink :to="{ name: 'dashboard' }" class="px-4">Dashboard</RouterLink>
+                <RouterLink :to="{ name: 'user-profile-edit' }"
+                            class="flex justify-center lg:justify-start items-center px-4">
+                    <PublicIcon icon="user" width="12" height="12" class="mr-1 fill-current" />
+                    {{ rootStore.user.name }}
+                </RouterLink>
+                <a v-if="rootStore.hasRole('ROLE_ADMIN')" href="/admin" class="px-4">
+                    Admin
+                </a>
+                <a href="/logout" class="px-4">Sign Out</a>
+            </div>
+            <div v-else><a href="/login">Sign In</a></div>
+
         </div>
 
-        <div v-if="loggedIn" class="header-logout">
-            <RouterLink :to="{ name: 'user-profile-edit' }"
-                        class="flex justify-center lg:justify-start items-center pr-3 mr-3 border-r border-gray-500">
-                <PublicIcon icon="user" width="12" height="12" class="mr-1 text-gray-500" />
-                {{ rootStore.user.name }}
-            </RouterLink>
-            <a v-if="rootStore.hasRole('ROLE_ADMIN')" href="/admin" class="pr-3 mr-3 border-r border-gray-500">
-                Admin
-            </a>
-            <a href="/logout">Sign Out</a>
-        </div>
+
     </header>
 
     <main class="w-full">
