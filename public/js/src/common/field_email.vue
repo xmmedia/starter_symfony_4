@@ -28,8 +28,7 @@
 
         <div v-if="suggestedEmail" class="p-2 bg-emerald-900/70 text-white">
             Did you mean
-            <button ref="suggestedEmailButton"
-                    type="button"
+            <button type="button"
                     class="button-link underline text-white mx-2 hover:text-gray-200
                            focus:text-white focus:ring-offset-emerald-900/10 focus:ring-offset-2"
                     @click="useSuggested">{{ suggestedEmail }}</button>?
@@ -40,7 +39,7 @@
 </template>
 
 <script setup>
-import { nextTick, ref } from 'vue';
+import { ref } from 'vue';
 import cuid from 'cuid';
 import emailSpellChecker from '@zootools/email-spell-checker';
 
@@ -72,7 +71,6 @@ defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const suggestedEmail = ref(null);
-const suggestedEmailButton = ref();
 const input = ref();
 
 function checkEmail (event) {
@@ -86,9 +84,6 @@ function checkEmail (event) {
 
     if (result) {
         suggestedEmail.value = result.full;
-        nextTick(() => {
-            suggestedEmailButton.value.focus();
-        });
     } else {
         suggestedEmail.value = null;
     }
