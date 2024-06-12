@@ -5,19 +5,10 @@
     }
 }
 
-.field-wrap {
-    label {
-        @apply text-sm uppercase font-semibold text-gray-500;
-    }
-}
-
 .field-wrap-radio, .field-wrap-checkbox {
     @apply items-center;
     input {
         @apply mt-0;
-    }
-    label {
-        @apply normal-case;
     }
 }
 
@@ -41,8 +32,5 @@
     @apply max-w-[12rem] sm:max-w-full mt-8;
     > div {
         @apply flex flex-col sm:flex-row sm:items-center;
-    }
-    .form-action {
-        @apply ml-0 mt-4;
     }
 }
