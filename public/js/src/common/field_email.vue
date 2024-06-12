@@ -42,7 +42,7 @@
 <script setup>
 import { nextTick, ref } from 'vue';
 import cuid from 'cuid';
-import mailcheck from 'mailcheck';
+import emailSpellChecker from '@zootools/email-spell-checker';
 
 defineProps({
     modelValue: {
@@ -80,21 +80,18 @@ function checkEmail (event) {
         return;
     }
 
-    mailcheck.defaultDomains.push('proton.me');
-
-    mailcheck.run({
+    const result = emailSpellChecker.run({
         email: event.target.value,
-        suggested: (suggestion) => {
-            suggestedEmail.value = suggestion.full;
-
-            nextTick(() => {
-                suggestedEmailButton.value.focus();
-            });
-        },
-        empty: () => {
-            suggestedEmail.value = null;
-        },
     });
+
+    if (result) {
+        suggestedEmail.value = result.full;
+        nextTick(() => {
+            suggestedEmailButton.value.focus();
+        });
+    } else {
+        suggestedEmail.value = null;
+    }
 }
 function useSuggested () {
     emit('update:modelValue', suggestedEmail.value);

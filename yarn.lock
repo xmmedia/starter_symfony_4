@@ -1736,6 +1736,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@zootools/email-spell-checker@npm:^1.12.0":
+  version: 1.12.0
+  resolution: "@zootools/email-spell-checker@npm:1.12.0"
+  checksum: 44bceedf2f8d8e4eedd23905af9a6e89af11adbf30a88793383e3671ab0313ee5dd4f4cdef27c87225c897dc3072fc6923d0d7cb344050010400fff594b1a661
+  languageName: node
+  linkType: hard
+
 "@zxing/text-encoding@npm:0.9.0":
   version: 0.9.0
   resolution: "@zxing/text-encoding@npm:0.9.0"
@@ -4127,13 +4134,6 @@ __metadata:
   dependencies:
     "@jridgewell/sourcemap-codec": ^1.4.15
   checksum: bdf102e36a44d1728ec61b69d655caba3f66ca58898e292f6debe57dc30896bd37908bfe3464a7464a435831a9e44aa905cebd681e21c2f44bbe4dddf225619f
-  languageName: node
-  linkType: hard
-
-"mailcheck@npm:^1.1.0":
-  version: 1.1.1
-  resolution: "mailcheck@npm:1.1.1"
-  checksum: 7c49dc01c43411186a1f038f0187a73231451c8306331ad9188ae55eabfdd903c325e601816da0cccbb6a212a7b4673639a2f93467f5d1a2aadbc5e12f9a92f4
   languageName: node
   linkType: hard
 
@@ -6591,6 +6591,7 @@ __metadata:
     "@vuelidate/core": ^2.0.2
     "@vuelidate/validators": ^2.0.2
     "@xstate/vue": ^3.0.2
+    "@zootools/email-spell-checker": ^1.12.0
     apollo-upload-client: ^18.0.1
     audit-ci: ^6.0.0
     autoprefixer: ^10.0.2
@@ -6607,7 +6608,6 @@ __metadata:
     jsdom: ^24.0.0
     libphonenumber-js: ^1.7.22
     lodash: ^4.17.11
-    mailcheck: ^1.1.0
     omit-deep-lodash: ^1.1.5
     pinia: ^2.0.34
     pluralize: ^8.0.0
