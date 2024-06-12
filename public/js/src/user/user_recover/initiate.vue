@@ -7,7 +7,7 @@
             Please follow the instructions within the email to reset your password.
             <RouterLink v-if="!rootStore.loggedIn"
                         :to="{ name: 'login' }"
-                        class="pl-4">Return to Sign In
+                        class="mt-4">Return to Sign In
             </RouterLink>
         </PublicAlert>
 
