@@ -11,7 +11,7 @@
                  decoding="async">
         </RouterLink>
 
-        <div class="text-center w-full mt-4 py-6 bg-gray-700">
+        <div class="text-center w-full mt-4 py-6 bg-gray-900">
             <div v-if="loggedIn" class="header_nav-nav flex divide-x divide-gray-500">
                 <RouterLink :to="{ name: 'dashboard' }" class="px-4">Dashboard</RouterLink>
                 <RouterLink :to="{ name: 'user-profile-edit' }"
@@ -24,7 +24,7 @@
                 </a>
                 <a href="/logout" class="px-4">Sign Out</a>
             </div>
-            <div v-else><a href="/login">Sign In</a></div>
+            <div v-else><a href="/login" class="text-gray-300 hover:text-gray-200 hover:underline">Sign In</a></div>
 
         </div>
 
@@ -36,7 +36,7 @@
         <RouterView :key="$route.path" />
     </main>
 
-    <footer class="px-4 2xl:px-0 pt-8 pb-16 bg-gray-700 text-sm">
+    <footer class="px-4 2xl:px-0 pt-8 pb-16 bg-gray-900 text-sm">
         <div class="footer-content max-w-7xl mx-auto">
             <div class="mt-8 md:mt-0 text-right">
                 <!-- @todo-symfony -->

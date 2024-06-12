@@ -1,7 +1,10 @@
 .header_nav-nav {
     @apply list-none flex justify-center pl-0;
     a {
-        @apply text-gray-200;
+        @apply text-gray-300;
+        &:hover {
+            @apply text-gray-200;
+        }
         &:focus {
             @apply ring-offset-2 ring-offset-gray-700;
         }
