@@ -1,7 +1,7 @@
 /*stylelint-disable no-descending-specificity*/
 
 .record_list-wrap-wrap {
-    @apply overflow-x-scroll;
+    @apply overflow-x-auto;
 }
 
 .record_list-wrap {
