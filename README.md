@@ -65,8 +65,9 @@ Production: @todo-symfony
 
 ## Commands
 
+  - Check all code: `bin/check`
   - Production JS/CSS build: `yarn build`
-  - Dev JS/CSS build: `yarn dev`
+  - Dev JS/CSS build: `yarn dev` (recommended command: `nvm use && yarn && yarn dev`)
   - Preview production JS/CSS build: `yarn preview`
   - JS Tests ([Jest](https://jestjs.io/)): `yarn test:unit`
   - Linting:
@@ -86,6 +87,9 @@ Production: @todo-symfony
   - Makers (PHP):
     - Make aggregate root/model: `bin/console make:model`
     - Make projection: `bin/console make:projection`
+  - Upgrade JS packages: `yarn up -R "**"`
+    - Upgrade a specific package: `yarn up -R "package-name"`
+    - Upgrade major versions: `yarn upgrade-interactive` (ctrl+c to exit without changes)
 
 ## Incorporated Libraries & Tools
 
