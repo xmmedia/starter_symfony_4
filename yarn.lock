@@ -2076,9 +2076,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001599, caniuse-lite@npm:^1.0.30001629":
-  version: 1.0.30001634
-  resolution: "caniuse-lite@npm:1.0.30001634"
-  checksum: 5ab273ec36fee64b148bee8a84e758eb22cc282cce9af41eb0d36a0cdd2b90ff96ba502be89aaf0448b3153cd100629acac94971bb5cb9016f6c5ccbeda944b2
+  version: 1.0.30001636
+  resolution: "caniuse-lite@npm:1.0.30001636"
+  checksum: b0347fd2c8d346680a64d98b061c59cb8fbf149cdd03005a447fae4d21e6286d5bd161b43eefe3221c6624aacb3cda4e838ae83c95ff5313a547f84ca93bcc70
   languageName: node
   linkType: hard
 
@@ -2500,9 +2500,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.796":
-  version: 1.4.802
-  resolution: "electron-to-chromium@npm:1.4.802"
-  checksum: de8d3992b42fca90a686c2c8528954284dc1437fc850a825f88c91cf31645646bed5e7e9dd586a4460d0732ba8a99cda4d0013eedb0cea0cb7ec9e869155ff86
+  version: 1.4.803
+  resolution: "electron-to-chromium@npm:1.4.803"
+  checksum: ee308c3107f768947a43659e773c21477031ef4db8ad0202d78a51b547aff50c059ccd3641804435886220a6208019ef9128ed4499157321afaaa9ae91a1aca1
   languageName: node
   linkType: hard
 
@@ -3008,12 +3008,12 @@ __metadata:
   linkType: hard
 
 "foreground-child@npm:^3.1.0":
-  version: 3.2.0
-  resolution: "foreground-child@npm:3.2.0"
+  version: 3.2.1
+  resolution: "foreground-child@npm:3.2.1"
   dependencies:
     cross-spawn: ^7.0.0
     signal-exit: ^4.0.1
-  checksum: 6a285b94c5a3cdaabbe230673889c1da0820a2da32366bcac6b9a165edcf390fdcc05d277e0674c4973d767c35e90f0866a4c275253790b60b9c372c346090e3
+  checksum: 3e2e844d6003c96d70affe8ae98d7eaaba269a868c14d997620c088340a8775cd5d2d9043e6ceebae1928d8d9a874911c4d664b9a267e8995945df20337aebc0
   languageName: node
   linkType: hard
 
@@ -5162,15 +5162,15 @@ __metadata:
   linkType: hard
 
 "sass@npm:^1.62.1":
-  version: 1.77.5
-  resolution: "sass@npm:1.77.5"
+  version: 1.77.6
+  resolution: "sass@npm:1.77.6"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 32bea7558000933c69abdcc5377a213187f845ed730efb352bfb6189970376c81868d3a1beed05654d0b37ff56df2a9b763a3c135407f99619fc1f93db5a7a32
+  checksum: 9bd1cb9ec1f10b7df83ed6a4b3d8764fe9174ee422f1ea21c51bcd953f710deee57c649269f9cb1ad1e9dcc3b87efee62cd2b36aca9cc646d44fd9179300d5f3
   languageName: node
   linkType: hard
 
@@ -5873,9 +5873,9 @@ __metadata:
   linkType: hard
 
 "undici@npm:^6.14.1":
-  version: 6.19.0
-  resolution: "undici@npm:6.19.0"
-  checksum: 3c775d4312bd3c1090a2081e5384a82cfc2e90b7b53ec0f89d95a61634db7ea2755cd2efbab832bce3a5d6ca966bf2ca79a0443793b7af4fdaf30d48bfa1be80
+  version: 6.19.1
+  resolution: "undici@npm:6.19.1"
+  checksum: 45dbf5b0f60c1766fb34106b05042824e6c767307b9a2bec6fe943bb2c10b16d7ae42690bdea15cf53e5929532ad9b1a836839852b12eb5ec60d700f4a1a8d4e
   languageName: node
   linkType: hard
 
@@ -6429,8 +6429,8 @@ __metadata:
   linkType: hard
 
 "ws@npm:^8.17.0":
-  version: 8.17.0
-  resolution: "ws@npm:8.17.0"
+  version: 8.17.1
+  resolution: "ws@npm:8.17.1"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -6439,7 +6439,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 147ef9eab0251364e1d2c55338ad0efb15e6913923ccbfdf20f7a8a6cb8f88432bcd7f4d8f66977135bfad35575644f9983201c1a361019594a4e53977bf6d4e
+  checksum: 442badcce1f1178ec87a0b5372ae2e9771e07c4929a3180321901f226127f252441e8689d765aa5cfba5f50ac60dd830954afc5aeae81609aefa11d3ddf5cecf
   languageName: node
   linkType: hard
 
