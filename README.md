@@ -112,7 +112,6 @@ Production: @todo-symfony
     - [Jest](https://jestjs.io/) – JS unit testing
     - [Lodash](https://lodash.com/) – helper functions for JS
     - [date-fns](https://date-fns.org/) – helper functions for Dates in JS
-    - [PortalVue](https://github.com/LinusBorg/portal-vue) – helps to manage things like modals
     - [Vue Final Modal](https://vue-final-modal.org/) – for modals 
     - [Faker.js](https://github.com/marak/Faker.js/) – for generating fake data in tests
     - [ESLint](https://eslint.org/) – checks JS for conventions & errors
