@@ -147,8 +147,10 @@ import SendActivation from './component/send_activation.vue';
 import ActivateVerify from './component/activate_verify.vue';
 import SendLoginLink from './component/send_login_link.vue';
 import SendReset from './component/send_reset.vue';
+import { useRouter } from 'vue-router';
 
 const rootStore = useRootStore();
+const router = useRouter();
 
 const stateMachine = createMachine(stateMachineConfig);
 const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
