@@ -58,9 +58,16 @@ Production: @todo-symfony
 
 ## System Requirements
 
+### Server
+
   - PHP 8.2
   - MySQL 5.7+
-  - Node 18 + [nvm](https://github.com/nvm-sh/nvm)
+
+### Locally for Development
+
+  - [Lando](https://lando.dev/)
+  - [Node 18](https://nodejs.org/)
+  - [nvm](https://github.com/nvm-sh/nvm)
   - [Yarn v3](https://v3.yarnpkg.com/getting-started/install)
 
 ## Commands
