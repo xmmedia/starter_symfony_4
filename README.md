@@ -17,7 +17,7 @@ Production: @todo-symfony
 4. Update `package.json`: `name`, `version`, `git.url`, `license` (probably delete), `private`
 5. Update the port in `vite.config.js` (`server.port` and `server.origin`)
 6. Remove or update the `LICENSE` file.
-7. Composer install & update: `composer install && composer update` (or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
+7. Composer install & update: `lando composer install && lando composer update` (or remove `lando` to run without Lando or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
 8. Run `yarn && yarn up -R "**"`.
 9. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
 10. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
@@ -40,7 +40,7 @@ Production: @todo-symfony
 ## Setting Up Starter
 
 1. Add `.env.local` – copy `.env` and update.
-2. Composer install: `composer install`
+2. Composer install: `lando composer install` or `composer install` to run without Lando.
 3. Ensure correct node version: `nvm use`
 4. Run `yarn`.
 5. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
@@ -73,14 +73,16 @@ Production: @todo-symfony
   - Linting:
     - JS ([ESLint](https://eslint.org/)): `yarn lint:js` or `yarn lint:js:fix`
     - CSS: `yarn lint:css` or `yarn lint:css:fix`
+  - Install PHP packages: `lando composer install` or `composer install`
+  - Install JS packages: `yarn`
   - PHP Tests ([PhpUnit](https://phpunit.de/)): 
-    - `composer test`
+    - `lando composer test` or `composer test`
     - no memory limit `php -d memory_limit=-1 bin/simple-phpunit`
     - with coverage (HTML) `composer test:coverage`
   - [PHP CS](https://cs.sensiolabs.org/): (must be installed first)
-    - Dry run: `composer cs`
-    - Fix: `composer cs:fix`
-  - PHP Static Analysis ([PHPStan](https://github.com/phpstan/phpstan)): `composer static`
+    - Dry run: `lando composer cs` or `composer cs`
+    - Fix: `lando composer cs:fix` or `composer cs:fix`
+  - PHP Static Analysis ([PHPStan](https://github.com/phpstan/phpstan)): `lando composer static` or `composer static`
   - Projections:
     - Show all commands: `bin/console event-store:projection`
     - Run once: `bin/console event-store:projection:run user_projection -o`
