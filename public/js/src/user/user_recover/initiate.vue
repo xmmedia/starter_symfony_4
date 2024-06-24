@@ -58,8 +58,10 @@ import FieldEmail from '@/common/field_email';
 import PublicWrap from '@/common/public_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
 import { UserRecoverInitiate } from '../../user/queries/user.mutation.graphql';
+import { useRoute } from 'vue-router';
 
 const rootStore = useRootStore();
+const route = useRoute();
 
 const stateMachine = createMachine({
     id: 'component',
@@ -99,6 +101,8 @@ const showForm = computed(() => !state.value.matches('requested'));
 onMounted(() => {
     if (rootStore.loggedIn) {
         email.value = rootStore.user.email;
+    } else if (route.query.email) {
+        email.value = route.query.email;
     }
 });
 
