@@ -43,7 +43,6 @@ import { hasGraphQlError, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 import LoadingSpinner from '@/common/loading_spinner.vue';
 import PublicWrap from '@/common/public_wrap.vue';
-import PublicAlert from '@/common/public_alert.vue';
 
 const rootStore = useRootStore();
 const router = useRouter();
