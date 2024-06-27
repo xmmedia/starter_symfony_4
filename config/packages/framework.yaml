@@ -32,10 +32,6 @@ framework:
     validation: { enable_attributes: true }
     serializer: { enable_attributes: true }
 
-    profiler:
-        collect: true
-        collect_parameter: 'profile'
-
 when@dev:
     framework:
         trusted_proxies: '%env(TRUSTED_PROXIES)%'
