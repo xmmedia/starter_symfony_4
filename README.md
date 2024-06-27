@@ -12,48 +12,48 @@ Production: @todo-symfony
     ```sh
     composer create-project xm/starter_symfony_4 project-name --stability=dev --no-install --remove-vcs
     ```
-2. Add `.env.local` – copy `.env` and update.
-3. Update `composer.json`: `name`, `license` (likely `private`) and `description`
-4. Update `package.json`: `name`, `version`, `git.url`, `license` (probably delete), `private`
-5. Update the port in `vite.config.js` (`server.port` and `server.origin`)
-6. Remove or update the `LICENSE` file.
-7. Composer install & update: `lando composer install && lando composer update` (or remove `lando` to run without Lando or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
-8. Run `yarn && yarn up -R "**"`.
-9. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
-10. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
-11. Run/Start Lando site: `lando start` 
-12. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
+1. Add `.env.local` – copy `.env` and update.
+1. Update `composer.json`: `name`, `license` (likely `private`) and `description`
+1. Update `package.json`: `name`, `version`, `git.url`, `license` (probably delete), `private`
+1. Update the port in `vite.config.js` (`server.port` and `server.origin`)
+1. Remove or update the `LICENSE` file.
+1. Composer install & update: `lando composer install && lando composer update` (or remove `lando` to run without Lando or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
+1. Run `yarn && yarn up -R "**"`.
+1. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
+1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
+1. Run/Start Lando site: `lando start` 
+1. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
     - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`
-13. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
-14. Run all projections once: `bin/console event-store:projection:run user_projection -o` (or if using lando: `lando console event-store:projection:run user_projection -o`).
-15. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`).
-16. Find and make changes near `@todo-symfony` comments throughout the site.
-17. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
-18. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests
-19. Create new favicons: [realfavicongenerator.net](https://realfavicongenerator.net)
-20. Copy (use "Push to another server") or recreate the templates in Postmark. The templates are referenced by the aliases.
-21. *Optional:* Run `bin/console app:graphql:dump-schema <username>` to update the GraphQL schema file where `username` is the email of an admin user.
-22. *Optional:* Rename the project in PhpStorm.
+1. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
+1. Run all projections once: `bin/console event-store:projection:run user_projection -o` (or if using lando: `lando console event-store:projection:run user_projection -o`).
+1. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`).
+1. Find and make changes near `@todo-symfony` comments throughout the site.
+1. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
+1. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests
+1. Create new favicons: [realfavicongenerator.net](https://realfavicongenerator.net)
+1. Copy (use "Push to another server") or recreate the templates in Postmark. The templates are referenced by the aliases.
+1. *Optional:* Run `bin/console app:graphql:dump-schema <username>` to update the GraphQL schema file where `username` is the email of an admin user.
+1. *Optional:* Rename the project in PhpStorm.
 
 **Local dev site can be accessed at: https://[domain]/**
 
 ## Setting Up Starter
 
 1. Checkout the repo.
-2. Add `.env.local` – copy `.env` and update.
-3. Run/Start Lando site: `lando start`
-2. Composer install: `lando composer install` or `composer install` to run without Lando.
-3. Ensure correct node version: `nvm use`
-4. Run `yarn`.
-5. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
-6. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
-8. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
+1. Add `.env.local` – copy `.env` and update.
+1. Run/Start Lando site: `lando start`
+1. Composer install: `lando composer install` or `composer install` to run without Lando.
+1. Ensure correct node version: `nvm use`
+1. Run `yarn`.
+1. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
+1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
+1. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
     - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;` This can be done through PhpMyAdmin (link provided by `lando start` command above or `lando info`)
-9. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using Lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
-10. Run all projections once: `bin/console event-store:projection:run user_projection -o` (or if using Lando: `lando console event-store:projection:run user_projection -o`).
-11. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`) or if using Lando: `lando console app:user:add`
-12. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests – or `lando composer test` if using Lando.
-13. Run `bin/check` to run all code tests/checks.
+1. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using Lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
+1. Run all projections once: `bin/console event-store:projection:run user_projection -o` (or if using Lando: `lando console event-store:projection:run user_projection -o`).
+1. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`) or if using Lando: `lando console app:user:add`
+1. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests – or `lando composer test` if using Lando.
+1. Run `bin/check` to run all code tests/checks.
 
 **Local dev site can be accessed at: https://symfonystarter.lndo.site
 
