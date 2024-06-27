@@ -39,19 +39,20 @@ Production: @todo-symfony
 
 ## Setting Up Starter
 
-1. Add `.env.local` – copy `.env` and update.
+1. Checkout the repo.
+2. Add `.env.local` – copy `.env` and update.
+3. Run/Start Lando site: `lando start`
 2. Composer install: `lando composer install` or `composer install` to run without Lando.
 3. Ensure correct node version: `nvm use`
 4. Run `yarn`.
 5. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
 6. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
-7. Run/Start Lando site: `lando start` 
 8. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
     - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;` This can be done through PhpMyAdmin (link provided by `lando start` command above or `lando info`)
-9. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
-10. Run all projections once: `bin/console event-store:projection:run user_projection -o` (or if using lando: `lando console event-store:projection:run user_projection -o`).
-11. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`).
-12. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests.
+9. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using Lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
+10. Run all projections once: `bin/console event-store:projection:run user_projection -o` (or if using Lando: `lando console event-store:projection:run user_projection -o`).
+11. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`) or if using Lando: `lando console app:user:add`
+12. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests – or `lando composer test` if using Lando.
 13. Run `bin/check` to run all code tests/checks.
 
 **Local dev site can be accessed at: https://symfonystarter.lndo.site
