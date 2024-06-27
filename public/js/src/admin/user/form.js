@@ -34,7 +34,7 @@ export function useForm (state) {
             ...userValidations,
             password: {
                 ...userValidations.password,
-                required: requiredIf(user.value.setPassword),
+                required: requiredIf(() => user.value.setPassword),
             },
         },
     }, { user });
