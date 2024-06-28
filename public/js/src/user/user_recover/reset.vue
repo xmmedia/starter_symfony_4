@@ -42,14 +42,12 @@
                            autocomplete="new-password"
                            icon-component="PublicIcon">New password again</FieldPassword>
 
-            <div class="form_button-wrap">
-                <FormButton :saving="state.matches('submitting')">
-                    Set Password
-                    <template #cancel>
-                        <RouterLink :to="{ name: 'login' }" class="form-action">Return to Sign In</RouterLink>
-                    </template>
-                </FormButton>
-            </div>
+            <FormButton :saving="state.matches('submitting')" wrapper-classes="form_button-wrap">
+                Set Password
+                <template #cancel>
+                    <RouterLink :to="{ name: 'login' }" class="form-action">Return to Sign In</RouterLink>
+                </template>
+            </FormButton>
         </form>
     </PublicFormWrap>
 </template>

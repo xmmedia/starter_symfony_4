@@ -29,8 +29,7 @@
                 Enter your email address to search for your account:
             </FieldEmail>
 
-            <FormButton :saving="state.matches('submitting')"
-                        wrapper-classes="flex flex-wrap items-center">
+            <FormButton :saving="state.matches('submitting')" wrapper-classes="form_button-wrap">
                 Find Account
                 <template #cancel>
                     <RouterLink v-if="!rootStore.loggedIn"

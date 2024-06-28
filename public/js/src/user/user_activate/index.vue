@@ -41,16 +41,15 @@
                            autocomplete="new-password"
                            icon-component="PublicIcon">Password again</FieldPassword>
 
-            <div class="form_button-wrap">
-                <FormButton :saving="state.matches('submitting')"
-                            :cancel-to="{ name: 'login' }">
-                    Activate
-                    <template #cancel>
-                        <RouterLink :to="{ name: 'login' }" class="form-action">Sign In</RouterLink>
-                    </template>
-                    <template #saving>Activating…</template>
-                </FormButton>
-            </div>
+            <FormButton :saving="state.matches('submitting')"
+                        :cancel-to="{ name: 'login' }"
+                        wrapper-classes="form_button-wrap">
+                Activate
+                <template #cancel>
+                    <RouterLink :to="{ name: 'login' }" class="form-action">Sign In</RouterLink>
+                </template>
+                <template #saving>Activating…</template>
+            </FormButton>
         </form>
     </PublicFormWrap>
 </template>

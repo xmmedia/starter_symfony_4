@@ -17,8 +17,9 @@
 }
 
 .form_button-wrap {
-    @apply max-w-[12rem] sm:max-w-full mt-8;
-    > div {
-        @apply flex flex-col sm:flex-row sm:items-center;
+    @apply flex flex-wrap items-center gap-4;
+    .form-action {
+        // it would be nice if this applied to the loading icon as well, but it's coded in the component
+        @apply ml-0;
     }
 }
