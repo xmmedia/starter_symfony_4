@@ -24,8 +24,9 @@
                 </a>
                 <a href="/logout" class="px-4">Sign Out</a>
             </div>
-            <div v-else><a href="/login" class="text-gray-300 hover:text-gray-200 hover:underline">Sign In</a></div>
-
+            <div v-else class="header_nav-nav">
+                <RouterLink :to="{ name: 'login' }" class="text-gray-300 hover:text-gray-200 hover:underline">Sign In</RouterLink>
+            </div>
         </div>
 
 
