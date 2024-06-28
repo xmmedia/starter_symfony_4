@@ -23,7 +23,9 @@
                 </FieldError>
                 You can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>
                 or get a new verification link by
-                <RouterLink :to="{ name: 'user-recover-initiate'}">requesting a link to reset your password</RouterLink>.
+                <RouterLink :to="{ name: 'user-recover-initiate'}">
+                    requesting a link to reset your password
+                </RouterLink>.
             </template>
             <FieldError v-else class="mb-8">
                 There was a problem verifying your account. Please try again later.

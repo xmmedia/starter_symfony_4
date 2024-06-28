@@ -182,8 +182,8 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('roles')
             ->setValue($user, [
-            Role::ROLE_USER()->getValue(),
-        ]);
+                Role::ROLE_USER()->getValue(),
+            ]);
 
         $this->assertEquals(['ROLE_USER'], $user->roles());
         $this->assertEquals(['ROLE_USER'], $user->getRoles());
@@ -195,9 +195,9 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('roles')
             ->setValue($user, [
-            Role::ROLE_USER()->getValue(),
-            Role::ROLE_USER()->getValue(),
-        ]);
+                Role::ROLE_USER()->getValue(),
+                Role::ROLE_USER()->getValue(),
+            ]);
 
         $this->assertEquals(['ROLE_USER'], $user->roles());
         $this->assertEquals(['ROLE_USER'], $user->getRoles());
@@ -209,8 +209,8 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('roles')
             ->setValue($user, [
-            Role::ROLE_ADMIN()->getValue(),
-        ]);
+                Role::ROLE_ADMIN()->getValue(),
+            ]);
 
         $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $user->roles());
         $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $user->getRoles());

@@ -15,7 +15,8 @@ use Xm\SymfonyBundle\Util\StringUtil;
 class Assert extends \Xm\SymfonyBundle\Util\Assert
 {
     public static function passwordAllowed(
-        #[\SensitiveParameter] ?string $password,
+        #[\SensitiveParameter]
+        ?string $password,
         Email $email,
         Name $firstName,
         Name $lastName,
