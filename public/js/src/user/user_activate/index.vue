@@ -1,5 +1,5 @@
 <template>
-    <PublicWrap>
+    <PublicFormWrap>
         <template #heading>Activate Account</template>
 
         <PublicAlert v-if="state.matches('verified')" class="alert-success">
@@ -52,7 +52,7 @@
                 </FormButton>
             </div>
         </form>
-    </PublicWrap>
+    </PublicFormWrap>
 </template>
 
 <script setup>
@@ -68,7 +68,7 @@ import { UserActivate } from '@/user/queries/user.mutation.graphql';
 import userValidation from '@/common/validation/user';
 import { hasGraphQlError, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
-import PublicWrap from '@/common/public_wrap.vue';
+import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
 
 const rootStore = useRootStore();

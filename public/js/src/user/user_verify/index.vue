@@ -1,5 +1,5 @@
 <template>
-    <PublicWrap>
+    <PublicFormWrap>
         <template #heading>Verify Account</template>
         <LoadingSpinner v-if="state.matches('verifying')">Verifying your account…</LoadingSpinner>
         <div v-if="state.matches('verified')">
@@ -29,7 +29,7 @@
                 There was a problem verifying your account. Please try again later.
             </FieldError>
         </div>
-    </PublicWrap>
+    </PublicFormWrap>
 </template>
 
 <script setup>
@@ -42,7 +42,7 @@ import { UserVerify } from '@/user/queries/user.mutation.graphql';
 import { hasGraphQlError, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 import LoadingSpinner from '@/common/loading_spinner.vue';
-import PublicWrap from '@/common/public_wrap.vue';
+import PublicFormWrap from '@/common/public_form_wrap.vue';
 
 const rootStore = useRootStore();
 const router = useRouter();

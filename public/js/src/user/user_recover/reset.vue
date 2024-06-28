@@ -1,5 +1,5 @@
 <template>
-    <PublicWrap>
+    <PublicFormWrap>
         <template #heading>Password Reset</template>
 
         <PublicAlert v-if="state.matches('changed')" class="alert-success">
@@ -51,7 +51,7 @@
                 </FormButton>
             </div>
         </form>
-    </PublicWrap>
+    </PublicFormWrap>
 </template>
 
 <script setup>
@@ -65,7 +65,7 @@ import { helpers, required } from '@vuelidate/validators';
 import { apolloClient } from '@/common/apollo';
 import { hasGraphQlError, logError } from '@/common/lib';
 import FieldPassword from '@/common/field_password_with_errors';
-import PublicWrap from '@/common/public_wrap.vue';
+import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
 import { UserPasswordAllowed } from '../../user/queries/user.query.graphql';
 import { UserRecoverReset } from '../../user/queries/user.mutation.graphql';

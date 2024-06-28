@@ -1,5 +1,5 @@
 <template>
-    <PublicWrap>
+    <PublicFormWrap>
         <template #heading>Password Reset</template>
 
         <PublicAlert v-if="state.matches('requested')" class="alert-success flex-wrap">
@@ -41,7 +41,7 @@
                 <template #saving>Requesting…</template>
             </FormButton>
         </form>
-    </PublicWrap>
+    </PublicFormWrap>
 </template>
 
 <script setup>
@@ -54,7 +54,7 @@ import { useMutation } from '@vue/apollo-composable';
 import { email as emailValidator, required } from '@vuelidate/validators';
 import { hasGraphQlError, logError } from '@/common/lib';
 import FieldEmail from '@/common/field_email';
-import PublicWrap from '@/common/public_wrap.vue';
+import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
 import { UserRecoverInitiate } from '../../user/queries/user.mutation.graphql';
 import { useRoute } from 'vue-router';

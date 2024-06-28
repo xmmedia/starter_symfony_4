@@ -1,5 +1,5 @@
 <template>
-    <PublicWrap>
+    <PublicFormWrap>
         <template #heading>Sign In</template>
 
         <PublicAlert v-if="lastErrorMessage" ref="alertEl" class="alert-warning">{{ lastErrorMessage }}</PublicAlert>
@@ -82,7 +82,7 @@
             </button>
         </div>
 
-    </PublicWrap>
+    </PublicFormWrap>
 </template>
 
 <script setup>
@@ -98,7 +98,7 @@ import { AuthLast } from '@/user/queries/auth.query.graphql';
 import { UserLoginLink } from '@/user/queries/user.mutation.graphql';
 import LoadingSpinner from '@/common/loading_spinner.vue';
 import FieldPassword from '@/common/field_password.vue';
-import PublicWrap from '@/common/public_wrap.vue';
+import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
 import { email as emailValidator } from '@vuelidate/validators';
 
