@@ -8,7 +8,7 @@
         </div>
         <div v-if="state.matches('error')">
             <template v-if="invalidToken">
-                <FieldError class="mb-4">
+                <FieldError class="mb-8">
                     Your activation link is invalid.
                     Please try clicking the button again or copying the link.
                     Or you can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>.
@@ -18,14 +18,14 @@
                 </div>
             </template>
             <template v-else-if="tokenExpired">
-                <FieldError class="mb-4">
+                <FieldError class="mb-8">
                     Your verification link has expired.
                 </FieldError>
                 You can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>
                 or get a new verification link by
                 <RouterLink :to="{ name: 'user-recover-initiate'}">requesting a link to reset your password</RouterLink>.
             </template>
-            <FieldError v-else class="mb-4">
+            <FieldError v-else class="mb-8">
                 There was a problem verifying your account. Please try again later.
             </FieldError>
         </div>
