@@ -11,7 +11,7 @@
                  decoding="async">
         </RouterLink>
 
-        <div class="text-center w-full mt-4 py-6 bg-gray-900">
+        <div class="w-full mt-4 py-6 bg-gray-900">
             <div v-if="loggedIn" class="header_nav-nav">
                 <RouterLink :to="{ name: 'dashboard' }" class="px-4">Dashboard</RouterLink>
                 <RouterLink :to="{ name: 'user-profile-edit' }"
