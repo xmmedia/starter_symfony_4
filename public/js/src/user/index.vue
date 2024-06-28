@@ -28,8 +28,6 @@
                 <RouterLink :to="{ name: 'login' }" class="text-gray-300 hover:text-gray-200 hover:underline">Sign In</RouterLink>
             </div>
         </div>
-
-
     </header>
 
     <main class="w-full">
