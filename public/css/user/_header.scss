@@ -6,7 +6,7 @@
             @apply text-gray-200;
         }
         &:focus {
-            @apply ring-offset-2 ring-offset-gray-700;
+            @apply text-gray-200 ring-offset-2 ring-offset-gray-900;
         }
     }
 }
