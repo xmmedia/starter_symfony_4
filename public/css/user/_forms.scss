@@ -1,0 +1,25 @@
+.form-wrap {
+    @apply bg-white max-w-[40rem];
+    &-notification {
+        @apply mt-16 mb-12 p-8 text-center text-sm;
+    }
+}
+
+.field-wrap-radio, .field-wrap-checkbox {
+    @apply items-center;
+    input {
+        @apply mt-0;
+    }
+}
+
+.form-subheading {
+    @apply text-sm mb-4 font-semibold uppercase text-gray-500;
+}
+
+.form_button-wrap {
+    @apply flex flex-wrap items-center gap-4;
+    .form-action {
+        // it would be nice if this applied to the loading icon as well, but it's coded in the component
+        @apply ml-0;
+    }
+}

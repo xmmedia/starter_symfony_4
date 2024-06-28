@@ -1,15 +1,22 @@
 <template>
-    <div>
-        <form v-if="showForm"
-              class="form-wrap p-4"
-              method="post"
-              novalidate
-              @submit.prevent="submit">
+    <PublicFormWrap>
+        <template #heading>Password Reset</template>
+
+        <PublicAlert v-if="state.matches('requested')" class="alert-success flex-wrap">
+            A password reset link has been sent by email.
+            Please follow the instructions within the email to reset your password.
+            <RouterLink v-if="!rootStore.loggedIn"
+                        :to="{ name: 'login' }"
+                        class="mt-4">Return to Sign In
+            </RouterLink>
+        </PublicAlert>
+
+        <form v-if="showForm" method="post" @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
-            <FieldError v-if="notFound" class="mb-4">
+            <FieldError v-if="notFound" class="mb-8">
                 An account with that email cannot be found.
             </FieldError>
-            <FieldError v-if="tooMany" class="mb-4">
+            <FieldError v-if="tooMany" class="mb-8">
                 You have already requested a reset password email.
                 Please check your email or try again soon.
             </FieldError>
@@ -19,29 +26,21 @@
                         autofocus
                         autocomplete="username email"
                         @update:model-value="changed">
-                Please enter your email address to search for your account:
+                Enter your email address to search for your account:
             </FieldEmail>
 
-            <FormButton :saving="state.matches('submitting')"
-                        :disable-button="!email || !emailValidator.$validator(email)">
+            <FormButton :saving="state.matches('submitting')" wrapper-classes="form_button-wrap">
                 Find Account
                 <template #cancel>
                     <RouterLink v-if="!rootStore.loggedIn"
-                                :to="{ name: 'login' }"
-                                class="form-action">Return to Sign In</RouterLink>
+                                :to="{ name: 'login', query: { email } }"
+                                class="form-action">Return to Sign In
+                    </RouterLink>
                 </template>
                 <template #saving>Requesting…</template>
             </FormButton>
         </form>
-
-        <div v-if="state.matches('requested')" class="alert alert-success max-w-lg" role="alert">
-            A password reset link has been sent by email.
-            Please follow the instructions within the email to reset your password.
-            <RouterLink v-if="!rootStore.loggedIn"
-                        :to="{ name: 'login' }"
-                        class="w-64 pl-4 text-sm">Return to Sign In</RouterLink>
-        </div>
-    </div>
+    </PublicFormWrap>
 </template>
 
 <script setup>
@@ -54,9 +53,13 @@ import { useMutation } from '@vue/apollo-composable';
 import { email as emailValidator, required } from '@vuelidate/validators';
 import { hasGraphQlError, logError } from '@/common/lib';
 import FieldEmail from '@/common/field_email';
+import PublicFormWrap from '@/common/public_form_wrap.vue';
+import PublicAlert from '@/common/public_alert.vue';
 import { UserRecoverInitiate } from '../../user/queries/user.mutation.graphql';
+import { useRoute } from 'vue-router';
 
 const rootStore = useRootStore();
+const route = useRoute();
 
 const stateMachine = createMachine({
     id: 'component',
@@ -96,6 +99,8 @@ const showForm = computed(() => !state.value.matches('requested'));
 onMounted(() => {
     if (rootStore.loggedIn) {
         email.value = rootStore.user.email;
+    } else if (route.query.email) {
+        email.value = route.query.email;
     }
 });
 

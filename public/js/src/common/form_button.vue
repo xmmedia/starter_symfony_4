@@ -1,13 +1,17 @@
 <template>
-    <div ref="wrapper">
-        <slot name="before"></slot>
+    <div ref="wrapper" :class="wrapperClasses">
+        <div :class="buttonWrapperClasses ? buttonWrapperClasses : 'contents'">
+            <slot name="before"></slot>
 
-        <button v-if="showButton"
-                type="submit"
-                class="button"
-                :disabled="isSaving || isSaved || disableButton">
-            <slot>Save</slot>
-        </button>
+            <button v-if="showButton"
+                    type="submit"
+                    class="button"
+                    :class="buttonClasses"
+                    :disabled="isSaving || isSaved || disableButton">
+                <slot>Save</slot>
+            </button>
+        </div>
+
         <slot v-if="!isSaving && !isSaved" name="cancel">
             <RouterLink v-if="cancelTo" :to="cancelTo" class="form-action">
                 <slot name="cancel-text">Cancel</slot>
@@ -77,6 +81,10 @@ const props = defineProps({
         type: [Object, String],
         default: null,
     },
+    buttonClasses: {
+        type: [String, Array],
+        default: null,
+    },
     showButton: {
         type: Boolean,
         default: true,
@@ -84,6 +92,18 @@ const props = defineProps({
     disableButton: {
         type: Boolean,
         default: false,
+    },
+    wrapperClasses: {
+        type: [String, Array],
+        default: null,
+    },
+    /**
+     * Wraps the before slot and main button.
+     * Doesn't apply to the button bar.
+     */
+    buttonWrapperClasses: {
+        type: [String, Array],
+        default: null,
     },
 });
 

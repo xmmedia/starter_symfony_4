@@ -11,23 +11,22 @@
                  decoding="async">
         </RouterLink>
 
-        <div class="text-center w-full mt-4 py-6 bg-gray-700">
-            <ul class="header_nav-nav">
-                <li v-if="loggedIn"><RouterLink :to="{ name: 'dashboard' }">Dashboard</RouterLink></li>
-                <li v-else><a href="/login">Sign In</a></li>
-            </ul>
-        </div>
-
-        <div v-if="loggedIn" class="header-logout">
-            <RouterLink :to="{ name: 'user-profile-edit' }"
-                        class="flex justify-center lg:justify-start items-center pr-3 mr-3 border-r border-gray-500">
-                <PublicIcon icon="user" width="12" height="12" class="mr-1 text-gray-500" />
-                {{ rootStore.user.name }}
-            </RouterLink>
-            <a v-if="rootStore.hasRole('ROLE_ADMIN')" href="/admin" class="pr-3 mr-3 border-r border-gray-500">
-                Admin
-            </a>
-            <a href="/logout">Sign Out</a>
+        <div class="w-full mt-4 py-6 bg-gray-900">
+            <div v-if="loggedIn" class="header_nav-nav">
+                <RouterLink :to="{ name: 'dashboard' }" class="px-4">Dashboard</RouterLink>
+                <RouterLink :to="{ name: 'user-profile-edit' }"
+                            class="flex justify-center lg:justify-start items-center px-4">
+                    <PublicIcon icon="user" width="12" height="12" class="mr-1 fill-current" />
+                    {{ rootStore.user.name }}
+                </RouterLink>
+                <a v-if="rootStore.hasRole('ROLE_ADMIN')" href="/admin" class="px-4">
+                    Admin
+                </a>
+                <a href="/logout" class="px-4">Sign Out</a>
+            </div>
+            <div v-else class="header_nav-nav">
+                <RouterLink :to="{ name: 'login' }" class="text-gray-300 hover:text-gray-200 hover:underline">Sign In</RouterLink>
+            </div>
         </div>
     </header>
 
@@ -36,7 +35,7 @@
         <RouterView :key="$route.path" />
     </main>
 
-    <footer class="px-4 2xl:px-0 pt-8 pb-16 bg-gray-700 text-sm">
+    <footer class="px-4 2xl:px-0 pt-8 pb-16 bg-gray-900 text-sm">
         <div class="footer-content max-w-7xl mx-auto">
             <div class="mt-8 md:mt-0 text-right">
                 <!-- @todo-symfony -->

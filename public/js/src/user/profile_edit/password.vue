@@ -1,5 +1,5 @@
 <template>
-    <div class="form-wrap p-0">
+    <div class="form-wrap my-8 p-0">
         <ProfileTabs />
 
         <form class="p-4" method="post" novalidate @submit.prevent="submit">
@@ -11,7 +11,7 @@
                     Your password has been updated.<br>
                     You will need to login again.
                 </div>
-                <a href="/login" class="pl-4">Go to Sign In</a>
+                <RouterLink :to="{ name: 'login' }" class="pl-4">Go to Sign In</RouterLink>
             </div>
 
             <!-- this is for the browser so it can generate a new password -->

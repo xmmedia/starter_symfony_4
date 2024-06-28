@@ -1,3 +1,16 @@
+.header_nav-nav {
+    @apply flex justify-center divide-x divide-gray-500 list-none pl-0;
+    a {
+        @apply text-gray-300;
+        &:hover {
+            @apply text-gray-200;
+        }
+        &:focus {
+            @apply text-gray-200 ring-offset-2 ring-offset-gray-900;
+        }
+    }
+}
+
 .header-nav_item {
     // using margin instead of left or right so when the menu wraps it's still centered
     // don't use padding as google may complain about being too close
