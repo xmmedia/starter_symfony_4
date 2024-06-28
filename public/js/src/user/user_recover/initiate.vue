@@ -25,7 +25,6 @@
                         :v="v$.email"
                         autofocus
                         autocomplete="username email"
-                        class="field-wrap-normal"
                         @update:model-value="changed">
                 Enter your email address to search for your account:
             </FieldEmail>
