@@ -1,6 +1,8 @@
 <template>
     <div ref="wrapper" :class="wrapperClasses">
         <div :class="buttonWrapperClasses ? buttonWrapperClasses : 'contents'">
+            <slot name="before"></slot>
+
             <button v-if="showButton"
                     type="submit"
                     class="button"
@@ -9,7 +11,6 @@
                 <slot>Save</slot>
             </button>
         </div>
-        <slot name="before"></slot>
 
         <slot v-if="!isSaving && !isSaved" name="cancel">
             <RouterLink v-if="cancelTo" :to="cancelTo" class="form-action">
