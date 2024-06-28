@@ -35,7 +35,7 @@
                 Find Account
                 <template #cancel>
                     <RouterLink v-if="!rootStore.loggedIn"
-                                :to="{ name: 'login' }"
+                                :to="{ name: 'login', query: { email } }"
                                 class="form-action">Return to Sign In
                     </RouterLink>
                 </template>
