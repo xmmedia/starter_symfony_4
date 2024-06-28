@@ -21,7 +21,7 @@
             <button type="submit"
                     class="button w-full mt-2"
                     :disabled="!emailIsValid"
-                    :title="!emailIsValid ? 'Enter your email the continue' : null">
+                    :title="!emailIsValid ? 'Enter your email to continue' : null">
                 Continue
             </button>
         </form>
