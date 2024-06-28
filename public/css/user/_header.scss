@@ -1,5 +1,5 @@
 .header_nav-nav {
-    @apply list-none flex justify-center pl-0;
+    @apply flex justify-center divide-x divide-gray-500 list-none pl-0;
     a {
         @apply text-gray-300;
         &:hover {
