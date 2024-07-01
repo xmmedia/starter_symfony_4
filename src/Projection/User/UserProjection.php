@@ -240,20 +240,6 @@ class UserProjection implements ReadModelProjection
                     );
                 },
 
-                Event\UserLoggedIn::class => function (
-                    array $state,
-                    Event\UserLoggedIn $event,
-                ): void {
-                    /** @var UserReadModel $readModel */
-                    /** @var ReadModelProjector $this */
-                    $readModel = $this->readModel();
-                    $readModel->stack(
-                        'loggedIn',
-                        $event->userId()->toString(),
-                        $event->createdAt(),
-                    );
-                },
-
                 Event\UserWasDeletedByAdmin::class => function (
                     array $state,
                     Event\UserWasDeletedByAdmin $event,

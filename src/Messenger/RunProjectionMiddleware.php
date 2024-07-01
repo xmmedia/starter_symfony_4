@@ -12,6 +12,7 @@ use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
 
 class RunProjectionMiddleware implements MiddlewareInterface
 {
+    private const AUTH = 'auth_projection';
     private const USER = 'user_projection';
 
     private bool $paused = false;
@@ -20,6 +21,9 @@ class RunProjectionMiddleware implements MiddlewareInterface
      * Event namespace to projections.
      */
     private array $namespaceToProjection = [
+        'App\Model\Auth\Event' => [
+            self::AUTH,
+        ],
         'App\Model\User\Event' => [
             self::USER,
         ],
