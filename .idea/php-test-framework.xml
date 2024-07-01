@@ -7,6 +7,7 @@
           <versions>
             <info id="Local" version="9.5.6" />
             <info id="Local/Volumes/Documents/projects/starters/starter_symfony_4/vendor/symfony/phpunit-bridge/bin/simple-phpunit" version="9.6.7" />
+            <info id="interpreter-234c3077-a24e-40a6-ac2f-45f8481ef479" version="9.6.19" />
           </versions>
         </cache>
       </tool>

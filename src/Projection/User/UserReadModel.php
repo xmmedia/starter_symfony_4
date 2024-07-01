@@ -34,22 +34,6 @@ final class UserReadModel extends AbstractReadModel
         );
     }
 
-    protected function loggedIn(string $userId, \DateTimeImmutable $lastLogin): void
-    {
-        $tableName = self::TABLE;
-
-        $sql = <<<EOT
-UPDATE `{$tableName}` SET login_count = login_count + 1, last_login = :last_login WHERE user_id = :user_id;
-EOT;
-
-        $statement = $this->connection->prepare($sql);
-
-        $statement->bindValue('last_login', $lastLogin, 'datetime');
-        $statement->bindValue('user_id', $userId);
-
-        $statement->executeQuery();
-    }
-
     protected function remove(string $userId): void
     {
         $this->connection->delete(self::TABLE, ['user_id' => $userId]);
@@ -82,7 +66,6 @@ ALTER TABLE `{$tableName}`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `email` (`email`) USING BTREE;
 EOT;
-
         $this->connection->executeQuery($sql);
     }
 }

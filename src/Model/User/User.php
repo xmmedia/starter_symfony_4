@@ -292,23 +292,6 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function loggedIn(): void
-    {
-        if ($this->deleted) {
-            throw Exception\UserIsDeleted::triedTo($this->userId, 'login');
-        }
-
-        if (!$this->verified) {
-            throw Exception\UserNotVerified::triedToLogin($this->userId);
-        }
-
-        if (!$this->active) {
-            throw Exception\InvalidUserActiveStatus::triedToLogin($this->userId);
-        }
-
-        $this->recordThat(Event\UserLoggedIn::now($this->userId));
-    }
-
     public function changePassword(string $hashedPassword): void
     {
         if ($this->deleted) {
@@ -450,11 +433,6 @@ class User extends AggregateRoot implements Entity
     }
 
     protected function whenPasswordUpgraded(Event\PasswordUpgraded $event): void
-    {
-        // noop
-    }
-
-    protected function whenUserLoggedIn(Event\UserLoggedIn $event): void
     {
         // noop
     }
