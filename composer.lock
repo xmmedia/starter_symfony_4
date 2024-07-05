@@ -1848,16 +1848,16 @@
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.13.39",
+            "version": "8.13.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "5a36692616dba1ec4a24217f248021b1ec9cdade"
+                "reference": "795e0b760e5c439b6fa1ffa787c1d90c2face1ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/5a36692616dba1ec4a24217f248021b1ec9cdade",
-                "reference": "5a36692616dba1ec4a24217f248021b1ec9cdade",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/795e0b760e5c439b6fa1ffa787c1d90c2face1ff",
+                "reference": "795e0b760e5c439b6fa1ffa787c1d90c2face1ff",
                 "shasum": ""
             },
             "require": {
@@ -1919,7 +1919,7 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php"
             },
-            "time": "2024-06-14T12:43:12+00:00"
+            "time": "2024-07-01T11:38:07+00:00"
         },
         {
             "name": "giggsey/locale",
@@ -3379,16 +3379,16 @@
         },
         {
             "name": "overblog/graphql-bundle",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overblog/GraphQLBundle.git",
-                "reference": "13b6b4b2178a97912a2aab46784342b1bcdce687"
+                "reference": "9f65551f3b476485e7a0323be5ab3cae998c7843"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/13b6b4b2178a97912a2aab46784342b1bcdce687",
-                "reference": "13b6b4b2178a97912a2aab46784342b1bcdce687",
+                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/9f65551f3b476485e7a0323be5ab3cae998c7843",
+                "reference": "9f65551f3b476485e7a0323be5ab3cae998c7843",
                 "shasum": ""
             },
             "require": {
@@ -3472,9 +3472,9 @@
             ],
             "support": {
                 "issues": "https://github.com/overblog/GraphQLBundle/issues",
-                "source": "https://github.com/overblog/GraphQLBundle/tree/v1.4.0"
+                "source": "https://github.com/overblog/GraphQLBundle/tree/v1.5.0"
             },
-            "time": "2024-05-10T13:06:52+00:00"
+            "time": "2024-07-01T13:58:11+00:00"
         },
         {
             "name": "pentatrion/vite-bundle",
@@ -5518,12 +5518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "27714b56f04815b654c3805502ab77207505ac19"
+                "reference": "fed98f59fae0ca97a0753263270f4a8680d09f03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/27714b56f04815b654c3805502ab77207505ac19",
-                "reference": "27714b56f04815b654c3805502ab77207505ac19",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/fed98f59fae0ca97a0753263270f4a8680d09f03",
+                "reference": "fed98f59fae0ca97a0753263270f4a8680d09f03",
                 "shasum": ""
             },
             "conflict": {
@@ -5531,6 +5531,8 @@
                 "admidio/admidio": "<4.2.13",
                 "adodb/adodb-php": "<=5.20.20|>=5.21,<=5.21.3",
                 "aheinze/cockpit": "<2.2",
+                "aimeos/ai-admin-graphql": ">=2022.04.1,<2022.10.10|>=2023.04.1,<2023.10.6|>=2024.04.1,<2024.04.6",
+                "aimeos/ai-admin-jsonadm": "<2020.10.13|>=2021.04.1,<2021.10.6|>=2022.04.1,<2022.10.3|>=2023.04.1,<2023.10.4|==2024.04.1",
                 "aimeos/ai-client-html": ">=2020.04.1,<2020.10.27|>=2021.04.1,<2021.10.22|>=2022.04.1,<2022.10.13|>=2023.04.1,<2023.10.15|>=2024.04.1,<2024.04.7",
                 "aimeos/aimeos-core": ">=2022.04.1,<2022.10.17|>=2023.04.1,<2023.10.17|>=2024.04.1,<2024.04.7",
                 "aimeos/aimeos-typo3": "<19.10.12|>=20,<20.10.5",
@@ -6314,7 +6316,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-26T15:05:17+00:00"
+            "time": "2024-07-02T22:05:16+00:00"
         },
         {
             "name": "scienta/doctrine-json-functions",
@@ -12339,16 +12341,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.73",
+            "version": "v2.0.74",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "fcfb5e169e1ccdf5bf5397fcccaeb22ffefaaca8"
+                "reference": "50ec4d5abd09fbefd3fdf46e72053dd20a8195c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/fcfb5e169e1ccdf5bf5397fcccaeb22ffefaaca8",
-                "reference": "fcfb5e169e1ccdf5bf5397fcccaeb22ffefaaca8",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/50ec4d5abd09fbefd3fdf46e72053dd20a8195c8",
+                "reference": "50ec4d5abd09fbefd3fdf46e72053dd20a8195c8",
                 "shasum": ""
             },
             "require": {
@@ -12423,9 +12425,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.73"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.74"
             },
-            "time": "2024-05-31T05:48:38+00:00"
+            "time": "2024-07-05T03:45:57+00:00"
         }
     ],
     "packages-dev": [
@@ -13606,16 +13608,16 @@
         },
         {
             "name": "nelmio/alice",
-            "version": "3.13.5",
+            "version": "3.13.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "f05bd9740f8513da8a9ca78df6a08451a1dea787"
+                "reference": "76caab8675c68956d56a2dd03f66384251e0aa7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/f05bd9740f8513da8a9ca78df6a08451a1dea787",
-                "reference": "f05bd9740f8513da8a9ca78df6a08451a1dea787",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/76caab8675c68956d56a2dd03f66384251e0aa7c",
+                "reference": "76caab8675c68956d56a2dd03f66384251e0aa7c",
                 "shasum": ""
             },
             "require": {
@@ -13689,7 +13691,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nelmio/alice/issues",
-                "source": "https://github.com/nelmio/alice/tree/3.13.5"
+                "source": "https://github.com/nelmio/alice/tree/3.13.6"
             },
             "funding": [
                 {
@@ -13697,20 +13699,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-02T09:07:42+00:00"
+            "time": "2024-07-03T17:54:12+00:00"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.0.2",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13"
+                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/139676794dc1e9231bf7bcd123cfc0c99182cb13",
-                "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/683130c2ff8c2739f4822ff7ac5c873ec529abd1",
+                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1",
                 "shasum": ""
             },
             "require": {
@@ -13721,7 +13723,7 @@
             },
             "require-dev": {
                 "ircmaxell/php-yacc": "^0.0.7",
-                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
+                "phpunit/phpunit": "^9.0"
             },
             "bin": [
                 "bin/php-parse"
@@ -13753,9 +13755,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.0.2"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.1.0"
             },
-            "time": "2024-03-05T20:51:40+00:00"
+            "time": "2024-07-01T20:03:41+00:00"
         },
         {
             "name": "overblog/graphiql-bundle",
@@ -13950,16 +13952,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.5",
+            "version": "1.11.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "490f0ae1c92b082f154681d7849aee776a7c1443"
+                "reference": "6ac78f1165346c83b4a753f7e4186d969c6ad0ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/490f0ae1c92b082f154681d7849aee776a7c1443",
-                "reference": "490f0ae1c92b082f154681d7849aee776a7c1443",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6ac78f1165346c83b4a753f7e4186d969c6ad0ee",
+                "reference": "6ac78f1165346c83b4a753f7e4186d969c6ad0ee",
                 "shasum": ""
             },
             "require": {
@@ -14004,7 +14006,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-17T15:10:54+00:00"
+            "time": "2024-07-01T15:33:06+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -15232,16 +15234,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "c930cdb21294f10955ddfc31b720971e8333943d"
+                "reference": "2fa387553db22b6f9bcccf5ff16f2c2c18a52a65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/c930cdb21294f10955ddfc31b720971e8333943d",
-                "reference": "c930cdb21294f10955ddfc31b720971e8333943d",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/2fa387553db22b6f9bcccf5ff16f2c2c18a52a65",
+                "reference": "2fa387553db22b6f9bcccf5ff16f2c2c18a52a65",
                 "shasum": ""
             },
             "require": {
@@ -15279,7 +15281,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/1.1.1"
+                "source": "https://github.com/rectorphp/rector/tree/1.2.0"
             },
             "funding": [
                 {
@@ -15287,7 +15289,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-21T07:51:17+00:00"
+            "time": "2024-07-01T14:24:45+00:00"
         },
         {
             "name": "sebastian/cli-parser",
