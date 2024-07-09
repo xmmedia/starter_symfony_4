@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Projection\Auth;
 
@@ -26,10 +26,9 @@ class AuthProjection implements ReadModelProjection
                         $event->userId()->toString(),
                         $event->createdAt(),
                     );
-
                 },
-
             ]);
+
         return $projector;
     }
 }
