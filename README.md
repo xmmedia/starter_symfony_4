@@ -8,6 +8,8 @@ Production: @todo-symfony
 
 ## Setting Up a New Site
 
+_Note:_ Make sure your git configuration is set to use the correct line endings: `git config --global core.autocrlf input && git config --global core.eol lf`
+
 1. Create a new project:
     ```sh
     composer create-project xm/starter_symfony_4 project-name --stability=dev --no-install --remove-vcs
