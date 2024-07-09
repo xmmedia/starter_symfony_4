@@ -29,7 +29,6 @@ class UserProjectionTest extends BaseTestCase
             Event\PasswordUpgraded::class,
             Event\UserVerified::class,
             Event\UserActivated::class,
-            Event\UserLoggedIn::class,
             Event\UserWasDeletedByAdmin::class,
         ];
 
