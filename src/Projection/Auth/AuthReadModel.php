@@ -6,11 +6,12 @@ namespace App\Projection\Auth;
 
 use App\Projection\Table;
 use Xm\SymfonyBundle\EventStore\Projection\AbstractReadModel;
+
 final class AuthReadModel extends AbstractReadModel
 {
     public function init(): void
     {
-        //no table, update the user table
+        // no table, update the user table
     }
 
     protected function loggedIn(string $userId, \DateTimeImmutable $lastLogin): void
