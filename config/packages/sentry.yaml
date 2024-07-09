@@ -18,6 +18,10 @@ when@prod:
                 - Symfony\Component\Debug\Exception\FatalErrorException
                 - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
                 - Symfony\Component\Security\Core\Exception\AccessDeniedException
+                # password reset related exceptions
+                - SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException
+                - SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException
+                - SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException
             attach_stacktrace: true
             send_default_pii:  true
 
