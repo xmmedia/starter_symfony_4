@@ -7,7 +7,6 @@ namespace App\Tests\Projection\User;
 use App\Projection\User\UserReadModel;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Statement;
 
 class UserReadModelTest extends BaseTestCase
 {
@@ -78,34 +77,6 @@ class UserReadModelTest extends BaseTestCase
         $method = $reflection->getMethod('update');
 
         $method->invokeArgs(new UserReadModel($connection), [$userId, $data, $types]);
-    }
-
-    public function testLoggedIn(): void
-    {
-        $faker = $this->faker();
-        $userId = $faker->uuid();
-        $dateTime = \DateTimeImmutable::createFromMutable($faker->dateTime());
-
-        $statement = \Mockery::mock(Statement::class);
-        $statement->shouldReceive('bindValue')
-            ->once()
-            ->with('last_login', $dateTime, 'datetime');
-        $statement->shouldReceive('bindValue')
-            ->once()
-            ->with('user_id', $userId);
-        $statement->shouldReceive('executeQuery')
-            ->once();
-
-        $connection = \Mockery::mock(Connection::class);
-        $connection->shouldReceive('prepare')
-            ->once()
-            ->withArgs(static fn (string $sql): bool => (bool) strpos($sql, '`user`'))
-            ->andReturn($statement);
-
-        $reflection = new \ReflectionClass(UserReadModel::class);
-        $method = $reflection->getMethod('loggedIn');
-
-        $method->invokeArgs(new UserReadModel($connection), [$userId, $dateTime]);
     }
 
     public function testRemove(): void
