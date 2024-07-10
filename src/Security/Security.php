@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\User;
+use App\Model\User\Role;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -38,7 +39,7 @@ class Security
 
     public function hasAdminRole(): bool
     {
-        return $this->isGranted('ROLE_ADMIN');
+        return $this->isGranted(Role::ROLE_ADMIN()->getValue());
     }
 
     public function getToken(): ?TokenInterface
