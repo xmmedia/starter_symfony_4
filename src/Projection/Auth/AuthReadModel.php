@@ -19,7 +19,7 @@ final class AuthReadModel extends AbstractReadModel
         $tableName = Table::USER;
 
         $sql = <<<EOT
-UPDATE '{$tableName}' SET login_count = login_count + 1, last_login = :last_login WHERE user_id = :user_id;
+UPDATE `{$tableName}` SET login_count = login_count + 1, last_login = :last_login WHERE user_id = :user_id;
 EOT;
         $statement = $this->connection->prepare($sql);
 
