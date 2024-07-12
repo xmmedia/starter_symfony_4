@@ -11,7 +11,7 @@
                     Your password has been updated.<br>
                     You will need to login again.
                 </div>
-                <RouterLink :to="{ name: 'login' }" class="pl-4">Go to Sign In</RouterLink>
+                <a href="/login" class="pl-4">Go to Sign In</a>
             </div>
 
             <!-- this is for the browser so it can generate a new password -->
