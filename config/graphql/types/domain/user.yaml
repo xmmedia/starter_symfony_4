@@ -3,7 +3,7 @@ User:
     config:
         description: 'The User object.'
         fields:
-            userId:    UUID!
+            userId:    UserId!
             email:     String!
             firstName: String
             lastName:  String

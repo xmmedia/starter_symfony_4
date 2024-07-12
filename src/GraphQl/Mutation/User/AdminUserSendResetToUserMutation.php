@@ -20,10 +20,8 @@ final readonly class AdminUserSendResetToUserMutation implements MutationInterfa
     ) {
     }
 
-    public function __invoke(string $userId): array
+    public function __invoke(UserId $userId): array
     {
-        $userId = UserId::fromString($userId);
-
         $user = $this->userFinder->find($userId);
         if (!$user) {
             throw new UserError('The user could not be found.');

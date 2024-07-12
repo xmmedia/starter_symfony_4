@@ -24,7 +24,7 @@ query GetUserCountQuery($filters: UserFilterInput) {
     UserCount(filters: $filters)
 }
 
-query GetUserViewQuery($userId: UUID!) {
+query GetUserViewQuery($userId: UserId!) {
     User(userId: $userId) {
         userId
         email
@@ -43,7 +43,7 @@ query GetUserViewQuery($userId: UUID!) {
     }
 }
 
-query GetUserQuery($userId: UUID!) {
+query GetUserQuery($userId: UserId!) {
     User(userId: $userId) {
         userId
         email
@@ -67,7 +67,7 @@ query GetDuplicateUsers($filters: UserFilterInput) {
     }
 }
 
-query GetUserCourseAddDataQuery($userId: UUID!) {
+query GetUserCourseAddDataQuery($userId: UserId!) {
     User(userId: $userId) {
         email
         name

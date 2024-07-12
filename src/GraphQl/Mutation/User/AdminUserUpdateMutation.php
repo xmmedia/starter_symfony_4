@@ -9,7 +9,6 @@ use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\UserData;
-use App\Model\User\UserId;
 use App\Security\PasswordHasher;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -31,7 +30,7 @@ final readonly class AdminUserUpdateMutation implements MutationInterface
 
     public function __invoke(#[\SensitiveParameter] Argument $args): array
     {
-        $userId = UserId::fromString($args['user']['userId']);
+        $userId = $args['user']['userId'];
         $email = Email::fromString($args['user']['email']);
         $role = $args['user']['role'];
         if (!$role instanceof Role) {

@@ -15,10 +15,10 @@ final readonly class AdminUserDeleteMutation implements MutationInterface
     {
     }
 
-    public function __invoke(string $userId): array
+    public function __invoke(UserId $userId): array
     {
         $this->commandBus->dispatch(
-            AdminDeleteUser::now(UserId::fromString($userId)),
+            AdminDeleteUser::now($userId),
         );
 
         return [

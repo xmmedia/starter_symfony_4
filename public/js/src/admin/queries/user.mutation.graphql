@@ -16,31 +16,31 @@ mutation AdminUserActivateMutation($user: AdminUserActivateInput!) {
     }
 }
 
-mutation AdminUserVerifyMutation($userId: UUID!) {
+mutation AdminUserVerifyMutation($userId: UserId!) {
     AdminUserVerify(userId: $userId) {
         userId
     }
 }
 
-mutation AdminUserSendResetMutation($userId: UUID!) {
+mutation AdminUserSendResetMutation($userId: UserId!) {
     AdminUserSendReset(userId: $userId) {
         userId
     }
 }
 
-mutation AdminUserSendActivationMutation($userId: UUID!) {
+mutation AdminUserSendActivationMutation($userId: UserId!) {
     AdminUserSendActivation(userId: $userId) {
         userId
     }
 }
 
-mutation AdminUserSendLoginLinkMutation($userId: UUID!) {
+mutation AdminUserSendLoginLinkMutation($userId: UserId!) {
     AdminUserSendLoginLink(userId: $userId) {
         success
     }
 }
 
-mutation AdminUserDeleteMutation($userId: UUID!) {
+mutation AdminUserDeleteMutation($userId: UserId!) {
     AdminUserDelete(userId: $userId) {
         success
     }

@@ -6,7 +6,6 @@ namespace App\GraphQl\Mutation\User;
 
 use App\Model\User\Command\ActivateUserByAdmin;
 use App\Model\User\Command\DeactivateUserByAdmin;
-use App\Model\User\UserId;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
@@ -20,7 +19,7 @@ final readonly class AdminUserActivateMutation implements MutationInterface
 
     public function __invoke(Argument $args): array
     {
-        $userId = UserId::fromString($args['user']['userId']);
+        $userId = $args['user']['userId'];
         $action = strtolower($args['user']['action']);
 
         $command = match ($action) {

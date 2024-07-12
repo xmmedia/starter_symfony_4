@@ -15,10 +15,8 @@ final readonly class AdminUserVerifyMutation implements MutationInterface
     {
     }
 
-    public function __invoke(string $userId): array
+    public function __invoke(UserId $userId): array
     {
-        $userId = UserId::fromString($userId);
-
         $this->commandBus->dispatch(VerifyUserByAdmin::now($userId));
 
         return [

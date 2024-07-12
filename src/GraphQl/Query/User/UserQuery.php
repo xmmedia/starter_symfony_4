@@ -15,8 +15,8 @@ final readonly class UserQuery implements QueryInterface
     {
     }
 
-    public function __invoke(string $userId): ?User
+    public function __invoke(UserId $userId): ?User
     {
-        return $this->userFinder->find(UserId::fromString($userId));
+        return $this->userFinder->find($userId);
     }
 }

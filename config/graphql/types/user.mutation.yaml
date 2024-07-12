@@ -82,7 +82,7 @@ UserMutation:
                 access:      '@=hasRole("ROLE_ADMIN")'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", args["userId"])'
                 args:
-                    userId: UUID!
+                    userId: UserId!
 
             AdminUserSendReset:
                 type:        AdminUserMutationPayload!
@@ -90,7 +90,7 @@ UserMutation:
                 access:      '@=hasRole("ROLE_ADMIN")'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", args["userId"])'
                 args:
-                    userId: UUID!
+                    userId: UserId!
 
             AdminUserSendActivation:
                 type:        AdminUserMutationPayload!
@@ -98,14 +98,14 @@ UserMutation:
                 access:      '@=hasRole("ROLE_ADMIN")'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserSendActivationToUserMutation", args["userId"])'
                 args:
-                    userId: UUID!
+                    userId: UserId!
 
             AdminUserSendLoginLink:
                 type:        AdminUserLoginLinkMutationPayload!
                 description: 'Send a magic login link to a user.'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserSendLoginLinkMutation", args["userId"])'
                 args:
-                    userId: UUID!
+                    userId: UserId!
 
             AdminUserDelete:
                 type:        UserDeleteMutationPayload!
@@ -113,7 +113,7 @@ UserMutation:
                 access:      '@=hasRole("ROLE_ADMIN")'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserDeleteMutation", args["userId"])'
                 args:
-                    userId: UUID!
+                    userId: UserId!
 
 UserUpdateProfileInput:
     type: input-object
@@ -145,7 +145,7 @@ AdminUserInput:
     config:
         description: 'Admin User add mutation input.'
         fields:
-            userId:    UUID!
+            userId:    UserId!
             email:     String!
             password:  String
             firstName: String!
@@ -177,7 +177,7 @@ AdminUserActivateInput:
     config:
         description: 'Admin User activate/deactivate mutation input.'
         fields:
-            userId: UUID!
+            userId: UserId!
             action: String!
 
 UserMutationPayload:
@@ -199,7 +199,7 @@ AdminUserMutationPayload:
     config:
         description: 'Admin User mutation payload.'
         fields:
-            userId: UUID!
+            userId: UserId!
 
 AdminUserAddMutationPayload:
     type: object
