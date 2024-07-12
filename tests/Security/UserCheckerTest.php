@@ -28,15 +28,18 @@ class UserCheckerTest extends BaseTestCase
         $requestInfoProvider->shouldReceive('currentRequest')
             ->once()
             ->andReturn(\Mockery::mock(Request::class));
+
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $httpUtils->shouldReceive('checkRequestPath')
             ->once()
             ->andReturnTrue();
+
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
             ->once()
             ->with(\Mockery::type(ActivateUser::class))
             ->andReturn(new Envelope(new \stdClass()));
+
         $doctrine = \Mockery::mock(ManagerRegistry::class);
         $doctrine->shouldReceive('getManagerForClass')
             ->once()
@@ -63,10 +66,12 @@ class UserCheckerTest extends BaseTestCase
         $requestInfoProvider->shouldReceive('currentRequest')
             ->once()
             ->andReturn(\Mockery::mock(Request::class));
+
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $httpUtils->shouldReceive('checkRequestPath')
             ->once()
             ->andReturnTrue();
+
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $doctrine = \Mockery::mock(ManagerRegistry::class);
 
@@ -87,10 +92,12 @@ class UserCheckerTest extends BaseTestCase
         $requestInfoProvider->shouldReceive('currentRequest')
             ->once()
             ->andReturn(\Mockery::mock(Request::class));
+
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $httpUtils->shouldReceive('checkRequestPath')
             ->once()
             ->andReturnFalse();
+
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $doctrine = \Mockery::mock(ManagerRegistry::class);
 
