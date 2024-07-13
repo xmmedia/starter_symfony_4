@@ -25,6 +25,9 @@ framework:
             async:
                 dsn:               '%env(MESSENGER_TRANSPORT_DSN)%'
                 failure_transport: failed
+                retry_strategy:
+                    delay:       30000 # 30 seconds
+                    multiplier:  2 # double the delay each time
             failed: '%env(MESSENGER_TRANSPORT_DSN)%?queue_name=failed'
             # sync: 'sync://'
 
