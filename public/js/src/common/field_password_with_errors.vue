@@ -37,6 +37,7 @@
             </FieldError>
         </template>
         <template #help><slot name="help"></slot></template>
+        <template #after><slot name="after"></slot></template>
     </FieldPassword>
 </template>
 

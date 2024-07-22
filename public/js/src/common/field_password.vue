@@ -28,6 +28,8 @@
             </button>
         </div>
 
+        <slot name="after"></slot>
+
         <PasswordScore v-if="showHelp && showMeter"
                        :password="modelValue"
                        :user-data="userData" />

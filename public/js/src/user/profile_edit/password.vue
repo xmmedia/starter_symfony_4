@@ -26,14 +26,15 @@
 
             <FieldPassword v-model="currentPassword"
                            :v="v$.currentPassword"
-                           :show-help="true"
                            autocomplete="current-password"
                            icon-component="PublicIcon">
                 Current password
                 <template #required-msg>Your current password is required.</template>
-                <template #help>
-                    If you don't know your current password,
-                    <RouterLink :to="{ name: 'user-recover-initiate' }">click here to reset it</RouterLink>.
+                <template #after>
+                    <div class="field-help">
+                        If you don't know your current password,
+                        <RouterLink :to="{ name: 'user-recover-initiate' }">click here to reset it</RouterLink>.
+                    </div>
                 </template>
             </FieldPassword>
 
