@@ -54,7 +54,7 @@ export default () => {
                 ]).score > 2;
             },
             compromised: helpers.withAsync(async function (value) {
-                if (null === value || value.length < 12) {
+                if (null === value || value.length < passwordMinLength) {
                     return true;
                 }
 
