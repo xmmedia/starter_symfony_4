@@ -28,4 +28,16 @@ EOT;
 
         $statement->executeQuery();
     }
+
+    public function reset(): void
+    {
+        $this->delete();
+    }
+
+    public function delete(): void
+    {
+        $tableName = Table::USER;
+
+        $this->connection->executeQuery("UPDATE `{$tableName}` SET login_count = 0, last_login = null;");
+    }
 }
