@@ -28,17 +28,17 @@ jobs:
               with:
                   node-version: '18'
 
+            - name: Run PHP security checks
+              uses: symfonycorp/security-checker-action@v5
+
+            - name: Run JS security checks
+              run:  yarn audit:high
+
             - name: Install Composer dependencies
               run: composer install --no-interaction --no-progress --ignore-platform-reqs
 
             - name: Install Node.js dependencies
               run: yarn install --immutable
-
-            - name: Run PHP security checks
-              uses: symfonycorp/security-checker-action@v5
-
-            - name: Run JS security checks
-              run: yarn audit:high
 
             - name: Cache warmup for PHPStan
               run: php bin/console cache:warmup --env=dev
@@ -89,16 +89,14 @@ jobs:
               with:
                   node-version: '18'
 
+            - name: Run PHP security checks
+              uses: symfonycorp/security-checker-action@v5
+
+            - name: Run JS security checks
+              run:  yarn audit:high
+
             - name: Install Composer dependencies
               run: composer install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
-
-            - name: Install Node.js dependencies
-              run: yarn install --immutable
-
-            - name: Run security checks
-              run: |
-                    symfony security:check
-                    yarn audit:high
 
             - name: Build assets
               run: yarn build --mode development
@@ -129,16 +127,14 @@ jobs:
               with:
                   node-version: '18'
 
+            - name: Run PHP security checks
+              uses: symfonycorp/security-checker-action@v5
+
+            - name: Run JS security checks
+              run:  yarn audit:high
+
             - name: Install Composer dependencies
               run: composer install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
-
-            - name: Install Node.js dependencies
-              run: yarn install --immutable
-
-            - name: Run security checks
-              run: |
-                    symfony security:check
-                    yarn audit:high
 
             - name: Build assets
               run: yarn build
