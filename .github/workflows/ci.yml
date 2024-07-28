@@ -13,6 +13,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             APP_ENV: test
+            TRUSTED_PROXIES: ''
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
@@ -73,6 +74,7 @@ jobs:
         environment: staging
         env:
             APP_ENV: dev
+            TRUSTED_PROXIES: ''
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
@@ -110,6 +112,9 @@ jobs:
         needs: static
         if: github.ref == 'refs/heads/master'
         environment: production
+        env:
+            APP_ENV:         prod
+            TRUSTED_PROXIES: ''
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
