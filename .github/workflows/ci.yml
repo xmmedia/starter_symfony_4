@@ -33,10 +33,11 @@ jobs:
             - name: Install Node.js dependencies
               run: yarn install --immutable
 
-            - name: Run security checks
-              run: |
-                    symfony security:check
-                    yarn audit:high
+            - name: Run PHP security checks
+              uses: symfonycorp/security-checker-action@v5
+
+            - name: Run JS security checks
+              run: yarn audit:high
 
             - name: Cache warmup for PHPStan
               run: php bin/console cache:warmup --env=dev
