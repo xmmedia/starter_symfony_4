@@ -32,7 +32,7 @@ jobs:
               uses: symfonycorp/security-checker-action@v5
 
             - name: Run JS security checks
-              run:  yarn audit:high
+              run: npx audit-ci@^7 --high --config .audit-ci.jsonc --report-type summary
 
             - name: Install Composer dependencies
               run: composer install --no-interaction --no-progress --ignore-platform-reqs
@@ -93,7 +93,7 @@ jobs:
               uses: symfonycorp/security-checker-action@v5
 
             - name: Run JS security checks
-              run:  yarn audit:high
+              run: npx audit-ci@^7 --high --config .audit-ci.jsonc --report-type summary
 
             - name: Install Composer dependencies
               run: composer install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
@@ -131,7 +131,7 @@ jobs:
               uses: symfonycorp/security-checker-action@v5
 
             - name: Run JS security checks
-              run:  yarn audit:high
+              run: npx audit-ci@^7 --high --config .audit-ci.jsonc --report-type summary
 
             - name: Install Composer dependencies
               run: composer install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
