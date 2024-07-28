@@ -26,7 +26,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v2
               with:
-                  node-version: '14'
+                  node-version: '18'
 
             - name: Install Composer dependencies
               run: composer install --no-interaction --no-progress --ignore-platform-reqs
@@ -87,7 +87,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v2
               with:
-                  node-version: '14'
+                  node-version: '18'
 
             - name: Install Composer dependencies
               run: composer install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
@@ -127,7 +127,7 @@ jobs:
             - name: Set up Node.js
               uses: actions/setup-node@v2
               with:
-                  node-version: '14'
+                  node-version: '18'
 
             - name: Install Composer dependencies
               run: composer install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
