@@ -98,11 +98,11 @@ static:
     APP_ENV: test
   script:
     - *versions-script
+    - *security-checks
     # install php dependencies
     - php composer.phar install --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
     - yarn install --immutable
-    - *security-checks
     # cache warmup for phpstan
     - php bin/console cache:warmup --env=dev
     - php bin/phpstan analyse --no-progress --memory-limit 1G src
@@ -132,10 +132,10 @@ deploy to staging:
       when: manual
   script:
     - *deploy-setup-script
+    - *security-checks
     # install dependencies
     - php composer.phar install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
     - yarn install --immutable
-    - *security-checks
     - yarn build --mode development
     - *deploy-script
 
@@ -151,9 +151,9 @@ deploy to prod:
   when: manual
   script:
     - *deploy-setup-script
+    - *security-checks
     # install dependencies (not php dev dependencies)
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
     - yarn install --immutable
-    - *security-checks
     - yarn build
     - *deploy-script
