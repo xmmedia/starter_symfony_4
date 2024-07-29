@@ -6,7 +6,7 @@ lando composer static
 yarn lint:js
 yarn lint:css
 symfony security:check
-yarn audit:high
+npm run audit:high
 lando console lint:yaml config
 lando console lint:twig templates
 lando console lint:container

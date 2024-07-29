@@ -38,7 +38,7 @@ before_script:
   # check for security issues in PHP libs
   - symfony security:check
   # check for JS security issues in libs
-  - yarn audit:high
+  - npm run audit:high
 
 .deploy-setup-script: &deploy-setup-script
   - *versions-script
