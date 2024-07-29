@@ -74,6 +74,8 @@ jobs:
         environment: staging
         env:
             APP_ENV: dev
+            RELEASES: "$REMOTE_BASE/releases"
+            SHARED: "$REMOTE_BASE/shared"
             TRUSTED_PROXIES: ''
         steps:
             - name: Checkout code
@@ -111,21 +113,29 @@ jobs:
             - name: Build assets
               run: yarn build --mode development
 
+            - name: Remove temporary .env.local file
+              run: rm .env.local
+
+            - name: Create timestamp variables
+              id: timestamp
+              run: echo "::set-output name=timestamp::$(date +%s)"
+
+            - name: Create release path env
+              id: release
+              run: echo $RELEASES/$TIMESTAMP
+
             - name: Deploy to staging
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.REMOTE_SERVER }}
+                  username: ${{ secrets.REMOTE_USER }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  port: ${{ secrets.PORT }}
               run: |
-                   # remove temp .env file just in case
-                    rm .env.local
                    # setup vars for paths
                    TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
                    echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
                    echo "Remote:"; echo $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PORT
-                   # setup SSH & private key
-                   eval $(ssh-agent -s)
-                   echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-                   ssh-keyscan -p $REMOTE_PORT $REMOTE_SERVER >> ~/.ssh/known_hosts
-                   # the following line is optional (likely remove previous line)
-                   #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
-                   chmod 644 ~/.ssh/known_hosts
                    # ensure based paths exist
                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/var/log/archive $SHARED/public/uploads"
                    # sync files to release directory
