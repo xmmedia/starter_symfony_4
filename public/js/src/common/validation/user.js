@@ -51,7 +51,7 @@ export default () => {
                     user?.firstName,
                     user?.lastName,
                     ...document.title.split(/[\s|]+/),
-                ]).score > 2;
+                ].filter(Boolean)).score > 2;
             },
             compromised: helpers.withAsync(async function (value) {
                 if (null === value || value.length < passwordMinLength) {
