@@ -49,7 +49,8 @@ apolloClient.query({ query: MeQuery })
                 hash: entrypointScript.integrity,
             });
         }
-
+    })
+    .finally(() => {
         rootStore.ready();
 
         const app = createApp(App);
@@ -59,8 +60,8 @@ apolloClient.query({ query: MeQuery })
                 app,
                 dsn: import.meta.env.VITE_SENTRY_DSN,
             });
-            if (Me) {
-                Sentry.setUser({ userId: Me.userId });
+            if (rootStore.user) {
+                Sentry.setUser({ userId: rootStore.user.userId });
             }
         }
 
@@ -79,6 +80,5 @@ apolloClient.query({ query: MeQuery })
             .component('PublicIcon', PublicIcon)
             .component('UserModal', UserModal)
             .component('LocalTime', LocalTime);
-
         app.mount('#app');
     });
