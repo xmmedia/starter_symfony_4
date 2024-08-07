@@ -37,6 +37,7 @@ const link = split(
     }),
     new BatchHttpLink({
         uri: window.location.origin+'/graphql/batch',
+        credentials: 'include',
     }),
 );
 
