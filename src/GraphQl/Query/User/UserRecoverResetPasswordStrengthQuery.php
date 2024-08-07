@@ -30,7 +30,7 @@ final readonly class UserRecoverResetPasswordStrengthQuery implements QueryInter
 
         if (!$token) {
             return [
-                'allowed' => false,
+                'allowed' => true,
             ];
         }
 
@@ -38,7 +38,7 @@ final readonly class UserRecoverResetPasswordStrengthQuery implements QueryInter
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface) {
             return [
-                'allowed' => false,
+                'allowed' => true,
             ];
         }
 
