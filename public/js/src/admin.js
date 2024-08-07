@@ -52,6 +52,8 @@ apolloClient.query({ query: MeQuery })
         }
     })
     .catch(() => {
+        // fix for Brave browser - it doesn't send the cookie with the first JS request on the initial load
+        // after the page is refreshed, it's fine
         alert('There was an error loading the page. The page not work as expected. Please refresh the page.');
     })
     .finally(() => {
