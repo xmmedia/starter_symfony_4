@@ -51,6 +51,9 @@ apolloClient.query({ query: MeQuery })
             });
         }
     })
+    .catch(() => {
+        alert('There was an error loading the page. The page not work as expected. Please refresh the page.');
+    })
     .finally(() => {
 
         rootStore.ready();
