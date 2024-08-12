@@ -1,0 +1,251 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Main Queries"
+type Query {
+  "Retrieve all Users or a subset based on the passed filters."
+  Users(filters: UserFilterInput): [User!]!
+
+  "Retrieve the Users count."
+  UserCount(filters: UserFilterInput): Int!
+
+  "Retrieve a single User."
+  User(userId: UserId!): User
+
+  "Check if an email address is unique. Excludes the current user."
+  UserEmailUnique(email: String!): UserEmailUnique!
+
+  "Check if the password is valid\/correct for the current user."
+  UserPasswordValid(password: String!): UserPasswordValid!
+
+  "Check if users password meets the minimum strength requirements. Token is stored in the session."
+  UserRecoverResetPasswordStrength(newPassword: String!): UserPasswordAllowed!
+
+  "Retrieves the last email used on the login form and the last error from the last auth attempt (from session)."
+  AuthLast: AuthLast!
+
+  "Retrieve all Countries."
+  Countries: [Country!]!
+
+  "Retrieve all Provinces."
+  Provinces: [Province!]!
+
+  "The current User object or null if not authenticated."
+  Me: User
+
+  "Retrieve the current integrity hash for a script (JavaScript) file."
+  EntrypointIntegrity(entrypoint: String!): String
+}
+
+"Available filters for querying Users. Any passed fields will be applied if not empty. Exclude the key\/field to skip that filter."
+input UserFilterInput {
+  q: String
+  roles: [Role!]
+  email: String
+  emailExact: String
+  active: Boolean
+  accountStatus: String
+  offset: Int
+}
+
+"Available User roles."
+enum Role {
+  ROLE_USER
+  ROLE_ADMIN
+  ROLE_SUPER_ADMIN
+}
+
+"The User object."
+type User {
+  userId: UserId!
+  email: String!
+  firstName: String
+  lastName: String
+  name: String
+  verified: Boolean!
+  active: Boolean!
+  roles: [Role!]
+  loginCount: Int!
+  lastLogin: DateTime
+  userData: UserData
+}
+
+"A UUID for a User represented as string."
+scalar UserId
+
+"Date & time represented as string. The serialized date will be in the RFC3339 format and will include the server timezone (UTC). The input should be a string in a format understood by PHP DateTime constructors and containing the user's timezone. If the input timezone is not included, UTC will be assumed."
+scalar DateTime
+
+"Additional data regarding user."
+type UserData {
+  phoneNumber: PhoneNumber
+}
+
+"Phone Number containing the phone number in the E164 format and the extension. The phone number should be formatted showing to the user."
+type PhoneNumber {
+  phoneNumber: String!
+  extension: String
+}
+
+type UserEmailUnique {
+  unique: Boolean!
+}
+
+type UserPasswordValid {
+  valid: Boolean!
+}
+
+type UserPasswordAllowed {
+  allowed: Boolean!
+}
+
+"The last email & last error after a login attempt."
+type AuthLast {
+  email: String
+  error: String
+}
+
+type Country {
+  name: String!
+  abbreviation: String!
+}
+
+type Province {
+  country: Country!
+  name: String!
+  abbreviation: String!
+}
+
+"Main Mutations"
+type Mutation {
+  "Update User profile."
+  UserUpdateProfile(user: UserUpdateProfileInput!): UserMutationPayload!
+
+  "Send a magic login link to the user."
+  UserLoginLink(email: String!): UserResultPayload!
+
+  "Change User password."
+  ChangePassword(user: UserPasswordInput!): UserMutationPayload!
+
+  "Initiate User account recovery."
+  UserRecoverInitiate(email: String!): UserResultPayload!
+
+  "Set User password. Token is stored in the session."
+  UserRecoverReset(newPassword: String!): UserResultPayload!
+
+  "Activate User account with password. Token is stored in the session."
+  UserActivate(password: String!): UserResultPayload!
+
+  "Verify User account. Token is stored in the session."
+  UserVerify: UserResultPayload!
+
+  "Admin User add."
+  AdminUserAdd(user: AdminUserAddInput!): AdminUserAddMutationPayload!
+
+  "Admin User update."
+  AdminUserUpdate(user: AdminUserUpdateInput!): AdminUserMutationPayload!
+
+  "Activate User by Admin."
+  AdminUserActivate(user: AdminUserActivateInput!): AdminUserMutationPayload!
+
+  "Verify User by Admin."
+  AdminUserVerify(userId: UserId!): AdminUserMutationPayload!
+
+  "Send User a password reset link."
+  AdminUserSendReset(userId: UserId!): AdminUserMutationPayload!
+
+  "Send User a their activation link."
+  AdminUserSendActivation(userId: UserId!): AdminUserMutationPayload!
+
+  "Send a magic login link to a user."
+  AdminUserSendLoginLink(userId: UserId!): AdminUserLoginLinkMutationPayload!
+
+  "Delete User."
+  AdminUserDelete(userId: UserId!): UserDeleteMutationPayload!
+}
+
+"User profile update mutation input."
+input UserUpdateProfileInput {
+  email: String!
+  firstName: String!
+  lastName: String!
+  userData: UserDataInput!
+}
+
+"User data input."
+input UserDataInput {
+  phoneNumber: String
+}
+
+"User mutation payload."
+type UserMutationPayload {
+  success: Boolean!
+}
+
+"Payload if the User mutation was successful."
+type UserResultPayload {
+  success: Boolean!
+}
+
+"User update mutation input."
+input UserPasswordInput {
+  currentPassword: String!
+  newPassword: String!
+}
+
+"Admin User add mutation input."
+input AdminUserAddInput {
+  userId: UserId!
+  email: String!
+  password: String
+  firstName: String!
+  lastName: String!
+  userData: UserDataInput!
+  setPassword: Boolean!
+  role: Role!
+  active: Boolean!
+  sendInvite: Boolean!
+}
+
+"Admin User add mutation payload."
+type AdminUserAddMutationPayload {
+  userId: UserId!
+  email: String!
+  active: Boolean!
+}
+
+"Admin User update mutation input."
+input AdminUserUpdateInput {
+  userId: UserId!
+  email: String!
+  password: String
+  firstName: String!
+  lastName: String!
+  userData: UserDataInput!
+  setPassword: Boolean!
+  role: Role!
+}
+
+"Admin User mutation payload."
+type AdminUserMutationPayload {
+  userId: UserId!
+}
+
+"Admin User activate\/deactivate mutation input."
+input AdminUserActivateInput {
+  userId: UserId!
+  action: String!
+}
+
+"User login link mutation payload."
+type AdminUserLoginLinkMutationPayload {
+  success: Boolean!
+  user: User
+}
+
+"User delete mutation payload."
+type UserDeleteMutationPayload {
+  success: Boolean!
+}
