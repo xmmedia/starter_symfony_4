@@ -2,7 +2,7 @@
     <time :datetime="datetime">
         <span class="whitespace-nowrap">
             {{ displayDate }}
-        </span>&MediumSpace;<span class="whitespace-nowrap">
+        </span><slot name="separator">&MediumSpace;</slot><span class="whitespace-nowrap">
             {{ displayTime }}
         </span>
     </time>
