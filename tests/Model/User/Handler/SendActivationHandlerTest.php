@@ -6,6 +6,7 @@ namespace App\Tests\Model\User\Handler;
 
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Exception\UserAlreadyVerified;
+use App\Model\User\Exception\UserNotActive;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Handler\SendActivationHandler;
 use App\Model\User\Name;
@@ -30,6 +31,9 @@ class SendActivationHandlerTest extends BaseTestCase
         $user->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
         $user->shouldReceive('inviteSent')
             ->once();
 
@@ -134,6 +138,51 @@ class SendActivationHandlerTest extends BaseTestCase
         $handler($command);
     }
 
+    public function testInactive(): void
+    {
+        $faker = $this->faker();
+
+        $user = \Mockery::mock(User::class);
+        $user->shouldReceive('verified')
+            ->once()
+            ->andReturnFalse();
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnFalse();
+
+        $command = SendActivation::now(
+            $faker->userId(),
+            $faker->emailVo(),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
+        );
+
+        $userFinder = \Mockery::mock(UserFinder::class);
+
+        $repo = \Mockery::mock(UserList::class);
+        $repo->shouldReceive('get')
+            ->with(\Mockery::type(UserId::class))
+            ->andReturn($user);
+
+        $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
+        $router = \Mockery::mock(RouterInterface::class);
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
+
+        $handler = new SendActivationHandler(
+            $repo,
+            $userFinder,
+            $emailGateway,
+            $faker->string(10),
+            $faker->email(),
+            $router,
+            $resetPasswordHelper,
+        );
+
+        $this->expectException(UserNotActive::class);
+
+        $handler($command);
+    }
+
     public function testUserArNotFound(): void
     {
         $faker = $this->faker();
@@ -186,6 +235,9 @@ class SendActivationHandlerTest extends BaseTestCase
         $user->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
