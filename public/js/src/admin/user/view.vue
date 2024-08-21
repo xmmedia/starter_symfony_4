@@ -106,13 +106,12 @@
                 <ActivateVerify :user-id="userId"
                                 :verified="user.verified"
                                 :active="user.active"
-                                class="self-center"
                                 @activated="user.active = true"
                                 @deactivated="user.active = false"
                                 @verified="user.verified = true" />
-                <SendActivation v-if="user.active && !user.verified" :user-id="userId" class="self-center" />
-                <SendLoginLink v-if="user.active && user.verified" :user-id="userId" class="self-center" />
-                <SendReset v-if="user.active" :user-id="userId" class="self-center" />
+                <SendActivation v-if="user.active && !user.verified" :user-id="userId" />
+                <SendLoginLink v-if="user.active && user.verified" :user-id="userId" />
+                <SendReset v-if="user.active" :user-id="userId" />
 
                 <AdminDelete record-desc="user" @delete="deleteUser">
                     <template #button="{ open }">
