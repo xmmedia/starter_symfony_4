@@ -110,7 +110,7 @@
                                 @activated="user.active = true"
                                 @deactivated="user.active = false"
                                 @verified="user.verified = true" />
-                <SendActivation v-if="!user.verified" :user-id="userId" class="self-center" />
+                <SendActivation v-if="user.active && !user.verified" :user-id="userId" class="self-center" />
                 <SendLoginLink v-if="user.active && user.verified" :user-id="userId" class="self-center" />
                 <SendReset v-if="user.active" :user-id="userId" class="self-center" />
 

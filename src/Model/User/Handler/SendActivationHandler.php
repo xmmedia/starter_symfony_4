@@ -6,6 +6,7 @@ namespace App\Model\User\Handler;
 
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Exception\UserAlreadyVerified;
+use App\Model\User\Exception\UserNotActive;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 use App\Projection\User\UserFinder;
@@ -37,6 +38,10 @@ final readonly class SendActivationHandler
 
         if ($userAr->verified()) {
             throw UserAlreadyVerified::triedToSendVerification($command->userId());
+        }
+
+        if (!$userAr->active()) {
+            throw UserNotActive::triedToSendVerification($command->userId());
         }
 
         $user = $this->userFinder->find($command->userId());
