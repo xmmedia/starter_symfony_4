@@ -3,7 +3,7 @@
         <button v-if="state.matches('ready')"
                 class="button text-sm"
                 type="button"
-                @click="sendReset">Resend Activation Email</button>
+                @click="sendActivation">Resend Activation Email</button>
         <div v-if="state.matches('sending')" class="text-sm">
             Sending…
         </div>
@@ -51,7 +51,7 @@ const props = defineProps({
     },
 });
 
-async function sendReset () {
+async function sendActivation () {
     if (!state.value.matches('ready')) {
         return;
     }
