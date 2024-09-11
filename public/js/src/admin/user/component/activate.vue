@@ -4,7 +4,6 @@
                 class="button text-sm"
                 type="button"
                 @click="toggleActive">{{ activeButtonText }}</button>
-
         <div v-if="state.matches('activating')" class="text-sm">
             Activating…
         </div>
@@ -16,12 +15,6 @@
         </div>
         <div v-if="state.matches('deactivated')" class="text-sm">
             Deactivated
-        </div>
-        <div v-if="state.matches('verifying')" class="text-sm">
-            Verifying…
-        </div>
-        <div v-if="state.matches('verified')" class="text-sm">
-            Verified
         </div>
     </div>
 </template>
@@ -42,7 +35,6 @@ const stateMachine = createMachine({
             on: {
                 ACTIVATE: 'activating',
                 DEACTIVATE: 'deactivating',
-                VERIFY: 'verifying',
             },
         },
         activating: {
@@ -67,30 +59,15 @@ const stateMachine = createMachine({
                 RESET: 'ready',
             },
         },
-        verifying: {
-            on: {
-                COMPLETE: 'verified',
-                ERROR: 'ready',
-            },
-        },
-        verified: {
-            on: {
-                RESET: 'ready',
-            },
-        },
     },
 });
 const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
-const emit = defineEmits(['activated', 'deactivated', 'verified']);
+const emit = defineEmits(['activated', 'deactivated']);
 
 const props = defineProps({
     userId: {
         type: String,
-        required: true,
-    },
-    verified: {
-        type: Boolean,
         required: true,
     },
     active: {
@@ -101,7 +78,7 @@ const props = defineProps({
 
 const activeButtonText = computed(() => props.active ? 'Deactivate User' : 'Activate User');
 
-async function toggleActive () {
+async function toggleActive() {
     if (!state.value.matches('ready')) {
         return;
     }
@@ -130,7 +107,7 @@ async function toggleActive () {
     }
 }
 
-function delayedReset () {
+function delayedReset() {
     setTimeout(() => {
         sendEvent({ type: 'RESET' });
     }, 3000);
