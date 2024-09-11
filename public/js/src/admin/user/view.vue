@@ -102,13 +102,16 @@
                 </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row justify-center gap-x-8 gap-y-4 mt-16">
-                <ActivateVerify :user-id="userId"
-                                :verified="user.verified"
-                                :active="user.active"
-                                @activated="user.active = true"
-                                @deactivated="user.active = false"
-                                @verified="user.verified = true" />
+            <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-x-8 gap-y-4 mt-16">
+                <Activate :user-id="userId"
+                          :active="user.active"
+                          @activated="user.active = true"
+                          @deactivated="user.active = false" />
+                <Verify v-if="!user.verified"
+                        :user-id="userId"
+                        :active="user.active"
+                        :verified="user.verified"
+                        @verified="user.verified = true" />
                 <SendActivation v-if="user.active && !user.verified" :user-id="userId" />
                 <SendLoginLink v-if="user.active && user.verified" :user-id="userId" />
                 <SendReset v-if="user.active" :user-id="userId" />
@@ -116,7 +119,7 @@
                 <AdminDelete record-desc="user" @delete="deleteUser">
                     <template #button="{ open }">
                         <button ref="link"
-                                class="button button-critical self-center text-sm"
+                                class="button button-critical text-sm"
                                 type="button"
                                 @click="open">
                             Delete User
@@ -143,7 +146,8 @@ import Copy from '@/common/copy.vue';
 import ViewPhone from '@/common/view_phone.vue';
 import AccountStatus from './component/account_status.vue';
 import SendActivation from './component/send_activation.vue';
-import ActivateVerify from './component/activate_verify.vue';
+import Activate from './component/activate.vue';
+import Verify from './component/verify.vue';
 import SendLoginLink from './component/send_login_link.vue';
 import SendReset from './component/send_reset.vue';
 import { useRouter } from 'vue-router';
