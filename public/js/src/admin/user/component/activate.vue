@@ -78,7 +78,7 @@ const props = defineProps({
 
 const activeButtonText = computed(() => props.active ? 'Deactivate User' : 'Activate User');
 
-async function toggleActive() {
+async function toggleActive () {
     if (!state.value.matches('ready')) {
         return;
     }
@@ -107,7 +107,7 @@ async function toggleActive() {
     }
 }
 
-function delayedReset() {
+function delayedReset () {
     setTimeout(() => {
         sendEvent({ type: 'RESET' });
     }, 3000);
