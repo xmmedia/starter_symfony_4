@@ -30,10 +30,7 @@
 import { computed } from 'vue';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
-import {
-    AdminUserActivateMutation,
-    AdminUserVerifyMutation,
-} from '@/admin/queries/user.mutation.graphql';
+import { AdminUserActivateMutation } from '@/admin/queries/user.mutation.graphql';
 import { logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 
@@ -128,32 +125,6 @@ async function toggleActive () {
     } catch (e) {
         logError(e);
         alert('There was a problem toggling the active state. Please try again later.');
-
-        sendEvent({ type: 'ERROR' });
-    }
-}
-
-async function verify () {
-    if (!allowSave.value) {
-        return;
-    }
-
-    sendEvent({ type: 'VERIFY' });
-
-    try {
-        const { mutate: sendUserVerify } = useMutation(AdminUserVerifyMutation);
-        await sendUserVerify({
-            userId: props.userId,
-        });
-
-        emit('verified');
-        sendEvent({ type: 'COMPLETE' });
-
-        delayedReset();
-
-    } catch (e) {
-        logError(e);
-        alert('There was a problem verifying the user. Please try again later.');
 
         sendEvent({ type: 'ERROR' });
     }
