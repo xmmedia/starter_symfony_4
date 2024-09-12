@@ -71,7 +71,7 @@ async function sendReset () {
         }, 3000);
 
     } catch (e) {
-        if (hasGraphQlError(e) && 429 === e.graphQLErrors[0].code)  {
+        if (hasGraphQlError(e) && 429 === e.graphQLErrors[0].code) {
             alert('Too many password requests have been sent. Only 1 password reset can be requested every hour. Please try again later.');
             sendEvent({ type: 'ERROR' });
 
