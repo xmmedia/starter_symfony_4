@@ -4,10 +4,10 @@
                 class="button text-sm"
                 type="button"
                 @click="sendReset">Send Login Link</button>
-        <div v-if="state.matches('sending')" class="text-sm">
+        <div v-if="state.matches('sending')">
             Sending…
         </div>
-        <div v-if="state.matches('sent')" class="text-sm">
+        <div v-if="state.matches('sent')">
             Sent
         </div>
     </div>
