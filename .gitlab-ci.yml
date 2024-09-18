@@ -99,10 +99,10 @@ static:
   script:
     - *versions-script
     - *security-checks
-    # make sure composer.lock is up to date
-    - php composer.phar normalize --dry-run
     # install php dependencies
     - php composer.phar install --no-interaction --no-progress --ignore-platform-reqs
+    # make sure composer.lock is up to date
+    - php composer.phar normalize --dry-run
     # Install node/JS dependencies
     - yarn install --immutable
     # cache warmup for phpstan
