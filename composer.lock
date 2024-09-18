@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc9b6bacf6534cef4c2ccb6fe9a93272",
+    "content-hash": "6c117e33ba90322b1804f1bb253a12c3",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -4452,39 +4452,39 @@
         },
         {
             "name": "prooph/event-store-symfony-bundle",
-            "version": "v0.10.0",
+            "version": "v0.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prooph/event-store-symfony-bundle.git",
-                "reference": "34204bb403b94c1a3c098b1cd137fa68edef66a8"
+                "reference": "a502004ed41922153c0835b3d5c2fb7451d504c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prooph/event-store-symfony-bundle/zipball/34204bb403b94c1a3c098b1cd137fa68edef66a8",
-                "reference": "34204bb403b94c1a3c098b1cd137fa68edef66a8",
+                "url": "https://api.github.com/repos/prooph/event-store-symfony-bundle/zipball/a502004ed41922153c0835b3d5c2fb7451d504c7",
+                "reference": "a502004ed41922153c0835b3d5c2fb7451d504c7",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-pdo": "*",
                 "php": "^7.4|^8.0",
-                "prooph/event-store": "^7.0",
-                "symfony/config": "^3.4 || ^4.4 || ^5.2 || ^6.0",
-                "symfony/dependency-injection": "^3.4 || ^4.4 || ^5.2 || ^6.0",
-                "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.2 || ^6.0",
-                "symfony/http-kernel": "^3.4 || ^4.4 || ^5.2 || ^6.0",
-                "symfony/messenger": "^4.2 || ^4.4 || ^5.2 || ^6.0"
+                "prooph/event-store": "^7.9.0",
+                "symfony/config": "^5.4 || ^6.4 || ^7.0",
+                "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.0",
+                "symfony/framework-bundle": "^5.4 || ^6.4 || ^7.0",
+                "symfony/http-kernel": "^5.4.39 || ^6.4 || ^7.0",
+                "symfony/messenger": "^5.4 || ^6.4 || ^7.0"
             },
             "require-dev": {
                 "bookdown/bookdown": "^1.1",
                 "friendsofphp/php-cs-fixer": "^3.5",
-                "matthiasnoback/symfony-dependency-injection-test": "^3.1 || ^4.1",
-                "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "^8 || ^9",
+                "matthiasnoback/symfony-dependency-injection-test": "^3.1 || ^4.1 || ^5.1",
+                "phpstan/phpstan": "^1.5",
+                "phpunit/phpunit": "^9",
                 "prooph/bookdown-template": "^0.3",
                 "prooph/pdo-event-store": "^1.12",
                 "prooph/php-cs-fixer-config": "^0.5.0",
-                "symfony/yaml": "^3.4 || ^4.4 || ^5.2 || ^6.0"
+                "symfony/yaml": "^5.4 || ^6.4 || ^7.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -4539,7 +4539,7 @@
                 "issues": "https://github.com/prooph/event-store-symfony-bundle/issues",
                 "source": "https://github.com/prooph/event-store-symfony-bundle"
             },
-            "time": "2022-02-07T21:10:43+00:00"
+            "time": "2024-05-28T07:06:38+00:00"
         },
         {
             "name": "prooph/pdo-event-store",
@@ -12358,16 +12358,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.77",
+            "version": "v2.0.78",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "c586a769f7c54da0b7c6f44d4891def67c6cd403"
+                "reference": "f3cdf8fad13e257bf67acb7e130199dd25bf3baa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/c586a769f7c54da0b7c6f44d4891def67c6cd403",
-                "reference": "c586a769f7c54da0b7c6f44d4891def67c6cd403",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/f3cdf8fad13e257bf67acb7e130199dd25bf3baa",
+                "reference": "f3cdf8fad13e257bf67acb7e130199dd25bf3baa",
                 "shasum": ""
             },
             "require": {
@@ -12385,7 +12385,7 @@
                 "overblog/graphql-bundle": "^0.15.0 || ^1.0",
                 "php": "^8.1 || ^8.2 || ^8.3",
                 "prooph/event-store-bus-bridge": "^3.3",
-                "prooph/event-store-symfony-bundle": "^0.10.0",
+                "prooph/event-store-symfony-bundle": "^0.10.0 || ^0.11.0",
                 "prooph/pdo-event-store": "^1.11",
                 "ramsey/collection": "^1.1 || ^2.0",
                 "ramsey/uuid": "^4.0",
@@ -12442,9 +12442,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.77"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.78"
             },
-            "time": "2024-09-13T18:40:46+00:00"
+            "time": "2024-09-18T04:14:35+00:00"
         }
     ],
     "packages-dev": [
