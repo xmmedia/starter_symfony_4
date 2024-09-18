@@ -20,7 +20,7 @@ type Query {
   "Check if the password is valid\/correct for the current user."
   UserPasswordValid(password: String!): UserPasswordValid!
 
-  "Check if users password meets the minimum strength requirements. Token is stored in the session."
+  "Check if users password meets the minimum strength requirements. Token must be stored in the session. This will return true if the token is not stored in the session or has already been used."
   UserRecoverResetPasswordStrength(newPassword: String!): UserPasswordAllowed!
 
   "Retrieves the last email used on the login form and the last error from the last auth attempt (from session)."
@@ -184,7 +184,7 @@ type UserMutationPayload {
   success: Boolean!
 }
 
-"Payload if the User mutation was successful."
+"Payload of a User mutation."
 type UserResultPayload {
   success: Boolean!
 }

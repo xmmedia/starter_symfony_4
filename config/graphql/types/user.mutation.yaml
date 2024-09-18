@@ -190,7 +190,7 @@ UserMutationPayload:
 UserResultPayload:
     type: object
     config:
-        description: 'Payload if the User mutation was successful.'
+        description: 'Payload of a User mutation.'
         fields:
             success: Boolean!
 
