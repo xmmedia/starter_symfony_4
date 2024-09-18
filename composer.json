@@ -1,11 +1,11 @@
 {
     "name": "xm/starter_symfony_4",
-    "version": "1.0.0",
+    "description": "Starter for creating Symfony 4/5/6 sites at XM Media",
     "license": "MIT",
     "type": "project",
-    "description": "Starter for creating Symfony 4/5/6 sites at XM Media",
+    "version": "1.0.0",
     "require": {
-        "php": "8.2.*",
+        "php": "~8.2.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -40,7 +40,7 @@
         "symfony/flex": "^2.0",
         "symfony/form": "*",
         "symfony/framework-bundle": "*",
-        "symfony/http-client": "6.4.*",
+        "symfony/http-client": "~6.4.0",
         "symfony/mailer": "*",
         "symfony/messenger": "*",
         "symfony/monolog-bundle": "^3.5",
@@ -69,6 +69,7 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "ekino/phpstan-banned-code": "^2.0",
+        "ergebnis/composer-normalize": "^2.43",
         "fakerphp/faker": "^1.8",
         "friendsofphp/php-cs-fixer": "^3.0",
         "jetbrains/phpstorm-attributes": "^1.0",
@@ -93,19 +94,22 @@
         "symfony/web-profiler-bundle": "*",
         "theofidry/alice-data-fixtures": "^1.1"
     },
-    "config": {
-        "optimize-autoloader": true,
-        "bin-dir": "bin",
-        "preferred-install": {
-            "*": "dist"
-        },
-        "sort-packages": true,
-        "allow-plugins": {
-            "composer/package-versions-deprecated": true,
-            "symfony/flex": true,
-            "symfony/runtime": true,
-            "php-http/discovery": true
-        }
+    "replace": {
+        "paragonie/random_compat": "^2.0",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php56": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
     },
     "autoload": {
         "psr-4": {
@@ -117,52 +121,50 @@
             "App\\Tests\\": "tests/"
         }
     },
-    "replace": {
-        "paragonie/random_compat": "2.*",
-        "symfony/polyfill-ctype": "*",
-        "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php82": "*",
-        "symfony/polyfill-php81": "*",
-        "symfony/polyfill-php80": "*",
-        "symfony/polyfill-php74": "*",
-        "symfony/polyfill-php73": "*",
-        "symfony/polyfill-php72": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
-    },
-    "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "ergebnis/composer-normalize": true,
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
         },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ],
-        "test": "bin/simple-phpunit",
-        "test:coverage": [
-            "@putenv XDEBUG_MODE=coverage",
-            "bin/simple-phpunit --coverage-html coverage"
-        ],
-        "cs": "php-cs-fixer fix -v --dry-run --config=./.php-cs-fixer.dist.php",
-        "cs:fix": "php-cs-fixer fix -v --config=./.php-cs-fixer.dist.php",
-        "php-cs-fixer": "@cs",
-        "phpcs": "@cs",
-        "static": "php bin/phpstan analyse --memory-limit 2G",
-        "static-strict": "php bin/phpstan analyse --configuration phpstan.strict.dist.neon --memory-limit 2G",
-        "rector": "bin/rector --dry-run --xdebug",
-        "rector:fix": "bin/rector --xdebug"
-    },
-    "conflict": {
-        "symfony/symfony": "*"
+        "bin-dir": "bin",
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
     },
     "extra": {
         "symfony": {
             "allow-contrib": true,
             "require": "6.4.*"
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "cs": "php-cs-fixer fix -v --dry-run --config=./.php-cs-fixer.dist.php",
+        "cs:fix": "php-cs-fixer fix -v --config=./.php-cs-fixer.dist.php",
+        "php-cs-fixer": "@cs",
+        "phpcs": "@cs",
+        "rector": "bin/rector --dry-run --xdebug",
+        "rector:fix": "bin/rector --xdebug",
+        "static": "php bin/phpstan analyse --memory-limit 2G",
+        "static-strict": "php bin/phpstan analyse --configuration phpstan.strict.dist.neon --memory-limit 2G",
+        "test": "bin/simple-phpunit",
+        "test:coverage": [
+            "@putenv XDEBUG_MODE=coverage",
+            "bin/simple-phpunit --coverage-html coverage"
+        ]
     }
 }

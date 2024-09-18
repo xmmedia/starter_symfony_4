@@ -99,6 +99,8 @@ static:
   script:
     - *versions-script
     - *security-checks
+    # make sure composer.lock is up to date
+    - php composer.phar normalize --dry-run
     # install php dependencies
     - php composer.phar install --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
