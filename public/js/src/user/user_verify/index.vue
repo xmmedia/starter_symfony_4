@@ -43,7 +43,6 @@ import { useRouter } from 'vue-router';
 import { UserVerify } from '@/user/queries/user.mutation.graphql';
 import { hasGraphQlError, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
-import LoadingSpinner from '@/common/loading_spinner.vue';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 
 const rootStore = useRootStore();

@@ -96,7 +96,6 @@ import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
 import { AuthLast } from '@/user/queries/auth.query.graphql';
 import { UserLoginLink } from '@/user/queries/user.mutation.graphql';
-import LoadingSpinner from '@/common/loading_spinner.vue';
 import FieldPassword from '@/common/field_password.vue';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
