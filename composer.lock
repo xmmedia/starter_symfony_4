@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dab2989e6529d7e97ab659d1f0ba9e22",
+    "content-hash": "204acb4719a96b83efc3243c666dacb3",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -12911,20 +12911,20 @@
         },
         {
             "name": "ekino/phpstan-banned-code",
-            "version": "v1.0.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ekino/phpstan-banned-code.git",
-                "reference": "4f0d7c8a0c9f5d222ffc24234aa6c5b3b71bf4c3"
+                "reference": "e1c3e4722753404fd633fec81f67c199e99cfe7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ekino/phpstan-banned-code/zipball/4f0d7c8a0c9f5d222ffc24234aa6c5b3b71bf4c3",
-                "reference": "4f0d7c8a0c9f5d222ffc24234aa6c5b3b71bf4c3",
+                "url": "https://api.github.com/repos/ekino/phpstan-banned-code/zipball/e1c3e4722753404fd633fec81f67c199e99cfe7a",
+                "reference": "e1c3e4722753404fd633fec81f67c199e99cfe7a",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ^8.0",
+                "php": "^8.1",
                 "phpstan/phpstan": "^1.0"
             },
             "require-dev": {
@@ -12966,13 +12966,14 @@
             "homepage": "https://github.com/ekino/phpstan-banned-code",
             "keywords": [
                 "PHPStan",
-                "code quality"
+                "code quality",
+                "static analysis"
             ],
             "support": {
                 "issues": "https://github.com/ekino/phpstan-banned-code/issues",
-                "source": "https://github.com/ekino/phpstan-banned-code/tree/v1.0.0"
+                "source": "https://github.com/ekino/phpstan-banned-code/tree/v2.1.0"
             },
-            "time": "2021-11-02T08:37:34+00:00"
+            "time": "2024-08-14T07:20:46+00:00"
         },
         {
             "name": "evenement/evenement",
