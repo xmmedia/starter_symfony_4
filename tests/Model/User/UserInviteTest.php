@@ -58,7 +58,7 @@ class UserInviteTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to send invite to deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to send invite to deleted User with ID "%s"', $user->userId()),
         );
 
         $user->inviteSent($messageId);

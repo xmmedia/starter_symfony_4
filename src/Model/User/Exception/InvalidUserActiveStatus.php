@@ -10,7 +10,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
 {
     public static function triedToActivateWhenAlreadyActive(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to activate the user "%s" that\'s already active.',
             $userId,
         ));
@@ -18,7 +18,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
 
     public static function triedToDeactivateWhenAlreadyInactive(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to deactivate the user "%s" that\'s already inactive.',
             $userId,
         ));
@@ -26,7 +26,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
 
     public static function triedToVerifyAnInactiveUser(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to verify the user "%s" that\'s currently inactive.',
             $userId,
         ));
@@ -34,7 +34,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
 
     public static function triedToActivateAnInactiveUser(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to verify the user "%s" that\'s currently inactive.',
             $userId,
         ));
@@ -42,7 +42,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
 
     public static function triedToRequestPasswordReset(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to request a password reset for user "%s" that\'s currently inactive.',
             $userId,
         ));
@@ -50,7 +50,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
 
     public static function triedToUpdateProfile(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'User "%s" tried to update their profile but their user is inactive.',
             $userId,
         ));
@@ -58,7 +58,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
 
     public static function triedToChangePassword(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'User "%s" tried to change their password but their currently inactive.',
             $userId,
         ));
@@ -66,7 +66,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
 
     public static function triedToUpgradePassword(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'The system tried to automatically upgrade User "%s"\'s password but their currently inactive.',
             $userId,
         ));
@@ -74,7 +74,7 @@ final class InvalidUserActiveStatus extends \RuntimeException
 
     public static function triedToLogin(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'User "%s" tried to login but their currently inactive.',
             $userId,
         ));

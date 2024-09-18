@@ -83,7 +83,7 @@ final class AddUserCommand extends Command
         $generateActivationToken = $input->getOption(self::GENERATE_ACTIVATION_TOKEN);
 
         if ($sendInvite && $generateActivationToken) {
-            throw new InvalidArgumentException(sprintf('%s and %s cannot be used together.', self::SEND_INVITE, self::GENERATE_ACTIVATION_TOKEN));
+            throw new InvalidArgumentException(\sprintf('%s and %s cannot be used together.', self::SEND_INVITE, self::GENERATE_ACTIVATION_TOKEN));
         }
 
         $email = Email::fromString($this->askForEmail($io));
@@ -139,7 +139,7 @@ final class AddUserCommand extends Command
         }
 
         $io->writeln(
-            sprintf(
+            \sprintf(
                 'Created new active user %s with role %s with ID: %s.',
                 $email,
                 $role->getValue(),
@@ -148,11 +148,11 @@ final class AddUserCommand extends Command
         );
 
         if ($sendInvite) {
-            $io->writeln(sprintf('Invite sent to %s.', $email));
+            $io->writeln(\sprintf('Invite sent to %s.', $email));
         }
         if ($generateActivationToken) {
-            $io->writeln(sprintf('Activation token %s.', $activationToken->getToken()));
-            $io->writeln(sprintf('Reset URL %s.', $resetUrl));
+            $io->writeln(\sprintf('Activation token %s.', $activationToken->getToken()));
+            $io->writeln(\sprintf('Reset URL %s.', $resetUrl));
         }
 
         return self::SUCCESS;

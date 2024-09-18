@@ -91,7 +91,7 @@ class UserUpdateTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to update (by admin) deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to update (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
         $user->updateByAdmin(
@@ -197,7 +197,7 @@ class UserUpdateTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to update deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to update deleted User with ID "%s"', $user->userId()),
         );
 
         $user->update(

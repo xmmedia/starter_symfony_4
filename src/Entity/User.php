@@ -173,7 +173,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     public function name(): ?string
     {
         return StringUtil::trim(
-            sprintf('%s %s', $this->firstName, $this->lastName),
+            \sprintf('%s %s', $this->firstName, $this->lastName),
         );
     }
 

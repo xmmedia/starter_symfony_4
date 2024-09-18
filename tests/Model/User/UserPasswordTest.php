@@ -45,7 +45,7 @@ class UserPasswordTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to change password (by admin) deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to change password (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
         $user->changePasswordByAdmin($faker->password());
@@ -99,7 +99,7 @@ class UserPasswordTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to send password recovery to deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to send password recovery to deleted User with ID "%s"', $user->userId()),
         );
 
         $user->passwordRecoverySent($messageId);
@@ -148,7 +148,7 @@ class UserPasswordTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to change password deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to change password deleted User with ID "%s"', $user->userId()),
         );
 
         $user->changePassword($faker->password());
@@ -195,7 +195,7 @@ class UserPasswordTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to upgrade password deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to upgrade password deleted User with ID "%s"', $user->userId()),
         );
 
         $user->upgradePassword($faker->password());

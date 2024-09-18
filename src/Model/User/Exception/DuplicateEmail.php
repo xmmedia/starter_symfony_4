@@ -12,7 +12,7 @@ final class DuplicateEmail extends \InvalidArgumentException
     public static function withEmail(Email $email, UserIdInterface $userId): self
     {
         return new self(
-            sprintf(
+            \sprintf(
                 'The email address "%s" is already used by user "%s".',
                 $email,
                 $userId,

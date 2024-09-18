@@ -48,7 +48,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         }
 
         if ($this->logger && $targetUrl) {
-            $this->logger->debug(sprintf('Ignoring query parameter "%s": not a valid URL.', '_target_path'));
+            $this->logger->debug(\sprintf('Ignoring query parameter "%s": not a valid URL.', '_target_path'));
         }
 
         if ($targetUrl = $this->getTargetPath($request->getSession(), $this->firewallName)) {

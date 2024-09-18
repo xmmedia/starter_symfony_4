@@ -48,7 +48,7 @@ class UserFlagsTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to verify (by admin) deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to verify (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
         $user->verifyByAdmin();
@@ -90,7 +90,7 @@ class UserFlagsTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to activate (by admin) deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to activate (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
         $user->activateByAdmin();
@@ -132,7 +132,7 @@ class UserFlagsTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to deactivate (by admin) deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to deactivate (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
         $user->deactivateByAdmin();
@@ -180,7 +180,7 @@ class UserFlagsTest extends BaseTestCase
 
         $this->expectException(Exception\UserIsDeleted::class);
         $this->expectExceptionMessage(
-            sprintf('Tried to verify deleted User with ID "%s"', $user->userId()),
+            \sprintf('Tried to verify deleted User with ID "%s"', $user->userId()),
         );
 
         $user->verify();

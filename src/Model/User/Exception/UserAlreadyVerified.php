@@ -10,7 +10,7 @@ final class UserAlreadyVerified extends \RuntimeException
 {
     public static function triedToVerify(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to verify the user "%s" that\'s already verified.',
             $userId,
         ));
@@ -18,7 +18,7 @@ final class UserAlreadyVerified extends \RuntimeException
 
     public static function triedToActivate(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to activate the user "%s" that\'s already verified.',
             $userId,
         ));
@@ -26,7 +26,7 @@ final class UserAlreadyVerified extends \RuntimeException
 
     public static function triedToSendVerification(UserId $userId): self
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to send verification to user "%s" but they\'re already verified.',
             $userId,
         ));

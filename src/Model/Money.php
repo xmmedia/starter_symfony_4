@@ -51,7 +51,7 @@ class Money implements ValueObject, \Stringable
         $max = MoneyFactory::fromInt(static::MAX);
 
         if (!$money->greaterThanOrEqual($min) || !$money->lessThanOrEqual($max)) {
-            throw new \InvalidArgumentException(sprintf('The Money amount must be between %s and %s cents. Got %s cents.', $min->getAmount(), $max->getAmount(), $money->getAmount()));
+            throw new \InvalidArgumentException(\sprintf('The Money amount must be between %s and %s cents. Got %s cents.', $min->getAmount(), $max->getAmount(), $money->getAmount()));
         }
 
         $this->money = $money;

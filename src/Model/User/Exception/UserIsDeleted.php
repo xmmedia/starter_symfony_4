@@ -11,7 +11,7 @@ final class UserIsDeleted extends \InvalidArgumentException
     public static function triedTo(UserId $userId, string $action): self
     {
         return new self(
-            sprintf(
+            \sprintf(
                 'Tried to %s deleted User with ID "%s"',
                 $action,
                 $userId,
@@ -22,7 +22,7 @@ final class UserIsDeleted extends \InvalidArgumentException
     public static function triedToDelete(UserId $userId): self
     {
         return new self(
-            sprintf(
+            \sprintf(
                 'Tried to delete User with ID "%s" that\'s already deleted',
                 $userId,
             ),

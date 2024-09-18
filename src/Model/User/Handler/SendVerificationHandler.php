@@ -45,7 +45,7 @@ final readonly class SendVerificationHandler
             throw UserNotFound::withUserId($command->userId());
         }
 
-        $name = StringUtil::trim(sprintf(
+        $name = StringUtil::trim(\sprintf(
             '%s %s',
             $command->firstName(),
             $command->lastName(),

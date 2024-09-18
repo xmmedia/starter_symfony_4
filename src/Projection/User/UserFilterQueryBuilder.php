@@ -52,8 +52,8 @@ class UserFilterQueryBuilder extends FilterQueryBuilder
             $roleQueries = [];
 
             foreach ($filters->get(UserFilters::ROLES) as $i => $role) {
-                $roleQueries[] = sprintf('JSON_CONTAINS(u.roles, :role%d) = 1', $i);
-                $this->parameters['role'.$i] = sprintf('"%s"', $role);
+                $roleQueries[] = \sprintf('JSON_CONTAINS(u.roles, :role%d) = 1', $i);
+                $this->parameters['role'.$i] = \sprintf('"%s"', $role);
             }
 
             $this->whereClauses[] = '('.implode(' OR ', $roleQueries).')';
