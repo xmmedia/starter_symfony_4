@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@faker-js/faker": "^8.0.0",
+    "@faker-js/faker": "^9.0.1",
     "@rollup/plugin-graphql": "^2.0.3",
     "@tailwindcss/typography": "^0.5.0",
     "@vitejs/plugin-vue": "^5.0.0",
@@ -81,7 +81,7 @@
     "vite-plugin-manifest-sri": "^0.2.0",
     "vite-plugin-mkcert": "^1.16.0",
     "vite-plugin-symfony": "6.2.0",
-    "vitest": "^1.1.0"
+    "vitest": "^2.1.1"
   },
   "packageManager": "yarn@3.8.0"
 }
