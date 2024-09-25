@@ -616,10 +616,12 @@
             <div class="record_view-item">
                 <div class="record_view-item_label">Active</div>
                 <div class="record_view-item_value">
-                    <AdminIcon icon="check"
-                               class="record_list-icon text-green-600"
-                               width="20"
-                               height="20" />
+                    <button class="button-link align-middle">
+                        <AdminIcon icon="check"
+                                   class="record_list-icon text-green-600 "
+                                   width="20"
+                                   height="20" />
+                    </button>
                 </div>
             </div>
             <div class="record_view-item">

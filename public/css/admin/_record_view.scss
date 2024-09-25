@@ -40,6 +40,7 @@
 }
 // this should center the icon vertically
 // & align the loading spinner (along with the margin above) to the same spot as the icon
+// w-auto is added so links don't stretch the entire column
 .record_view-item_value:has(.record_list-icon), .record_view-item_value:has(.loading-wrap) {
-    @apply flex flex-col justify-center;
+    @apply flex flex-col justify-center w-auto;
 }
