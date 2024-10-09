@@ -46,6 +46,10 @@ const passwordWarning = computed(() => {
     return result.value.feedback.warning;
 });
 const scoreBackgroundClasses = computed(() => {
+    if (!props.password) {
+        return 'w-0 p-1 bg-gray-500';
+    }
+
     switch (score.value) {
         case 0 :
         case 1 :
