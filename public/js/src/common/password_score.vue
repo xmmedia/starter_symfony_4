@@ -30,7 +30,7 @@ const props = defineProps({
     },
 });
 
-const result = computed(() => zxcvbn(props.password || '', userDataCompiled));
+const result = computed(() => zxcvbn(props.password || '', userDataCompiled.value));
 const score = computed(() => {
     if (!userValidation().password.minLength.$validator(props.password)) {
         return 0;
