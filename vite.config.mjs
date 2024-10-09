@@ -38,7 +38,6 @@ export default defineConfig({
             output: {
                 manualChunks: {
                     'vue-final-modal': ['vue-final-modal'],
-                    zxcvbn: ['zxcvbn'],
                 },
             },
         },
