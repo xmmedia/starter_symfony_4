@@ -7,7 +7,7 @@ import {
 } from '@vuelidate/validators';
 import { validPhone } from '@/common/validators';
 import { pwnedPassword } from 'hibp';
-import zxcvbn from 'zxcvbn';
+import { zxcvbn } from '@zxcvbn-ts/core';
 import { apolloClient } from '@/common/apollo';
 import { UserEmailUnique } from '@/common/queries/user.query.graphql';
 
