@@ -47,6 +47,7 @@ const passwordWarning = computed(() => {
 });
 const scoreBackgroundClasses = computed(() => {
     switch (score.value) {
+        case 0 :
         case 1 :
             return 'w-1/4 p-1 bg-red-700';
         case 2 :
