@@ -1,11 +1,13 @@
 <template>
-    <div class="field-wrap field-wrap-checkbox">
-        <FieldError v-if="v" :v="v">
-            <template #required><slot name="required"></slot></template>
-        </FieldError>
+    <div class="field-wrap">
+        <div class="field-wrap-checkbox">
+            <FieldError v-if="v" :v="v">
+                <template #required><slot name="required"></slot></template>
+            </FieldError>
 
-        <input :id="id" v-model="checked" type="checkbox" :value="true">
-        <label :for="id"><slot></slot></label>
+            <input :id="id" v-model="checked" type="checkbox" :value="true">
+            <label :for="id"><slot></slot></label>
+        </div>
 
         <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
     </div>

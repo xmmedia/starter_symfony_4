@@ -161,6 +161,10 @@
                     </div>
                     <div class="field-help">Some help…</div>
                 </div>
+                <FieldCheckbox v-model="checkboxValue">
+                    Checkbox label
+                    <template #help>Some help…</template>
+                </FieldCheckbox>
                 <div class="field-wrap">
                     <div class="field-wrap-checkbox">
                         <input id="pattern-library-checkbox-2"
@@ -816,6 +820,7 @@
 import { ref } from 'vue';
 import { useHead } from '@unhead/vue';
 import FieldRadios from '@/common/field_radios.vue';
+import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldCheckboxes from '@/common/field_checkboxes.vue';
 import RecordList from '@/common/record_list.vue';
 
