@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 import { formatPhone } from '@/common/lib';
 
 export const useRootStore = defineStore('rootStore', {
@@ -71,3 +71,7 @@ export const useRootStore = defineStore('rootStore', {
         },
     },
 });
+
+if (import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useRootStore, import.meta.hot))
+}
