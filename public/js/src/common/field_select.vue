@@ -9,7 +9,9 @@
         </FieldError>
 
         <select :id="id" v-model="value" v-focus="autofocus" :disabled="disabled">
-            <option :value="null" :disabled="selectOneDisabled">– Select one –</option>
+            <option :value="null" :disabled="selectOneDisabled">
+                <slot name="default-option">– Select one –</slot>
+            </option>
             <option v-for="_value in valuesCollection"
                     :key="_value.value"
                     :value="_value.value">{{ _value.label }}</option>
