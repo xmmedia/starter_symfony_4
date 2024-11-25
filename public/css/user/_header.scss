@@ -1,3 +1,5 @@
+@use "../common/media";
+
 .header_nav-nav {
     @apply flex justify-center divide-x divide-gray-500 list-none pl-0;
     a {

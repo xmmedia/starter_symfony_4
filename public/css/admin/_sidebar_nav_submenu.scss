@@ -1,6 +1,6 @@
 .sidebar_nav-submenu-wrap {
     @apply fixed top-0 left-0 right-0 z-0 w-40 h-full opacity-0 invisible text-left bg-gray-800;
-    margin-top: $header-height;
+    margin-top: var(--header-height);
     @screen lg {
         @apply w-64 mt-0;
     }
@@ -14,7 +14,7 @@
 }
 .sidebar_nav-submenu_header {
     @apply text-lg font-extralight border-b border-gray-600;
-    min-height: $header-height;
+    min-height: var(--header-height);
     padding: 1.25rem 0 1rem 1rem;
     @screen lg {
         @apply text-2xl;

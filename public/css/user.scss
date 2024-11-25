@@ -1,9 +1,10 @@
+@use "sass:meta";
 @tailwind base;
 @tailwind components;
 
 @import '../../node_modules/vue-multiselect/dist/vue-multiselect.css';
 
-@import "common/common";
+@include meta.load-css("common/common");
 
 // global styles on the most common elements
 html {
@@ -11,22 +12,22 @@ html {
 }
 
 // common styles
-@import "common/alerts",
-    "common/content_alignment",
-    "common/content",
-    "common/headings",
-    "common/forms",
-    "common/radios",
-    "common/modal",
-    "common/embed",
-    "common/loading";
+@include meta.load-css("common/alerts");
+@include meta.load-css("common/content_alignment");
+@include meta.load-css("common/content");
+@include meta.load-css("common/headings");
+@include meta.load-css("common/forms");
+@include meta.load-css("common/radios");
+@include meta.load-css("common/modal");
+@include meta.load-css("common/embed");
+@include meta.load-css("common/loading");
 
 // public only styles
-@import "user/buttons",
-    "user/headings",
-    "user/header",
-    "user/footer",
-    "user/forms";
+@include meta.load-css("user/buttons");
+@include meta.load-css("user/headings");
+@include meta.load-css("user/header");
+@include meta.load-css("user/footer");
+@include meta.load-css("user/forms");
 
 // page specific
 //@import ;

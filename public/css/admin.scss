@@ -1,3 +1,4 @@
+@use "sass:meta";
 @tailwind base;
 @tailwind components;
 
@@ -6,7 +7,7 @@
 
 $header-height: 3.72rem;
 
-@import "common/common";
+@include meta.load-css("common/common");
 
 // global styles on the most common elements
 html {
@@ -23,25 +24,25 @@ body {
 }
 
 // load common styles
-@import "common/forms",
-    "common/radios",
-    "common/alerts",
-    "common/headings",
-    "common/modal",
-    "common/button_pair",
-    "common/loading";
+@include meta.load-css("common/forms");
+@include meta.load-css("common/radios");
+@include meta.load-css("common/alerts");
+@include meta.load-css("common/headings");
+@include meta.load-css("common/modal");
+@include meta.load-css("common/button_pair");
+@include meta.load-css("common/loading");
 
 // admin only styles
-@import "admin/content",
-    "admin/headings",
-    "admin/buttons",
-    "admin/header",
-    "admin/forms",
-    "admin/record_list",
-    "admin/record_view",
-    "admin/sidebar_nav",
-    "admin/sidebar_nav_submenu",
-    "admin/dashboard",
-    "admin/password";
+@include meta.load-css("admin/content");
+@include meta.load-css("admin/headings");
+@include meta.load-css("admin/buttons");
+@include meta.load-css("admin/header");
+@include meta.load-css("admin/forms");
+@include meta.load-css("admin/record_list");
+@include meta.load-css("admin/record_view");
+@include meta.load-css("admin/sidebar_nav");
+@include meta.load-css("admin/sidebar_nav_submenu");
+@include meta.load-css("admin/dashboard");
+@include meta.load-css("admin/password");
 
 @tailwind utilities;

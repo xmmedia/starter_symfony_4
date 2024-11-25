@@ -1,14 +1,18 @@
+:root {
+    --header-height: 3.72rem;
+}
+
 .header-wrap {
     @apply flex flex-col md:flex-row justify-between items-end md:items-center py-2 md:py-0 bg-gray-100 border-b border-gray-300;
-    min-height: $header-height + 3.5;
+    min-height: calc(var(--header-height) + 3.5rem);
     @screen xs {
-        min-height: $header-height;
+        min-height: var(--header-height);
     }
 }
 
 .header-wrap-small {
     @apply flex lg:hidden justify-between items-center relative z-10 pt-4 text-white bg-black border-b border-gray-400;
-    height: $header-height;
+    height: var(--header-height);
 
     a {
         @apply text-white;
