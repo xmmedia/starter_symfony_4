@@ -5,7 +5,7 @@
                 <template #required><slot name="required"></slot></template>
             </FieldError>
 
-            <input :id="id" v-model="checked" type="checkbox" :value="true">
+            <input :id="id" v-model="checked" type="checkbox" :value="true" :disabled="disabled">
             <label :for="id"><slot></slot></label>
         </div>
 
@@ -23,6 +23,10 @@ const props = defineProps({
     modelValue: {
         type: Boolean,
         default: null,
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
     },
     v: {
         type: Object,
