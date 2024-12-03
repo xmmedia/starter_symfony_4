@@ -32,7 +32,7 @@ $header-menu-items: (
 @each $name, $mq-width in $header-menu-items {
     .header-nav_item-#{$name} {
         @apply hidden;
-        @include mq($mq-width * 1px) {
+        @include media.mq($mq-width * 1px) {
             @apply block;
         }
     }
@@ -46,7 +46,7 @@ $header-menu-items: (
 }
 
 // this should match the largest menu item mq size
-@include mq(640px) {
+@include media.mq(640px) {
     .header-nav_item-toggle {
         @apply hidden;
     }

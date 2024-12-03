@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $mqs: ();
 @mixin mq($breakpoint) {
     @if map-has-key($mqs, $breakpoint) {
