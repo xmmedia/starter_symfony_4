@@ -37,6 +37,7 @@ before_script:
 .security-checks: &security-checks
   # check for security issues in PHP libs
   - symfony security:check
+  - php composer.phar audit
   # check for JS security issues in libs
   - npm run audit:high
 
