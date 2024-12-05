@@ -103,6 +103,7 @@ UserMutation:
             AdminUserSendLoginLink:
                 type:        AdminUserLoginLinkMutationPayload!
                 description: 'Send a magic login link to a user.'
+                access:      '@=hasRole("ROLE_ADMIN")'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserSendLoginLinkMutation", args["userId"])'
                 args:
                     userId: UserId!
