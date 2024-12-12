@@ -83,6 +83,6 @@ apolloClient.query({ query: MeQuery })
         app.mount('#app');
     })
     .catch(() => {
-        alert('There was an error loading the page. The page not work as expected. Please refresh the page.');
+        alert('There was an error loading the page. The page is not working as expected. Please refresh the page.');
 
     });
