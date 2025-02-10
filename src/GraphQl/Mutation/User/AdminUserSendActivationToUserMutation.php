@@ -10,6 +10,7 @@ use App\Projection\User\UserFinder;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
+use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException;
 
 final readonly class AdminUserSendActivationToUserMutation implements MutationInterface
 {
@@ -26,14 +27,22 @@ final readonly class AdminUserSendActivationToUserMutation implements MutationIn
             throw new UserError('The user could not be found.');
         }
 
-        $this->commandBus->dispatch(
-            SendActivation::now(
-                $user->userId(),
-                $user->email(),
-                $user->firstName(),
-                $user->lastName(),
-            ),
-        );
+        try {
+            $this->commandBus->dispatch(
+                SendActivation::now(
+                    $user->userId(),
+                    $user->email(),
+                    $user->firstName(),
+                    $user->lastName(),
+                ),
+            );
+        } catch (TooManyPasswordRequestsException $e) {
+            throw new UserError(
+                'Too many password resets have been requested. A password reset can only be requested every hour',
+                429,
+                $e,
+            );
+        }
 
         return [
             'userId' => $userId,
