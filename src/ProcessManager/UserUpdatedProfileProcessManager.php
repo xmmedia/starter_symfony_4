@@ -26,13 +26,12 @@ final readonly class UserUpdatedProfileProcessManager
                 continue;
             }
 
-            /** @var UserUpdatedProfile $previousUpdate */
-            $previousUpdate = $previousEvent;
+            $previousUpdate = CarbonImmutable::instance($previousEvent->createdAt());
             break;
         }
 
         // don't send the email if the previous update was less than an hour ago
-        if ($previousUpdate && CarbonImmutable::instance($previousUpdate->createdAt())->diffInHours($event->createdAt()) < 1) {
+        if ($previousUpdate && $previousUpdate->diffInHours($event->createdAt()) < 1) {
             return;
         }
 
