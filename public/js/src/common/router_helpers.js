@@ -2,7 +2,7 @@ import qs from 'qs';
 import { apolloClient } from '@/common/apollo.js';
 import { RouteQuery } from '@/common/queries/route.query.graphql';
 
-export const scrollBehavior = function (to, from, savedPosition) {
+export const scrollBehaviour = function (to, from, savedPosition) {
     if (savedPosition) {
         return savedPosition;
     } else {

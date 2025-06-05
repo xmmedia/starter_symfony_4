@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { scrollBehavior, parseQuery, stringifyQuery, logPageView, beforeEach } from '@/common/router_helpers';
+import { scrollBehaviour as scrollBehavior, parseQuery, stringifyQuery, logPageView, beforeEach } from '@/common/router_helpers';
 import { useRootStore } from '@/user/stores/root';
 
 const router = createRouter({
