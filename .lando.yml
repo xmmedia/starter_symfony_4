@@ -8,6 +8,7 @@ config:
   php: '8.2'
   webroot: public
   xdebug: true
+  composer_version: 2
 services:
   appserver:
     build_as_root:
