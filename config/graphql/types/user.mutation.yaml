@@ -151,6 +151,7 @@ AdminUserInput:
             password:  String
             firstName: String!
             lastName:  String!
+            role:        Role!
             userData:  UserDataInput!
 
 AdminUserAddInput:
@@ -160,7 +161,6 @@ AdminUserAddInput:
         description: 'Admin User add mutation input.'
         fields:
             setPassword: Boolean!
-            role:        Role!
             active:      Boolean!
             sendInvite:  Boolean!
 
@@ -171,7 +171,6 @@ AdminUserUpdateInput:
         description: 'Admin User update mutation input.'
         fields:
             setPassword: Boolean!
-            role:        Role!
 
 AdminUserActivateInput:
     type: input-object
