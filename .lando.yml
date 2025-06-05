@@ -14,7 +14,8 @@ services:
     build_as_root:
       - a2enmod headers
   database:
-    type: mysql:5.7.43
+    # when changed, the .env.local also needs to be updated
+    type: mysql:8.0.40
   phpmyadmin:
     type: phpmyadmin
     ssl: true
