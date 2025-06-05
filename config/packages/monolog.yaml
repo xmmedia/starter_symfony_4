@@ -59,9 +59,11 @@ when@prod:
                 level:     debug
                 formatter: monolog.formatter.line
             sentry:
-                type:   sentry
-                level:  !php/const Monolog\Logger::ERROR
-                hub_id: Sentry\State\HubInterface
+                type:                   sentry
+                level:                  !php/const Monolog\Logger::ERROR
+                hub_id:                 Sentry\State\HubInterface
+                fill_extra_context:     true # Enables sending monolog context to Sentry
+                process_psr_3_messages: false # Disables the resolution of PSR-3 placeholders
             deprecation:
                 type:     stream
                 channels: [ deprecation ]
