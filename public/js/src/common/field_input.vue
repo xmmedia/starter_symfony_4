@@ -11,6 +11,8 @@
             <template #between><slot name="between"></slot></template>
             <template #minValue><slot name="minValue"></slot></template>
             <template #maxValue><slot name="maxValue"></slot></template>
+            <template #numeric><slot name="numeric"></slot></template>
+            <template #decimal><slot name="decimal"></slot></template>
             <template #url><slot name="url"></slot></template>
             <template #email><slot name="email"></slot></template>
             <template #valid><slot name="valid"></slot></template>
