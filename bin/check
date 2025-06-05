@@ -5,9 +5,12 @@ set -e
 lando composer static
 yarn lint:js
 yarn lint:css
-symfony security:check
-npm run audit:high
 lando console lint:yaml config
 lando console lint:twig templates
 lando console lint:container
 lando composer test
+
+# security checks
+symfony security:check
+lando composer audit --abandoned=report
+npm run audit:high
