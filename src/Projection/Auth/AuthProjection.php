@@ -22,7 +22,7 @@ class AuthProjection implements ReadModelProjection
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
                     $readModel->stack(
-                        'LoggedIn',
+                        'loggedIn',
                         $event->userId()->toString(),
                         $event->createdAt(),
                     );
