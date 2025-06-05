@@ -44,7 +44,7 @@ import { ref } from 'vue';
 import cuid from 'cuid';
 import emailSpellChecker from '@zootools/email-spell-checker';
 
-defineProps({
+const props = defineProps({
     modelValue: {
         type: String,
         default: null,
@@ -60,6 +60,10 @@ defineProps({
     placeholder: {
         type: String,
         default: null,
+    },
+    checkEmailOnBlur: {
+        type: Boolean,
+        default: true,
     },
     v: {
         type: Object,
@@ -78,8 +82,10 @@ const emit = defineEmits(['update:modelValue']);
 const suggestedEmail = ref(null);
 const input = ref();
 
-function checkEmail (event) {
-    if (!event.target.value) {
+const checkEmail = (event) => {
+    if (!props.checkEmailOnBlur || !event.target.value) {
+        suggestedEmail.value = null;
+
         return;
     }
 
@@ -93,7 +99,7 @@ function checkEmail (event) {
         suggestedEmail.value = null;
     }
 }
-function useSuggested () {
+const useSuggested = () => {
     emit('update:modelValue', suggestedEmail.value);
     suggestedEmail.value = null;
     input.value.focus();
