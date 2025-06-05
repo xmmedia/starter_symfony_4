@@ -75,8 +75,9 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         yield ['app_login'];
         yield ['overblog_graphql_endpoint'];
         yield ['overblog_graphql_batch_endpoint'];
-        yield ['overblog_graphql_multiple_endpoint'];
-        yield ['overblog_graphql_batch_multiple_endpoint'];
+        // @todo-symfony enable if using multiple gql schemas
+        // yield ['overblog_graphql_multiple_endpoint'];
+        // yield ['overblog_graphql_batch_multiple_endpoint'];
     }
 
     public function testValidateCsrfInvalid(): void
