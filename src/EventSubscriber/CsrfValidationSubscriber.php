@@ -19,8 +19,9 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
         'app_login',
         'overblog_graphql_endpoint',
         'overblog_graphql_batch_endpoint',
-        'overblog_graphql_multiple_endpoint',
-        'overblog_graphql_batch_multiple_endpoint',
+        // @todo-symfony enable if using multiple gql schemas
+        // 'overblog_graphql_multiple_endpoint',
+        // 'overblog_graphql_batch_multiple_endpoint',
     ];
 
     private string $tokenName = 'main';
