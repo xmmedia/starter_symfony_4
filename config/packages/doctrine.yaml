@@ -5,6 +5,10 @@ doctrine:
                 url: '%env(DATABASE_URL)%'
                 profiling_collect_backtrace: '%kernel.debug%'
                 use_savepoints: true
+                # ignore all tables except doctrine_migration_versions
+                schema_filter: ~^(doctrine_migration_versions)$~
+                # alternatively, ignore tables ending in _event_stream
+                #schema_filter: ~^(?!.*_event_stream$)~
         types:
             datetime_microseconds: Xm\SymfonyBundle\Doctrine\Types\DateTimeMicrosecondsType
 
