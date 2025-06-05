@@ -16,9 +16,9 @@
                        :name="'radios-'+id"
                        :checked="value.value === modelValue"
                        :value="value.value">
-                <label v-if="!htmlLabel" :for="id+'-'+value.value">{{ value.label }}</label>
+                <label v-if="!htmlLabel" :for="id+'-'+value.value" :class="labelClasses">{{ value.label }}</label>
                 <!-- eslint-disable-next-line vue/no-v-html -->
-                <label v-else :for="id+'-'+value.value" v-html="value.label" />
+                <label v-else :for="id+'-'+value.value" :class="labelClasses" v-html="value.label" />
             </div>
         </div>
 
@@ -56,9 +56,17 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    inputWrapperClasses: {
+        type: [ String, Array ],
+        default: undefined,
+    },
     htmlLabel: {
         type: Boolean,
         default: false,
+    },
+    inputClasses: {
+        type: [ String, Array, Object ],
+        default: null,
     },
     darkPills: {
         type: Boolean,
@@ -77,15 +85,20 @@ const props = defineProps({
 });
 
 const inputWrapperClasses = computed(() => {
+    let classes = props.inputWrapperClasses;
+    if (props.inputWrapperClasses instanceof Array) {
+        classes = props.inputWrapperClasses.join(' ');
+    }
+
     if (props.pills) {
-        return 'flex gap-2 flex-wrap';
+        return 'flex gap-2 flex-wrap ' + classes;
     }
 
     if (props.row) {
-        return 'flex flex-col xs:flex-row xs:flex-wrap';
+        return 'flex flex-col xs:flex-row xs:flex-wrap ' + classes;
     }
 
-    return undefined;
+    return classes;
 });
 
 const valuesCollection = computed(() => {
