@@ -6,7 +6,7 @@
             </FieldError>
 
             <input :id="id" v-model="checked" type="checkbox" :value="true" :disabled="disabled">
-            <label :for="id"><slot></slot></label>
+            <label :for="id" :class="labelClasses"><slot></slot></label>
         </div>
 
         <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
@@ -27,6 +27,10 @@ const props = defineProps({
     disabled: {
         type: Boolean,
         default: false,
+    },
+    labelClasses: {
+        type: [ String, Array, Object ],
+        default: null,
     },
     v: {
         type: Object,
