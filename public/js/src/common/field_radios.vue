@@ -1,6 +1,6 @@
 <template>
     <fieldset class="field-wrap-radios">
-        <legend><slot></slot></legend>
+        <legend v-if="!!$slots.default"><slot></slot></legend>
 
         <FieldError v-if="v" :v="v">
             <template #required><slot name="required"></slot></template>
