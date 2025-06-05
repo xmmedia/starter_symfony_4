@@ -3,15 +3,17 @@
         <table class="record_list-wrap hidden md:table">
             <thead class="record_list-headers">
                 <tr>
-                    <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">{{ heading }}</th>
+                    <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">
+                        <slot :name="`heading${i+1}`" :heading-key="i">{{ heading }}</slot>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <slot name="tableRow" :items="items">
                     <tr v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
                         <template v-for="(heading,j) in headings" :key="i+'-'+j">
-                            <td :class="cellClasses[j]" class="record_list-col">
-                                <slot :name="`col${j+1}`" :item="item"></slot>
+                            <td :class="cellClassFunction(item, j)" class="record_list-col">
+                                <slot :name="`col${j+1}`" :item="item" :item-key="i" :cell-key="j"></slot>
                             </td>
                         </template>
                     </tr>
@@ -23,9 +25,9 @@
             <slot name="listRow" :items="items">
                 <li v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
                     <template v-for="(heading,j) in headings" :key="i+'-'+j">
-                        <div :class="cellClasses[j]" class="record_list-col">
+                        <div :class="cellClassFunction(item, j)" class="record_list-col">
                             <div v-if="heading" class="record_list-mobile_heading">{{ heading }}</div>
-                            <slot :name="`col${j+1}`" :item="item"></slot>
+                            <slot :name="`col${j+1}`" :item="item" :item-key="i" :cell-key="j"></slot>
                         </div>
                     </template>
                 </li>
@@ -35,7 +37,7 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
     headings: {
         type: Array,
         default: function () {
@@ -54,6 +56,15 @@ defineProps({
             return [];
         },
     },
+    /**
+     * Returns string of classes for the cell.
+     */
+    cellClassesFunction: {
+        type: Function,
+        default () {
+            return null;
+        },
+    },
     rowClasses: {
         type: Function,
         default () {
@@ -61,4 +72,6 @@ defineProps({
         },
     },
 });
+
+const cellClassFunction = (item, j) => [props.cellClasses[j] ?? null, props.cellClassesFunction(item, j)];
 </script>
