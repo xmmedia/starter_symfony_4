@@ -265,6 +265,10 @@ const getAddressComponent = (types, autocompleteName = 'line1') => {
         }
 
         const addressComponents = autocompletes[autocompleteName].getPlace().address_components;
+        if (!addressComponents) {
+            return null;
+        }
+
         const components = addressComponents.filter((component) => {
             return types.includes(component.types[0]);
         });
