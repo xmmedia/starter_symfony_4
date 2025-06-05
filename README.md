@@ -27,8 +27,8 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
     - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`
 1. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
-1. Run all projections once: `bin/console event-store:projection:run user_projection -o` (or if using lando: `lando console event-store:projection:run user_projection -o`).
-1. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`).
+1. Run all projections once: `bin/console event-store:projection:run user_projection -o && bin/console event-store:projection:run auth_projection -o` (or if using lando: `lando console event-store:projection:run user_projection -o && lando console event-store:projection:run auth_projection -o`).
+1. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`) (or if using lando: `lando console app:user:add`).
 1. Find and make changes near `@todo-symfony` comments throughout the site.
 1. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
 1. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests
