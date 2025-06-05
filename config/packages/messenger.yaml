@@ -35,6 +35,13 @@ framework:
             # Route your messages to the transports
             # 'App\Message\YourMessage': async
 
+#when@prod:
+#    framework:
+#        messenger:
+#            routing:
+                 # Route your messages to the transports
+#                'App\Model\Name\Command\NameCommand': async
+
 # when@test:
 #    framework:
 #        messenger:
