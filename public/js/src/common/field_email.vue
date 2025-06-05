@@ -21,6 +21,7 @@
                v-focus="autofocus"
                :value="modelValue"
                :autocomplete="autocomplete"
+               :placeholder="placeholder"
                type="email"
                maxlength="150"
                @blur="checkEmail($event)"
@@ -53,6 +54,10 @@ defineProps({
         default: false,
     },
     autocomplete: {
+        type: String,
+        default: null,
+    },
+    placeholder: {
         type: String,
         default: null,
     },
