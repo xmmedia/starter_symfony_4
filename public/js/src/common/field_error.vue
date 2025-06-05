@@ -6,7 +6,7 @@
         <li>
             <slot>
                 <template v-if="!required">
-                    <slot name="required">Required</slot>
+                    <slot name="required" :v="v">Required</slot>
                 </template>
                 <template v-else-if="!minLength">
                     <slot name="minLength" :v="v">
