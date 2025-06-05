@@ -38,6 +38,10 @@ Query;
     {
         $tableName = Table::USER;
 
-        $this->connection->executeQuery("UPDATE `{$tableName}` SET login_count = 0, last_login = null;");
+        $sql = <<<Query
+UPDATE `{$tableName}` SET login_count = 0, last_login = null;
+Query;
+
+        $this->connection->executeQuery($sql);
     }
 }
