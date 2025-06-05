@@ -1,3 +1,8 @@
+# see the following the details of the options:
+#    vendor/prooph/event-store-symfony-bundle/doc/projection_manager.md
+#    https://github.com/prooph/documentation/blob/7b00b7a0514543d77ae934fc3247431d78185911/event-store-v7/projections.md#projections-1
+# note: options configured below are only used when running the projection from the command line
+# to set the options running from RunProjectionMiddleware, set them manually in the middleware
 prooph_event_store:
     stores:
         default:
