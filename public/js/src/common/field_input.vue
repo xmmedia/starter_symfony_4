@@ -1,7 +1,7 @@
 <template>
     <div class="field-wrap">
         <slot :id="id" name="label">
-            <label :for="id"><slot></slot></label>
+            <label :for="id" :class="labelClasses"><slot></slot></label>
         </slot>
 
         <FieldError v-if="v" :v="v">
@@ -18,23 +18,27 @@
             <template #valid><slot name="valid"></slot></template>
         </FieldError>
 
-        <slot name="prefix"></slot>
-        <input :id="id"
-               ref="input"
-               v-focus="autofocus"
-               :value="modelValue"
-               :type="type"
-               :maxlength="maxLength"
-               :autocomplete="autocomplete"
-               :placeholder="placeholder"
-               :min="min"
-               :max="max"
-               :step="step"
-               :class="inputClasses"
-               @input="$emit('update:modelValue', $event.target.value)"
-               @focus="$emit('focus')"
-               @blur="$emit('blur')">
-        <slot name="suffix"></slot>
+        <div :class="inputWrapperClasses">
+            <slot name="prefix"></slot>
+            <input :id="id"
+                   ref="input"
+                   v-focus="autofocus"
+                   :value="modelValue"
+                   :type="type"
+                   :maxlength="maxLength"
+                   :autocomplete="autocomplete"
+                   :placeholder="placeholder"
+                   :readonly="readonly"
+                   :disabled="disabled"
+                   :min="min"
+                   :max="max"
+                   :step="step"
+                   :class="inputClasses"
+                   @input="$emit('update:modelValue', $event.target.value)"
+                   @focus="$emit('focus')"
+                   @blur="$emit('blur')">
+            <slot name="suffix"></slot>
+        </div>
 
         <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
     </div>
@@ -68,6 +72,14 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    readonly: {
+        type: Boolean,
+        default: false,
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
     min: {
         type: [ Number, String ],
         default: null,
@@ -81,6 +93,14 @@ const props = defineProps({
         default: null,
     },
     inputClasses: {
+        type: [ String, Array, Object ],
+        default: null,
+    },
+    inputWrapperClasses: {
+        type: [ String, Array, Object ],
+        default: 'flex items-center gap-x-2',
+    },
+    labelClasses: {
         type: [ String, Array, Object ],
         default: null,
     },
