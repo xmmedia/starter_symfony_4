@@ -58,6 +58,7 @@ export default defineConfig(({ command }) => {
         },
         server: {
             host: true,
+            // @todo-symfony change port number
             port: 9008,
             origin: 'https://localhost:9008',
             strictPort: true,
