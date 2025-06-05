@@ -284,6 +284,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@date-fns/tz@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@date-fns/tz@npm:1.0.2"
+  checksum: d5f5aea19554900db21ca19185d812c0ab09d8db4ed2cb66800aa69ccfdba18c360d968362661d35fe233c05bccf8abac4cb9beacf7822f0f9ab7b9cf779f959
+  languageName: node
+  linkType: hard
+
 "@dual-bundle/import-meta-resolve@npm:^4.1.0":
   version: 4.1.0
   resolution: "@dual-bundle/import-meta-resolve@npm:4.1.0"
@@ -1188,6 +1195,13 @@ __metadata:
   version: 1.0.5
   resolution: "@types/estree@npm:1.0.5"
   checksum: dd8b5bed28e6213b7acd0fb665a84e693554d850b0df423ac8076cc3ad5823a6bc26b0251d080bdc545af83179ede51dd3f6fa78cad2c46ed1f29624ddf3e41a
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4.17.15":
+  version: 4.17.17
+  resolution: "@types/lodash@npm:4.17.17"
+  checksum: cfa34a752f3c540a196e9f92dbaff93ae15fe4058da8cce1918dd9219076dc19eec33b043aae45865e2b3ef8234a845bb57366144ec8e52551e2bc3f119e04a1
   languageName: node
   linkType: hard
 
@@ -6128,12 +6142,14 @@ __metadata:
   dependencies:
     "@apollo/client": ^3.7.12
     "@babel/core": ^7.0.0
+    "@date-fns/tz": ^1.0.2
     "@faker-js/faker": ^9.0.1
     "@googlemaps/js-api-loader": ^1.15.2
     "@rollup/plugin-graphql": ^2.0.3
     "@sentry/vite-plugin": ^2.10.2
     "@sentry/vue": ^7.49.0
     "@tailwindcss/typography": ^0.5.0
+    "@types/lodash": ^4.17.15
     "@unhead/vue": ^1.7.4
     "@vitejs/plugin-vue": ^5.0.0
     "@vue/apollo-composable": ^4.0.0
