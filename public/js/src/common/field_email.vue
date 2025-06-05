@@ -5,13 +5,13 @@
         </slot>
 
         <FieldError v-if="v && v.$error && v.$invalid">
-            <template v-if="v.required.$invalid">
+            <template v-if="v?.required?.$invalid">
                 <slot name="required">An email is required.</slot>
             </template>
-            <template v-else-if="v.email.$invalid">
+            <template v-else-if="v?.email?.$invalid">
                 <slot name="invalid">This email is invalid.</slot>
             </template>
-            <template v-else-if="v.unique.$invalid">
+            <template v-else-if="v?.unique?.$invalid">
                 <slot name="unique">This email has already been used.</slot>
             </template>
         </FieldError>
