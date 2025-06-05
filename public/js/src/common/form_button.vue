@@ -58,7 +58,7 @@
 
 <script setup>
 import { computed, onMounted, onBeforeUnmount, ref } from 'vue';
-import { onBeforeRouteLeave } from 'vue-router';
+import { addLeaveConfirmation } from '@/common/lib';
 
 const props = defineProps({
     status: {
@@ -122,26 +122,9 @@ onBeforeUnmount(() => {
     observer.disconnect();
 });
 
+const edited = computed(() => props.edited);
 const isSaving = computed(() => props.saving || 'saving' === props.status);
 const isSaved = computed(() => props.saved || 'saved' === props.status);
 
-onBeforeRouteLeave((to, from, next) => {
-    const msg = 'Are you sure you want to leave? You have unsaved changes.';
-    if (props.edited && !isSaved.value && !confirm(msg)) {
-        return next(false);
-    }
-
-    next();
-});
-
-const unload = (e) => {
-    if (props.edited && !isSaved.value) {
-        e.preventDefault();
-    }
-};
-
-window.addEventListener('beforeunload', unload);
-onBeforeUnmount(() => {
-    window.removeEventListener('beforeunload', unload);
-});
+addLeaveConfirmation(edited, isSaved);
 </script>

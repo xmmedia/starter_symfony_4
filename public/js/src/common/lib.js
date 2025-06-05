@@ -5,7 +5,8 @@ import has from 'lodash/has';
 import isObject from 'lodash/isObject';
 import lowerCase from 'lodash/lowerCase';
 import upperFirst from 'lodash/upperFirst';
-import { watch } from 'vue';
+import { onBeforeUnmount, watch } from 'vue';
+import { onBeforeRouteLeave } from 'vue-router';
 
 export const logError = function (e) {
     if (console && e !== undefined) {
@@ -112,4 +113,32 @@ export const addEditedWatcher = function (state, edited, variable) {
         },
         { deep: true, flush: 'sync' },
     );
-}
+};
+
+/**
+ * Adds a leave confirmation dialog to the window and the Vue router when there are unsaved changes.
+ *
+ * @param {Ref} edited Must be Vue ref/reactivity object.
+ * @param {Ref} isSaved Must be Vue ref/reactivity object.
+ */
+export const addLeaveConfirmation = (edited, isSaved) => {
+    onBeforeRouteLeave((to, from, next) => {
+        const msg = 'Are you sure you want to leave? You have unsaved changes.';
+        if (edited.value && !isSaved.value && !confirm(msg)) {
+            return next(false);
+        }
+
+        next();
+    });
+
+    const unload = (e) => {
+        if (edited.value && !isSaved.value) {
+            e.preventDefault();
+        }
+    };
+
+    window.addEventListener('beforeunload', unload);
+    onBeforeUnmount(() => {
+        window.removeEventListener('beforeunload', unload);
+    });
+};
