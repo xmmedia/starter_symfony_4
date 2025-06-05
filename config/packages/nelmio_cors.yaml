@@ -2,7 +2,7 @@ nelmio_cors:
     defaults:
         origin_regex: true
         allow_origin: ['%env(CORS_ALLOW_ORIGIN)%']
-        # default
+        # default:
         # allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
         allow_methods: ['OPTIONS', 'POST']
         # full list of options: 'append','delete','entries','foreach','get','has','keys','set','values','Authorization','content-type'

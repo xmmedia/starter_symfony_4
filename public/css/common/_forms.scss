@@ -79,6 +79,7 @@ select {
     @apply flex flex-nowrap items-start;
     input {
         @apply shrink;
+        // aligns the radio/checkbox with the label
         margin-top: 0.35em;
     }
     label {
