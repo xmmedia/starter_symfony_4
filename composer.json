@@ -67,7 +67,6 @@
         "xm/symfony-bundle": "^2.0"
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.0",
         "ekino/phpstan-banned-code": "^2.0",
         "ergebnis/composer-normalize": "^2.43",
         "fakerphp/faker": "^1.8",
@@ -92,8 +91,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "*",
         "symfony/stopwatch": "*",
-        "symfony/web-profiler-bundle": "*",
-        "theofidry/alice-data-fixtures": "^1.1"
+        "symfony/web-profiler-bundle": "*"
     },
     "replace": {
         "paragonie/random_compat": "^2.0",

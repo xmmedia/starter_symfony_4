@@ -23,8 +23,5 @@ return [
     Overblog\GraphiQLBundle\OverblogGraphiQLBundle::class                      => ['dev' => true],
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class                  => ['dev' => true, 'test' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class                              => ['dev' => true, 'test' => true],
-    Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class               => ['dev' => true, 'test' => true],
-    Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle::class                       => ['dev' => true, 'test' => true],
-    Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle::class => ['dev' => true, 'test' => true],
     Liip\FunctionalTestBundle\LiipFunctionalTestBundle::class                  => ['dev' => true, 'test' => true],
 ];
