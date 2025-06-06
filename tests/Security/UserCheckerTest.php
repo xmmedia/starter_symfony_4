@@ -9,6 +9,7 @@ use App\Model\User\Command\ActivateUser;
 use App\Security\UserChecker;
 use App\Tests\BaseTestCase;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -40,11 +41,13 @@ class UserCheckerTest extends BaseTestCase
             ->with(\Mockery::type(ActivateUser::class))
             ->andReturn(new Envelope(new \stdClass()));
 
+        $objectManager = \Mockery::mock(ObjectManager::class);
+        $objectManager->shouldReceive('refresh')->once();
+
         $doctrine = \Mockery::mock(ManagerRegistry::class);
         $doctrine->shouldReceive('getManagerForClass')
             ->once()
-            ->andReturnSelf();
-        $doctrine->shouldReceive('refresh')->once();
+            ->andReturn($objectManager);
 
         $checker = new UserChecker($requestInfoProvider, $httpUtils, $commandBus, $doctrine);
 
