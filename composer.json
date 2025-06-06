@@ -160,10 +160,11 @@
         "rector:fix": "bin/rector --xdebug",
         "static": "php bin/phpstan analyse --memory-limit 2G",
         "static-strict": "php bin/phpstan analyse --configuration phpstan.strict.dist.neon --memory-limit 2G",
-        "test": "bin/simple-phpunit",
+        "test": "bin/phpunit",
+        "test:deprecations": "bin/phpunit --display-phpunit-deprecations --display-deprecations",
         "test:coverage": [
             "@putenv XDEBUG_MODE=coverage",
-            "bin/simple-phpunit --coverage-html coverage"
+            "bin/phpunit --coverage-html coverage"
         ]
     }
 }
