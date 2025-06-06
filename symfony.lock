@@ -30,9 +30,6 @@
         },
         "files": []
     },
-    "doctrine/cache": {
-        "version": "v1.8.0"
-    },
     "doctrine/collections": {
         "version": "v1.5.0"
     },
