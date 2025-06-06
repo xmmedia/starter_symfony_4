@@ -21,7 +21,7 @@
         "nesbot/carbon": "^3.0",
         "odolbeau/phone-number-bundle": "^4.0",
         "overblog/graphql-bundle": "^1.0",
-        "pentatrion/vite-bundle": "^6.0.0",
+        "pentatrion/vite-bundle": "^8.0",
         "phpdocumentor/reflection-docblock": "^5.2",
         "phpoffice/phpspreadsheet": "^4.0",
         "prooph/event-store-bus-bridge": "^3.3",

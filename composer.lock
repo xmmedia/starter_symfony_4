@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f50998c65fcafeaeea6468793601355c",
+    "content-hash": "94fe2bd678b7ad9536c93b451b1fd431",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3357,16 +3357,16 @@
         },
         {
             "name": "pentatrion/vite-bundle",
-            "version": "v6.5.3",
+            "version": "v8.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lhapaipai/vite-bundle.git",
-                "reference": "9316e75d82b6c6b912b4ed45c38fc5a735aafcf9"
+                "reference": "8921330e02825c84b154108a7d70c21c54a18146"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lhapaipai/vite-bundle/zipball/9316e75d82b6c6b912b4ed45c38fc5a735aafcf9",
-                "reference": "9316e75d82b6c6b912b4ed45c38fc5a735aafcf9",
+                "url": "https://api.github.com/repos/lhapaipai/vite-bundle/zipball/8921330e02825c84b154108a7d70c21c54a18146",
+                "reference": "8921330e02825c84b154108a7d70c21c54a18146",
                 "shasum": ""
             },
             "require": {
@@ -3412,9 +3412,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lhapaipai/vite-bundle/issues",
-                "source": "https://github.com/lhapaipai/vite-bundle/tree/v6.5.3"
+                "source": "https://github.com/lhapaipai/vite-bundle/tree/v8.1.0"
             },
-            "time": "2024-08-16T08:18:36+00:00"
+            "time": "2025-05-14T21:22:46+00:00"
         },
         {
             "name": "php-http/client-common",
