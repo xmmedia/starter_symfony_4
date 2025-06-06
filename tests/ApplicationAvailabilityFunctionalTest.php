@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
     use UsesFaker;
@@ -26,9 +28,9 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         }
     }
 
-    public function urlProvider(): \Generator
+    public static function urlProvider(): \Generator
     {
-        $faker = $this->faker();
+        $faker = self::makeFaker();
 
         yield ['/'];
         yield ['/login'];

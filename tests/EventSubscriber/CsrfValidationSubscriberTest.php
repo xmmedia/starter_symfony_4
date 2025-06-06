@@ -70,7 +70,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         $subscriber->{$method}($event);
     }
 
-    public function allCheckedRoutes(): \Generator
+    public static function allCheckedRoutes(): \Generator
     {
         yield ['app_login'];
         yield ['overblog_graphql_endpoint'];

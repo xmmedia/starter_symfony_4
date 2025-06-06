@@ -30,7 +30,7 @@ class PasswordHasherTest extends BaseTestCase
         (new PasswordHasher($passwordHasher))($role, $faker->password());
     }
 
-    public function roleProvider(): \Generator
+    public static function roleProvider(): \Generator
     {
         foreach (Role::getEnumerators() as $role) {
             yield [$role];

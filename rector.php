@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 
 return RectorConfig::configure()
     ->withPreparedSets(
@@ -21,6 +22,10 @@ return RectorConfig::configure()
         __DIR__.'/tests',
     ])
     ->withRootFiles()
+    ->withSets([
+        PHPUnitSetList::PHPUNIT_90,
+        PHPUnitSetList::PHPUNIT_100,
+    ])
     ->withSkip([
         // don't remove useless variables inside AR events
         // it's nice to keep them for editing later

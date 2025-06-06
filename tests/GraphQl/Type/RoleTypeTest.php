@@ -40,7 +40,7 @@ class RoleTypeTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function roleProvider(): \Generator
+    public static function roleProvider(): \Generator
     {
         yield [
             Role::ROLE_USER(),
@@ -71,7 +71,7 @@ class RoleTypeTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function roleProviderParseLiteral(): \Generator
+    public static function roleProviderParseLiteral(): \Generator
     {
         yield [
             Role::ROLE_USER(),
