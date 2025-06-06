@@ -37,6 +37,7 @@ public/service-worker.js
 /bin/*
 !/bin/console
 !/bin/check
+!/bin/check_full
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

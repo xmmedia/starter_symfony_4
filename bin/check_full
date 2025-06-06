@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+lando composer rector
+lando composer cs:fix
+bin/check
