@@ -32,6 +32,7 @@ class RoleType extends EnumType implements AliasedInterface
     /**
      * @param Role|string $value
      */
+    #[\Override]
     public function serialize($value): ?string
     {
         if (null === $value) {
@@ -52,6 +53,7 @@ class RoleType extends EnumType implements AliasedInterface
     /**
      * @param string $value
      */
+    #[\Override]
     public function parseValue($value): ?Role
     {
         if (null === $value) {
@@ -64,6 +66,7 @@ class RoleType extends EnumType implements AliasedInterface
     /**
      * @param EnumValueNode $valueNode
      */
+    #[\Override]
     public function parseLiteral($valueNode, ?array $variables = null): ?Role
     {
         if (!$valueNode instanceof EnumValueNode) {

@@ -29,11 +29,13 @@ Query;
         $statement->executeQuery();
     }
 
+    #[\Override]
     public function reset(): void
     {
         $this->delete();
     }
 
+    #[\Override]
     public function delete(): void
     {
         $tableName = Table::USER;

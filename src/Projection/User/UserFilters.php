@@ -17,6 +17,7 @@ class UserFilters extends Filters
     public const EMAIL_EXACT = 'emailExact';
     public const OFFSET = 'offset';
 
+    #[\Override]
     protected function parseFilters(array $filters): array
     {
         if (\array_key_exists(self::ACTIVE, $filters)) {

@@ -11,6 +11,7 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
+    #[\Override]
     public function getCacheDir(): string
     {
         return \dirname(__DIR__).'/cache/'.$this->environment;
