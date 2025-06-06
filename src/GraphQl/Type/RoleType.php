@@ -13,7 +13,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 
 class RoleType extends EnumType implements AliasedInterface
 {
-    private const NAME = 'Role';
+    private const string NAME = 'Role';
 
     public function __construct()
     {

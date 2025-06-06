@@ -10,8 +10,8 @@ use Xm\SymfonyBundle\Util\StringUtil;
 
 final readonly class Name implements ValueObject, \JsonSerializable, \Stringable
 {
-    public const MIN_LENGTH = 2;
-    public const MAX_LENGTH = 50;
+    public const int MIN_LENGTH = 2;
+    public const int MAX_LENGTH = 50;
 
     private string $name;
 

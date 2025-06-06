@@ -17,7 +17,7 @@ use Xm\SymfonyBundle\Util\StringUtil;
  */
 final class SecurityController extends AbstractController
 {
-    public const TOKEN_SESSION_KEY = 'reset_token';
+    public const string TOKEN_SESSION_KEY = 'reset_token';
 
     #[Route(path: '/login', name: 'app_login')]
     public function login(DefaultRouteProvider $defaultRoute): Response

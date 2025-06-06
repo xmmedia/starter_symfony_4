@@ -36,9 +36,9 @@ use Xm\SymfonyBundle\Util\Json;
 )]
 final class AddUserCommand extends Command
 {
-    private const SEND_INVITE = 'send-invite';
-    private const GENERATE_ACTIVATION_TOKEN = 'generate-activation-token';
-    private const FORMAT = 'format';
+    private const string SEND_INVITE = 'send-invite';
+    private const string GENERATE_ACTIVATION_TOKEN = 'generate-activation-token';
+    private const string FORMAT = 'format';
 
     public function __construct(
         private readonly MessageBusInterface $commandBus,

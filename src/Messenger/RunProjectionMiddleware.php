@@ -12,8 +12,8 @@ use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
 
 class RunProjectionMiddleware implements MiddlewareInterface
 {
-    private const AUTH = 'auth_projection';
-    private const USER = 'user_projection';
+    private const string AUTH = 'auth_projection';
+    private const string USER = 'user_projection';
 
     private bool $paused = false;
 
