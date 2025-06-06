@@ -20,4 +20,4 @@ parameters:
     excludePaths:
         - public/js
     symfony:
-        container_xml_path: '%rootDir%/../../../cache/dev/App_KernelDevDebugContainer.xml'
+        containerXmlPath: '%rootDir%/../../../cache/dev/App_KernelDevDebugContainer.xml'
