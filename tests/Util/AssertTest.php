@@ -13,17 +13,13 @@ class AssertTest extends BaseTestCase
 {
     use EmptyProvider;
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[\PHPUnit\Framework\Attributes\DoesNotPerformAssertions]
     public function testPasswordLengthValid(): void
     {
         Assert::passwordLength($this->faker()->string(12));
     }
 
-    /**
-     * @dataProvider emptyProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyProvider')]
     public function testPasswordLengthEmpty(?string $password): void
     {
         $this->expectException(\InvalidArgumentException::class);

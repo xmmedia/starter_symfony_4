@@ -87,9 +87,7 @@ class UserPasswordMutationTest extends BaseTestCase
         $this->assertEquals(['success' => true], $result);
     }
 
-    /**
-     * @dataProvider emptyProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyProvider')]
     public function testInvalidCurrentEmpty(?string $empty): void
     {
         $faker = $this->faker();
@@ -162,9 +160,7 @@ class UserPasswordMutationTest extends BaseTestCase
         ))($args);
     }
 
-    /**
-     * @dataProvider emptyProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyProvider')]
     public function testInvalidNewEmpty(?string $empty): void
     {
         $faker = $this->faker();

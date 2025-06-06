@@ -216,9 +216,7 @@ class UserTest extends BaseTestCase
         $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $user->getRoles());
     }
 
-    /**
-     * @dataProvider userEqualProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('userEqualProvider')]
     public function testEqualTo(User $user1, User $user2, bool $result): void
     {
         $this->assertEquals($result, $user1->isEqualTo($user2));

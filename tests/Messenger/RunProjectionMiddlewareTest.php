@@ -17,9 +17,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
 {
     use MessengerMiddlewareTestTrait;
 
-    /**
-     * @dataProvider messageDataProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('messageDataProvider')]
     public function test(AggregateChanged $message, array $projectionNames): void
     {
         $projectionRunner = \Mockery::mock(ProjectionRunner::class);

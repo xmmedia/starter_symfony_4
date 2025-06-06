@@ -36,9 +36,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         );
     }
 
-    /**
-     * @dataProvider allCheckedRoutes
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('allCheckedRoutes')]
     public function testValidateCsrf(string $route): void
     {
         $subscribed = CsrfValidationSubscriber::getSubscribedEvents();

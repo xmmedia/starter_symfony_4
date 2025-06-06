@@ -244,9 +244,7 @@ class UserActivateMutationTest extends BaseTestCase
         $this->assertEquals(['success' => true], $result);
     }
 
-    /**
-     * @dataProvider emptyProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('emptyProvider')]
     public function testInvalidNewEmpty(?string $empty): void
     {
         $faker = $this->faker();

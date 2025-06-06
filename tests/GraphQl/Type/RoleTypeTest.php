@@ -13,9 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class RoleTypeTest extends TestCase
 {
-    /**
-     * @dataProvider roleProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('roleProvider')]
     public function testSerialize(Role|string|null $value, ?string $expected): void
     {
         $result = (new RoleType())->serialize($value);
@@ -30,9 +28,7 @@ class RoleTypeTest extends TestCase
         (new RoleType())->serialize(1);
     }
 
-    /**
-     * @dataProvider roleProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('roleProvider')]
     public function testParseValue(Role|string|null $expected, ?string $value): void
     {
         $result = (new RoleType())->parseValue($value);
@@ -58,9 +54,7 @@ class RoleTypeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider roleProviderParseLiteral
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('roleProviderParseLiteral')]
     public function testParseLiteral(Role|string $expected, ?string $value): void
     {
         $valueNode = new EnumValueNode([]);

@@ -11,9 +11,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordHasherTest extends BaseTestCase
 {
-    /**
-     * @dataProvider roleProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('roleProvider')]
     public function test(Role $role): void
     {
         $faker = $this->faker();
