@@ -75,7 +75,7 @@
         "liip/functional-test-bundle": "^4.1",
         "marc-mabe/php-enum-phpstan": "^3.0",
         "mockery/mockery": "^1.2",
-        "overblog/graphiql-bundle": "^0.3.0",
+        "overblog/graphiql-bundle": "^1.0",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-mockery": "^2.0",
