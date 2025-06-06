@@ -5,7 +5,7 @@
 name: symfonystarter
 recipe: symfony
 config:
-  php: '8.2'
+  php: '8.3'
   webroot: public
   xdebug: true
   composer_version: 2

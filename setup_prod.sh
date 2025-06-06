@@ -22,7 +22,7 @@ if [ -d "$RELEASES" ]; then
 fi
 
 PHP_VERSION=$(php -v|grep --only-matching --perl-regexp "(PHP )\d+\.\\d+\.\\d+"|cut -c 5-7)
-PHP_MINIMUM_VERSION=8.2
+PHP_MINIMUM_VERSION=8.3
 printf "Current PHP version: ${PHP_VERSION}\nMinimum PHP version: ${PHP_MINIMUM_VERSION}\n"
 if [ $(echo "$PHP_VERSION >= $PHP_MINIMUM_VERSION" | bc) -eq 0 ]; then
     echo "************"
