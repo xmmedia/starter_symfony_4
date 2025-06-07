@@ -58,9 +58,13 @@ export default defineConfig(({ command }) => {
         },
         server: {
             host: true,
-            // @todo-symfony change port number
+            // @todo-symfony change port number 2x
             port: 9008,
             origin: 'https://localhost:9008',
+            cors: {
+                // @todo-symfony update to match your local dev URL
+                origin: 'https://symfonystarter.lndo.site',
+            },
             strictPort: true,
             https: true,
             watch: {
