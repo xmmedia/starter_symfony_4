@@ -23,7 +23,7 @@ UPDATE `{$tableName}` SET login_count = login_count + 1, last_login = :last_logi
 Query;
         $statement = $this->connection->prepare($sql);
 
-        $statement->bindValue('last_login', $lastLogin, 'datetime');
+        $statement->bindValue('last_login', $lastLogin, 'datetime_immutable');
         $statement->bindValue(':user_id', $userId);
 
         $statement->executeQuery();
