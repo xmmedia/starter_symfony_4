@@ -89,6 +89,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
     - `lando composer test` or `composer test`
     - no memory limit `php -d memory_limit=-1 bin/phpunit`
     - with coverage (HTML) `composer test:coverage`
+    - show deprecations `composer test:deprecations`
   - [PHP CS](https://cs.sensiolabs.org/): (must be installed first)
     - Dry run: `lando composer cs` or `composer cs`
     - Fix: `lando composer cs:fix` or `composer cs:fix`
