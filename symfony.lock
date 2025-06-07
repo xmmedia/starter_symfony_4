@@ -8,9 +8,6 @@
     "brick/math": {
         "version": "0.8.15"
     },
-    "cloudflare/sdk": {
-        "version": "1.1.1"
-    },
     "composer/pcre": {
         "version": "1.0.1"
     },
