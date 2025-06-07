@@ -233,6 +233,7 @@
       <path value="$PROJECT_DIR$/vendor/localheinz/diff" />
       <path value="$PROJECT_DIR$/vendor/marc-mabe/php-enum-phpstan" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php84" />
+      <path value="$PROJECT_DIR$/vendor/staabm/side-effects-detector" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
