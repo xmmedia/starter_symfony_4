@@ -10,9 +10,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
     use UsesFaker;
 
-    /**
-     * @dataProvider urlProvider
-     */
+    #[DataProvider('urlProvider')]
     public function testPageIsSuccessful(string $url, ?string $redirectUrl = null): void
     {
         $client = self::createClient();
