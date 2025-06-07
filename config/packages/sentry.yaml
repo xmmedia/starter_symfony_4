@@ -23,6 +23,8 @@ when@prod:
                 - SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException
                 - SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException
             attach_stacktrace: true
+            # Add request headers, cookies, IP address and the authenticated user
+            # see https://docs.sentry.io/platforms/php/data-management/data-collected/ for more info
             send_default_pii:  true
 
     # monolog integration in monolog.yaml
