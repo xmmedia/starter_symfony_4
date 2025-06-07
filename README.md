@@ -1,4 +1,4 @@
-# Symfony Starter 4
+# Symfony Starter
 
 Used to create new projects using [Symfony 6](https://symfony.com/) at [XM Media](https://www.xmmedia.com/).
 
