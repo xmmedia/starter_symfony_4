@@ -202,9 +202,9 @@ input AdminUserAddInput {
   password: String
   firstName: String!
   lastName: String!
+  role: Role!
   userData: UserDataInput!
   setPassword: Boolean!
-  role: Role!
   active: Boolean!
   sendInvite: Boolean!
 }
@@ -223,9 +223,9 @@ input AdminUserUpdateInput {
   password: String
   firstName: String!
   lastName: String!
+  role: Role!
   userData: UserDataInput!
   setPassword: Boolean!
-  role: Role!
 }
 
 "Admin User mutation payload."
