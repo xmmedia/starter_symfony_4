@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+# generates the GraphQL schema
+lando console graphql:dump-schema --with-descriptions --format=graphql
