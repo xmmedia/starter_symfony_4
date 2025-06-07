@@ -6,7 +6,7 @@ root = true
 charset = utf-8
 indent_size = 4
 indent_style = space
-end_of_line = LF
+end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
@@ -14,5 +14,5 @@ trim_trailing_whitespace = true
 trim_trailing_whitespace = false
 indent_size = 2
 
-[{package.json,.gitlab-ci.yml,.stylelintrc,.lando.yml}]
+[{package.json,.gitlab-ci.yml,.stylelintrc,.lando.yml,compose.yaml,compose.*.yaml}]
 indent_size = 2
