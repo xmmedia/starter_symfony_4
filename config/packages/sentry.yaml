@@ -4,8 +4,16 @@ when@prod:
         # this hooks into critical paths of the framework (and vendors) to perform
         # automatic instrumentation (there might be some performance penalty)
         # https://docs.sentry.io/platforms/php/guides/symfony/performance/instrumentation/automatic-instrumentation/
-        tracing:
-            enabled: false
+        # tracing:
+        #     enabled: true
+        #     dbal: # DB queries
+        #         enabled: true
+        #     cache: # cache pools
+        #         enabled: true
+        #     twig: # templating engine
+        #         enabled: true
+        #     http_client: # Symfony HTTP client
+        #         enabled: true
 
         # If you are using Monolog, you also need this additional configuration to log the errors correctly:
         # https://docs.sentry.io/platforms/php/guides/symfony/#monolog-integration
