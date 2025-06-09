@@ -222,9 +222,9 @@ class UserTest extends BaseTestCase
         $this->assertEquals($result, $user1->isEqualTo($user2));
     }
 
-    public function userEqualProvider(): \Generator
+    public static function userEqualProvider(): \Generator
     {
-        $faker = $this->faker();
+        $faker = self::makeFaker();
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);

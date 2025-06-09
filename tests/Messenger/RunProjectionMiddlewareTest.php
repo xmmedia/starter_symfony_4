@@ -33,9 +33,9 @@ class RunProjectionMiddlewareTest extends BaseTestCase
         );
     }
 
-    public function messageDataProvider(): \Generator
+    public static function messageDataProvider(): \Generator
     {
-        $faker = $this->faker();
+        $faker = self::makeFaker();
 
         yield [
             UserActivatedByAdmin::now($faker->userId()),

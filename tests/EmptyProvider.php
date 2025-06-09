@@ -6,7 +6,7 @@ namespace App\Tests;
 
 trait EmptyProvider
 {
-    public function emptyProvider(): \Generator
+    public static function emptyProvider(): \Generator
     {
         yield [''];
         yield [' '];
