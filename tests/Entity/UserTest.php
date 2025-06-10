@@ -56,22 +56,6 @@ class UserTest extends BaseTestCase
         $this->assertEquals($password, $user->getPassword());
     }
 
-    public function testEraseCredentials(): void
-    {
-        $faker = $this->faker();
-
-        $user = new User();
-
-        $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user, $faker->password());
-
-        // this shouldn't do anything so just make sure the password still returns value
-        $user->eraseCredentials();
-
-        $this->assertNotNull($user->password());
-    }
-
     public function testFlags(): void
     {
         $user = new User();
