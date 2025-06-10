@@ -76,6 +76,7 @@ final class UserWasAddedByAdmin extends AggregateChanged
             if (\array_key_exists('hashedPassword', $this->payload)) {
                 $this->hashedPassword = $this->payload['hashedPassword'];
             } else {
+                // @todo-symfony remove if this & test is a new project
                 $this->hashedPassword = $this->payload['encodedPassword'];
             }
         }
