@@ -93,4 +93,49 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $this->assertEquals($sendInvite, $event->sendInvite());
         $this->assertSameValueAs($userData, $event->userData());
     }
+
+    public function testFromArrayOldKey(): void
+    {
+        $faker = $this->faker();
+
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $password = $faker->password();
+        $role = Role::ROLE_USER();
+        $active = $faker->boolean();
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
+        $sendInvite = $faker->boolean();
+        $userData = $faker->userData();
+
+        /** @var UserWasAddedByAdmin $event */
+        $event = $this->createEventFromArray(
+            UserWasAddedByAdmin::class,
+            $userId->toString(),
+            [
+                // old key
+                'encodedPassword' => $password,
+
+                'email'      => $email->toString(),
+                'role'       => $role->getValue(),
+                'active'     => $active,
+                'firstName'  => $firstName->toString(),
+                'lastName'   => $lastName->toString(),
+                'sendInvite' => $sendInvite,
+                'userData'   => $userData->toArray(),
+            ],
+        );
+
+        $this->assertInstanceOf(UserWasAddedByAdmin::class, $event);
+
+        $this->assertEquals($userId, $event->userId());
+        $this->assertEquals($email, $event->email());
+        $this->assertEquals($password, $event->hashedPassword());
+        $this->assertEquals($role, $event->role());
+        $this->assertEquals($active, $event->active());
+        $this->assertEquals($firstName, $event->firstName());
+        $this->assertEquals($lastName, $event->lastName());
+        $this->assertEquals($sendInvite, $event->sendInvite());
+        $this->assertSameValueAs($userData, $event->userData());
+    }
 }
