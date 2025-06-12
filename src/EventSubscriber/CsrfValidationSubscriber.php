@@ -8,8 +8,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
@@ -57,12 +57,12 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
 
         $value = $request->cookies->get($this->cookieName);
         if (!$value) {
-            throw new AccessDeniedHttpException('Bad CSRF token.');
+            throw new InvalidCsrfTokenException('Bad CSRF token.');
         }
 
         $token = new CsrfToken($this->tokenName, $value);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
-            throw new AccessDeniedHttpException('Bad CSRF token.');
+            throw new InvalidCsrfTokenException('Bad CSRF token.');
         }
     }
 

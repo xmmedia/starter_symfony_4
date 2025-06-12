@@ -13,6 +13,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
@@ -106,7 +107,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
 
         $subscriber = new CsrfValidationSubscriber($tokenManager);
 
-        $this->expectException(AccessDeniedHttpException::class);
+        $this->expectException(InvalidCsrfTokenException::class);
 
         $subscriber->{$method}($event);
     }
@@ -134,7 +135,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
 
         $subscriber = new CsrfValidationSubscriber($tokenManager);
 
-        $this->expectException(AccessDeniedHttpException::class);
+        $this->expectException(InvalidCsrfTokenException::class);
 
         $subscriber->{$method}($event);
     }

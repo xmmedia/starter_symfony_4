@@ -26,6 +26,7 @@ when@prod:
                 - Symfony\Component\Debug\Exception\FatalErrorException
                 - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
                 - Symfony\Component\Security\Core\Exception\AccessDeniedException
+                - Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException
                 # password reset related exceptions
                 - SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException
                 - SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException
