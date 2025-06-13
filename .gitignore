@@ -17,6 +17,7 @@ public/service-worker.js
 /.env.local
 /.env.local.php
 /.env.*.local
+!/.env.local-default
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
