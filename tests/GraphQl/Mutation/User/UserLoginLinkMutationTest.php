@@ -105,4 +105,41 @@ class UserLoginLinkMutationTest extends BaseTestCase
 
         $this->assertEquals(['success' => true], $result);
     }
+
+    public function testUserLogInUserNotFound(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'email' => $faker->email(),
+        ];
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldReceive('dispatch');
+
+        $user = \Mockery::mock(User::class);
+        $user->shouldReceive('active')
+            ->andReturnFalse();
+        $user->shouldReceive('userId');
+        $user->shouldReceive('email');
+
+        $userFinder = \Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('findOneByEmail')
+            ->once()
+            ->andReturnNull();
+
+        $security = $this->createSecurity(false);
+
+        $args = new Argument($data);
+
+        $result = (new UserLoginLinkMutation(
+            $commandBus,
+            $userFinder,
+            $security,
+            true,
+        ))(
+            $args,
+        );
+
+        $this->assertEquals(['success' => true], $result);
+    }
 }
