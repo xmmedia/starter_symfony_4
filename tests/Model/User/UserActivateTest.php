@@ -61,19 +61,13 @@ class UserActivateTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $email = $faker->emailVo();
-        $password = $faker->password();
-        $role = Role::ROLE_USER();
-        $firstName = Name::fromString($faker->firstName());
-        $lastName = Name::fromString($faker->lastName());
-
         $user = User::addByAdminMinimum(
             $faker->userId(),
-            $email,
-            $password,
-            $role,
-            $firstName,
-            $lastName,
+            $faker->emailVo(),
+            $faker->password(),
+            Role::ROLE_USER(),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
             true,
             $this->userUniquenessCheckerNone,
         );
@@ -105,19 +99,28 @@ class UserActivateTest extends BaseTestCase
         $this->assertCount(1, $events);
     }
 
-    // @todo fix
-    // public function testActivateInvalidUserActiveStatus(): void
-    // {
-    //     $user = $this->getUserInactive(false);
-    //
-    //     $this->expectException(Exception\InvalidUserActiveStatus::class);
-    //
-    //     $user->activate();
-    //
-    //     $events = $this->popRecordedEvent($user);
-    //
-    //     $this->assertCount(1, $events);
-    // }
+    public function testActivateInactiveUserStatus(): void
+    {
+        $faker = $this->faker();
+
+        $user = User::addByAdminMinimum(
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->password(),
+            Role::ROLE_USER(),
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
+            true,
+            $this->userUniquenessCheckerNone,
+        );
+        $this->popRecordedEvent($user);
+
+        $user->deactivateByAdmin();
+        $this->popRecordedEvent($user);
+
+        $this->expectException(Exception\InvalidUserActiveStatus::class);
+        $user->activate();
+    }
 
     public function testActivateDeleted(): void
     {
