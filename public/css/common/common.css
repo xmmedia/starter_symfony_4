@@ -11,7 +11,7 @@ body {
 /*}*/
 
 a, .button-link {
-    @apply text-blue-500 text-left no-underline transition-default;
+    /*@apply text-blue-500 text-left no-underline transition-default;*/
     @apply hover:underline hover:text-blue-700 active:underline active:text-blue-700;
     @apply focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-inherit focus:rounded-sm focus:outline-none focus:text-blue-700 focus:underline;
     @apply disabled:opacity-75;
