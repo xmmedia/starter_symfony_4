@@ -2,32 +2,36 @@
 
 /* Safelist specific classes & pattern-based utilities */
 @source inline("md-enter-active md-leave-active md-enter md-leave-active");
-@source inline("{xs:,sm:,md:,lg:,xl:,}{m,p}{t,b,r,l,x,y}-{0,1,2,3,4,6,8,10,12,16,24}");
-@source inline("{sm:,md:,lg:,}{col-span}-{1,2,3,4,5,6,7,8,9,10,11,12}");
 
 @import "tailwindcss";
 
-/* common styles */
-@import "./common/common.css";
-@import "./common/alerts.css";
-@import "./common/content_alignment.css";
-@import "./common/content.css";
-@import "./common/headings.css";
-@import "./common/forms.css";
-@import "./common/radios.css";
-@import "./common/modal.css";
-@import "./common/embed.css";
-@import "./common/loading.css";
+@layer components {
 
-/* user base styles */
-@import "./user/base.css";
+    /* Base styles */
+    @import "./common/base.css";
 
-/* public only styles */
-@import "./user/buttons.css";
-@import "./user/headings.css";
-@import "./user/header.css";
-@import "./user/footer.css";
-@import "./user/forms.css";
+    /* common styles */
+    @import "./common/common.css";
+    @import "./common/alerts.css";
+    @import "./common/content_alignment.css";
+    @import "./common/content.css";
+    @import "./common/headings.css";
+    @import "./common/forms.css";
+    @import "./common/radios.css";
+    @import "./common/modal.css";
+    @import "./common/embed.css";
+    @import "./common/loading.css";
 
-/* page specific */
-/* @import ; */
+    /* user base styles */
+    @import "./user/base.css";
+
+    /* public only styles */
+    @import "./user/buttons.css";
+    @import "./user/headings.css";
+    @import "./user/header.css";
+    @import "./user/footer.css";
+    @import "./user/forms.css";
+
+    /* page specific */
+    /* @import ; */
+}

@@ -2,36 +2,40 @@
 
 /* Safelist specific classes & pattern-based utilities */
 @source inline("md-enter-active md-leave-active md-enter md-leave-active");
-@source inline("{xs:,sm:,md:,lg:,xl:,}{m,p}{t,b,r,l,x,y}-{0,1,2,3,4,6,8,10,12,16,24}");
-@source inline("{sm:,md:,lg:,}{col-span}-{1,2,3,4,5,6,7,8,9,10,11,12}");
 
 @import "tailwindcss";
 
-/* External library styles */
-@import "../../node_modules/vue-final-modal/dist/style.css";
-@import "../../node_modules/vue-multiselect/dist/vue-multiselect.css";
+@layer components {
+    /* External library styles */
+    @import "../../node_modules/vue-final-modal/dist/style.css";
+    @import "../../node_modules/vue-multiselect/dist/vue-multiselect.css";
 
-/* Common styles */
-@import "./common/common.css";
+    /* Base styles */
+    @import "./common/base.css";
 
-/* Common modules */
-@import "./common/forms.css";
-@import "./common/radios.css";
-@import "./common/alerts.css";
-@import "./common/headings.css";
-@import "./common/modal.css";
-@import "./common/button_pair.css";
-@import "./common/loading.css";
+    /* Common styles */
+    @import "./common/common.css";
 
-/* Admin-only modules */
-@import "./admin/content.css";
-@import "./admin/headings.css";
-@import "./admin/buttons.css";
-@import "./admin/header.css";
-@import "./admin/forms.css";
-@import "./admin/record_list.css";
-@import "./admin/record_view.css";
-@import "./admin/sidebar_nav.css";
-@import "./admin/sidebar_nav_submenu.css";
-@import "./admin/dashboard.css";
-@import "./admin/password.css";
+    /* Common modules */
+    @import "./common/forms.css";
+    @import "./common/radios.css";
+    @import "./common/alerts.css";
+    @import "./common/headings.css";
+    @import "./common/modal.css";
+    @import "./common/button_pair.css";
+    @import "./common/loading.css";
+
+    /* Admin-only modules */
+    @import "./admin/content.css";
+    @import "./admin/headings.css";
+    @import "./admin/buttons.css";
+    @import "./admin/header.css";
+    @import "./admin/forms.css";
+    @import "./admin/record_list.css";
+    @import "./admin/record_view.css";
+    @import "./admin/sidebar_nav.css";
+    @import "./admin/sidebar_nav_submenu.css";
+    @import "./admin/dashboard.css";
+    @import "./admin/password.css";
+
+}
