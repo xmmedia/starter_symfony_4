@@ -1,0 +1,9 @@
+@layer base {
+    html {
+        @apply font-light leading-normal text-gray-800;
+    }
+
+    body {
+        @apply relative z-0 overflow-x-hidden;
+    }
+}
