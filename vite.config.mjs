@@ -6,6 +6,7 @@ import vuePlugin from '@vitejs/plugin-vue';
 import graphqlPlugin from '@rollup/plugin-graphql';
 import manifestSRIPlugin from 'vite-plugin-manifest-sri';
 import symfonyPlugin from 'vite-plugin-symfony';
+import tailwindcss from '@tailwindcss/vite';
 import dns from 'dns';
 
 dns.setDefaultResultOrder('verbatim');
@@ -28,6 +29,7 @@ export default defineConfig(({ command }) => {
                 project: 'symfony-starter',
                 telemetry: process.env.NODE_ENV === 'production',
             }),
+            tailwindcss(),
         ],
         build: {
             outDir: 'public/build',
