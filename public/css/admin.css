@@ -1,5 +1,12 @@
 @config "../../tailwind.config.js";
 
+/* Safelist specific classes & pattern-based utilities */
+@source inline("md-enter-active md-leave-active md-enter md-leave-active");
+@source inline("{xs:,sm:,md:,lg:,xl:,}{m,p}{t,b,r,l,x,y}-{0,1,2,3,4,6,8,10,12,16,24}");
+@source inline("{sm:,md:,lg:,}{col-span}-{1,2,3,4,5,6,7,8,9,10,11,12}");
+
+@import "tailwindcss";
+
 /* External library styles */
 @import "../../node_modules/vue-final-modal/dist/style.css";
 @import "../../node_modules/vue-multiselect/dist/vue-multiselect.css";
