@@ -1,14 +1,14 @@
-html {
-    @apply font-light leading-normal text-gray-800;
-}
+/*html {*/
+/*    @apply font-light leading-normal text-gray-800;*/
+/*}*/
 
 body {
     @apply relative z-0 overflow-x-hidden;
 }
 
-.button-link {
-    @apply font-light;
-}
+/*.button-link {*/
+/*    @apply font-light;*/
+/*}*/
 
 a, .button-link {
     @apply text-blue-500 text-left no-underline transition-default;
