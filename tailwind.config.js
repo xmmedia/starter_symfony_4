@@ -2,20 +2,6 @@ const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-    mode: 'jit',
-    content: [
-        './templates/**/*.html.twig',
-        './public/js/src/*.{vue,js}',
-        // very specific because a broad include of the js/src dir results in detecting classes in the tinymce code
-        './public/js/src/{admin,common,public,user}/**/*.{vue,js}',
-    ],
-    safelist: [
-        // vue transition classes: https://vuejs.org/v2/guide/transitions.html#Transition-Classes
-        '.md-enter-active',
-        '.md-leave-active',
-        '.md-enter',
-        '.md-leave-active',
-    ],
     theme: {
         screens: {
             'xs': '400px',
