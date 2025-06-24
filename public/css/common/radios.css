@@ -1,19 +1,16 @@
-/*stylelint-disable no-descending-specificity*/
+/* stylelint-disable no-descending-specificity */
 
 /* adapted from: https://scottaohara.github.io/a11y_styled_form_controls/src/radio-button--pill/ */
 .radio-pill {
     @apply inline-block relative;
 
     input {
-        @apply absolute w-full h-full top-0 left-0 border-2 appearance-none;
-        background: none;
-        opacity: .00001;
-        z-index: 2;
+        @apply absolute w-full h-full top-0 left-0 border-2 appearance-none opacity-[0.00001] bg-none z-[2];
     }
 
     label {
         @apply block py-1 px-5 text-blue-800 rounded-full border-2 border-transparent cursor-pointer text-sm;
-        &:after {
+        &::after {
             @apply absolute inset-0 border-2 border-gray-400 rounded-full cursor-pointer content-[''];
             transition:
                 bottom 200ms ease-in-out,
@@ -26,7 +23,7 @@
 
     input:hover ~ label, label:hover {
         @apply bg-gray-200 border-gray-600;
-        &:after {
+        &::after {
             @apply border-gray-600;
         }
     }
@@ -35,18 +32,15 @@
         &, &:hover {
             @apply bg-blue-400 border-blue-400 text-white;
         }
-        &:after {
+        &::after {
             @apply border-blue-400;
         }
     }
 
     input:focus ~ label {
-        &, &:after {
+        &, &::after {
             @apply border-blue-600 cursor-pointer;
-            bottom: -.20rem;
-            left: -.20rem;
-            right: -.20rem;
-            top: -.20rem;
+            inset: -.20rem;
         }
     }
 }
@@ -68,7 +62,7 @@
 
 .radio-pill-green {
     input:hover ~ label, label:hover, input:focus ~ label {
-        &, &:after {
+        &, &::after {
             @apply border-green-700;
         }
     }
@@ -77,14 +71,14 @@
         &, &:hover {
             @apply bg-green-600 border-green-600;
         }
-        &:after {
+        &::after {
             @apply border-green-600;
         }
     }
 }
 .radio-pill-red {
     input:hover ~ label, label:hover, input:focus ~ label {
-        &, &:after {
+        &, &::after {
             @apply border-red-700;
         }
     }
@@ -93,7 +87,7 @@
         &, &:hover {
             @apply bg-red-600 border-red-600;
         }
-        &:after {
+        &::after {
             @apply border-red-600;
         }
     }
