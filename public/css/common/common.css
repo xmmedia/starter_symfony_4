@@ -1,21 +1,21 @@
 html {
-    @reference font-light leading-normal text-gray-800;
+    @apply font-light leading-normal text-gray-800;
 }
 
 body {
-    @reference relative z-0 overflow-x-hidden;
+    @apply relative z-0 overflow-x-hidden;
 }
 
 .button-link {
-    @reference font-light;
+    @apply font-light;
 }
 
 a, .button-link {
-    @reference text-blue-500 text-left no-underline transition-default;
-    @reference hover:underline hover:text-blue-700 active:underline active:text-blue-700;
-    @reference focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-inherit focus:rounded-sm focus:outline-none focus:text-blue-700 focus:underline;
-    @reference disabled:opacity-75;
-    @reference disabled:hover:no-underline disabled:hover:cursor-not-allowed;
+    @apply text-blue-500 text-left no-underline transition-default;
+    @apply hover:underline hover:text-blue-700 active:underline active:text-blue-700;
+    @apply focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-inherit focus:rounded-sm focus:outline-none focus:text-blue-700 focus:underline;
+    @apply disabled:opacity-75;
+    @apply disabled:hover:no-underline disabled:hover:cursor-not-allowed;
 }
 
 a[href^=tel], a[href^=mailto] {
