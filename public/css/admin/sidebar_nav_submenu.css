@@ -1,12 +1,14 @@
 .sidebar_nav-submenu-wrap {
     @apply fixed top-0 left-0 right-0 z-0 w-40 h-full opacity-0 invisible text-left bg-gray-800;
     margin-top: var(--header-height);
+
     @apply lg:w-64 lg:mt-0;
 }
 
 .sidebar_nav-submenu-wrap-open {
     @apply opacity-100 visible transition-opacity duration-300 ease-in;
     left: 10rem;
+
     @apply lg:left-[16rem];
 }
 
@@ -14,8 +16,10 @@
     @apply text-lg font-extralight border-b border-gray-600;
     min-height: var(--header-height);
     padding: 1.25rem 0 1rem 1rem;
+
     @apply lg:text-2xl;
-    @media (min-width: 1024px) {
+
+    @media (width >= 1024px) {
         padding: 0.7rem 0 0.7rem 1rem;
     }
 }

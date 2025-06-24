@@ -11,6 +11,7 @@
 
 .header-nav_item {
     /* using margin instead of left or right so when the menu wraps it's still centered */
+
     /* don't use padding as google may complain about being too close */
     @apply mx-4;
 }
@@ -18,15 +19,23 @@
     @apply mr-0;
 }
 
- /*Menu items need to be revealed at the desired screen size using mq */
-/*.header-nav_item-products {*/
-/*    @apply hidden;*/
-/*}*/
-/*@media (min-width: 640px) {*/
-/*    .header-nav_item-products {*/
-/*        @apply block;*/
-/*    }*/
-/*}*/
+ /* Menu items need to be revealed at the desired screen size using mq */
+
+/* .header-nav_item-products { */
+
+/*    @apply hidden; */
+
+/* } */
+
+/* @media (min-width: 640px) { */
+
+/*    .header-nav_item-products { */
+
+/*        @apply block; */
+
+/*    } */
+
+/* } */
 
 /* this here because it makes sense, but it's more specific than the @each above anyway */
 .header-mobile-open .header-nav_item {

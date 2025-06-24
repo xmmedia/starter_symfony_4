@@ -6,7 +6,6 @@
 @import "tailwindcss";
 
 @layer components {
-
     /* Base styles */
     @import "./common/base.css";
 
@@ -33,5 +32,6 @@
     @import "./user/forms.css";
 
     /* page specific */
+
     /* @import ; */
 }

@@ -51,10 +51,12 @@
     > * {
         @apply md:mx-auto;
     }
+
     /* adding block ensures icons vertically center if they are links or buttons */
     a, button {
         @apply block;
     }
+
     /* reverse the order of the heading & icon on mobile when an icon is present
        this will also impact desktop, but it's a table cell at that point so order doesn't do anything */
     .record_list-mobile_heading {

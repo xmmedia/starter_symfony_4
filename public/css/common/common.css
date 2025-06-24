@@ -10,7 +10,7 @@ a, .button-link {
     @apply disabled:hover:no-underline disabled:hover:cursor-not-allowed;
 }
 
-a[href^=tel], a[href^=mailto] {
+a[href^="tel"], a[href^="mailto"] {
     @apply whitespace-nowrap;
 }
 

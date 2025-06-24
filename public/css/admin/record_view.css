@@ -33,11 +33,13 @@
 
 .record_view-item_value {
     @apply w-full md:w-4/5;
+
     /* align the loading spinner to the left */
     .loading-wrap {
         @apply justify-start ml-px mb-1;
     }
 }
+
 /* this should center the icon vertically
    & align the loading spinner (along with the margin above) to the same spot as the icon
    w-auto is added so links don't stretch the entire column */
