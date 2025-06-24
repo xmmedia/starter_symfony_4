@@ -85,7 +85,7 @@
     "stylelint": "^16.0.2",
     "stylelint-config-standard": "^38.0.0",
     "stylelint-config-tailwindcss": "^1.0.0",
-    "tailwindcss": "^4.1.8",
+    "tailwindcss": "^4.1.10",
     "vite": "^6.0",
     "vite-plugin-manifest-sri": "^0.2.0",
     "vite-plugin-mkcert": "^1.16.0",

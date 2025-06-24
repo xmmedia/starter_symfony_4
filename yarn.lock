@@ -5941,17 +5941,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:4.1.10":
+"tailwindcss@npm:4.1.10, tailwindcss@npm:^4.1.10":
   version: 4.1.10
   resolution: "tailwindcss@npm:4.1.10"
   checksum: 10/699cfeacced1d3a3f17f8525ac6fe3246fb35d18c29a6814eebc039b768121d0c05311aaa8eb09b7c695e6667085a6a7ee023cd577a3386aef8c5891d6f785cb
-  languageName: node
-  linkType: hard
-
-"tailwindcss@npm:^4.1.8":
-  version: 4.1.8
-  resolution: "tailwindcss@npm:4.1.8"
-  checksum: 10/9fe7a7a40c34936b7f15b0cc836ade478975dcf316909b6dd948908f6723cc403ce8ab22d2e1a1b6e0e955eea656802e06b80eb8c0536c9e09fa3eabae16e30f
   languageName: node
   linkType: hard
 
@@ -6808,7 +6801,7 @@ __metadata:
     stylelint: "npm:^16.0.2"
     stylelint-config-standard: "npm:^38.0.0"
     stylelint-config-tailwindcss: "npm:^1.0.0"
-    tailwindcss: "npm:^4.1.8"
+    tailwindcss: "npm:^4.1.10"
     uuid: "npm:^10.0.0"
     vite: "npm:^6.0"
     vite-plugin-manifest-sri: "npm:^0.2.0"
