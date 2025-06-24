@@ -1,0 +1,30 @@
+@config "../../tailwind.config.js";
+
+/* External library styles */
+@import "../../node_modules/vue-final-modal/dist/style.css";
+@import "../../node_modules/vue-multiselect/dist/vue-multiselect.css";
+
+/* Common styles */
+@import "./common/common.css";
+
+/* Common modules */
+@import "./common/forms.css";
+@import "./common/radios.css";
+@import "./common/alerts.css";
+@import "./common/headings.css";
+@import "./common/modal.css";
+@import "./common/button_pair.css";
+@import "./common/loading.css";
+
+/* Admin-only modules */
+@import "./admin/content.css";
+@import "./admin/headings.css";
+@import "./admin/buttons.css";
+@import "./admin/header.css";
+@import "./admin/forms.css";
+@import "./admin/record_list.css";
+@import "./admin/record_view.css";
+@import "./admin/sidebar_nav.css";
+@import "./admin/sidebar_nav_submenu.css";
+@import "./admin/dashboard.css";
+@import "./admin/password.css";

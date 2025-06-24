@@ -1,0 +1,65 @@
+html {
+    @apply font-light leading-normal text-gray-800;
+}
+
+body {
+    @apply relative z-0 overflow-x-hidden;
+}
+
+.button-link {
+    @apply font-light;
+}
+
+a, .button-link {
+    @apply text-blue-500 text-left no-underline transition-default;
+    @apply hover:underline hover:text-blue-700 active:underline active:text-blue-700;
+    @apply focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-inherit focus:rounded-sm focus:outline-none focus:text-blue-700 focus:underline;
+    @apply disabled:opacity-75;
+    @apply disabled:hover:no-underline disabled:hover:cursor-not-allowed;
+}
+
+a[href^=tel], a[href^=mailto] {
+    @apply whitespace-nowrap;
+}
+
+b, strong {
+    @apply font-bold;
+}
+
+/* re-add margin to p as it's reset in tailwind's normalize */
+p {
+    @apply my-4;
+}
+
+/* re-add list styles as tailwind removes them */
+ul, ol {
+    @apply pl-10;
+}
+ul {
+    @apply list-disc;
+}
+ol {
+    @apply list-decimal;
+}
+
+address {
+    @apply not-italic;
+}
+
+td {
+    @apply align-top;
+}
+
+img {
+    /* this is to override tailwind's base which sets images to block */
+    @apply inline;
+}
+
+.no_first_last_margin {
+    &>:first-child {
+        @apply mt-0;
+    }
+    &>:last-child {
+        @apply mb-0;
+    }
+}

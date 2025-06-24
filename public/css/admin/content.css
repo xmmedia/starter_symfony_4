@@ -1,0 +1,16 @@
+.content-wrap {
+    /* bg-white hides side menu bg color on mobile. Otherwise content is transparent */
+    @apply relative z-10 lg:z-auto min-h-screen lg:ml-64 transition-all duration-150 ease-in-out bg-white;
+
+    /* the following are for the admin menu when closed and then open */
+    .sidebar_nav-visible & {
+        @apply translate-x-[10rem] lg:translate-x-[16rem];
+    }
+    .sidebar_nav-submenu-open & {
+        @apply translate-x-[20rem] lg:translate-x-[16rem];
+    }
+}
+
+.box {
+    @apply p-4 border border-gray-400 shadow-md;
+}

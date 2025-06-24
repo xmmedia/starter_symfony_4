@@ -1,0 +1,9 @@
+.content-img-center {
+    @apply block mx-auto my-4;
+}
+.content-img-left {
+    @apply float-left my-4 mr-4;
+}
+.content-img-right {
+    @apply float-right my-4 ml-4;
+}

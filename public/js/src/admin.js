@@ -27,7 +27,7 @@ import LocalTime from './common/local_time';
 import { MeQuery } from './admin/queries/user.query.graphql';
 
 // SASS/CSS
-import '../../css/admin.scss';
+import '../../css/admin.css';
 
 const pinia = createPinia();
 const rootStore = useRootStore(pinia);

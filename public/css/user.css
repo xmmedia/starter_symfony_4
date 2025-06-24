@@ -1,0 +1,24 @@
+@import "../../tailwind.config.js";
+@import '../../node_modules/vue-multiselect/dist/vue-multiselect.css';
+
+/* common styles */
+@import "./common/common.css";
+@import "./common/alerts.css";
+@import "./common/content_alignment.css";
+@import "./common/content.css";
+@import "./common/headings.css";
+@import "./common/forms.css";
+@import "./common/radios.css";
+@import "./common/modal.css";
+@import "./common/embed.css";
+@import "./common/loading.css";
+
+/* public only styles */
+@import "./user/buttons.css";
+@import "./user/headings.css";
+@import "./user/header.css";
+@import "./user/footer.css";
+@import "./user/forms.css";
+
+/* page specific */
+/* @import ; */

@@ -1,0 +1,23 @@
+.button {
+    @apply py-2 px-4 text-white font-extralight bg-blue-500 text-center shadow-none border-2 border-blue-500 rounded tracking-wider transition-default outline-none;
+    @apply hover:text-white hover:bg-blue-800 hover:border-blue-800 hover:no-underline;
+    @apply focus:ring-2 focus:ring-indigo-400 focus:ring-offset-1 focus:outline-none focus:no-underline;
+    @apply disabled:bg-gray-400 disabled:border-gray-400 disabled:cursor-not-allowed;
+    @apply disabled:hover:bg-gray-400 disabled:hover:border-gray-400 disabled:hover:cursor-not-allowed;
+}
+
+.button-critical {
+    @apply text-red-600 bg-white border-red-600;
+    @apply hover:bg-red-600 hover:border-red-600;
+    @apply focus:border-red-600;
+    @apply disabled:bg-white disabled:border-gray-400;
+    @apply disabled:hover:text-red-600 disabled:hover:bg-white;
+}
+
+a.button {
+    @apply inline-block;
+    @apply focus:bg-blue-500 focus:text-white;
+}
+a.button-critical {
+    @apply focus:bg-white;
+}

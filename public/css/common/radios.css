@@ -1,0 +1,100 @@
+/*stylelint-disable no-descending-specificity*/
+
+/* adapted from: https://scottaohara.github.io/a11y_styled_form_controls/src/radio-button--pill/ */
+.radio-pill {
+    @apply inline-block relative;
+
+    input {
+        @apply absolute w-full h-full top-0 left-0 border-2 appearance-none;
+        background: none;
+        opacity: .00001;
+        z-index: 2;
+    }
+
+    label {
+        @apply block py-1 px-5 text-blue-800 rounded-full border-2 border-transparent cursor-pointer text-sm;
+        &:after {
+            @apply absolute inset-0 border-2 border-gray-400 rounded-full cursor-pointer content-[''];
+            transition:
+                bottom 200ms ease-in-out,
+                border-color 200ms ease-in-out,
+                left 200ms ease-in-out,
+                right 200ms ease-in-out,
+                top 200ms ease-in-out;
+        }
+    }
+
+    input:hover ~ label, label:hover {
+        @apply bg-gray-200 border-gray-600;
+        &:after {
+            @apply border-gray-600;
+        }
+    }
+
+    input:checked + label {
+        &, &:hover {
+            @apply bg-blue-400 border-blue-400 text-white;
+        }
+        &:after {
+            @apply border-blue-400;
+        }
+    }
+
+    input:focus ~ label {
+        &, &:after {
+            @apply border-blue-600 cursor-pointer;
+            bottom: -.20rem;
+            left: -.20rem;
+            right: -.20rem;
+            top: -.20rem;
+        }
+    }
+}
+.radio-pill-dark {
+    label {
+        @apply text-gray-300;
+    }
+
+    input:hover ~ label, label:hover {
+        @apply text-gray-700;
+    }
+
+    input:checked + label {
+        &, &:hover {
+            @apply text-white;
+        }
+    }
+}
+
+.radio-pill-green {
+    input:hover ~ label, label:hover, input:focus ~ label {
+        &, &:after {
+            @apply border-green-700;
+        }
+    }
+
+    input:checked + label {
+        &, &:hover {
+            @apply bg-green-600 border-green-600;
+        }
+        &:after {
+            @apply border-green-600;
+        }
+    }
+}
+.radio-pill-red {
+    input:hover ~ label, label:hover, input:focus ~ label {
+        &, &:after {
+            @apply border-red-700;
+        }
+    }
+
+    input:checked + label {
+        &, &:hover {
+            @apply bg-red-600 border-red-600;
+        }
+        &:after {
+            @apply border-red-600;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+.dashboard-link {
+    @apply block w-40 h-40 p-2 text-center leading-none border border-gray-300 transition-colors duration-150 ease-in-out;
+    &:hover,
+    &:active,
+    &:focus {
+        @apply bg-gray-200 no-underline;
+    }
+
+    svg {
+        @apply block w-24 h-24 mt-2 mx-auto mb-2 text-black fill-current;
+    }
+}

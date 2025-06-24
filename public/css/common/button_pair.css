@@ -1,0 +1,22 @@
+.button_pair-wrap {
+    @apply flex;
+
+    > * {
+        transition: background-color 0.25s ease-in-out, border 0.25s ease-in-out;
+        &:nth-child(1) {
+            border-radius: 3px 0 0 3px;
+            border-right-color: transparent;
+        }
+        &:nth-child(2) {
+            border-radius: 0 3px 3px 0;
+        }
+    }
+}
+.button_pair-button {
+    @apply block py-2 px-5 text-sm text-blue-500 border border-blue-200 rounded;
+    @apply hover:bg-white hover:border-blue-500 hover:no-underline;
+    @apply focus:no-underline;
+}
+.button_pair-inactive {
+    @apply block py-2 px-5 text-sm text-gray-400 border border-gray-400 rounded;
+}
