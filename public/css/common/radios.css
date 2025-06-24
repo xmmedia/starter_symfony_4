@@ -1,4 +1,4 @@
-/* stylelint-disable no-descending-specificity */
+/* stylelint-disable no-descending-specificity, number-max-precision */
 
 /* adapted from: https://scottaohara.github.io/a11y_styled_form_controls/src/radio-button--pill/ */
 .radio-pill {
