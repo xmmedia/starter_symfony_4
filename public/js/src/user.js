@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createVfm } from 'vue-final-modal';
-import { createHead } from '@unhead/vue';
+import { createHead } from '@unhead/vue/client';
 
 import router from './user/router';
 import { useRootStore } from '@/user/stores/root';
