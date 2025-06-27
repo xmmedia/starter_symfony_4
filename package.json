@@ -79,7 +79,7 @@
     "dotenv": "^17.0.0",
     "eslint": "^8.0.0",
     "eslint-plugin-vue": "^9.0.0",
-    "jsdom": "^24.0.0",
+    "jsdom": "^26.0.0",
     "postcss": "^8.2.1",
     "sass": "^1.62.1",
     "stylelint": "^16.0.2",
@@ -90,7 +90,7 @@
     "vite-plugin-manifest-sri": "^0.2.0",
     "vite-plugin-mkcert": "^1.16.0",
     "vite-plugin-symfony": "^8.0",
-    "vitest": "^2.1.1"
+    "vitest": "^3.0.0"
   },
   "packageManager": "yarn@4.9.2"
 }
