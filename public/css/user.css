@@ -5,10 +5,10 @@
 
 @import "tailwindcss";
 
-@layer components {
-    /* Base styles */
-    @import "./common/base.css";
+/* Base styles */
+@import "./common/base.css";
 
+@layer components {
     /* common styles */
     @import "./common/common.css";
     @import "./common/alerts.css";

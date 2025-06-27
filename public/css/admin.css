@@ -5,14 +5,14 @@
 
 @import "tailwindcss";
 
+/* External library styles */
+@import "../../node_modules/vue-final-modal/dist/style.css";
+@import "../../node_modules/vue-multiselect/dist/vue-multiselect.css";
+
+/* Base styles */
+@import "./common/base.css";
+
 @layer components {
-    /* External library styles */
-    @import "../../node_modules/vue-final-modal/dist/style.css";
-    @import "../../node_modules/vue-multiselect/dist/vue-multiselect.css";
-
-    /* Base styles */
-    @import "./common/base.css";
-
     /* Common styles */
     @import "./common/common.css";
 
