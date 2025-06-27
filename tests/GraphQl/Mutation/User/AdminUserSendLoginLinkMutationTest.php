@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\GraphQl\Mutation\User;
 
 use App\Entity\User;
-use App\GraphQl\Mutation\User\AdminUserSendActivationToUserMutation;
 use App\GraphQl\Mutation\User\AdminUserSendLoginLinkMutation;
-use App\Model\User\Command\SendActivation;
 use App\Model\User\Command\SendLoginLink;
-use App\Model\User\Name;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;

@@ -5,29 +5,16 @@ declare(strict_types=1);
 namespace App\Tests\GraphQl\Mutation\User;
 
 use App\Entity\User;
-use App\GraphQl\Mutation\User\UserActivateMutation;
 use App\GraphQl\Mutation\User\UserLoginLinkMutation;
-use App\Model\User\Command\ActivateUser;
-use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\SendLoginLink;
-use App\Model\User\Role;
 use App\Projection\User\UserFinder;
-use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
-use Symfony\Component\HttpClient\MockHttpClient;
-use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
-use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
-use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
-use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
-use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 use Xm\SymfonyBundle\Model\Email;
-use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
 class UserLoginLinkMutationTest extends BaseTestCase
 {

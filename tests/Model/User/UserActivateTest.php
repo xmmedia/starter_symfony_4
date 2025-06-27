@@ -10,7 +10,6 @@ use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\User;
 use App\Tests\BaseTestCase;
-use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
 
 class UserActivateTest extends BaseTestCase
 {
@@ -55,7 +54,6 @@ class UserActivateTest extends BaseTestCase
 
         $user->activateByAdmin();
     }
-
 
     public function testActivate(): void
     {
