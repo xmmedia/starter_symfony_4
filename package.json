@@ -50,7 +50,7 @@
     "libphonenumber-js": "^1.7.22",
     "lodash": "^4.17.11",
     "omit-deep-lodash": "^1.1.5",
-    "pinia": "^2.0.34",
+    "pinia": "^3.0.0",
     "pluralize": "^8.0.0",
     "postcss-env-function": "^7.0.0",
     "postcss-nested": "^7.0.2",
