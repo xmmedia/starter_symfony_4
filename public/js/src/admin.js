@@ -59,10 +59,16 @@ apolloClient.query({ query: MeQuery })
             Sentry.init({
                 app,
                 dsn: import.meta.env.VITE_SENTRY_DSN,
+                sendDefaultPii: true,
+                integrations: [
+                    Sentry.browserTracingIntegration({ router })
+                ],
             });
             if (rootStore.user) {
                 Sentry.setUser({ userId: rootStore.user.userId });
             }
+
+            pinia.use(Sentry.createSentryPiniaPlugin());
         }
 
         app.use(router)
