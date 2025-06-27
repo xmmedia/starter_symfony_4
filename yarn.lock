@@ -2082,16 +2082,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xstate/vue@npm:^3.0.2":
-  version: 3.1.4
-  resolution: "@xstate/vue@npm:3.1.4"
+"@xstate/vue@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@xstate/vue@npm:5.0.0"
   peerDependencies:
     vue: ^3.0.0
-    xstate: ^5.18.2
+    xstate: ^5.20.0
   peerDependenciesMeta:
     xstate:
       optional: true
-  checksum: 10/0f3c75f6b17e042e8aad7e150dde7cc3c8a3e4cdd4562559ccf393279e49b0332bc70f70c14af16f70972c06069665a3db29a8e947735fa8e710fbd50fbba468
+  checksum: 10/8562ef2fadbb56671d399e5c0b21581dd17f345d2492a47e29e1c3b432deeb963606940b37707a1293f30974d301d9a7b9bf35cca7a7ca6e939406955e6fb1e8
   languageName: node
   linkType: hard
 
@@ -6652,7 +6652,7 @@ __metadata:
     "@vuelidate/components": "npm:^1.2.6"
     "@vuelidate/core": "npm:^2.0.2"
     "@vuelidate/validators": "npm:^2.0.2"
-    "@xstate/vue": "npm:^3.0.2"
+    "@xstate/vue": "npm:^5.0.0"
     "@zootools/email-spell-checker": "npm:^1.12.0"
     "@zxcvbn-ts/core": "npm:^3.0.4"
     "@zxcvbn-ts/language-common": "npm:^3.0.4"
