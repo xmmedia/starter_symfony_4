@@ -6179,14 +6179,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-flatpickr-component@npm:^11.0.0":
-  version: 11.0.5
-  resolution: "vue-flatpickr-component@npm:11.0.5"
+"vue-flatpickr-component@npm:^12.0.0":
+  version: 12.0.0
+  resolution: "vue-flatpickr-component@npm:12.0.0"
   dependencies:
     flatpickr: "npm:^4.6.13"
   peerDependencies:
     vue: ^3.2.0
-  checksum: 10/327eb49e2561731b4db1a4cebe21a06fcb0594113314d523d4cd7613d65fb928b503b1ea147846fbe3040db4f004ec1ab8dbf24ce3eef0f7a0a2d868a30bf43e
+  checksum: 10/25600f93331c2b7915bdb8096f96360a7475c1fd29746b1bc9720a8a66e557f8bc570ba7ea225e2a3dbf791313fcf5a7d1dd295504a4a4530fbc92cd23619380
   languageName: node
   linkType: hard
 
@@ -6492,7 +6492,7 @@ __metadata:
     vitest: "npm:^3.0.0"
     vue: "npm:^3.2.0"
     vue-final-modal: "npm:^4.3.0"
-    vue-flatpickr-component: "npm:^11.0.0"
+    vue-flatpickr-component: "npm:^12.0.0"
     vue-global-events: "npm:^3.0.0"
     vue-multiselect: "npm:^3.0.0-beta.2"
     vue-router: "npm:^4.0.0"
