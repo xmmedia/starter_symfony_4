@@ -9,13 +9,13 @@
 @import "../../node_modules/vue-final-modal/dist/style.css";
 @import "../../node_modules/vue-multiselect/dist/vue-multiselect.css";
 
+/* Common styles */
+@import "./common/common.css";
+
 /* Base styles */
-@import "./common/base.css";
+@import "./admin/base.css";
 
 @layer components {
-    /* Common styles */
-    @import "./common/common.css";
-
     /* Common modules */
     @import "./common/forms.css";
     @import "./common/radios.css";

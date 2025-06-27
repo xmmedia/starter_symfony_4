@@ -5,12 +5,14 @@
 
 @import "tailwindcss";
 
+/* common styles */
+@import "./common/common.css";
+
 /* Base styles */
-@import "./common/base.css";
+@import "./user/base.css";
 
 @layer components {
-    /* common styles */
-    @import "./common/common.css";
+    /* Common modules */
     @import "./common/alerts.css";
     @import "./common/content_alignment.css";
     @import "./common/content.css";
@@ -20,9 +22,6 @@
     @import "./common/modal.css";
     @import "./common/embed.css";
     @import "./common/loading.css";
-
-    /* user base styles */
-    @import "./user/base.css";
 
     /* public only styles */
     @import "./user/buttons.css";
