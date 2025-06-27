@@ -71,12 +71,4 @@ final class InvalidUserActiveStatus extends \RuntimeException
             $userId,
         ));
     }
-
-    public static function triedToLogin(UserId $userId): self
-    {
-        return new self(\sprintf(
-            'User "%s" tried to login but their currently inactive.',
-            $userId,
-        ));
-    }
 }
