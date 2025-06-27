@@ -2,12 +2,12 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ vite_entry_link_tags('public') }}
+    {{ vite_entry_link_tags('user') }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ vite_entry_script_tags('public', { attr: { 'data-entry': 'public' } }) }}
+    {{ vite_entry_script_tags('user', { attr: { 'data-entry': 'user' } }) }}
 
     {% if app.debug %}
         {# makes svgs work with the dev server #}
