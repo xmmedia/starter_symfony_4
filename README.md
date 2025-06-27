@@ -36,6 +36,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Copy (use "Push to another server") or recreate the templates in Postmark. The templates are referenced by the aliases.
 1. *Optional:* Run `bin/console app:graphql:dump-schema <username>` to update the GraphQL schema file where `username` is the email of an admin user.
 1. *Optional:* Rename the project in PhpStorm.
+2. *Optional:* Run `npx @sentry/wizard@latest -i sourcemaps` to configure Sentry to upload source maps for the frontend.
 
 **Local dev site can be accessed at: https://[domain]/**
 

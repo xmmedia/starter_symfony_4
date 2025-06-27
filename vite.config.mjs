@@ -23,7 +23,8 @@ export default defineConfig(({ command }) => {
                 sriAlgorithm: 'sha384',
             }),
             sentryVitePlugin({
-                disable: process.env.NODE_ENV !== 'production',
+                disable: process.env.NODE_ENV !== 'production' && !!process.env.SENTRY_AUTH_TOKEN,
+                authToken: process.env.SENTRY_AUTH_TOKEN,
                 // @todo-symfony
                 org: 'xm-media',
                 project: 'symfony-starter',
