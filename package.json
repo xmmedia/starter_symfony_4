@@ -29,7 +29,7 @@
     "@sentry/vue": "^9.0.0",
     "@tailwindcss/postcss": "^4.1.10",
     "@types/lodash": "^4.17.15",
-    "@unhead/vue": "^1.7.4",
+    "@unhead/vue": "^2.0.0",
     "@vue/apollo-composable": "^4.0.0",
     "@vuelidate/components": "^1.2.6",
     "@vuelidate/core": "^2.0.2",
