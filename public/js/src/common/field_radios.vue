@@ -68,6 +68,10 @@ const props = defineProps({
         type: [ String, Array, Object ],
         default: null,
     },
+    labelClasses: {
+        type: [ String, Array, Object ],
+        default: null,
+    },
     darkPills: {
         type: Boolean,
         default: false,
