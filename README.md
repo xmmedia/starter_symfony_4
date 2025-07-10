@@ -71,9 +71,9 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 ### Locally for Development
 
   - [Lando](https://lando.dev/)
-  - [Node 18](https://nodejs.org/)
+  - [Node 22](https://nodejs.org/)
   - [nvm](https://github.com/nvm-sh/nvm)
-  - [Yarn v3](https://v3.yarnpkg.com/getting-started/install)
+  - [Yarn v4](https://yarnpkg.com/)
 
 ## Commands
 
