@@ -33,7 +33,7 @@ final class ChangedPassword extends AggregateChanged
             if (\array_key_exists('hashedPassword', $this->payload)) {
                 $this->hashedPassword = $this->payload['hashedPassword'];
             } else {
-                // @todo-symfony remove if this & test is a new project
+                // @todo-symfony remove encodedPassword conditional (& test) if this is a new project (encodedPassword is the old name)
                 $this->hashedPassword = $this->payload['encodedPassword'];
             }
         }
