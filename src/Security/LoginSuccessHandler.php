@@ -12,7 +12,6 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\Security\Http\HttpUtils;
-use Symfony\Component\Security\Http\ParameterBagUtils;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
@@ -41,7 +40,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 
     protected function determineTargetUrl(Request $request): string
     {
-        $targetUrl = ParameterBagUtils::getRequestParameterValue($request, '_target_path');
+        $targetUrl = $request->get('_target_path');
 
         if (\is_string($targetUrl) && (str_starts_with($targetUrl, '/') || str_starts_with($targetUrl, 'http'))) {
             return $targetUrl;
