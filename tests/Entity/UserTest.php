@@ -6,6 +6,7 @@ namespace App\Tests\Entity;
 
 use App\Entity\User;
 use App\Model\User\Role;
+use App\Model\User\UserData;
 use App\Tests\BaseTestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -152,6 +153,19 @@ class UserTest extends BaseTestCase
         $this->assertNull($user->lastLogin());
     }
 
+    public function testFirstRole(): void
+    {
+        $user = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $reflection->getProperty('roles')
+            ->setValue($user, [
+                Role::ROLE_USER()->getValue(),
+                Role::ROLE_ADMIN()->getValue(),
+            ]);
+
+        $this->assertEquals(Role::ROLE_USER(), $user->firstRole()->getValue());
+    }
+
     public function testRolesNone(): void
     {
         $user = new User();
@@ -198,6 +212,29 @@ class UserTest extends BaseTestCase
 
         $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $user->roles());
         $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $user->getRoles());
+    }
+
+    public function testUserData(): void
+    {
+        $faker = $this->faker();
+
+        $userData = $faker->userData();
+
+        $user = new User();
+        $reflection = new \ReflectionClass(User::class);
+        $reflection->getProperty('userData')
+            ->setValue($user, [
+                'phoneNumber' => $userData->phoneNumber(),
+            ]);
+
+        $this->assertInstanceOf(UserData::class, $user->userData());
+    }
+
+    public function testUserDataNull(): void
+    {
+        $user = new User();
+
+        $this->assertNull($user->userData());
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('userEqualProvider')]
