@@ -23,7 +23,6 @@ class UrlGeneratorTest extends BaseTestCase
 
         $reflection = new \ReflectionClass($generator::class);
         $method = $reflection->getMethod('generate');
-        $method->setAccessible(true);
 
         $result = $method->invokeArgs($generator, ['test', ['test' => 'test']]);
 
