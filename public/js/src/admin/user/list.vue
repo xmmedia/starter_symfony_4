@@ -198,6 +198,11 @@ const { loading, onResult, onError, refetch: usersRefetch } = useQuery(GetUsersQ
     debounce: 500,
 });
 onResult(({ data: { Users }}) => {
+    if (!Users) {
+        sendEvent({ type: 'ERROR' });
+        return;
+    }
+
     users.value = Users;
     sendEvent({ type: 'LOADED' });
 });
