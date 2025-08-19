@@ -11997,16 +11997,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.95",
+            "version": "v2.0.98",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "42734a7ed113ea3553bf624bee123bca933c80db"
+                "reference": "4920f6990e4ecc6718c5512abb57534ea69a0874"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/42734a7ed113ea3553bf624bee123bca933c80db",
-                "reference": "42734a7ed113ea3553bf624bee123bca933c80db",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/4920f6990e4ecc6718c5512abb57534ea69a0874",
+                "reference": "4920f6990e4ecc6718c5512abb57534ea69a0874",
                 "shasum": ""
             },
             "require": {
@@ -12021,7 +12021,7 @@
                 "nesbot/carbon": "^2.24 || ^3.0",
                 "odolbeau/phone-number-bundle": "^3.0 || ^4.0",
                 "overblog/graphql-bundle": "^0.15.0 || ^1.0",
-                "php": "^8.1 || ^8.2 || ^8.3",
+                "php": "^8.1 || ^8.2 || ^8.3 || ^8.4",
                 "prooph/event-store-bus-bridge": "^3.3",
                 "prooph/event-store-symfony-bundle": "^0.10.0 || ^0.11.0",
                 "prooph/pdo-event-store": "^1.11",
@@ -12080,9 +12080,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.95"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.98"
             },
-            "time": "2025-08-19T04:32:39+00:00"
+            "time": "2025-08-19T22:59:48+00:00"
         }
     ],
     "packages-dev": [
