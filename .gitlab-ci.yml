@@ -15,7 +15,7 @@ cache:
     - node_modules/
 
 variables:
-  SERVER_PHP_PATH: php82
+  SERVER_PHP_PATH: php83
   APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
