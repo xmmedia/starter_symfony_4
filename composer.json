@@ -5,7 +5,7 @@
     "type": "project",
     "version": "1.0.0",
     "require": {
-        "php": "~8.3.0",
+        "php": "~8.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -106,7 +106,8 @@
         "symfony/polyfill-php80": "*",
         "symfony/polyfill-php81": "*",
         "symfony/polyfill-php82": "*",
-        "symfony/polyfill-php83": "*"
+        "symfony/polyfill-php83": "*",
+        "symfony/polyfill-php84": "*"
     },
     "conflict": {
         "symfony/symfony": "*"

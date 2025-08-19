@@ -220,7 +220,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/localheinz/diff" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/marc-mabe/php-enum-phpstan" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php84" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/staabm/side-effects-detector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/type-info" />
     </content>

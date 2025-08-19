@@ -65,7 +65,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 
 ### Server
 
-  - PHP 8.3
+  - PHP 8.4
   - MySQL 8.0
 
 ### Locally for Development
@@ -154,3 +154,16 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
   - Dev Tools
     - [Vue Devtools](https://github.com/vuejs/vue-devtools)
     - [Apollo Devtools](https://github.com/apollographql/apollo-client-devtools)
+
+## Updating PHP version
+
+1. Change version in `composer.json` & add polyfill for new PHP version, ie, `symfony/polyfill-php84`.
+1. Update the PHP version in the following files:
+   - `.lando.yml`
+   - `setup_dev.sh` – 4 places
+   - `setup_prod.sh` – 4 places
+   - `.gitlab-ci.yml` – 2 places
+1. Run `lando rebuild` to rebuild the Lando container with the new PHP version.
+1. Run `lando composer update` or `composer update` to update the PHP dependencies.
+1. Run the checks `nvm use && bin/check_full`.
+1. Update version in `README.md`.
