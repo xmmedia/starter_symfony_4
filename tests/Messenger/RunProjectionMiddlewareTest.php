@@ -27,7 +27,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
                 ->with($projectionName);
         }
 
-        (new RunProjectionMiddleware($projectionRunner))->handle(
+        new RunProjectionMiddleware($projectionRunner)->handle(
             new Envelope($message),
             $this->getStackMock(),
         );
@@ -48,7 +48,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
         $projectionRunner = \Mockery::mock(ProjectionRunner::class);
         $projectionRunner->shouldNotReceive('run');
 
-        (new RunProjectionMiddleware($projectionRunner))->handle(
+        new RunProjectionMiddleware($projectionRunner)->handle(
             new Envelope(new \stdClass()),
             $this->getStackMock(),
         );
@@ -61,7 +61,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
 
         $message = \Mockery::mock(AggregateChanged::class);
 
-        (new RunProjectionMiddleware($projectionRunner))->handle(
+        new RunProjectionMiddleware($projectionRunner)->handle(
             new Envelope($message),
             $this->getStackMock(),
         );
@@ -74,7 +74,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
 
         $message = \Mockery::mock(UserLoggedIn::class);
 
-        (new RunProjectionMiddleware($projectionRunner))->handle(
+        new RunProjectionMiddleware($projectionRunner)->handle(
             new Envelope($message),
             $this->getStackMock(),
         );

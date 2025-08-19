@@ -27,7 +27,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::Q => 'name',
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND (u.email LIKE :q0 OR u.first_name LIKE :q0 OR u.last_name LIKE :q0)';
@@ -42,7 +42,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::Q => 'name1 name2',
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND (u.email LIKE :q0 OR u.first_name LIKE :q0 OR u.last_name LIKE :q0 OR u.email LIKE :q1 OR u.first_name LIKE :q1 OR u.last_name LIKE :q1)';
@@ -58,7 +58,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::Q => '',
         ]);
 
-        $this->assertEquals($this->defaultParts, (new UserFilterQueryBuilder())->queryParts($filters));
+        $this->assertEquals($this->defaultParts, new UserFilterQueryBuilder()->queryParts($filters));
     }
 
     public function testEmail(): void
@@ -67,7 +67,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::EMAIL => 'email@email.com',
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND u.email LIKE :email';
@@ -82,7 +82,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::EMAIL => '',
         ]);
 
-        $this->assertEquals($this->defaultParts, (new UserFilterQueryBuilder())->queryParts($filters));
+        $this->assertEquals($this->defaultParts, new UserFilterQueryBuilder()->queryParts($filters));
     }
 
     public function testEmailExact(): void
@@ -91,7 +91,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::EMAIL_EXACT => 'email@email.com',
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND u.email LIKE :email';
@@ -106,7 +106,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::EMAIL_EXACT => '',
         ]);
 
-        $this->assertEquals($this->defaultParts, (new UserFilterQueryBuilder())->queryParts($filters));
+        $this->assertEquals($this->defaultParts, new UserFilterQueryBuilder()->queryParts($filters));
     }
 
     public function testActive(): void
@@ -115,7 +115,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::ACTIVE => true,
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND u.active = true AND u.verified = true';
@@ -129,7 +129,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::ACTIVE => false,
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND (u.active = false OR u.verified = false)';
@@ -143,7 +143,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::ACCOUNT_STATUS => 'ACTIVE',
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND u.active = true AND u.verified = true';
@@ -157,7 +157,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::ACCOUNT_STATUS => 'INACTIVE',
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND (u.active = false OR u.verified = false)';
@@ -171,7 +171,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::ACCOUNT_STATUS => 'ALL',
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1';
@@ -185,7 +185,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::ROLES => ['ROLE_ADMIN'],
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND (JSON_CONTAINS(u.roles, :role0) = 1)';
@@ -200,7 +200,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::ROLES => ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],
         ]);
 
-        $result = (new UserFilterQueryBuilder())->queryParts($filters);
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND (JSON_CONTAINS(u.roles, :role0) = 1 OR JSON_CONTAINS(u.roles, :role1) = 1)';
@@ -216,6 +216,6 @@ class UserFilterQueryBuilderTest extends BaseTestCase
             UserFilters::ROLES => [],
         ]);
 
-        $this->assertEquals($this->defaultParts, (new UserFilterQueryBuilder())->queryParts($filters));
+        $this->assertEquals($this->defaultParts, new UserFilterQueryBuilder()->queryParts($filters));
     }
 }

@@ -16,7 +16,7 @@ class RoleTypeTest extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('roleProvider')]
     public function testSerialize(Role|string|null $value, ?string $expected): void
     {
-        $result = (new RoleType())->serialize($value);
+        $result = new RoleType()->serialize($value);
 
         $this->assertEquals($expected, $result);
     }
@@ -25,13 +25,13 @@ class RoleTypeTest extends TestCase
     {
         $this->expectException(Error::class);
 
-        (new RoleType())->serialize(1);
+        new RoleType()->serialize(1);
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('roleProvider')]
     public function testParseValue(Role|string|null $expected, ?string $value): void
     {
-        $result = (new RoleType())->parseValue($value);
+        $result = new RoleType()->parseValue($value);
 
         $this->assertEquals($expected, $result);
     }
@@ -60,7 +60,7 @@ class RoleTypeTest extends TestCase
         $valueNode = new EnumValueNode([]);
         $valueNode->value = $value;
 
-        $result = (new RoleType())->parseLiteral($valueNode);
+        $result = new RoleType()->parseLiteral($valueNode);
 
         $this->assertEquals($expected, $result);
     }
@@ -82,7 +82,7 @@ class RoleTypeTest extends TestCase
     {
         $valueNode = new FieldNode([]);
 
-        $result = (new RoleType())->parseLiteral($valueNode);
+        $result = new RoleType()->parseLiteral($valueNode);
 
         $this->assertNull($result);
     }
@@ -91,7 +91,7 @@ class RoleTypeTest extends TestCase
     {
         $this->expectException(\Exception::class);
 
-        (new RoleType())->parseValue('asdf');
+        new RoleType()->parseValue('asdf');
     }
 
     public function testAliases(): void

@@ -41,7 +41,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
 
         $event = new ErrorFormattingEvent($error, []);
 
-        (new GraphQlErrorSubscriber($security))->{$method}($event);
+        new GraphQlErrorSubscriber($security)->{$method}($event);
 
         $this->assertTrue($event->getFormattedError()->offsetExists('message'));
         $this->assertEquals(
@@ -69,7 +69,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
 
         $event = new ErrorFormattingEvent($error, []);
 
-        (new GraphQlErrorSubscriber($security))->{$method}($event);
+        new GraphQlErrorSubscriber($security)->{$method}($event);
 
         $this->assertTrue($event->getFormattedError()->offsetExists('code'));
         $this->assertEquals(
@@ -104,7 +104,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
 
         $event = new ErrorFormattingEvent($error, []);
 
-        (new GraphQlErrorSubscriber($security))->{$method}($event);
+        new GraphQlErrorSubscriber($security)->{$method}($event);
 
         $this->assertTrue($event->getFormattedError()->offsetExists('code'));
         $this->assertEquals(
@@ -137,7 +137,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
 
         $event = new ErrorFormattingEvent($error, []);
 
-        (new GraphQlErrorSubscriber($security))->{$method}($event);
+        new GraphQlErrorSubscriber($security)->{$method}($event);
 
         $this->assertTrue($event->getFormattedError()->offsetExists('code'));
         $this->assertEquals(
@@ -169,7 +169,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
 
         $event = new ErrorFormattingEvent($error, []);
 
-        (new GraphQlErrorSubscriber($security))->{$method}($event);
+        new GraphQlErrorSubscriber($security)->{$method}($event);
 
         $this->assertFalse($event->getFormattedError()->offsetExists('code'));
     }
@@ -190,7 +190,7 @@ class GraphQlErrorSubscriberTest extends BaseTestCase
 
         $event = new ErrorFormattingEvent($error, []);
 
-        (new GraphQlErrorSubscriber($security))->{$method}($event);
+        new GraphQlErrorSubscriber($security)->{$method}($event);
 
         $this->assertFalse($event->getFormattedError()->offsetExists('code'));
     }

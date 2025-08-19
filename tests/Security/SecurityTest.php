@@ -19,7 +19,7 @@ class SecurityTest extends BaseTestCase
             ->withNoArgs()
             ->andReturn(\Mockery::mock(User::class));
 
-        $result = (new Security($symfonySecurity))->getUser();
+        $result = new Security($symfonySecurity)->getUser();
 
         $this->assertInstanceOf(User::class, $result);
     }
@@ -32,7 +32,7 @@ class SecurityTest extends BaseTestCase
             ->withNoArgs()
             ->andReturnNull();
 
-        $result = (new Security($symfonySecurity))->getUser();
+        $result = new Security($symfonySecurity)->getUser();
 
         $this->assertNull($result);
     }
@@ -48,7 +48,7 @@ class SecurityTest extends BaseTestCase
             ->with($attribute, $subject)
             ->andReturnTrue();
 
-        $result = (new Security($symfonySecurity))->isGranted($attribute, $subject);
+        $result = new Security($symfonySecurity)->isGranted($attribute, $subject);
 
         $this->assertTrue($result);
     }
@@ -63,7 +63,7 @@ class SecurityTest extends BaseTestCase
             ->with($attribute, null)
             ->andReturnTrue();
 
-        $result = (new Security($symfonySecurity))->isGranted($attribute);
+        $result = new Security($symfonySecurity)->isGranted($attribute);
 
         $this->assertTrue($result);
     }
@@ -75,7 +75,7 @@ class SecurityTest extends BaseTestCase
             ->once()
             ->andReturnNull();
 
-        $result = (new Security($symfonySecurity))->isLoggedIn();
+        $result = new Security($symfonySecurity)->isLoggedIn();
 
         $this->assertFalse($result);
     }
@@ -91,7 +91,7 @@ class SecurityTest extends BaseTestCase
             ->with('IS_AUTHENTICATED_REMEMBERED', null)
             ->andReturnTrue();
 
-        $result = (new Security($symfonySecurity))->isLoggedIn();
+        $result = new Security($symfonySecurity)->isLoggedIn();
 
         $this->assertTrue($result);
     }
@@ -107,7 +107,7 @@ class SecurityTest extends BaseTestCase
             ->with('IS_AUTHENTICATED_REMEMBERED', null)
             ->andReturnFalse();
 
-        $result = (new Security($symfonySecurity))->isLoggedIn();
+        $result = new Security($symfonySecurity)->isLoggedIn();
 
         $this->assertFalse($result);
     }
@@ -120,7 +120,7 @@ class SecurityTest extends BaseTestCase
             ->with('ROLE_ADMIN', null)
             ->andReturnTrue();
 
-        $result = (new Security($symfonySecurity))->hasAdminRole();
+        $result = new Security($symfonySecurity)->hasAdminRole();
 
         $this->assertTrue($result);
     }
@@ -133,7 +133,7 @@ class SecurityTest extends BaseTestCase
             ->with('ROLE_ADMIN', null)
             ->andReturnFalse();
 
-        $result = (new Security($symfonySecurity))->hasAdminRole();
+        $result = new Security($symfonySecurity)->hasAdminRole();
 
         $this->assertFalse($result);
     }
@@ -146,7 +146,7 @@ class SecurityTest extends BaseTestCase
             ->withNoArgs()
             ->andReturn(\Mockery::mock(TokenInterface::class));
 
-        $result = (new Security($symfonySecurity))->getToken();
+        $result = new Security($symfonySecurity)->getToken();
 
         $this->assertInstanceOf(TokenInterface::class, $result);
     }
@@ -159,7 +159,7 @@ class SecurityTest extends BaseTestCase
             ->withNoArgs()
             ->andReturnNull();
 
-        $result = (new Security($symfonySecurity))->getToken();
+        $result = new Security($symfonySecurity)->getToken();
 
         $this->assertNull($result);
     }

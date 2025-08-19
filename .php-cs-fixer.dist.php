@@ -11,7 +11,7 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('node_modules')
     ->exclude('public/js');
 
-return (new PhpCsFixer\Config())
+return new PhpCsFixer\Config()
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRiskyAllowed(true)
     ->setRules([

@@ -164,7 +164,7 @@ final class AddUserCommand extends Command
             Assert::notEmpty($email, 'A valid email address is required.');
 
             Assert::true(
-                (new EmailValidator())->isValid($email, new RFCValidation()),
+                new EmailValidator()->isValid($email, new RFCValidation()),
                 'The email address in invalid.',
             );
 

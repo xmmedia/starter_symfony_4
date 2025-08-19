@@ -55,7 +55,7 @@ class UserFinder extends ServiceEntityRepository
     {
         $rsm = $this->createResultSetMappingBuilder('u');
         $select = $rsm->generateSelectClause();
-        $queryParts = (new UserFilterQueryBuilder())->queryParts($filters);
+        $queryParts = new UserFilterQueryBuilder()->queryParts($filters);
 
         $sql = <<<Query
 SELECT {$select}
@@ -85,7 +85,7 @@ Query;
      */
     public function countByFilters(UserFilters $filters): int
     {
-        $queryParts = (new UserFilterQueryBuilder())->queryParts($filters);
+        $queryParts = new UserFilterQueryBuilder()->queryParts($filters);
 
         $sql = <<<Query
 SELECT COUNT(DISTINCT u.user_id)

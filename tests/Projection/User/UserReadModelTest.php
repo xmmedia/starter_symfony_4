@@ -17,7 +17,7 @@ class UserReadModelTest extends BaseTestCase
             ->twice()
             ->withArgs(static fn (string $sql): bool => (bool) strpos($sql, '`user`'));
 
-        (new UserReadModel($connection))->init();
+        new UserReadModel($connection)->init();
     }
 
     public function testInsert(): void
