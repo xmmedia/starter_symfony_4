@@ -223,11 +223,10 @@ class UserTest extends BaseTestCase
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('userData')
-            ->setValue($user, [
-                'phoneNumber' => $userData->phoneNumber(),
-            ]);
+            ->setValue($user, $userData->toArray());
 
         $this->assertInstanceOf(UserData::class, $user->userData());
+        $this->assertEquals($userData->toArray(), $user->userData()->toArray());
     }
 
     public function testUserDataNull(): void
