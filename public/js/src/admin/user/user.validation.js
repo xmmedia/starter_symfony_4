@@ -35,7 +35,7 @@ export default () => {
                 }
 
                 if (!has(this, 'userId')) {
-                    return 0 < foundUsers.length;
+                    return 0 === foundUsers.length;
                 }
 
                 return 0 === foundUsers.filter(
