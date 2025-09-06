@@ -6096,7 +6096,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-eslint-parser@npm:^10.2.0":
+"vue-eslint-parser@npm:^10.0.0":
   version: 10.2.0
   resolution: "vue-eslint-parser@npm:10.2.0"
   dependencies:
@@ -6435,7 +6435,7 @@ __metadata:
     vite-plugin-symfony: "npm:^8.0"
     vitest: "npm:^3.0.0"
     vue: "npm:3.5.18"
-    vue-eslint-parser: "npm:^10.2.0"
+    vue-eslint-parser: "npm:^10.0.0"
     vue-final-modal: "npm:^4.3.0"
     vue-flatpickr-component: "npm:^12.0.0"
     vue-global-events: "npm:^3.0.0"
