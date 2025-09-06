@@ -56,7 +56,7 @@
     "postcss-nesting": "^13.0.2",
     "qs": "^6.7.0",
     "slugify": "^1.4.0",
-    "uuid": "^11.0.0",
+    "uuid": "^12.0.0",
     "vue": "^3.2.0",
     "vue-final-modal": "^4.3.0",
     "vue-flatpickr-component": "^12.0.0",
