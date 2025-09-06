@@ -66,7 +66,7 @@ export const money = function (value, decimals = 2) {
             currency: 'CAD',
             maximumFractionDigits: decimals,
         });
-    } catch (e) {
+    } catch {
         return '$'+price.toFixed(decimals);
     }
 };

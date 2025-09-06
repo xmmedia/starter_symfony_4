@@ -61,7 +61,7 @@ export default () => {
                 try {
                     // reject if in more than 3 breaches
                     return await pwnedPassword(value) < 3;
-                } catch (e) {
+                } catch {
                     // just allow if can't connect to haveibeenpwned
                     return true;
                 }
