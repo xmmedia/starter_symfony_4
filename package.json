@@ -92,5 +92,5 @@
     "vite-plugin-symfony": "^8.0",
     "vitest": "^3.0.0"
   },
-  "packageManager": "yarn@4.9.2"
+  "packageManager": "yarn@4.9.4"
 }
