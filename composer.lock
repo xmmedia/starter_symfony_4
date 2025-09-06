@@ -11895,16 +11895,16 @@
         },
         {
             "name": "wildbit/postmark-php",
-            "version": "v6.1.0",
+            "version": "v7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ActiveCampaign/postmark-php.git",
-                "reference": "9ba4ed06f607ae1cc7976fa507cd22dab395b078"
+                "reference": "f0a53b741833d4b2d1a3827c0bd66e70f4d26d62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ActiveCampaign/postmark-php/zipball/9ba4ed06f607ae1cc7976fa507cd22dab395b078",
-                "reference": "9ba4ed06f607ae1cc7976fa507cd22dab395b078",
+                "url": "https://api.github.com/repos/ActiveCampaign/postmark-php/zipball/f0a53b741833d4b2d1a3827c0bd66e70f4d26d62",
+                "reference": "f0a53b741833d4b2d1a3827c0bd66e70f4d26d62",
                 "shasum": ""
             },
             "require": {
@@ -11914,7 +11914,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.40",
                 "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^9"
+                "phpunit/phpunit": "^10.0"
             },
             "type": "library",
             "autoload": {
@@ -11929,22 +11929,22 @@
             "description": "The officially supported client for Postmark (http://postmarkapp.com)",
             "support": {
                 "issues": "https://github.com/ActiveCampaign/postmark-php/issues",
-                "source": "https://github.com/ActiveCampaign/postmark-php/tree/v6.1.0"
+                "source": "https://github.com/ActiveCampaign/postmark-php/tree/v7.0.0"
             },
-            "time": "2025-06-25T20:23:19+00:00"
+            "time": "2025-07-11T11:40:30+00:00"
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.98",
+            "version": "v2.0.99",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "4920f6990e4ecc6718c5512abb57534ea69a0874"
+                "reference": "639d71eaa923d7299a9c3b1d5a6b8ffa9820edfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/4920f6990e4ecc6718c5512abb57534ea69a0874",
-                "reference": "4920f6990e4ecc6718c5512abb57534ea69a0874",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/639d71eaa923d7299a9c3b1d5a6b8ffa9820edfc",
+                "reference": "639d71eaa923d7299a9c3b1d5a6b8ffa9820edfc",
                 "shasum": ""
             },
             "require": {
@@ -11972,7 +11972,7 @@
                 "symfony/messenger": "^6.2 || ^6.3 || ^6.4 || ^7.0",
                 "symfony/security-bundle": "^6.2 || ^6.3 || ^6.4 || ^7.0",
                 "symfony/validator": "^6.2 || ^6.3 || ^6.4 || ^7.0",
-                "wildbit/postmark-php": "^2.8 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
+                "wildbit/postmark-php": "^2.8 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "require-dev": {
                 "ekino/phpstan-banned-code": "^1.0",
@@ -12018,9 +12018,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.98"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.99"
             },
-            "time": "2025-08-19T22:59:48+00:00"
+            "time": "2025-09-06T02:26:18+00:00"
         }
     ],
     "packages-dev": [
