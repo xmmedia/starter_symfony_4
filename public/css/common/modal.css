@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 /**
 Note: Using Tailwind for the transform properties results in the transitions not working.
 This is because Tailwind applies the transform properties using a single `transform` property,
@@ -10,6 +12,7 @@ resulting in no transition between the two states.
     @apply opacity-100;
     transform: scale(1);
 }
+
 /* Closed state of the dialog */
 .admin-modal {
     /* bg-transparent because white shows through around the rounded corners */
@@ -21,9 +24,9 @@ resulting in no transition between the two states.
         overlay 0.3s ease-out allow-discrete,
         display 0.3s ease-out allow-discrete;
 }
-/* Before open state  */
-/* Needs to be after the previous dialog:open rule to take effect,
-    as the specificity is the same */
+
+/* Before open state:
+   Needs to be after the previous dialog:open rule to take effect, as the specificity is the same */
 @starting-style {
     .admin-modal:open {
         @apply opacity-0;
@@ -31,8 +34,8 @@ resulting in no transition between the two states.
     }
 }
 
-/* Transition the :backdrop when the dialog modal is promoted to the top layer */
-/* The backdrop transition on close doesn't work properly (as of September 2025 in Chrome 141). */
+/* Transition the :backdrop when the dialog modal is promoted to the top layer
+   The backdrop transition on close doesn't work properly (as of September 2025 in Chrome 141). */
 .admin-modal::backdrop {
     @apply bg-transparent;
     transition:
@@ -43,8 +46,9 @@ resulting in no transition between the two states.
 .admin-modal:open::backdrop {
     @apply bg-gray-900/95;
 }
+
 /* This starting-style rule cannot be nested inside the above selector
-because the nesting selector cannot represent pseudo-elements. */
+   because the nesting selector cannot represent pseudo-elements. */
 @starting-style {
     .admin-modal:open::backdrop {
         @apply bg-transparent;
