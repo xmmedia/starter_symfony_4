@@ -5,8 +5,8 @@
             @click.self="props.clickToClose ? close() : null">
         <div :class="contentClass">
             <div v-if="props.showClose" class="absolute top-4 right-5 text-2xl leading-3">
-                <button class="button-link pb-1 text-slate-600 hover:text-slate-400
-                           focus:ring-offset-2 ring-offset-gray-800 focus:text-slate-350 hover:text-slate-350 no-underline"
+                <button class="button-link pb-1 text-slate-600 no-underline hover:text-slate-400 hover:text-slate-350
+                           focus:ring-offset-2 ring-offset-gray-800 focus:text-slate-350"
                         type="button"
                         @click="close">×
                 </button>
@@ -66,8 +66,6 @@ const close = () => {
 };
 
 const closed = () => {
-    console.log('closed');
-
     setTimeout(() => {
         emit('closed');
     }, 1000); // time matches the CSS dialog + bg animation duration + extra buffer
