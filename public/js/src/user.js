@@ -1,6 +1,5 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { createVfm } from 'vue-final-modal';
 import { createHead } from '@unhead/vue/client';
 
 import router from './user/router';
@@ -72,7 +71,6 @@ apolloClient.query({ query: MeQuery })
 
         app.use(router)
             .use(pinia)
-            .use(createVfm())
             .use(createHead());
 
         app.directive('focus', vFocus);

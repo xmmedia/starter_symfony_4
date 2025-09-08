@@ -39,11 +39,6 @@ export default defineConfig(({ command }) => {
                     admin: './public/js/src/admin.js',
                     user: './public/js/src/user.js',
                 },
-                output: {
-                    manualChunks: {
-                        'vue-final-modal': [ 'vue-final-modal' ],
-                    },
-                },
             },
             sourcemap: 'serve' === command,
             // don't inline assets

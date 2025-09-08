@@ -74,8 +74,6 @@
                 <RouterView :key="$route.path" />
             </main>
         </div>
-
-        <ModalsContainer />
     </div>
 
     <LoadingSpinner v-else class="mt-8" />
@@ -85,7 +83,6 @@
 import { computed, ref } from 'vue';
 import { useHead } from '@unhead/vue';
 import { useRootStore } from './stores/root';
-import { ModalsContainer } from 'vue-final-modal';
 import MenuSubnav from './menu/subnav';
 import MenuSmall from './menu/small';
 /* eslint-disable no-unused-vars */

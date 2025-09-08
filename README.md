@@ -127,7 +127,6 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
     - [Jest](https://jestjs.io/) – JS unit testing
     - [Lodash](https://lodash.com/) – helper functions for JS
     - [date-fns](https://date-fns.org/) – helper functions for Dates in JS
-    - [Vue Final Modal](https://vue-final-modal.org/) – for modals 
     - [Faker.js](https://github.com/marak/Faker.js/) – for generating fake data in tests
     - [ESLint](https://eslint.org/) – checks JS for conventions & errors
     - [Stylelint](https://stylelint.io/) – checks CSS for conventions & errors

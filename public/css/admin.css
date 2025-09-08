@@ -6,7 +6,6 @@
 @source inline("md-enter-active md-leave-active md-enter md-leave-active");
 
 /* External library styles */
-@import "../../node_modules/vue-final-modal/dist/style.css";
 @import "../../node_modules/vue-multiselect/dist/vue-multiselect.css";
 
 /* Common styles */

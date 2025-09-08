@@ -1,19 +1,61 @@
+/**
+Note: Using Tailwind for the transform properties results in the transitions not working.
+This is because Tailwind applies the transform properties using a single `transform` property,
+which means that when you apply a different transform property, it overrides the previous one,
+resulting in no transition between the two states.
+*/
+
+/* Open state of the dialog  */
+.admin-modal:open {
+    @apply opacity-100;
+    transform: scale(1);
+}
+/* Closed state of the dialog */
+.admin-modal {
+    /* bg-transparent because white shows through around the rounded corners */
+    @apply inset-0 m-auto overflow-y-auto bg-transparent backdrop:bg-gray-900/90 opacity-0;
+    transform: scale(.75);
+    transition:
+        opacity 0.3s ease-out,
+        transform 0.3s ease-out,
+        overlay 0.3s ease-out allow-discrete,
+        display 0.3s ease-out allow-discrete;
+}
+/* Before open state  */
+/* Needs to be after the previous dialog:open rule to take effect,
+    as the specificity is the same */
+@starting-style {
+    .admin-modal:open {
+        @apply opacity-0;
+        transform: scale(.75);
+    }
+}
+
+/* Transition the :backdrop when the dialog modal is promoted to the top layer */
+/* The backdrop transition on close doesn't work properly (as of September 2025 in Chrome 141). */
+.admin-modal::backdrop {
+    @apply bg-transparent;
+    transition:
+        display 0.5s ease-out allow-discrete,
+        overlay 0.5s ease-out allow-discrete,
+        background-color 0.5s ease-out;
+}
+.admin-modal:open::backdrop {
+    @apply bg-gray-900/95;
+}
+/* This starting-style rule cannot be nested inside the above selector
+because the nesting selector cannot represent pseudo-elements. */
+@starting-style {
+    .admin-modal:open::backdrop {
+        @apply bg-transparent;
+    }
+}
+
 /* applied to the content inside the modal */
 .admin-modal-content {
-    @apply flex flex-col max-w-xl mx-4 p-4 text-slate-300 bg-gray-800 border border-gray-700 rounded-lg space-y-2;
+    @apply flex flex-col relative p-4 text-slate-300 bg-gray-800 border border-gray-700 rounded-lg;
 
     .field-errors {
         @apply text-gray-800 text-left;
     }
-}
-
-/* transitions, classes applied by Vue */
-.md-enter-active,
-.md-leave-active {
-    @apply transition-all duration-500;
-}
-.md-enter,
-.md-leave-active {
-    @apply opacity-0;
-    transform: translateY(24px);
 }
