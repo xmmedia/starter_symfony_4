@@ -21,7 +21,7 @@
     </div>
 
     <template v-if="showView">
-        <Teleport to="#header-page-title">{{ user.name }}</Teleport>
+        <Teleport to="#header-page-title"><span>{{ user.name }}</span></Teleport>
 
         <LoadingSpinner v-if="state.matches('deleting')" class="my-8">
             Deleting user…

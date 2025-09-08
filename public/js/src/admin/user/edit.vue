@@ -1,6 +1,6 @@
 <template>
     <div class="form-wrap">
-        <Teleport to="#header-page-title">Users</Teleport>
+        <Teleport to="#header-page-title"><span>Users</span></Teleport>
         <Teleport to="#header-actions">
             <div class="header-secondary_actions">
                 <RouterLink :to="{ name: 'admin-user-view', params: { userId: props.userId } }">

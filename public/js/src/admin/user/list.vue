@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Teleport to="#header-page-title">Users</Teleport>
+        <Teleport to="#header-page-title"><span>Users</span></Teleport>
         <Teleport to="#header-actions">
             <RouterLink :to="{ name: 'admin-user-add' }"
                         class="header-action header-action-main">Add User</RouterLink>

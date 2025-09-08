@@ -1,5 +1,5 @@
 <template>
-    <Teleport to="#header-page-title">Admin</Teleport>
+    <Teleport to="#header-page-title"><span>Admin</span></Teleport>
     <Teleport to="#header-actions" />
 
     <ul class="flex flex-wrap justify-center sm:justify-start gap-4 pl-0 list-none">
