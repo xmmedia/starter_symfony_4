@@ -26,7 +26,7 @@
         "phpoffice/phpspreadsheet": "^5.0",
         "prooph/event-store-bus-bridge": "^3.3",
         "prooph/event-store-symfony-bundle": "^0.11",
-        "prooph/pdo-event-store": "1.15.0",
+        "prooph/pdo-event-store": "^1.15.0",
         "ramsey/uuid": "^4.0",
         "ramsey/uuid-doctrine": "^2.0",
         "roave/security-advisories": "dev-master",
