@@ -7,6 +7,11 @@ which means that when you apply a different transform property, it overrides the
 resulting in no transition between the two states.
 */
 
+/**
+Great description of the dialog animation:
+https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
+*/
+
 /* Open state of the dialog  */
 .admin-modal:open {
     @apply opacity-100;
