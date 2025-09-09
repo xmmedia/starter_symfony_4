@@ -22,7 +22,6 @@
         "odolbeau/phone-number-bundle": "^4.0",
         "overblog/graphql-bundle": "^1.0",
         "pentatrion/vite-bundle": "^8.0",
-        "phpdocumentor/reflection-docblock": "^5.2",
         "phpoffice/phpspreadsheet": "^5.0",
         "prooph/event-store-bus-bridge": "^3.3",
         "prooph/event-store-symfony-bundle": "^0.11",
