@@ -45,7 +45,7 @@ security:
                 # the available options are 'cache', 'cookies', 'storage', 'executionContexts'
                 # you can also use the '*' wildcard to clear all data
                 clear_site_data:
-                    - cache
+                    # cache not included because it slows down logout big time
                     - storage
                     - executionContexts
 
