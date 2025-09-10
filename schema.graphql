@@ -1,8 +1,3 @@
-schema {
-  query: Query
-  mutation: Mutation
-}
-
 "Main Queries"
 type Query {
   "Retrieve all Users or a subset based on the passed filters."
