@@ -46,6 +46,7 @@ security:
                 # you can also use the '*' wildcard to clear all data
                 clear_site_data:
                     # cache not included because it slows down logout big time
+                    # cookies not include because it removes cookies for all subdomains
                     - storage
                     - executionContexts
 
