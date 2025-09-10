@@ -57,7 +57,7 @@ import { formatPhone, logError } from '@/common/lib';
 import ProfileTabs from './component/tabs.vue';
 import FieldEmail from '@/common/field_email.vue';
 import FieldInput from '@/common/field_input.vue';
-import { UserUpdateProfile } from '../../user/queries/user.mutation.graphql';
+import { UserUpdateProfile } from '@/user/queries/user.mutation.graphql';
 import userValidation from './user.validation';
 import debounce from 'lodash/debounce';
 

@@ -1,7 +1,7 @@
 import { helpers, required } from '@vuelidate/validators';
 import { apolloClient } from '@/common/apollo';
 import userValidation from '@/common/validation/user';
-import { UserPasswordValid } from '../../user/queries/user.query.graphql';
+import { UserPasswordValid } from '@/user/queries/user.query.graphql';
 
 export default (userData = []) => {
     const validations = userValidation(userData);

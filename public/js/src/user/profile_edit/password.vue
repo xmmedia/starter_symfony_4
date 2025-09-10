@@ -75,7 +75,7 @@ import { sameAs } from '@vuelidate/validators';
 import { logError } from '@/common/lib';
 import ProfileTabs from './component/tabs.vue';
 import FieldPassword from '@/common/field_password_with_errors.vue';
-import { ChangePassword } from '../../user/queries/user.mutation.graphql';
+import { ChangePassword } from '@/user/queries/user.mutation.graphql';
 import userValidation from './user.validation';
 
 const rootStore = useRootStore();

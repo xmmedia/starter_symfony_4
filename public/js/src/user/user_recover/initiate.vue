@@ -55,7 +55,7 @@ import { hasGraphQlError, logError } from '@/common/lib';
 import FieldEmail from '@/common/field_email';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
-import { UserRecoverInitiate } from '../../user/queries/user.mutation.graphql';
+import { UserRecoverInitiate } from '@/user/queries/user.mutation.graphql';
 import { useRoute } from 'vue-router';
 
 const rootStore = useRootStore();

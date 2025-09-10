@@ -65,8 +65,8 @@ import { hasGraphQlError, logError } from '@/common/lib';
 import FieldPassword from '@/common/field_password_with_errors';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
-import { UserPasswordAllowed } from '../../user/queries/user.query.graphql';
-import { UserRecoverReset } from '../../user/queries/user.mutation.graphql';
+import { UserPasswordAllowed } from '@/user/queries/user.query.graphql';
+import { UserRecoverReset } from '@/user/queries/user.mutation.graphql';
 import userValidation from '@/common/validation/user';
 
 const router = useRouter();
