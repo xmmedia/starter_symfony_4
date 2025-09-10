@@ -64,8 +64,10 @@
         </header>
         <div class="content-wrap">
             <header class="header-wrap">
+                <!-- Teleport target -->
                 <!-- make sure to include a tag inside the Teleport or there will be errors when changing routes -->
                 <h1 id="header-page-title" class="header-page_title"></h1>
+                <!-- Teleport target -->
                 <div id="header-actions" class="header-actions"></div>
             </header>
 
