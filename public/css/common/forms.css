@@ -58,9 +58,9 @@ select {
 [type="submit"],
 textarea,
 select {
-    @apply outline-none rounded-sm;
+    @apply outline-hidden rounded-sm;
     &:focus {
-        @apply outline-none ring-2;
+        @apply outline-hidden ring-2;
     }
 }
 
