@@ -19,16 +19,13 @@
 
     <FieldRole v-model="user.role" :v="v.role" />
 
-    <div v-if="!user.setPassword && user.active" class="field-wrap">
-        <div class="field-wrap-checkbox">
-            <input id="inputSendInvite" v-model="user.sendInvite" type="checkbox">
-            <label for="inputSendInvite">Send invite</label>
-        </div>
-        <div class="field-help">
+    <FieldCheckbox v-if="!user.setPassword && user.active" v-model="user.sendInvite">
+        Send invite
+        <template #help>
             The user will need to follow the link in the invite email
             before their account will be fully activated.
-        </div>
-    </div>
+        </template>
+    </FieldCheckbox>
 
     <FieldInput v-model="user.phoneNumber" type="tel" :v="v.phoneNumber">Phone number</FieldInput>
 </template>
