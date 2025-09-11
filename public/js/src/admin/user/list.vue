@@ -52,7 +52,6 @@
                             ({{ item.loginCount }})
                         </template>
                         <i v-else>Never logged in</i>
-
                     </template>
                     <template #col5="{ item }">
                         {{ rootStore.availableRoles[item.roles[0]] }}
