@@ -115,12 +115,12 @@ const setEmailDebounce = debounce(function (email) {
     setEmail(email);
 }, 100, { leading: true });
 
-function setEmail (value) {
+const setEmail = (value) => {
     user.value.email = value;
     changed();
-}
+};
 
-async function submit () {
+const submit = async () => {
     if (!state.value.matches('ready') && !state.value.matches('edited')) {
         return;
     }
@@ -167,18 +167,18 @@ async function submit () {
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
-}
+};
 
-function changed () {
+const changed = () => {
     sendEvent({ type: 'EDITED' });
-}
+};
 
-function reset () {
+const reset = () => {
     user.value.email = rootStore.user.email;
     user.value.firstName = rootStore.user.firstName;
     user.value.lastName = rootStore.user.lastName;
     user.value.phoneNumber = formatPhone(rootStore.user.userData?.phoneNumber || null);
 
     sendEvent({ type: 'RESET' });
-}
+};
 </script>

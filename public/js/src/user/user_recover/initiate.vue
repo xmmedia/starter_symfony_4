@@ -25,7 +25,7 @@
                         :v="v$.email"
                         autofocus
                         autocomplete="username email"
-                        @update:model-value="changed">
+                        @update:model-value="notFound = false">
                 Enter your email address to search for your account:
             </FieldEmail>
 
@@ -104,7 +104,7 @@ onMounted(() => {
     }
 });
 
-async function submit () {
+const submit = async () => {
     if (!state.value.matches('ready')) {
         return;
     }
@@ -132,6 +132,10 @@ async function submit () {
         sendEvent({ type: 'SUBMITTED' });
 
     } catch (e) {
+        const showError = () => {
+            alert('There was a problem requesting a password reset. Please try again later.');
+        };
+
         if (hasGraphQlError(e)) {
             if (404 === e.graphQLErrors[0].code) {
                 notFound.value = true;
@@ -149,13 +153,5 @@ async function submit () {
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
-
-    function showError () {
-        alert('There was a problem requesting a password reset. Please try again later.');
-    }
-}
-
-function changed () {
-    notFound.value = false;
-}
+};
 </script>

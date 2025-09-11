@@ -61,7 +61,7 @@ const props = defineProps({
     },
 });
 
-async function verify () {
+const verify = async () => {
     if (!state.value.matches('ready')) {
         return;
     }
@@ -77,7 +77,9 @@ async function verify () {
         emit('verified');
         sendEvent({ type: 'COMPLETE' });
 
-        delayedReset();
+        setTimeout(() => {
+            sendEvent({ type: 'RESET' });
+        }, 3000);
 
     } catch (e) {
         logError(e);
@@ -85,11 +87,5 @@ async function verify () {
 
         sendEvent({ type: 'ERROR' });
     }
-}
-
-function delayedReset () {
-    setTimeout(() => {
-        sendEvent({ type: 'RESET' });
-    }, 3000);
-}
+};
 </script>

@@ -132,7 +132,7 @@ const v$ = useVuelidate({
 
 const showForm = computed(() => !state.value.matches('changed'));
 
-async function submit () {
+const submit = async () => {
     if (!state.value.matches('ready')) {
         return;
     }
@@ -164,6 +164,10 @@ async function submit () {
             router.push({ name: 'login' });
         }, 5000);
     } catch (e) {
+        const showError = () => {
+            alert('There was a problem saving your password. Please try again later.');
+        };
+
         if (hasGraphQlError(e)) {
             if (404 === e.graphQLErrors[0].code) {
                 invalidToken.value = true;
@@ -181,9 +185,5 @@ async function submit () {
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
-
-    function showError () {
-        alert('There was a problem saving your password. Please try again later.');
-    }
-}
+};
 </script>

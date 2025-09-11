@@ -45,9 +45,9 @@ export function useForm (state) {
     const setEmailDebounce = debounce(function (email) {
         setEmail(email);
     }, 100, { leading: true });
-    function setEmail (value) {
+    const setEmail = (value) => {
         user.value.email = value;
-    }
+    };
 
     return {
         user,

@@ -125,7 +125,7 @@ const v$ = useVuelidate({
     lastName: rootStore.user.lastName,
 });
 
-async function submit () {
+const submit = async () => {
     if (!state.value.matches('ready')) {
         return;
     }
@@ -166,5 +166,5 @@ async function submit () {
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
-}
+};
 </script>

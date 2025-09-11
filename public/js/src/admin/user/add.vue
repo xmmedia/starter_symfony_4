@@ -89,7 +89,7 @@ const {
     setEmailDebounce,
 } = useForm(state);
 
-async function submit () {
+const submit = async () => {
     if (!state.value.matches('ready')) {
         return;
     }

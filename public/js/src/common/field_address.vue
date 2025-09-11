@@ -171,7 +171,7 @@ const localities = computed(() => {
     return localitiesResult.value;
 });
 
-function inputPostalCode (value) {
+const inputPostalCode = (value) => {
     if (typeof value === 'string') {
         value = value.toUpperCase();
         if (value.length >= 7) {
@@ -180,15 +180,15 @@ function inputPostalCode (value) {
     }
 
     address.value.postalCode = value;
-}
+};
 
-function countryChanged (country) {
+const countryChanged = (country) => {
     address.value = {
         ...address.value,
         country,
         province: null,
     };
-}
+};
 
 const autocompletes = {
     /**

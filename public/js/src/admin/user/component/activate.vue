@@ -78,7 +78,7 @@ const props = defineProps({
 
 const activeButtonText = computed(() => props.active ? 'Deactivate User' : 'Activate User');
 
-async function toggleActive () {
+const toggleActive = async () => {
     if (!state.value.matches('ready')) {
         return;
     }
@@ -97,7 +97,9 @@ async function toggleActive () {
         emit(props.active ? 'deactivated' : 'activated');
         sendEvent({ type: 'COMPLETE' });
 
-        delayedReset();
+        setTimeout(() => {
+            sendEvent({ type: 'RESET' });
+        }, 3000);
 
     } catch (e) {
         logError(e);
@@ -105,11 +107,5 @@ async function toggleActive () {
 
         sendEvent({ type: 'ERROR' });
     }
-}
-
-function delayedReset () {
-    setTimeout(() => {
-        sendEvent({ type: 'RESET' });
-    }, 3000);
-}
+};
 </script>

@@ -51,7 +51,7 @@ const props = defineProps({
     },
 });
 
-async function sendActivation () {
+const sendActivation = async () => {
     if (!state.value.matches('ready')) {
         return;
     }
@@ -83,5 +83,5 @@ async function sendActivation () {
 
         sendEvent({ type: 'ERROR' });
     }
-}
+};
 </script>

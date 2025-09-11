@@ -51,7 +51,7 @@ const props = defineProps({
     },
 });
 
-async function sendReset () {
+const sendReset = async () => {
     if (!state.value.matches('ready')) {
         return;
     }
@@ -83,5 +83,5 @@ async function sendReset () {
 
         sendEvent({ type: 'ERROR' });
     }
-}
+};
 </script>
