@@ -29,25 +29,25 @@ class UserFinder extends ServiceEntityRepository
 
     public function findOrThrow(UserId|string $id): User
     {
-        $company = $this->find($id);
-        if (!$company) {
+        $user = $this->find($id);
+        if (!$user) {
             throw UserNotFound::withUserId($id);
         }
 
-        return $company;
+        return $user;
     }
 
     public function findRefreshed(UserId|string $id): ?User
     {
-        $company = $this->find($id);
+        $user = $this->find($id);
 
-        if (!$company) {
+        if (!$user) {
             return null;
         }
 
-        $this->getEntityManager()->refresh($company);
+        $this->getEntityManager()->refresh($user);
 
-        return $company;
+        return $user;
     }
 
     /**
