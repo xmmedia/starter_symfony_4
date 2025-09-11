@@ -58,8 +58,8 @@ import PublicAlert from '@/common/public_alert.vue';
 import { UserRecoverInitiate } from '@/user/queries/user.mutation.graphql';
 import { useRoute } from 'vue-router';
 
-const rootStore = useRootStore();
 const route = useRoute();
+const rootStore = useRootStore();
 
 const stateMachine = createMachine({
     id: 'component',

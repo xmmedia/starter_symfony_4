@@ -70,8 +70,8 @@ import { useMutation } from '@vue/apollo-composable';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
 
-const rootStore = useRootStore();
 const router = useRouter();
+const rootStore = useRootStore();
 
 const stateMachine = createMachine({
     id: 'component',

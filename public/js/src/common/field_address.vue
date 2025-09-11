@@ -105,15 +105,6 @@ const props = defineProps({
     },
 });
 
-const address = computed({
-    get () {
-        return props.modelValue;
-    },
-    set (value) {
-        emit('update:modelValue', value);
-    },
-});
-
 const ids = {
     line1: cuid(),
     city: cuid(),
@@ -123,6 +114,15 @@ const ids = {
 
 const inputLine1 = ref(null);
 const inputCity = ref(null);
+
+const address = computed({
+    get () {
+        return props.modelValue;
+    },
+    set (value) {
+        emit('update:modelValue', value);
+    },
+});
 
 const labels = computed(() => {
     switch (address.value.country) {

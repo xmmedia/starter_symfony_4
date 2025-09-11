@@ -20,6 +20,13 @@ import { useMutation } from '@vue/apollo-composable';
 import { hasGraphQlError, logError } from '@/common/lib';
 import { AdminUserSendActivationMutation } from '@/admin/queries/user.mutation.graphql';
 
+const props = defineProps({
+    userId: {
+        type: String,
+        required: true,
+    },
+});
+
 const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
@@ -43,13 +50,6 @@ const stateMachine = createMachine({
     },
 });
 const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
-
-const props = defineProps({
-    userId: {
-        type: String,
-        required: true,
-    },
-});
 
 const sendActivation = async () => {
     if (!state.value.matches('ready')) {

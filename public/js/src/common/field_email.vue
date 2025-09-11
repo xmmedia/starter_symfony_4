@@ -44,6 +44,8 @@ import { ref } from 'vue';
 import cuid from 'cuid';
 import emailSpellChecker from '@zootools/email-spell-checker';
 
+const emit = defineEmits(['update:modelValue']);
+
 const props = defineProps({
     modelValue: {
         type: String,
@@ -74,8 +76,6 @@ const props = defineProps({
         default: () => cuid(),
     },
 });
-
-const emit = defineEmits(['update:modelValue']);
 
 const suggestedEmail = ref(null);
 const input = ref();

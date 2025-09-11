@@ -101,9 +101,9 @@ import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
 import { email as emailValidator } from '@vuelidate/validators';
 
-const rootStore = useRootStore();
 const router = useRouter();
 const route = useRoute();
+const rootStore = useRootStore();
 
 const stateMachine = createMachine({
     id: 'component',

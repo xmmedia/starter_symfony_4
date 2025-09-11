@@ -70,14 +70,14 @@
 import { computed, useSlots } from 'vue';
 import { vuelidateValue, pluralize } from './lib';
 
-const slots = useSlots();
-
 const props = defineProps({
     v: {
         type: Object,
         default: null,
     },
 });
+
+const slots = useSlots();
 
 const hasErrors = computed(() => {
     if (props.v) {

@@ -47,9 +47,12 @@
 <script setup>
 import cuid from 'cuid';
 import has from 'lodash/has';
-import { ref } from 'vue';
+import { useTemplateRef } from 'vue';
 
 defineEmits([ 'update:modelValue', 'focus', 'blur' ]);
+
+const input = useTemplateRef('input');
+defineExpose({ input });
 
 const props = defineProps({
     modelValue: {
@@ -114,8 +117,5 @@ const props = defineProps({
     },
 });
 
-const input = ref();
 const maxLength = has(props.v, 'maxLength') ? props.v.maxLength.$params.max : null;
-
-defineExpose({ input });
 </script>

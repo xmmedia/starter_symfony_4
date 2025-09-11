@@ -42,6 +42,8 @@
 <script setup>
 import { ref } from 'vue';
 
+const emit = defineEmits(['delete']);
+
 defineProps({
     recordDesc: {
         type: String,
@@ -60,8 +62,6 @@ defineProps({
         default: null,
     },
 });
-
-const emit = defineEmits(['delete']);
 
 const show = ref(false);
 const deleting = ref(false);

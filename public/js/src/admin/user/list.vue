@@ -88,10 +88,10 @@ import Pagination from '@/common/pagination.vue';
 import RecordList from '@/common/record_list.vue';
 import AccountStatus from './component/account_status.vue';
 
+const router = useRouter();
+const route = useRoute();
 const rootStore = useRootStore();
 const filtersStore = useFiltersStore();
-const route = useRoute();
-const router = useRouter();
 
 const stateMachine = createMachine({
     id: 'component',

@@ -20,6 +20,23 @@ import { AdminUserVerifyMutation } from '@/admin/queries/user.mutation.graphql';
 import { logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 
+const emit = defineEmits(['activated', 'verified']);
+
+const props = defineProps({
+    userId: {
+        type: String,
+        required: true,
+    },
+    verified: {
+        type: Boolean,
+        required: true,
+    },
+    active: {
+        type: Boolean,
+        required: true,
+    },
+});
+
 const stateMachine = createMachine({
     id: 'component',
     initial: 'ready',
@@ -43,23 +60,6 @@ const stateMachine = createMachine({
     },
 });
 const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
-
-const emit = defineEmits(['activated', 'verified']);
-
-const props = defineProps({
-    userId: {
-        type: String,
-        required: true,
-    },
-    verified: {
-        type: Boolean,
-        required: true,
-    },
-    active: {
-        type: Boolean,
-        required: true,
-    },
-});
 
 const verify = async () => {
     if (!state.value.matches('ready')) {

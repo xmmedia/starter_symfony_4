@@ -45,9 +45,8 @@ import cuid from 'cuid';
 import FieldSelectElement from './field_select_element.vue';
 
 const value = defineModel({ type: [ String, Number ] });
-defineExpose({
-    field: useTemplateRef('select'),
-});
+const field = useTemplateRef('select');
+defineExpose({ field });
 
 defineProps({
     /**

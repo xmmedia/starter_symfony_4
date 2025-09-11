@@ -152,11 +152,8 @@ import SendLoginLink from './component/send_login_link.vue';
 import SendReset from './component/send_reset.vue';
 import { useRouter } from 'vue-router';
 
-const rootStore = useRootStore();
 const router = useRouter();
-
-const stateMachine = createMachine(stateMachineConfig);
-const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
+const rootStore = useRootStore();
 
 const props = defineProps({
     userId: {
@@ -164,6 +161,9 @@ const props = defineProps({
         required: true,
     },
 });
+
+const stateMachine = createMachine(stateMachineConfig);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const user = ref(null);
 const requestLoginLink = ref(null);

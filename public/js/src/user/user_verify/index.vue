@@ -45,8 +45,8 @@ import { hasGraphQlError, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 
-const rootStore = useRootStore();
 const router = useRouter();
+const rootStore = useRootStore();
 
 const stateMachine = createMachine({
     id: 'component',

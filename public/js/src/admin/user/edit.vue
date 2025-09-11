@@ -54,15 +54,15 @@ import FormFields from './component/form_fields.vue';
 
 const router = useRouter();
 
-const stateMachine = createMachine(stateMachineConfig);
-const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
-
 const props = defineProps({
     userId: {
         type: String,
         required: true,
     },
 });
+
+const stateMachine = createMachine(stateMachineConfig);
+const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const {
     user,
