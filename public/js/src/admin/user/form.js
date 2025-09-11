@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue';
-import FieldEmail from '@/common/field_email';
+import FieldEmail from '@/common/field_email.vue';
 import FieldPassword from './component/field_password.vue';
-import FieldInput from '@/common/field_input';
+import FieldInput from '@/common/field_input.vue';
 import FieldRole from './component/field_role.vue';
 import userValidation from '@/admin/user/user.validation';
 import { useVuelidate } from '@vuelidate/core';

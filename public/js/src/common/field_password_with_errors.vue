@@ -43,7 +43,7 @@
 
 <script setup>
 import cuid from 'cuid';
-import FieldPassword from './field_password';
+import FieldPassword from './field_password.vue';
 import { computed } from 'vue';
 import { hasVuelidateProp, vuelidateValue } from '@/common/lib';
 

@@ -28,7 +28,7 @@
 import { computed, ref, watch } from 'vue';
 import { useMenuStore } from '@/admin/stores/menu';
 import cuid from 'cuid';
-import MenuLink from './link';
+import MenuLink from './link.vue';
 
 const menuStore = useMenuStore();
 

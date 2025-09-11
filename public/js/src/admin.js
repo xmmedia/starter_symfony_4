@@ -12,16 +12,16 @@ import vFocus from './common/v_focus';
 
 import * as Sentry from '@sentry/vue';
 
-import App from './admin/index';
+import App from './admin/index.vue';
 
-import LoadingSpinner from './common/loading_spinner';
-import FormError from './common/form_error';
-import FieldError from './common/field_error';
+import LoadingSpinner from './common/loading_spinner.vue';
+import FormError from './common/form_error.vue';
+import FieldError from './common/field_error.vue';
 import FormButton from './common/form_button.vue';
-import AdminIcon from './common/admin_icon';
-import AdminModal from './common/modal';
-import AdminDelete from './admin/admin_delete/index';
-import LocalTime from './common/local_time';
+import AdminIcon from './common/admin_icon.vue';
+import AdminModal from './common/modal.vue';
+import AdminDelete from './admin/admin_delete/index.vue';
+import LocalTime from './common/local_time.vue';
 
 import { MeQuery } from './admin/queries/user.query.graphql';
 

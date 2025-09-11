@@ -9,7 +9,7 @@ const router = createRouter({
         {
             name: 'admin-dashboard',
             path: '/admin',
-            component: () => import('./admin_dashboard'),
+            component: () => import('./admin_dashboard/index.vue'),
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_ADMIN',
@@ -17,28 +17,28 @@ const router = createRouter({
         },
         {
             path: '/admin/user',
-            component: () => import('./user'),
+            component: () => import('./user/index.vue'),
             children: [
                 {
                     name: 'admin-user',
                     path: '',
-                    component: () => import('./user/list'),
+                    component: () => import('./user/list.vue'),
                 },
                 {
                     name: 'admin-user-view',
                     path: ':userId/view',
-                    component: () => import('./user/view'),
+                    component: () => import('./user/view.vue'),
                     props: true,
                 },
                 {
                     name: 'admin-user-add',
                     path: 'add',
-                    component: () => import('./user/add'),
+                    component: () => import('./user/add.vue'),
                 },
                 {
                     name: 'admin-user-edit',
                     path: ':userId/edit',
-                    component: () => import('./user/edit'),
+                    component: () => import('./user/edit.vue'),
                     props: true,
                 },
             ],

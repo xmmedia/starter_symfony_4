@@ -20,7 +20,7 @@
 
 <script setup>
 import cuid from 'cuid';
-import FieldPassword from '@/common/field_password_with_errors';
+import FieldPassword from '@/common/field_password_with_errors.vue';
 import { ref, watch } from 'vue';
 
 defineProps({

@@ -62,7 +62,7 @@ import { useMutation } from '@vue/apollo-composable';
 import { helpers, required } from '@vuelidate/validators';
 import { apolloClient } from '@/common/apollo';
 import { hasGraphQlError, logError } from '@/common/lib';
-import FieldPassword from '@/common/field_password_with_errors';
+import FieldPassword from '@/common/field_password_with_errors.vue';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
 import { UserPasswordAllowed } from '@/user/queries/user.query.graphql';

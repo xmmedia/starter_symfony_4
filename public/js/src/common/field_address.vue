@@ -80,7 +80,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import cuid from 'cuid';
-import FieldInput from './field_input';
+import FieldInput from './field_input.vue';
 import { LocalitiesQuery } from '@/common/queries/localities.query.graphql';
 import { useQuery } from '@vue/apollo-composable';
 import { Loader as MapsLoader } from '@googlemaps/js-api-loader';

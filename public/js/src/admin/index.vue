@@ -85,10 +85,10 @@
 import { computed, ref } from 'vue';
 import { useHead } from '@unhead/vue';
 import { useRootStore } from './stores/root';
-import MenuSubnav from './menu/subnav';
-import MenuSmall from './menu/small';
+import MenuSubnav from './menu/subnav.vue';
+import MenuSmall from './menu/small.vue';
 /* eslint-disable no-unused-vars */
-import MenuLink from './menu/link';
+import MenuLink from './menu/link.vue';
 
 const rootStore = useRootStore();
 

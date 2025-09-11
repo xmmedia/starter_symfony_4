@@ -12,34 +12,34 @@ const router = createRouter({
         {
             name: 'login',
             path: '/login',
-            component: () => import('./login'),
+            component: () => import('./login/index.vue'),
         },
         {
             path: '/recover',
-            component: () => import('./user_recover'),
+            component: () => import('./user_recover/index.vue'),
             children: [
                 { path: '', redirect: '/recover/initiate' },
                 {
                     name: 'user-recover-initiate',
                     path: 'initiate',
-                    component: () => import('./user_recover/initiate'),
+                    component: () => import('./user_recover/initiate.vue'),
                 },
                 {
                     name: 'user-recover-reset',
                     path: 'reset',
-                    component: () => import('./user_recover/reset'),
+                    component: () => import('./user_recover/reset.vue'),
                 },
             ],
         },
         {
             name: 'user-activate',
             path: '/activate',
-            component: () => import('./user_activate'),
+            component: () => import('./user_activate/index.vue'),
         },
         {
             name: 'user-verify',
             path: '/verify',
-            component: () => import('./user_verify'),
+            component: () => import('./user_verify/index.vue'),
         },
 
         // *********************************************************************
@@ -48,7 +48,7 @@ const router = createRouter({
         {
             path: '/dashboard',
             name: 'dashboard',
-            component: () => import('./dashboard'),
+            component: () => import('./dashboard/index.vue'),
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_USER',
@@ -56,18 +56,18 @@ const router = createRouter({
         },
         {
             path: '/profile',
-            component: () => import('./profile_edit'),
+            component: () => import('./profile_edit/index.vue'),
             redirect: '/profile/edit',
             children: [
                 {
                     name: 'user-profile-edit',
                     path: 'edit',
-                    component: () => import('./profile_edit/profile'),
+                    component: () => import('./profile_edit/profile.vue'),
                 },
                 {
                     name: 'user-profile-edit-password',
                     path: 'password',
-                    component: () => import('./profile_edit/password'),
+                    component: () => import('./profile_edit/password.vue'),
                 },
             ],
             meta: {

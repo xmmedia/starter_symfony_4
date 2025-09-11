@@ -14,13 +14,13 @@ import * as Sentry from '@sentry/vue';
 
 import App from './user/index';
 
-import LoadingSpinner from './common/loading_spinner';
-import FormError from './common/form_error';
-import FieldError from './common/field_error';
+import LoadingSpinner from './common/loading_spinner.vue';
+import FormError from './common/form_error.vue';
+import FieldError from './common/field_error.vue';
 import FormButton from './common/form_button.vue';
-import PublicIcon from './common/public_icon';
-import UserModal from './common/modal';
-import LocalTime from './common/local_time';
+import PublicIcon from './common/public_icon.vue';
+import UserModal from './common/modal.vue';
+import LocalTime from './common/local_time.vue';
 
 import { MeQuery } from './user/queries/user.query.graphql';
 
