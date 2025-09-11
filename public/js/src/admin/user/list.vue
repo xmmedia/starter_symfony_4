@@ -29,9 +29,11 @@
                             :offset="+offset"
                             :route-query-additions="{ filters }"
                             class="my-2" />
+
                 <div class="record_list-record_count">
                     Showing {{ users.length }} of {{ Number(userCount).toLocaleString() }}
                 </div>
+
                 <RecordList :headings="[ 'Username', 'Name', 'Account Status', 'Last Login (Count)', 'Role', '' ]"
                             :items="users"
                             :cell-classes="[null, null, null, null, null, 'record_list-col-actions']">
