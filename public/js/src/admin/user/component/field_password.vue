@@ -5,15 +5,14 @@
         </FieldCheckbox>
 
         <FieldPassword v-show="setPassword"
-                       :model-value="modelValue"
+                       v-model="password"
                        :v="v"
                        :user-data="userData"
                        :show-help="true"
                        :required="setPassword"
                        :autocomplete="autocomplete"
                        icon-component="AdminIcon"
-                       class="ml-6"
-                       @update:model-value="$emit('update:modelValue', $event)" />
+                       class="ml-6" />
     </div>
 </template>
 
@@ -21,13 +20,11 @@
 import cuid from 'cuid';
 import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldPassword from '@/common/field_password_with_errors.vue';
-import { ref, watch } from 'vue';
+
+const password = defineModel({ type: String });
+const setPassword = defineModel('setPassword', { type: Boolean });
 
 defineProps({
-    modelValue: {
-        type: String,
-        default: null,
-    },
     checkboxLabel: {
         type: String,
         default: 'Set Password',
@@ -46,14 +43,9 @@ defineProps({
             return [];
         },
     },
-});
-
-const emit = defineEmits(['set-password', 'update:modelValue']);
-
-const setPassword = ref(false);
-const id = cuid();
-
-watch(setPassword, (val) => {
-    emit('set-password', val);
+    id: {
+        type: String,
+        default: () => cuid(),
+    },
 });
 </script>

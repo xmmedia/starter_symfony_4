@@ -6,11 +6,11 @@
                 @update:model-value="setEmailDebounce" />
 
     <FieldPassword v-model="user.password"
+                   v-model:set-password="user.setPassword"
                    :v="v.password"
                    :user-data="userDataForPassword"
                    :checkbox-label="editing ? 'Change password' : 'Set password'"
-                   autocomplete="off"
-                   @set-password="user.setPassword = $event" />
+                   autocomplete="off" />
 
     <FieldCheckbox v-if="!editing" v-model="user.active">Active</FieldCheckbox>
 
