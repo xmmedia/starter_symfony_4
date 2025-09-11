@@ -49,7 +49,7 @@ import { formatPhone, logError } from '@/common/lib';
 import { GetUserQuery } from '../queries/user.query.graphql';
 import { AdminUserUpdateMutation } from '../queries/user.mutation.graphql';
 import { pick } from 'lodash';
-import { useForm } from '@/admin/user/form';
+import { useForm } from './form';
 import FormFields from './component/form_fields.vue';
 
 const router = useRouter();
