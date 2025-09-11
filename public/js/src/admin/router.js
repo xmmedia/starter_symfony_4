@@ -51,7 +51,7 @@ const router = createRouter({
         {
             path: '/admin/pattern-library',
             name: 'pattern-library',
-            component: () => import('./pattern_library'),
+            component: () => import('./pattern_library/index.vue'),
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_SUPER_ADMIN',
@@ -61,12 +61,12 @@ const router = createRouter({
         {
             path: '/:pathMatch(.*)*',
             name: '404',
-            component: () => import('./error/404'),
+            component: () => import('./error/404.vue'),
         },
         {
             path: '/:pathMatch(.*)*',
             name: '403',
-            component: () => import('./error/403'),
+            component: () => import('./error/403.vue'),
         },
     ],
 
