@@ -61,31 +61,29 @@ watch(computed(() => menuStore.subNavOpen), (subNavOpen) => {
     }
 });
 
-function toggleMenu () {
+const toggleMenu = () => {
     open.value = !open.value;
 
     if (open.value) {
         menuStore.subNavOpened(cuid());
-        document.documentElement.addEventListener('click', htmlClick);
+        document.documentElement.addEventListener('click', (e) => {
+            if (!submenu.value.contains(e.target)) {
+                menuStore.subNavClosed();
+                close();
+            }
+        });
     } else {
         menuStore.subNavClosed();
         close();
     }
-}
+};
 
-function subnavItemClicked () {
+const subnavItemClicked = () => {
     toggleMenu();
     menuStore.closeAllMenus();
-}
+};
 
-function close () {
+const close = () => {
     open.value = false;
-}
-
-function htmlClick (e) {
-    if (!submenu.value.contains(e.target)) {
-        menuStore.subNavClosed();
-        close();
-    }
-}
+};
 </script>
