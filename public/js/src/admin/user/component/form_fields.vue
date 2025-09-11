@@ -12,10 +12,7 @@
                    autocomplete="off"
                    @set-password="user.setPassword = $event" />
 
-    <div v-if="!editing" class="field-wrap field-wrap-checkbox">
-        <input id="inputActive" v-model="user.active" type="checkbox">
-        <label for="inputActive">Active</label>
-    </div>
+    <FieldCheckbox v-if="!editing" v-model="user.active">Active</FieldCheckbox>
 
     <FieldInput v-model="user.firstName" :v="v.firstName">First name</FieldInput>
     <FieldInput v-model="user.lastName" :v="v.lastName">Last name</FieldInput>
@@ -39,6 +36,7 @@
 <script setup>
 import FieldEmail from '@/common/field_email.vue';
 import FieldPassword from './field_password.vue';
+import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldInput from '@/common/field_input.vue';
 import FieldRole from './field_role.vue';
 import debounce from 'lodash/debounce';
