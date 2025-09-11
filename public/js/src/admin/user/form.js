@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import userValidation from '@/admin/user/user.validation';
+import userValidation from './user.validation';
 import { useVuelidate } from '@vuelidate/core';
 import { requiredIf } from '@vuelidate/validators';
 import { addEditedWatcher } from '@/common/lib';
