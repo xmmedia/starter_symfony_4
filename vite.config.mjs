@@ -48,8 +48,6 @@ export default defineConfig(({ command }) => {
             alias: {
                 '@': fileURLToPath(new URL('./public/js/src', import.meta.url)),
             },
-            // the default plus .vue
-            extensions: [ '.vue', '.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json' ],
         },
         css: {
             devSourcemap: true,
