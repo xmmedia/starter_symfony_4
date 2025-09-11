@@ -9,6 +9,7 @@ use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use JetBrains\PhpStorm\ArrayShape;
 use Xm\SymfonyBundle\Model\Email;
 
 /**
@@ -50,9 +51,7 @@ class UserFinder extends ServiceEntityRepository
         return $user;
     }
 
-    /**
-     * @return User[]
-     */
+    #[ArrayShape([User::class])]
     public function findByFilters(UserFilters $filters): array
     {
         $rsm = $this->createResultSetMappingBuilder('u');
