@@ -11,7 +11,7 @@ use GraphQL\Type\Definition\EnumType;
 use GraphQL\Utils\Utils;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 
-class RoleType extends EnumType implements AliasedInterface
+final class RoleType extends EnumType implements AliasedInterface
 {
     private const string NAME = 'Role';
 

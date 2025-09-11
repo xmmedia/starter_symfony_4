@@ -12,7 +12,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
 use Ramsey\Uuid\Uuid;
 use Xm\SymfonyBundle\Infrastructure\GraphQl\Type\UuidTypeTrait;
 
-class UserIdType extends ScalarType implements AliasedInterface
+final class UserIdType extends ScalarType implements AliasedInterface
 {
     use UuidTypeTrait;
 
