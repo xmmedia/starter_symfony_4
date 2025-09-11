@@ -40,21 +40,15 @@
 const props = defineProps({
     headings: {
         type: Array,
-        default: function () {
-            return [];
-        },
+        default: () => [],
     },
     items: {
         type: Array,
-        default: function () {
-            return [];
-        },
+        default: () => [],
     },
     cellClasses: {
         type: Array,
-        default: function () {
-            return [];
-        },
+        default: () => [],
     },
     /**
      * Returns string of classes for the cell.

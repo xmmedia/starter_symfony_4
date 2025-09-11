@@ -53,9 +53,7 @@ const props = defineProps({
     },
     id: {
         type: String,
-        default: function () {
-            return cuid();
-        },
+        default: () => cuid(),
     },
 });
 
