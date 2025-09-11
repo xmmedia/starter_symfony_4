@@ -1,9 +1,8 @@
 <template>
     <div>
-        <div :class="{ 'mb-2' : setPassword }" class="field-wrap field-wrap-checkbox">
-            <input :id="id" v-model="setPassword" type="checkbox">
-            <label :for="id">{{ checkboxLabel }}</label>
-        </div>
+        <FieldCheckbox v-model="setPassword" :class="{ 'mb-2' : setPassword }">
+            {{ checkboxLabel }}
+        </FieldCheckbox>
 
         <FieldPassword v-show="setPassword"
                        :model-value="modelValue"
@@ -20,6 +19,7 @@
 
 <script setup>
 import cuid from 'cuid';
+import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldPassword from '@/common/field_password_with_errors.vue';
 import { ref, watch } from 'vue';
 
