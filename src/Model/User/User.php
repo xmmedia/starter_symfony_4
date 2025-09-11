@@ -15,7 +15,7 @@ class User extends AggregateRoot implements Entity
 {
     use AppliesAggregateChanged;
 
-    public const PASSWORD_MIN_LENGTH = 12;
+    public const int PASSWORD_MIN_LENGTH = 12;
 
     private UserId $userId;
     private bool $verified = false;
