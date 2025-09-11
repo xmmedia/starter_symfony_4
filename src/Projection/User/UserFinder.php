@@ -12,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Xm\SymfonyBundle\Model\Email;
 
 /**
+ * @extends ServiceEntityRepository<\App\Entity\User>
+ *
  * @method User|null find(UserId|string $id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
