@@ -14,6 +14,7 @@ return RectorConfig::configure()
         // no deadCode and typeDeclarations as they're below
     )
     ->withAttributesSets(symfony: true, doctrine: true)
+    ->withComposerBased(twig: true, doctrine: true, phpunit: true, symfony: true)
     ->withPhpSets()
     ->withTypeCoverageLevel(29)
     ->withDeadCodeLevel(40)
