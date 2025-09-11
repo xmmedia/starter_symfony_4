@@ -12,7 +12,7 @@ import vFocus from './common/v_focus';
 
 import * as Sentry from '@sentry/vue';
 
-import App from './user/index';
+import App from './user/index.vue';
 
 import LoadingSpinner from './common/loading_spinner.vue';
 import FormError from './common/form_error.vue';

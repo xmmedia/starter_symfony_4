@@ -82,12 +82,12 @@ const router = createRouter({
         {
             path: '/:pathMatch(.*)*',
             name: '404',
-            component: () => import('./error/404'),
+            component: () => import('./error/404.vue'),
         },
         {
             path: '/:pathMatch(.*)*',
             name: '403',
-            component: () => import('./error/403'),
+            component: () => import('./error/403.vue'),
         },
     ],
 
