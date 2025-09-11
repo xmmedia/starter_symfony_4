@@ -3,7 +3,7 @@
         <Teleport to="#header-page-title"><span>Users</span></Teleport>
         <Teleport to="#header-actions">
             <div class="header-secondary_actions">
-                <RouterLink :to="{ name: 'admin-user-view', params: { userId: props.userId } }">
+                <RouterLink :to="{ name: 'admin-user-view', params: { userId } }">
                     Return to user
                 </RouterLink>
             </div>
@@ -31,7 +31,7 @@
             <FormButton :edited="edited"
                         :saving="state.matches('ready.saving')"
                         :saved="state.matches('ready.saved')"
-                        :cancel-to="{ name: 'admin-user-view', params: { userId: props.userId } }">
+                        :cancel-to="{ name: 'admin-user-view', params: { userId } }">
                 Update User
             </FormButton>
         </form>
