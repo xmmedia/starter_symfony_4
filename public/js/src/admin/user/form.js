@@ -1,12 +1,7 @@
-import { computed, ref } from 'vue';
-import FieldEmail from '@/common/field_email.vue';
-import FieldPassword from './component/field_password.vue';
-import FieldInput from '@/common/field_input.vue';
-import FieldRole from './component/field_role.vue';
+import { ref } from 'vue';
 import userValidation from '@/admin/user/user.validation';
 import { useVuelidate } from '@vuelidate/core';
 import { requiredIf } from '@vuelidate/validators';
-import debounce from 'lodash/debounce';
 import { addEditedWatcher } from '@/common/lib';
 
 export function useForm (state) {
@@ -22,12 +17,6 @@ export function useForm (state) {
         phoneNumber: null,
     });
 
-    const userDataForPassword = computed(() => [
-        user.value.email,
-        user.value.firstName,
-        user.value.lastName,
-    ]);
-
     const userValidations = userValidation();
     const v$ = useVuelidate({
         user: {
@@ -42,25 +31,9 @@ export function useForm (state) {
     const edited = ref(false);
     addEditedWatcher(state, edited, user);
 
-    const setEmailDebounce = debounce(function (email) {
-        setEmail(email);
-    }, 100, { leading: true });
-    const setEmail = (value) => {
-        user.value.email = value;
-    };
-
     return {
         user,
-        userDataForPassword,
-
-        FieldEmail,
-        FieldPassword,
-        FieldInput,
-        FieldRole,
-
         edited,
         v$,
-
-        setEmailDebounce,
     };
 }

@@ -11,41 +11,7 @@
         <form method="post" novalidate @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
 
-            <FieldEmail :model-value="user.email"
-                        :v="v$.user.email"
-                        autocomplete="off"
-                        autofocus
-                        @update:model-value="setEmailDebounce" />
-
-            <FieldPassword v-model="user.password"
-                           :v="v$.user.password"
-                           :user-data="userDataForPassword"
-                           checkbox-label="Set password"
-                           autocomplete="off"
-                           @set-password="user.setPassword = $event" />
-
-            <div class="field-wrap field-wrap-checkbox">
-                <input id="inputActive" v-model="user.active" type="checkbox">
-                <label for="inputActive">Active</label>
-            </div>
-
-            <FieldInput v-model="user.firstName" :v="v$.user.firstName">First name</FieldInput>
-            <FieldInput v-model="user.lastName" :v="v$.user.lastName">Last name</FieldInput>
-
-            <FieldRole v-model="user.role" :v="v$.user.role" />
-
-            <div v-if="!user.setPassword && user.active" class="field-wrap">
-                <div class="field-wrap-checkbox">
-                    <input id="inputSendInvite" v-model="user.sendInvite" type="checkbox">
-                    <label for="inputSendInvite">Send invite</label>
-                </div>
-                <div class="field-help">
-                    The user will need to follow the link in the invite email
-                    before their account will be fully activated.
-                </div>
-            </div>
-
-            <FieldInput v-model="user.phoneNumber" type="tel" :v="v$.user.phoneNumber">Phone number</FieldInput>
+            <FormFields v-model="user" :v="v$.user" />
 
             <FormButton :edited="edited"
                         :saving="state.matches('submitting')"
@@ -68,6 +34,7 @@ import { logError } from '@/common/lib';
 import { AdminUserAddMutation } from '../queries/user.mutation.graphql';
 import { pick } from 'lodash';
 import { useForm } from './form';
+import FormFields from './component/form_fields.vue';
 
 const router = useRouter();
 
@@ -76,17 +43,8 @@ const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 
 const {
     user,
-    userDataForPassword,
-
-    FieldEmail,
-    FieldPassword,
-    FieldInput,
-    FieldRole,
-
     edited,
     v$,
-
-    setEmailDebounce,
 } = useForm(state);
 
 const submit = async () => {

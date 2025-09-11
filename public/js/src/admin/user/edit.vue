@@ -26,25 +26,7 @@
         <form v-else-if="showForm" method="post" novalidate @submit.prevent="submit">
             <FormError v-if="v$.$error && v$.$invalid" />
 
-            <FieldEmail :model-value="user.email"
-                        :v="v$.user.email"
-                        autocomplete="off"
-                        autofocus
-                        @update:model-value="setEmailDebounce" />
-
-            <FieldPassword v-model="user.password"
-                           :v="v$.user.password"
-                           :user-data="userDataForPassword"
-                           checkbox-label="Change password"
-                           autocomplete="off"
-                           @set-password="user.setPassword = $event" />
-
-            <FieldInput v-model="user.firstName" :v="v$.user.firstName">First name</FieldInput>
-            <FieldInput v-model="user.lastName" :v="v$.user.lastName">Last name</FieldInput>
-
-            <FieldRole v-model="user.role" :v="v$.user.role" />
-
-            <FieldInput v-model="user.phoneNumber" type="tel" :v="v$.user.phoneNumber">Phone number</FieldInput>
+            <FormFields v-model="user" :editing="true" :v="v$.user" />
 
             <FormButton :edited="edited"
                         :saving="state.matches('ready.saving')"
@@ -68,6 +50,7 @@ import { GetUserQuery } from '../queries/user.query.graphql';
 import { AdminUserUpdateMutation } from '../queries/user.mutation.graphql';
 import { pick } from 'lodash';
 import { useForm } from '@/admin/user/form';
+import FormFields from './component/form_fields.vue';
 
 const router = useRouter();
 
@@ -83,17 +66,8 @@ const props = defineProps({
 
 const {
     user,
-    userDataForPassword,
-
-    FieldEmail,
-    FieldPassword,
-    FieldInput,
-    FieldRole,
-
     edited,
     v$,
-
-    setEmailDebounce,
 } = useForm(state);
 
 const verified = ref(true);
