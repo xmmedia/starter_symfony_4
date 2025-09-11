@@ -22,6 +22,8 @@
 <script setup>
 import { nextTick, onBeforeUnmount, onMounted, useTemplateRef } from 'vue';
 
+const emit = defineEmits([ 'before-open', 'opened', 'before-close', 'closed' ]);
+
 const props = defineProps({
     contentClass: {
         type: String,
@@ -36,8 +38,6 @@ const props = defineProps({
         default: true,
     },
 });
-
-const emit = defineEmits([ 'before-open', 'opened', 'before-close', 'closed' ]);
 
 const dialog = useTemplateRef('dialog');
 
