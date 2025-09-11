@@ -106,13 +106,7 @@ const ready = computed(() => rootStore.ready);
 const loggedIn = computed(() => rootStore.loggedIn);
 const hasRole = computed(() => rootStore.hasRole);
 
-const logoLinkRoute = computed(() => {
-    if (loggedIn.value) {
-        return { name: 'admin-dashboard' };
-    }
-
-    return { name: 'login' };
-});
+const logoLinkRoute = computed(() => ({ name: (loggedIn.value ? 'admin-dashboard' : 'login') }));
 const profileLinkText = computed(() => {
     if (loggedIn.value && rootStore.user.name) {
         return rootStore.user.name;
