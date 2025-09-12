@@ -26,7 +26,7 @@
 import cuid from 'cuid';
 import { computed } from 'vue';
 
-const checked = defineModel({ type: Array, default: () => [] });
+const checked = defineModel({ type: Array });
 
 const props = defineProps({
     /**
