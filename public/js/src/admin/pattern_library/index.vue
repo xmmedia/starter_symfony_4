@@ -836,7 +836,9 @@ const radios2Values = [
     { value: 4, label: 'Radio button Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.' },
 ];
 
-const checkboxesValue = ref([]);
+const checkboxValue = ref(false);
+
+const checkboxesValue = ref([ 2 ]);
 const checkboxesValues = [{ value: 1, label: 'Item 1'}, { value: 2, label: 'Item 2'}, { value: 3, label: 'Item 3'}];
 
 const recordListItems = [
