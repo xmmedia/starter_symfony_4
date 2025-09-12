@@ -15,7 +15,6 @@
                   ref="input"
                   v-model="textArea"
                   v-focus="autofocus"
-                  :value="modelValue"
                   :maxlength="maxLength"
                   :placeholder="placeholder"
                   :class="inputClasses" />

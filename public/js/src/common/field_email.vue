@@ -20,7 +20,6 @@
                ref="input"
                v-model="email"
                v-focus="autofocus"
-               :value="modelValue"
                :autocomplete="autocomplete"
                :placeholder="placeholder"
                type="email"

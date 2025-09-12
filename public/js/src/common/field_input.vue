@@ -24,7 +24,6 @@
                    ref="input"
                    v-model="inputValue"
                    v-focus="autofocus"
-                   :value="modelValue"
                    :type="type"
                    :maxlength="maxLength"
                    :autocomplete="autocomplete"

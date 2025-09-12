@@ -1,7 +1,6 @@
 <template>
     <FieldPassword :id="id"
                    v-model="passwordWithErrors"
-                   :model-value="modelValue"
                    :user-data="userData"
                    :show-help="showHelp"
                    :required="false"

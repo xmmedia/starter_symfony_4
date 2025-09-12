@@ -9,7 +9,6 @@
             <input :id="id"
                    v-model="password"
                    v-focus="autofocus"
-                   :value="modelValue"
                    :type="fieldType"
                    :required="required"
                    :autocomplete="autocomplete"

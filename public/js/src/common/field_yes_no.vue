@@ -1,6 +1,5 @@
 <template>
     <FieldRadios v-model="radioValue"
-                 :model-value="modelValue"
                  :values="{ YES: 'Yes', NO: 'No' }"
                  :v="v"
                  :pills="true"
