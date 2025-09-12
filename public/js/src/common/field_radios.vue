@@ -30,7 +30,7 @@
 import cuid from 'cuid';
 import { computed } from 'vue';
 
-const checked = defineModel({ type: [ String, Boolean ]});
+const checked = defineModel({ type: [ String, Boolean ] });
 
 const props = defineProps({
     /**
