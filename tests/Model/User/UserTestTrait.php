@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User;
 
-use App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserId;
-use App\Projection\User\UserFinder;
 use Ramsey\Uuid\Uuid;
 
 trait UserTestTrait
 {
-    private ChecksUniqueUsersEmailFromReadModel|\Mockery\MockInterface $userUniquenessCheckerNone;
-    private ChecksUniqueUsersEmailFromReadModel|\Mockery\MockInterface $userUniquenessCheckerDuplicate;
+    private ChecksUniqueUsersEmail|\Mockery\MockInterface $userUniquenessCheckerNone;
+    private ChecksUniqueUsersEmail|\Mockery\MockInterface $userUniquenessCheckerDuplicate;
 
     protected function setUp(): void
     {
