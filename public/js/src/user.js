@@ -25,7 +25,7 @@ import LocalTime from './common/local_time.vue';
 
 import { MeQuery } from './user/queries/user.query.graphql';
 
-// SASS/CSS
+// CSS
 import '../../css/user.css';
 
 const pinia = createPinia();
