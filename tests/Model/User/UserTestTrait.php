@@ -7,6 +7,7 @@ namespace App\Tests\Model\User;
 use App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel;
 use App\Model\User\Name;
 use App\Model\User\Role;
+use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
@@ -19,20 +20,12 @@ trait UserTestTrait
 
     protected function setUp(): void
     {
-        $this->userUniquenessCheckerNone = \Mockery::spy(
-            new ChecksUniqueUsersEmailFromReadModel(
-                \Mockery::mock(UserFinder::class),
-            ),
-        );
+        $this->userUniquenessCheckerNone = \Mockery::mock(ChecksUniqueUsersEmail::class);
         $this->userUniquenessCheckerNone->shouldReceive('__invoke')
             ->andReturnNull()
             ->byDefault();
 
-        $this->userUniquenessCheckerDuplicate = \Mockery::spy(
-            new ChecksUniqueUsersEmailFromReadModel(
-                \Mockery::mock(UserFinder::class),
-            ),
-        );
+        $this->userUniquenessCheckerDuplicate = \Mockery::spy(ChecksUniqueUsersEmail::class);
         $this->userUniquenessCheckerDuplicate->shouldReceive('__invoke')
             ->andReturn(UserId::fromUuid(Uuid::uuid4()))
             ->byDefault();

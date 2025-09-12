@@ -9,18 +9,14 @@ use App\Model\User\UserIdInterface;
 use App\Projection\User\UserFinder;
 use Xm\SymfonyBundle\Model\Email;
 
-class ChecksUniqueUsersEmailFromReadModel implements ChecksUniqueUsersEmail
+final readonly class ChecksUniqueUsersEmailFromReadModel implements ChecksUniqueUsersEmail
 {
-    public function __construct(private readonly UserFinder $userFinder)
+    public function __construct(private UserFinder $userFinder)
     {
     }
 
     public function __invoke(Email $email): ?UserIdInterface
     {
-        if ($user = $this->userFinder->findOneByEmail($email)) {
-            return $user->userId();
-        }
-
-        return null;
+        return $this->userFinder->findOneByEmail($email)?->userId();
     }
 }
