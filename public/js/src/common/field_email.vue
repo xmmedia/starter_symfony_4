@@ -17,6 +17,7 @@
         </FieldError>
 
         <input :id="id"
+               v-model="email"
                ref="input"
                v-focus="autofocus"
                :value="modelValue"
@@ -24,8 +25,7 @@
                :placeholder="placeholder"
                type="email"
                maxlength="150"
-               @blur="checkEmail($event)"
-               @input="$emit('update:modelValue', $event.target.value)">
+               @blur="checkEmail($event)">
 
         <div v-if="suggestedEmail" class="p-2 bg-emerald-900/70 text-white">
             Did you mean
@@ -44,13 +44,9 @@ import { ref } from 'vue';
 import cuid from 'cuid';
 import emailSpellChecker from '@zootools/email-spell-checker';
 
-const emit = defineEmits(['update:modelValue']);
+const email = defineModel({ type: String });
 
 const props = defineProps({
-    modelValue: {
-        type: String,
-        default: null,
-    },
     autofocus: {
         type: Boolean,
         default: false,
@@ -98,8 +94,6 @@ const checkEmail = (event) => {
     }
 }
 const useSuggested = () => {
-    emit('update:modelValue', suggestedEmail.value);
-    suggestedEmail.value = null;
     input.value.focus();
 }
 </script>

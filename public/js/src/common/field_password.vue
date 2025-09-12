@@ -7,6 +7,7 @@
 
         <div class="relative z-20">
             <input :id="id"
+                   v-model="password"
                    v-focus="autofocus"
                    :value="modelValue"
                    :type="fieldType"
@@ -17,7 +18,6 @@
                    autocapitalize="off"
                    autocorrect="off"
                    spellcheck="false"
-                   @input="$emit('update:modelValue', $event.target.value)"
                    @focus="showMeter = true">
             <button type="button"
                     class="button-link field-button-password_view"
@@ -48,13 +48,9 @@ import { computed, defineAsyncComponent, ref, watch } from 'vue';
 import { passwordMinLength } from './validation/user.js';
 const PasswordScore = defineAsyncComponent(() => import('./password_score.vue'));
 
-defineEmits(['update:modelValue']);
+const password = defineModel({ type: String });
 
 const props = defineProps({
-    modelValue: {
-        type: String,
-        default: null,
-    },
     name: {
         type: String,
         default: null,

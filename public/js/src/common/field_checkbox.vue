@@ -17,13 +17,9 @@
 import cuid from 'cuid';
 import { computed } from 'vue';
 
-const emit = defineEmits([ 'update:modelValue' ]);
+const checked = defineModel({ type: Boolean });
 
 const props = defineProps({
-    modelValue: {
-        type: Boolean,
-        default: null,
-    },
     disabled: {
         type: Boolean,
         default: false,
@@ -39,15 +35,6 @@ const props = defineProps({
     id: {
         type: String,
         default: () => cuid(),
-    },
-});
-
-const checked = computed({
-    get () {
-        return props.modelValue;
-    },
-    set (value) {
-        emit('update:modelValue', value);
     },
 });
 </script>

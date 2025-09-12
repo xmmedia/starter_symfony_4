@@ -12,13 +12,13 @@
         </FieldError>
 
         <textarea :id="id"
+                  v-model="textArea"
                   ref="input"
                   v-focus="autofocus"
                   :value="modelValue"
                   :maxlength="maxLength"
                   :placeholder="placeholder"
-                  :class="inputClasses"
-                  @input="$emit('update:modelValue', $event.target.value)" />
+                  :class="inputClasses" />
 
         <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
     </div>
@@ -28,13 +28,9 @@
 import cuid from 'cuid';
 import has from 'lodash/has';
 
-defineEmits(['update:modelValue']);
+const textArea = defineModel({ type: String });
 
 const props = defineProps({
-    modelValue: {
-        type: String,
-        default: null,
-    },
     placeholder: {
         type: String,
         default: null,

@@ -10,9 +10,9 @@
              :key="value.value"
              class="field-wrap-checkbox">
             <input :id="id+'-'+value.value"
+                   v-model="checked"
                    type="checkbox"
                    :name="'checkboxes-'+id"
-                   :checked="checked.includes(value.value)"
                    :value="value.value"
                    @input="inputChecked">
             <label :for="id+'-'+value.value">{{ value.label }}</label>
@@ -26,13 +26,9 @@
 import cuid from 'cuid';
 import { computed } from 'vue';
 
-const emit = defineEmits(['update:modelValue']);
+const checked = defineModel({ type: Array, default: () => [] });
 
 const props = defineProps({
-    modelValue: {
-        type: Array,
-        default: null,
-    },
     /**
      * Either:
      * [{ value: '', label: '' }, ...]
@@ -51,15 +47,6 @@ const props = defineProps({
     id: {
         type: String,
         default: () => cuid(),
-    },
-});
-
-const checked = computed({
-    get () {
-        return props.modelValue;
-    },
-    set (value) {
-        emit('update:modelValue', value);
     },
 });
 

@@ -1,13 +1,13 @@
 <template>
     <FieldPassword :id="id"
+                   v-model="passwordWithErrors"
                    :model-value="modelValue"
                    :user-data="userData"
                    :show-help="showHelp"
                    :required="false"
                    :autocomplete="autocomplete"
                    :minlength="hasVuelidateProp(v, 'minLength') ? v.minLength.$params.min : null"
-                   :icon-component="iconComponent"
-                   @update:model-value="$emit('update:modelValue', $event)">
+                   :icon-component="iconComponent">
         <template #default><slot></slot></template>
         <template #errors>
             <FieldError v-if="v.$error && v.$invalid">
@@ -47,13 +47,9 @@ import FieldPassword from './field_password.vue';
 import { computed } from 'vue';
 import { hasVuelidateProp, vuelidateValue } from '@/common/lib';
 
-defineEmits(['update:modelValue']);
+const passwordWithErrors = defineModel({ type: String });
 
 const props = defineProps({
-    modelValue: {
-        type: String,
-        default: null,
-    },
     autocomplete: {
         type: String,
         default: null,

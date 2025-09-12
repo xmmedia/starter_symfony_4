@@ -21,6 +21,7 @@
         <div :class="inputWrapperClasses">
             <slot name="prefix"></slot>
             <input :id="id"
+                   v-model="inputValue"
                    ref="input"
                    v-focus="autofocus"
                    :value="modelValue"
@@ -34,7 +35,6 @@
                    :max="max"
                    :step="step"
                    :class="inputClasses"
-                   @input="$emit('update:modelValue', $event.target.value)"
                    @focus="$emit('focus')"
                    @blur="$emit('blur')">
             <slot name="suffix"></slot>
@@ -49,16 +49,14 @@ import cuid from 'cuid';
 import has from 'lodash/has';
 import { useTemplateRef } from 'vue';
 
-defineEmits([ 'update:modelValue', 'focus', 'blur' ]);
+defineEmits([ 'focus', 'blur' ]);
+
+const inputValue = defineModel({ type: [ String, Number ] });
 
 const input = useTemplateRef('input');
 defineExpose({ input });
 
 const props = defineProps({
-    modelValue: {
-        type: [ String, Number ],
-        default: null,
-    },
     type: {
         type: String,
         default: 'text',
