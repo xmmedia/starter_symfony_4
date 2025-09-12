@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createHead } from '@unhead/vue/client';
+import { logError } from '@/common/lib';
 
 import router from './user/router';
 import { useRootStore } from '@/user/stores/root';
@@ -86,7 +87,8 @@ apolloClient.query({ query: MeQuery })
 
         app.mount('#app');
     })
-    .catch(() => {
+    .catch((e) => {
+        logError(e);
         alert('There was an error loading the page. The page is not working as expected. Please refresh the page.');
 
     });

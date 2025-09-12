@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createHead } from '@unhead/vue/client';
+import { logError } from '@/common/lib';
 
 import router from './admin/router';
 import { useRootStore } from '@/admin/stores/root';
@@ -89,7 +90,8 @@ apolloClient.query({ query: MeQuery })
         app.mount('#app');
     })
 
-    .catch(() => {
+    .catch((e) => {
+            logError(e);
             // fix for Brave browser - it doesn't send the cookie with the first JS request on the initial load
             // after the page is refreshed, it's fine
             alert('There was an error loading the page. The page is not working as expected. Please refresh the page.');
