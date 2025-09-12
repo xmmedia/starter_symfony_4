@@ -90,5 +90,4 @@ apolloClient.query({ query: MeQuery })
     .catch((e) => {
         logError(e);
         alert('There was an error loading the page. The page is not working as expected. Please refresh the page.');
-
     });
