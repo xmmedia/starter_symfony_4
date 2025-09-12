@@ -118,6 +118,10 @@
                     <div class="field-help">Use at least 8 characters.</div>
                 </div>
 
+                <FieldInput v-model="textValue">Text field component</FieldInput>
+                <FieldEmail v-model="emailValue">Email field component</FieldEmail>
+                <FieldTextarea v-model="textareaValue">Textarea field component</FieldTextarea>
+
                 <div class="field-wrap field-wrap-readonly">
                     <label for="pattern-library-text-readonly">Read-only field</label>
                     <input id="pattern-library-text-readonly" type="text" readonly>
@@ -819,6 +823,9 @@
 <script setup>
 import { ref } from 'vue';
 import { useHead } from '@unhead/vue';
+import FieldInput from '@/common/field_input.vue';
+import FieldEmail from '@/common/field_email.vue';
+import FieldTextarea from '@/common/field_textarea.vue';
 import FieldRadios from '@/common/field_radios.vue';
 import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldCheckboxes from '@/common/field_checkboxes.vue';
@@ -836,6 +843,9 @@ const radios2Values = [
     { value: 4, label: 'Radio button Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.' },
 ];
 
+const textValue = ref();
+const emailValue = ref();
+const textareaValue = ref();
 const checkboxValue = ref(false);
 
 const checkboxesValue = ref([ 2 ]);
