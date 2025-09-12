@@ -81,4 +81,37 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
         $this->assertSameValueAs($lastName, $event->lastName());
         $this->assertSame($sendInvite, $event->sendInvite());
     }
+
+    public function testFromArrayMissingKeys(): void
+    {
+        $faker = $this->faker();
+
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $password = $faker->password();
+        $role = Role::ROLE_USER();
+
+        /** @var MinimalUserWasAddedByAdmin $event */
+        $event = $this->createEventFromArray(
+            MinimalUserWasAddedByAdmin::class,
+            $userId->toString(),
+            [
+                'email'          => $email->toString(),
+                'hashedPassword' => $password,
+                'role'           => $role->getValue(),
+                // missing: firstName, lastName, sendInvite
+            ],
+        );
+
+        $this->assertInstanceOf(MinimalUserWasAddedByAdmin::class, $event);
+
+        $this->assertSameValueAs($userId, $event->userId());
+        $this->assertSameValueAs($email, $event->email());
+        $this->assertEquals($password, $event->hashedPassword());
+        $this->assertEquals($role, $event->role());
+
+        $this->assertNull($event->firstName());
+        $this->assertNull($event->lastName());
+        $this->assertFalse($event->sendInvite());
+    }
 }

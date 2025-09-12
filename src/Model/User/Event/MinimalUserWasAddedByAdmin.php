@@ -82,7 +82,12 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function firstName(): ?Name
     {
         if (!isset($this->firstName)) {
-            $this->firstName = Name::fromString($this->payload['firstName']);
+            if (array_key_exists('firstName', $this->payload)) {
+                $this->firstName = Name::fromString($this->payload['firstName']);
+            } else {
+                // @todo-symfony remove firstName conditional (& test) if this is a new project (firstName wasn't in the original events)
+                $this->firstName = null;
+            }
         }
 
         return $this->firstName;
@@ -91,7 +96,12 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function lastName(): ?Name
     {
         if (!isset($this->lastName)) {
-            $this->lastName = Name::fromString($this->payload['lastName']);
+            if (array_key_exists('lastName', $this->payload)) {
+                $this->lastName = Name::fromString($this->payload['lastName']);
+            } else {
+                // @todo-symfony remove lastName conditional (& test) if this is a new project (lastName wasn't in the original events)
+                $this->lastName = null;
+            }
         }
 
         return $this->lastName;
@@ -100,7 +110,12 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function sendInvite(): bool
     {
         if (!isset($this->sendInvite)) {
-            $this->sendInvite = $this->payload['sendInvite'];
+            if (array_key_exists('sendInvite', $this->payload)) {
+                $this->sendInvite = $this->payload['sendInvite'];
+            } else {
+                // @todo-symfony remove sendInvite conditional (& test) if this is a new project (sendInvite wasn't in the original events)
+                $this->sendInvite = false;
+            }
         }
 
         return $this->sendInvite;
