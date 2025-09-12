@@ -17,12 +17,31 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import debounce from 'lodash/debounce';
 import FieldInput from '@/common/field_input.vue';
 import FieldRadios from '@/common/field_radios.vue';
 
-defineEmits(['reset']);
+const emit = defineEmits(['update:modelValue', 'reset']);
 
-const filters = defineModel({ type: Object });
+const props = defineProps({
+    modelValue: {
+        type: Object,
+        required: true,
+    },
+});
+
+const filters = computed({
+    get () {
+        return props.modelValue;
+    },
+    set (value) {
+        // debounce so typing in the search box doesn't cause too many updates
+        debounce(() => {
+            emit('update:modelValue', value);
+        }, 1000);
+    },
+});
 
 const roles = [
     { value: 'ALL', label: 'All' },
