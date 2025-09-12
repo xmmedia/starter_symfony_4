@@ -15,11 +15,10 @@
 
 <script setup>
 import cuid from 'cuid';
-import { computed } from 'vue';
 
 const checked = defineModel({ type: Boolean });
 
-const props = defineProps({
+defineProps({
     disabled: {
         type: Boolean,
         default: false,

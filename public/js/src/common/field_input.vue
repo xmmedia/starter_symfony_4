@@ -21,8 +21,8 @@
         <div :class="inputWrapperClasses">
             <slot name="prefix"></slot>
             <input :id="id"
-                   v-model="inputValue"
                    ref="input"
+                   v-model="inputValue"
                    v-focus="autofocus"
                    :value="modelValue"
                    :type="type"

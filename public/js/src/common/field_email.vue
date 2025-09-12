@@ -17,8 +17,8 @@
         </FieldError>
 
         <input :id="id"
-               v-model="email"
                ref="input"
+               v-model="email"
                v-focus="autofocus"
                :value="modelValue"
                :autocomplete="autocomplete"
