@@ -22,7 +22,7 @@ class ChecksUniqueUsersEmailFromReadModelTest extends BaseTestCase
             ->with($email)
             ->andReturnNull();
 
-        $result = (new ChecksUniqueUsersEmailFromReadModel($userFinder))($email);
+        $result = new ChecksUniqueUsersEmailFromReadModel($userFinder)($email);
 
         $this->assertNull($result);
     }
@@ -44,7 +44,7 @@ class ChecksUniqueUsersEmailFromReadModelTest extends BaseTestCase
             ->with($email)
             ->andReturn($user);
 
-        $result = (new ChecksUniqueUsersEmailFromReadModel($userFinder))($email);
+        $result = new ChecksUniqueUsersEmailFromReadModel($userFinder)($email);
 
         $this->assertEquals($userId, $result);
     }
