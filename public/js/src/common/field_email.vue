@@ -93,6 +93,8 @@ const checkEmail = (event) => {
     }
 }
 const useSuggested = () => {
+    email.value = suggestedEmail.value;
+    suggestedEmail.value = null;
     input.value.focus();
 }
 </script>
