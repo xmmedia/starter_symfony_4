@@ -445,8 +445,8 @@
             <div class="header-actions">
                 <a href="" class="header-action header-action-main">Action Main</a>
                 <div class="button_pair-wrap header-button_pair">
-                    <div class="button_pair-inactive">&lt;</div>
-                    <div class="button_pair-inactive">&gt;</div>
+                    <div class="button_pair-button button_pair-inactive">&lt;</div>
+                    <div class="button_pair-button button_pair-inactive">&gt;</div>
                 </div>
             </div>
         </div>
@@ -465,7 +465,7 @@
             <div class="header-page_title">Right Active</div>
             <div class="header-actions">
                 <div class="button_pair-wrap header-button_pair">
-                    <div class="button_pair-inactive">&lt;</div>
+                    <div class="button_pair-button button_pair-inactive">&lt;</div>
                     <a href="" class="button_pair-button">&gt;</a>
                 </div>
             </div>
@@ -476,7 +476,7 @@
             <div class="header-actions">
                 <div class="button_pair-wrap header-button_pair">
                     <a href="" class="button_pair-button">&lt;</a>
-                    <div class="button_pair-inactive">&gt;</div>
+                    <div class="button_pair-button button_pair-inactive">&gt;</div>
                 </div>
             </div>
         </div>
