@@ -13,13 +13,6 @@
 }
 
 .sidebar_nav-submenu_header {
-    @apply text-lg font-extralight border-b border-gray-600;
+    @apply pt-[0.9rem] pb-4 pl-4 lg:pt-[0.7rem] lg:pl-4 text-lg lg:text-2xl font-extralight border-b border-gray-600;
     min-height: var(--header-height);
-    padding: 1.25rem 0 1rem 1rem;
-
-    @apply lg:text-2xl;
-
-    @media (width >= 1024px) {
-        padding: 0.7rem 0 0.7rem 1rem;
-    }
 }
