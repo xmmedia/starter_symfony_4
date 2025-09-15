@@ -329,6 +329,10 @@
                     </div>
                 </div>
 
+                <FieldRadios :values="radiosPillsValues" :row="false">
+                    Radio pills component
+                    <template #help>Some help…</template>
+                </FieldRadios>
                 <fieldset class="field-wrap-radios mb-5">
                     <legend>Radio pills</legend>
                     <div class="flex gap-2 flex-wrap">
@@ -841,6 +845,10 @@ const radios2Values = [
     { value: 2, label: 'Option 2' },
     { value: 3, label: 'Option 3' },
     { value: 4, label: 'Radio button Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.' },
+];
+const radiosPillsValues = [
+    { value: 'yes', label: 'Yes' },
+    { value: 'no', label: 'No' },
 ];
 
 const textValue = ref();
