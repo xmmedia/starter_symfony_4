@@ -52,6 +52,9 @@ const props = defineProps({
     },
     /**
      * Returns string of classes for the cell.
+     * Arguments:
+     * - item: The current item for the row
+     * - j: The index of the cell
      */
     cellClassesFunction: {
         type: Function,
