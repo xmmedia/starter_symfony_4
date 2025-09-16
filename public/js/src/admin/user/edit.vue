@@ -74,13 +74,7 @@ const verified = ref(true);
 const active = ref(true);
 
 const showForm = computed(() => state.value.matches('ready') && !state.value.done);
-const allowSave = computed(() => {
-    if (!showForm.value) {
-        return false;
-    }
-
-    return state.value.matches('ready.ready');
-});
+const allowSave = computed(() => showForm.value && state.value.matches('ready.ready'));
 
 const { onResult, onError } = useQuery(GetUserQuery, { userId: props.userId });
 onResult(({ data: { User }}) => {
