@@ -5,7 +5,7 @@
 }
 
 .record_list-wrap {
-    @apply w-full pl-0 border-t md:border-t-0 list-none;
+    @apply w-full pl-0 border-t border-gray-300 md:border-t-0 list-none;
     th, td {
         @apply px-2 py-1;
         &:first-child {
