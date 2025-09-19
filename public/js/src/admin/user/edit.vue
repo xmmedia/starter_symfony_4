@@ -24,7 +24,7 @@
         </div>
 
         <form v-else-if="showForm" method="post" novalidate @submit.prevent="submit">
-            <FormError v-if="v$.$error && v$.$invalid" />
+            <FormError v-if="v$.$error" />
 
             <FormFields v-model="user" :editing="true" :v="v$.user" />
 

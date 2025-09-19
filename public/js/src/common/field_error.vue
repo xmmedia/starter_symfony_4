@@ -81,7 +81,7 @@ const slots = useSlots();
 
 const hasErrors = computed(() => {
     if (props.v) {
-        return props.v.$error && props.v.$invalid;
+        return props.v.$error /*&& props.v.$invalid*/;
     }
 
     return !!slots.default;

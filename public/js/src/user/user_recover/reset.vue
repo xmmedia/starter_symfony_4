@@ -8,7 +8,7 @@
         </PublicAlert>
 
         <form v-if="showForm" method="post" @submit.prevent="submit">
-            <FormError v-if="v$.$error && v$.$invalid" />
+            <FormError v-if="v$.$error" />
 
             <FieldError v-if="invalidToken" class="mb-8">
                 Your reset link is invalid or has expired.
