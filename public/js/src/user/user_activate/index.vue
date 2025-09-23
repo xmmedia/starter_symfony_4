@@ -8,7 +8,7 @@
         </PublicAlert>
 
         <form v-if="showForm" method="post" @submit.prevent="submit">
-            <FormError v-if="v$.$error" />
+            <FormError v-if="v$.$error && v$.$invalid" />
             <FieldError v-if="invalidToken" class="mb-8">
                 Your activation link is invalid.
                 Please try clicking the button again or copying the link.

@@ -12,7 +12,7 @@
         </PublicAlert>
 
         <form v-if="showForm" method="post" @submit.prevent="submit">
-            <FormError v-if="v$.$error" />
+            <FormError v-if="v$.$error && v$.$invalid" />
             <FieldError v-if="notFound" class="mb-8">
                 An account with that email cannot be found.
             </FieldError>

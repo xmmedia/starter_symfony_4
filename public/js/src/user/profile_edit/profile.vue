@@ -3,7 +3,7 @@
         <ProfileTabs />
 
         <form class="p-4" method="post" novalidate @submit.prevent="submit">
-            <FormError v-if="v$.$error" />
+            <FormError v-if="v$.$error && v$.$invalid" />
 
             <FieldEmail :model-value="user.email"
                         :v="v$.user.email"
