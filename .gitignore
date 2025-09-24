@@ -70,6 +70,7 @@ public/service-worker.js
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 .idea/copilot
+.idea/copilot*
 # @todo-symfony remove next 2 when setting up project
 .idea/sshConfigs.xml
 .idea/webServers.xml
