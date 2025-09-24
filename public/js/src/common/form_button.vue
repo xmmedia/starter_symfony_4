@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onBeforeUnmount, ref } from 'vue';
+import { computed, onMounted, onBeforeUnmount, ref, useTemplateRef } from 'vue';
 import { addLeaveConfirmation } from '@/common/lib';
 
 const props = defineProps({
@@ -107,7 +107,7 @@ const props = defineProps({
     },
 });
 
-const wrapper = ref();
+const wrapper = useTemplateRef('wrapper');
 const showButtonBar = ref(true);
 
 const observer = new IntersectionObserver((entries) => {
