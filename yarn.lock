@@ -6110,7 +6110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-multiselect@npm:^3.0.0-beta.2":
+"vue-multiselect@npm:^3.3.1":
   version: 3.3.1
   resolution: "vue-multiselect@npm:3.3.1"
   checksum: 10/e941a63cecca6b346f55769ec450169041205dfb28046c5001a762bd155ea5bf61443cb97ec62d88e23d859e3776268fbdad3ec0df4c9a9784d19e2d085ac453
@@ -6398,7 +6398,7 @@ __metadata:
     vue-eslint-parser: "npm:^10.0.0"
     vue-flatpickr-component: "npm:^12.0.0"
     vue-global-events: "npm:^3.0.0"
-    vue-multiselect: "npm:^3.0.0-beta.2"
+    vue-multiselect: "npm:^3.3.1"
     vue-router: "npm:^4.0.0"
     vuedraggable: "npm:^4.1.0"
     xstate: "npm:^5.4.0"
