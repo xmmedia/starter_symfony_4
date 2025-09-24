@@ -3,6 +3,7 @@
         <FieldError v-if="v" :v="v">
             <template #required><slot name="required"></slot></template>
         </FieldError>
+
         <div class="field-wrap-checkbox">
             <input :id="id" v-model="checked" type="checkbox" :value="true" :disabled="disabled">
             <label :for="id" :class="labelClasses"><slot></slot></label>
