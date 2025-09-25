@@ -9,7 +9,7 @@
 
         <h2 class="mt-0">Add User</h2>
         <form method="post" novalidate @submit.prevent="submit">
-            <FormError v-if="v$.$error && v$.$invalid" />
+            <FormError :v="v$" />
 
             <FormFields v-model="user" :v="v$.user" />
 
