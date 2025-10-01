@@ -21,8 +21,8 @@ return new PhpCsFixer\Config()
         '@PSR2'                       => true,
         '@DoctrineAnnotation'         => true,
         // this will include all the rules for earlier PHP versions
-        '@PHP84Migration'             => true,
-        '@PHPUnit60Migration:risky'   => true,
+        '@PHP8x4Migration'            => true,
+        '@PHPUnit6x0Migration:risky'  => true,
         'array_syntax'                => [
             'syntax' => 'short',
         ],
