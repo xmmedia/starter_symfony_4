@@ -4,45 +4,45 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    locale: 'en'
-    router.request_context.host: '%env(REQUEST_CONTEXT_HOST)%'
-    router.request_context.scheme: '%env(REQUEST_CONTEXT_SCHEME)%'
+    locale:                                'en'
+    router.request_context.host:           '%env(REQUEST_CONTEXT_HOST)%'
+    router.request_context.scheme:         '%env(REQUEST_CONTEXT_SCHEME)%'
     # @todo-symfony
-    user_time_zone: 'America/Edmonton'
-    email.product_name: 'XM Symfony Starter'
-    email.company_name: 'XM Media Inc.'
-    email.company_address: '123 Street, Big City'
+    user_time_zone:                        'America/Edmonton'
+    email.product_name:                    'XM Symfony Starter'
+    email.company_name:                    'XM Media Inc.'
+    email.company_address:                 '123 Street, Big City'
     email.whitelist:
         - '/@xmmedia\.com$/'
         #- '/@mail-tester\.com$/'
     # email templates
-    email.template.auth.user_invite: 'auth-user_invite'
+    email.template.auth.user_invite:       'auth-user_invite'
     email.template.auth.user_verification: 'auth-user_verification'
-    email.template.auth.login_link: 'auth-login_link'
-    email.template.auth.password_reset: 'auth-password_reset'
-    email.template.user.profile_updated: 'profile_updated'
-    email.template.user.password_changed: 'password_changed'
+    email.template.auth.login_link:        'auth-login_link'
+    email.template.auth.password_reset:    'auth-password_reset'
+    email.template.user.profile_updated:   'profile_updated'
+    email.template.user.password_changed:  'password_changed'
 
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
+        autowire:      true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
         bind:
-            $commandBus: '@messenger.bus.commands'
-            $eventBus: '@messenger.bus.events'
-            string $emailFrom: '%env(FROM_EMAIL)%'
-            string $adminEmail: '%env(ADMIN_EMAIL)%'
+            $commandBus:          '@messenger.bus.commands'
+            $eventBus:            '@messenger.bus.events'
+            string $emailFrom:    '%env(FROM_EMAIL)%'
+            string $adminEmail:   '%env(ADMIN_EMAIL)%'
             string $userTimeZone: '%user_time_zone%'
 
     _instanceof:
         GraphQL\Type\Definition\Type:
-            tags: ['overblog_graphql.type']
+            tags: [ 'overblog_graphql.type' ]
         Overblog\GraphQLBundle\Definition\Resolver\QueryInterface:
-            tags: ['overblog_graphql.query']
+            tags: [ 'overblog_graphql.query' ]
         Overblog\GraphQLBundle\Definition\Resolver\MutationInterface:
-            tags: ['overblog_graphql.mutation']
+            tags: [ 'overblog_graphql.mutation' ]
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -99,7 +99,7 @@ services:
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
-    App\Model\User\Service\ChecksUniqueUsersEmail: '@App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel'
+    App\Model\User\Service\ChecksUniqueUsersEmail:               '@App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel'
 
     Xm\SymfonyBundle\EventStore\EventStoreMessengerPlugin:
         tags: [ 'prooph_event_store.plugin' ]
@@ -107,20 +107,20 @@ services:
     Xm\SymfonyBundle\Infrastructure\Email\EmailGateway:
         arguments:
             $postmarkApiKey: '%env(POSTMARK_API_KEY)%'
-            $emailFrom: '%env(FROM_EMAIL)%'
-            $emailFromName: '%env(FROM_EMAIL_NAME)%'
-            $kernelEnv: '%kernel.environment%'
-            $productName: '%email.product_name%'
-            $companyName: '%email.company_name%'
+            $emailFrom:      '%env(FROM_EMAIL)%'
+            $emailFromName:  '%env(FROM_EMAIL_NAME)%'
+            $kernelEnv:      '%kernel.environment%'
+            $productName:    '%email.product_name%'
+            $companyName:    '%email.company_name%'
             $companyAddress: '%email.company_address%'
-            $whitelist: '%email.whitelist%'
-            $devEmail: '%env(DEV_EMAIL)%'
+            $whitelist:      '%email.whitelist%'
+            $devEmail:       '%env(DEV_EMAIL)%'
     Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface: '@Xm\SymfonyBundle\Infrastructure\Email\EmailGateway'
 
     Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner:
         arguments:
-            $projectionsManager: '@prooph_event_store.projection_manager.app'
+            $projectionsManager:                     '@prooph_event_store.projection_manager.app'
             $projectionManagerForProjectionsLocator: '@prooph_event_store.projection_manager_for_projections_locator'
-            $projectionsLocator: '@prooph_event_store.projections_locator'
-            $projectionReadModelLocator: '@prooph_event_store.projection_read_models_locator'
-            $logger: '@logger'
+            $projectionsLocator:                     '@prooph_event_store.projections_locator'
+            $projectionReadModelLocator:             '@prooph_event_store.projection_read_models_locator'
+            $logger:                                 '@logger'
