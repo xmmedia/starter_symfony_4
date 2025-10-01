@@ -8,6 +8,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude('var')
     ->exclude('cache')
+    // exclude next two because of the size of these dirs
     ->exclude('node_modules')
     ->exclude('public/js');
 
