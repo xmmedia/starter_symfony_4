@@ -21,3 +21,6 @@ parameters:
         - public/js
     symfony:
         containerXmlPath: '%rootDir%/../../../cache/dev/App_KernelDevDebugContainer.xml'
+    banned_code:
+        # errors emitted by the extension are non-ignorable by default, so they cannot accidentally be put into the baseline.
+        non_ignorable: false
