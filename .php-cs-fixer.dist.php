@@ -22,7 +22,7 @@ return new PhpCsFixer\Config()
         '@DoctrineAnnotation'         => true,
         // this will include all the rules for earlier PHP versions
         '@PHP8x4Migration'            => true,
-        '@PHPUnit6x0Migration:risky'  => true,
+        '@PHPUnit10x0Migration:risky'  => true,
         'array_syntax'                => [
             'syntax' => 'short',
         ],
