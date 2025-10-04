@@ -2,6 +2,9 @@
 
 set -e
 
+# check if composer.json & lock match
+lando composer validate --no-check-all --no-check-version --check-lock
+
 lando composer static
 yarn lint:js
 yarn lint:css
