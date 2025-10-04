@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
+    ->append(['.php-cs-fixer.dist.php']) // include this file as well
     ->exclude('var')
     ->exclude('cache')
     // exclude next two because of the size of these dirs
@@ -21,9 +22,9 @@ return new PhpCsFixer\Config()
         '@PSR2'                       => true,
         '@DoctrineAnnotation'         => true,
         // this will include all the rules for earlier PHP versions
-        '@PHP8x4Migration'            => true,
+        '@PHP8x4Migration'             => true,
         '@PHPUnit10x0Migration:risky'  => true,
-        'array_syntax'                => [
+        'array_syntax'                 => [
             'syntax' => 'short',
         ],
         'binary_operator_spaces'      => [
