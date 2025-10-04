@@ -36,7 +36,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-components" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/knplabs/knp-paginator-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/liip/functional-test-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/marc-mabe/php-enum" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/moneyphp/money" />

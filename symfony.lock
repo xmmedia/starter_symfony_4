@@ -147,9 +147,6 @@
     "laminas/laminas-code": {
         "version": "4.0.0"
     },
-    "liip/functional-test-bundle": {
-        "version": "2.0.0-alpha8"
-    },
     "marc-mabe/php-enum": {
         "version": "v3.0.2"
     },
