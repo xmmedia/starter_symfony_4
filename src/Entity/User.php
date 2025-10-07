@@ -34,9 +34,20 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     #[ORM\Column(length: 255)]
     private string $password;
 
+    /**
+     * Email address is verified.
+     * When the user is added by admin, this is always set to true.
+     * When a user registers themselves, this is set to false until they verify their email.
+     */
     #[ORM\Column]
     private bool $verified = false;
 
+    /**
+     * User is active and can log in.
+     * When the user is added by admin, this is set to true when they're sent an invitation (invite)
+     * or false until they activate their account & set their password.
+     * When a user registers themselves, this is set to true.
+     */
     #[ORM\Column]
     private bool $active = false;
 

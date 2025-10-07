@@ -167,3 +167,17 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Run `lando composer update` or `composer update` to update the PHP dependencies. If running locally without Lando, ensure your local PHP version matches the new version.
 1. Run the checks `nvm use && bin/check_full`.
 1. Update version in `README.md`.
+
+## User Actions & Fields
+
+### User – Verified
+Email address is verified. When the user is added by admin, this is always set to true. When a user registers themselves, this is set to false until they verify their email.
+
+### User – Active
+User is active and can log in. When the user is added by admin, this is set to true when they're sent an invitation (invite) or false until they activate their account & set their password. When a user registers themselves, this is set to true.
+
+### Send Activation
+Sends email to user to activate their account by entering their password. Uses a reset token and sets their account to active when complete.
+
+### Send Verification
+For email/user verification after registering. Sends email to user to activate their account. They don't need to enter a password (already set on registration form). Uses a reset token and sets their account to verified when complete.

@@ -10,6 +10,12 @@ use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 use Xm\SymfonyBundle\Model\Email;
 
+/**
+ * For email/user verification after registering.
+ * Sends email to user to activate their account.
+ * They don't need to enter a password (already set on registration form).
+ * Uses a reset token and sets their account to verified when complete.
+ */
 final class SendVerification extends Command
 {
     public static function now(

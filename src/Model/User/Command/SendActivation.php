@@ -10,6 +10,10 @@ use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 use Xm\SymfonyBundle\Model\Email;
 
+/**
+ * Sends email to user to activate their account by entering their password.
+ * Uses a reset token and sets their account to active when complete.
+ */
 final class SendActivation extends Command
 {
     public static function now(
