@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Model\User\Command\ActivateUser;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\HttpUtils;
@@ -49,7 +50,7 @@ readonly class UserChecker implements UserCheckerInterface
      * Exceptions/messages generated here can be displayed to the user
      * because they've entered the correct password.
      */
-    public function checkPostAuth(UserInterface $user): void
+    public function checkPostAuth(UserInterface $user, ?TokenInterface $token = null): void
     {
         if (!$user instanceof User) {
             return;
