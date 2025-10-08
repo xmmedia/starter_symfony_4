@@ -79,7 +79,7 @@ final class UserLoginFailed extends Command
         Assert::nullOrString($payload['email']);
 
         Assert::keyExists($payload, 'userId');
-        Assert::nullOrString($payload['userId']);
+        Assert::nullOrUuid($payload['userId']);
 
         Assert::keyExists($payload, 'userAgent');
         Assert::nullOrString($payload['userAgent']);
