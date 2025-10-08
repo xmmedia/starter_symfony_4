@@ -42,6 +42,7 @@ class Auth extends AggregateRoot implements Entity
     public static function failure(
         AuthId $authId,
         ?string $email,
+        ?UserId $userId,
         ?string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage,
@@ -52,6 +53,7 @@ class Auth extends AggregateRoot implements Entity
             Event\UserFailedToLogin::now(
                 $authId,
                 $email,
+                $userId,
                 null !== $userAgent ? substr($userAgent, 0, 500) : null,
                 $ipAddress,
                 $exceptionMessage,

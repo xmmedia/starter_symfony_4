@@ -15,6 +15,7 @@ class UserLoginFailedTest extends BaseTestCase
 
         $authId = $faker->authId();
         $email = $faker->email();
+        $userId = $faker->userId();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
@@ -23,6 +24,7 @@ class UserLoginFailedTest extends BaseTestCase
         $command = UserLoginFailed::now(
             $authId,
             $email,
+            $userId,
             $userAgent,
             $ipAddress,
             $message,
@@ -31,6 +33,7 @@ class UserLoginFailedTest extends BaseTestCase
 
         $this->assertSameValueAs($authId, $command->authId());
         $this->assertSame($email, $command->email());
+        $this->assertSameValueAs($userId, $command->userId());
         $this->assertSame($userAgent, $command->userAgent());
         $this->assertSame($ipAddress, $command->ipAddress());
         $this->assertSame($message, $command->exceptionMessage());
@@ -45,12 +48,14 @@ class UserLoginFailedTest extends BaseTestCase
             $faker->authId(),
             null,
             null,
+            null,
             $faker->ipv4(),
             null,
             $faker->slug(),
         );
 
         $this->assertNull($command->email());
+        $this->assertNull($command->userId());
         $this->assertNull($command->userAgent());
         $this->assertNull($command->exceptionMessage());
     }

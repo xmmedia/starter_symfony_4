@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\Auth\Command;
 
 use App\Model\Auth\AuthId;
+use App\Model\User\UserId;
 use App\Util\Assert;
 use Xm\SymfonyBundle\Messaging\Command;
 
@@ -13,6 +14,7 @@ final class UserLoginFailed extends Command
     public static function now(
         AuthId $authId,
         ?string $email,
+        ?UserId $userId,
         ?string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage,
@@ -21,6 +23,7 @@ final class UserLoginFailed extends Command
         return new self([
             'authId'           => $authId->toString(),
             'email'            => $email,
+            'userId'           => $userId?->toString(),
             'userAgent'        => $userAgent,
             'ipAddress'        => $ipAddress,
             'exceptionMessage' => $exceptionMessage,
@@ -36,6 +39,15 @@ final class UserLoginFailed extends Command
     public function email(): ?string
     {
         return $this->payload['email'];
+    }
+
+    public function userId(): ?UserId
+    {
+        if (null === $this->payload['userId']) {
+            return null;
+        }
+
+        return UserId::fromString($this->payload['userId']);
     }
 
     public function userAgent(): ?string
@@ -65,6 +77,9 @@ final class UserLoginFailed extends Command
 
         Assert::keyExists($payload, 'email');
         Assert::nullOrString($payload['email']);
+
+        Assert::keyExists($payload, 'userId');
+        Assert::nullOrString($payload['userId']);
 
         Assert::keyExists($payload, 'userAgent');
         Assert::nullOrString($payload['userAgent']);

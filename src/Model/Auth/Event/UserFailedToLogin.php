@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Model\Auth\Event;
 
 use App\Model\Auth\AuthId;
+use App\Model\User\UserId;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 
 class UserFailedToLogin extends AggregateChanged
 {
     private ?string $email;
+    private ?UserId $userId;
     private ?string $userAgent;
     private string $ipAddress;
     private ?string $exceptionMessage;
@@ -18,6 +20,7 @@ class UserFailedToLogin extends AggregateChanged
     public static function now(
         AuthId $authId,
         ?string $email,
+        ?UserId $userId,
         ?string $userAgent,
         string $ipAddress,
         ?string $exceptionMessage,
@@ -25,6 +28,7 @@ class UserFailedToLogin extends AggregateChanged
     ): self {
         $event = self::occur($authId->toString(), [
             'email'            => $email,
+            'userId'           => $userId?->toString(),
             'userAgent'        => $userAgent,
             'ipAddress'        => $ipAddress,
             'exceptionMessage' => $exceptionMessage,
@@ -32,6 +36,7 @@ class UserFailedToLogin extends AggregateChanged
         ]);
 
         $event->email = $email;
+        $event->userId = $userId;
         $event->userAgent = $userAgent;
         $event->ipAddress = $ipAddress;
         $event->exceptionMessage = $exceptionMessage;
@@ -52,6 +57,20 @@ class UserFailedToLogin extends AggregateChanged
         }
 
         return $this->email;
+    }
+
+    public function userId(): ?UserId
+    {
+        if (!isset($this->userId)) {
+            // @todo-symfony remove array_key_exists check (& test) if this is a new project
+            if (\array_key_exists('userId', $this->payload) && null !== $this->payload['userId']) {
+                $this->userId = UserId::fromString($this->payload['userId']);
+            } else {
+                $this->userId = null;
+            }
+        }
+
+        return $this->userId;
     }
 
     public function userAgent(): ?string

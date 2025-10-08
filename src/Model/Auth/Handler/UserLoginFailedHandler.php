@@ -19,6 +19,7 @@ final readonly class UserLoginFailedHandler
         $auth = Auth::failure(
             $command->authId(),
             $command->email(),
+            $command->userId(),
             $command->userAgent(),
             $command->ipAddress(),
             $command->exceptionMessage(),

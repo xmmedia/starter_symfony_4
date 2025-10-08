@@ -48,12 +48,13 @@ class AuthTest extends BaseTestCase
 
         $authId = $faker->authId();
         $email = $faker->email();
+        $userId = $faker->userId();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
         $route = $faker->slug();
 
-        $auth = Auth::failure($authId, $email, $userAgent, $ipAddress, $message, $route);
+        $auth = Auth::failure($authId, $email, $userId, $userAgent, $ipAddress, $message, $route);
 
         $this->assertInstanceOf(Auth::class, $auth);
 
@@ -61,6 +62,7 @@ class AuthTest extends BaseTestCase
 
         $this->assertRecordedEvent(UserFailedToLogin::class, [
             'email'            => $email,
+            'userId'           => $userId->toString(),
             'userAgent'        => $userAgent,
             'ipAddress'        => $ipAddress,
             'exceptionMessage' => $message,
@@ -81,7 +83,7 @@ class AuthTest extends BaseTestCase
         $message = $faker->asciify(str_repeat('*', 100));
         $route = $faker->slug();
 
-        $auth = Auth::failure($authId, null, null, $ipAddress, $message, $route);
+        $auth = Auth::failure($authId, null, null, null, $ipAddress, $message, $route);
 
         $this->assertInstanceOf(Auth::class, $auth);
 
@@ -89,6 +91,7 @@ class AuthTest extends BaseTestCase
 
         $this->assertRecordedEvent(UserFailedToLogin::class, [
             'email'            => null,
+            'userId'           => null,
             'userAgent'        => null,
             'ipAddress'        => $ipAddress,
             'exceptionMessage' => $message,

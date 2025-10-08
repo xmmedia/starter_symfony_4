@@ -18,6 +18,7 @@ class UserFailedToLoginTest extends BaseTestCase
 
         $authId = $faker->authId();
         $email = $faker->email();
+        $userId = $faker->userId();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->asciify(str_repeat('*', 100));
@@ -26,6 +27,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $event = UserFailedToLogin::now(
             $authId,
             $email,
+            $userId,
             $userAgent,
             $ipAddress,
             $message,
@@ -34,6 +36,7 @@ class UserFailedToLoginTest extends BaseTestCase
 
         $this->assertSameValueAs($authId, $event->authId());
         $this->assertSame($email, $event->email());
+        $this->assertSameValueAs($userId, $event->userId());
         $this->assertSame($userAgent, $event->userAgent());
         $this->assertSame($ipAddress, $event->ipAddress());
         $this->assertSame($message, $event->exceptionMessage());
@@ -53,12 +56,14 @@ class UserFailedToLoginTest extends BaseTestCase
             $authId,
             null,
             null,
+            null,
             $ipAddress,
             $message,
             $route,
         );
 
         $this->assertNull($event->email());
+        $this->assertNull($event->userId());
         $this->assertNull($event->userAgent());
     }
 
@@ -68,6 +73,7 @@ class UserFailedToLoginTest extends BaseTestCase
 
         $authId = $faker->authId();
         $email = $faker->email();
+        $userId = $faker->userId();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->string(100);
@@ -79,6 +85,7 @@ class UserFailedToLoginTest extends BaseTestCase
             $authId->toString(),
             [
                 'email'            => $email,
+                'userId'           => $userId->toString(),
                 'userAgent'        => $userAgent,
                 'ipAddress'        => $ipAddress,
                 'exceptionMessage' => $message,
@@ -90,6 +97,7 @@ class UserFailedToLoginTest extends BaseTestCase
 
         $this->assertSameValueAs($authId, $event->authId());
         $this->assertSame($email, $event->email());
+        $this->assertSameValueAs($userId, $event->userId());
         $this->assertSame($userAgent, $event->userAgent());
         $this->assertSame($ipAddress, $event->ipAddress());
         $this->assertSame($message, $event->exceptionMessage());
@@ -111,6 +119,7 @@ class UserFailedToLoginTest extends BaseTestCase
             $authId->toString(),
             [
                 'email'            => null,
+                'userId'           => null,
                 'userAgent'        => null,
                 'ipAddress'        => $ipAddress,
                 'exceptionMessage' => $message,
@@ -121,6 +130,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $this->assertInstanceOf(UserFailedToLogin::class, $event);
 
         $this->assertNull($event->email());
+        $this->assertNull($event->userId());
         $this->assertNull($event->userAgent());
     }
 }

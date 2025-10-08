@@ -10,6 +10,7 @@ use App\Model\Auth\Command\UserLoginFailed;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 
@@ -53,6 +54,11 @@ readonly class LoginLoggerSubscriber implements EventSubscriberInterface
      */
     public function loginFailure(LoginFailureEvent $event): void
     {
+        try {
+            $userId = $event->getPassport()?->getUser()->userId();
+        } catch (UserNotFoundException) {
+        }
+
         $authId = AuthId::fromUuid(Uuid::uuid4());
         $request = $event->getRequest();
 
@@ -60,6 +66,7 @@ readonly class LoginLoggerSubscriber implements EventSubscriberInterface
             UserLoginFailed::now(
                 $authId,
                 $request->get('_username'),
+                $userId ?? null,
                 $request->headers->get('User-Agent'),
                 $request->getClientIp(),
                 $event->getException()->getMessage(),
