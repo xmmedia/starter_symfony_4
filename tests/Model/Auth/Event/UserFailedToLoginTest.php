@@ -133,4 +133,42 @@ class UserFailedToLoginTest extends BaseTestCase
         $this->assertNull($event->userId());
         $this->assertNull($event->userAgent());
     }
+
+    public function testFromArrayMissingKeys(): void
+    {
+        $faker = $this->faker();
+
+        $authId = $faker->authId();
+        $email = $faker->email();
+        $userId = $faker->userId();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
+        $message = $faker->string(100);
+        $route = $faker->slug();
+
+        /** @var UserFailedToLogin $event */
+        $event = $this->createEventFromArray(
+            UserFailedToLogin::class,
+            $authId->toString(),
+            [
+                'email'            => $email,
+                'userAgent'        => $userAgent,
+                'ipAddress'        => $ipAddress,
+                'exceptionMessage' => $message,
+                'route'            => $route,
+                // missing userId
+            ],
+        );
+
+        $this->assertInstanceOf(UserFailedToLogin::class, $event);
+
+        $this->assertSameValueAs($authId, $event->authId());
+        $this->assertSame($email, $event->email());
+        $this->assertSame($userAgent, $event->userAgent());
+        $this->assertSame($ipAddress, $event->ipAddress());
+        $this->assertSame($message, $event->exceptionMessage());
+        $this->assertSame($route, $event->route());
+
+        $this->assertNull($event->userId());
+    }
 }
