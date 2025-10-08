@@ -2,11 +2,11 @@ doctrine:
     dbal:
         connections:
             default:
-                url: '%env(DATABASE_URL)%'
+                url:                         '%env(DATABASE_URL)%'
                 profiling_collect_backtrace: '%kernel.debug%'
-                use_savepoints: true
+                use_savepoints:              true
                 # ignore all tables except doctrine_migration_versions
-                schema_filter: ~^(doctrine_migration_versions)$~
+                schema_filter:               ~^(doctrine_migration_versions)$~
                 # alternatively, ignore tables ending in _event_stream
                 #schema_filter: ~^(?!.*_event_stream$)~
         types:

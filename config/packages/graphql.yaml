@@ -40,4 +40,4 @@ services:
         resource: '../../vendor/xm/symfony-bundle/Infrastructure/GraphQl/Query/*Query.php'
         tags: [ 'overblog_graphql.query' ]
 
-    Xm\SymfonyBundle\EventSubscriber\GraphQlContextInitialization:  ~
+    Xm\SymfonyBundle\EventSubscriber\GraphQlContextInitialization: ~
