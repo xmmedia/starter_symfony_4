@@ -21,7 +21,7 @@
         @apply bg-red-600 border-red-600;
     }
     &:focus {
-        @apply border-red-600;
+        @apply border-red-600 ring-red-400;
     }
     &:disabled {
         @apply bg-white border-gray-400;
