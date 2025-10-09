@@ -40,9 +40,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onBeforeUnmount, ref, watch } from 'vue';
 
-const emit = defineEmits(['delete']);
+const emit = defineEmits([ 'delete' ]);
 
 defineProps({
     recordDesc: {
@@ -79,6 +79,25 @@ const opened = () => {
     }
 };
 
+onBeforeUnmount(() => {
+    removeResizeListener();
+});
+
+watch(show, (newVal) => {
+    if (newVal) {
+        window.addEventListener('resize', resize, { once: true });
+    } else {
+        removeResizeListener();
+    }
+});
+
+const resize = () => {
+    show.value = false;
+};
+const removeResizeListener = () => {
+    window.removeEventListener('resize', resize, { once: true });
+};
+
 const closed = () => {
     show.value = false;
     // reset everything else
@@ -87,6 +106,7 @@ const closed = () => {
     if (link.value) {
         link.value.focus();
     }
+    removeResizeListener();
 };
 
 const deleteRecord = () => {
