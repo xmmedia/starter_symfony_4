@@ -1,15 +1,11 @@
 <template>
     <dialog ref="dialog"
-            class="admin-modal"
+            class="modal"
             @close="closed"
             @click.self="props.clickToClose ? close() : null">
         <div :class="contentClass">
-            <div v-if="props.showClose" class="absolute top-4 right-5 text-2xl leading-3">
-                <button class="button-link pb-1 text-slate-600 no-underline hover:text-slate-400 hover:text-slate-350
-                           focus:ring-offset-2 ring-offset-gray-800 focus:text-slate-350"
-                        type="button"
-                        @click="close">×
-                </button>
+            <div v-if="props.showClose" :class="closeButtonWrapClass">
+                <button :class="closeButtonClass" type="button" @click="close">×</button>
             </div>
 
             <div class="p-6">
@@ -27,7 +23,15 @@ const emit = defineEmits([ 'before-open', 'opened', 'before-close', 'closed' ]);
 const props = defineProps({
     contentClass: {
         type: String,
-        default: 'admin-modal-content',
+        default: 'modal-content',
+    },
+    closeButtonWrapClass: {
+        type: String,
+        default: 'modal-close',
+    },
+    closeButtonClass: {
+        type: String,
+        default: 'button-link modal-close-button',
     },
     showClose: {
         type: Boolean,
