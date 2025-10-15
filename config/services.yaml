@@ -99,8 +99,6 @@ services:
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
-    App\Model\User\Service\ChecksUniqueUsersEmail:               '@App\Infrastructure\Service\ChecksUniqueUsersEmailFromReadModel'
-
     Xm\SymfonyBundle\EventStore\EventStoreMessengerPlugin:
         tags: [ 'prooph_event_store.plugin' ]
 
