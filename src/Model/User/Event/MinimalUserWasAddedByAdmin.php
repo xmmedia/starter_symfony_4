@@ -85,7 +85,7 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
             if (\array_key_exists('firstName', $this->payload)) {
                 $this->firstName = Name::fromString($this->payload['firstName']);
             } else {
-                // @todo-symfony remove firstName conditional (& test) if this is a new project (firstName wasn't in the original events)
+                // @todo-symfony remove firstName conditional (& test) if this is a new project (firstName wasn't in the original events) & make firstName property non-nullable
                 $this->firstName = null;
             }
         }
@@ -99,7 +99,7 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
             if (\array_key_exists('lastName', $this->payload)) {
                 $this->lastName = Name::fromString($this->payload['lastName']);
             } else {
-                // @todo-symfony remove lastName conditional (& test) if this is a new project (lastName wasn't in the original events)
+                // @todo-symfony remove lastName conditional (& test) if this is a new project (lastName wasn't in the original events) & make lastName property non-nullable
                 $this->lastName = null;
             }
         }
