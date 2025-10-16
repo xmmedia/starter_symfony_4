@@ -44,10 +44,7 @@ final readonly class SendActivationHandler
             throw UserNotActive::triedToSendVerification($command->userId());
         }
 
-        $user = $this->userFinder->find($command->userId());
-        if (!$user) {
-            throw UserNotFound::withUserId($command->userId());
-        }
+        $user = $this->userFinder->findOrThrow($command->userId());
 
         // 60 seconds * 60 minutes * 24 hours * 14 days = 1,209,600 seconds
         $token = $this->resetPasswordHelper->generateResetToken($user, 60 * 60 * 24 * 14);
@@ -64,7 +61,7 @@ final readonly class SendActivationHandler
             [
                 'verifyUrl' => $verifyUrl,
                 'name'      => $user->name(),
-                'email'     => $command->email()->toString(),
+                'email'     => $user->email()->toString(),
             ],
             null,
             null,

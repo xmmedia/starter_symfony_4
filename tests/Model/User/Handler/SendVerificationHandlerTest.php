@@ -51,11 +51,12 @@ class SendVerificationHandlerTest extends BaseTestCase
             ->with(\Mockery::type(User::class));
 
         $user = \Mockery::mock(\App\Entity\User::class);
-        $user->shouldReceive('email');
+        $user->shouldReceive('email')
+            ->andReturn($command->email());
         $user->shouldReceive('name');
 
         $userFinder = \Mockery::mock(UserFinder::class);
-        $userFinder->shouldReceive('find')
+        $userFinder->shouldReceive('findOrThrow')
             ->once()
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
@@ -192,10 +193,10 @@ class SendVerificationHandlerTest extends BaseTestCase
             ->andReturn($user);
 
         $userFinder = \Mockery::mock(UserFinder::class);
-        $userFinder->shouldReceive('find')
+        $userFinder->shouldReceive('findOrThrow')
             ->once()
             ->with(\Mockery::type(UserId::class))
-            ->andReturnNull();
+            ->andThrow(UserNotFound::class);
 
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $router = \Mockery::mock(RouterInterface::class);

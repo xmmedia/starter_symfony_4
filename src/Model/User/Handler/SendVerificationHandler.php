@@ -40,16 +40,8 @@ final readonly class SendVerificationHandler
             throw UserAlreadyVerified::triedToSendVerification($command->userId());
         }
 
-        $user = $this->userFinder->find($command->userId());
-        if (!$user) {
-            throw UserNotFound::withUserId($command->userId());
-        }
+        $user = $this->userFinder->findOrThrow($command->userId());
 
-        $name = StringUtil::trim(\sprintf(
-            '%s %s',
-            $command->firstName(),
-            $command->lastName(),
-        ));
         $token = $this->resetPasswordHelper->generateResetToken($user);
 
         $verifyUrl = $this->router->generate(
@@ -60,11 +52,11 @@ final readonly class SendVerificationHandler
 
         $messageId = $this->emailGateway->send(
             $this->template,
-            Email::fromString($command->email()->toString(), $name),
+            $user->email(),
             [
                 'verifyUrl' => $verifyUrl,
-                'name'      => $name,
-                'email'     => $command->email()->toString(),
+                'name'      => $user->name(),
+                'email'     => $user->email()->toString(),
             ],
             null,
             null,
