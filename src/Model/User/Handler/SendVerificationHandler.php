@@ -14,7 +14,6 @@ use Symfony\Component\Routing\RouterInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
 use Xm\SymfonyBundle\Model\Email;
-use Xm\SymfonyBundle\Util\StringUtil;
 
 final readonly class SendVerificationHandler
 {
