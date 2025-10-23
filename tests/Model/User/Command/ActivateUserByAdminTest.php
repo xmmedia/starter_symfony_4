@@ -15,7 +15,7 @@ class ActivateUserByAdminTest extends BaseTestCase
 
         $userId = $faker->userId();
 
-        $command = ActivateUserByAdmin::user($userId);
+        $command = ActivateUserByAdmin::now($userId);
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
     }

@@ -22,7 +22,7 @@ class ActivateUserByAdminHandlerTest extends BaseTestCase
         $user->shouldReceive('activateByAdmin')
             ->once();
 
-        $command = ActivateUserByAdmin::user($faker->userId());
+        $command = ActivateUserByAdmin::now($faker->userId());
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -39,7 +39,7 @@ class ActivateUserByAdminHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $command = ActivateUserByAdmin::user($faker->userId());
+        $command = ActivateUserByAdmin::now($faker->userId());
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

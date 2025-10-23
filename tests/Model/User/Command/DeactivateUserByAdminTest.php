@@ -15,7 +15,7 @@ class DeactivateUserByAdminTest extends BaseTestCase
 
         $userId = $faker->userId();
 
-        $command = DeactivateUserByAdmin::user($userId);
+        $command = DeactivateUserByAdmin::now($userId);
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
     }

@@ -28,7 +28,7 @@ final readonly class AdminUserActivateMutation implements MutationInterface
             default      => throw new UserError(\sprintf('The "%s" action is invalid.', $action)),
         };
 
-        $this->commandBus->dispatch($command::user($userId));
+        $this->commandBus->dispatch($command::now($userId));
 
         return [
             'userId' => $userId,
