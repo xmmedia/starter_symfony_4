@@ -21,8 +21,6 @@ class SendPasswordChangedNotificationHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $user = \Mockery::mock(User::class);
-
         $command = SendPasswordChangedNotification::now($faker->userId());
 
         $user = \Mockery::mock(\App\Entity\User::class);
