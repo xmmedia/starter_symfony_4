@@ -7,6 +7,9 @@ namespace App\Infrastructure\Service;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
+/**
+ * Class cannot be readonly because tests include a mock of this class.
+ */
 class UrlGenerator
 {
     public function __construct(private readonly RouterInterface $router)
