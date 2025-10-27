@@ -25,7 +25,7 @@ class UserFilters extends Filters
         }
 
         if (\array_key_exists(self::ACCOUNT_STATUS, $filters)) {
-            if (\in_array(strtoupper($filters[self::ACCOUNT_STATUS]), ['ACTIVE', 'INACTIVE'], true)) {
+            if (null !== $filters[self::ACCOUNT_STATUS] && \in_array(strtoupper($filters[self::ACCOUNT_STATUS]), ['ACTIVE', 'INACTIVE'], true)) {
                 $filters[self::ACCOUNT_STATUS] = strtoupper($filters[self::ACCOUNT_STATUS]);
             } else {
                 unset($filters[self::ACCOUNT_STATUS]);
