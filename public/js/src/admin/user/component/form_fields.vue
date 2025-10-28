@@ -14,8 +14,8 @@
 
     <FieldCheckbox v-if="!editing" v-model="user.active">Active</FieldCheckbox>
 
-    <FieldInput v-model="user.firstName" :v="v.firstName">First name</FieldInput>
-    <FieldInput v-model="user.lastName" :v="v.lastName">Last name</FieldInput>
+    <FieldInput v-model="user.firstName" :v="v.firstName" autocomplete="off">First name</FieldInput>
+    <FieldInput v-model="user.lastName" :v="v.lastName" autocomplete="off">Last name</FieldInput>
 
     <FieldRole v-model="user.role" :v="v.role" />
 

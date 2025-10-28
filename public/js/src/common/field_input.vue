@@ -27,6 +27,7 @@
                    :type="type"
                    :maxlength="maxLength"
                    :autocomplete="autocomplete"
+                   :data-1p-ignore="'off' === autocomplete"
                    :placeholder="placeholder"
                    :readonly="readonly"
                    :disabled="disabled"

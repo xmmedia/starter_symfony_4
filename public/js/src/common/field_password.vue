@@ -12,6 +12,7 @@
                    :type="fieldType"
                    :required="required"
                    :autocomplete="autocomplete"
+                   :data-1p-ignore="'off' === autocomplete"
                    :name="name"
                    class="pr-10 mb-1"
                    autocapitalize="off"

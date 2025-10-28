@@ -5,6 +5,7 @@
                    :show-help="showHelp"
                    :required="false"
                    :autocomplete="autocomplete"
+                   :data-1p-ignore="'off' === autocomplete"
                    :minlength="hasVuelidateProp(v, 'minLength') ? v.minLength.$params.min : null"
                    :icon-component="iconComponent">
         <template #default><slot></slot></template>
