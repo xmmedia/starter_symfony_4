@@ -77,7 +77,10 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 
 ## Commands
 
+  - Run all checks: `nvm use && bin/generate_schema && bin/check_full`
+    - Notes: this generates the GQL schema first, because within the checks we validate the graphql operations files
   - Check all code: `bin/check`
+  - Generate GQL schema: `bin/generate_schema`
   - Production JS/CSS build: `yarn build`
   - Dev JS/CSS build: `yarn dev` (recommended command: `nvm use && yarn && yarn dev`)
   - Preview production JS/CSS build: `yarn preview`

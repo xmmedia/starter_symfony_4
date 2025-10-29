@@ -2,6 +2,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import js from '@eslint/js';
 import pluginVue from 'eslint-plugin-vue';
+import graphqlPlugin from '@graphql-eslint/eslint-plugin';
 
 export default defineConfig([
     globalIgnores(['public/js/svgxuse.min.js', 'public/js/src/tinymce/!**!/!*.js']),
@@ -75,6 +76,38 @@ export default defineConfig([
 
             "vue/multiline-html-element-content-newline": "off",
             "vue/singleline-html-element-content-newline": "off",
+        },
+    },
+
+    // GraphQL files configuration
+    {
+        files: ['**/*.graphql'],
+        languageOptions: {
+            parser: graphqlPlugin.parser,
+        },
+        plugins: {
+            '@graphql-eslint': graphqlPlugin,
+        },
+        rules: {
+            ...graphqlPlugin.configs['flat/schema-recommended'].rules,
+            ...graphqlPlugin.configs['flat/operations-recommended'].rules,
+            "@graphql-eslint/naming-convention": [
+                'error',
+                {
+                    VariableDefinition: "camelCase",
+                    OperationDefinition: {
+                        style: "PascalCase",
+                        // forbiddenPrefixes: [],
+                        // forbiddenSuffixes: [],
+                    },
+                    FragmentDefinition: {
+                        style: "PascalCase",
+                        // forbiddenPrefixes: [],
+                        // forbiddenSuffixes: [],
+                    },
+                },
+            ],
+            "@graphql-eslint/unique-operation-name": "off",
         },
     },
 ]);
