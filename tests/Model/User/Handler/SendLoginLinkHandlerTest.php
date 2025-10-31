@@ -21,16 +21,21 @@ class SendLoginLinkHandlerTest extends BaseTestCase
     public function test(): void
     {
         $faker = $this->faker();
+        $template = 'login-link-template';
+        $email = $faker->emailVo();
+        $url = $faker->url();
+        $userName = $faker->name();
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
         $command = SendLoginLink::now($faker->userId(), $faker->emailVo());
 
         $user = \Mockery::mock(\App\Entity\User::class);
         $user->shouldReceive('email')
             ->twice()
-            ->andReturn($command->email());
+            ->andReturn($email);
         $user->shouldReceive('name')
             ->once()
-            ->andReturn($faker->name());
+            ->andReturn($userName);
 
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
@@ -41,24 +46,43 @@ class SendLoginLinkHandlerTest extends BaseTestCase
         $loginLinkHandler = \Mockery::mock(LoginLinkHandlerInterface::class);
         $loginLinkHandler->shouldReceive('createLoginLink')
             ->once()
-            ->andReturn(new LoginLinkDetails(
-                $faker->string(10),
-                \DateTimeImmutable::createFromMutable($faker->dateTime()),
-            ));
+            ->andReturn(
+                new LoginLinkDetails(
+                    $url,
+                    \DateTimeImmutable::createFromMutable($faker->dateTime()),
+                ),
+            );
+
+        $templateData = [
+            'loginLinkUrl' => $url,
+            'name'         => $userName,
+            'email'        => $email->toString(),
+        ];
+
+        $headers = [
+            'References' => $faker->email(),
+        ];
 
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('getReferencesEmail')
             ->once()
-            // ->with(...)
-            ->andReturn($faker->email());
+            ->andReturn($headers['References']);
         $emailGateway->shouldReceive('send')
-            ->once()
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
+            ->with(
+                $template,
+                $email,
+                $templateData,
+                null,
+                null,
+                null,
+                $headers,
+            )
+            ->andReturn($messageId);
 
         $handler = new SendLoginLinkHandler(
             $userFinder,
             $emailGateway,
-            $faker->string(10),
+            $template,
             $faker->email(),
             $loginLinkHandler,
         );

@@ -20,18 +20,22 @@ class SendProfileUpdatedNotificationHandlerTest extends BaseTestCase
     public function test(): void
     {
         $faker = $this->faker();
+        $userId = $faker->userId();
+        $template = 'profile-updated-template';
+        $email = $faker->emailVo();
+        $url = $faker->url();
+        $userName = $faker->name();
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
-        $user = \Mockery::mock(User::class);
-
-        $command = SendProfileUpdatedNotification::now($faker->userId());
+        $command = SendProfileUpdatedNotification::now($userId);
 
         $user = \Mockery::mock(\App\Entity\User::class);
         $user->shouldReceive('email')
             ->once()
-            ->andReturn($faker->emailVo());
+            ->andReturn($email);
         $user->shouldReceive('name')
             ->once()
-            ->andReturn($faker->name());
+            ->andReturn($userName);
 
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
@@ -41,18 +45,28 @@ class SendProfileUpdatedNotificationHandlerTest extends BaseTestCase
 
         $urlGenerator = \Mockery::mock(UrlGenerator::class);
         $urlGenerator->shouldReceive('profile')
-            ->once()
-            ->andReturn($faker->url());
+            ->twice()
+            ->andReturn($url);
+
+        $templateData = [
+            'name'       => $userName,
+            'profileUrl' => $urlGenerator->profile(),
+        ];
 
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
+            ->with(
+                $template,
+                $email,
+                $templateData,
+            )
+            ->andReturn($messageId);
 
         $handler = new SendProfileUpdatedNotificationHandler(
             $userFinder,
             $urlGenerator,
             $emailGateway,
-            $faker->string(10),
+            $template,
         );
 
         $handler($command);

@@ -25,14 +25,16 @@ class SendVerificationHandlerTest extends BaseTestCase
     public function test(): void
     {
         $faker = $this->faker();
+        $template = 'verification-template';
+        $email = $faker->emailVo();
+        $url = $faker->url();
+        $userName = $faker->name();
+        $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
         $userAr = \Mockery::mock(User::class);
         $userAr->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
-
-        $userAr->shouldReceive('active');
-        $userAr->shouldReceive('verificationSent');
 
         $command = SendVerification::now(
             $faker->userId(),
@@ -52,8 +54,9 @@ class SendVerificationHandlerTest extends BaseTestCase
 
         $user = \Mockery::mock(\App\Entity\User::class);
         $user->shouldReceive('email')
-            ->andReturn($command->email());
-        $user->shouldReceive('name');
+            ->andReturn($email);
+        $user->shouldReceive('name')
+            ->andReturn($userName);
 
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findOrThrow')
@@ -61,28 +64,50 @@ class SendVerificationHandlerTest extends BaseTestCase
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
+        $templateData = [
+            'verifyUrl' => $url,
+            'name'      => $userName,
+            'email'     => $email->toString(),
+        ];
+
+        $headers = [
+            'References' => $faker->email(),
+        ];
+
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('getReferencesEmail')
             ->once()
-            ->andReturn($faker->email());
+            ->andReturn($headers['References']);
         $emailGateway->shouldReceive('send')
-            //->with(...)
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
+            ->with(
+                $template,
+                $email,
+                $templateData,
+                null,
+                null,
+                null,
+                $headers,
+            )
+            ->andReturn($messageId);
 
         $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
-            ->andReturn('url');
+            ->andReturn($url);
 
         $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
         $resetPasswordHelper->shouldReceive('generateResetToken')
             ->once()
             ->andReturn(new ResetPasswordToken('1234', new \DateTimeImmutable(), time()));
 
+        $userAr->shouldReceive('verificationSent')
+            ->once()
+            ->with($messageId);
+
         $handler = new SendVerificationHandler(
             $repo,
             $userFinder,
             $emailGateway,
-            $faker->string(10),
+            $template,
             $faker->email(),
             $router,
             $resetPasswordHelper,
