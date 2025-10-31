@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { apolloClient } from '@/common/apollo.js';
+import { apolloClient } from '@/common/apollo';
 import { RouteQuery } from '@/common/queries/route.query.graphql';
 
 export const scrollBehaviour = function (to, from, savedPosition) {

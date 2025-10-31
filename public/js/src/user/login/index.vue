@@ -91,7 +91,7 @@ import { useHead } from '@unhead/vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useMutation, useQuery } from '@vue/apollo-composable';
 import { useRootStore } from '@/user/stores/root';
-import { logError } from '@/common/lib.js';
+import { logError } from '@/common/lib';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
 import { AuthLast } from '@/user/queries/auth.query.graphql';

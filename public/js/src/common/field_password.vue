@@ -45,7 +45,7 @@
 <script setup>
 import cuid from 'cuid';
 import { computed, defineAsyncComponent, ref, watch } from 'vue';
-import { passwordMinLength } from './validation/user.js';
+import { passwordMinLength } from './validation/user';
 const PasswordScore = defineAsyncComponent(() => import('./password_score.vue'));
 
 const password = defineModel({ type: String });
