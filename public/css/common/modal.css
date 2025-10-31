@@ -64,8 +64,8 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
     @apply absolute top-4 right-5 text-2xl leading-3;
 }
 .modal-close-button {
-    @apply pb-1 text-slate-600 no-underline hover:text-slate-400 hover:text-slate-300
-    focus:ring-offset-2 ring-offset-gray-800 focus:text-slate-300;
+    @apply pb-1 text-slate-600 no-underline hover:text-slate-300
+        focus:ring-offset-2 ring-offset-gray-800 focus:text-slate-300;
 }
 
 /* applied to the content inside the modal */
