@@ -78,8 +78,6 @@ class SendProfileUpdatedNotificationHandlerTest extends BaseTestCase
 
         $command = SendProfileUpdatedNotification::now($faker->userId());
 
-        $user = \Mockery::mock(User::class);
-
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
             ->once()
