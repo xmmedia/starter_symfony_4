@@ -10,7 +10,6 @@ use App\Tests\BaseTestCase;
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\EnumValueNode;
 use GraphQL\Language\AST\FieldNode;
-use PHPUnit\Framework\TestCase;
 
 class RoleTypeTest extends BaseTestCase
 {

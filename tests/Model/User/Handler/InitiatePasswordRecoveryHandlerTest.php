@@ -69,7 +69,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
             ->once()
             ->andReturn(new ResetPasswordToken('1234', new \DateTimeImmutable(), time()));
 
-        (new InitiatePasswordRecoveryHandler(
+        new InitiatePasswordRecoveryHandler(
             $repo,
             $userFinder,
             $emailGateway,
@@ -79,7 +79,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
             $passwordResetHelper,
         )(
             $command
-        ));
+        );
     }
 
     public function testUserArNotFound(): void
@@ -104,7 +104,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new InitiatePasswordRecoveryHandler(
+        new InitiatePasswordRecoveryHandler(
             $repo,
             $userFinder,
             $emailGateway,
@@ -114,7 +114,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
             $passwordResetHelper,
         )(
             $command
-        ));
+        );
     }
 
     public function testUserEntityNotFound(): void
@@ -144,7 +144,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new InitiatePasswordRecoveryHandler(
+        new InitiatePasswordRecoveryHandler(
             $repo,
             $userFinder,
             $emailGateway,
@@ -154,6 +154,6 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
             $passwordResetHelper,
         )(
             $command
-        ));
+        );
     }
 }

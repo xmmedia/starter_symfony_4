@@ -7,7 +7,6 @@ namespace App\Tests\Model\User\Handler;
 use App\Model\User\Command\SendLoginLink;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Handler\SendLoginLinkHandler;
-use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
