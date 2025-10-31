@@ -44,7 +44,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
 
         $user = \Mockery::mock(\App\Entity\User::class);
         $user->shouldReceive('email')
-            ->once()
+            ->twice()
             ->andReturn($command->email());
 
         $userFinder = \Mockery::mock(UserFinder::class);
@@ -77,9 +77,9 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
             $faker->email(),
             $router,
             $passwordResetHelper,
-        ))(
+        )(
             $command
-        );
+        ));
     }
 
     public function testUserArNotFound(): void
@@ -112,9 +112,9 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
             $faker->email(),
             $router,
             $passwordResetHelper,
-        ))(
+        )(
             $command
-        );
+        ));
     }
 
     public function testUserEntityNotFound(): void
@@ -152,8 +152,8 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
             $faker->email(),
             $router,
             $passwordResetHelper,
-        ))(
+        )(
             $command
-        );
+        ));
     }
 }

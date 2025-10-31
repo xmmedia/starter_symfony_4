@@ -26,13 +26,13 @@ class SendVerificationHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $user = \Mockery::mock(User::class);
-        $user->shouldReceive('verified')
+        $userAr = \Mockery::mock(User::class);
+        $userAr->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
 
-        $user->shouldReceive('active');
-        $user->shouldReceive('verificationSent');
+        $userAr->shouldReceive('active');
+        $userAr->shouldReceive('verificationSent');
 
         $command = SendVerification::now(
             $faker->userId(),
@@ -45,7 +45,7 @@ class SendVerificationHandlerTest extends BaseTestCase
         $repo->shouldReceive('get')
             ->once()
             ->with(\Mockery::type(UserId::class))
-            ->andReturn($user);
+            ->andReturn($userAr);
         $repo->shouldReceive('save')
             ->once()
             ->with(\Mockery::type(User::class));
@@ -66,6 +66,7 @@ class SendVerificationHandlerTest extends BaseTestCase
             ->once()
             ->andReturn($faker->email());
         $emailGateway->shouldReceive('send')
+            //->with(...)
             ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
 
         $router = \Mockery::mock(RouterInterface::class);
@@ -94,8 +95,8 @@ class SendVerificationHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $user = \Mockery::mock(User::class);
-        $user->shouldReceive('verified')
+        $userAr = \Mockery::mock(User::class);
+        $userAr->shouldReceive('verified')
             ->once()
             ->andReturnTrue();
 
@@ -111,7 +112,7 @@ class SendVerificationHandlerTest extends BaseTestCase
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
             ->with(\Mockery::type(UserId::class))
-            ->andReturn($user);
+            ->andReturn($userAr);
 
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $router = \Mockery::mock(RouterInterface::class);
@@ -180,17 +181,17 @@ class SendVerificationHandlerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
         );
 
-        $user = \Mockery::mock(User::class);
-        $user->shouldReceive('verified')
+        $userAr = \Mockery::mock(User::class);
+        $userAr->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
-        $user->shouldReceive('active');
+        $userAr->shouldReceive('active');
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
             ->once()
             ->with(\Mockery::type(UserId::class))
-            ->andReturn($user);
+            ->andReturn($userAr);
 
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('findOrThrow')

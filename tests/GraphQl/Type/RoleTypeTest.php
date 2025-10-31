@@ -6,12 +6,13 @@ namespace App\Tests\GraphQl\Type;
 
 use App\GraphQl\Type\RoleType;
 use App\Model\User\Role;
+use App\Tests\BaseTestCase;
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\EnumValueNode;
 use GraphQL\Language\AST\FieldNode;
 use PHPUnit\Framework\TestCase;
 
-class RoleTypeTest extends TestCase
+class RoleTypeTest extends BaseTestCase
 {
     #[\PHPUnit\Framework\Attributes\DataProvider('roleProvider')]
     public function testSerialize(Role|string|null $value, ?string $expected): void

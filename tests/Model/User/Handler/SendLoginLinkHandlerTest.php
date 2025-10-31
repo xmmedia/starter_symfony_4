@@ -22,19 +22,11 @@ class SendLoginLinkHandlerTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $user = \Mockery::mock(User::class);
-        $user->shouldReceive('verified');
-
-        $user->shouldReceive('active');
-
-        $user->shouldReceive('inviteSent');
-
         $command = SendLoginLink::now($faker->userId(), $faker->emailVo());
 
         $user = \Mockery::mock(\App\Entity\User::class);
-
         $user->shouldReceive('email')
-            ->once()
+            ->twice()
             ->andReturn($command->email());
         $user->shouldReceive('name')
             ->once()
@@ -46,13 +38,6 @@ class SendLoginLinkHandlerTest extends BaseTestCase
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
-        $emailGateway->shouldReceive('getReferencesEmail')
-            ->once()
-            ->andReturn($faker->email());
-        $emailGateway->shouldReceive('send')
-            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
-
         $loginLinkHandler = \Mockery::mock(LoginLinkHandlerInterface::class);
         $loginLinkHandler->shouldReceive('createLoginLink')
             ->once()
@@ -60,6 +45,15 @@ class SendLoginLinkHandlerTest extends BaseTestCase
                 $faker->string(10),
                 \DateTimeImmutable::createFromMutable($faker->dateTime()),
             ));
+
+        $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
+        $emailGateway->shouldReceive('getReferencesEmail')
+            ->once()
+            // ->with(...)
+            ->andReturn($faker->email());
+        $emailGateway->shouldReceive('send')
+            ->once()
+            ->andReturn(EmailGatewayMessageId::fromString($faker->uuid()));
 
         $handler = new SendLoginLinkHandler(
             $userFinder,
@@ -77,11 +71,6 @@ class SendLoginLinkHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $command = SendLoginLink::now($faker->userId(), $faker->emailVo());
-
-        $user = \Mockery::mock(User::class);
-        $user->shouldReceive('verified');
-        $user->shouldReceive('active');
-        $user->shouldReceive('inviteSent');
 
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
