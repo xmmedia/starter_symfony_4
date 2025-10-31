@@ -52,7 +52,7 @@ final readonly class InitiatePasswordRecoveryHandler
             $user->email(),
             [
                 'resetUrl' => $resetUrl,
-                'email'    => $command->email()->toString(),
+                'email'    => $user->email()->toString(),
             ],
             null,
             null,

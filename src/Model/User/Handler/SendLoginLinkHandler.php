@@ -35,7 +35,7 @@ final readonly class SendLoginLinkHandler
             [
                 'loginLinkUrl' => $this->loginLinkHandler->createLoginLink($user)->getUrl(),
                 'name'         => $user->name(),
-                'email'        => $command->email()->toString(),
+                'email'        => $user->email()->toString(),
             ],
             null,
             null,
