@@ -39,6 +39,9 @@ class SendActivationHandlerTest extends BaseTestCase
         $userAr->shouldReceive('active')
             ->once()
             ->andReturnTrue();
+        $userAr->shouldReceive('inviteSent')
+            ->once()
+            ->with($messageId);
 
         $command = SendActivation::now(
             $faker->userId(),
@@ -103,10 +106,6 @@ class SendActivationHandlerTest extends BaseTestCase
         $resetPasswordHelper->shouldReceive('generateResetToken')
             ->once()
             ->andReturn(new ResetPasswordToken('1234', new \DateTimeImmutable(), time()));
-
-        $userAr->shouldReceive('inviteSent')
-            ->once()
-            ->with($messageId);
 
         $handler = new SendActivationHandler(
             $repo,

@@ -35,6 +35,9 @@ class SendVerificationHandlerTest extends BaseTestCase
         $userAr->shouldReceive('verified')
             ->once()
             ->andReturnFalse();
+        $userAr->shouldReceive('verificationSent')
+            ->once()
+            ->with($messageId);
 
         $command = SendVerification::now(
             $faker->userId(),
@@ -98,10 +101,6 @@ class SendVerificationHandlerTest extends BaseTestCase
         $resetPasswordHelper->shouldReceive('generateResetToken')
             ->once()
             ->andReturn(new ResetPasswordToken('1234', new \DateTimeImmutable(), time()));
-
-        $userAr->shouldReceive('verificationSent')
-            ->once()
-            ->with($messageId);
 
         $handler = new SendVerificationHandler(
             $repo,
