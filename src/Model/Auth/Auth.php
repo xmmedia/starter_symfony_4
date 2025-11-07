@@ -20,7 +20,7 @@ class Auth extends AggregateRoot implements Entity
         AuthId $authId,
         UserId $userId,
         Email $email,
-        string $userAgent,
+        ?string $userAgent,
         string $ipAddress,
         string $route,
     ): self {
@@ -30,7 +30,7 @@ class Auth extends AggregateRoot implements Entity
                 $authId,
                 $userId,
                 $email,
-                substr($userAgent, 0, 500),
+                null !== $userAgent ? substr($userAgent, 0, 500) : null,
                 $ipAddress,
                 $route,
             ),

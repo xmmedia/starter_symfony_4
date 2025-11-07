@@ -13,7 +13,7 @@ class UserLoggedIn extends AggregateChanged
 {
     private UserId $userId;
     private Email $email;
-    private string $userAgent;
+    private ?string $userAgent;
     private string $ipAddress;
     private string $route;
 
@@ -21,7 +21,7 @@ class UserLoggedIn extends AggregateChanged
         AuthId $authId,
         UserId $userId,
         Email $email,
-        string $userAgent,
+        ?string $userAgent,
         string $ipAddress,
         string $route,
     ): self {
@@ -65,7 +65,7 @@ class UserLoggedIn extends AggregateChanged
         return $this->email;
     }
 
-    public function userAgent(): string
+    public function userAgent(): ?string
     {
         if (!isset($this->userAgent)) {
             $this->userAgent = $this->payload['userAgent'];

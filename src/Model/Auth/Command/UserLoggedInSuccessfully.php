@@ -16,7 +16,7 @@ final class UserLoggedInSuccessfully extends Command
         AuthId $authId,
         UserId $userId,
         Email $email,
-        string $userAgent,
+        ?string $userAgent,
         string $ipAddress,
         string $route,
     ): self {
@@ -45,7 +45,7 @@ final class UserLoggedInSuccessfully extends Command
         return Email::fromString($this->payload['email']);
     }
 
-    public function userAgent(): string
+    public function userAgent(): ?string
     {
         return $this->payload['userAgent'];
     }
@@ -72,8 +72,7 @@ final class UserLoggedInSuccessfully extends Command
         Assert::string($payload['email']);
 
         Assert::keyExists($payload, 'userAgent');
-        Assert::notEmpty($payload['userAgent']);
-        Assert::string($payload['userAgent']);
+        Assert::nullOrString($payload['userAgent']);
 
         Assert::keyExists($payload, 'ipAddress');
         Assert::notEmpty($payload['ipAddress']);
