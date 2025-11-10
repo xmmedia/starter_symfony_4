@@ -3,7 +3,7 @@
     shadow-none border-2 border-blue-500 rounded tracking-wider
     transition-default outline-hidden;
     &:hover {
-        @apply text-white bg-blue-800 border-blue-800 no-underline;
+        @apply text-white bg-blue-800 border-blue-800 no-underline cursor-pointer;
     }
     &:focus {
         @apply ring-2 ring-indigo-400 ring-offset-1 outline-hidden no-underline;
