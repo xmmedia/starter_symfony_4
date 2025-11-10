@@ -1,23 +1,44 @@
 .button {
-    @apply py-2 px-4 text-white font-extralight bg-blue-500 text-center shadow-none border-2 border-blue-500 rounded tracking-wider transition-default outline-hidden;
-    @apply hover:text-white hover:bg-blue-800 hover:border-blue-800 hover:no-underline cursor-pointer;
-    @apply focus:ring-2 focus:ring-indigo-400 focus:ring-offset-1 focus:outline-hidden focus:no-underline;
-    @apply disabled:bg-gray-400 disabled:border-gray-400 disabled:cursor-not-allowed;
-    @apply disabled:hover:bg-gray-400 disabled:hover:border-gray-400 disabled:hover:cursor-not-allowed;
+    @apply py-2 px-4 text-white font-extralight bg-blue-500 text-center
+    shadow-none border-2 border-blue-500 rounded tracking-wider
+    transition-default outline-hidden;
+    &:hover {
+        @apply text-white bg-blue-800 border-blue-800 no-underline cursor-pointer;
+    }
+    &:focus {
+        @apply ring-2 ring-indigo-400 ring-offset-1 outline-hidden no-underline;
+    }
+    &:disabled {
+        @apply bg-gray-400 border-gray-400 cursor-not-allowed;
+        &:hover {
+            @apply bg-gray-400 border-gray-400 cursor-not-allowed;
+        }
+    }
 }
-
 .button-critical {
     @apply text-red-600 bg-white border-red-600;
-    @apply hover:bg-red-600 hover:border-red-600;
-    @apply focus:border-red-600;
-    @apply disabled:bg-white disabled:border-gray-400;
-    @apply disabled:hover:text-red-600 disabled:hover:bg-white;
+    &:hover {
+        @apply bg-red-600 border-red-600;
+    }
+    &:focus {
+        @apply border-red-600 ring-red-400;
+    }
+    &:disabled {
+        @apply bg-white border-gray-400;
+        &:hover {
+            @apply text-red-600 bg-white;
+        }
+    }
 }
 
 a.button {
     @apply inline-block;
-    @apply focus:bg-blue-500 focus:text-white;
+    &:focus {
+        @apply bg-blue-500 text-white;
+    }
 }
 a.button-critical {
-    @apply focus:bg-white;
+    &:focus {
+        @apply bg-white;
+    }
 }
