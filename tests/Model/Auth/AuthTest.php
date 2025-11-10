@@ -42,6 +42,35 @@ class AuthTest extends BaseTestCase
         $this->assertEquals($authId, $auth->authId());
     }
 
+    public function testSuccessNullValues(): void
+    {
+        $faker = $this->faker();
+
+        $authId = $faker->authId();
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
+
+        $auth = Auth::success($authId, $userId, $email, null, $ipAddress, $route);
+
+        $this->assertInstanceOf(Auth::class, $auth);
+
+        $events = $this->popRecordedEvent($auth);
+
+        $this->assertRecordedEvent(UserLoggedIn::class, [
+            'userId'    => $userId->toString(),
+            'email'     => $email->toString(),
+            'userAgent' => null,
+            'ipAddress' => $ipAddress,
+            'route'     => $route,
+        ], $events);
+
+        $this->assertCount(1, $events);
+
+        $this->assertEquals($authId, $auth->authId());
+    }
+
     public function testFailure(): void
     {
         $faker = $this->faker();

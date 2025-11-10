@@ -39,4 +39,31 @@ class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
 
         (new UserLoggedInSuccessfullyHandler($repo))($command);
     }
+
+    public function testNullValues(): void
+    {
+        $faker = $this->faker();
+
+        $authId = $faker->authId();
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
+
+        $command = UserLoggedInSuccessfully::now(
+            $authId,
+            $userId,
+            $email,
+            null,
+            $ipAddress,
+            $route,
+        );
+
+        $repo = \Mockery::mock(AuthList::class);
+        $repo->shouldReceive('save')
+            ->once()
+            ->with(\Mockery::type(Auth::class));
+
+        (new UserLoggedInSuccessfullyHandler($repo))($command);
+    }
 }

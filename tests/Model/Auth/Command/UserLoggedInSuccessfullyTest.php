@@ -36,4 +36,31 @@ class UserLoggedInSuccessfullyTest extends BaseTestCase
         $this->assertSame($ipAddress, $command->ipAddress());
         $this->assertSame($route, $command->route());
     }
+
+    public function testNullValues(): void
+    {
+        $faker = $this->faker();
+
+        $authId = $faker->authId();
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
+
+        $command = UserLoggedInSuccessfully::now(
+            $authId,
+            $userId,
+            $email,
+            null,
+            $ipAddress,
+            $route,
+        );
+
+        $this->assertSameValueAs($authId, $command->authId());
+        $this->assertSameValueAs($userId, $command->userId());
+        $this->assertSameValueAs($email, $command->email());
+        $this->assertNull($command->userAgent());
+        $this->assertSame($ipAddress, $command->ipAddress());
+        $this->assertSame($route, $command->route());
+    }
 }
