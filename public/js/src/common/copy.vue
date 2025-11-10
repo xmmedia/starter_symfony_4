@@ -1,6 +1,6 @@
 <template>
     <button :title="title"
-            class="text-gray-400 focus:text-gray-600 hover:text-gray-600"
+            class="text-gray-400 focus:text-gray-600 hover:text-gray-600 hover:cursor-pointer"
             type="button"
             @click="copy">
         <component :is="iconComponent" icon="copy" :class="iconClasses" />
