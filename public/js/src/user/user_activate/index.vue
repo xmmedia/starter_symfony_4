@@ -62,7 +62,7 @@ import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
 import { useRouter } from 'vue-router';
 import { required, sameAs } from '@vuelidate/validators';
-import FieldPassword from '@/common/field_password_with_errors';
+import FieldPassword from '@/common/field_password_with_errors.vue';
 import { UserActivate } from '@/user/queries/user.mutation.graphql';
 import userValidation from '@/common/validation/user';
 import { hasGraphQlError, logError } from '@/common/lib';
