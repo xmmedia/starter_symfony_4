@@ -2,6 +2,10 @@
 
 @import "tailwindcss";
 
+@theme {
+    --breakpoint-xs: 25rem;
+}
+
 /* Safelist specific classes & pattern-based utilities */
 @source inline("");
 

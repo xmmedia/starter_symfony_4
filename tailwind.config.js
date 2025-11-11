@@ -3,12 +3,6 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
     theme: {
-        screens: {
-            'xs': '400px',
-            ...defaultTheme.screens,
-            'print': { 'raw': 'print' },
-            'retina': { 'raw': '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)' },
-        },
         extend: {
             colors: {
             },
