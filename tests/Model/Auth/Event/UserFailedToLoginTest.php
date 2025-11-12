@@ -49,7 +49,6 @@ class UserFailedToLoginTest extends BaseTestCase
 
         $authId = $faker->authId();
         $ipAddress = $faker->ipv4();
-        $message = $faker->asciify(str_repeat('*', 100));
         $route = $faker->slug();
 
         $event = UserFailedToLogin::now(
@@ -58,13 +57,14 @@ class UserFailedToLoginTest extends BaseTestCase
             null,
             null,
             $ipAddress,
-            $message,
+            null,
             $route,
         );
 
         $this->assertNull($event->email());
         $this->assertNull($event->userId());
         $this->assertNull($event->userAgent());
+        $this->assertNull($event->exceptionMessage());
     }
 
     public function testFromArray(): void
@@ -110,7 +110,6 @@ class UserFailedToLoginTest extends BaseTestCase
 
         $authId = $faker->authId();
         $ipAddress = $faker->ipv4();
-        $message = $faker->asciify(str_repeat('*', 100));
         $route = $faker->slug();
 
         /** @var UserFailedToLogin $event */
@@ -122,7 +121,7 @@ class UserFailedToLoginTest extends BaseTestCase
                 'userId'           => null,
                 'userAgent'        => null,
                 'ipAddress'        => $ipAddress,
-                'exceptionMessage' => $message,
+                'exceptionMessage' => null,
                 'route'            => $route,
             ],
         );
@@ -132,6 +131,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $this->assertNull($event->email());
         $this->assertNull($event->userId());
         $this->assertNull($event->userAgent());
+        $this->assertNull($event->exceptionMessage());
     }
 
     public function testFromArrayMissingKeys(): void

@@ -109,10 +109,9 @@ class AuthTest extends BaseTestCase
 
         $authId = $faker->authId();
         $ipAddress = $faker->ipv4();
-        $message = $faker->asciify(str_repeat('*', 100));
         $route = $faker->slug();
 
-        $auth = Auth::failure($authId, null, null, null, $ipAddress, $message, $route);
+        $auth = Auth::failure($authId, null, null, null, $ipAddress, null, $route);
 
         $this->assertInstanceOf(Auth::class, $auth);
 
@@ -123,7 +122,7 @@ class AuthTest extends BaseTestCase
             'userId'           => null,
             'userAgent'        => null,
             'ipAddress'        => $ipAddress,
-            'exceptionMessage' => $message,
+            'exceptionMessage' => null,
             'route'            => $route,
         ], $events);
 
