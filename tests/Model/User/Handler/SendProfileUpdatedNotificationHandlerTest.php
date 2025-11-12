@@ -8,7 +8,6 @@ use App\Infrastructure\Service\UrlGenerator;
 use App\Model\User\Command\SendProfileUpdatedNotification;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Handler\SendProfileUpdatedNotificationHandler;
-use App\Model\User\User;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
