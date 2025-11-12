@@ -9,7 +9,6 @@ return RectorConfig::configure()
     ->withPreparedSets(
         codeQuality: true,
         codingStyle: true,
-        strictBooleans: true,
         // no privatization, naming, instanceOf, and earlyReturn
         // no deadCode and typeDeclarations as they're below
     )
@@ -43,9 +42,6 @@ return RectorConfig::configure()
         Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class,
         Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector::class,
         Rector\CodingStyle\Rector\String_\SymplifyQuoteEscapeRector::class,
-        // from set "strictBooleans"
-        Rector\Strict\Rector\If_\BooleanInIfConditionRuleFixerRector::class,
-        Rector\Strict\Rector\BooleanNot\BooleanInBooleanNotRuleFixerRector::class,
         // from set "codingStyle"
         Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
         Rector\CodeQuality\Rector\If_\CombineIfRector::class,
