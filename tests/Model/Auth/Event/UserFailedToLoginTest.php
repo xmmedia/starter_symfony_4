@@ -162,6 +162,8 @@ class UserFailedToLoginTest extends BaseTestCase
 
         $this->assertInstanceOf(UserFailedToLogin::class, $event);
 
+        $this->assertNull($event->userId());
+
         $this->assertSameValueAs($authId, $event->authId());
         $this->assertSame($email, $event->email());
         $this->assertSame($userAgent, $event->userAgent());
@@ -169,6 +171,5 @@ class UserFailedToLoginTest extends BaseTestCase
         $this->assertSame($message, $event->exceptionMessage());
         $this->assertSame($route, $event->route());
 
-        $this->assertNull($event->userId());
     }
 }

@@ -56,10 +56,11 @@ class UserLoggedInSuccessfullyTest extends BaseTestCase
             $route,
         );
 
+        $this->assertNull($command->userAgent());
+
         $this->assertSameValueAs($authId, $command->authId());
         $this->assertSameValueAs($userId, $command->userId());
         $this->assertSameValueAs($email, $command->email());
-        $this->assertNull($command->userAgent());
         $this->assertSame($ipAddress, $command->ipAddress());
         $this->assertSame($route, $command->route());
     }

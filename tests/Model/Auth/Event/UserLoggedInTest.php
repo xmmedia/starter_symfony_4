@@ -59,10 +59,11 @@ class UserLoggedInTest extends BaseTestCase
             $route,
         );
 
+        $this->assertNull($event->userAgent());
+
         $this->assertSameValueAs($authId, $event->authId());
         $this->assertSameValueAs($userId, $event->userId());
         $this->assertSameValueAs($email, $event->email());
-        $this->assertNull($event->userAgent());
         $this->assertSame($ipAddress, $event->ipAddress());
         $this->assertSame($route, $event->route());
     }
@@ -126,10 +127,11 @@ class UserLoggedInTest extends BaseTestCase
 
         $this->assertInstanceOf(UserLoggedIn::class, $event);
 
+        $this->assertNull($event->userAgent());
+
         $this->assertSameValueAs($authId, $event->authId());
         $this->assertSameValueAs($userId, $event->userId());
         $this->assertSameValueAs($email, $event->email());
-        $this->assertNull($event->userAgent());
         $this->assertSame($ipAddress, $event->ipAddress());
         $this->assertSame($route, $event->route());
     }
