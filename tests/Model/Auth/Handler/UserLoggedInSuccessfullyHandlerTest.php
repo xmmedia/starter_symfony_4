@@ -40,7 +40,7 @@ class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
         (new UserLoggedInSuccessfullyHandler($repo))($command);
     }
 
-    public function testNullValues(): void
+    public function testNulls(): void
     {
         $faker = $this->faker();
 

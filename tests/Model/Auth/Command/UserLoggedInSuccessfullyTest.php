@@ -37,7 +37,7 @@ class UserLoggedInSuccessfullyTest extends BaseTestCase
         $this->assertSame($route, $command->route());
     }
 
-    public function testNullValues(): void
+    public function testNulls(): void
     {
         $faker = $this->faker();
 

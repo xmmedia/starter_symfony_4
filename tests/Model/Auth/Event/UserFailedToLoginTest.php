@@ -43,7 +43,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $this->assertSame($route, $event->route());
     }
 
-    public function testOccurNullValues(): void
+    public function testOccurNulls(): void
     {
         $faker = $this->faker();
 
@@ -104,7 +104,7 @@ class UserFailedToLoginTest extends BaseTestCase
         $this->assertSame($route, $event->route());
     }
 
-    public function testFromArrayNullValues(): void
+    public function testFromArrayNulls(): void
     {
         $faker = $this->faker();
 

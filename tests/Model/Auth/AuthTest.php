@@ -42,7 +42,7 @@ class AuthTest extends BaseTestCase
         $this->assertEquals($authId, $auth->authId());
     }
 
-    public function testSuccessNullValues(): void
+    public function testSuccessNulls(): void
     {
         $faker = $this->faker();
 
@@ -103,7 +103,7 @@ class AuthTest extends BaseTestCase
         $this->assertEquals($authId, $auth->authId());
     }
 
-    public function testFailureNullValues(): void
+    public function testFailureNulls(): void
     {
         $faker = $this->faker();
 
