@@ -13,7 +13,7 @@ export default {
         "at-rule-no-deprecated": null,
         "no-invalid-position-at-import-rule": [
             true,
-            { "ignoreAtRules": [ "config", "source" ] },
+            { "ignoreAtRules": [ "config", "source", "theme" ] },
         ],
     },
 };
