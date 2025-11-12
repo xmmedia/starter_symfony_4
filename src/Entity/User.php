@@ -232,8 +232,8 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
         }
 
         // check if roles have changed
-        $currentRoles = array_map('strval', $this->roles());
-        $newRoles = array_map('strval', $user->roles());
+        $currentRoles = array_map(strval(...), $this->roles());
+        $newRoles = array_map(strval(...), $user->roles());
         $rolesChanged = \count($currentRoles) !== \count($newRoles) || \count($currentRoles) !== \count(array_intersect($currentRoles, $newRoles));
 
         return !$rolesChanged;
