@@ -177,6 +177,5 @@ class UserFailedToLoginTest extends BaseTestCase
         $this->assertSame($ipAddress, $event->ipAddress());
         $this->assertSame($message, $event->exceptionMessage());
         $this->assertSame($route, $event->route());
-
     }
 }
