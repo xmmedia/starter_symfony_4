@@ -44,19 +44,27 @@ class UserLoginFailedTest extends BaseTestCase
     {
         $faker = $this->faker();
 
+        $authId = $faker->authId();
+        $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
+
         $command = UserLoginFailed::now(
-            $faker->authId(),
+            $authId,
             null,
             null,
             null,
-            $faker->ipv4(),
+            $ipAddress,
             null,
-            $faker->slug(),
+            $route,
         );
 
         $this->assertNull($command->email());
         $this->assertNull($command->userId());
         $this->assertNull($command->userAgent());
         $this->assertNull($command->exceptionMessage());
+
+        $this->assertSameValueAs($authId, $command->authId());
+        $this->assertSame($ipAddress, $command->ipAddress());
+        $this->assertSame($route, $command->route());
     }
 }

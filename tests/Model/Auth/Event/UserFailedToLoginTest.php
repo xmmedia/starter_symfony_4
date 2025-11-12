@@ -65,6 +65,10 @@ class UserFailedToLoginTest extends BaseTestCase
         $this->assertNull($event->userId());
         $this->assertNull($event->userAgent());
         $this->assertNull($event->exceptionMessage());
+
+        $this->assertSameValueAs($authId, $event->authId());
+        $this->assertSame($ipAddress, $event->ipAddress());
+        $this->assertSame($route, $event->route());
     }
 
     public function testFromArray(): void
@@ -132,6 +136,10 @@ class UserFailedToLoginTest extends BaseTestCase
         $this->assertNull($event->userId());
         $this->assertNull($event->userAgent());
         $this->assertNull($event->exceptionMessage());
+
+        $this->assertSameValueAs($authId, $event->authId());
+        $this->assertSame($ipAddress, $event->ipAddress());
+        $this->assertSame($route, $event->route());
     }
 
     public function testFromArrayMissingKeys(): void
@@ -140,7 +148,6 @@ class UserFailedToLoginTest extends BaseTestCase
 
         $authId = $faker->authId();
         $email = $faker->email();
-        $userId = $faker->userId();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->string(100);

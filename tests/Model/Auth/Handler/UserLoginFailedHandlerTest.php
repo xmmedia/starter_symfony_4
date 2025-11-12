@@ -41,4 +41,30 @@ class UserLoginFailedHandlerTest extends BaseTestCase
 
         (new UserLoginFailedHandler($repo))($command);
     }
+
+    public function testNulls(): void
+    {
+        $faker = $this->faker();
+
+        $authId = $faker->authId();
+        $ipAddress = $faker->ipv4();
+        $route = $faker->slug();
+
+        $command = UserLoginFailed::now(
+            $authId,
+            null,
+            null,
+            null,
+            $ipAddress,
+            null,
+            $route,
+        );
+
+        $repo = \Mockery::mock(AuthList::class);
+        $repo->shouldReceive('save')
+            ->once()
+            ->with(\Mockery::type(Auth::class));
+
+        (new UserLoginFailedHandler($repo))($command);
+    }
 }
