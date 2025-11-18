@@ -122,3 +122,8 @@ services:
             $projectionsLocator:                     '@prooph_event_store.projections_locator'
             $projectionReadModelLocator:             '@prooph_event_store.projection_read_models_locator'
             $logger:                                 '@logger'
+
+    Xm\SymfonyBundle\Infrastructure\Service\PostmarkSuppressionChecker:
+        arguments:
+            $postmarkApiKey: '%env(POSTMARK_API_KEY)%'
+    Xm\SymfonyBundle\Infrastructure\Service\EmailSuppressionCheckerInterface: '@Xm\SymfonyBundle\Infrastructure\Service\PostmarkSuppressionChecker'

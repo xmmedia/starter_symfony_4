@@ -18,6 +18,9 @@ type Query {
   "Check if users password meets the minimum strength requirements. Token must be stored in the session. This will return true if the token is not stored in the session or has already been used."
   UserRecoverResetPasswordStrength(newPassword: String!): UserPasswordAllowed!
 
+  "Check if an email is in Postmark suppression list."
+  EmailSuppression(email: String!): EmailSuppression!
+
   "Retrieves the last email used on the login form and the last error from the last auth attempt (from session)."
   AuthLast: AuthLast!
 
@@ -94,6 +97,19 @@ type UserPasswordValid {
 
 type UserPasswordAllowed {
   allowed: Boolean!
+}
+
+type EmailSuppression {
+  suppressed: Boolean!
+
+  "The code reason for the suppression."
+  reason: String
+
+  "The human readable reason for the suppression."
+  reasonHuman: String
+
+  dateAdded: DateTime
+  espUrl: String
 }
 
 "The last email & last error after a login attempt."

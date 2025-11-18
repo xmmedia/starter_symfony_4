@@ -11977,16 +11977,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.100",
+            "version": "v2.0.102",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "5f6ce78a274c2b32582ff32d5a842771c774c4d0"
+                "reference": "a07530a9d1c06decf534f50eef46c375216a84d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/5f6ce78a274c2b32582ff32d5a842771c774c4d0",
-                "reference": "5f6ce78a274c2b32582ff32d5a842771c774c4d0",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/a07530a9d1c06decf534f50eef46c375216a84d2",
+                "reference": "a07530a9d1c06decf534f50eef46c375216a84d2",
                 "shasum": ""
             },
             "require": {
@@ -12060,9 +12060,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.100"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.102"
             },
-            "time": "2025-11-05T16:22:50+00:00"
+            "time": "2025-11-18T03:07:15+00:00"
         }
     ],
     "packages-dev": [

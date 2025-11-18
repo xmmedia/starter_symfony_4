@@ -42,6 +42,7 @@
                     </div>
                     <div class="record_view-item_value">
                         <a :href="'mailto:'+user.email">{{ user.email }}</a>
+                        <PostmarkSuppression :email="user.email" />
                     </div>
                 </div>
                 <div class="record_view-item">
@@ -145,6 +146,7 @@ import { useHead } from '@unhead/vue';
 import Copy from '@/common/copy.vue';
 import ViewPhone from '@/common/view_phone.vue';
 import AccountStatus from './component/account_status.vue';
+import PostmarkSuppression from './component/postmark_suppression.vue';
 import SendActivation from './component/send_activation.vue';
 import Activate from './component/activate.vue';
 import Verify from './component/verify.vue';

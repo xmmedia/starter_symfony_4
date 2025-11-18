@@ -49,6 +49,14 @@ UserQuery:
                 args:
                     newPassword: String!
 
+            EmailSuppression:
+                type:        EmailSuppression!
+                description: 'Check if an email is in Postmark suppression list.'
+                access:      '@=hasRole("ROLE_ADMIN")'
+                resolve:     '@=query("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Query\\EmailSuppressionQuery", args["email"])'
+                args:
+                    email: String!
+
 UserFilterInput:
     type: input-object
     config:
@@ -79,3 +87,17 @@ UserPasswordAllowed:
     config:
         fields:
             allowed: Boolean!
+
+EmailSuppression:
+    type: object
+    config:
+        fields:
+            suppressed: Boolean!
+            reason:
+                type:        String
+                description: 'The code reason for the suppression.'
+            reasonHuman:
+                type:        String
+                description: 'The human readable reason for the suppression.'
+            dateAdded:  DateTime
+            espUrl:     String

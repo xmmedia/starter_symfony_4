@@ -73,3 +73,12 @@ query GetUserCourseAddDataQuery($userId: UserId!) {
         name
     }
 }
+
+query GetEmailSuppressionQuery($email: String!) {
+    EmailSuppression(email: $email) {
+        suppressed
+        reasonHuman
+        dateAdded
+        espUrl
+    }
+}
