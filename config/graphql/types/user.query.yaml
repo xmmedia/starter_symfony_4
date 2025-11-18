@@ -62,13 +62,13 @@ UserFilterInput:
     config:
         description: 'Available filters for querying Users. Any passed fields will be applied if not empty. Exclude the key/field to skip that filter.'
         fields:
-            q:              String
-            roles:          '[Role!]'
-            email:          String
-            emailExact:     String
-            active:         Boolean
-            accountStatus:  String
-            offset:         Int
+            q:             String
+            roles:         '[Role!]'
+            email:         String
+            emailExact:    String
+            active:        Boolean
+            accountStatus: String
+            offset:        Int
 
 UserEmailUnique:
     type: object
