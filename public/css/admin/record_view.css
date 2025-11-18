@@ -11,7 +11,8 @@
     @apply mt-4 border-t-2 border-gray-400;
 }
 .record_view-item {
-    @apply flex flex-wrap p-2 transition-colors duration-150 ease-in-out;
+    /* no wrap so long values don't end up below the label */
+    @apply flex flex-wrap md:flex-nowrap p-2 transition-colors duration-150 ease-in-out;
     &:hover {
         @apply bg-blue-100;
         a, .button-link, button, .button {
