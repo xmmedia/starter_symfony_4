@@ -50,8 +50,10 @@ final readonly class ChangedPasswordProcessManager
         }
 
         // don't send the email if the previous change was less than 10 minutes ago
-        if ($previousChange && CarbonImmutable::instance($previousChange->createdAt())->diffInMinutes($event->createdAt()) < 10) {
-            return;
+        if ($previousChange) {
+            if (CarbonImmutable::instance($previousChange->createdAt())->diffInMinutes($event->createdAt()) < 10) {
+                return;
+            }
         }
 
         $this->commandBus->dispatch(
