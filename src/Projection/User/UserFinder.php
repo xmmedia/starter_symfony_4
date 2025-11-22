@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 use JetBrains\PhpStorm\ArrayShape;
 use Xm\SymfonyBundle\Model\Email;
@@ -15,10 +16,10 @@ use Xm\SymfonyBundle\Model\Email;
 /**
  * @extends ServiceEntityRepository<\App\Entity\User>
  *
- * @method User|null find(UserId|string $id, $lockMode = null, $lockVersion = null)
+ * @method User|null find(UserId|string $id, LockMode|int|null $lockMode = null, int|null $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method User[]    findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
  * @method User|null findOneByEmail(Email $email, array $orderBy = null)
  */
 class UserFinder extends ServiceEntityRepository
