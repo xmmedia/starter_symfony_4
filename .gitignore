@@ -89,6 +89,10 @@ public/service-worker.js
 !.vscode/extensions.json
 ###< vscode ###
 
+###> claude-code ###
+.claude/
+###< claude-code ###
+
 ###> pentatrion/vite-bundle ###
 /node_modules/
 /public/build/
