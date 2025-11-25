@@ -65,7 +65,7 @@ export default defineConfig(({ command }) => {
             https: true,
             watch: {
                 // this is in part needed because the symfony plugin ignores the public dir completely
-                ignored: [ '**/vendor/**', '**/var/**' ],
+                ignored: [ '**/vendor/**', '**/var/**', '**/coverage/**' ],
             },
         },
         appType: 'custom',
