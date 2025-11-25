@@ -7,6 +7,7 @@ namespace App\Tests\Command;
 use App\Command\AddUserCommand;
 use App\Entity\User;
 use App\Model\User\Command\AdminAddUserMinimum;
+use App\Model\User\Role;
 use App\Projection\User\UserFinder;
 use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;
@@ -15,6 +16,7 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
@@ -26,7 +28,8 @@ class AddUserCommandTest extends BaseTestCase
     {
         $faker = $this->faker();
         $email = $faker->email();
-        $password = 'ValidPassword123!';
+        $password = $faker->password();
+        $role = Role::ROLE_USER();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
 
@@ -59,7 +62,7 @@ class AddUserCommandTest extends BaseTestCase
         $commandTester->setInputs([
             $email,
             $password,
-            '0', // ROLE_USER
+            $role,
             $firstName,
             $lastName,
         ]);
@@ -76,6 +79,7 @@ class AddUserCommandTest extends BaseTestCase
     {
         $faker = $this->faker();
         $email = $faker->email();
+        $role = Role::ROLE_ADMIN();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
 
@@ -107,7 +111,7 @@ class AddUserCommandTest extends BaseTestCase
         $commandTester = new CommandTester($command);
         $commandTester->setInputs([
             $email,
-            '1', // ROLE_ADMIN
+            $role,
             $firstName,
             $lastName,
         ]);
@@ -125,7 +129,8 @@ class AddUserCommandTest extends BaseTestCase
     {
         $faker = $this->faker();
         $email = $faker->email();
-        $password = 'ValidPassword123!';
+        $password = $faker->password();
+        $role = Role::ROLE_USER();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
         $tokenValue = 'activation-token-123';
@@ -179,7 +184,7 @@ class AddUserCommandTest extends BaseTestCase
         $commandTester->setInputs([
             $email,
             $password,
-            '0', // ROLE_USER
+            $role,
             $firstName,
             $lastName,
         ]);
@@ -198,7 +203,8 @@ class AddUserCommandTest extends BaseTestCase
     {
         $faker = $this->faker();
         $email = $faker->email();
-        $password = 'ValidPassword123!';
+        $password = $faker->password();
+        $role = Role::ROLE_USER();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
 
@@ -231,7 +237,7 @@ class AddUserCommandTest extends BaseTestCase
         $commandTester->setInputs([
             $email,
             $password,
-            '0', // ROLE_USER
+            $role,
             $firstName,
             $lastName,
         ]);
@@ -251,14 +257,15 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertArrayHasKey('email', $json);
         $this->assertArrayHasKey('role', $json);
         $this->assertEquals($email, $json['email']);
-        $this->assertEquals('ROLE_USER', $json['role']);
+        $this->assertEquals($role, $json['role']);
     }
 
     public function testExecuteWithJsonFormatAndActivationToken(): void
     {
         $faker = $this->faker();
         $email = $faker->email();
-        $password = 'ValidPassword123!';
+        $password = $faker->password();
+        $role = Role::ROLE_SUPER_ADMIN();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
         $tokenValue = 'activation-token-456';
@@ -312,7 +319,7 @@ class AddUserCommandTest extends BaseTestCase
         $commandTester->setInputs([
             $email,
             $password,
-            '2', // ROLE_SUPER_ADMIN
+            $role,
             $firstName,
             $lastName,
         ]);
@@ -337,7 +344,7 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertArrayHasKey('activationToken', $json);
         $this->assertArrayHasKey('resetUrl', $json);
         $this->assertEquals($email, $json['email']);
-        $this->assertEquals('ROLE_SUPER_ADMIN', $json['role']);
+        $this->assertEquals($role, $json['role']);
         $this->assertEquals($tokenValue, $json['activationToken']);
         $this->assertEquals($resetUrl, $json['resetUrl']);
     }
@@ -374,7 +381,8 @@ class AddUserCommandTest extends BaseTestCase
         $faker = $this->faker();
         $invalidEmail = 'not-an-email';
         $validEmail = $faker->email();
-        $password = 'ValidPassword123!';
+        $password = $faker->password();
+        $role = Role::ROLE_USER();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
 
@@ -407,7 +415,7 @@ class AddUserCommandTest extends BaseTestCase
             $invalidEmail,
             $validEmail,
             $password,
-            '0', // ROLE_USER
+            $role,
             $firstName,
             $lastName,
         ]);
@@ -424,7 +432,8 @@ class AddUserCommandTest extends BaseTestCase
         $faker = $this->faker();
         $email = $faker->email();
         $shortPassword = 'short';
-        $validPassword = 'ValidPassword123!';
+        $validPassword = $faker->password();
+        $role = Role::ROLE_USER();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
 
@@ -456,7 +465,7 @@ class AddUserCommandTest extends BaseTestCase
             $email,
             $shortPassword,
             $validPassword,
-            '0', // ROLE_USER
+            $role,
             $firstName,
             $lastName,
         ]);

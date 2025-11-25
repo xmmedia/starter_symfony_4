@@ -7,6 +7,7 @@ namespace App\Tests\GraphQl\Query\User;
 use App\Controller\SecurityController;
 use App\Entity\User;
 use App\GraphQl\Query\User\UserRecoverResetPasswordStrengthQuery;
+use App\Model\User\Name;
 use App\Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -24,10 +25,10 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
     {
         $faker = $this->faker();
         $token = $faker->uuid();
-        $password = 'ValidPassword123!';
+        $password = $faker->password();
         $email = $faker->emailVo();
-        $firstName = \App\Model\User\Name::fromString($faker->firstName());
-        $lastName = \App\Model\User\Name::fromString($faker->lastName());
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('email')
@@ -95,8 +96,8 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
         $token = $faker->uuid();
         $password = 'password123456'; // Common password, meets 12 char minimum
         $email = $faker->emailVo();
-        $firstName = \App\Model\User\Name::fromString($faker->firstName());
-        $lastName = \App\Model\User\Name::fromString($faker->lastName());
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('email')
@@ -164,7 +165,7 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
     public function testPasswordAllowedWhenNoTokenInSession(): void
     {
         $faker = $this->faker();
-        $password = 'SomePassword123!';
+        $password = $faker->password();
 
         $session = \Mockery::mock(SessionInterface::class);
         $session->shouldReceive('get')
@@ -198,7 +199,6 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
     {
         $faker = $this->faker();
         $token = $faker->uuid();
-        $password = 'SomePassword123!';
 
         $session = \Mockery::mock(SessionInterface::class);
         $session->shouldReceive('get')
@@ -227,7 +227,7 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             $requestProvider,
         );
 
-        $result = $query($password);
+        $result = $query($faker->password());
 
         $this->assertEquals(['allowed' => true], $result);
     }
@@ -236,7 +236,6 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
     {
         $faker = $this->faker();
         $token = $faker->uuid();
-        $password = 'SomePassword123!';
 
         $session = \Mockery::mock(SessionInterface::class);
         $session->shouldReceive('get')
@@ -265,7 +264,7 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             $requestProvider,
         );
 
-        $result = $query($password);
+        $result = $query($faker->password());
 
         $this->assertEquals(['allowed' => true], $result);
     }
@@ -277,8 +276,8 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
         // Use a strong unique password that won't be in pwned database
         $password = 'V@lid&P@ssw0rd!'.uniqid().uniqid();
         $email = $faker->emailVo();
-        $firstName = \App\Model\User\Name::fromString($faker->firstName());
-        $lastName = \App\Model\User\Name::fromString($faker->lastName());
+        $firstName = Name::fromString($faker->firstName());
+        $lastName = Name::fromString($faker->lastName());
 
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('email')

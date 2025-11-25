@@ -15,7 +15,6 @@ class UserTokenFinderTest extends BaseTestCase
 {
     public function testCreateResetPasswordRequest(): void
     {
-        $faker = $this->faker();
         $expiresAt = new \DateTimeImmutable('+1 hour');
         $selector = bin2hex(random_bytes(20));
         $hashedToken = bin2hex(random_bytes(20));
@@ -33,16 +32,15 @@ class UserTokenFinderTest extends BaseTestCase
 
         $result = $finder->createResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
 
-        $this->assertInstanceOf(UserToken::class, $result);
         $this->assertSame($user, $result->getUser());
         $this->assertNotNull($result->getId());
     }
 
     public function testCreateResetPasswordRequestWithExactValues(): void
     {
-        $expiresAt = new \DateTimeImmutable('2025-12-31 23:59:59');
-        $selector = 'test-selector-12345';
-        $hashedToken = 'hashed-token-abcdef';
+        $expiresAt = new \DateTimeImmutable('+1 hour');
+        $selector = bin2hex(random_bytes(20));
+        $hashedToken = bin2hex(random_bytes(20));
 
         $user = \Mockery::mock(User::class);
 
@@ -96,8 +94,6 @@ class UserTokenFinderTest extends BaseTestCase
         $token1 = $finder->createResetPasswordRequest($user1, $expiresAt1, $selector1, $hashedToken1);
         $token2 = $finder->createResetPasswordRequest($user2, $expiresAt2, $selector2, $hashedToken2);
 
-        $this->assertInstanceOf(UserToken::class, $token1);
-        $this->assertInstanceOf(UserToken::class, $token2);
         $this->assertNotEquals($token1->getId(), $token2->getId());
         $this->assertSame($user1, $token1->user());
         $this->assertSame($user2, $token2->user());
