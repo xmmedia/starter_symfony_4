@@ -21,12 +21,10 @@ class UserTokenFinderTest extends BaseTestCase
 
         $user = \Mockery::mock(User::class);
 
-        $objectManager = \Mockery::mock(ObjectManager::class);
-
         $registry = \Mockery::mock(ManagerRegistry::class);
         $registry->shouldReceive('getManagerForClass')
             ->with(UserToken::class)
-            ->andReturn($objectManager);
+            ->andReturn(\Mockery::mock(ObjectManager::class));
 
         $finder = new UserTokenFinder($registry);
 
@@ -44,12 +42,10 @@ class UserTokenFinderTest extends BaseTestCase
 
         $user = \Mockery::mock(User::class);
 
-        $objectManager = \Mockery::mock(ObjectManager::class);
-
         $registry = \Mockery::mock(ManagerRegistry::class);
         $registry->shouldReceive('getManagerForClass')
             ->with(UserToken::class)
-            ->andReturn($objectManager);
+            ->andReturn(\Mockery::mock(ObjectManager::class));
 
         $finder = new UserTokenFinder($registry);
 
@@ -81,13 +77,11 @@ class UserTokenFinderTest extends BaseTestCase
 
         $user1 = \Mockery::mock(User::class);
         $user2 = \Mockery::mock(User::class);
-
-        $objectManager = \Mockery::mock(ObjectManager::class);
-
+        
         $registry = \Mockery::mock(ManagerRegistry::class);
         $registry->shouldReceive('getManagerForClass')
             ->with(UserToken::class)
-            ->andReturn($objectManager);
+            ->andReturn(\Mockery::mock(ObjectManager::class));
 
         $finder = new UserTokenFinder($registry);
 

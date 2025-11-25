@@ -94,7 +94,7 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
     {
         $faker = $this->faker();
         $token = $faker->uuid();
-        $password = 'password123456'; // Common password, meets 12 char minimum
+        $password = $faker->password();
         $email = $faker->emailVo();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -183,10 +183,8 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             ->once()
             ->andReturn($request);
 
-        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
-
         $query = new UserRecoverResetPasswordStrengthQuery(
-            $resetPasswordHelper,
+            \Mockery::mock(ResetPasswordHelperInterface::class),
             $requestProvider,
         );
 

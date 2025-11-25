@@ -44,10 +44,6 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->with('_target_path')
             ->andReturn($targetPath);
 
-        $token = \Mockery::mock(TokenInterface::class);
-
-        $router = \Mockery::mock(RouterInterface::class);
-
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $httpUtils->shouldReceive('createRedirectResponse')
             ->once()
@@ -56,10 +52,10 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $defaultRoute = $this->createDefaultRouteProvider(['app_login']);
 
-        $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute);
+        $handler = new LoginSuccessHandler(\Mockery::mock(RouterInterface::class), $httpUtils, $defaultRoute);
         $handler->setFirewallName('main');
 
-        $result = $handler->onAuthenticationSuccess($request, $token);
+        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
     }
@@ -73,10 +69,6 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->with('_target_path')
             ->andReturn($targetPath);
 
-        $token = \Mockery::mock(TokenInterface::class);
-
-        $router = \Mockery::mock(RouterInterface::class);
-
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $httpUtils->shouldReceive('createRedirectResponse')
             ->once()
@@ -85,10 +77,10 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $defaultRoute = $this->createDefaultRouteProvider(['app_login']);
 
-        $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute);
+        $handler = new LoginSuccessHandler(\Mockery::mock(RouterInterface::class), $httpUtils, $defaultRoute);
         $handler->setFirewallName('main');
 
-        $result = $handler->onAuthenticationSuccess($request, $token);
+        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
     }
@@ -116,8 +108,6 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->times(2)
             ->andReturn($session);
 
-        $token = \Mockery::mock(TokenInterface::class);
-
         $router = \Mockery::mock(RouterInterface::class);
 
         $httpUtils = \Mockery::mock(HttpUtils::class);
@@ -136,7 +126,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
         $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute, $logger);
         $handler->setFirewallName('main');
 
-        $result = $handler->onAuthenticationSuccess($request, $token);
+        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
     }
@@ -163,10 +153,6 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->times(2)
             ->andReturn($session);
 
-        $token = \Mockery::mock(TokenInterface::class);
-
-        $router = \Mockery::mock(RouterInterface::class);
-
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $httpUtils->shouldReceive('createRedirectResponse')
             ->once()
@@ -175,10 +161,10 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $defaultRoute = $this->createDefaultRouteProvider(['user_default', ['path' => 'dashboard']]);
 
-        $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute);
+        $handler = new LoginSuccessHandler(\Mockery::mock(RouterInterface::class), $httpUtils, $defaultRoute);
         $handler->setFirewallName('main');
 
-        $result = $handler->onAuthenticationSuccess($request, $token);
+        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
     }
@@ -204,8 +190,6 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->once()
             ->andReturn($session);
 
-        $token = \Mockery::mock(TokenInterface::class);
-
         $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
             ->once()
@@ -223,7 +207,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
         $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute);
         $handler->setFirewallName('main');
 
-        $result = $handler->onAuthenticationSuccess($request, $token);
+        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
     }
@@ -248,8 +232,6 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->once()
             ->andReturn($session);
 
-        $token = \Mockery::mock(TokenInterface::class);
-
         $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
             ->once()
@@ -267,18 +249,17 @@ class LoginSuccessHandlerTest extends BaseTestCase
         $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute);
         $handler->setFirewallName('main');
 
-        $result = $handler->onAuthenticationSuccess($request, $token);
+        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
     }
 
     public function testSetFirewallName(): void
     {
-        $router = \Mockery::mock(RouterInterface::class);
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $defaultRoute = $this->createDefaultRouteProvider(['admin_default']);
 
-        $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute);
+        $handler = new LoginSuccessHandler(\Mockery::mock(RouterInterface::class), $httpUtils, $defaultRoute);
         $handler->setFirewallName('custom_firewall');
 
         // Test that the firewall name is used in session key lookup
@@ -302,14 +283,12 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->times(2)
             ->andReturn($session);
 
-        $token = \Mockery::mock(TokenInterface::class);
-
         $httpUtils->shouldReceive('createRedirectResponse')
             ->once()
             ->with($request, $sessionTargetPath)
             ->andReturn(new RedirectResponse($sessionTargetPath));
 
-        $result = $handler->onAuthenticationSuccess($request, $token);
+        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
     }

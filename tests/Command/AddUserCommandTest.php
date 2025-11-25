@@ -44,18 +44,12 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn('hashed-password');
 
-        $userFinder = \Mockery::mock(UserFinder::class);
-
-        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
-
-        $router = \Mockery::mock(RouterInterface::class);
-
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
-            $userFinder,
-            $resetPasswordHelper,
-            $router,
+            \Mockery::mock(UserFinder::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            \Mockery::mock(RouterInterface::class),
         );
 
         $commandTester = new CommandTester($command);
@@ -72,7 +66,7 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertEquals(Command::SUCCESS, $result);
         $this->assertStringContainsString('Created new active user', $commandTester->getDisplay());
         $this->assertStringContainsString($email, $commandTester->getDisplay());
-        $this->assertStringContainsString('ROLE_USER', $commandTester->getDisplay());
+        $this->assertStringContainsString(Role::ROLE_USER()->getValue(), $commandTester->getDisplay());
     }
 
     public function testExecuteWithSendInviteOption(): void
@@ -94,18 +88,12 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn('hashed-password');
 
-        $userFinder = \Mockery::mock(UserFinder::class);
-
-        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
-
-        $router = \Mockery::mock(RouterInterface::class);
-
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
-            $userFinder,
-            $resetPasswordHelper,
-            $router,
+            \Mockery::mock(UserFinder::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            \Mockery::mock(RouterInterface::class),
         );
 
         $commandTester = new CommandTester($command);
@@ -219,18 +207,12 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn('hashed-password');
 
-        $userFinder = \Mockery::mock(UserFinder::class);
-
-        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
-
-        $router = \Mockery::mock(RouterInterface::class);
-
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
-            $userFinder,
-            $resetPasswordHelper,
-            $router,
+            \Mockery::mock(UserFinder::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            \Mockery::mock(RouterInterface::class),
         );
 
         $commandTester = new CommandTester($command);
@@ -351,18 +333,12 @@ class AddUserCommandTest extends BaseTestCase
 
     public function testExecuteThrowsExceptionWhenSendInviteAndGenerateActivationTokenBothProvided(): void
     {
-        $commandBus = \Mockery::mock(MessageBusInterface::class);
-        $passwordHasher = \Mockery::mock(PasswordHasher::class);
-        $userFinder = \Mockery::mock(UserFinder::class);
-        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
-        $router = \Mockery::mock(RouterInterface::class);
-
         $command = new AddUserCommand(
-            $commandBus,
-            $passwordHasher,
-            $userFinder,
-            $resetPasswordHelper,
-            $router,
+            \Mockery::mock(MessageBusInterface::class),
+            \Mockery::mock(PasswordHasher::class),
+            \Mockery::mock(UserFinder::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            \Mockery::mock(RouterInterface::class),
         );
 
         $commandTester = new CommandTester($command);
@@ -397,16 +373,12 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn('hashed-password');
 
-        $userFinder = \Mockery::mock(UserFinder::class);
-        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
-        $router = \Mockery::mock(RouterInterface::class);
-
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
-            $userFinder,
-            $resetPasswordHelper,
-            $router,
+            \Mockery::mock(UserFinder::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            \Mockery::mock(RouterInterface::class),
         );
 
         $commandTester = new CommandTester($command);
@@ -448,16 +420,12 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn('hashed-password');
 
-        $userFinder = \Mockery::mock(UserFinder::class);
-        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
-        $router = \Mockery::mock(RouterInterface::class);
-
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
-            $userFinder,
-            $resetPasswordHelper,
-            $router,
+            \Mockery::mock(UserFinder::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            \Mockery::mock(RouterInterface::class),
         );
 
         $commandTester = new CommandTester($command);

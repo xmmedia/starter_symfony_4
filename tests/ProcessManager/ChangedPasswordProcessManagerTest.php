@@ -117,11 +117,10 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
     {
         $faker = $this->faker();
         $userId = $faker->userId();
-        $now = CarbonImmutable::now();
 
         // Create two password changes within 10 minutes
         $firstPasswordChange = ChangedPassword::now($userId, $faker->password());
-        $this->setEventCreatedAt($firstPasswordChange, $now->subMinutes(5));
+        $this->setEventCreatedAt($firstPasswordChange, CarbonImmutable::now()->subMinutes(5));
 
         $userUpdatedEvent = UserUpdatedProfile::now(
             $userId,
@@ -130,10 +129,10 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
             $faker->userData(),
         );
-        $this->setEventCreatedAt($userUpdatedEvent, $now->subMinutes(3));
+        $this->setEventCreatedAt($userUpdatedEvent, CarbonImmutable::now()->subMinutes(3));
 
         $secondPasswordChange = ChangedPassword::now($userId, $faker->password());
-        $this->setEventCreatedAt($secondPasswordChange, $now);
+        $this->setEventCreatedAt($secondPasswordChange, CarbonImmutable::now());
 
         $events = [$firstPasswordChange, $userUpdatedEvent, $secondPasswordChange];
 
@@ -154,11 +153,10 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
     {
         $faker = $this->faker();
         $userId = $faker->userId();
-        $now = CarbonImmutable::now();
 
         // Create two password changes more than 10 minutes apart
         $firstPasswordChange = ChangedPassword::now($userId, $faker->password());
-        $this->setEventCreatedAt($firstPasswordChange, $now->subMinutes(15));
+        $this->setEventCreatedAt($firstPasswordChange, CarbonImmutable::now()->subMinutes(15));
 
         $userUpdatedEvent = UserUpdatedProfile::now(
             $userId,
@@ -167,10 +165,10 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
             $faker->userData(),
         );
-        $this->setEventCreatedAt($userUpdatedEvent, $now->subMinutes(12));
+        $this->setEventCreatedAt($userUpdatedEvent, CarbonImmutable::now()->subMinutes(12));
 
         $secondPasswordChange = ChangedPassword::now($userId, $faker->password());
-        $this->setEventCreatedAt($secondPasswordChange, $now);
+        $this->setEventCreatedAt($secondPasswordChange, CarbonImmutable::now());
 
         $events = [$firstPasswordChange, $userUpdatedEvent, $secondPasswordChange];
 
@@ -194,7 +192,6 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
     {
         $faker = $this->faker();
         $userId = $faker->userId();
-        $now = CarbonImmutable::now();
 
         // Various events with password change after UserUpdatedProfile events
         $userUpdatedEvent1 = UserUpdatedProfile::now(
@@ -204,7 +201,7 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
             $faker->userData(),
         );
-        $this->setEventCreatedAt($userUpdatedEvent1, $now->subDays(2));
+        $this->setEventCreatedAt($userUpdatedEvent1, CarbonImmutable::now()->subDays(2));
 
         $userUpdatedEvent2 = UserUpdatedProfile::now(
             $userId,
@@ -213,10 +210,10 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
             $faker->userData(),
         );
-        $this->setEventCreatedAt($userUpdatedEvent2, $now->subDays(1));
+        $this->setEventCreatedAt($userUpdatedEvent2, CarbonImmutable::now()->subDays(1));
 
         $changedPasswordEvent = ChangedPassword::now($userId, $faker->password());
-        $this->setEventCreatedAt($changedPasswordEvent, $now);
+        $this->setEventCreatedAt($changedPasswordEvent, CarbonImmutable::now());
 
         $events = [$userUpdatedEvent1, $userUpdatedEvent2, $changedPasswordEvent];
 
