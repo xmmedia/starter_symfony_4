@@ -7,6 +7,9 @@ namespace App\Tests\Messenger;
 use App\Messenger\RunProjectionMiddleware;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\User\Event\UserActivatedByAdmin;
+use App\Model\User\Event\UserWasAddedByAdmin;
+use App\Model\User\Name;
+use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use Symfony\Component\Messenger\Envelope;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
@@ -37,9 +40,36 @@ class RunProjectionMiddlewareTest extends BaseTestCase
     {
         $faker = self::makeFaker();
 
-        yield [
+        yield 'UserActivatedByAdmin event' => [
             UserActivatedByAdmin::now($faker->userId()),
             ['user_projection'],
+        ];
+
+        yield 'UserWasAddedByAdmin event' => [
+            UserWasAddedByAdmin::now(
+                $faker->userId(),
+                $faker->emailVo(),
+                $faker->password(),
+                Role::ROLE_USER(),
+                true,
+                Name::fromString($faker->firstName()),
+                Name::fromString($faker->lastName()),
+                false,
+                $faker->userData(),
+            ),
+            ['user_projection'],
+        ];
+
+        yield 'UserLoggedIn event' => [
+            UserLoggedIn::now(
+                $faker->authId(),
+                $faker->userId(),
+                $faker->emailVo(),
+                'Mozilla/5.0',
+                '127.0.0.1',
+                'app_login',
+            ),
+            ['auth_projection'],
         ];
     }
 
@@ -76,6 +106,88 @@ class RunProjectionMiddlewareTest extends BaseTestCase
 
         new RunProjectionMiddleware($projectionRunner)->handle(
             new Envelope($message),
+            $this->getStackMock(),
+        );
+    }
+
+    public function testPausePreventsProjectionFromRunning(): void
+    {
+        $faker = $this->faker();
+        $event = UserLoggedIn::now(
+            $faker->authId(),
+            $faker->userId(),
+            $faker->emailVo(),
+            'Mozilla/5.0',
+            '127.0.0.1',
+            'app_login',
+        );
+
+        $projectionRunner = \Mockery::mock(ProjectionRunner::class);
+        $projectionRunner->shouldNotReceive('run');
+
+        $middleware = new RunProjectionMiddleware($projectionRunner);
+        $middleware->pause();
+
+        $middleware->handle(
+            new Envelope($event),
+            $this->getStackMock(),
+        );
+    }
+
+    public function testResumeAllowsProjectionToRunAgain(): void
+    {
+        $faker = $this->faker();
+        $event = UserLoggedIn::now(
+            $faker->authId(),
+            $faker->userId(),
+            $faker->emailVo(),
+            'Mozilla/5.0',
+            '127.0.0.1',
+            'app_login',
+        );
+
+        $projectionRunner = \Mockery::mock(ProjectionRunner::class);
+        $projectionRunner->shouldReceive('run')
+            ->once()
+            ->with('auth_projection');
+
+        $middleware = new RunProjectionMiddleware($projectionRunner);
+        $middleware->pause();
+        $middleware->resume();
+
+        $middleware->handle(
+            new Envelope($event),
+            $this->getStackMock(),
+        );
+    }
+
+    public function testMultiplePauseResumeToggles(): void
+    {
+        $faker = $this->faker();
+        $event = UserWasAddedByAdmin::now(
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->password(),
+            Role::ROLE_USER(),
+            true,
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
+            false,
+            $faker->userData(),
+        );
+
+        $projectionRunner = \Mockery::mock(ProjectionRunner::class);
+        $projectionRunner->shouldNotReceive('run');
+
+        $middleware = new RunProjectionMiddleware($projectionRunner);
+
+        // Pause, resume, pause again - should end paused
+        $middleware->pause();
+        $middleware->resume();
+        $middleware->pause();
+
+        $middleware->handle(
+            new Envelope($event),
             $this->getStackMock(),
         );
     }
