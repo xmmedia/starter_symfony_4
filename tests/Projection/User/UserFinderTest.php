@@ -1,0 +1,169 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Projection\User;
+
+use App\Entity\User;
+use App\Model\User\Exception\UserNotFound;
+use App\Projection\User\UserFinder;
+use App\Tests\BaseTestCase;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+
+class UserFinderTest extends BaseTestCase
+{
+    public function testFindOrThrowReturnsUserWhenFound(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+        $user = \Mockery::mock(User::class);
+
+        $entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $entityManager->shouldReceive('getClassMetadata')
+            ->with(User::class)
+            ->andReturn(\Mockery::mock(\Doctrine\ORM\Mapping\ClassMetadata::class));
+
+        $registry = \Mockery::mock(ManagerRegistry::class);
+        $registry->shouldReceive('getManagerForClass')
+            ->with(User::class)
+            ->andReturn($entityManager);
+
+        $finder = \Mockery::mock(UserFinder::class, [$registry])
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        $finder->shouldReceive('find')
+            ->once()
+            ->with($userId)
+            ->andReturn($user);
+
+        $result = $finder->findOrThrow($userId);
+
+        $this->assertSame($user, $result);
+    }
+
+    public function testFindOrThrowThrowsExceptionWhenNotFound(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+
+        $entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $entityManager->shouldReceive('getClassMetadata')
+            ->with(User::class)
+            ->andReturn(\Mockery::mock(\Doctrine\ORM\Mapping\ClassMetadata::class));
+
+        $registry = \Mockery::mock(ManagerRegistry::class);
+        $registry->shouldReceive('getManagerForClass')
+            ->with(User::class)
+            ->andReturn($entityManager);
+
+        $finder = \Mockery::mock(UserFinder::class, [$registry])
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        $finder->shouldReceive('find')
+            ->once()
+            ->with($userId)
+            ->andReturnNull();
+
+        $this->expectException(UserNotFound::class);
+
+        $finder->findOrThrow($userId);
+    }
+
+    public function testFindOrThrowWithStringId(): void
+    {
+        $faker = $this->faker();
+        $userIdString = $faker->uuid();
+        $user = \Mockery::mock(User::class);
+
+        $entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $entityManager->shouldReceive('getClassMetadata')
+            ->with(User::class)
+            ->andReturn(\Mockery::mock(\Doctrine\ORM\Mapping\ClassMetadata::class));
+
+        $registry = \Mockery::mock(ManagerRegistry::class);
+        $registry->shouldReceive('getManagerForClass')
+            ->with(User::class)
+            ->andReturn($entityManager);
+
+        $finder = \Mockery::mock(UserFinder::class, [$registry])
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        $finder->shouldReceive('find')
+            ->once()
+            ->with($userIdString)
+            ->andReturn($user);
+
+        $result = $finder->findOrThrow($userIdString);
+
+        $this->assertSame($user, $result);
+    }
+
+    public function testFindRefreshedReturnsNullWhenNotFound(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+
+        $entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $entityManager->shouldReceive('getClassMetadata')
+            ->with(User::class)
+            ->andReturn(\Mockery::mock(\Doctrine\ORM\Mapping\ClassMetadata::class));
+
+        $registry = \Mockery::mock(ManagerRegistry::class);
+        $registry->shouldReceive('getManagerForClass')
+            ->with(User::class)
+            ->andReturn($entityManager);
+
+        $finder = \Mockery::mock(UserFinder::class, [$registry])
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        $finder->shouldReceive('find')
+            ->once()
+            ->with($userId)
+            ->andReturnNull();
+
+        $result = $finder->findRefreshed($userId);
+
+        $this->assertNull($result);
+    }
+
+    public function testFindRefreshedRefreshesEntityWhenFound(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+        $user = \Mockery::mock(User::class);
+
+        $entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $entityManager->shouldReceive('getClassMetadata')
+            ->with(User::class)
+            ->andReturn(\Mockery::mock(\Doctrine\ORM\Mapping\ClassMetadata::class));
+        $entityManager->shouldReceive('refresh')
+            ->once()
+            ->with($user);
+
+        $registry = \Mockery::mock(ManagerRegistry::class);
+        $registry->shouldReceive('getManagerForClass')
+            ->with(User::class)
+            ->andReturn($entityManager);
+
+        $finder = \Mockery::mock(UserFinder::class, [$registry])
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        $finder->shouldReceive('find')
+            ->once()
+            ->with($userId)
+            ->andReturn($user);
+        $finder->shouldReceive('getEntityManager')
+            ->once()
+            ->andReturn($entityManager);
+
+        $result = $finder->findRefreshed($userId);
+
+        $this->assertSame($user, $result);
+    }
+}
