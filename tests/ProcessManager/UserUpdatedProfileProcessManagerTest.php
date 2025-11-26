@@ -34,13 +34,11 @@ class UserUpdatedProfileProcessManagerTest extends BaseTestCase
         $this->setEventCreatedAt($updateEvent, CarbonImmutable::now());
         $this->setEventUuid($updateEvent, Uuid::uuid4());
 
-        $events = [$updateEvent];
-
         $userRepo = \Mockery::mock(UserList::class);
         $userRepo->shouldReceive('getEvents')
             ->once()
             ->with(\Mockery::on(fn (UserId $arg): bool => $arg->sameValueAs($userId)), UserUpdatedProfile::class)
-            ->andReturn(new \ArrayIterator($events));
+            ->andReturn(new \ArrayIterator([$updateEvent]));
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -98,7 +96,6 @@ class UserUpdatedProfileProcessManagerTest extends BaseTestCase
     {
         $faker = $this->faker();
         $userId = $faker->userId();
-        $now = CarbonImmutable::now();
 
         // Two updates more than 1 hour apart
         $firstUpdate = UserUpdatedProfile::now(
@@ -108,7 +105,7 @@ class UserUpdatedProfileProcessManagerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
             $faker->userData(),
         );
-        $this->setEventCreatedAt($firstUpdate, $now->subHours(2));
+        $this->setEventCreatedAt($firstUpdate, CarbonImmutable::now()->subHours(2));
         $this->setEventUuid($firstUpdate, Uuid::uuid4());
 
         $secondUpdate = UserUpdatedProfile::now(
@@ -118,16 +115,14 @@ class UserUpdatedProfileProcessManagerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
             $faker->userData(),
         );
-        $this->setEventCreatedAt($secondUpdate, $now);
+        $this->setEventCreatedAt($secondUpdate, CarbonImmutable::now());
         $this->setEventUuid($secondUpdate, Uuid::uuid4());
-
-        $events = [$firstUpdate, $secondUpdate];
 
         $userRepo = \Mockery::mock(UserList::class);
         $userRepo->shouldReceive('getEvents')
             ->once()
             ->with(\Mockery::on(fn (UserId $arg): bool => $arg->sameValueAs($userId)), UserUpdatedProfile::class)
-            ->andReturn(new \ArrayIterator($events));
+            ->andReturn(new \ArrayIterator([$firstUpdate, $secondUpdate]));
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -143,7 +138,6 @@ class UserUpdatedProfileProcessManagerTest extends BaseTestCase
     {
         $faker = $this->faker();
         $userId = $faker->userId();
-        $now = CarbonImmutable::now();
 
         // Three updates: first 3 hours ago, second 2 hours ago, third now
         $firstUpdate = UserUpdatedProfile::now(
@@ -153,7 +147,7 @@ class UserUpdatedProfileProcessManagerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
             $faker->userData(),
         );
-        $this->setEventCreatedAt($firstUpdate, $now->subHours(3));
+        $this->setEventCreatedAt($firstUpdate, CarbonImmutable::now()->subHours(3));
         $this->setEventUuid($firstUpdate, Uuid::uuid4());
 
         $secondUpdate = UserUpdatedProfile::now(
@@ -163,7 +157,7 @@ class UserUpdatedProfileProcessManagerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
             $faker->userData(),
         );
-        $this->setEventCreatedAt($secondUpdate, $now->subHours(2));
+        $this->setEventCreatedAt($secondUpdate, CarbonImmutable::now()->subHours(2));
         $this->setEventUuid($secondUpdate, Uuid::uuid4());
 
         $thirdUpdate = UserUpdatedProfile::now(
@@ -173,9 +167,8 @@ class UserUpdatedProfileProcessManagerTest extends BaseTestCase
             Name::fromString($faker->lastName()),
             $faker->userData(),
         );
-        $this->setEventCreatedAt($thirdUpdate, $now);
-        $thirdUpdateUuid = Uuid::uuid4();
-        $this->setEventUuid($thirdUpdate, $thirdUpdateUuid);
+        $this->setEventCreatedAt($thirdUpdate, CarbonImmutable::now());
+        $this->setEventUuid($thirdUpdate, Uuid::uuid4());
 
         $events = [$firstUpdate, $secondUpdate, $thirdUpdate];
 

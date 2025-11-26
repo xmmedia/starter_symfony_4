@@ -13,6 +13,8 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 
 class UserVerifyMutationTest extends BaseTestCase
 {
@@ -36,34 +38,23 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andReturn($faker->userId());
 
-        $resetPasswordHelper = $this->getResetPasswordHelper($user);
-        $security = $this->createSecurity(false);
-        $requestProvider = $this->getRequestInfoProvider();
-
         $mutation = new UserVerifyMutation(
             $commandBus,
-            $resetPasswordHelper,
-            $security,
-            $requestProvider,
+            $this->getResetPasswordHelper($user),
+            $this->createSecurity(false),
+            $this->getRequestInfoProvider(),
         );
 
-        $result = $mutation();
-
-        $this->assertEquals(['success' => true], $result);
+        $this->assertEquals(['success' => true], $mutation());
     }
 
     public function testThrowsErrorWhenUserIsLoggedIn(): void
     {
-        $commandBus = \Mockery::mock(MessageBusInterface::class);
-        $resetPasswordHelper = \Mockery::mock(\SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface::class);
-        $security = $this->createSecurity(true); // User is logged in
-        $requestProvider = \Mockery::mock(\Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider::class);
-
         $mutation = new UserVerifyMutation(
-            $commandBus,
-            $resetPasswordHelper,
-            $security,
-            $requestProvider,
+            \Mockery::mock(MessageBusInterface::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            $this->createSecurity(true), // User is logged in
+            \Mockery::mock(RequestInfoProvider::class),
         );
 
         $this->expectException(UserError::class);
@@ -75,12 +66,6 @@ class UserVerifyMutationTest extends BaseTestCase
 
     public function testThrowsErrorWhenTokenIsMissing(): void
     {
-        $faker = $this->faker();
-
-        $commandBus = \Mockery::mock(MessageBusInterface::class);
-        $resetPasswordHelper = \Mockery::mock(\SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface::class);
-        $security = $this->createSecurity(false);
-
         // Create request provider that returns null for token
         $session = \Mockery::mock(\Symfony\Component\HttpFoundation\Session\SessionInterface::class);
         $session->shouldReceive('get')
@@ -93,15 +78,16 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andReturn($session);
 
-        $requestProvider = \Mockery::mock(\Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider::class);
+        $requestProvider = \Mockery::mock(RequestInfoProvider::class);
         $requestProvider->shouldReceive('currentRequest')
             ->once()
             ->andReturn($request);
 
         $mutation = new UserVerifyMutation(
-            $commandBus,
-            $resetPasswordHelper,
-            $security,
+
+            \Mockery::mock(MessageBusInterface::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            $this->createSecurity(false),
             $requestProvider,
         );
 
@@ -114,23 +100,16 @@ class UserVerifyMutationTest extends BaseTestCase
 
     public function testThrowsErrorWhenTokenIsInvalid(): void
     {
-        $faker = $this->faker();
-
-        $commandBus = \Mockery::mock(MessageBusInterface::class);
-
-        $resetPasswordHelper = \Mockery::mock(\SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface::class);
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
         $resetPasswordHelper->shouldReceive('validateTokenAndFetchUser')
             ->once()
             ->andThrow(new InvalidResetPasswordTokenException());
 
-        $security = $this->createSecurity(false);
-        $requestProvider = $this->getRequestInfoProvider(false);
-
         $mutation = new UserVerifyMutation(
-            $commandBus,
+            \Mockery::mock(MessageBusInterface::class),
             $resetPasswordHelper,
-            $security,
-            $requestProvider,
+            $this->createSecurity(false),
+            $this->getRequestInfoProvider(false),
         );
 
         $this->expectException(UserError::class);
@@ -142,23 +121,16 @@ class UserVerifyMutationTest extends BaseTestCase
 
     public function testThrowsErrorWhenTokenIsExpired(): void
     {
-        $faker = $this->faker();
-
-        $commandBus = \Mockery::mock(MessageBusInterface::class);
-
-        $resetPasswordHelper = \Mockery::mock(\SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface::class);
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
         $resetPasswordHelper->shouldReceive('validateTokenAndFetchUser')
             ->once()
             ->andThrow(new ExpiredResetPasswordTokenException());
 
-        $security = $this->createSecurity(false);
-        $requestProvider = $this->getRequestInfoProvider(false);
-
         $mutation = new UserVerifyMutation(
-            $commandBus,
+            \Mockery::mock(MessageBusInterface::class),
             $resetPasswordHelper,
-            $security,
-            $requestProvider,
+            $this->createSecurity(false),
+            $this->getRequestInfoProvider(false),
         );
 
         $this->expectException(UserError::class);
@@ -170,24 +142,18 @@ class UserVerifyMutationTest extends BaseTestCase
 
     public function testThrowsErrorWhenUserAlreadyVerified(): void
     {
-        $faker = $this->faker();
-
         $commandBus = \Mockery::mock(MessageBusInterface::class);
 
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('verified')
             ->once()
-            ->andReturn(true);
-
-        $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
-        $security = $this->createSecurity(false);
-        $requestProvider = $this->getRequestInfoProvider(false);
+            ->andReturnTrue();
 
         $mutation = new UserVerifyMutation(
             $commandBus,
-            $resetPasswordHelper,
-            $security,
-            $requestProvider,
+            $this->getResetPasswordHelper($user, false),
+            $this->createSecurity(false),
+            $this->getRequestInfoProvider(false),
         );
 
         $this->expectException(UserError::class);

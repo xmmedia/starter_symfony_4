@@ -15,13 +15,11 @@ class DefaultRouteProviderTest extends BaseTestCase
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
-            ->andReturn(false);
+            ->andReturnFalse();
 
         $provider = new DefaultRouteProvider($security);
 
-        $result = $provider();
-
-        $this->assertEquals(['app_login'], $result);
+        $this->assertEquals(['app_login'], $provider());
     }
 
     public function testReturnsAdminDefaultRouteForAdminUser(): void
@@ -29,16 +27,14 @@ class DefaultRouteProviderTest extends BaseTestCase
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
-            ->andReturn(true);
+            ->andReturnTrue();
         $security->shouldReceive('hasAdminRole')
             ->once()
-            ->andReturn(true);
+            ->andReturnTrue();
 
         $provider = new DefaultRouteProvider($security);
 
-        $result = $provider();
-
-        $this->assertEquals(['admin_default'], $result);
+        $this->assertEquals(['admin_default'], $provider());
     }
 
     public function testReturnsUserDefaultRouteForRegularUser(): void
@@ -46,33 +42,13 @@ class DefaultRouteProviderTest extends BaseTestCase
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
-            ->andReturn(true);
+            ->andReturnTrue();
         $security->shouldReceive('hasAdminRole')
             ->once()
-            ->andReturn(false);
+            ->andReturnFalse();
 
         $provider = new DefaultRouteProvider($security);
 
-        $result = $provider();
-
-        $this->assertEquals(['user_default', ['path' => 'dashboard']], $result);
-    }
-
-    public function testReturnsUserDefaultRouteForSuperAdmin(): void
-    {
-        // Super admin also has admin role, so should get admin_default
-        $security = \Mockery::mock(Security::class);
-        $security->shouldReceive('isLoggedIn')
-            ->once()
-            ->andReturn(true);
-        $security->shouldReceive('hasAdminRole')
-            ->once()
-            ->andReturn(true);
-
-        $provider = new DefaultRouteProvider($security);
-
-        $result = $provider();
-
-        $this->assertEquals(['admin_default'], $result);
+        $this->assertEquals(['user_default', ['path' => 'dashboard']], $provider());
     }
 }

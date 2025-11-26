@@ -120,8 +120,8 @@ class AddUserCommandTest extends BaseTestCase
         $role = Role::ROLE_USER();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
-        $tokenValue = 'activation-token-123';
-        $resetUrl = 'https://example.com/reset/activation-token-123';
+        $tokenValue = $faker->string(15);
+        $resetUrl = $faker->url();
 
         $user = \Mockery::mock(User::class);
 
@@ -354,7 +354,7 @@ class AddUserCommandTest extends BaseTestCase
     public function testExecuteValidatesEmail(): void
     {
         $faker = $this->faker();
-        $invalidEmail = 'not-an-email';
+        $invalidEmail = $faker->string(3);
         $validEmail = $faker->email();
         $password = $faker->password();
         $role = Role::ROLE_USER();
@@ -402,7 +402,7 @@ class AddUserCommandTest extends BaseTestCase
     {
         $faker = $this->faker();
         $email = $faker->email();
-        $shortPassword = 'short';
+        $shortPassword = $faker->string(4);
         $validPassword = $faker->password();
         $role = Role::ROLE_USER();
         $firstName = $faker->firstName();

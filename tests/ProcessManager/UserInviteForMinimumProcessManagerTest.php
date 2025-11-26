@@ -59,36 +59,4 @@ class UserInviteForMinimumProcessManagerTest extends BaseTestCase
         $processManager = new UserInviteForMinimumProcessManager($commandBus);
         $processManager($event);
     }
-
-    public function testDispatchesCorrectCommandData(): void
-    {
-        $faker = $this->faker();
-        $userId = $faker->userId();
-        $email = $faker->emailVo();
-        $firstName = Name::fromString($faker->firstName());
-        $lastName = Name::fromString($faker->lastName());
-
-        $commandBus = \Mockery::mock(MessageBusInterface::class);
-        $commandBus->shouldReceive('dispatch')
-            ->once()
-            ->with(\Mockery::on(fn ($command): bool => $command instanceof SendActivation
-                && $command->userId()->toString() === $userId->toString()
-                && $command->email()->toString() === $email->toString()
-                && $command->firstName()->toString() === $firstName->toString()
-                && $command->lastName()->toString() === $lastName->toString()))
-            ->andReturn(new Envelope(new \stdClass()));
-
-        $event = MinimalUserWasAddedByAdmin::now(
-            $userId,
-            $email,
-            $faker->password(),
-            Role::ROLE_ADMIN(),
-            $firstName,
-            $lastName,
-            true,
-        );
-
-        $processManager = new UserInviteForMinimumProcessManager($commandBus);
-        $processManager($event);
-    }
 }

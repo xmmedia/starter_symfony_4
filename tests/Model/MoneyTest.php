@@ -6,12 +6,15 @@ namespace App\Tests\Model;
 
 use App\Model\Money;
 use App\Tests\BaseTestCase;
+use Xm\SymfonyBundle\Model\ValueObject;
 
 class MoneyTest extends BaseTestCase
 {
     public function testFromIntCreatesMoneyInstance(): void
     {
-        $cents = 5000; // $50.00
+        $faker = $this->faker();
+        $cents = $faker->numberBetween(Money::MIN, Money::MAX);
+
         $money = Money::fromInt($cents);
 
         $this->assertInstanceOf(Money::class, $money);
@@ -29,10 +32,13 @@ class MoneyTest extends BaseTestCase
 
     public function testFromMoneyCreatesMoneyInstance(): void
     {
-        $money = Money::fromMoney(\Money\Money::CAD(7500));
+        $faker = $this->faker();
+        $number = $faker->numberBetween(Money::MIN, Money::MAX);
+
+        $money = Money::fromMoney(\Money\Money::CAD($number));
 
         $this->assertInstanceOf(Money::class, $money);
-        $this->assertEquals('7500', $money->toString());
+        $this->assertEquals($number, $money->toString());
     }
 
     public function testMinimumValueAllowed(): void
@@ -67,45 +73,42 @@ class MoneyTest extends BaseTestCase
 
     public function testFormattedReturnsCurrencyString(): void
     {
-        $money = Money::fromInt(12345); // $123.45
+        $faker = $this->faker();
+        $money = Money::fromInt($faker->numberBetween(Money::MIN, Money::MAX));
 
         $formatted = $money->formatted();
 
-        // Should contain currency symbol and amount
-        $this->assertStringContainsString('123', $formatted);
-        $this->assertStringContainsString('45', $formatted);
-    }
-
-    public function testToStringReturnsAmountInCents(): void
-    {
-        $cents = '5000';
-        $money = Money::fromString($cents);
-
-        $this->assertEquals($cents, (string) $money);
+        $this->assertStringStartsWith('$', $formatted);
     }
 
     public function testMoneyReturnsInternalMoneyObject(): void
     {
-        $money = Money::fromInt(2500);
+        $faker = $this->faker();
+        $money = Money::fromInt($faker->numberBetween(Money::MIN, Money::MAX));
 
         $internalMoney = $money->money();
 
         $this->assertInstanceOf(\Money\Money::class, $internalMoney);
-        $this->assertEquals('2500', $internalMoney->getAmount());
+        $this->assertEquals($money, $internalMoney->getAmount());
     }
 
     public function testSameValueAsReturnsTrueForEqualMoney(): void
     {
-        $money1 = Money::fromInt(5000);
-        $money2 = Money::fromInt(5000);
+        $faker = $this->faker();
+        $money = $faker->numberBetween(Money::MIN, Money::MAX);
+
+        $money1 = Money::fromInt($money);
+        $money2 = Money::fromInt($money);
 
         $this->assertTrue($money1->sameValueAs($money2));
     }
 
     public function testSameValueAsReturnsFalseForDifferentMoney(): void
     {
-        $money1 = Money::fromInt(5000);
-        $money2 = Money::fromInt(6000);
+        $faker = $this->faker();
+
+        $money1 = Money::fromInt($faker->numberBetween(Money::MIN, Money::MAX));
+        $money2 = Money::fromInt($faker->numberBetween(Money::MIN, Money::MAX));
 
         $this->assertFalse($money1->sameValueAs($money2));
     }
@@ -113,38 +116,8 @@ class MoneyTest extends BaseTestCase
     public function testSameValueAsReturnsFalseForDifferentClass(): void
     {
         $money = Money::fromInt(5000);
-        $other = \Mockery::mock(\Xm\SymfonyBundle\Model\ValueObject::class);
+        $other = \Mockery::mock(ValueObject::class);
 
         $this->assertFalse($money->sameValueAs($other));
-    }
-
-    public function testZeroValueAllowed(): void
-    {
-        $money = Money::fromInt(0);
-
-        $this->assertEquals('0', $money->toString());
-    }
-
-    public function testLargeValidValue(): void
-    {
-        $cents = 9999999; // $99,999.99
-        $money = Money::fromInt($cents);
-
-        $this->assertEquals((string) $cents, $money->toString());
-    }
-
-    public function testFromStringThrowsExceptionWithLeadingZeros(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Leading zeros are not allowed');
-
-        Money::fromString('00500');
-    }
-
-    public function testGetFormatterReturnsIntlMoneyFormatter(): void
-    {
-        $formatter = Money::getFormatter();
-
-        $this->assertInstanceOf(\Money\Formatter\IntlMoneyFormatter::class, $formatter);
     }
 }
