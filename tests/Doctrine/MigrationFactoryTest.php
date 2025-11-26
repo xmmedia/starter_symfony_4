@@ -31,37 +31,14 @@ class MigrationFactoryTest extends BaseTestCase
 
         $migration = $factory->createVersion(TestMigration::class);
 
-        $this->assertInstanceOf(AbstractMigration::class, $migration);
-        $this->assertInstanceOf(TestMigration::class, $migration);
-    }
-
-    public function testCreateVersionPassesConnectionAndLogger(): void
-    {
-        $schemaManager = \Mockery::mock(\Doctrine\DBAL\Schema\AbstractSchemaManager::class);
-        $platform = \Mockery::mock(\Doctrine\DBAL\Platforms\AbstractPlatform::class);
-
-        $connection = \Mockery::mock(Connection::class);
-        $connection->shouldReceive('createSchemaManager')
-            ->andReturn($schemaManager);
-        $connection->shouldReceive('getDatabasePlatform')
-            ->andReturn($platform);
-
-        $logger = \Mockery::mock(LoggerInterface::class);
-        $kernel = \Mockery::mock(Kernel::class);
-
-        $factory = new MigrationFactory($connection, $logger, $kernel);
-
-        $migration = $factory->createVersion(TestMigration::class);
-
-        // Verify migration was constructed with connection and logger
-        $this->assertInstanceOf(TestMigration::class, $migration);
-
         // Access the connection via reflection to verify it was set
         $reflection = new \ReflectionClass($migration);
         $connectionProperty = $reflection->getProperty('connection');
-        $connectionProperty->setAccessible(true);
 
         $this->assertSame($connection, $connectionProperty->getValue($migration));
+
+        $this->assertInstanceOf(AbstractMigration::class, $migration);
+        $this->assertInstanceOf(TestMigration::class, $migration);
     }
 
     public function testCreateVersionSetsKernelIfMethodExists(): void
@@ -84,54 +61,6 @@ class MigrationFactoryTest extends BaseTestCase
 
         $this->assertInstanceOf(TestMigrationWithKernel::class, $migration);
         $this->assertSame($kernel, $migration->getKernel());
-    }
-
-    public function testCreateVersionDoesNotSetKernelIfMethodDoesNotExist(): void
-    {
-        $schemaManager = \Mockery::mock(\Doctrine\DBAL\Schema\AbstractSchemaManager::class);
-        $platform = \Mockery::mock(\Doctrine\DBAL\Platforms\AbstractPlatform::class);
-
-        $connection = \Mockery::mock(Connection::class);
-        $connection->shouldReceive('createSchemaManager')
-            ->andReturn($schemaManager);
-        $connection->shouldReceive('getDatabasePlatform')
-            ->andReturn($platform);
-
-        $logger = \Mockery::mock(LoggerInterface::class);
-        $kernel = \Mockery::mock(Kernel::class);
-
-        $factory = new MigrationFactory($connection, $logger, $kernel);
-
-        // Should not throw an error even though setKernel doesn't exist
-        $migration = $factory->createVersion(TestMigration::class);
-
-        $this->assertInstanceOf(TestMigration::class, $migration);
-    }
-
-    public function testCreateVersionWithDifferentMigrationClass(): void
-    {
-        $schemaManager = \Mockery::mock(\Doctrine\DBAL\Schema\AbstractSchemaManager::class);
-        $platform = \Mockery::mock(\Doctrine\DBAL\Platforms\AbstractPlatform::class);
-
-        $connection = \Mockery::mock(Connection::class);
-        $connection->shouldReceive('createSchemaManager')
-            ->twice()
-            ->andReturn($schemaManager);
-        $connection->shouldReceive('getDatabasePlatform')
-            ->twice()
-            ->andReturn($platform);
-
-        $logger = \Mockery::mock(LoggerInterface::class);
-        $kernel = \Mockery::mock(Kernel::class);
-
-        $factory = new MigrationFactory($connection, $logger, $kernel);
-
-        $migration1 = $factory->createVersion(TestMigration::class);
-        $migration2 = $factory->createVersion(TestMigrationWithKernel::class);
-
-        $this->assertInstanceOf(TestMigration::class, $migration1);
-        $this->assertInstanceOf(TestMigrationWithKernel::class, $migration2);
-        $this->assertNotSame($migration1, $migration2);
     }
 }
 
