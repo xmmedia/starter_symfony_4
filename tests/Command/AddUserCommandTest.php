@@ -16,7 +16,6 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
@@ -42,7 +41,7 @@ class AddUserCommandTest extends BaseTestCase
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
-            ->andReturn('hashed-password');
+            ->andReturn($faker->string(15));
 
         $command = new AddUserCommand(
             $commandBus,
@@ -86,7 +85,7 @@ class AddUserCommandTest extends BaseTestCase
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
-            ->andReturn('hashed-password');
+            ->andReturn($faker->string(15));
 
         $command = new AddUserCommand(
             $commandBus,
@@ -141,7 +140,7 @@ class AddUserCommandTest extends BaseTestCase
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
-            ->andReturn('hashed-password');
+            ->andReturn($faker->string(15));
 
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
@@ -205,7 +204,7 @@ class AddUserCommandTest extends BaseTestCase
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
-            ->andReturn('hashed-password');
+            ->andReturn($faker->string(15));
 
         $command = new AddUserCommand(
             $commandBus,
@@ -250,8 +249,8 @@ class AddUserCommandTest extends BaseTestCase
         $role = Role::ROLE_SUPER_ADMIN();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
-        $tokenValue = 'activation-token-456';
-        $resetUrl = 'https://example.com/reset/activation-token-456';
+        $tokenValue = $faker->string(10);
+        $resetUrl = $faker->url();
 
         $user = \Mockery::mock(User::class);
 
@@ -270,7 +269,7 @@ class AddUserCommandTest extends BaseTestCase
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
-            ->andReturn('hashed-password');
+            ->andReturn($faker->string(15));
 
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
@@ -331,7 +330,7 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertEquals($resetUrl, $json['resetUrl']);
     }
 
-    public function testExecuteThrowsExceptionWhenSendInviteAndGenerateActivationTokenBothProvided(): void
+    public function testExecuteThrowsExceptionWhenSendInviteAndGenerateActivationTokenBothTrue(): void
     {
         $command = new AddUserCommand(
             \Mockery::mock(MessageBusInterface::class),
@@ -371,7 +370,7 @@ class AddUserCommandTest extends BaseTestCase
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
-            ->andReturn('hashed-password');
+            ->andReturn($faker->string(15));
 
         $command = new AddUserCommand(
             $commandBus,
@@ -418,7 +417,7 @@ class AddUserCommandTest extends BaseTestCase
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
         $passwordHasher->shouldReceive('__invoke')
             ->once()
-            ->andReturn('hashed-password');
+            ->andReturn($faker->string(15));
 
         $command = new AddUserCommand(
             $commandBus,

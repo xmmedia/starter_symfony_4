@@ -23,13 +23,13 @@ class LoginSuccessHandlerTest extends BaseTestCase
         $security = \Mockery::mock(Security::class);
 
         if ($returnValue === ['app_login']) {
-            $security->shouldReceive('isLoggedIn')->andReturn(false);
+            $security->shouldReceive('isLoggedIn')->andReturnFalse();
         } elseif ($returnValue === ['admin_default']) {
-            $security->shouldReceive('isLoggedIn')->andReturn(true);
-            $security->shouldReceive('hasAdminRole')->andReturn(true);
+            $security->shouldReceive('isLoggedIn')->andReturnTrue();
+            $security->shouldReceive('hasAdminRole')->andReturnTrue();
         } else {
-            $security->shouldReceive('isLoggedIn')->andReturn(true);
-            $security->shouldReceive('hasAdminRole')->andReturn(false);
+            $security->shouldReceive('isLoggedIn')->andReturnTrue();
+            $security->shouldReceive('hasAdminRole')->andReturnFalse();
         }
 
         return new DefaultRouteProvider($security);
@@ -62,7 +62,9 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
     public function testOnAuthenticationSuccessWithHttpTargetPathParameter(): void
     {
-        $targetPath = 'https://example.com/dashboard';
+        $faker = $this->faker();
+
+        $targetPath = $faker->url();
         $request = \Mockery::mock(Request::class);
         $request->shouldReceive('get')
             ->once()

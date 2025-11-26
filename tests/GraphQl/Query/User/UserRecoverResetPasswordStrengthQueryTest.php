@@ -220,10 +220,7 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             ->with($token)
             ->andThrow(ExpiredResetPasswordTokenException::class);
 
-        $query = new UserRecoverResetPasswordStrengthQuery(
-            $resetPasswordHelper,
-            $requestProvider,
-        );
+        $query = new UserRecoverResetPasswordStrengthQuery($resetPasswordHelper, $requestProvider);
 
         $result = $query($faker->password());
 
@@ -257,10 +254,7 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             ->with($token)
             ->andThrow(InvalidResetPasswordTokenException::class);
 
-        $query = new UserRecoverResetPasswordStrengthQuery(
-            $resetPasswordHelper,
-            $requestProvider,
-        );
+        $query = new UserRecoverResetPasswordStrengthQuery($resetPasswordHelper, $requestProvider);
 
         $result = $query($faker->password());
 
@@ -311,10 +305,7 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             ->andReturn($user);
 
         // No password strength or pwned client provided - will use defaults
-        $query = new UserRecoverResetPasswordStrengthQuery(
-            $resetPasswordHelper,
-            $requestProvider,
-        );
+        $query = new UserRecoverResetPasswordStrengthQuery($resetPasswordHelper, $requestProvider);
 
         $result = $query($password);
 

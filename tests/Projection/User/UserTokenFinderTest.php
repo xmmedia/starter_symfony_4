@@ -68,16 +68,18 @@ class UserTokenFinderTest extends BaseTestCase
 
     public function testCreateMultipleResetPasswordRequests(): void
     {
+        $faker = $this->faker();
+
         $expiresAt1 = new \DateTimeImmutable('+1 hour');
         $expiresAt2 = new \DateTimeImmutable('+2 hours');
-        $selector1 = 'selector-1';
-        $selector2 = 'selector-2';
-        $hashedToken1 = 'token-1';
-        $hashedToken2 = 'token-2';
+        $selector1 = $faker->string(15);
+        $selector2 = $faker->string(15);
+        $hashedToken1 = $faker->string(15);
+        $hashedToken2 = $faker->string(15);
 
         $user1 = \Mockery::mock(User::class);
         $user2 = \Mockery::mock(User::class);
-        
+
         $registry = \Mockery::mock(ManagerRegistry::class);
         $registry->shouldReceive('getManagerForClass')
             ->with(UserToken::class)
@@ -108,6 +110,9 @@ class UserTokenFinderTest extends BaseTestCase
         $finder = new UserTokenFinder($registry);
 
         // Verify it implements the correct interface
-        $this->assertInstanceOf(\SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface::class, $finder);
+        $this->assertInstanceOf(
+            \SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface::class,
+            $finder,
+        );
     }
 }
