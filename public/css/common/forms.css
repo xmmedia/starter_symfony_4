@@ -97,6 +97,9 @@ select {
     label {
         @apply grow mb-0 pl-2;
     }
+    &:has(input:disabled) label {
+        @apply text-gray-500 cursor-not-allowed;
+    }
 }
 
 .field-wrap-radios, .field-wrap-checkboxes {
