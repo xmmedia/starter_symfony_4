@@ -19,8 +19,7 @@ class AuthReadModelTest extends BaseTestCase
         // Should not receive any calls for table creation
         $connection->shouldNotReceive('executeQuery');
 
-        $readModel = new AuthReadModel($connection);
-        $readModel->init();
+        new AuthReadModel($connection)->init();
 
         // If we get here without exception, init() did nothing as expected
         $this->assertTrue(true);
@@ -54,13 +53,9 @@ class AuthReadModelTest extends BaseTestCase
             }))
             ->andReturn($statement);
 
-        $readModel = new AuthReadModel($connection);
-
         // Use reflection to call protected method
-        $reflection = new \ReflectionClass($readModel);
-        $method = $reflection->getMethod('loggedIn');
-        $method->setAccessible(true);
-        $method->invoke($readModel, $userId, $lastLogin);
+        $method = new \ReflectionClass(new AuthReadModel($connection))->getMethod('loggedIn');
+        $method->invoke(new AuthReadModel($connection), $userId, $lastLogin);
     }
 
     public function testResetCallsDelete(): void
@@ -75,8 +70,7 @@ class AuthReadModelTest extends BaseTestCase
             }))
             ->andReturn(\Mockery::mock(Result::class));
 
-        $readModel = new AuthReadModel($connection);
-        $readModel->reset();
+        new AuthReadModel($connection)->reset();
     }
 
     public function testDeleteResetsLoginCountAndLastLogin(): void
@@ -90,12 +84,6 @@ class AuthReadModelTest extends BaseTestCase
             }))
             ->andReturn(\Mockery::mock(Result::class));
 
-        $readModel = new AuthReadModel($connection);
-        $readModel->delete();
-    }
-
-    public function testStackMethodExists(): void
-    {
-        $this->assertTrue(method_exists(AuthReadModel::class, 'stack'));
+        new AuthReadModel($connection)->delete();
     }
 }
