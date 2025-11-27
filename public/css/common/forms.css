@@ -89,10 +89,8 @@ select {
 .field-wrap-radio, .field-wrap-checkbox {
     @apply flex flex-nowrap items-start;
     input {
-        @apply shrink;
-
-        /* aligns the radio/checkbox with the label */
-        margin-top: 0.35em;
+        /* margin aligns the radio/checkbox with the label */
+        @apply shrink mt-[0.35rem];
     }
     label {
         @apply grow mb-0 pl-2;
