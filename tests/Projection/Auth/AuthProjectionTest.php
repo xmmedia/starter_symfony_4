@@ -50,10 +50,8 @@ class AuthProjectionTest extends BaseTestCase
         $projector->shouldReceive('when')
             ->once()
             ->with(
-                \Mockery::on(function ($handlers) {
-                    return \array_key_exists(UserLoggedIn::class, $handlers)
-                        && \is_callable($handlers[UserLoggedIn::class]);
-                }),
+                \Mockery::on(fn($handlers): bool => \array_key_exists(UserLoggedIn::class, $handlers)
+                    && \is_callable($handlers[UserLoggedIn::class])),
             )
             ->andReturnSelf();
 
@@ -72,11 +70,8 @@ class AuthProjectionTest extends BaseTestCase
         $projector->shouldReceive('when')
             ->once()
             ->with(
-                \Mockery::on(function ($handlers) {
-                    // Verify the handler is callable
-                    return isset($handlers[UserLoggedIn::class])
-                        && \is_callable($handlers[UserLoggedIn::class]);
-                }),
+                \Mockery::on(fn($handlers): bool => isset($handlers[UserLoggedIn::class])
+                    && \is_callable($handlers[UserLoggedIn::class])),
             )
             ->andReturnSelf();
 
