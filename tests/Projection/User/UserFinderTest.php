@@ -279,8 +279,7 @@ class UserFinderTest extends BaseTestCase
             ->once()
             ->with(\Mockery::on(fn($sql): bool => str_contains($sql, 'FROM `user` u')
                 && str_contains($sql, $queryParts['where'])
-                && str_contains($sql, $queryParts['order'])),
-            )
+                && str_contains($sql, $queryParts['order'])), $rsm)
             ->andReturn($query);
         $entityManager->shouldReceive('getClassMetadata')
             ->with(User::class)
