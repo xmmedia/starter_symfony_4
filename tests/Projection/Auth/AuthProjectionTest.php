@@ -10,7 +10,6 @@ use App\Projection\Auth\AuthProjection;
 use App\Projection\Auth\AuthReadModel;
 use App\Tests\BaseTestCase;
 use DateTime;
-use DateTimeImmutable;
 use Doctrine\DBAL\Connection;
 use Prooph\EventStore\Projection\AbstractReadModel;
 use Prooph\EventStore\Projection\ReadModelProjector;
