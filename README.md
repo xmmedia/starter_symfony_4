@@ -16,7 +16,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
     ```
    To run this, Composer needs to be installed globally. If you don't have Composer installed, follow the instructions at [getcomposer.org/download](https://getcomposer.org/download/).
 1. Copy `.env.local-default` to `.env.local` and update the values where there are `@todo-symfony` comments.
-1. Update `composer.json`: `name`, `license` (likely `private`) and `description`
+1. Update `composer.json`: `name`, `license` (likely `proprietary`) and `description`
 1. Update `package.json`: `name`, `version`, `git.url`, `license` (probably delete), `private`
 1. Update the port in `vite.config.js` (`server.port` and `server.origin`)
 1. Remove or update the `LICENSE` file.
