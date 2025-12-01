@@ -240,7 +240,9 @@ class UserFinderTest extends BaseTestCase
         $this->assertSame([$user], $result);
     }
 
-    // Tests else case where no offset is applied
+    /**
+     * Tests else case where no offset is applied.
+     */
     public function testFindByFiltersNoOffsetApplied(): void
     {
         $user = \Mockery::mock(User::class);
@@ -307,7 +309,6 @@ class UserFinderTest extends BaseTestCase
         $this->assertSame([$user], $result);
     }
 
-    //use the above test function to add a test for CountByFilters
     public function testCountByFilters(): void
     {
         $faker = $this->faker();
