@@ -256,7 +256,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('password')
             ->setValue($user2, $faker->password());
 
-        // password has changed
+        // #0 - password has changed
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -275,7 +275,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('email')
             ->setValue($user2, $faker->email());
 
-        // email (username) has changed
+        // #1 - email (username) has changed
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -297,7 +297,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('active')
             ->setValue($user2, false);
 
-        // no longer active
+        // #2 - no longer active
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -321,7 +321,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('verified')
             ->setValue($user2, false);
 
-        // no longer verified
+        // #3 - no longer verified
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -349,7 +349,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('roles')
             ->setValue($user2, ['ROLE_ADMIN']);
 
-        // roles have changed (no longer has super admin)
+        // #4 - roles have changed (no longer has super admin)
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -377,7 +377,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('roles')
             ->setValue($user2, ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
 
-        // roles have changed (gained super admin)
+        // #5 - roles have changed (gained super admin)
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -405,7 +405,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('roles')
             ->setValue($user2, ['ROLE_ADMIN']);
 
-        // roles have changed (switched from user to admin)
+        // #6 - roles have changed (switched from user to admin)
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -429,7 +429,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('verified')
             ->setValue($user2, true);
 
-        // equal
+        // #7 - equal
         yield [$user1, $user2, true];
     }
 }
