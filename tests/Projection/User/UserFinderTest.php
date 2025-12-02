@@ -176,23 +176,7 @@ class UserFinderTest extends BaseTestCase
     public function testFindByFilters(): void
     {
         $user = \Mockery::mock(User::class);
-        $filters = \Mockery::mock(UserFilters::class);
-        $filters->shouldReceive('applied')->andReturn(true);
-        $filters->shouldReceive('get')->andReturn(null);
-
-        $queryParts = [
-            'join' => 'LEFT JOIN foo f ON f.user_id = u.user_id',
-            'where' => '1 = 1',
-            'order' => 'u.user_id DESC',
-            'parameters' => []
-        ];
-
-        // Ensure any new UserFilterQueryBuilder() inside the method returns our mock
-        $builderMock = \Mockery::mock('overload:' . UserFilterQueryBuilder::class);
-        $builderMock->shouldReceive('queryParts')
-            ->once()
-            ->with($filters)
-            ->andReturn($queryParts);
+        $filters = UserFilters::fromArray([]);
 
         $rsm = \Mockery::mock(ResultSetMappingBuilder::class);
         $rsm->shouldReceive('generateSelectClause')
@@ -210,9 +194,15 @@ class UserFinderTest extends BaseTestCase
         $entityManager = \Mockery::mock(EntityManagerInterface::class);
         $entityManager->shouldReceive('createNativeQuery')
             ->once()
-            ->with(\Mockery::on(fn($sql): bool => str_contains($sql, 'FROM `user` u')
-                && str_contains($sql, $queryParts['where'])
-                && str_contains($sql, $queryParts['order'])), $rsm)
+            ->with(
+                \Mockery::on(fn($sql): bool =>
+                    str_contains($sql, 'SELECT') &&
+                    str_contains($sql, 'FROM `user` u') &&
+                    str_contains($sql, 'WHERE') &&
+                    str_contains($sql, 'ORDER BY')
+                ),
+                $rsm
+            )
             ->andReturn($query);
         $entityManager->shouldReceive('getClassMetadata')
             ->with(User::class)
@@ -246,22 +236,7 @@ class UserFinderTest extends BaseTestCase
     public function testFindByFiltersNoOffsetApplied(): void
     {
         $user = \Mockery::mock(User::class);
-        $filters = \Mockery::mock(UserFilters::class);
-        $filters->shouldReceive('applied')->with(UserFilters::OFFSET)->andReturn(false);
-
-        $queryParts = [
-            'join'       => '',
-            'where'      => '1 = 1',
-            'order'      => 'u.user_id DESC',
-            'parameters' => []
-        ];
-
-        // Ensure any new UserFilterQueryBuilder() inside the method returns our mock
-        $builderMock = \Mockery::mock('overload:' . UserFilterQueryBuilder::class);
-        $builderMock->shouldReceive('queryParts')
-            ->once()
-            ->with($filters)
-            ->andReturn($queryParts);
+        $filters = UserFilters::fromArray(['offset' => null]);
 
         $rsm = \Mockery::mock(ResultSetMappingBuilder::class);
         $rsm->shouldReceive('generateSelectClause')
@@ -279,9 +254,16 @@ class UserFinderTest extends BaseTestCase
         $entityManager = \Mockery::mock(EntityManagerInterface::class);
         $entityManager->shouldReceive('createNativeQuery')
             ->once()
-            ->with(\Mockery::on(fn($sql): bool => str_contains($sql, 'FROM `user` u')
-                && str_contains($sql, $queryParts['where'])
-                && str_contains($sql, $queryParts['order'])), $rsm)
+            ->with(
+                \Mockery::on(fn($sql): bool =>
+                    str_contains($sql, 'SELECT') &&
+                    str_contains($sql, 'FROM `user` u') &&
+                    str_contains($sql, 'WHERE') &&
+                    str_contains($sql, 'ORDER BY') &&
+                    !str_contains($sql, 'OFFSET')
+                ),
+                $rsm
+            )
             ->andReturn($query);
         $entityManager->shouldReceive('getClassMetadata')
             ->with(User::class)
@@ -315,20 +297,7 @@ class UserFinderTest extends BaseTestCase
 
         $count = $faker->randomNumber();
 
-        $filters = \Mockery::mock(UserFilters::class);
-
-        $queryParts = [
-            'join' => 'LEFT JOIN foo f ON f.user_id = u.user_id',
-            'where' => '1 = 1',
-            'parameters' => ['param1' => 'value1'],
-            'parameterTypes' => ['param1' => 'string']
-        ];
-
-        $builderMock = \Mockery::mock('overload:' . UserFilterQueryBuilder::class);
-        $builderMock->shouldReceive('queryParts')
-            ->once()
-            ->with($filters)
-            ->andReturn($queryParts);
+        $filters = UserFilters::fromArray([]);
 
         $statement = \Mockery::mock(\Doctrine\DBAL\Result::class);
         $statement->shouldReceive('fetchNumeric')
@@ -338,12 +307,14 @@ class UserFinderTest extends BaseTestCase
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('executeQuery')
             ->once()
-            ->with(\Mockery::on(fn($sql): bool => str_contains($sql, 'SELECT COUNT(DISTINCT u.user_id)')
-                && str_contains($sql, 'FROM `user` u')
-                && str_contains($sql, $queryParts['join'])
-                && str_contains($sql, $queryParts['where'])),
-                $queryParts['parameters'],
-                $queryParts['parameterTypes']
+            ->with(
+                \Mockery::on(function ($sql) {
+                    return str_contains($sql, 'SELECT COUNT(DISTINCT u.user_id)')
+                        && str_contains($sql, 'FROM `user` u')
+                        && str_contains($sql, 'WHERE');
+                }),
+                [],
+                [],
             )
             ->andReturn($statement);
 
@@ -363,7 +334,6 @@ class UserFinderTest extends BaseTestCase
         $finder = \Mockery::mock(UserFinder::class, [$registry])
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
-
         $finder->shouldReceive('getEntityManager')
             ->once()
             ->andReturn($entityManager);
