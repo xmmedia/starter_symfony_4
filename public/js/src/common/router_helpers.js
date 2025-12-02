@@ -73,7 +73,7 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
             const routeWithRole = to.matched.find(record => !!record.meta?.role);
 
             // this route requires auth, therefore check if they have the right role
-            if (!rootStore.hasRole(routeWithRole.meta.role)) {
+            if (!routeWithRole || !rootStore.hasRole(routeWithRole.meta.role)) {
                 return { name: '403' };
             }
         }
