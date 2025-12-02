@@ -72,7 +72,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     /**
      * @var UserToken[]|Collection|ArrayCollection
      */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserToken::class)]
+    #[ORM\OneToMany(targetEntity: UserToken::class, mappedBy: 'user')]
     private array|Collection $tokens;
 
     public function __construct()
