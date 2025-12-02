@@ -72,6 +72,7 @@ class TestMigration extends AbstractMigration
         // Test migration - no implementation needed
     }
 
+    #[\Override]
     public function down(\Doctrine\DBAL\Schema\Schema $schema): void
     {
         // Test migration - no implementation needed
@@ -97,6 +98,7 @@ class TestMigrationWithKernel extends AbstractMigration
         // Test migration - no implementation needed
     }
 
+    #[\Override]
     public function down(\Doctrine\DBAL\Schema\Schema $schema): void
     {
         // Test migration - no implementation needed
