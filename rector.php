@@ -51,5 +51,7 @@ return RectorConfig::configure()
         // from Symfony composer set
         // disabled because it rewrite the console commands to use attributes, but can't get this to work atm
         Rector\Symfony\Symfony73\Rector\Class_\InvokableCommandInputAttributeRector::class,
+        // temporarily disabled because it adds newlines between traits
+        Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector::class,
     ])
 ;
