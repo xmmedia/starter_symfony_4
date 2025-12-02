@@ -16,7 +16,7 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = Uuid::fromString($faker->uuid());
+        $userId = $faker->userId()->uuid();
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
