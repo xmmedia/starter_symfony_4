@@ -6,6 +6,8 @@ name: symfonystarter
 recipe: symfony
 config:
   php: '8.4'
+  # when changed, the .env.local also needs to be updated
+  database: mysql:8.0
   webroot: public
   xdebug: true
   composer_version: 2
@@ -13,9 +15,6 @@ services:
   appserver:
     build_as_root:
       - a2enmod headers
-  database:
-    # when changed, the .env.local also needs to be updated
-    type: mysql:8.0.40
   phpmyadmin:
     type: phpmyadmin
     ssl: true
