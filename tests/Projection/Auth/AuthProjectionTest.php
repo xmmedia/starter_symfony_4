@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Projection\Auth;
 
-use App\Model\Auth\Event\UserLoggedIn;
+use App\Model\Auth\Event;
 use App\Projection\Auth\AuthProjection;
 use App\Projection\Auth\AuthReadModel;
 use App\Tests\BaseTestCase;
@@ -20,7 +20,7 @@ class AuthProjectionTest extends BaseTestCase
     public function test(): void
     {
         $projectedEvents = [
-            UserLoggedIn::class,
+            Event\UserLoggedIn::class,
         ];
 
         $projection = new AuthProjection();
@@ -47,8 +47,8 @@ class AuthProjectionTest extends BaseTestCase
         $projector->shouldReceive('when')
             ->once()
             ->with(
-                \Mockery::on(fn ($handlers): bool => \array_key_exists(UserLoggedIn::class, $handlers)
-                    && \is_callable($handlers[UserLoggedIn::class])),
+                \Mockery::on(fn ($handlers): bool => \array_key_exists(Event\UserLoggedIn::class, $handlers)
+                    && \is_callable($handlers[Event\UserLoggedIn::class])),
             )
             ->andReturnSelf();
 
@@ -57,45 +57,21 @@ class AuthProjectionTest extends BaseTestCase
         $this->assertSame($projector, $result);
     }
 
-    public function testProjectHandlesUserLoggedInEvent(): void
-    {
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('auth')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->with(
-                \Mockery::on(fn ($handlers): bool => isset($handlers[UserLoggedIn::class])
-                    && \is_callable($handlers[UserLoggedIn::class])),
-            )
-            ->andReturnSelf();
-
-        new AuthProjection()->project($projector);
-    }
-
-    public function testUserLoggedInCallsReadModelStack(): void
+    public function testUserLoggedIn(): void
     {
         $faker = $this->faker();
-        $authId = $faker->authId();
         $userId = $faker->userId();
-        $email = $faker->emailVo();
-        $userAgent = $faker->userAgent();
-        $ipAddress = $faker->ipv4();
-        $route = $faker->string(10);
 
-        $event = UserLoggedIn::now(
-            $authId,
+        $event = Event\UserLoggedIn::now(
+            $faker->authId(),
             $userId,
-            $email,
-            $userAgent,
-            $ipAddress,
-            $route,
+            $faker->emailVo(),
+            $faker->userAgent(),
+            $faker->ipv4(),
+            $faker->string(10),
         );
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new AuthReadModel($connection);
+        $readModel = new AuthReadModel(\Mockery::mock(Connection::class));
 
         // Spy on the stack to verify what gets stored
         $projector = \Mockery::mock(ReadModelProjector::class);
@@ -106,8 +82,8 @@ class AuthProjectionTest extends BaseTestCase
         $projector->shouldReceive('when')
             ->once()
             ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(UserLoggedIn::class, $handlers);
-                $handler = $handlers[UserLoggedIn::class];
+                $this->assertArrayHasKey(Event\UserLoggedIn::class, $handlers);
+                $handler = $handlers[Event\UserLoggedIn::class];
 
                 $projectorMock = \Mockery::mock(ReadModelProjector::class);
                 $projectorMock->shouldReceive('readModel')
@@ -118,20 +94,17 @@ class AuthProjectionTest extends BaseTestCase
                 return $projector;
             });
 
-        $projection = new AuthProjection();
-        $projection->project($projector);
+        new AuthProjection()->project($projector);
 
         // Use reflection to access the protected stack property from parent class
         $reflection = new \ReflectionClass(AbstractReadModel::class);
-
         $stackedProperty = $reflection->getProperty('stack');
-
         $stack = $stackedProperty->getValue($readModel);
 
         $createdAt = \DateTime::createFromImmutable($event->createdAt());
 
         $this->assertCount(1, $stack);
-        $this->assertEquals('loggedIn', $stack[0][0]);
+        $this->assertSame('loggedIn', $stack[0][0]);
         $this->assertEquals([$userId->toString(), $createdAt], $stack[0][1]);
     }
 }
