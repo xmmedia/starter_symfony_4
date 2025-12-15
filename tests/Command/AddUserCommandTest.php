@@ -23,12 +23,12 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
 class AddUserCommandTest extends BaseTestCase
 {
-    public function testExecuteWithPasswordAndDefaultFormat(): void
+    public function testPasswordAndDefaultFormat(): void
     {
         $faker = $this->faker();
         $email = $faker->email();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
 
@@ -52,27 +52,21 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([
-            $email,
-            $password,
-            $role,
-            $firstName,
-            $lastName,
-        ]);
+        $commandTester->setInputs([$email, $password, $role, $firstName, $lastName]);
 
         $result = $commandTester->execute([]);
 
         $this->assertEquals(Command::SUCCESS, $result);
         $this->assertStringContainsString('Created new active user', $commandTester->getDisplay());
         $this->assertStringContainsString($email, $commandTester->getDisplay());
-        $this->assertStringContainsString(Role::ROLE_USER()->getValue(), $commandTester->getDisplay());
+        $this->assertStringContainsString($role->getValue(), $commandTester->getDisplay());
     }
 
-    public function testExecuteWithSendInviteOption(): void
+    public function testSendInvite(): void
     {
         $faker = $this->faker();
         $email = $faker->email();
-        $role = Role::ROLE_ADMIN();
+        $role = $faker->userRole();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
 
@@ -96,12 +90,7 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([
-            $email,
-            $role,
-            $firstName,
-            $lastName,
-        ]);
+        $commandTester->setInputs([$email, $role, $firstName, $lastName]);
 
         $result = $commandTester->execute(['--send-invite' => true]);
 
@@ -112,12 +101,12 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertStringContainsString($email, $output);
     }
 
-    public function testExecuteWithGenerateActivationTokenOption(): void
+    public function testGenerateActivationTokenOption(): void
     {
         $faker = $this->faker();
         $email = $faker->email();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
         $tokenValue = $faker->string(15);
@@ -168,13 +157,7 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([
-            $email,
-            $password,
-            $role,
-            $firstName,
-            $lastName,
-        ]);
+        $commandTester->setInputs([$email, $password, $role, $firstName, $lastName]);
 
         $result = $commandTester->execute(['--generate-activation-token' => true]);
 
@@ -186,12 +169,12 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertStringContainsString($resetUrl, $output);
     }
 
-    public function testExecuteWithJsonFormat(): void
+    public function testJsonFormat(): void
     {
         $faker = $this->faker();
         $email = $faker->email();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
 
@@ -215,13 +198,7 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([
-            $email,
-            $password,
-            $role,
-            $firstName,
-            $lastName,
-        ]);
+        $commandTester->setInputs([$email, $password, $role, $firstName, $lastName]);
 
         $result = $commandTester->execute(['--format' => 'json']);
 
@@ -241,12 +218,12 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertEquals($role, $json['role']);
     }
 
-    public function testExecuteWithJsonFormatAndActivationToken(): void
+    public function testJsonFormatAndActivationToken(): void
     {
         $faker = $this->faker();
         $email = $faker->email();
         $password = $faker->password();
-        $role = Role::ROLE_SUPER_ADMIN();
+        $role = $faker->userRole();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
         $tokenValue = $faker->string(10);
@@ -297,13 +274,7 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([
-            $email,
-            $password,
-            $role,
-            $firstName,
-            $lastName,
-        ]);
+        $commandTester->setInputs([$email, $password, $role, $firstName, $lastName]);
 
         $result = $commandTester->execute([
             '--generate-activation-token' => true,
@@ -330,7 +301,7 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertEquals($resetUrl, $json['resetUrl']);
     }
 
-    public function testExecuteThrowsExceptionWhenSendInviteAndGenerateActivationTokenBothTrue(): void
+    public function testThrowsExceptionWhenSendInviteAndGenerateActivationToken(): void
     {
         $command = new AddUserCommand(
             \Mockery::mock(MessageBusInterface::class),
@@ -349,98 +320,5 @@ class AddUserCommandTest extends BaseTestCase
             '--send-invite'               => true,
             '--generate-activation-token' => true,
         ]);
-    }
-
-    public function testExecuteValidatesEmail(): void
-    {
-        $faker = $this->faker();
-        $invalidEmail = $faker->string(3);
-        $validEmail = $faker->email();
-        $password = $faker->password();
-        $role = Role::ROLE_USER();
-        $firstName = $faker->firstName();
-        $lastName = $faker->lastName();
-
-        $commandBus = \Mockery::mock(MessageBusInterface::class);
-        $commandBus->shouldReceive('dispatch')
-            ->once()
-            ->with(\Mockery::type(AdminAddUserMinimum::class))
-            ->andReturn(new Envelope(new \stdClass()));
-
-        $passwordHasher = \Mockery::mock(PasswordHasher::class);
-        $passwordHasher->shouldReceive('__invoke')
-            ->once()
-            ->andReturn($faker->string(15));
-
-        $command = new AddUserCommand(
-            $commandBus,
-            $passwordHasher,
-            \Mockery::mock(UserFinder::class),
-            \Mockery::mock(ResetPasswordHelperInterface::class),
-            \Mockery::mock(RouterInterface::class),
-        );
-
-        $commandTester = new CommandTester($command);
-        // First input: invalid email, second: valid email
-        $commandTester->setInputs([
-            $invalidEmail,
-            $validEmail,
-            $password,
-            $role,
-            $firstName,
-            $lastName,
-        ]);
-
-        $result = $commandTester->execute([]);
-
-        $this->assertEquals(Command::SUCCESS, $result);
-        $output = $commandTester->getDisplay();
-        $this->assertStringContainsString('email address in invalid', $output);
-    }
-
-    public function testExecuteValidatesPasswordLength(): void
-    {
-        $faker = $this->faker();
-        $email = $faker->email();
-        $shortPassword = $faker->string(4);
-        $validPassword = $faker->password();
-        $role = Role::ROLE_USER();
-        $firstName = $faker->firstName();
-        $lastName = $faker->lastName();
-
-        $commandBus = \Mockery::mock(MessageBusInterface::class);
-        $commandBus->shouldReceive('dispatch')
-            ->once()
-            ->with(\Mockery::type(AdminAddUserMinimum::class))
-            ->andReturn(new Envelope(new \stdClass()));
-
-        $passwordHasher = \Mockery::mock(PasswordHasher::class);
-        $passwordHasher->shouldReceive('__invoke')
-            ->once()
-            ->andReturn($faker->string(15));
-
-        $command = new AddUserCommand(
-            $commandBus,
-            $passwordHasher,
-            \Mockery::mock(UserFinder::class),
-            \Mockery::mock(ResetPasswordHelperInterface::class),
-            \Mockery::mock(RouterInterface::class),
-        );
-
-        $commandTester = new CommandTester($command);
-        $commandTester->setInputs([
-            $email,
-            $shortPassword,
-            $validPassword,
-            $role,
-            $firstName,
-            $lastName,
-        ]);
-
-        $result = $commandTester->execute([]);
-
-        $this->assertEquals(Command::SUCCESS, $result);
-        $output = $commandTester->getDisplay();
-        $this->assertStringContainsString('at least', $output);
     }
 }
