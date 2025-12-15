@@ -75,7 +75,7 @@ before_script:
   # copy env file into place; dump env
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cp -a $SHARED/.env.local $RELEASE/.env.local && cd $RELEASE && $SERVER_PHP_PATH composer.phar dump-env"
   # run composer post update cmds on server
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE && $SERVER_PHP_PATH composer.phar run-script post-update-cmd"
+  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; $SERVER_PHP_PATH composer.phar run-script post-update-cmd"
   # switch to new version
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ln -sfn $RELEASE $REMOTE_BASE/current"
   # reload php-fpm (to reset cache)
