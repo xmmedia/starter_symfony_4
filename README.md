@@ -166,6 +166,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
    - `setup_prod.sh` – 4 places
    - `.gitlab-ci.yml` – 2 places
    - `.php-cs-fixer.dist.php` – update the `@PHP8#Migration` version to match the current version.
+   - `~/.bashrc` and/or `~/.zshrc` on the servers
 1. Run `lando rebuild` to rebuild the Lando container with the new PHP version.
 1. Run `lando composer update` or `composer update` to update the PHP dependencies. If running locally without Lando, ensure your local PHP version matches the new version.
 1. Run the checks `nvm use && bin/check_full`.
