@@ -6,7 +6,6 @@ namespace App\Tests\Projection\User;
 
 use App\Entity\User;
 use App\Model\User\Exception\UserNotFound;
-use App\Projection\User\UserFilterQueryBuilder;
 use App\Projection\User\UserFilters;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
@@ -14,8 +13,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\NativeQuery;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 
 class UserFinderTest extends BaseTestCase
 {
@@ -195,13 +194,13 @@ class UserFinderTest extends BaseTestCase
         $entityManager->shouldReceive('createNativeQuery')
             ->once()
             ->with(
-                \Mockery::on(fn($sql): bool =>
-                    str_contains($sql, 'SELECT') &&
-                    str_contains($sql, 'FROM `user` u') &&
-                    str_contains($sql, 'WHERE') &&
-                    str_contains($sql, 'ORDER BY')
+                \Mockery::on(
+                    fn ($sql): bool => str_contains($sql, 'SELECT')
+                    && str_contains($sql, 'FROM `user` u')
+                    && str_contains($sql, 'WHERE')
+                    && str_contains($sql, 'ORDER BY'),
                 ),
-                $rsm
+                $rsm,
             )
             ->andReturn($query);
         $entityManager->shouldReceive('getClassMetadata')
@@ -255,14 +254,14 @@ class UserFinderTest extends BaseTestCase
         $entityManager->shouldReceive('createNativeQuery')
             ->once()
             ->with(
-                \Mockery::on(fn($sql): bool =>
-                    str_contains($sql, 'SELECT') &&
-                    str_contains($sql, 'FROM `user` u') &&
-                    str_contains($sql, 'WHERE') &&
-                    str_contains($sql, 'ORDER BY') &&
-                    !str_contains($sql, 'OFFSET')
+                \Mockery::on(
+                    fn ($sql): bool => str_contains($sql, 'SELECT')
+                    && str_contains($sql, 'FROM `user` u')
+                    && str_contains($sql, 'WHERE')
+                    && str_contains($sql, 'ORDER BY')
+                    && !str_contains($sql, 'OFFSET'),
                 ),
-                $rsm
+                $rsm,
             )
             ->andReturn($query);
         $entityManager->shouldReceive('getClassMetadata')

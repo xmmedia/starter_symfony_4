@@ -45,7 +45,7 @@ class AuthReadModelTest extends BaseTestCase
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('prepare')
             ->once()
-            ->with(\Mockery::on(fn($sql): bool => str_contains($sql, 'UPDATE `user`')
+            ->with(\Mockery::on(fn ($sql): bool => str_contains($sql, 'UPDATE `user`')
                 && str_contains($sql, 'login_count = login_count + 1')
                 && str_contains($sql, 'last_login = :last_login')
                 && str_contains($sql, 'WHERE user_id = :user_id')))
@@ -61,7 +61,7 @@ class AuthReadModelTest extends BaseTestCase
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('executeQuery')
             ->once()
-            ->with(\Mockery::on(fn($sql): bool => str_contains($sql, 'UPDATE `user`')
+            ->with(\Mockery::on(fn ($sql): bool => str_contains($sql, 'UPDATE `user`')
                 && str_contains($sql, 'login_count = 0')
                 && str_contains($sql, 'last_login = null')))
             ->andReturn(\Mockery::mock(Result::class));
@@ -74,7 +74,7 @@ class AuthReadModelTest extends BaseTestCase
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('executeQuery')
             ->once()
-            ->with(\Mockery::on(fn($sql): bool => str_contains($sql, 'UPDATE `user`')
+            ->with(\Mockery::on(fn ($sql): bool => str_contains($sql, 'UPDATE `user`')
                 && str_contains($sql, 'SET login_count = 0, last_login = null')))
             ->andReturn(\Mockery::mock(Result::class));
 

@@ -84,7 +84,6 @@ class UserVerifyMutationTest extends BaseTestCase
             ->andReturn($request);
 
         $mutation = new UserVerifyMutation(
-
             \Mockery::mock(MessageBusInterface::class),
             \Mockery::mock(ResetPasswordHelperInterface::class),
             $this->createSecurity(false),

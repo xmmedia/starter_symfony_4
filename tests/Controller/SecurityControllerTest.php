@@ -5,13 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Controller\SecurityController;
-use App\Infrastructure\Service\DefaultRouteProvider;
-use App\Security\Security;
 use App\Tests\BaseTestCase;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SecurityControllerTest extends BaseTestCase
 {

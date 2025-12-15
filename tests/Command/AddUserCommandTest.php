@@ -7,7 +7,6 @@ namespace App\Tests\Command;
 use App\Command\AddUserCommand;
 use App\Entity\User;
 use App\Model\User\Command\AdminAddUserMinimum;
-use App\Model\User\Role;
 use App\Projection\User\UserFinder;
 use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;

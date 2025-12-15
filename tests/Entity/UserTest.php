@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Model\User\Role;
 use App\Model\User\UserData;
 use App\Tests\BaseTestCase;
-use Ramsey\Uuid\Uuid;
 
 class UserTest extends BaseTestCase
 {

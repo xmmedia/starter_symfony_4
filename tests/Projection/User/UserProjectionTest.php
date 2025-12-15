@@ -112,7 +112,7 @@ class UserProjectionTest extends BaseTestCase
         $projection->project($projector);
 
         // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(\Prooph\EventStore\Projection\AbstractReadModel::class);
+        $reflection = new \ReflectionClass(AbstractReadModel::class);
         $stackProperty = $reflection->getProperty('stack');
 
         $stack = $stackProperty->getValue($readModel);
@@ -318,6 +318,7 @@ class UserProjectionTest extends BaseTestCase
                     ->andReturn($readModel);
 
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
 
@@ -376,6 +377,7 @@ class UserProjectionTest extends BaseTestCase
                     ->andReturn($readModel);
 
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
 
@@ -435,6 +437,7 @@ class UserProjectionTest extends BaseTestCase
                     ->andReturn($readModel);
 
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
 
@@ -494,6 +497,7 @@ class UserProjectionTest extends BaseTestCase
                     ->andReturn($readModel);
 
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
 
@@ -561,6 +565,7 @@ class UserProjectionTest extends BaseTestCase
                     ->andReturn($readModel);
 
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
 
@@ -618,6 +623,7 @@ class UserProjectionTest extends BaseTestCase
                     ->andReturn($readModel);
 
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
         $projection = new UserProjection();
@@ -670,6 +676,7 @@ class UserProjectionTest extends BaseTestCase
                     ->andReturn($readModel);
 
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
 
@@ -728,6 +735,7 @@ class UserProjectionTest extends BaseTestCase
                     ->andReturn($readModel);
 
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
 
@@ -785,6 +793,7 @@ class UserProjectionTest extends BaseTestCase
                 $projectorMock->shouldReceive('readModel')
                     ->andReturn($readModel);
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
 
@@ -838,6 +847,7 @@ class UserProjectionTest extends BaseTestCase
                     ->andReturn($readModel);
 
                 $handler->call($projectorMock, [], $event);
+
                 return $projector;
             });
 
