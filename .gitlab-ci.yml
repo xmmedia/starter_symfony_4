@@ -127,7 +127,7 @@ deploy to staging:
     name: staging
     url: $STAGING_URL
   variables:
-    APP_ENV: dev
+    APP_ENV: staging
   when: manual
   script:
     - *deploy-setup-script
