@@ -9,12 +9,13 @@ use App\Projection\Auth\AuthProjection;
 use App\Projection\Auth\AuthReadModel;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
-use Prooph\EventStore\Projection\AbstractReadModel;
 use Prooph\EventStore\Projection\ReadModelProjector;
+use Xm\SymfonyBundle\Tests\ProjectionReadModel;
 use Xm\SymfonyBundle\Tests\ProjectionWhenArgs;
 
 class AuthProjectionTest extends BaseTestCase
 {
+    use ProjectionReadModel;
     use ProjectionWhenArgs;
 
     public function test(): void
@@ -37,7 +38,7 @@ class AuthProjectionTest extends BaseTestCase
         $projection->project($projector);
     }
 
-    public function testProjectConfiguresProjectorWithAuthStream(): void
+    public function testConfiguresProjectorWithAuthStream(): void
     {
         $projector = \Mockery::mock(ReadModelProjector::class);
         $projector->shouldReceive('fromStream')
@@ -73,33 +74,11 @@ class AuthProjectionTest extends BaseTestCase
 
         $readModel = new AuthReadModel(\Mockery::mock(Connection::class));
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('auth')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserLoggedIn::class, $handlers);
-                $handler = $handlers[Event\UserLoggedIn::class];
-
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
+        $projector = $this->createReadModelMock('auth', $event, $readModel);
 
         new AuthProjection()->project($projector);
 
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-        $stackedProperty = $reflection->getProperty('stack');
-        $stack = $stackedProperty->getValue($readModel);
+        $stack = $this->getReadModelStack($readModel);
 
         $createdAt = \DateTime::createFromImmutable($event->createdAt());
 

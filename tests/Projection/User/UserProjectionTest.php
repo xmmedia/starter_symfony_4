@@ -6,19 +6,27 @@ namespace App\Tests\Projection\User;
 
 use App\Model\User\Event;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Projection\User\UserProjection;
 use App\Projection\User\UserReadModel;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
 use Prooph\EventStore\Projection\AbstractReadModel;
 use Prooph\EventStore\Projection\ReadModelProjector;
+use Xm\SymfonyBundle\Tests\ProjectionReadModel;
 use Xm\SymfonyBundle\Tests\ProjectionWhenArgs;
 use Xm\SymfonyBundle\Util\Utils;
 
 class UserProjectionTest extends BaseTestCase
 {
+    use ProjectionReadModel;
     use ProjectionWhenArgs;
+
+    private const array EXPECTED_TYPES = [
+        'verified'  => 'boolean',
+        'active'    => 'boolean',
+        'roles'     => 'json',
+        'user_data' => 'json',
+    ];
 
     public function test(): void
     {
@@ -58,7 +66,7 @@ class UserProjectionTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $hashedPassword = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $active = $faker->boolean();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -77,45 +85,13 @@ class UserProjectionTest extends BaseTestCase
             $userData,
         );
 
-        $expectedTypes = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserWasAddedByAdmin::class, $handlers);
-                $handler = $handlers[Event\UserWasAddedByAdmin::class];
+        new UserProjection()->project($projector);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
+        $stack = $this->getReadModelStack($readModel);
 
         $this->assertCount(1, $stack);
         $this->assertEquals('insert', $stack[0][0]);
@@ -131,7 +107,7 @@ class UserProjectionTest extends BaseTestCase
                 'last_name'  => $lastName->toString(),
                 'user_data'  => $userData->toArray(),
             ],
-            $expectedTypes,
+            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -141,7 +117,7 @@ class UserProjectionTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $hashedPassword = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
@@ -156,45 +132,13 @@ class UserProjectionTest extends BaseTestCase
             $sendInvite,
         );
 
-        $expectedTypes = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\MinimalUserWasAddedByAdmin::class, $handlers);
-                $handler = $handlers[Event\MinimalUserWasAddedByAdmin::class];
+        new UserProjection()->project($projector);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
+        $stack = $this->getReadModelStack($readModel);
 
         $this->assertCount(1, $stack);
         $this->assertEquals('insert', $stack[0][0]);
@@ -209,7 +153,7 @@ class UserProjectionTest extends BaseTestCase
                 'first_name' => Utils::serialize($firstName->toString()),
                 'last_name'  => Utils::serialize($lastName->toString()),
             ],
-            $expectedTypes,
+            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -218,7 +162,7 @@ class UserProjectionTest extends BaseTestCase
         $faker = $this->faker();
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $userData = $faker->userData();
@@ -232,45 +176,13 @@ class UserProjectionTest extends BaseTestCase
             $userData,
         );
 
-        $expectedTypes = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserWasUpdatedByAdmin::class, $handlers);
-                $handler = $handlers[Event\UserWasUpdatedByAdmin::class];
+        new UserProjection()->project($projector);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
+        $stack = $this->getReadModelStack($readModel);
 
         $this->assertCount(1, $stack);
         $this->assertEquals('update', $stack[0][0]);
@@ -283,7 +195,7 @@ class UserProjectionTest extends BaseTestCase
                 'last_name'  => $lastName->toString(),
                 'user_data'  => $userData->toArray(),
             ],
-            $expectedTypes,
+            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -298,38 +210,13 @@ class UserProjectionTest extends BaseTestCase
             $hashedPassword,
         );
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\AdminChangedPassword::class, $handlers);
-                $handler = $handlers[Event\AdminChangedPassword::class];
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
+        new UserProjection()->project($projector);
 
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
+        $stack = $this->getReadModelStack($readModel);
 
         $this->assertCount(1, $stack);
         $this->assertEquals('update', $stack[0][0]);
@@ -350,45 +237,13 @@ class UserProjectionTest extends BaseTestCase
             $userId,
         );
 
-        $expectedTypes = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserVerifiedByAdmin::class, $handlers);
-                $handler = $handlers[Event\UserVerifiedByAdmin::class];
+        new UserProjection()->project($projector);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
+        $stack = $this->getReadModelStack($readModel);
 
         $this->assertCount(1, $stack);
         $this->assertEquals('update', $stack[0][0]);
@@ -397,7 +252,7 @@ class UserProjectionTest extends BaseTestCase
             [
                 'verified' => true,
             ],
-            $expectedTypes,
+            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -410,45 +265,13 @@ class UserProjectionTest extends BaseTestCase
             $userId,
         );
 
-        $expectedTypes = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserActivatedByAdmin::class, $handlers);
-                $handler = $handlers[Event\UserActivatedByAdmin::class];
+        new UserProjection()->project($projector);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
+        $stack = $this->getReadModelStack($readModel);
 
         $this->assertCount(1, $stack);
         $this->assertEquals('update', $stack[0][0]);
@@ -457,7 +280,7 @@ class UserProjectionTest extends BaseTestCase
             [
                 'active' => true,
             ],
-            $expectedTypes,
+            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -470,39 +293,11 @@ class UserProjectionTest extends BaseTestCase
             $userId,
         );
 
-        $expectedTypes = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserDeactivatedByAdmin::class, $handlers);
-                $handler = $handlers[Event\UserDeactivatedByAdmin::class];
-
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
+        new UserProjection()->project($projector);
 
         // Use reflection to access the protected stack property from parent class
         $reflection = new \ReflectionClass(AbstractReadModel::class);
@@ -517,7 +312,7 @@ class UserProjectionTest extends BaseTestCase
             [
                 'active' => false,
             ],
-            $expectedTypes,
+            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -538,39 +333,11 @@ class UserProjectionTest extends BaseTestCase
             $userData,
         );
 
-        $expectedTypes = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserUpdatedProfile::class, $handlers);
-                $handler = $handlers[Event\UserUpdatedProfile::class];
-
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
+        new UserProjection()->project($projector);
 
         // Use reflection to access the protected stack property from parent class
         $reflection = new \ReflectionClass(AbstractReadModel::class);
@@ -588,7 +355,7 @@ class UserProjectionTest extends BaseTestCase
                 'last_name'  => $lastName->toString(),
                 'user_data'  => $userData->toArray(),
             ],
-            $expectedTypes,
+            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -603,31 +370,11 @@ class UserProjectionTest extends BaseTestCase
             $hashedPassword,
         );
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\ChangedPassword::class, $handlers);
-                $handler = $handlers[Event\ChangedPassword::class];
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-        $projection = new UserProjection();
-        $projection->project($projector);
+        new UserProjection()->project($projector);
 
         // Use reflection to access the protected stack property from parent class
         $reflection = new \ReflectionClass(AbstractReadModel::class);
@@ -656,32 +403,11 @@ class UserProjectionTest extends BaseTestCase
             $hashedPassword,
         );
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\PasswordUpgraded::class, $handlers);
-                $handler = $handlers[Event\PasswordUpgraded::class];
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
+        new UserProjection()->project($projector);
 
         // Use reflection to access the protected stack property from parent class
         $reflection = new \ReflectionClass(AbstractReadModel::class);
@@ -708,45 +434,13 @@ class UserProjectionTest extends BaseTestCase
             $userId,
         );
 
-        $expectedTypes = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserVerified::class, $handlers);
-                $handler = $handlers[Event\UserVerified::class];
+        new UserProjection()->project($projector);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
+        $stack = $this->getReadModelStack($readModel);
 
         $this->assertCount(1, $stack);
         $this->assertEquals('update', $stack[0][0]);
@@ -755,7 +449,7 @@ class UserProjectionTest extends BaseTestCase
             [
                 'verified' => true,
             ],
-            $expectedTypes,
+            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -768,37 +462,11 @@ class UserProjectionTest extends BaseTestCase
             $userId,
         );
 
-        $expectedTypes = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserActivated::class, $handlers);
-                $handler = $handlers[Event\UserActivated::class];
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
+        new UserProjection()->project($projector);
 
         // Use reflection to access the protected stack property from parent class
         $reflection = new \ReflectionClass(AbstractReadModel::class);
@@ -814,7 +482,7 @@ class UserProjectionTest extends BaseTestCase
             [
                 'verified' => true,
             ],
-            $expectedTypes,
+            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -827,32 +495,11 @@ class UserProjectionTest extends BaseTestCase
             $userId,
         );
 
-        $connection = \Mockery::mock(Connection::class);
-        $readModel = new UserReadModel($connection);
+        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
-        // Spy on the stack to verify what gets stored
-        $projector = \Mockery::mock(ReadModelProjector::class);
-        $projector->shouldReceive('fromStream')
-            ->once()
-            ->with('user')
-            ->andReturnSelf();
-        $projector->shouldReceive('when')
-            ->once()
-            ->andReturnUsing(function ($handlers) use ($event, $readModel, $projector) {
-                $this->assertArrayHasKey(Event\UserWasDeletedByAdmin::class, $handlers);
-                $handler = $handlers[Event\UserWasDeletedByAdmin::class];
+        $projector = $this->createReadModelMock('user', $event, $readModel);
 
-                $projectorMock = \Mockery::mock(ReadModelProjector::class);
-                $projectorMock->shouldReceive('readModel')
-                    ->andReturn($readModel);
-
-                $handler->call($projectorMock, [], $event);
-
-                return $projector;
-            });
-
-        $projection = new UserProjection();
-        $projection->project($projector);
+        new UserProjection()->project($projector);
 
         // Use reflection to access the protected stack property from parent class
         $reflection = new \ReflectionClass(AbstractReadModel::class);
