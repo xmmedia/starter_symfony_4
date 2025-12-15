@@ -102,7 +102,7 @@ public/service-worker.js
 phpstan.neon
 ###< phpstan/phpstan ###
 
-###< yarn ###
+###> yarn ###
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -113,5 +113,6 @@ phpstan.neon
 yarn-error.log
 ###< yarn ###
 
-# Sentry Config File
+###> sentry ###
 .env.sentry-build-plugin
+###< sentry ###
