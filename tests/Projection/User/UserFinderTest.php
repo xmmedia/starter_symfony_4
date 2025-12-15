@@ -308,11 +308,9 @@ class UserFinderTest extends BaseTestCase
         $connection->shouldReceive('executeQuery')
             ->once()
             ->with(
-                \Mockery::on(function ($sql) {
-                    return str_contains($sql, 'SELECT COUNT(DISTINCT u.user_id)')
-                        && str_contains($sql, 'FROM `user` u')
-                        && str_contains($sql, 'WHERE');
-                }),
+                \Mockery::on(fn ($sql): bool => str_contains($sql, 'SELECT COUNT(DISTINCT u.user_id)')
+                    && str_contains($sql, 'FROM `user` u')
+                    && str_contains($sql, 'WHERE')),
                 [],
                 [],
             )
