@@ -14,7 +14,7 @@ final class DuplicateEmail extends \InvalidArgumentException
         return new self(
             \sprintf(
                 'The email address "%s" is already used by user "%s".',
-                $email,
+                $email->toString(),
                 $userId,
             ),
         );
