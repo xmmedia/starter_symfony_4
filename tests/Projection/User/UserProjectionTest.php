@@ -10,11 +10,10 @@ use App\Projection\User\UserProjection;
 use App\Projection\User\UserReadModel;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
-use Prooph\EventStore\Projection\AbstractReadModel;
 use Prooph\EventStore\Projection\ReadModelProjector;
+use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 use Xm\SymfonyBundle\Tests\ProjectionReadModel;
 use Xm\SymfonyBundle\Tests\ProjectionWhenArgs;
-use Xm\SymfonyBundle\Util\Utils;
 
 class UserProjectionTest extends BaseTestCase
 {
@@ -60,7 +59,7 @@ class UserProjectionTest extends BaseTestCase
         $projection->project($projector);
     }
 
-    public function testUserWasAddedByAdminCallsReadModelStack(): void
+    public function testUserWasAddedByAdmin(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
@@ -85,17 +84,11 @@ class UserProjectionTest extends BaseTestCase
             $userData,
         );
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
-
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        $stack = $this->getReadModelStack($readModel);
+        $stack = $this->runReadModel($event);
 
         $this->assertCount(1, $stack);
-        $this->assertEquals('insert', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('insert', $stack[0][0]);
+        $this->assertSame([
             [
                 'user_id'    => $userId->toString(),
                 'email'      => mb_strtolower($email->toString()),
@@ -111,7 +104,7 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testMinimalUserWasAddedByAdminCallsReadModelStack(): void
+    public function testMinimalUserWasAddedByAdmin(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
@@ -132,17 +125,11 @@ class UserProjectionTest extends BaseTestCase
             $sendInvite,
         );
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
-
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        $stack = $this->getReadModelStack($readModel);
+        $stack = $this->runReadModel($event);
 
         $this->assertCount(1, $stack);
-        $this->assertEquals('insert', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('insert', $stack[0][0]);
+        $this->assertSame([
             [
                 'user_id'    => $userId->toString(),
                 'email'      => mb_strtolower($email->toString()),
@@ -150,14 +137,14 @@ class UserProjectionTest extends BaseTestCase
                 'verified'   => !$sendInvite,
                 'active'     => true,
                 'roles'      => [$role->getValue()],
-                'first_name' => Utils::serialize($firstName->toString()),
-                'last_name'  => Utils::serialize($lastName->toString()),
+                'first_name' => $firstName->toString(),
+                'last_name'  => $lastName->toString(),
             ],
             self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
-    public function testUserWasUpdatedByAdminCallsReadModelStack(): void
+    public function testUserWasUpdatedByAdmin(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
@@ -176,17 +163,11 @@ class UserProjectionTest extends BaseTestCase
             $userData,
         );
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
-
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        $stack = $this->getReadModelStack($readModel);
+        $stack = $this->runReadModel($event);
 
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'email'      => mb_strtolower($email->toString()),
@@ -199,7 +180,7 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testAdminChangedPasswordCallsReadModelStack(): void
+    public function testAdminChangedPassword(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
@@ -210,17 +191,11 @@ class UserProjectionTest extends BaseTestCase
             $hashedPassword,
         );
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
-
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        $stack = $this->getReadModelStack($readModel);
+        $stack = $this->runReadModel($event);
 
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'password' => $hashedPassword,
@@ -228,26 +203,18 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testUserVerifiedByAdminCallsReadModelStack(): void
+    public function testUserVerifiedByAdmin(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
 
-        $event = Event\UserVerifiedByAdmin::now(
-            $userId,
-        );
+        $event = Event\UserVerifiedByAdmin::now($userId);
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
-
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        $stack = $this->getReadModelStack($readModel);
+        $stack = $this->runReadModel($event);
 
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'verified' => true,
@@ -256,26 +223,18 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testUserActivatedByAdminCallsReadModelStack(): void
+    public function testUserActivatedByAdmin(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
 
-        $event = Event\UserActivatedByAdmin::now(
-            $userId,
-        );
+        $event = Event\UserActivatedByAdmin::now($userId);
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
-
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        $stack = $this->getReadModelStack($readModel);
+        $stack = $this->runReadModel($event);
 
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'active' => true,
@@ -284,30 +243,18 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testUserDeactivatedByAdminCallsReadModelStack(): void
+    public function testUserDeactivatedByAdmin(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
 
-        $event = Event\UserDeactivatedByAdmin::now(
-            $userId,
-        );
+        $event = Event\UserDeactivatedByAdmin::now($userId);
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
+        $stack = $this->runReadModel($event);
 
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'active' => false,
@@ -316,7 +263,7 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testUserUpdatedProfileCallsReadModelStack(): void
+    public function testUserUpdatedProfile(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
@@ -333,21 +280,11 @@ class UserProjectionTest extends BaseTestCase
             $userData,
         );
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
+        $stack = $this->runReadModel($event);
 
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'email'      => mb_strtolower($email->toString()),
@@ -359,7 +296,7 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testChangedPasswordCallsReadModelStack(): void
+    public function testChangedPassword(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
@@ -370,21 +307,11 @@ class UserProjectionTest extends BaseTestCase
             $hashedPassword,
         );
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
+        $stack = $this->runReadModel($event);
 
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'password' => $hashedPassword,
@@ -392,7 +319,7 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testPasswordUpgradedCallsReadModelStack(): void
+    public function testPasswordUpgraded(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
@@ -403,21 +330,11 @@ class UserProjectionTest extends BaseTestCase
             $hashedPassword,
         );
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
+        $stack = $this->runReadModel($event);
 
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'password' => $hashedPassword,
@@ -425,26 +342,18 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testUserVerifiedCallsReadModelStack(): void
+    public function testUserVerified(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
 
-        $event = Event\UserVerified::now(
-            $userId,
-        );
+        $event = Event\UserVerified::now($userId);
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
-
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        $stack = $this->getReadModelStack($readModel);
+        $stack = $this->runReadModel($event);
 
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'verified' => true,
@@ -453,31 +362,18 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testUserActivatedCallsReadModelStack(): void
+    public function testUserActivated(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
 
-        $event = Event\UserActivated::now(
-            $userId,
-        );
+        $event = Event\UserActivated::now($userId);
 
-        $readModel = new UserReadModel(\Mockery::mock(Connection::class));
-
-        $projector = $this->createReadModelMock('user', $event, $readModel);
-
-        new UserProjection()->project($projector);
-
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
+        $stack = $this->runReadModel($event);
 
         $this->assertCount(1, $stack);
-        $this->assertEquals('update', $stack[0][0]);
-        $this->assertEquals([
+        $this->assertSame('update', $stack[0][0]);
+        $this->assertSame([
             $userId->toString(),
             [
                 'verified' => true,
@@ -486,32 +382,30 @@ class UserProjectionTest extends BaseTestCase
         ], $stack[0][1]);
     }
 
-    public function testUserWasDeletedByAdminCallsReadModelStack(): void
+    public function testUserWasDeletedByAdmin(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
 
-        $event = Event\UserWasDeletedByAdmin::now(
-            $userId,
-        );
+        $event = Event\UserWasDeletedByAdmin::now($userId);
 
+        $stack = $this->runReadModel($event);
+
+        $this->assertCount(1, $stack);
+        $this->assertSame('remove', $stack[0][0]);
+        $this->assertSame([
+            $userId->toString(),
+        ], $stack[0][1]);
+    }
+
+    private function runReadModel(AggregateChanged $event): mixed
+    {
         $readModel = new UserReadModel(\Mockery::mock(Connection::class));
 
         $projector = $this->createReadModelMock('user', $event, $readModel);
 
         new UserProjection()->project($projector);
 
-        // Use reflection to access the protected stack property from parent class
-        $reflection = new \ReflectionClass(AbstractReadModel::class);
-
-        $stackProperty = $reflection->getProperty('stack');
-
-        $stack = $stackProperty->getValue($readModel);
-
-        $this->assertCount(1, $stack);
-        $this->assertEquals('remove', $stack[0][0]);
-        $this->assertEquals([
-            $userId->toString(),
-        ], $stack[0][1]);
+        return $this->getReadModelStack($readModel);
     }
 }
