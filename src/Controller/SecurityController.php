@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Xm\SymfonyBundle\Util\StringUtil;
 
-/**
- * @codeCoverageIgnore
- */
 final class SecurityController extends AbstractController
 {
     public const string TOKEN_SESSION_KEY = 'reset_token';

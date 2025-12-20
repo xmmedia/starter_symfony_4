@@ -9,13 +9,13 @@ use Xm\SymfonyBundle\Util\Filters;
 class UserFilters extends Filters
 {
     /** @var string General query, queries text fields on user. */
-    public const Q = 'q';
-    public const ACCOUNT_STATUS = 'accountStatus';
-    public const ACTIVE = 'active';
-    public const ROLES = 'roles';
-    public const EMAIL = 'email';
-    public const EMAIL_EXACT = 'emailExact';
-    public const OFFSET = 'offset';
+    public const string Q = 'q';
+    public const string ACCOUNT_STATUS = 'accountStatus';
+    public const string ACTIVE = 'active';
+    public const string ROLES = 'roles';
+    public const string EMAIL = 'email';
+    public const string EMAIL_EXACT = 'emailExact';
+    public const string OFFSET = 'offset';
 
     #[\Override]
     protected function parseFilters(array $filters): array

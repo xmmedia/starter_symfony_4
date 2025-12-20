@@ -11,8 +11,8 @@ use Xm\SymfonyBundle\Model\ValueObject;
 
 class Money implements ValueObject, \Stringable
 {
-    public const MIN = 0;
-    public const MAX = 100_000_00; // $100,000.00
+    public const int MIN = 0;
+    public const int MAX = 100_000_00; // $100,000.00
 
     protected \Money\Money $money;
 

@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Model\User\Role;
 use App\Model\User\UserData;
 use App\Tests\BaseTestCase;
-use Ramsey\Uuid\Uuid;
 
 class UserTest extends BaseTestCase
 {
@@ -16,14 +15,14 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $userId = Uuid::fromString($faker->uuid());
+        $userId = $faker->userId()->uuid();
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('userId')
             ->setValue($user, $userId);
 
-        $this->assertEquals($userId->toString(), $user->userId()->toString());
+        $this->assertSame($userId->toString(), $user->userId()->toString());
     }
 
     public function testUsername(): void
@@ -37,8 +36,8 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('email')
             ->setValue($user, $email);
 
-        $this->assertEquals($email, $user->email()->toString());
-        $this->assertEquals($email, $user->getUserIdentifier());
+        $this->assertSame($email, $user->email()->toString());
+        $this->assertSame($email, $user->getUserIdentifier());
     }
 
     public function testPassword(): void
@@ -53,8 +52,8 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('password')
             ->setValue($user, $password);
 
-        $this->assertEquals($password, $user->password());
-        $this->assertEquals($password, $user->getPassword());
+        $this->assertSame($password, $user->password());
+        $this->assertSame($password, $user->getPassword());
     }
 
     public function testFlags(): void
@@ -96,9 +95,9 @@ class UserTest extends BaseTestCase
             // note the added space
             ->setValue($user, $lastName.' ');
 
-        $this->assertEquals($firstName.' '.$lastName, $user->name());
-        $this->assertEquals($firstName, $user->firstName()->toString());
-        $this->assertEquals($lastName, $user->lastName()->toString());
+        $this->assertSame($firstName.' '.$lastName, $user->name());
+        $this->assertSame($firstName, $user->firstName()->toString());
+        $this->assertSame($lastName, $user->lastName()->toString());
     }
 
     public function testFirstNameNull(): void
@@ -126,7 +125,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('lastLogin')
             ->setValue($user, $lastLogin);
 
-        $this->assertEquals($lastLogin, $user->lastLogin());
+        $this->assertSame($lastLogin, $user->lastLogin());
     }
 
     public function testLoginCount(): void
@@ -137,13 +136,13 @@ class UserTest extends BaseTestCase
 
         $user = new User();
 
-        $this->assertEquals(0, $user->loginCount());
+        $this->assertSame(0, $user->loginCount());
 
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('loginCount')
             ->setValue($user, $loginCount);
 
-        $this->assertEquals($loginCount, $user->loginCount());
+        $this->assertSame($loginCount, $user->loginCount());
     }
 
     public function testLastLoginNull(): void
@@ -163,15 +162,15 @@ class UserTest extends BaseTestCase
                 Role::ROLE_ADMIN()->getValue(),
             ]);
 
-        $this->assertEquals(Role::ROLE_USER(), $user->firstRole()->getValue());
+        $this->assertSameValueAs(Role::ROLE_USER(), $user->firstRole());
     }
 
     public function testRolesNone(): void
     {
         $user = new User();
 
-        $this->assertEquals(['ROLE_USER'], $user->roles());
-        $this->assertEquals(['ROLE_USER'], $user->getRoles());
+        $this->assertSame(['ROLE_USER'], $user->roles());
+        $this->assertSame(['ROLE_USER'], $user->getRoles());
     }
 
     public function testRolesDuplicateRoleUser(): void
@@ -183,8 +182,8 @@ class UserTest extends BaseTestCase
                 Role::ROLE_USER()->getValue(),
             ]);
 
-        $this->assertEquals(['ROLE_USER'], $user->roles());
-        $this->assertEquals(['ROLE_USER'], $user->getRoles());
+        $this->assertSame(['ROLE_USER'], $user->roles());
+        $this->assertSame(['ROLE_USER'], $user->getRoles());
     }
 
     public function testRolesDuplicateRole(): void
@@ -197,8 +196,8 @@ class UserTest extends BaseTestCase
                 Role::ROLE_USER()->getValue(),
             ]);
 
-        $this->assertEquals(['ROLE_USER'], $user->roles());
-        $this->assertEquals(['ROLE_USER'], $user->getRoles());
+        $this->assertSame(['ROLE_USER'], $user->roles());
+        $this->assertSame(['ROLE_USER'], $user->getRoles());
     }
 
     public function testRolesDuplicateRoleAdmin(): void
@@ -210,8 +209,8 @@ class UserTest extends BaseTestCase
                 Role::ROLE_ADMIN()->getValue(),
             ]);
 
-        $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $user->roles());
-        $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $user->getRoles());
+        $this->assertSame(['ROLE_ADMIN', 'ROLE_USER'], $user->roles());
+        $this->assertSame(['ROLE_ADMIN', 'ROLE_USER'], $user->getRoles());
     }
 
     public function testUserData(): void
@@ -226,7 +225,7 @@ class UserTest extends BaseTestCase
             ->setValue($user, $userData->toArray());
 
         $this->assertInstanceOf(UserData::class, $user->userData());
-        $this->assertEquals($userData->toArray(), $user->userData()->toArray());
+        $this->assertSame($userData->toArray(), $user->userData()->toArray());
     }
 
     public function testUserDataNull(): void
@@ -239,7 +238,7 @@ class UserTest extends BaseTestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('userEqualProvider')]
     public function testEqualTo(User $user1, User $user2, bool $result): void
     {
-        $this->assertEquals($result, $user1->isEqualTo($user2));
+        $this->assertSame($result, $user1->isEqualTo($user2));
     }
 
     public static function userEqualProvider(): \Generator
@@ -256,7 +255,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('password')
             ->setValue($user2, $faker->password());
 
-        // password has changed
+        // #0 - password has changed
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -275,7 +274,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('email')
             ->setValue($user2, $faker->email());
 
-        // email (username) has changed
+        // #1 - email (username) has changed
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -297,7 +296,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('active')
             ->setValue($user2, false);
 
-        // no longer active
+        // #2 - no longer active
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -321,7 +320,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('verified')
             ->setValue($user2, false);
 
-        // no longer verified
+        // #3 - no longer verified
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -349,7 +348,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('roles')
             ->setValue($user2, ['ROLE_ADMIN']);
 
-        // roles have changed (no longer has super admin)
+        // #4 - roles have changed (no longer has super admin)
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -377,7 +376,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('roles')
             ->setValue($user2, ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
 
-        // roles have changed (gained super admin)
+        // #5 - roles have changed (gained super admin)
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -405,7 +404,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('roles')
             ->setValue($user2, ['ROLE_ADMIN']);
 
-        // roles have changed (switched from user to admin)
+        // #6 - roles have changed (switched from user to admin)
         yield [$user1, $user2, false];
 
         $password = $faker->password();
@@ -429,7 +428,7 @@ class UserTest extends BaseTestCase
         $reflection->getProperty('verified')
             ->setValue($user2, true);
 
-        // equal
+        // #7 - equal
         yield [$user1, $user2, true];
     }
 }

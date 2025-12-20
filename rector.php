@@ -41,7 +41,7 @@ return RectorConfig::configure()
         Rector\CodingStyle\Rector\If_\NullableCompareToNullRector::class,
         Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class,
         Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector::class,
-        Rector\CodingStyle\Rector\String_\SymplifyQuoteEscapeRector::class,
+        Rector\CodingStyle\Rector\String_\SimplifyQuoteEscapeRector::class,
         // from set "codingStyle"
         Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
         Rector\CodeQuality\Rector\If_\CombineIfRector::class,
@@ -51,5 +51,7 @@ return RectorConfig::configure()
         // from Symfony composer set
         // disabled because it rewrite the console commands to use attributes, but can't get this to work atm
         Rector\Symfony\Symfony73\Rector\Class_\InvokableCommandInputAttributeRector::class,
+        // temporarily disabled because it adds newlines between traits
+        Rector\CodingStyle\Rector\ClassLike\NewlineBetweenClassLikeStmtsRector::class,
     ])
 ;

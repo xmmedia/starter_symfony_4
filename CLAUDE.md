@@ -201,6 +201,7 @@ $member = Member::add($memberId, $membershipNumber, ...);
 - Don't use comments unless necessary; prefer self-explanatory code
 - Use VOs to encapsulate primitive types & pass domain concepts
 - Use FakerPHP to generate test data, including the UuidFakerProvider
+- Keep line length to 120 characters unless it makes code less readable
 
 Run `lando composer cs:fix` to auto-fix most style issues.
 

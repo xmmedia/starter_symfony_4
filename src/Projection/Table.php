@@ -6,7 +6,7 @@ namespace App\Projection;
 
 class Table
 {
-    public const USER = 'user';
+    public const string USER = 'user';
 
-    public const VARCHAR_MULTIBYTE_MAX_LENGTH = 191;
+    public const int VARCHAR_MULTIBYTE_MAX_LENGTH = 191;
 }

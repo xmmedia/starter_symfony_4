@@ -17,10 +17,7 @@ readonly class MigrationFactory implements \Doctrine\Migrations\Version\Migratio
 
     public function createVersion(string $migrationClassName): AbstractMigration
     {
-        $migration = new $migrationClassName(
-            $this->connection,
-            $this->logger,
-        );
+        $migration = new $migrationClassName($this->connection, $this->logger);
 
         if (method_exists($migration, 'setKernel')) {
             $migration->setKernel($this->kernel);
