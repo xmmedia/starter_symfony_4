@@ -65,8 +65,8 @@ class RunProjectionMiddlewareTest extends BaseTestCase
                 $faker->authId(),
                 $faker->userId(),
                 $faker->emailVo(),
-                'Mozilla/5.0',
-                '127.0.0.1',
+                $faker->userAgent(),
+                $faker->ipv4(),
                 'app_login',
             ),
             ['auth_projection'],
@@ -117,8 +117,8 @@ class RunProjectionMiddlewareTest extends BaseTestCase
             $faker->authId(),
             $faker->userId(),
             $faker->emailVo(),
-            'Mozilla/5.0',
-            '127.0.0.1',
+            $faker->userAgent(),
+            $faker->ipv4(),
             'app_login',
         );
 
@@ -141,8 +141,8 @@ class RunProjectionMiddlewareTest extends BaseTestCase
             $faker->authId(),
             $faker->userId(),
             $faker->emailVo(),
-            'Mozilla/5.0',
-            '127.0.0.1',
+            $faker->userAgent(),
+            $faker->ipv4(),
             'app_login',
         );
 

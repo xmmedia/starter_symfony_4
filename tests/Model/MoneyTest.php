@@ -6,11 +6,11 @@ namespace App\Tests\Model;
 
 use App\Model\Money;
 use App\Tests\BaseTestCase;
-use Xm\SymfonyBundle\Model\ValueObject;
+use Xm\SymfonyBundle\Tests\FakeVo;
 
 class MoneyTest extends BaseTestCase
 {
-    public function testFromIntCreatesMoneyInstance(): void
+    public function testFromInt(): void
     {
         $faker = $this->faker();
         $cents = $faker->numberBetween(Money::MIN, Money::MAX);
@@ -18,19 +18,19 @@ class MoneyTest extends BaseTestCase
         $money = Money::fromInt($cents);
 
         $this->assertInstanceOf(Money::class, $money);
-        $this->assertEquals((string) $cents, $money->toString());
+        $this->assertSame((string) $cents, $money->toString());
     }
 
-    public function testFromStringCreatesMoneyInstance(): void
+    public function testFromString(): void
     {
         $cents = '10000'; // $100.00
         $money = Money::fromString($cents);
 
         $this->assertInstanceOf(Money::class, $money);
-        $this->assertEquals($cents, $money->toString());
+        $this->assertSame($cents, $money->toString());
     }
 
-    public function testFromMoneyCreatesMoneyInstance(): void
+    public function testFromMoney(): void
     {
         $faker = $this->faker();
         $number = $faker->numberBetween(Money::MIN, Money::MAX);
@@ -38,24 +38,24 @@ class MoneyTest extends BaseTestCase
         $money = Money::fromMoney(\Money\Money::CAD($number));
 
         $this->assertInstanceOf(Money::class, $money);
-        $this->assertEquals($number, $money->toString());
+        $this->assertSame((string) $number, $money->toString());
     }
 
-    public function testMinimumValueAllowed(): void
+    public function testMinimum(): void
     {
         $money = Money::fromInt(Money::MIN);
 
-        $this->assertEquals((string) Money::MIN, $money->toString());
+        $this->assertSame((string) Money::MIN, $money->toString());
     }
 
-    public function testMaximumValueAllowed(): void
+    public function testMaximum(): void
     {
         $money = Money::fromInt(Money::MAX);
 
-        $this->assertEquals((string) Money::MAX, $money->toString());
+        $this->assertSame((string) Money::MAX, $money->toString());
     }
 
-    public function testThrowsExceptionWhenBelowMinimum(): void
+    public function testTooLow(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The Money amount must be between');
@@ -63,7 +63,7 @@ class MoneyTest extends BaseTestCase
         Money::fromInt(-1);
     }
 
-    public function testThrowsExceptionWhenAboveMaximum(): void
+    public function testTooHigh(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The Money amount must be between');
@@ -92,7 +92,7 @@ class MoneyTest extends BaseTestCase
         $this->assertEquals($money, $internalMoney->getAmount());
     }
 
-    public function testSameValueAsReturnsTrueForEqualMoney(): void
+    public function testSameValueAs(): void
     {
         $faker = $this->faker();
         $money = $faker->numberBetween(Money::MIN, Money::MAX);
@@ -103,21 +103,20 @@ class MoneyTest extends BaseTestCase
         $this->assertTrue($money1->sameValueAs($money2));
     }
 
-    public function testSameValueAsReturnsFalseForDifferentMoney(): void
+    public function testSameValueAsFalse(): void
     {
         $faker = $this->faker();
 
-        $money1 = Money::fromInt($faker->numberBetween(Money::MIN, Money::MAX));
-        $money2 = Money::fromInt($faker->numberBetween(Money::MIN, Money::MAX));
+        $money1 = Money::fromInt($faker->unique()->numberBetween(Money::MIN, Money::MAX));
+        $money2 = Money::fromInt($faker->unique()->numberBetween(Money::MIN, Money::MAX));
 
         $this->assertFalse($money1->sameValueAs($money2));
     }
 
-    public function testSameValueAsReturnsFalseForDifferentClass(): void
+    public function testSameValueAsDiffClass(): void
     {
         $money = Money::fromInt(5000);
-        $other = \Mockery::mock(ValueObject::class);
 
-        $this->assertFalse($money->sameValueAs($other));
+        $this->assertFalse($money->sameValueAs(FakeVo::create()));
     }
 }

@@ -10,19 +10,17 @@ use App\Tests\BaseTestCase;
 
 class DefaultRouteProviderTest extends BaseTestCase
 {
-    public function testReturnsLoginRouteWhenNotLoggedIn(): void
+    public function testNotLoggedIn(): void
     {
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
             ->once()
             ->andReturnFalse();
 
-        $provider = new DefaultRouteProvider($security);
-
-        $this->assertEquals(['app_login'], $provider());
+        $this->assertEquals(['app_login'], new DefaultRouteProvider($security)());
     }
 
-    public function testReturnsAdminDefaultRouteForAdminUser(): void
+    public function testAdminUser(): void
     {
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
@@ -32,12 +30,10 @@ class DefaultRouteProviderTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
 
-        $provider = new DefaultRouteProvider($security);
-
-        $this->assertEquals(['admin_default'], $provider());
+        $this->assertEquals(['admin_default'], new DefaultRouteProvider($security)());
     }
 
-    public function testReturnsUserDefaultRouteForRegularUser(): void
+    public function testRegularUser(): void
     {
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isLoggedIn')
@@ -47,8 +43,6 @@ class DefaultRouteProviderTest extends BaseTestCase
             ->once()
             ->andReturnFalse();
 
-        $provider = new DefaultRouteProvider($security);
-
-        $this->assertEquals(['user_default', ['path' => 'dashboard']], $provider());
+        $this->assertEquals(['user_default', ['path' => 'dashboard']], new DefaultRouteProvider($security)());
     }
 }

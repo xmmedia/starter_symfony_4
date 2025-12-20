@@ -18,23 +18,6 @@ use Symfony\Component\Security\Http\HttpUtils;
 
 class LoginSuccessHandlerTest extends BaseTestCase
 {
-    private function createDefaultRouteProvider(array $returnValue): DefaultRouteProvider
-    {
-        $security = \Mockery::mock(Security::class);
-
-        if ($returnValue === ['app_login']) {
-            $security->shouldReceive('isLoggedIn')->andReturnFalse();
-        } elseif ($returnValue === ['admin_default']) {
-            $security->shouldReceive('isLoggedIn')->andReturnTrue();
-            $security->shouldReceive('hasAdminRole')->andReturnTrue();
-        } else {
-            $security->shouldReceive('isLoggedIn')->andReturnTrue();
-            $security->shouldReceive('hasAdminRole')->andReturnFalse();
-        }
-
-        return new DefaultRouteProvider($security);
-    }
-
     public function testOnAuthenticationSuccessWithTargetPathParameter(): void
     {
         $targetPath = '/admin/users';
@@ -57,7 +40,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($result->getTargetUrl(), $targetPath);
     }
 
     public function testOnAuthenticationSuccessWithHttpTargetPathParameter(): void
@@ -84,7 +67,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($result->getTargetUrl(), $targetPath);
     }
 
     public function testOnAuthenticationSuccessWithInvalidTargetPathParameter(): void
@@ -130,7 +113,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($result->getTargetUrl(), $sessionTargetPath);
     }
 
     public function testOnAuthenticationSuccessWithSessionTargetPath(): void
@@ -168,7 +151,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($result->getTargetUrl(), $sessionTargetPath);
     }
 
     public function testOnAuthenticationSuccessWithDefaultRoute(): void
@@ -211,7 +194,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($result->getTargetUrl(), $generatedUrl);
     }
 
     public function testOnAuthenticationSuccessWithDefaultRouteNoParams(): void
@@ -253,7 +236,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($result->getTargetUrl(), $generatedUrl);
     }
 
     public function testSetFirewallName(): void
@@ -292,6 +275,23 @@ class LoginSuccessHandlerTest extends BaseTestCase
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($result->getTargetUrl(), $sessionTargetPath);
+    }
+
+    private function createDefaultRouteProvider(array $returnValue): DefaultRouteProvider
+    {
+        $security = \Mockery::mock(Security::class);
+
+        if ($returnValue === ['app_login']) {
+            $security->shouldReceive('isLoggedIn')->andReturnFalse();
+        } elseif ($returnValue === ['admin_default']) {
+            $security->shouldReceive('isLoggedIn')->andReturnTrue();
+            $security->shouldReceive('hasAdminRole')->andReturnTrue();
+        } else {
+            $security->shouldReceive('isLoggedIn')->andReturnTrue();
+            $security->shouldReceive('hasAdminRole')->andReturnFalse();
+        }
+
+        return new DefaultRouteProvider($security);
     }
 }

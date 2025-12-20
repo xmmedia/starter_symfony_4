@@ -13,7 +13,7 @@ use Doctrine\DBAL\Statement;
 
 class AuthReadModelTest extends BaseTestCase
 {
-    public function testInitDoesNotCreateTable(): void
+    public function testInit(): void
     {
         $connection = \Mockery::mock(Connection::class);
         // Should not receive any calls for table creation
@@ -25,7 +25,7 @@ class AuthReadModelTest extends BaseTestCase
         $this->assertTrue(true);
     }
 
-    public function testLoggedInUpdatesUserLoginCount(): void
+    public function testLoggedIn(): void
     {
         $faker = $this->faker();
         $userId = $faker->uuid();
@@ -56,7 +56,7 @@ class AuthReadModelTest extends BaseTestCase
         $method->invoke(new AuthReadModel($connection), $userId, $lastLogin);
     }
 
-    public function testResetCallsDelete(): void
+    public function testReset(): void
     {
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('executeQuery')
@@ -69,7 +69,7 @@ class AuthReadModelTest extends BaseTestCase
         new AuthReadModel($connection)->reset();
     }
 
-    public function testDeleteResetsLoginCountAndLastLogin(): void
+    public function testDelete(): void
     {
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('executeQuery')

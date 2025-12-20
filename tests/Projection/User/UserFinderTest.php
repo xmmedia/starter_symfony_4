@@ -18,23 +18,13 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class UserFinderTest extends BaseTestCase
 {
-    public function testFindOrThrowReturnsUserWhenFound(): void
+    public function testFindOrThrow(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
         $user = \Mockery::mock(User::class);
 
-        $entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $entityManager->shouldReceive('getClassMetadata')
-            ->with(User::class)
-            ->andReturn(\Mockery::mock(ClassMetadata::class));
-
-        $registry = \Mockery::mock(ManagerRegistry::class);
-        $registry->shouldReceive('getManagerForClass')
-            ->with(User::class)
-            ->andReturn($entityManager);
-
-        $finder = \Mockery::mock(UserFinder::class, [$registry])
+        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 
@@ -48,22 +38,12 @@ class UserFinderTest extends BaseTestCase
         $this->assertSame($user, $result);
     }
 
-    public function testFindOrThrowThrowsExceptionWhenNotFound(): void
+    public function testFindOrThrowNotFound(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
 
-        $entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $entityManager->shouldReceive('getClassMetadata')
-            ->with(User::class)
-            ->andReturn(\Mockery::mock(ClassMetadata::class));
-
-        $registry = \Mockery::mock(ManagerRegistry::class);
-        $registry->shouldReceive('getManagerForClass')
-            ->with(User::class)
-            ->andReturn($entityManager);
-
-        $finder = \Mockery::mock(UserFinder::class, [$registry])
+        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 
@@ -83,17 +63,7 @@ class UserFinderTest extends BaseTestCase
         $userIdString = $faker->uuid();
         $user = \Mockery::mock(User::class);
 
-        $entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $entityManager->shouldReceive('getClassMetadata')
-            ->with(User::class)
-            ->andReturn(\Mockery::mock(ClassMetadata::class));
-
-        $registry = \Mockery::mock(ManagerRegistry::class);
-        $registry->shouldReceive('getManagerForClass')
-            ->with(User::class)
-            ->andReturn($entityManager);
-
-        $finder = \Mockery::mock(UserFinder::class, [$registry])
+        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 
@@ -107,55 +77,18 @@ class UserFinderTest extends BaseTestCase
         $this->assertSame($user, $result);
     }
 
-    public function testFindRefreshedReturnsNullWhenNotFound(): void
-    {
-        $faker = $this->faker();
-        $userId = $faker->userId();
-
-        $entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $entityManager->shouldReceive('getClassMetadata')
-            ->with(User::class)
-            ->andReturn(\Mockery::mock(ClassMetadata::class));
-
-        $registry = \Mockery::mock(ManagerRegistry::class);
-        $registry->shouldReceive('getManagerForClass')
-            ->with(User::class)
-            ->andReturn($entityManager);
-
-        $finder = \Mockery::mock(UserFinder::class, [$registry])
-            ->makePartial()
-            ->shouldAllowMockingProtectedMethods();
-
-        $finder->shouldReceive('find')
-            ->once()
-            ->with($userId)
-            ->andReturnNull();
-
-        $result = $finder->findRefreshed($userId);
-
-        $this->assertNull($result);
-    }
-
-    public function testFindRefreshedRefreshesEntityWhenFound(): void
+    public function testFindRefreshed(): void
     {
         $faker = $this->faker();
         $userId = $faker->userId();
         $user = \Mockery::mock(User::class);
 
         $entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $entityManager->shouldReceive('getClassMetadata')
-            ->with(User::class)
-            ->andReturn(\Mockery::mock(ClassMetadata::class));
         $entityManager->shouldReceive('refresh')
             ->once()
             ->with($user);
 
-        $registry = \Mockery::mock(ManagerRegistry::class);
-        $registry->shouldReceive('getManagerForClass')
-            ->with(User::class)
-            ->andReturn($entityManager);
-
-        $finder = \Mockery::mock(UserFinder::class, [$registry])
+        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 
@@ -170,6 +103,25 @@ class UserFinderTest extends BaseTestCase
         $result = $finder->findRefreshed($userId);
 
         $this->assertSame($user, $result);
+    }
+
+    public function testFindRefreshedNotFound(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+
+        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        $finder->shouldReceive('find')
+            ->once()
+            ->with($userId)
+            ->andReturnNull();
+
+        $result = $finder->findRefreshed($userId);
+
+        $this->assertNull($result);
     }
 
     public function testFindByFilters(): void
@@ -196,9 +148,9 @@ class UserFinderTest extends BaseTestCase
             ->with(
                 \Mockery::on(
                     fn ($sql): bool => str_contains($sql, 'SELECT')
-                    && str_contains($sql, 'FROM `user` u')
-                    && str_contains($sql, 'WHERE')
-                    && str_contains($sql, 'ORDER BY'),
+                        && str_contains($sql, 'FROM `user` u')
+                        && str_contains($sql, 'WHERE')
+                        && str_contains($sql, 'ORDER BY'),
                 ),
                 $rsm,
             )
@@ -207,12 +159,7 @@ class UserFinderTest extends BaseTestCase
             ->with(User::class)
             ->andReturn(\Mockery::mock(ClassMetadata::class));
 
-        $registry = \Mockery::mock(ManagerRegistry::class);
-        $registry->shouldReceive('getManagerForClass')
-            ->with(User::class)
-            ->andReturn($entityManager);
-
-        $finder = \Mockery::mock(UserFinder::class, [$registry])
+        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 
@@ -232,7 +179,7 @@ class UserFinderTest extends BaseTestCase
     /**
      * Tests else case where no offset is applied.
      */
-    public function testFindByFiltersNoOffsetApplied(): void
+    public function testFindByFiltersNoOffset(): void
     {
         $user = \Mockery::mock(User::class);
         $filters = UserFilters::fromArray(['offset' => null]);
@@ -256,10 +203,10 @@ class UserFinderTest extends BaseTestCase
             ->with(
                 \Mockery::on(
                     fn ($sql): bool => str_contains($sql, 'SELECT')
-                    && str_contains($sql, 'FROM `user` u')
-                    && str_contains($sql, 'WHERE')
-                    && str_contains($sql, 'ORDER BY')
-                    && !str_contains($sql, 'OFFSET'),
+                        && str_contains($sql, 'FROM `user` u')
+                        && str_contains($sql, 'WHERE')
+                        && str_contains($sql, 'ORDER BY')
+                        && !str_contains($sql, 'OFFSET'),
                 ),
                 $rsm,
             )
@@ -268,12 +215,7 @@ class UserFinderTest extends BaseTestCase
             ->with(User::class)
             ->andReturn(\Mockery::mock(ClassMetadata::class));
 
-        $registry = \Mockery::mock(ManagerRegistry::class);
-        $registry->shouldReceive('getManagerForClass')
-            ->with(User::class)
-            ->andReturn($entityManager);
-
-        $finder = \Mockery::mock(UserFinder::class, [$registry])
+        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 
@@ -323,12 +265,7 @@ class UserFinderTest extends BaseTestCase
             ->with(User::class)
             ->andReturn(\Mockery::mock(ClassMetadata::class));
 
-        $registry = \Mockery::mock(ManagerRegistry::class);
-        $registry->shouldReceive('getManagerForClass')
-            ->with(User::class)
-            ->andReturn($entityManager);
-
-        $finder = \Mockery::mock(UserFinder::class, [$registry])
+        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
         $finder->shouldReceive('getEntityManager')
