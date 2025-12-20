@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0bc7993a72b85f140b7977162cbdc608",
+    "content-hash": "927b9cc69e86d41d9bd910e0c5f7f81b",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -11981,16 +11981,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.104",
+            "version": "v2.0.105",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "2e7d26171d02f0b237f80ca4816fb4ac2d056353"
+                "reference": "1c6a57dc06bd2630e092db4c1a5d8f6ed236db2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/2e7d26171d02f0b237f80ca4816fb4ac2d056353",
-                "reference": "2e7d26171d02f0b237f80ca4816fb4ac2d056353",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/1c6a57dc06bd2630e092db4c1a5d8f6ed236db2d",
+                "reference": "1c6a57dc06bd2630e092db4c1a5d8f6ed236db2d",
                 "shasum": ""
             },
             "require": {
@@ -12064,9 +12064,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.104"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.105"
             },
-            "time": "2025-12-15T06:12:41+00:00"
+            "time": "2025-12-20T05:42:12+00:00"
         }
     ],
     "packages-dev": [
@@ -16753,6 +16753,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
+        "ext-mbstring": "*",
         "ext-pcntl": "*",
         "ext-pdo": "*"
     },
