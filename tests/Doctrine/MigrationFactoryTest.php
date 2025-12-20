@@ -8,6 +8,8 @@ use App\Doctrine\MigrationFactory;
 use App\Kernel;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\Migrations\AbstractMigration;
 use Psr\Log\LoggerInterface;
 
@@ -15,14 +17,11 @@ class MigrationFactoryTest extends BaseTestCase
 {
     public function testCreateVersionInstantiatesMigration(): void
     {
-        $schemaManager = \Mockery::mock(\Doctrine\DBAL\Schema\AbstractSchemaManager::class);
-        $platform = \Mockery::mock(\Doctrine\DBAL\Platforms\AbstractPlatform::class);
-
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('createSchemaManager')
-            ->andReturn($schemaManager);
+            ->andReturn(\Mockery::mock(AbstractSchemaManager::class));
         $connection->shouldReceive('getDatabasePlatform')
-            ->andReturn($platform);
+            ->andReturn(\Mockery::mock(AbstractPlatform::class));
 
         $logger = \Mockery::mock(LoggerInterface::class);
         $kernel = \Mockery::mock(Kernel::class);
@@ -37,20 +36,16 @@ class MigrationFactoryTest extends BaseTestCase
 
         $this->assertSame($connection, $connectionProperty->getValue($migration));
 
-        $this->assertInstanceOf(AbstractMigration::class, $migration);
         $this->assertInstanceOf(TestMigration::class, $migration);
     }
 
     public function testCreateVersionSetsKernelIfMethodExists(): void
     {
-        $schemaManager = \Mockery::mock(\Doctrine\DBAL\Schema\AbstractSchemaManager::class);
-        $platform = \Mockery::mock(\Doctrine\DBAL\Platforms\AbstractPlatform::class);
-
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('createSchemaManager')
-            ->andReturn($schemaManager);
+            ->andReturn(\Mockery::mock(AbstractSchemaManager::class));
         $connection->shouldReceive('getDatabasePlatform')
-            ->andReturn($platform);
+            ->andReturn(\Mockery::mock(AbstractPlatform::class));
 
         $logger = \Mockery::mock(LoggerInterface::class);
         $kernel = \Mockery::mock(Kernel::class);
