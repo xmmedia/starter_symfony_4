@@ -32,8 +32,12 @@ class UserTokenFinder extends ServiceEntityRepository implements ResetPasswordRe
     /**
      * @param User|object $user
      */
-    public function createResetPasswordRequest(object $user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken): ResetPasswordRequestInterface
-    {
+    public function createResetPasswordRequest(
+        object $user,
+        \DateTimeInterface $expiresAt,
+        string $selector,
+        string $hashedToken,
+    ): ResetPasswordRequestInterface {
         return UserToken::create($user, $expiresAt, $selector, $hashedToken);
     }
 }
