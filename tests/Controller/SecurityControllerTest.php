@@ -5,13 +5,24 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Controller\SecurityController;
-use App\Tests\BaseTestCase;
+use App\Tests\UsesFaker;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class SecurityControllerTest extends BaseTestCase
+/**
+ * Note: we don't check for empty tokens because the main routes (where the Vue app is rendered)
+ * don't have the token and thus will respond successfully when the token is skipped.
+ */
+class SecurityControllerTest extends WebTestCase
 {
-    public function testLoginMethodExists(): void
+    use UsesFaker;
+
+    public function testLoginWhenNotAuthenticated(): void
     {
-        $this->assertTrue(method_exists(SecurityController::class, 'login'));
+        $client = self::createClient();
+        $client->request('GET', '/login');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorExists('html');
     }
 
     public function testLoginLinkThrowsException(): void
@@ -24,23 +35,42 @@ class SecurityControllerTest extends BaseTestCase
         $controller->loginLink();
     }
 
-    public function testActivateRedirectReturnsRedirectResponse(): void
+    public function testActivateRedirect(): void
     {
-        $this->assertTrue(method_exists(SecurityController::class, 'activateRedirect'));
+        $client = self::createClient();
+        $token = $this->faker()->lexify(str_repeat('?', 32));
+
+        $client->request('GET', '/activate/'.$token);
+
+        $this->assertResponseRedirects('/activate', 302);
+
+        $session = $client->getRequest()->getSession();
+        $this->assertEquals($token, $session->get(SecurityController::TOKEN_SESSION_KEY));
     }
 
-    public function testVerifyRedirectReturnsRedirectResponse(): void
+    public function testVerifyRedirect(): void
     {
-        $this->assertTrue(method_exists(SecurityController::class, 'verifyRedirect'));
+        $client = self::createClient();
+        $token = $this->faker()->lexify(str_repeat('?', 32));
+
+        $client->request('GET', '/verify/'.$token);
+
+        $this->assertResponseRedirects('/verify');
+
+        $session = $client->getRequest()->getSession();
+        $this->assertEquals($token, $session->get(SecurityController::TOKEN_SESSION_KEY));
     }
 
-    public function testResetRedirectReturnsRedirectResponse(): void
+    public function testResetRedirect(): void
     {
-        $this->assertTrue(method_exists(SecurityController::class, 'resetRedirect'));
-    }
+        $client = self::createClient();
+        $token = $this->faker()->lexify(str_repeat('?', 32));
 
-    public function testTokenSessionKeyIsCorrect(): void
-    {
-        $this->assertEquals('reset_token', SecurityController::TOKEN_SESSION_KEY);
+        $client->request('GET', '/recover/reset/'.$token);
+
+        $this->assertResponseRedirects('/recover/reset');
+
+        $session = $client->getRequest()->getSession();
+        $this->assertEquals($token, $session->get(SecurityController::TOKEN_SESSION_KEY));
     }
 }
