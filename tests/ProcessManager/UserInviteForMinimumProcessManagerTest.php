@@ -32,7 +32,7 @@ class UserInviteForMinimumProcessManagerTest extends BaseTestCase
             Role::ROLE_USER(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
-            true, // sendInvite = true
+            true,
         );
 
         $processManager = new UserInviteForMinimumProcessManager($commandBus);
@@ -53,7 +53,7 @@ class UserInviteForMinimumProcessManagerTest extends BaseTestCase
             Role::ROLE_USER(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
-            false, // sendInvite = false
+            false,
         );
 
         $processManager = new UserInviteForMinimumProcessManager($commandBus);
