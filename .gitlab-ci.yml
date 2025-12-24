@@ -69,7 +69,7 @@ before_script:
   # make console file executable
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; chmod u+x bin/console"
   # ensure platform has all requirements
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; $SERVER_PHP_PATH -v; echo "\n\n"; $SERVER_PHP_PATH composer.phar check-platform-reqs"
+  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; $SERVER_PHP_PATH -v; printf "\n\n"; $SERVER_PHP_PATH composer.phar check-platform-reqs"
   # link shared folders
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -rf $RELEASE/var || true; ln -s $SHARED/var $RELEASE/var; rm -rf $RELEASE/public/uploads || true; ln -s $SHARED/public/uploads $RELEASE/public/uploads; rm -rf $RELEASE/config/jwt || true; ln -s $SHARED/config/jwt $RELEASE/config/jwt"
   # copy env file into place; dump env
