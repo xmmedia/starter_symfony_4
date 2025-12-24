@@ -19,6 +19,8 @@ return RectorConfig::configure()
     ->withDeadCodeLevel(40)
     ->withPaths([
         __DIR__.'/src',
+        __DIR__.'/public/index.php',
+        __DIR__.'/config',
         __DIR__.'/tests',
     ])
     ->withRootFiles()
