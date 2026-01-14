@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Handler;
 
+use App\Infrastructure\Email\EmailTemplate;
 use App\Infrastructure\Service\UrlGenerator;
 use App\Model\User\Command\SendPasswordChangedNotification;
 use App\Model\User\Exception\UserNotFound;
@@ -19,7 +20,6 @@ class SendPasswordChangedNotificationHandlerTest extends BaseTestCase
     public function test(): void
     {
         $faker = $this->faker();
-        $template = 'password-changed-template';
         $email = $faker->emailVo();
         $url = $faker->url();
         $userName = $faker->name();
@@ -54,7 +54,7 @@ class SendPasswordChangedNotificationHandlerTest extends BaseTestCase
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldReceive('send')
             ->with(
-                $template,
+                EmailTemplate::USER_PASSWORD_CHANGED,
                 $email,
                 $templateData,
             )
@@ -64,7 +64,6 @@ class SendPasswordChangedNotificationHandlerTest extends BaseTestCase
             $userFinder,
             $urlGenerator,
             $emailGateway,
-            $template,
         );
 
         $handler($command);
@@ -91,7 +90,6 @@ class SendPasswordChangedNotificationHandlerTest extends BaseTestCase
             $userFinder,
             $urlGenerator,
             $emailGateway,
-            $faker->string(10),
         );
 
         $handler($command);

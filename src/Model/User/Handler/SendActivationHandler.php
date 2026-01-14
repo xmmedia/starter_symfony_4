@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\User\Handler;
 
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Exception\UserAlreadyVerified;
 use App\Model\User\Exception\UserNotActive;
@@ -22,7 +23,6 @@ final readonly class SendActivationHandler
         private UserList $userRepo,
         private UserFinder $userFinder,
         private EmailGatewayInterface $emailGateway,
-        private string $template,
         private string $emailFrom,
         private RouterInterface $router,
         private ResetPasswordHelperInterface $resetPasswordHelper,
@@ -56,7 +56,7 @@ final readonly class SendActivationHandler
         );
 
         $messageId = $this->emailGateway->send(
-            $this->template,
+            EmailTemplate::AUTH_USER_INVITE,
             $user->email(),
             [
                 'verifyUrl' => $verifyUrl,

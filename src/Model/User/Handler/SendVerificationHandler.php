@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\User\Handler;
 
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\User\Command\SendVerification;
 use App\Model\User\Exception\UserAlreadyVerified;
 use App\Model\User\Exception\UserNotFound;
@@ -21,7 +22,6 @@ final readonly class SendVerificationHandler
         private UserList $userRepo,
         private UserFinder $userFinder,
         private EmailGatewayInterface $emailGateway,
-        private string $template,
         private string $emailFrom,
         private RouterInterface $router,
         private ResetPasswordHelperInterface $resetPasswordHelper,
@@ -50,7 +50,7 @@ final readonly class SendVerificationHandler
         );
 
         $messageId = $this->emailGateway->send(
-            $this->template,
+            EmailTemplate::AUTH_USER_VERIFICATION,
             $user->email(),
             [
                 'verifyUrl' => $verifyUrl,

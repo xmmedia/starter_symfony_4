@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Handler;
 
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\User\Command\SendLoginLink;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Handler\SendLoginLinkHandler;
@@ -20,7 +21,6 @@ class SendLoginLinkHandlerTest extends BaseTestCase
     public function test(): void
     {
         $faker = $this->faker();
-        $template = 'login-link-template';
         $email = $faker->emailVo();
         $url = $faker->url();
         $userName = $faker->name();
@@ -68,7 +68,7 @@ class SendLoginLinkHandlerTest extends BaseTestCase
             ->andReturn($headers['References']);
         $emailGateway->shouldReceive('send')
             ->with(
-                $template,
+                EmailTemplate::AUTH_LOGIN_LINK,
                 $email,
                 $templateData,
                 null,
@@ -81,7 +81,6 @@ class SendLoginLinkHandlerTest extends BaseTestCase
         $handler = new SendLoginLinkHandler(
             $userFinder,
             $emailGateway,
-            $template,
             $faker->email(),
             $loginLinkHandler,
         );
@@ -109,7 +108,6 @@ class SendLoginLinkHandlerTest extends BaseTestCase
         $handler = new SendLoginLinkHandler(
             $userFinder,
             $emailGateway,
-            $faker->string(10),
             $faker->email(),
             $loginLinkHandler,
         );

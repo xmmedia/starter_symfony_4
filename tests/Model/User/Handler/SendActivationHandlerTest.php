@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Handler;
 
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Exception\UserAlreadyVerified;
 use App\Model\User\Exception\UserNotActive;
@@ -26,7 +27,6 @@ class SendActivationHandlerTest extends BaseTestCase
     public function test(): void
     {
         $faker = $this->faker();
-        $template = 'activation-template';
         $email = $faker->emailVo();
         $url = $faker->url();
         $userName = $faker->name();
@@ -88,7 +88,7 @@ class SendActivationHandlerTest extends BaseTestCase
             ->andReturn($headers['References']);
         $emailGateway->shouldReceive('send')
             ->with(
-                $template,
+                EmailTemplate::AUTH_USER_INVITE,
                 $email,
                 $templateData,
                 null,
@@ -111,7 +111,6 @@ class SendActivationHandlerTest extends BaseTestCase
             $repo,
             $userFinder,
             $emailGateway,
-            $template,
             $faker->email(),
             $router,
             $resetPasswordHelper,
@@ -151,7 +150,6 @@ class SendActivationHandlerTest extends BaseTestCase
             $repo,
             $userFinder,
             $emailGateway,
-            $faker->string(10),
             $faker->email(),
             $router,
             $resetPasswordHelper,
@@ -196,7 +194,6 @@ class SendActivationHandlerTest extends BaseTestCase
             $repo,
             $userFinder,
             $emailGateway,
-            $faker->string(10),
             $faker->email(),
             $router,
             $resetPasswordHelper,
@@ -235,7 +232,6 @@ class SendActivationHandlerTest extends BaseTestCase
             $repo,
             $userFinder,
             $emailGateway,
-            $faker->string(10),
             $faker->email(),
             $router,
             $resetPasswordHelper,
@@ -285,7 +281,6 @@ class SendActivationHandlerTest extends BaseTestCase
             $repo,
             $userFinder,
             $emailGateway,
-            $faker->string(10),
             $faker->email(),
             $router,
             $resetPasswordHelper,

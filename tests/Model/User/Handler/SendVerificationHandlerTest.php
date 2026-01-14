@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Model\User\Handler;
 
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\User\Command\SendVerification;
 use App\Model\User\Exception\UserAlreadyVerified;
 use App\Model\User\Exception\UserNotFound;
@@ -25,7 +26,6 @@ class SendVerificationHandlerTest extends BaseTestCase
     public function test(): void
     {
         $faker = $this->faker();
-        $template = 'verification-template';
         $email = $faker->emailVo();
         $url = $faker->url();
         $userName = $faker->name();
@@ -83,7 +83,7 @@ class SendVerificationHandlerTest extends BaseTestCase
             ->andReturn($headers['References']);
         $emailGateway->shouldReceive('send')
             ->with(
-                $template,
+                EmailTemplate::AUTH_USER_VERIFICATION,
                 $email,
                 $templateData,
                 null,
@@ -106,7 +106,6 @@ class SendVerificationHandlerTest extends BaseTestCase
             $repo,
             $userFinder,
             $emailGateway,
-            $template,
             $faker->email(),
             $router,
             $resetPasswordHelper,
@@ -146,7 +145,6 @@ class SendVerificationHandlerTest extends BaseTestCase
             $repo,
             $userFinder,
             $emailGateway,
-            $faker->string(10),
             $faker->email(),
             $router,
             $resetPasswordHelper,
@@ -185,7 +183,6 @@ class SendVerificationHandlerTest extends BaseTestCase
             $repo,
             $userFinder,
             $emailGateway,
-            $faker->string(10),
             $faker->email(),
             $router,
             $resetPasswordHelper,
@@ -233,7 +230,6 @@ class SendVerificationHandlerTest extends BaseTestCase
             $repo,
             $userFinder,
             $emailGateway,
-            $faker->string(10),
             $faker->email(),
             $router,
             $resetPasswordHelper,

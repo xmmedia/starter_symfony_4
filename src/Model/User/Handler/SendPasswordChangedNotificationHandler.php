@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\User\Handler;
 
+use App\Infrastructure\Email\EmailTemplate;
 use App\Infrastructure\Service\UrlGenerator;
 use App\Model\User\Command\SendPasswordChangedNotification;
 use App\Model\User\Exception\UserNotFound;
@@ -16,7 +17,6 @@ final readonly class SendPasswordChangedNotificationHandler
         private UserFinder $userFinder,
         private UrlGenerator $urlGenerator,
         private EmailGatewayInterface $emailGateway,
-        private string $template,
     ) {
     }
 
@@ -28,7 +28,7 @@ final readonly class SendPasswordChangedNotificationHandler
         }
 
         $this->emailGateway->send(
-            $this->template,
+            EmailTemplate::USER_PASSWORD_CHANGED,
             $user->email(),
             [
                 'name'       => $user->name(),

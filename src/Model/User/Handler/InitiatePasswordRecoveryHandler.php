@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\User\Handler;
 
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
@@ -20,7 +21,6 @@ final readonly class InitiatePasswordRecoveryHandler
         private UserList $userRepo,
         private UserFinder $userFinder,
         private EmailGatewayInterface $emailGateway,
-        private string $template,
         private string $emailFrom,
         private RouterInterface $router,
         private ResetPasswordHelperInterface $resetPasswordHelper,
@@ -48,7 +48,7 @@ final readonly class InitiatePasswordRecoveryHandler
         );
 
         $messageId = $this->emailGateway->send(
-            $this->template,
+            EmailTemplate::AUTH_PASSWORD_RESET,
             $user->email(),
             [
                 'resetUrl' => $resetUrl,

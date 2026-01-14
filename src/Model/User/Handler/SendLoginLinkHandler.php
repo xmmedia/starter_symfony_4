@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\User\Handler;
 
+use App\Infrastructure\Email\EmailTemplate;
 use App\Model\User\Command\SendLoginLink;
 use App\Model\User\Exception\UserNotFound;
 use App\Projection\User\UserFinder;
@@ -16,7 +17,6 @@ final readonly class SendLoginLinkHandler
     public function __construct(
         private UserFinder $userFinder,
         private EmailGatewayInterface $emailGateway,
-        private string $template,
         private string $emailFrom,
         private LoginLinkHandlerInterface $loginLinkHandler,
     ) {
@@ -30,7 +30,7 @@ final readonly class SendLoginLinkHandler
         }
 
         $this->emailGateway->send(
-            $this->template,
+            EmailTemplate::AUTH_LOGIN_LINK,
             $user->email(),
             [
                 'loginLinkUrl' => $this->loginLinkHandler->createLoginLink($user)->getUrl(),
