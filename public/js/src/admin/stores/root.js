@@ -31,7 +31,7 @@ export const useRootStore = defineStore('rootStore', {
                 }
 
                 // all logged in users have ROLE_USER
-                if (role === 'ROLE_USER') {
+                if ('ROLE_USER' === role) {
                     return true;
                 }
 
