@@ -16,6 +16,7 @@
                             :disabled="disabled"
                             :inert="inert"
                             :required="required"
+                            :hide-default-option="hideDefaultOption"
                             :select-one-disabled="selectOneDisabled"
                             :select-classes="selectClasses">
             <template #default-option><slot name="default-option"></slot></template>
@@ -33,6 +34,7 @@
                         :disabled="disabled"
                         :inert="inert"
                         :required="required"
+                        :hide-default-option="hideDefaultOption"
                         :select-one-disabled="selectOneDisabled"
                         :select-classes="selectClasses">
         <template #default-option><slot name="default-option"></slot></template>
@@ -87,6 +89,10 @@ defineProps({
         default: false,
     },
     required: {
+        type: Boolean,
+        default: false,
+    },
+    hideDefaultOption: {
         type: Boolean,
         default: false,
     },

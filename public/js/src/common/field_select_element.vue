@@ -6,7 +6,7 @@
             :inert="inert"
             :required="required"
             @change="value = $event.target.value">
-        <option value="" :selected="null === value" :disabled="selectOneDisabled">
+        <option v-if="!hideDefaultOption" value="" :selected="null === value" :disabled="selectOneDisabled">
             <slot name="default-option">– Select one –</slot>
         </option>
         <option v-for="_value in valuesCollection"
@@ -50,6 +50,10 @@ const props = defineProps({
         default: false,
     },
     required: {
+        type: Boolean,
+        default: false,
+    },
+    hideDefaultOption: {
         type: Boolean,
         default: false,
     },
