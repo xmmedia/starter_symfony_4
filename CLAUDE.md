@@ -21,7 +21,7 @@ This is a Symfony 7 starter template for creating web applications at XM Media. 
 - Follow PSR-12 coding standards.
 - Use type hints and return types wherever possible.
 - Avoid use of ternary operators except for very simple cases.
-- Use Symfony service auto wiring and autoconfiguration, instead of manully configuring services.
+- Use Symfony service auto wiring and autoconfiguration, instead of manually configuring services.
 - Write tests for new features and bug fixes.
 
 ## Development Commands
