@@ -20,8 +20,9 @@
 import { computed, useTemplateRef } from 'vue';
 
 const value = defineModel({ type: [ String, Number ] });
-const field = useTemplateRef('select');
-defineExpose({ field });
+defineExpose({
+    field: useTemplateRef('select'),
+});
 
 const props = defineProps({
     /**
