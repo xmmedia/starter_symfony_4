@@ -22,9 +22,9 @@ return new PhpCsFixer\Config()
         '@PSR2'                       => true,
         '@DoctrineAnnotation'         => true,
         // this will include all the rules for earlier PHP versions
-        '@PHP8x4Migration'             => true,
-        '@PHPUnit10x0Migration:risky'  => true,
-        'array_syntax'                 => [
+        '@PHP8x4Migration'            => true,
+        '@PHPUnit10x0Migration:risky' => true,
+        'array_syntax'                => [
             'syntax' => 'short',
         ],
         'binary_operator_spaces'      => [
