@@ -6,4 +6,8 @@
     body {
         @apply relative z-0 overflow-x-hidden;
     }
+
+    button {
+        @apply cursor-pointer;
+    }
 }

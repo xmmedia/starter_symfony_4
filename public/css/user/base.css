@@ -2,4 +2,8 @@
     html {
         @apply font-light leading-normal text-gray-800;
     }
+
+    button {
+        @apply cursor-pointer;
+    }
 }
