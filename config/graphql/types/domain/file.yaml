@@ -1,0 +1,12 @@
+#File:
+#    type: object
+#    config:
+#        description: 'A file that''s stored on the server.'
+#        fields:
+#            file:
+#                type:        String!
+#                description: 'The URL to the file. Requires authentication.'
+#            mimeType:         String!
+#            originalFilename:
+#                type: String!
+#                description: 'The original filename of the file from the user''s customer.'

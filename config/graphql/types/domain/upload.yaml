@@ -1,12 +1,13 @@
 #Upload:
 #    type: custom-scalar
 #    config:
+#        description: 'A file upload.'
 #        scalarType: '@=newObject("Overblog\\GraphQLBundle\\Upload\\Type\\GraphQLUploadType")'
 
 #FileInput:
 #    type: input-object
 #    config:
-#        description: 'File add & change mutation input.'
+#        description: 'File add & change mutation input. Allows for adding a new file, replacing an existing, or keeping an existing file.'
 #        fields:
 #            file:
 #                type:        Upload
