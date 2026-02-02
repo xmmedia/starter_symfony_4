@@ -18,9 +18,9 @@ readonly class DefaultRouteProvider
         if ($this->security->isLoggedIn()) {
             if ($this->security->hasAdminRole()) {
                 return ['admin_default'];
-            } else {
-                return ['user_default', ['path' => 'dashboard']];
             }
+
+            return ['user_default', ['path' => 'dashboard']];
         }
 
         return ['app_login'];
