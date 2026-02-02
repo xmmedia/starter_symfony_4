@@ -4,7 +4,6 @@ doctrine:
             default:
                 url:                         '%env(DATABASE_URL)%'
                 profiling_collect_backtrace: '%kernel.debug%'
-                use_savepoints:              true
                 # ignore all tables except doctrine_migration_versions
                 schema_filter:               ~^(doctrine_migration_versions)$~
                 # alternatively, ignore tables ending in _event_stream
@@ -24,7 +23,6 @@ doctrine:
         enable_native_lazy_objects:   true
         naming_strategy:              doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping:                 true
-        report_fields_where_declared: true
         validate_xml_mapping:         true
         mappings:
             App:
