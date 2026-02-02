@@ -9,3 +9,15 @@ Mutation:
 #                type: Boolean!
 #                description: 'A default query so public pages have a mutation.'
 #                resolve: '@=true'
+
+#FileInput:
+#    type: input-object
+#    config:
+#        description: 'File add & change mutation input.'
+#        fields:
+#            file:
+#                type:        Upload
+#                description: 'If uploading a file, this field should be a reference to the file blob in the Apollo style.'
+#            filename:
+#                type:        String
+#                description: 'If keeping the existing file, this field should be the name of the existing file, typically <uuid>.<ext>.'
