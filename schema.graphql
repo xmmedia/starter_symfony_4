@@ -12,7 +12,7 @@ type Query {
   "Check if an email address is unique. Excludes the current user."
   UserEmailUnique(email: String!): UserEmailUnique!
 
-  "Check if the password is valid\/correct for the current user."
+  "Check if the password is valid/correct for the current user."
   UserPasswordValid(password: String!): UserPasswordValid!
 
   "Check if users password meets the minimum strength requirements. Token must be stored in the session. This will return true if the token is not stored in the session or has already been used."
@@ -37,7 +37,7 @@ type Query {
   EntrypointIntegrity(entrypoint: String!): String
 }
 
-"Available filters for querying Users. Any passed fields will be applied if not empty. Exclude the key\/field to skip that filter."
+"Available filters for querying Users. Any passed fields will be applied if not empty. Exclude the key/field to skip that filter."
 input UserFilterInput {
   q: String
   roles: [Role!]
@@ -244,7 +244,7 @@ type AdminUserMutationPayload {
   userId: UserId!
 }
 
-"Admin User activate\/deactivate mutation input."
+"Admin User activate/deactivate mutation input."
 input AdminUserActivateInput {
   userId: UserId!
   action: String!
