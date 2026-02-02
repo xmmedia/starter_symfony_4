@@ -48,7 +48,7 @@ class AuthProjectionTest extends BaseTestCase
         $projector->shouldReceive('when')
             ->once()
             ->with(
-                \Mockery::on(fn ($handlers): bool => \array_key_exists(Event\UserLoggedIn::class, $handlers)
+                \Mockery::on(static fn ($handlers): bool => \array_key_exists(Event\UserLoggedIn::class, $handlers)
                     && \is_callable($handlers[Event\UserLoggedIn::class])),
             )
             ->andReturnSelf();

@@ -180,7 +180,7 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
         $userRepo = \Mockery::mock(UserList::class);
         $userRepo->shouldReceive('getEvents')
             ->once()
-            ->with(\Mockery::on(fn (UserId $arg): bool => $arg->sameValueAs($userId)))
+            ->with(\Mockery::on(static fn (UserId $arg): bool => $arg->sameValueAs($userId)))
             ->andReturn(new \ArrayIterator($events));
 
         return $userRepo;

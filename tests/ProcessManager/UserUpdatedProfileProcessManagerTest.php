@@ -129,7 +129,7 @@ class UserUpdatedProfileProcessManagerTest extends BaseTestCase
         $userRepo = \Mockery::mock(UserList::class);
         $userRepo->shouldReceive('getEvents')
             ->once()
-            ->with(\Mockery::on(fn (UserId $arg): bool => $arg->sameValueAs($userId)), UserUpdatedProfile::class)
+            ->with(\Mockery::on(static fn (UserId $arg): bool => $arg->sameValueAs($userId)), UserUpdatedProfile::class)
             ->andReturn(new \ArrayIterator($events));
 
         return $userRepo;

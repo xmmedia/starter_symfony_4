@@ -147,7 +147,7 @@ class UserFinderTest extends BaseTestCase
             ->once()
             ->with(
                 \Mockery::on(
-                    fn ($sql): bool => str_contains($sql, 'SELECT')
+                    static fn ($sql): bool => str_contains($sql, 'SELECT')
                         && str_contains($sql, 'FROM `user` u')
                         && str_contains($sql, 'WHERE')
                         && str_contains($sql, 'ORDER BY'),
@@ -202,7 +202,7 @@ class UserFinderTest extends BaseTestCase
             ->once()
             ->with(
                 \Mockery::on(
-                    fn ($sql): bool => str_contains($sql, 'SELECT')
+                    static fn ($sql): bool => str_contains($sql, 'SELECT')
                         && str_contains($sql, 'FROM `user` u')
                         && str_contains($sql, 'WHERE')
                         && str_contains($sql, 'ORDER BY')
@@ -249,7 +249,7 @@ class UserFinderTest extends BaseTestCase
         $connection->shouldReceive('executeQuery')
             ->once()
             ->with(
-                \Mockery::on(fn ($sql): bool => str_contains($sql, 'SELECT COUNT(DISTINCT u.user_id)')
+                \Mockery::on(static fn ($sql): bool => str_contains($sql, 'SELECT COUNT(DISTINCT u.user_id)')
                     && str_contains($sql, 'FROM `user` u')
                     && str_contains($sql, 'WHERE')),
                 [],
