@@ -15,6 +15,6 @@ export default {
             true,
             { "ignoreAtRules": [ "config", "source", "theme", "supports" ] },
         ],
-        "custom-property-empty-line-before": ["never", { "except": ["after-custom-property"] }],
+        "custom-property-empty-line-before": null,
     },
 };
