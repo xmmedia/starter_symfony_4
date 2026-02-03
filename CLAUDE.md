@@ -214,7 +214,7 @@ ESLint enforces code style. Key rules:
 - Trailing commas in multiline arrays/objects
 - Space before function parentheses: `function name () { }`
 - No `console.log` or `debugger` in committed code
-- Component names: kebab-case
+- Add a blank line before a return statement unless directly inside a conditional
 
 **Vue Specific:**
 - 4-space indentation for HTML templates
@@ -222,6 +222,7 @@ ESLint enforces code style. Key rules:
 - 1 attribute per line for multiline (first attribute on same line allowed)
 - Component self-closing: always for components, optional for HTML elements
 - No newline before closing bracket in multiline tags
+- Component names: kebab-case
 
 Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 
