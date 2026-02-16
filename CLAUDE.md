@@ -235,6 +235,7 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 - **Use type hints** - strict types are declared in all PHP files
 - **Branch**: Work on `v2` branch for production deployments
 - **Memory**: Some operations (tests, projections) may need `php -d memory_limit=-1`
+- **MySQL**: Add indexes within the create statement. Name them with the column name.
 
 ### User Model
 
