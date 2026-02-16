@@ -54,6 +54,7 @@ final class UpdateUserProfile extends Command
         return UserData::fromArray($this->payload['userData']);
     }
 
+    #[\Override]
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'userId');

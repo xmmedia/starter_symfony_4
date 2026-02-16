@@ -68,6 +68,7 @@ final class AdminAddUserMinimum extends Command
         return $this->payload['sendInvite'];
     }
 
+    #[\Override]
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'userId');

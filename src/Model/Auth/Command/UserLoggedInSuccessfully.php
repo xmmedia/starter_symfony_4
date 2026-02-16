@@ -60,6 +60,7 @@ final class UserLoggedInSuccessfully extends Command
         return $this->payload['route'];
     }
 
+    #[\Override]
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'authId');

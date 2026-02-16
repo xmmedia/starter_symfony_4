@@ -29,6 +29,7 @@ final class SendLoginLink extends Command
         return Email::fromString($this->payload['email']);
     }
 
+    #[\Override]
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'userId');

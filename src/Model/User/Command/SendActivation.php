@@ -50,6 +50,7 @@ final class SendActivation extends Command
         return Name::fromString($this->payload['lastName']);
     }
 
+    #[\Override]
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'userId');

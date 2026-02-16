@@ -30,6 +30,7 @@ final class AdminChangePassword extends Command
         return $this->payload['hashedPassword'];
     }
 
+    #[\Override]
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'userId');
