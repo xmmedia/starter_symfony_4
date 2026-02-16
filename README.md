@@ -15,7 +15,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
     composer create-project xm/starter_symfony_4 project-name --stability=dev --no-install --remove-vcs
     ```
    To run this, Composer needs to be installed globally. If you don't have Composer installed, follow the instructions at [getcomposer.org/download](https://getcomposer.org/download/).
-1. Copy `.env.local-default` to `.env.local` and update the values where there are `@todo-symfony` comments.
+1. Copy `.env.local-template` to `.env.local` and update the values where there are `@todo-symfony` comments.
 1. Update `composer.json`: `name`, `license` (likely `proprietary`) and `description`
 1. Update `package.json`: `name`, `version`, `git.url`, `license` (probably delete), `private`
 1. Update the port in `vite.config.js` (`server.port` and `server.origin`)
@@ -44,7 +44,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 ## Setting Up Starter
 
 1. Checkout the repo.
-1. Copy `.env.local-default` to `.env.local` and update the values where there are `@todo-symfony` comments.
+1. Copy `.env.local-template` to `.env.local` and update the values where there are `@todo-symfony` comments.
 1. Run/Start Lando site: `lando start`
 1. Composer install: `lando composer install` or `composer install` to run without Lando.
 1. Ensure correct node version: `nvm use`

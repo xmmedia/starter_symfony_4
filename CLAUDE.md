@@ -278,7 +278,7 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 
 ## Configuration Notes
 
-- Environment config: Copy `.env.local-default` to `.env.local` and update `@todo-symfony` values
+- Environment config: Copy `.env.local-template` to `.env.local` and update `@todo-symfony` values
 - Lando site name is in `.lando.yml` (default: `symfonystarter`)
 - Vite dev server port in `vite.config.mjs` (default: 9008)
 - Database collation should be `utf8mb4_bin`
