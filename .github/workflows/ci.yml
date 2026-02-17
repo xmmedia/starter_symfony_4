@@ -16,29 +16,52 @@ jobs:
             TRUSTED_PROXIES: ''
         steps:
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Set up PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.3
+                  php-version: '8.4'
 
             - name: Set up Node.js
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v4
               with:
-                  node-version: '18'
+                  node-version: '22'
 
-            - name: Run PHP security checks
-              uses: symfonycorp/security-checker-action@v5
+            - name: Get Composer cache directory
+              id: composer-cache
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
-            - name: Run JS security checks
-              run: npm run audit:high
+            - name: Cache Composer dependencies
+              uses: actions/cache@v4
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
+
+            - name: Cache Node.js dependencies
+              uses: actions/cache@v4
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
 
             - name: Install Composer dependencies
               run: composer install --no-interaction --no-progress --ignore-platform-reqs
 
+            - name: Run PHP security checks
+              run: composer audit
+
+            - name: Validate composer.json is normalized
+              run: composer normalize --dry-run
+
             - name: Install Node.js dependencies
               run: yarn install --immutable
+
+            - name: Run JS security checks
+              run: yarn audit:high
 
             - name: Cache warmup for PHPStan
               run: php bin/console cache:warmup --env=dev
@@ -63,145 +86,6 @@ jobs:
 
             - name: Run PHPUnit tests
               run: |
-                    mkdir -p public/build
-                    printf "{}" > public/build/manifest.json
-                    bin/phpunit
-
-    deploy_staging:
-        runs-on: ubuntu-latest
-        needs: static
-        if: github.ref == 'refs/heads/master'
-        environment: staging
-        env:
-            APP_ENV: dev
-            RELEASES: "$REMOTE_BASE/releases"
-            SHARED: "$REMOTE_BASE/shared"
-            TRUSTED_PROXIES: ''
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-
-            - name: Set up PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: 8.3
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v2
-              with:
-                  node-version: '18'
-
-            - name: Run PHP security checks
-              uses: symfonycorp/security-checker-action@v5
-
-            - name: Run JS security checks
-              run: npm run audit:high
-
-            - name: Create temporary .env.local file
-              run: |
-                   # add .revision file
-                   git rev-parse --verify --short HEAD > .revision
-                   # create partial .env file
-                   printf "APP_ENV=$APP_ENV\nREQUEST_CONTEXT_HOST=$REQUEST_CONTEXT_HOST\nREQUEST_CONTEXT_SCHEME=$REQUEST_CONTEXT_SCHEME\n" > .env.local && cat .env.local
-
-            - name: Install Composer dependencies
-              run: composer install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
-
-            - name: Install Node.js dependencies
-              run: yarn install --immutable
-
-            - name: Build assets
-              run: yarn build --mode development
-
-            - name: Remove temporary .env.local file
-              run: rm .env.local
-
-            - name: Create timestamp variables
-              id: timestamp
-              run: echo "::set-output name=timestamp::$(date +%s)"
-
-            - name: Create release path env
-              id: release
-              run: echo $RELEASES/$TIMESTAMP
-
-            - name: Deploy to staging
-              uses: appleboy/ssh-action@v1.0.3
-              with:
-                  host: ${{ secrets.REMOTE_SERVER }}
-                  username: ${{ secrets.REMOTE_USER }}
-                  key: ${{ secrets.SSH_PRIVATE_KEY }}
-                  port: ${{ secrets.PORT }}
-                  script: |
-                    # setup vars for paths
-                    TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
-                    echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
-                    echo "Remote:"; echo $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PORT
-                    # ensure based paths exist
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/var/log/archive $SHARED/public/uploads"
-                    # sync files to release directory
-                    rsync --archive --stats --human-readable --no-perms --exclude ".git/" --exclude ".idea/" --exclude "node_modules/" -e "ssh -p $REMOTE_PORT" . $REMOTE_USER@$REMOTE_SERVER:$RELEASE
-                    # make console file executable
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; chmod u+x bin/console"
-                    # ensure platform has all requirements
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; $SERVER_PHP_PATH -v; echo "\n\n"; $SERVER_PHP_PATH composer.phar check-platform-reqs"
-                    # link shared folders
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -rf $RELEASE/var || true; ln -s $SHARED/var $RELEASE/var; rm -rf $RELEASE/public/uploads || true; ln -s $SHARED/public/uploads $RELEASE/public/uploads; rm -rf $RELEASE/config/jwt || true; ln -s $SHARED/config/jwt $RELEASE/config/jwt"
-                    # copy env file into place; dump env
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cp -a $SHARED/.env.local $RELEASE/.env.local && cd $RELEASE && $SERVER_PHP_PATH composer.phar dump-env"
-                    # run composer post update cmds on server
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE && $SERVER_PHP_PATH composer.phar run-script post-update-cmd"
-                    # switch to new version
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ln -sfn $RELEASE $REMOTE_BASE/current"
-                    # reload php-fpm (to reset cache)
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "sudo /bin/systemctl reload php82-php-fpm"
-                    # stop/restart the doctrine message customers
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; $SERVER_PHP_PATH bin/console messenger:stop-workers"
-                    # run migrations
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; $SERVER_PHP_PATH bin/console doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration"
-                    # remove >2 releases
-                    ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ls -1d $RELEASES/* | sort -rg | tail -n +3 | xargs /bin/rm -rf"
-                    # test if website is up
-                    if wget --spider --server-response "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST" 2>&1 | grep '200\ OK'; then echo "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST is up"; else echo "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST is down"; exit 1; fi
-                    # success message
-                    echo "Deployment completed successfully. Release at $RELEASE"
-
-    deploy_prod:
-        runs-on: ubuntu-latest
-        needs: static
-        if: github.ref == 'refs/heads/master'
-        environment: production
-        env:
-            APP_ENV:         prod
-            TRUSTED_PROXIES: ''
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-
-            - name: Set up PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: 8.3
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v2
-              with:
-                  node-version: '18'
-
-            - name: Run PHP security checks
-              uses: symfonycorp/security-checker-action@v5
-
-            - name: Run JS security checks
-              run: npm run audit:high
-
-            - name: Install Composer dependencies
-              run: composer install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
-
-            - name: Install Node.js dependencies
-              run: yarn install --immutable
-
-            - name: Build assets
-              run: yarn build
-
-            - name: Deploy to production
-              run: |
-                    # Add your deployment script here
+                  mkdir -p public/build
+                  printf "{}" > public/build/manifest.json
+                  bin/phpunit
