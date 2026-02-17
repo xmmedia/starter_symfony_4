@@ -116,6 +116,11 @@
                 <SendActivation v-if="user.active && !user.verified" :user-id="userId" />
                 <SendLoginLink v-if="user.active && user.verified" :user-id="userId" />
                 <SendReset v-if="user.active" :user-id="userId" />
+                <Impersonate v-if="user.active && user.verified
+                                 && !isImpersonating
+                                 && rootStore.hasRole('ROLE_SUPER_ADMIN')
+                                 && user.userId !== rootStore.user.userId"
+                             :user-email="user.email" />
 
                 <AdminDelete record-desc="user" @delete="deleteUser">
                     <template #button="{ open }">
@@ -152,6 +157,7 @@ import Activate from './component/activate.vue';
 import Verify from './component/verify.vue';
 import SendLoginLink from './component/send_login_link.vue';
 import SendReset from './component/send_reset.vue';
+import Impersonate from './component/impersonate.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -194,6 +200,8 @@ onError(() => {
 const showView = computed(
     () => state.value.matches('loaded') || state.value.matches('deleting') || state.value.matches('deleted'),
 );
+
+const isImpersonating = computed(() => rootStore.user?.isImpersonating ?? false);
 
 const deleteUser = async () => {
     sendEvent({ type: 'DELETE' });

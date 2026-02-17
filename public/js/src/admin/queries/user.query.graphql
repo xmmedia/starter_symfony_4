@@ -4,6 +4,7 @@ query MeQuery {
         email
         name
         roles
+        isImpersonating
     }
 }
 

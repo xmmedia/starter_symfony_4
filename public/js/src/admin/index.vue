@@ -71,6 +71,11 @@
                 <div id="header-actions" class="header-actions"></div>
             </header>
 
+            <ImpersonationBar v-if="isImpersonating"
+                              :name="rootStore.user.name"
+                              :email="rootStore.user.email"
+                              :user-id="rootStore.user.userId" />
+
             <main class="p-4">
                 <!-- *** where the router component is placed *** -->
                 <RouterView :key="$route.path" />
@@ -89,6 +94,7 @@ import MenuSubnav from './menu/subnav.vue';
 import MenuSmall from './menu/small.vue';
 /* eslint-disable no-unused-vars */
 import MenuLink from './menu/link.vue';
+import ImpersonationBar from '@/common/impersonation_bar.vue';
 
 const rootStore = useRootStore();
 
@@ -105,6 +111,8 @@ const adminMenuItems = ref({
 const ready = computed(() => rootStore.ready);
 const loggedIn = computed(() => rootStore.loggedIn);
 const hasRole = computed(() => rootStore.hasRole);
+
+const isImpersonating = computed(() => rootStore.user?.isImpersonating ?? false);
 
 const logoLinkRoute = computed(() => ({ name: (loggedIn.value ? 'admin-dashboard' : 'login') }));
 const profileLinkText = computed(() => {

@@ -53,6 +53,7 @@ enum Role {
   ROLE_USER
   ROLE_ADMIN
   ROLE_SUPER_ADMIN
+  ROLE_ALLOWED_TO_SWITCH
 }
 
 "The User object."
@@ -65,6 +66,7 @@ type User {
   verified: Boolean!
   active: Boolean!
   roles: [Role!]
+  isImpersonating: Boolean!
   loginCount: Int!
   lastLogin: DateTime
   userData: UserData

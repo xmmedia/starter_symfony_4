@@ -1,4 +1,9 @@
 <template>
+    <ImpersonationBar v-if="isImpersonating"
+                      :name="rootStore.user.name"
+                      :email="rootStore.user.email"
+                      :user-id="rootStore.user.userId" />
+
     <header class="relative flex flex-col items-center gap-y-4 mt-2 md:mt-8">
         <div v-if="loggedIn" class="mt-8 md:mt-0"></div>
         <RouterLink :to="{ name: 'dashboard' }" class="mt-4 md:mt-0">
@@ -54,6 +59,7 @@
 import { useHead } from '@unhead/vue';
 import { computed } from 'vue';
 import { useRootStore } from './stores/root';
+import ImpersonationBar from '@/common/impersonation_bar.vue';
 
 const rootStore = useRootStore();
 
@@ -64,4 +70,5 @@ useHead({
 });
 
 const loggedIn = computed(() => rootStore.loggedIn);
+const isImpersonating = computed(() => rootStore.user?.isImpersonating ?? false);
 </script>

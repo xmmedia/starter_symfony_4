@@ -64,6 +64,52 @@ class Auth extends AggregateRoot implements Entity
         return $self;
     }
 
+    public static function startedImpersonating(
+        AuthId $authId,
+        UserId $adminUserId,
+        UserId $impersonatedUserId,
+        Email $impersonatedEmail,
+        ?string $userAgent,
+        string $ipAddress,
+        string $route,
+    ): self {
+        $self = new self();
+        $self->recordThat(
+            Event\UserStartedImpersonating::now(
+                $authId,
+                $adminUserId,
+                $impersonatedUserId,
+                $impersonatedEmail,
+                null !== $userAgent ? substr($userAgent, 0, 500) : null,
+                $ipAddress,
+                $route,
+            ),
+        );
+
+        return $self;
+    }
+
+    public static function endedImpersonating(
+        AuthId $authId,
+        UserId $adminUserId,
+        ?string $userAgent,
+        string $ipAddress,
+        string $route,
+    ): self {
+        $self = new self();
+        $self->recordThat(
+            Event\UserEndedImpersonating::now(
+                $authId,
+                $adminUserId,
+                null !== $userAgent ? substr($userAgent, 0, 500) : null,
+                $ipAddress,
+                $route,
+            ),
+        );
+
+        return $self;
+    }
+
     /**
      * @codeCoverageIgnore
      */
@@ -83,6 +129,16 @@ class Auth extends AggregateRoot implements Entity
     }
 
     protected function whenUserFailedToLogin(Event\UserFailedToLogin $event): void
+    {
+        $this->authId = $event->authId();
+    }
+
+    protected function whenUserStartedImpersonating(Event\UserStartedImpersonating $event): void
+    {
+        $this->authId = $event->authId();
+    }
+
+    protected function whenUserEndedImpersonating(Event\UserEndedImpersonating $event): void
     {
         $this->authId = $event->authId();
     }
