@@ -24,7 +24,8 @@ readonly class GraphQlErrorSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Set the exception code in the.
+     * Set the exception code in the formatted error, and if the error is a "Cannot query field" error,
+     * set the message to a generic "Access denied" message if the user is not logged in.
      */
     public function onGraphqlErrorFormat(ErrorFormattingEvent $event): void
     {
