@@ -290,7 +290,7 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 When upgrading PHP, update version in these files:
 - `composer.json` - add polyfill for new version
 - `.lando.yml`
-- `setup_dev.sh`, `setup_prod.sh`, `.gitlab-ci.yml`
+- `setup_dev.sh`, `setup_prod.sh`, `.gitlab-ci.yml`, `.github/workflows/ci.yml`
 - `.php-cs-fixer.dist.php`
 
 Then run: `lando rebuild && lando composer update && nvm use && bin/check_full`

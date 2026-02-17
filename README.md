@@ -165,6 +165,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
    - `setup_dev.sh` – 4 places
    - `setup_prod.sh` – 4 places
    - `.gitlab-ci.yml` – 2 places
+   - `.github/workflows/ci.yml` – 1 place
    - `.php-cs-fixer.dist.php` – update the `@PHP8#Migration` version to match the current version.
    - `~/.bashrc` and/or `~/.zshrc` on the servers
 1. Run `lando rebuild` to rebuild the Lando container with the new PHP version.
