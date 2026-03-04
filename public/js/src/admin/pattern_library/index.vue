@@ -149,6 +149,11 @@
                     <textarea id="pattern-library-textarea" class="h-32" />
                 </div>
                 <div class="field-wrap">
+                    <label for="pattern-library-file">File input</label>
+                    <input id="pattern-library-file" type="file">
+                    <div class="field-help">Accepted formats: PDF, JPG, PNG.</div>
+                </div>
+                <div class="field-wrap">
                     <label for="pattern-library-select">Select</label>
                     <select id="pattern-library-select">
                         <option value="">Test 1</option>
