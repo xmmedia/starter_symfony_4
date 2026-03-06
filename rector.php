@@ -6,6 +6,7 @@ use Rector\Config\RectorConfig;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 
 return RectorConfig::configure()
+    ->withParallel()
     ->withPreparedSets(
         codeQuality: true,
         codingStyle: true,
