@@ -14,7 +14,7 @@ readonly class DefaultRouteProvider
 
     public function __invoke(): array
     {
-        // @todo-symfony
+        // @todo-symfony if building an admin only app (adjust ApplicationAvailabilityFunctionalTest accordingly)
         if ($this->security->isLoggedIn()) {
             if ($this->security->hasAdminRole()) {
                 return ['admin_default'];

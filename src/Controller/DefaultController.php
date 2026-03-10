@@ -17,7 +17,7 @@ final class DefaultController extends AbstractController
     #[Route(path: '/', name: 'index')]
     public function index(DefaultRouteProvider $defaultRoute): Response
     {
-        // @todo-symfony if building an admin only app
+        // @todo-symfony if building an admin only app (adjust ApplicationAvailabilityFunctionalTest accordingly)
         // if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
         //     return $this->redirectToRoute(...$defaultRoute());
         // }
