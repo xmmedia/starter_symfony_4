@@ -110,6 +110,7 @@ Existing projections: `user_projection`, `auth_projection`
 - Read models built from events (implement `ReadModelProjection`)
 - Examples: `UserProjection`, `AuthProjection`
 - Automatically run via `RunProjectionMiddleware` on event bus
+- Each projection has: `*Projection.php`, `*ReadModel.php`, `*Finder.php`, `*Filters.php`, `*FilterQueryBuilder.php`
 - Create tables defined in `src/Projection/Table.php` and `src/Projection/*/ReadModel.php`
 
 **Process Managers** (`src/ProcessManager/`)
@@ -120,18 +121,37 @@ Existing projections: `user_projection`, `auth_projection`
 **Repositories** (`src/Infrastructure/Repository/`)
 - Load and save aggregate roots to/from event streams
 - Configured in `config/packages/event_sourcing.yaml`
+- One per aggregate: `UserRepository`, `AuthRepository`
 
 ### GraphQL Layer
 
 **Structure:**
-- Schema types: `config/graphql/types/`
+- Schema types: `config/graphql/types/` (domain types in `domain/`, query/mutation configs as `*.query.yaml` / `*.mutation.yaml`)
 - Queries: `src/GraphQl/Query/`
 - Mutations: `src/GraphQl/Mutation/`
 - Custom types: `src/GraphQl/Type/`
+- Access control: `src/GraphQl/Access/`
+
+**Domain types** (`config/graphql/types/domain/`): `user.yaml`, `phone_number.yaml`, `upload.yaml`
 
 **Frontend GraphQL:**
 - Query/mutation files: `public/js/src/*/queries/*.graphql`
 - Loaded via `@rollup/plugin-graphql`
+
+### Doctrine Entities (Read Models Only)
+
+Entities in `src/Entity/` are projection read models — never used for domain writes:
+- `User`, `UserToken`
+
+### Infrastructure Services (`src/Infrastructure/Service/`)
+
+- `ChecksUniqueUsersEmailFromReadModel` - validates unique emails
+- `UrlGenerator` - generates signed URLs
+
+### Controllers (`src/Controller/`)
+
+- `DefaultController` - main entry point
+- `SecurityController` - authentication routes (login, logout)
 
 ### Frontend Architecture
 
@@ -145,6 +165,17 @@ Existing projections: `user_projection`, `auth_projection`
 - State stores (Pinia): `public/js/src/admin/stores/`, `public/js/src/user/stores/`
 - Validators (Vuelidate): Files ending in `.validation.js`
 - State machines (XState): `public/js/src/common/state_machines.js`
+
+**Admin app sections** (`public/js/src/admin/`):
+- `user/` - list, add, edit, view (requires `ROLE_ADMIN`)
+- `admin_dashboard/` - dashboard
+- `pattern_library/` - UI pattern reference
+
+**User app sections** (`public/js/src/user/`):
+- `login/` - login page
+- `user_recover/` - initiate, reset (password recovery)
+- `user_activate/` - account activation
+- `profile_edit/` - profile, password
 
 **Apollo Client:**
 - Configuration: `public/js/src/common/apollo.js`
@@ -233,7 +264,6 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 - **Don't bypass event sourcing** - read from read models, write via commands
 - **Test coverage required** - especially for aggregates and handlers
 - **Use type hints** - strict types are declared in all PHP files
-- **Branch**: Work on `v2` branch for production deployments
 - **Memory**: Some operations (tests, projections) may need `php -d memory_limit=-1`
 - **MySQL**: Add indexes within the create statement. Name them with the column name.
 
@@ -281,7 +311,7 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 
 - Environment config: Copy `.env.local-template` to `.env.local` and update `@todo-symfony` values
 - Lando site name is in `.lando.yml` (default: `symfonystarter`)
-- Vite dev server port in `vite.config.mjs` (default: 9008)
+- Vite dev server port in `vite.config.mjs` (currently: 9008)
 - Database collation should be `utf8mb4_bin`
 
 ## Maintenance
