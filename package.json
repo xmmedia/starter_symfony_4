@@ -90,7 +90,7 @@
     "vite": "^7.0.0",
     "vite-plugin-manifest-sri": "^0.2.0",
     "vite-plugin-mkcert": "^1.16.0",
-    "vite-plugin-symfony": "^8.0",
+    "vite-plugin-symfony": "^8.0.0",
     "vitest": "^4.0.7",
     "vue-eslint-parser": "^10.0.0"
   },
