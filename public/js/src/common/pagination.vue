@@ -4,16 +4,20 @@
                       @keydown.left="goToPrevious"
                       @keydown.right="goToNext" />
 
-        <RouterLink v-if="current !== 1"
-                    :to="pageRoute(0)"
-                    :class="linkClasses"
-                    class="inline-block"><slot name="first-page">&lt;&lt;</slot></RouterLink>
+        <component :is="isRouterMode ? RouterLink : 'button'"
+                   v-if="current !== 1"
+                   v-bind="isRouterMode ? { to: pageRoute(0) } : { type: 'button' }"
+                   :class="linkClasses"
+                   class="inline-block"
+                   @click="handleNav(0)"><slot name="first-page">&lt;&lt;</slot></component>
         <span v-else :class="spanClasses" class="inline-block"><slot name="first-page">&lt;&lt;</slot></span>
 
-        <RouterLink v-if="previous !== null"
-                    :to="previousRoute"
-                    :class="linkClasses"
-                    class="inline-block"><slot name="previous-page">&lt;</slot></RouterLink>
+        <component :is="isRouterMode ? RouterLink : 'button'"
+                   v-if="previous !== null"
+                   v-bind="isRouterMode ? { to: previousRoute } : { type: 'button' }"
+                   :class="linkClasses"
+                   class="inline-block"
+                   @click="handleNav(previous - 1)"><slot name="previous-page">&lt;</slot></component>
         <span v-else :class="spanClasses" class="inline-block"><slot name="previous-page">&lt;</slot></span>
 
         <span v-if="showBeforeEllipsis"
@@ -21,11 +25,13 @@
               class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
 
         <template v-for="page in pagesInRange">
-            <RouterLink v-if="page !== current"
-                        :key="'if-'+page"
-                        :to="pageRoute(page - 1)"
-                        :class="linkClasses"
-                        class="hidden sm:inline-block">{{ page }}</RouterLink>
+            <component :is="isRouterMode ? RouterLink : 'button'"
+                       v-if="page !== current"
+                       :key="'if-'+page"
+                       v-bind="isRouterMode ? { to: pageRoute(page - 1) } : { type: 'button' }"
+                       :class="linkClasses"
+                       class="hidden sm:inline-block"
+                       @click="handleNav(page - 1)">{{ page }}</component>
             <span v-else
                   :key="'else-'+page"
                   :class="spanClasses + ' ' + currentClasses"
@@ -37,12 +43,16 @@
               class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
 
         <template v-if="next !== null">
-            <RouterLink :to="nextRoute"
-                        :class="linkClasses"
-                        class="inline-block"><slot name="next-page">&gt;</slot></RouterLink>
-            <RouterLink :to="lastRoute"
-                        :class="linkClasses"
-                        class="inline-block"><slot name="last-page">&gt;&gt;</slot></RouterLink>
+            <component :is="isRouterMode ? RouterLink : 'button'"
+                       v-bind="isRouterMode ? { to: nextRoute } : { type: 'button' }"
+                       :class="linkClasses"
+                       class="inline-block"
+                       @click="handleNav(next - 1)"><slot name="next-page">&gt;</slot></component>
+            <component :is="isRouterMode ? RouterLink : 'button'"
+                       v-bind="isRouterMode ? { to: lastRoute } : { type: 'button' }"
+                       :class="linkClasses"
+                       class="inline-block"
+                       @click="handleNav(last / props.itemsPerPage)"><slot name="last-page">&gt;&gt;</slot></component>
         </template>
         <template v-else>
             <span :class="spanClasses" class="inline-block"><slot name="next-page">&gt;</slot></span>
@@ -53,16 +63,17 @@
 
 <script setup>
 import { computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import range from 'lodash/range';
 import { GlobalEvents } from 'vue-global-events';
 
 const router = useRouter();
+const emit = defineEmits(['update:offset']);
 
 const props = defineProps({
     routeName: {
         type: String,
-        required: true,
+        default: null,
     },
     routeQueryAdditions: {
         type: Object,
@@ -123,6 +134,8 @@ const props = defineProps({
         default: null,
     },
 });
+
+const isRouterMode = computed(() => !!props.routeName);
 
 const linkClasses = 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded text-center ' + props.linkClasses;
 const spanClasses = 'w-12 p-1 text-gray-400 focus:no-underline rounded ' + props.disabledClasses;
@@ -202,13 +215,26 @@ const lastRoute = computed(() => pageRoute(last.value / props.itemsPerPage));
 
 const goToPrevious = () => {
     if (previous.value) {
-        router.push(previousRoute.value);
+        if (isRouterMode.value) {
+            router.push(previousRoute.value);
+        } else {
+            emit('update:offset', (previous.value - 1) * props.itemsPerPage);
+        }
     }
 };
 const goToNext = () => {
     if (next.value) {
-        router.push(nextRoute.value);
+        if (isRouterMode.value) {
+            router.push(nextRoute.value);
+        } else {
+            emit('update:offset', (next.value - 1) * props.itemsPerPage);
+        }
     }
+};
+
+const handleNav = (pageIndex) => {
+    if (isRouterMode.value) return;
+    emit('update:offset', pageIndex * props.itemsPerPage);
 };
 
 const pageRoute = (offset) => {
