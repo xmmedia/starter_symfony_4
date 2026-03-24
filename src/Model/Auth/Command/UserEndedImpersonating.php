@@ -14,16 +14,18 @@ final class UserEndedImpersonating extends Command
     public static function now(
         AuthId $authId,
         UserId $adminUserId,
+        UserId $impersonatedUserId,
         ?string $userAgent,
         string $ipAddress,
         string $route,
     ): self {
         return new self([
-            'authId'      => $authId->toString(),
-            'adminUserId' => $adminUserId->toString(),
-            'userAgent'   => $userAgent,
-            'ipAddress'   => $ipAddress,
-            'route'       => $route,
+            'authId'              => $authId->toString(),
+            'adminUserId'         => $adminUserId->toString(),
+            'impersonatedUserId'  => $impersonatedUserId->toString(),
+            'userAgent'           => $userAgent,
+            'ipAddress'           => $ipAddress,
+            'route'               => $route,
         ]);
     }
 
@@ -35,6 +37,11 @@ final class UserEndedImpersonating extends Command
     public function adminUserId(): UserId
     {
         return UserId::fromString($this->payload['adminUserId']);
+    }
+
+    public function impersonatedUserId(): UserId
+    {
+        return UserId::fromString($this->payload['impersonatedUserId']);
     }
 
     public function userAgent(): ?string
@@ -60,6 +67,9 @@ final class UserEndedImpersonating extends Command
 
         Assert::keyExists($payload, 'adminUserId');
         Assert::uuid($payload['adminUserId']);
+
+        Assert::keyExists($payload, 'impersonatedUserId');
+        Assert::uuid($payload['impersonatedUserId']);
 
         Assert::keyExists($payload, 'userAgent');
         Assert::nullOrString($payload['userAgent']);

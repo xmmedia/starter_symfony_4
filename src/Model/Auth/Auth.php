@@ -92,6 +92,7 @@ class Auth extends AggregateRoot implements Entity
     public static function endedImpersonating(
         AuthId $authId,
         UserId $adminUserId,
+        UserId $impersonatedUserId,
         ?string $userAgent,
         string $ipAddress,
         string $route,
@@ -101,6 +102,7 @@ class Auth extends AggregateRoot implements Entity
             Event\UserEndedImpersonating::now(
                 $authId,
                 $adminUserId,
+                $impersonatedUserId,
                 null !== $userAgent ? substr($userAgent, 0, 500) : null,
                 $ipAddress,
                 $route,

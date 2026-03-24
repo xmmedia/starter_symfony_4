@@ -11,6 +11,7 @@ use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 class UserEndedImpersonating extends AggregateChanged
 {
     private UserId $adminUserId;
+    private UserId $impersonatedUserId;
     private ?string $userAgent;
     private string $ipAddress;
     private string $route;
@@ -18,18 +19,21 @@ class UserEndedImpersonating extends AggregateChanged
     public static function now(
         AuthId $authId,
         UserId $adminUserId,
+        UserId $impersonatedUserId,
         ?string $userAgent,
         string $ipAddress,
         string $route,
     ): self {
         $event = self::occur($authId->toString(), [
-            'adminUserId' => $adminUserId->toString(),
-            'userAgent'   => $userAgent,
-            'ipAddress'   => $ipAddress,
-            'route'       => $route,
+            'adminUserId'        => $adminUserId->toString(),
+            'impersonatedUserId' => $impersonatedUserId->toString(),
+            'userAgent'          => $userAgent,
+            'ipAddress'          => $ipAddress,
+            'route'              => $route,
         ]);
 
         $event->adminUserId = $adminUserId;
+        $event->impersonatedUserId = $impersonatedUserId;
         $event->userAgent = $userAgent;
         $event->ipAddress = $ipAddress;
         $event->route = $route;
@@ -49,6 +53,15 @@ class UserEndedImpersonating extends AggregateChanged
         }
 
         return $this->adminUserId;
+    }
+
+    public function impersonatedUserId(): UserId
+    {
+        if (!isset($this->impersonatedUserId)) {
+            $this->impersonatedUserId = UserId::fromString($this->payload['impersonatedUserId']);
+        }
+
+        return $this->impersonatedUserId;
     }
 
     public function userAgent(): ?string

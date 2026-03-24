@@ -96,6 +96,7 @@ class AuthImpersonationTest extends BaseTestCase
 
         $authId = $faker->authId();
         $adminUserId = $faker->userId();
+        $impersonatedUserId = $faker->userId();
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $route = $faker->slug();
@@ -103,6 +104,7 @@ class AuthImpersonationTest extends BaseTestCase
         $auth = Auth::endedImpersonating(
             $authId,
             $adminUserId,
+            $impersonatedUserId,
             $userAgent,
             $ipAddress,
             $route,
@@ -113,10 +115,11 @@ class AuthImpersonationTest extends BaseTestCase
         $events = $this->popRecordedEvent($auth);
 
         $this->assertRecordedEvent(UserEndedImpersonating::class, [
-            'adminUserId' => $adminUserId->toString(),
-            'userAgent'   => $userAgent,
-            'ipAddress'   => $ipAddress,
-            'route'       => $route,
+            'adminUserId'        => $adminUserId->toString(),
+            'impersonatedUserId' => $impersonatedUserId->toString(),
+            'userAgent'          => $userAgent,
+            'ipAddress'          => $ipAddress,
+            'route'              => $route,
         ], $events);
 
         $this->assertCount(1, $events);
@@ -130,12 +133,14 @@ class AuthImpersonationTest extends BaseTestCase
 
         $authId = $faker->authId();
         $adminUserId = $faker->userId();
+        $impersonatedUserId = $faker->userId();
         $ipAddress = $faker->ipv4();
         $route = $faker->slug();
 
         $auth = Auth::endedImpersonating(
             $authId,
             $adminUserId,
+            $impersonatedUserId,
             null,
             $ipAddress,
             $route,
@@ -146,10 +151,11 @@ class AuthImpersonationTest extends BaseTestCase
         $events = $this->popRecordedEvent($auth);
 
         $this->assertRecordedEvent(UserEndedImpersonating::class, [
-            'adminUserId' => $adminUserId->toString(),
-            'userAgent'   => null,
-            'ipAddress'   => $ipAddress,
-            'route'       => $route,
+            'adminUserId'        => $adminUserId->toString(),
+            'impersonatedUserId' => $impersonatedUserId->toString(),
+            'userAgent'          => null,
+            'ipAddress'          => $ipAddress,
+            'route'              => $route,
         ], $events);
 
         $this->assertCount(1, $events);

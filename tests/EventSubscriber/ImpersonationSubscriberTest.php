@@ -12,6 +12,7 @@ use App\Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
@@ -73,7 +74,9 @@ class ImpersonationSubscriberTest extends BaseTestCase
 
         $event = new SwitchUserEvent($request, $impersonatedUser, $token);
 
-        $subscriber = new ImpersonationSubscriber($commandBus);
+        $tokenStorage = \Mockery::mock(TokenStorageInterface::class);
+
+        $subscriber = new ImpersonationSubscriber($commandBus, $tokenStorage);
         $subscriber->{$method}($event);
     }
 
@@ -94,6 +97,21 @@ class ImpersonationSubscriberTest extends BaseTestCase
             ->once()
             ->andReturn($faker->userId());
 
+        $impersonatedUser = \Mockery::mock(User::class);
+        $impersonatedUser->shouldReceive('userId')
+            ->once()
+            ->andReturn($faker->userId());
+
+        $currentToken = \Mockery::mock(SwitchUserToken::class);
+        $currentToken->shouldReceive('getUser')
+            ->once()
+            ->andReturn($impersonatedUser);
+
+        $tokenStorage = \Mockery::mock(TokenStorageInterface::class);
+        $tokenStorage->shouldReceive('getToken')
+            ->once()
+            ->andReturn($currentToken);
+
         $originalToken = \Mockery::mock(TokenInterface::class);
 
         $request = Request::create(
@@ -108,7 +126,7 @@ class ImpersonationSubscriberTest extends BaseTestCase
 
         $event = new SwitchUserEvent($request, $adminUser, $originalToken);
 
-        $subscriber = new ImpersonationSubscriber($commandBus);
+        $subscriber = new ImpersonationSubscriber($commandBus, $tokenStorage);
         $subscriber->{$method}($event);
     }
 }

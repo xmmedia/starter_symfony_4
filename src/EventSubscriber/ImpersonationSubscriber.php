@@ -11,14 +11,17 @@ use App\Model\Auth\Command\UserStartedImpersonating;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Symfony\Component\Security\Http\Firewall\SwitchUserListener;
 
 readonly class ImpersonationSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private MessageBusInterface $commandBus)
-    {
+    public function __construct(
+        private MessageBusInterface $commandBus,
+        private TokenStorageInterface $tokenStorage,
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -71,10 +74,16 @@ readonly class ImpersonationSubscriber implements EventSubscriberInterface
         /** @var User $adminUser */
         $adminUser = $event->getTargetUser();
 
+        /** @var SwitchUserToken $currentToken */
+        $currentToken = $this->tokenStorage->getToken();
+        /** @var User $impersonatedUser */
+        $impersonatedUser = $currentToken->getUser();
+
         $this->commandBus->dispatch(
             UserEndedImpersonating::now(
                 AuthId::fromUuid(Uuid::uuid4()),
                 $adminUser->userId(),
+                $impersonatedUser->userId(),
                 $request->headers->get('User-Agent'),
                 $request->getClientIp(),
                 $request->attributes->get('_route'),

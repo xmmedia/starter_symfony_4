@@ -19,6 +19,7 @@ final readonly class UserEndedImpersonatingHandler
         $auth = Auth::endedImpersonating(
             $command->authId(),
             $command->adminUserId(),
+            $command->impersonatedUserId(),
             $command->userAgent(),
             $command->ipAddress(),
             $command->route(),
