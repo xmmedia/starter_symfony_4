@@ -47,21 +47,22 @@ const router = createRouter({
                 role: 'ROLE_ADMIN',
             },
         },
-
         {
             path: '/admin/auth-log',
-            name: 'admin-auth-log',
-            component: () => import('./auth_log/list.vue'),
-            meta: {
-                requiresAuth: true,
-                role: 'ROLE_ADMIN',
-            },
-        },
-        {
-            path: '/admin/auth-log/:authLogId/view',
-            name: 'admin-auth-log-view',
-            component: () => import('./auth_log/view.vue'),
-            props: true,
+            component: () => import('./auth_log/index.vue'),
+            children: [
+                {
+                    name: 'admin-auth-log',
+                    path: '',
+                    component: () => import('./auth_log/list.vue'),
+                },
+                {
+                    name: 'admin-auth-log-view',
+                    path: ':auth-logId/view',
+                    component: () => import('./auth_log/view.vue'),
+                    props: true,
+                },
+            ],
             meta: {
                 requiresAuth: true,
                 role: 'ROLE_ADMIN',
