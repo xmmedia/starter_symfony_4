@@ -19,4 +19,24 @@ class UserIdTest extends BaseTestCase
 
         $this->assertEquals($uuid, $userId->toString());
     }
+
+    public function testSameValueAs(): void
+    {
+        $uuid = $this->faker()->uuid();
+
+        $authLogId1 = UserId::fromString($uuid);
+        $authLogId2 = UserId::fromString($uuid);
+
+        $this->assertTrue($authLogId1->sameValueAs($authLogId2));
+    }
+
+    public function testNotSameValueAs(): void
+    {
+        $faker = $this->faker();
+
+        $authLogId1 = UserId::fromString($faker->uuid());
+        $authLogId2 = UserId::fromString($faker->uuid());
+
+        $this->assertFalse($authLogId1->sameValueAs($authLogId2));
+    }
 }
