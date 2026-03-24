@@ -2,11 +2,6 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 
 export const useFiltersStore = defineStore('filtersStore', {
     state: () => ({
-        user: {
-            q: null,
-            role: 'ALL',
-            accountStatus: 'ALL',
-        },
         authLog: {
             eventType:      'ALL',
             dateRange:      'LAST_24H',
@@ -14,14 +9,19 @@ export const useFiltersStore = defineStore('filtersStore', {
             customDateTo:   null,
             q:              null,
         },
+        user: {
+            q: null,
+            role: 'ALL',
+            accountStatus: 'ALL',
+        },
     }),
 
     actions: {
-        setUser (filters) {
-            this.user = { ...filters };
-        },
         setAuthLog (filters) {
             this.authLog = { ...filters };
+        },
+        setUser (filters) {
+            this.user = { ...filters };
         },
     },
 });
