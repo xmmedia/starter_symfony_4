@@ -44,7 +44,6 @@ export default (userId = null) => {
         },
         password: {
             ...validations.password,
-            required,
         },
         firstName: validations.firstName,
         lastName: validations.lastName,
