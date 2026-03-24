@@ -66,9 +66,9 @@ const filters = computed({
 });
 
 const filterValues = [
-    { value: 'ALL',          label: 'All' },
-    { value: 'login',        label: 'Successful' },
-    { value: 'login_failed', label: 'Failed' },
+    { value: 'ALL',           label: 'All' },
+    { value: 'login',         label: 'Successful' },
+    { value: 'login_failed',  label: 'Failed' },
     { value: 'impersonation', label: 'Impersonation' },
 ];
 
