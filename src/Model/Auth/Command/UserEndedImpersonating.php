@@ -20,12 +20,12 @@ final class UserEndedImpersonating extends Command
         string $route,
     ): self {
         return new self([
-            'authId'              => $authId->toString(),
-            'adminUserId'         => $adminUserId->toString(),
-            'impersonatedUserId'  => $impersonatedUserId->toString(),
-            'userAgent'           => $userAgent,
-            'ipAddress'           => $ipAddress,
-            'route'               => $route,
+            'authId'             => $authId->toString(),
+            'adminUserId'        => $adminUserId->toString(),
+            'impersonatedUserId' => $impersonatedUserId->toString(),
+            'userAgent'          => $userAgent,
+            'ipAddress'          => $ipAddress,
+            'route'              => $route,
         ]);
     }
 
