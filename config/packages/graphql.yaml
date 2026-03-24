@@ -13,6 +13,8 @@ overblog_graphql:
 
     security:
         enable_introspection: '%kernel.debug%'
+        query_max_depth:      10
+        query_max_complexity: 100
 
     errors_handler:
         map_exceptions_to_parent: false
