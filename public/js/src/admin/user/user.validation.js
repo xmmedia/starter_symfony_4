@@ -1,10 +1,9 @@
-import has from 'lodash/has';
 import { email, helpers, required } from '@vuelidate/validators';
 import { apolloClient } from '@/common/apollo';
 import userValidation from '@/common/validation/user';
 import { GetDuplicateUsers } from '../queries/user.query.graphql';
 
-export default () => {
+export default (userId = null) => {
     const validations = userValidation();
 
     return {
@@ -34,12 +33,12 @@ export default () => {
                     return true;
                 }
 
-                if (!has(this, 'userId')) {
-                    return 0 === foundUsers.length;
+                if (!userId) {
+                    return false;
                 }
 
                 return 0 === foundUsers.filter(
-                    ({ userId }) => this.userId !== userId
+                    ({ userId: foundUserId }) => userId !== foundUserId
                 ).length;
             }),
         },

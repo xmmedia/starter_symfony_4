@@ -68,7 +68,7 @@ const {
     user,
     edited,
     v$,
-} = useForm(state);
+} = useForm(state, props.userId);
 
 const verified = ref(true);
 const active = ref(true);

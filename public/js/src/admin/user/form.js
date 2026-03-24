@@ -4,7 +4,7 @@ import { useVuelidate } from '@vuelidate/core';
 import { requiredIf } from '@vuelidate/validators';
 import { addEditedWatcher } from '@/common/lib';
 
-export function useForm (state) {
+export function useForm (state, userId = null) {
     const user = ref({
         email: null,
         setPassword: false,
@@ -17,7 +17,7 @@ export function useForm (state) {
         phoneNumber: null,
     });
 
-    const userValidations = userValidation();
+    const userValidations = userValidation(userId);
     const v$ = useVuelidate({
         user: {
             ...userValidations,
