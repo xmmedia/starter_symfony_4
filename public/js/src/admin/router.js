@@ -58,7 +58,7 @@ const router = createRouter({
                 },
                 {
                     name: 'admin-auth-log-view',
-                    path: ':auth-logId/view',
+                    path: ':authLogId/view',
                     component: () => import('./auth_log/view.vue'),
                     props: true,
                 },
