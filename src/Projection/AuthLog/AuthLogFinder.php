@@ -86,7 +86,7 @@ Query;
         $queryParts = new AuthLogFilterQueryBuilder()->queryParts($filters);
 
         $sql = <<<Query
-SELECT COUNT(a.auth_log_id)
+SELECT COUNT(DISTINCT a.auth_log_id)
 FROM `auth_log` a
 {$queryParts['join']}
 WHERE {$queryParts['where']}
