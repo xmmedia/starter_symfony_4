@@ -21,6 +21,10 @@ type Query {
   "Check if an email is in Postmark suppression list."
   EmailSuppression(email: String!): EmailSuppression!
 
+  AuthLog(authLogId: AuthLogId!): AuthLog
+  AuthLogs(filters: AuthLogFilterInput): [AuthLog!]!
+  AuthLogsCount(filters: AuthLogFilterInput): Int!
+
   "Retrieves the last email used on the login form and the last error from the last auth attempt (from session)."
   AuthLast: AuthLast!
 
@@ -69,6 +73,8 @@ type User {
   isImpersonating: Boolean!
   loginCount: Int!
   lastLogin: DateTime
+  authLogs(offset: Int = 0, limit: Int = 30): [AuthLog!]!
+  authLogsCount: Int!
   userData: UserData
 }
 
@@ -77,6 +83,30 @@ scalar UserId
 
 "Date & time represented as string. The serialized date will be in the RFC3339 format and will include the server timezone (UTC). The input should be a string in a format understood by PHP DateTime constructors and containing the user's timezone. If the input timezone is not included, UTC will be assumed."
 scalar DateTime
+
+type AuthLog {
+  authLogId: AuthLogId!
+  eventType: AuthLogEventType!
+  user: User
+  impersonatedUser: User
+  email: String
+  ipAddress: String!
+  userAgent: String
+  route: String
+  errorMessage: String
+  occurredAt: DateTime!
+}
+
+"A UUID for an AuthLog represented as string."
+scalar AuthLogId
+
+"Authentication event event types."
+enum AuthLogEventType {
+  LOGIN
+  LOGIN_FAILED
+  IMPERSONATION_STARTED
+  IMPERSONATION_ENDED
+}
 
 "Additional data regarding user."
 type UserData {
@@ -112,6 +142,14 @@ type EmailSuppression {
 
   dateAdded: DateTime
   espUrl: String
+}
+
+input AuthLogFilterInput {
+  eventTypes: [AuthLogEventType!]
+  dateFrom: String
+  dateTo: String
+  q: String
+  offset: Int
 }
 
 "The last email & last error after a login attempt."

@@ -133,6 +133,8 @@
                     </template>
                 </AdminDelete>
             </div>
+
+            <AuthLog :user-id="props.userId" />
         </template>
     </template>
 </template>
@@ -158,6 +160,7 @@ import Verify from './component/verify.vue';
 import SendLoginLink from './component/send_login_link.vue';
 import SendReset from './component/send_reset.vue';
 import Impersonate from './component/impersonate.vue';
+import AuthLog from './component/auth_log.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();

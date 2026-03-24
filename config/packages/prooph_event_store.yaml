@@ -13,6 +13,9 @@ prooph_event_store:
             event_store: '@Prooph\EventStore\EventStore'
             connection:  '@app.pdo_connection'
             projections:
+                auth_log_projection:
+                    read_model: App\Projection\AuthLog\AuthLogReadModel
+                    projection: App\Projection\AuthLog\AuthLogProjection
                 auth_projection:
                     read_model: App\Projection\Auth\AuthReadModel
                     projection: App\Projection\Auth\AuthProjection

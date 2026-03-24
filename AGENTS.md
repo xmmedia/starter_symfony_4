@@ -141,7 +141,7 @@ Existing projections: `user_projection`, `auth_projection`
 ### Doctrine Entities (Read Models Only)
 
 Entities in `src/Entity/` are projection read models — never used for domain writes:
-- `User`, `UserToken`
+- `User`, `UserToken`, `AuthLog`
 
 ### Infrastructure Services (`src/Infrastructure/Service/`)
 

@@ -30,6 +30,21 @@ User:
             lastLogin:
                 type:   DateTime
                 access: '@=hasRole("ROLE_ADMIN")'
+            authLogs:
+                type:    '[AuthLog!]!'
+                access:  '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=query("App\\GraphQl\\Query\\User\\AuthLogsQuery", value, args["offset"], args["limit"])'
+                args:
+                    offset:
+                        type:         Int
+                        defaultValue: 0
+                    limit:
+                        type:         Int
+                        defaultValue: 30
+            authLogsCount:
+                type:    Int!
+                access:  '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=query("App\\GraphQl\\Query\\User\\AuthLogsCountQuery", value)'
             userData:  UserData
 
 UserData:

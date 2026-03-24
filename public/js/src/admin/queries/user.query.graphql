@@ -44,6 +44,27 @@ query GetUserViewQuery($userId: UserId!) {
     }
 }
 
+query GetUserAuthLogsQuery($userId: UserId!, $offset: Int, $limit: Int) {
+    User(userId: $userId) {
+        authLogsCount
+        authLogs(offset: $offset, limit: $limit) {
+            eventType
+            user {
+                userId
+                email
+            }
+            impersonatedUser {
+                userId
+                email
+            }
+            ipAddress
+            userAgent
+            errorMessage
+            occurredAt
+        }
+    }
+}
+
 query GetUserQuery($userId: UserId!) {
     User(userId: $userId) {
         userId

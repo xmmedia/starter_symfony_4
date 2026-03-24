@@ -193,11 +193,11 @@ const gqlFilters = computed(() => {
     return filters;
 });
 
-const { loading, onResult, onError, refetch: usersRefetch } = useQuery(GetUsersQuery, {
-    filters: gqlFilters,
-}, {
-    debounce: 500,
-});
+const { loading, onResult, onError, refetch: usersRefetch } = useQuery(
+    GetUsersQuery,
+    { filters: gqlFilters },
+    { debounce: 500 },
+);
 onResult(({ data: { Users }}) => {
     if (!Users) {
         sendEvent({ type: 'ERROR' });
@@ -211,9 +211,11 @@ onError(() => {
     sendEvent({ type: 'ERROR' });
 });
 
-const { result: userCountResult, refetch: userCountRefetch } = useQuery(GetUserCountQuery, {
-    filters: gqlFilters,
-});
+const { result: userCountResult, refetch: userCountRefetch } = useQuery(
+    GetUserCountQuery,
+    { filters: gqlFilters },
+    { debounce: 500 },
+);
 const userCount = computed(() => userCountResult.value?.UserCount);
 
 onMounted(() => {
@@ -253,9 +255,7 @@ const refresh = () => {
 };
 
 const resetFilters = () => {
-    filters.value = {
-        ...defaultFilters,
-    };
+    filters.value = { ...defaultFilters };
     offset.value = 0;
 };
 </script>

@@ -7,11 +7,21 @@ export const useFiltersStore = defineStore('filtersStore', {
             role: 'ALL',
             accountStatus: 'ALL',
         },
+        authLog: {
+            eventType:      'ALL',
+            dateRange:      'LAST_24H',
+            customDateFrom: null,
+            customDateTo:   null,
+            q:              null,
+        },
     }),
 
     actions: {
         setUser (filters) {
             this.user = { ...filters };
+        },
+        setAuthLog (filters) {
+            this.authLog = { ...filters };
         },
     },
 });

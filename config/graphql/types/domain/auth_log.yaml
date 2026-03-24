@@ -1,0 +1,14 @@
+AuthLog:
+    type: object
+    config:
+        fields:
+            authLogId:        AuthLogId!
+            eventType:        AuthLogEventType!
+            user:             User
+            impersonatedUser: User
+            email:            String
+            ipAddress:        String!
+            userAgent:        String
+            route:            String
+            errorMessage:     String
+            occurredAt:       DateTime!

@@ -1,0 +1,34 @@
+fragment AuthLogFields on AuthLog {
+    authLogId
+    eventType
+    user {
+        userId
+        email
+    }
+    impersonatedUser {
+        userId
+        email
+    }
+    email
+    ipAddress
+    userAgent
+    errorMessage
+    occurredAt
+}
+
+query GetAuthLogQuery($authLogId: AuthLogId!) {
+    AuthLog(authLogId: $authLogId) {
+        ...AuthLogFields
+        route
+    }
+}
+
+query GetAuthLogsQuery($filters: AuthLogFilterInput) {
+    AuthLogs(filters: $filters) {
+        ...AuthLogFields
+    }
+}
+
+query GetAuthLogsCountQuery($filters: AuthLogFilterInput) {
+    AuthLogsCount(filters: $filters)
+}

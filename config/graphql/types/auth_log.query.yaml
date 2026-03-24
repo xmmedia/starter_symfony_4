@@ -1,0 +1,35 @@
+AuthLogQuery:
+    decorator: true
+    heirs: [ Query ]
+    config:
+        fields:
+            AuthLog:
+                type:    AuthLog
+                access:  '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=query("App\\GraphQl\\Query\\AuthLog\\AuthLogQuery", args["authLogId"])'
+                args:
+                    authLogId: AuthLogId!
+
+            AuthLogs:
+                type:    '[AuthLog!]!'
+                access:  '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=query("App\\GraphQl\\Query\\AuthLog\\AuthLogsQuery", args["filters"])'
+                args:
+                    filters: AuthLogFilterInput
+
+            AuthLogsCount:
+                type:    Int!
+                access:  '@=hasRole("ROLE_ADMIN")'
+                resolve: '@=query("App\\GraphQl\\Query\\AuthLog\\AuthLogsCountQuery", args["filters"])'
+                args:
+                    filters: AuthLogFilterInput
+
+AuthLogFilterInput:
+    type: input-object
+    config:
+        fields:
+            eventTypes: '[AuthLogEventType!]'
+            dateFrom:   String
+            dateTo:     String
+            q:          String
+            offset:     Int

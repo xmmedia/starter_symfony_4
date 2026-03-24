@@ -69,7 +69,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
                 $faker->ipv4(),
                 'app_login',
             ),
-            ['auth_projection'],
+            ['auth_projection', 'auth_log_projection'],
         ];
     }
 
@@ -150,6 +150,9 @@ class RunProjectionMiddlewareTest extends BaseTestCase
         $projectionRunner->shouldReceive('run')
             ->once()
             ->with('auth_projection');
+        $projectionRunner->shouldReceive('run')
+            ->once()
+            ->with('auth_log_projection');
 
         $middleware = new RunProjectionMiddleware($projectionRunner);
         $middleware->pause();

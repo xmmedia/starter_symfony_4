@@ -75,9 +75,17 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     #[ORM\OneToMany(targetEntity: UserToken::class, mappedBy: 'user')]
     private array|Collection $tokens;
 
+    /**
+     * @var AuthLog[]|Collection|ArrayCollection
+     */
+    #[ORM\OneToMany(targetEntity: AuthLog::class, mappedBy: 'user')]
+    #[ORM\OrderBy(['occurredAt' => 'DESC'])]
+    private array|Collection $authLogs;
+
     public function __construct()
     {
         $this->tokens = new ArrayCollection();
+        $this->authLogs = new ArrayCollection();
     }
 
     public function userId(): UserId
@@ -197,6 +205,14 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
         }
 
         return UserData::fromArray($this->userData);
+    }
+
+    /**
+     * @return AuthLog[]|Collection
+     */
+    public function authLogs(): array|Collection
+    {
+        return $this->authLogs;
     }
 
     /**
