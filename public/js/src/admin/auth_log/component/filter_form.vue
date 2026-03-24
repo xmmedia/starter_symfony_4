@@ -126,7 +126,9 @@ const dateRangeLabel = computed(() => {
         case 'LAST_MONTH':
             return `${fmtDateTime(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000))} – ${fmtDateTime(now)}`;
         case 'CUSTOM':
-            if (!filters.value.customDateFrom || !filters.value.customDateTo) return null;
+            if (!filters.value.customDateFrom || !filters.value.customDateTo) {
+                return null;
+            }
 
             return `${fmtDate(new Date(filters.value.customDateFrom + 'T00:00:00'))} –
                 ${fmtDate(new Date(filters.value.customDateTo + 'T00:00:00'))}`;
