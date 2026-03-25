@@ -36,15 +36,13 @@
                         </div>
                         <div v-if="item.impersonatedUser" class="text-sm text-gray-500">
                             <template v-if="item.impersonatedUser.userId === props.userId">
-                                By <router-link :to="{ name: 'admin-user-view', params: { userId: item.user.userId } }">
-                                    {{ item.user.email }}
+                                by <router-link :to="userViewRoute(item)">{{ item.user.email }}</router-link>
+                            </template>
+                            <template v-else>→
+                                <router-link :to="userViewRoute(item.impersonatedUser)">
+                                    {{ item.impersonatedUser.email }}
                                 </router-link>
                             </template>
-                            <router-link v-else
-                                         :to="{ name: 'admin-user-view',
-                                                params: { userId: item.impersonatedUser.userId } }">
-                                {{ item.impersonatedUser.email }}
-                            </router-link>
                         </div>
                         <div v-else-if="'LOGIN' !== item.eventType && item.email" class="text-sm text-gray-500">
                             {{ item.email }}
@@ -135,4 +133,6 @@ onError((error) => {
     logError(error);
     sendEvent({ type: 'ERROR' });
 });
+
+const userViewRoute = (user) => ({ name: 'admin-user-view', params: { userId: user.userId } });
 </script>
