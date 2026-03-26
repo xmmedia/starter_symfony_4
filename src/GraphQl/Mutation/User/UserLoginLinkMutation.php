@@ -30,7 +30,9 @@ final readonly class UserLoginLinkMutation implements MutationInterface
         }
 
         if (!$this->testing) {
+            // @codeCoverageIgnoreStart
             sleep(random_int(0, 3));
+            // @codeCoverageIgnoreEnd
         }
 
         $user = $this->userFinder->findOneByEmail(Email::fromString(mb_strtolower($args['email'])));

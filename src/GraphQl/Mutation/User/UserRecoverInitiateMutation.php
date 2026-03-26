@@ -25,7 +25,9 @@ final readonly class UserRecoverInitiateMutation implements MutationInterface
     public function __invoke(Argument $args): array
     {
         if (!$this->testing) {
+            // @codeCoverageIgnoreStart
             sleep(random_int(0, 3));
+            // @codeCoverageIgnoreEnd
         }
 
         $user = $this->userFinder->findOneByEmail(

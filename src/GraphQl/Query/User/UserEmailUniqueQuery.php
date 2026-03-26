@@ -27,7 +27,9 @@ final readonly class UserEmailUniqueQuery implements QueryInterface
         $currentUser = $this->security->getUser();
 
         if (!$currentUser && !$this->testing) {
+            // @codeCoverageIgnoreStart
             sleep(random_int(0, 5));
+            // @codeCoverageIgnoreEnd
         }
 
         $user = $this->userFinder->findOneByEmail(Email::fromString(mb_strtolower($email)));
