@@ -133,7 +133,7 @@ final class AddUserCommand extends Command
                 $results['resetUrl'] = $resetUrl;
             }
 
-            $io->write(Json::encode($results));
+            $io->write(Json::encode($results), false, OutputInterface::OUTPUT_RAW);
 
             return self::SUCCESS;
         }
