@@ -70,6 +70,28 @@ const router = createRouter({
         },
 
         {
+            path: '/admin/messenger-queue',
+            component: () => import('./messenger_queue/index.vue'),
+            children: [
+                {
+                    name: 'admin-messenger-queue',
+                    path: '',
+                    component: () => import('./messenger_queue/list.vue'),
+                },
+                {
+                    name: 'admin-messenger-queue-view',
+                    path: ':id/view',
+                    component: () => import('./messenger_queue/view.vue'),
+                    props: true,
+                },
+            ],
+            meta: {
+                requiresAuth: true,
+                role: 'ROLE_SUPER_ADMIN',
+            },
+        },
+
+        {
             path: '/admin/pattern-library',
             name: 'pattern-library',
             component: () => import('./pattern_library/index.vue'),

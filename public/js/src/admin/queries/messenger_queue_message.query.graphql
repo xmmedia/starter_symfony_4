@@ -1,0 +1,24 @@
+fragment MessengerQueueMessageFields on MessengerQueueMessage {
+    id
+    queueName
+    messageClass
+    createdAt
+    availableAt
+    deliveredAt
+}
+
+query GetMessengerQueueMessageQuery($id: Int!) {
+    MessengerQueueMessage(id: $id) {
+        ...MessengerQueueMessageFields
+    }
+}
+
+query GetMessengerQueueMessagesQuery($filters: MessengerQueueMessageFilterInput) {
+    MessengerQueueMessages(filters: $filters) {
+        ...MessengerQueueMessageFields
+    }
+}
+
+query GetMessengerQueueMessageCountQuery($filters: MessengerQueueMessageFilterInput) {
+    MessengerQueueMessageCount(filters: $filters)
+}

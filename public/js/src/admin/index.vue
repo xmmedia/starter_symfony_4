@@ -105,8 +105,9 @@ useHead({
 });
 
 const adminMenuItems = ref({
-    'Users':            'admin-user',
+    'Users':              'admin-user',
     'Authentication Log': 'admin-auth-log',
+    'Messenger Queue':    'admin-messenger-queue',
 });
 
 const ready = computed(() => rootStore.ready);

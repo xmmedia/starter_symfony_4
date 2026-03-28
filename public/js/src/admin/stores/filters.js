@@ -9,6 +9,9 @@ export const useFiltersStore = defineStore('filtersStore', {
             customDateTo:   null,
             q:              null,
         },
+        messengerQueue: {
+            queueName: 'ALL',
+        },
         user: {
             q: null,
             role: 'ALL',
@@ -19,6 +22,9 @@ export const useFiltersStore = defineStore('filtersStore', {
     actions: {
         setAuthLog (filters) {
             this.authLog = { ...filters };
+        },
+        setMessengerQueue (filters) {
+            this.messengerQueue = { ...filters };
         },
         setUser (filters) {
             this.user = { ...filters };

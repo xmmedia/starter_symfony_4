@@ -1,0 +1,17 @@
+MessengerQueueMessage:
+    type: object
+    config:
+        description: 'A message stored in the Symfony Messenger Doctrine transport.'
+        fields:
+            id:           Int!
+            queueName:    String!
+            messageClass:
+                type:        String
+                description: 'The fully-qualified class name of the dispatched message, extracted from the serialized envelope.'
+            createdAt:    DateTime!
+            availableAt:
+                type:        DateTime!
+                description: 'When the message becomes available for a worker to process. May be in the future for delayed messages.'
+            deliveredAt:
+                type:        DateTime
+                description: 'When the message was picked up by a worker. Null if not yet consumed.'

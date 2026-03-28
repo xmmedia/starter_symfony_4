@@ -1,0 +1,36 @@
+MessengerQueueMessageQuery:
+    decorator: true
+    heirs: [ Query ]
+    config:
+        fields:
+            MessengerQueueMessage:
+                type:        MessengerQueueMessage
+                description: 'Retrieve a single Messenger queue message by ID.'
+                access:      '@=hasRole("ROLE_SUPER_ADMIN")'
+                resolve:     '@=query("App\\GraphQl\\Query\\MessengerQueue\\MessengerQueueMessageQuery", args["id"])'
+                args:
+                    id: Int!
+
+            MessengerQueueMessages:
+                type:        '[MessengerQueueMessage!]!'
+                description: 'Retrieve all Messenger queue messages or a subset based on the passed filters.'
+                access:      '@=hasRole("ROLE_SUPER_ADMIN")'
+                resolve:     '@=query("App\\GraphQl\\Query\\MessengerQueue\\MessengerQueueMessagesQuery", args["filters"])'
+                args:
+                    filters: MessengerQueueMessageFilterInput
+
+            MessengerQueueMessageCount:
+                type:        Int!
+                description: 'Retrieve the Messenger queue message count.'
+                access:      '@=hasRole("ROLE_SUPER_ADMIN")'
+                resolve:     '@=query("App\\GraphQl\\Query\\MessengerQueue\\MessengerQueueMessageCountQuery", args["filters"])'
+                args:
+                    filters: MessengerQueueMessageFilterInput
+
+MessengerQueueMessageFilterInput:
+    type: input-object
+    config:
+        description: 'Available filters for querying Messenger queue messages. Any passed fields will be applied if not empty. Exclude the key/field to skip that filter.'
+        fields:
+            queueName: String
+            offset:    Int

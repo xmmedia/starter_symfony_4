@@ -31,6 +31,15 @@ type Query {
   "Retrieve all Countries."
   Countries: [Country!]!
 
+  "Retrieve a single Messenger queue message by ID."
+  MessengerQueueMessage(id: Int!): MessengerQueueMessage
+
+  "Retrieve all Messenger queue messages or a subset based on the passed filters."
+  MessengerQueueMessages(filters: MessengerQueueMessageFilterInput): [MessengerQueueMessage!]!
+
+  "Retrieve the Messenger queue message count."
+  MessengerQueueMessageCount(filters: MessengerQueueMessageFilterInput): Int!
+
   "Retrieve all Provinces."
   Provinces: [Province!]!
 
@@ -161,6 +170,29 @@ type AuthLast {
 type Country {
   name: String!
   abbreviation: String!
+}
+
+"A message stored in the Symfony Messenger Doctrine transport."
+type MessengerQueueMessage {
+  id: Int!
+  queueName: String!
+
+  "The fully-qualified class name of the dispatched message, extracted from the serialized envelope."
+  messageClass: String
+
+  createdAt: DateTime!
+
+  "When the message becomes available for a worker to process. May be in the future for delayed messages."
+  availableAt: DateTime!
+
+  "When the message was picked up by a worker. Null if not yet consumed."
+  deliveredAt: DateTime
+}
+
+"Available filters for querying Messenger queue messages. Any passed fields will be applied if not empty. Exclude the key/field to skip that filter."
+input MessengerQueueMessageFilterInput {
+  queueName: String
+  offset: Int
 }
 
 type Province {
