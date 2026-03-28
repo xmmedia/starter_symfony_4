@@ -29,7 +29,7 @@
             </div>
             <div class="record_view-item">
                 <div class="record_view-item_label">Queue</div>
-                <div class="record_view-item_value">{{ message.queueName }}</div>
+                <div class="record_view-item_value">{{ queueNameLabels[message.queueName] ?? message.queueName }}</div>
             </div>
             <div class="record_view-item">
                 <div class="record_view-item_label">Message Class</div>
@@ -69,6 +69,8 @@ import { useQuery } from '@vue/apollo-composable';
 import { view as stateMachineConfig } from '@/common/state_machines';
 import { GetMessengerQueueMessageQuery } from '@/admin/queries/messenger_queue_message.query.graphql';
 import { logError } from '@/common/lib';
+
+const queueNameLabels = { default: 'Queued', failed: 'Failed' };
 
 const props = defineProps({
     id: {

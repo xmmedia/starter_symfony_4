@@ -1,5 +1,5 @@
 <template>
-    <form class="form-wrap w-full max-w-5xl" method="post" @submit.prevent>
+    <form class="form-wrap" method="post" @submit.prevent>
         <div class="flex gap-8">
             <FieldRadios v-model="filters.queueName" :values="queueNameOptions" :pills="true">
                 Queue
@@ -36,8 +36,8 @@ const filters = computed({
 });
 
 const queueNameOptions = [
-    { value: 'ALL',    label: 'All' },
-    { value: 'async',  label: 'Async' },
+    { value: 'ALL', label: 'All' },
+    { value: 'default', label: 'Queued' },
     { value: 'failed', label: 'Failed' },
 ];
 </script>

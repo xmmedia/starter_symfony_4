@@ -18,7 +18,7 @@
 
         <template v-if="state.matches('loaded')">
             <div v-if="!messages.length" class="italic text-center">
-                No records found.
+                No queued messages found.
             </div>
             <template v-else>
                 <Pagination route-name="admin-messenger-queue"
@@ -38,10 +38,13 @@
                         {{ item.id }}
                     </template>
                     <template #col2="{ item }">
-                        {{ item.queueName }}
+                        {{ queueName(item.queueName) }}
                     </template>
                     <template #col3="{ item }">
-                        <div class="font-mono text-sm break-all">{{ item.messageClass ?? '–' }}</div>
+                        <div class="font-mono text-sm break-all">
+                            <span class="hidden xl:inline">{{ item.messageClass ?? '–' }}</span>
+                            <span class="xl:hidden">{{ item.messageClass ? item.messageClass.split('\\').at(-1) : '–' }}</span>
+                        </div>
                     </template>
                     <template #col4="{ item }">
                         <LocalTime :datetime="item.createdAt" />
@@ -151,8 +154,10 @@ const appliedFilters = computed(() => {
 const gqlFilters = computed(() => {
     const f = { offset: offset.value };
 
+    const queueNameMap = { default: 'default', failed: 'failed' };
+
     if (filters.value.queueName && 'ALL' !== filters.value.queueName) {
-        f.queueName = filters.value.queueName;
+        f.queueName = queueNameMap[filters.value.queueName];
     }
 
     return f;
@@ -223,4 +228,7 @@ const resetFilters = () => {
     filters.value = { ...defaultFilters };
     offset.value = 0;
 };
+
+const queueNameLabels = { default: 'Queued', failed: 'Failed' };
+const queueName = (name) => queueNameLabels[name] ?? name;
 </script>
