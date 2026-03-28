@@ -62,8 +62,8 @@ class UserFailedToLogin extends AggregateChanged
     public function userId(): ?UserId
     {
         if (!isset($this->userId)) {
-            // @todo-symfony remove array_key_exists check (& test) if this is a new project
-            if (\array_key_exists('userId', $this->payload) && null !== $this->payload['userId']) {
+            // @todo-symfony remove null coalescing (& related test) if this is a new project
+            if (null !== ($this->payload['userId'] ?? null)) {
                 $this->userId = UserId::fromString($this->payload['userId']);
             } else {
                 $this->userId = null;
