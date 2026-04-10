@@ -43,6 +43,7 @@
                     <template #col3="{ item }">
                         <div class="font-mono text-sm break-all">
                             <span class="hidden xl:inline">{{ item.messageClass ?? '–' }}</span>
+                            <!-- eslint-disable-next-line max-len -->
                             <span class="xl:hidden">{{ item.messageClass ? item.messageClass.split('\\').at(-1) : '–' }}</span>
                         </div>
                     </template>
