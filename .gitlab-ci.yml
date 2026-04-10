@@ -15,7 +15,7 @@ cache:
     - node_modules/
 
 variables:
-  SERVER_PHP_PATH: php83
+  SERVER_PHP_PATH: php84
   APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
@@ -79,7 +79,7 @@ before_script:
   # switch to new version
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ln -sfn $RELEASE $REMOTE_BASE/current"
   # reload php-fpm (to reset cache)
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "sudo /bin/systemctl reload php82-php-fpm"
+  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "sudo /bin/systemctl reload php84-php-fpm"
   # stop/restart the doctrine message customers
   - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; $SERVER_PHP_PATH bin/console messenger:stop-workers"
   # run migrations
