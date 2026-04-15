@@ -3089,16 +3089,16 @@
         },
         {
             "name": "overblog/graphql-bundle",
-            "version": "v1.9.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overblog/GraphQLBundle.git",
-                "reference": "76d9709f3a09d9f5bf637cd81a056af8b504132c"
+                "reference": "6c49418a4cb9aa1d6e6ac870f18aeb698d605bb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/76d9709f3a09d9f5bf637cd81a056af8b504132c",
-                "reference": "76d9709f3a09d9f5bf637cd81a056af8b504132c",
+                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/6c49418a4cb9aa1d6e6ac870f18aeb698d605bb9",
+                "reference": "6c49418a4cb9aa1d6e6ac870f18aeb698d605bb9",
                 "shasum": ""
             },
             "require": {
@@ -3183,9 +3183,9 @@
             ],
             "support": {
                 "issues": "https://github.com/overblog/GraphQLBundle/issues",
-                "source": "https://github.com/overblog/GraphQLBundle/tree/v1.9.0"
+                "source": "https://github.com/overblog/GraphQLBundle/tree/v1.10.0"
             },
-            "time": "2026-01-29T07:39:51+00:00"
+            "time": "2026-04-13T07:00:36+00:00"
         },
         {
             "name": "pentatrion/vite-bundle",
