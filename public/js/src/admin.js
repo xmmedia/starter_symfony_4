@@ -55,7 +55,7 @@ apolloClient.query({ query: MeQuery })
 
         const app = createApp(App);
 
-        if (import.meta.env.PROD) {
+        if (import.meta.env.PROD && import.meta.env.VITE_SENTRY_DSN) {
             Sentry.init({
                 app,
                 dsn: import.meta.env.VITE_SENTRY_DSN,
