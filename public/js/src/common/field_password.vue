@@ -1,7 +1,7 @@
 <template>
     <div class="field-wrap">
         <slot :id="id" name="label">
-            <label :for="id"><slot>Password</slot></label>
+            <label :for="id" :class="labelClasses"><slot>Password</slot></label>
         </slot>
         <slot name="errors"></slot>
 
@@ -14,6 +14,7 @@
                    :autocomplete="autocomplete"
                    :data-1p-ignore="'off' === autocomplete"
                    :name="name"
+                   :class="inputClasses"
                    class="pr-10 mb-1"
                    autocapitalize="off"
                    autocorrect="off"
@@ -80,6 +81,14 @@ const props = defineProps({
     iconComponent: {
         type: String,
         default: 'AdminIcon',
+    },
+    inputClasses: {
+        type: [ String, Array, Object ],
+        default: null,
+    },
+    labelClasses: {
+        type: [ String, Array, Object ],
+        default: null,
     },
     id: {
         type: String,
