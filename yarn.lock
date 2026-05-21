@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 8
+  version: 10
   cacheKey: 10
 
 "@acemir/cssom@npm:^0.9.28":
@@ -7269,6 +7269,9 @@ __metadata:
     vue-router: "npm:^4.0.0"
     vuedraggable: "npm:^4.1.0"
     xstate: "npm:^5.4.0"
+  dependenciesMeta:
+    core-js:
+      built: true
   languageName: unknown
   linkType: soft
 

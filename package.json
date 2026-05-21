@@ -95,5 +95,10 @@
     "vitest": "^4.0.7",
     "vue-eslint-parser": "^10.0.0"
   },
-  "packageManager": "yarn@4.13.0"
+  "dependenciesMeta": {
+    "core-js": {
+      "built": true
+    }
+  },
+  "packageManager": "yarn@4.15.0"
 }
