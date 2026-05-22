@@ -7,7 +7,7 @@ declare(strict_types=1);
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->append(['.php-cs-fixer.dist.php']) // include this file as well
-    ->exclude('config/reference.php')
+    ->notPath('config/reference.php')
     ->exclude('var')
     ->exclude('cache')
     // exclude next two because of the size of these dirs
