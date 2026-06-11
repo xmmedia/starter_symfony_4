@@ -3,8 +3,8 @@ import { apolloClient } from '@/common/apollo';
 import userValidation from '@/common/validation/user';
 import { UserPasswordValid } from '@/user/queries/user.query.graphql';
 
-export default (userData = []) => {
-    const validations = userValidation(userData);
+export default () => {
+    const validations = userValidation();
 
     return {
         email: validations.email,
