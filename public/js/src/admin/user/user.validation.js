@@ -51,6 +51,5 @@ export default (userId = null) => {
             required,
         },
         phoneNumber: validations.phoneNumber,
-        // no phone number or position validation because of old data
     };
 };
