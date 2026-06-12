@@ -84,10 +84,7 @@ class Money implements ValueObject, \Stringable
         return new IntlMoneyFormatter($numberFormatter, new ISOCurrencies());
     }
 
-    /**
-     * @param self $other
-     */
-    public function sameValueAs(ValueObject $other): bool
+    public function sameValueAs(self|ValueObject $other): bool
     {
         if (static::class !== $other::class) {
             return false;

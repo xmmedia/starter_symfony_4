@@ -12,6 +12,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Scheb\TwoFactorBundle\Model\Totp\TotpConfiguration;
+use Scheb\TwoFactorBundle\Model\Totp\TotpConfigurationInterface;
+use Scheb\TwoFactorBundle\Model\Totp\TwoFactorInterface as TotpTwoFactorInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -19,7 +22,7 @@ use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Util\StringUtil;
 
 #[ORM\Entity(repositoryClass: \App\Projection\User\UserFinder::class, readOnly: true)]
-class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUserInterface, TotpTwoFactorInterface
 {
     /**
      * @var \Ramsey\Uuid\Uuid
@@ -69,6 +72,12 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $userData = null;
 
+    /** Injected from user_totp table by UserTotpInjector (not a mapped column). */
+    private ?string $totpSecret = null;
+
+    /** Injected from user_totp table by UserTotpInjector (not a mapped column). */
+    private ?string $totpPendingSecret = null;
+
     /**
      * @var UserToken[]|Collection|ArrayCollection
      */
@@ -82,10 +91,18 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     #[ORM\OrderBy(['occurredAt' => 'DESC'])]
     private array|Collection $authLogs;
 
+    /**
+     * @var WebAuthnCredential[]|Collection|ArrayCollection
+     */
+    #[ORM\OneToMany(targetEntity: WebAuthnCredential::class, mappedBy: 'user')]
+    #[ORM\OrderBy(['createdAt' => 'ASC'])]
+    private array|Collection $passkeys;
+
     public function __construct()
     {
         $this->tokens = new ArrayCollection();
         $this->authLogs = new ArrayCollection();
+        $this->passkeys = new ArrayCollection();
     }
 
     public function userId(): UserId
@@ -213,6 +230,46 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     public function authLogs(): array|Collection
     {
         return $this->authLogs;
+    }
+
+    /**
+     * @return WebAuthnCredential[]|Collection
+     */
+    public function passkeys(): array|Collection
+    {
+        return $this->passkeys;
+    }
+
+    public function setTotpData(?string $totpSecret, ?string $totpPendingSecret): void
+    {
+        $this->totpSecret = $totpSecret;
+        $this->totpPendingSecret = $totpPendingSecret;
+    }
+
+    public function totpPendingSecret(): ?string
+    {
+        return $this->totpPendingSecret;
+    }
+
+    // TotpAuthenticatorInterface
+
+    public function isTotpAuthenticationEnabled(): bool
+    {
+        return null !== $this->totpSecret;
+    }
+
+    public function getTotpAuthenticationUsername(): string
+    {
+        return $this->email;
+    }
+
+    public function getTotpAuthenticationConfiguration(): ?TotpConfigurationInterface
+    {
+        if (null === $this->totpSecret) {
+            return null;
+        }
+
+        return new TotpConfiguration($this->totpSecret, TotpConfiguration::ALGORITHM_SHA1, 30, 6);
     }
 
     /**

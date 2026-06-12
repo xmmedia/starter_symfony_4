@@ -1,0 +1,9 @@
+2fa_login:
+    path: /2fa
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        template: user.html.twig
+    methods: [GET]
+
+2fa_login_check:
+    path: /2fa_check

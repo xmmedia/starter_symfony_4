@@ -1,0 +1,7 @@
+scheb_two_factor:
+    totp:
+        enabled: true
+        issuer: '%env(RELYING_PARTY_NAME)%'
+        server_name: '%env(RELYING_PARTY_NAME)%'
+    # Passkey logins are skipped via PasskeySkips2FA condition (passkeys include user verification)
+    two_factor_condition: App\Security\PasskeySkips2FA

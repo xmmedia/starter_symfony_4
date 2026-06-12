@@ -17,6 +17,7 @@ final class UserReadModel extends AbstractReadModel
     public function init(): void
     {
         $this->initUserTable();
+        $this->initUserTotpTable();
     }
 
     protected function insert(array $data, array $types = []): void
@@ -37,6 +38,34 @@ final class UserReadModel extends AbstractReadModel
     protected function remove(string $userId): void
     {
         $this->connection->delete(self::TABLE, ['user_id' => $userId]);
+    }
+
+    protected function totpSetupRequested(string $userId, string $pendingSecret): void
+    {
+        $this->connection->executeStatement(
+            \sprintf(
+                'INSERT INTO `%s` (`user_id`, `totp_pending_secret`) VALUES (:userId, :pendingSecret)
+                 ON DUPLICATE KEY UPDATE `totp_pending_secret` = :pendingSecret',
+                Table::USER_TOTP,
+            ),
+            ['userId' => $userId, 'pendingSecret' => $pendingSecret],
+        );
+    }
+
+    protected function totpEnable(string $userId): void
+    {
+        $this->connection->executeStatement(
+            \sprintf(
+                'UPDATE `%s` SET `totp_secret` = `totp_pending_secret`, `totp_pending_secret` = NULL WHERE `user_id` = :userId',
+                Table::USER_TOTP,
+            ),
+            ['userId' => $userId],
+        );
+    }
+
+    protected function totpDelete(string $userId): void
+    {
+        $this->connection->delete(Table::USER_TOTP, ['user_id' => $userId]);
     }
 
     private function initUserTable(): void
@@ -66,6 +95,22 @@ ALTER TABLE `{$tableName}`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `email` (`email`) USING BTREE;
 EOT;
+        $this->connection->executeQuery($sql);
+    }
+
+    private function initUserTotpTable(): void
+    {
+        $tableName = Table::USER_TOTP;
+
+        $sql = <<<EOT
+CREATE TABLE IF NOT EXISTS `{$tableName}` (
+  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
+  `totp_secret` varchar(191) COLLATE utf8mb4_bin DEFAULT NULL,
+  `totp_pending_secret` varchar(191) COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+EOT;
+
         $this->connection->executeQuery($sql);
     }
 }

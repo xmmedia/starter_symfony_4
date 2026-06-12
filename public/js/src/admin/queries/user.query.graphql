@@ -41,6 +41,13 @@ query GetUserViewQuery($userId: UserId!) {
                 extension
             }
         }
+        twoFactorEnabled
+        passkeys {
+            passkeyId
+            name
+            createdAt
+            lastUsedAt
+        }
     }
 }
 

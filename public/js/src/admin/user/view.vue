@@ -101,6 +101,20 @@
                     </div>
                     <div class="record_view-item_value">{{ requestLoginLink }}</div>
                 </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">Two-Factor Auth</div>
+                    <div class="record_view-item_value">
+                        <span v-if="user.twoFactorEnabled" class="text-green-600 font-medium">Enabled</span>
+                        <span v-else class="text-gray-400">Disabled</span>
+                    </div>
+                </div>
+                <div class="record_view-item">
+                    <div class="record_view-item_label">Passkeys</div>
+                    <div class="record_view-item_value">
+                        <span v-if="user.passkeys.length">{{ user.passkeys.length }} registered</span>
+                        <span v-else class="text-gray-400">None</span>
+                    </div>
+                </div>
             </div>
 
             <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-x-8 gap-y-4 mt-16">

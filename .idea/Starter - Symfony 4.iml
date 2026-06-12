@@ -219,6 +219,17 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/marc-mabe/php-enum-phpstan" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/staabm/side-effects-detector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/type-info" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/scheb/2fa-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/scheb/2fa-totp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spomky-labs/cbor-php" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spomky-labs/otphp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spomky-labs/pki-framework" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/uid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/web-auth/cose-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/web-auth/webauthn-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/web-auth/webauthn-symfony-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

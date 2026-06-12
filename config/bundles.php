@@ -19,6 +19,8 @@ return [
     Pentatrion\ViteBundle\PentatrionViteBundle::class                        => ['all' => true],
     Nelmio\CorsBundle\NelmioCorsBundle::class                                => ['all' => true],
     SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
+    Scheb\TwoFactorBundle\SchebTwoFactorBundle::class                        => ['all' => true],
+    Webauthn\Bundle\WebauthnBundle::class                                    => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class                            => ['dev' => true],
     Overblog\GraphiQLBundle\OverblogGraphiQLBundle::class                    => ['dev' => true],
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class                => ['dev' => true, 'test' => true],

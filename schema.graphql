@@ -85,6 +85,8 @@ type User {
   authLogs(offset: Int = 0, limit: Int = 30): [AuthLog!]!
   authLogsCount: Int!
   userData: UserData
+  twoFactorEnabled: Boolean!
+  passkeys: [Passkey!]!
 }
 
 "A UUID for a User represented as string."
@@ -126,6 +128,14 @@ type UserData {
 type PhoneNumber {
   phoneNumber: String!
   extension: String
+}
+
+"A registered passkey (WebAuthn credential)."
+type Passkey {
+  passkeyId: ID!
+  name: String
+  createdAt: DateTime!
+  lastUsedAt: DateTime
 }
 
 type UserEmailUnique {
@@ -206,6 +216,18 @@ type Mutation {
   "Update User profile."
   UserUpdateProfile(user: UserUpdateProfileInput!): UserMutationPayload!
 
+  "Delete a passkey."
+  PasskeyDelete(passkeyId: ID!): UserMutationPayload!
+
+  "Request TOTP 2FA setup — returns secret and QR code URL."
+  UserRequestTotpSetup: UserTotpSetupPayload!
+
+  "Confirm TOTP 2FA setup with a valid code to activate it."
+  UserConfirmTotpSetup(code: String!): UserMutationPayload!
+
+  "Disable TOTP 2FA by providing a valid code."
+  UserDisableTotp(code: String!): UserMutationPayload!
+
   "Send a magic login link to the user."
   UserLoginLink(email: String!): UserResultPayload!
 
@@ -265,6 +287,12 @@ input UserDataInput {
 "User mutation payload."
 type UserMutationPayload {
   success: Boolean!
+}
+
+"TOTP setup payload containing the secret and QR code URL."
+type UserTotpSetupPayload {
+  otpauthUrl: String!
+  manualKey: String!
 }
 
 "Payload of a User mutation."

@@ -76,6 +76,32 @@ const router = createRouter({
             },
         },
 
+        {
+            path: '/profile/passkeys',
+            redirect: '/profile/security/2fa',
+        },
+        {
+            path: '/profile/security',
+            component: () => import('./profile_security/index.vue'),
+            redirect: '/profile/security/2fa',
+            children: [
+                {
+                    name: 'user-profile-security',
+                    path: '2fa',
+                    component: () => import('./profile_security/security.vue'),
+                },
+            ],
+            meta: {
+                requiresAuth: true,
+                role: 'ROLE_USER',
+            },
+        },
+        {
+            name: '2fa',
+            path: '/2fa',
+            component: () => import('./two_factor/index.vue'),
+        },
+
         // *********************************************************************
         // ERRORS
         // *********************************************************************

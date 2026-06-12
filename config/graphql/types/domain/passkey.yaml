@@ -1,0 +1,17 @@
+Passkey:
+    type: object
+    config:
+        description: 'A registered passkey (WebAuthn credential).'
+        fields:
+            passkeyId:
+                type:    ID!
+                resolve: '@=value.credentialId()'
+            name:
+                type:    String
+                resolve: '@=value.name()'
+            createdAt:
+                type:    DateTime!
+                resolve: '@=value.createdAt()'
+            lastUsedAt:
+                type:    DateTime
+                resolve: '@=value.lastUsedAt()'

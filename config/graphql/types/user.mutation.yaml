@@ -11,6 +11,36 @@ UserMutation:
                 args:
                     user: UserUpdateProfileInput!
 
+            PasskeyDelete:
+                type:        UserMutationPayload!
+                description: 'Delete a passkey.'
+                access:      '@=isAuthenticated()'
+                resolve:     '@=mutation("App\\GraphQl\\Mutation\\Passkey\\PasskeyDeleteMutation", args)'
+                args:
+                    passkeyId: ID!
+
+            UserRequestTotpSetup:
+                type:        UserTotpSetupPayload!
+                description: 'Request TOTP 2FA setup — returns secret and QR code URL.'
+                access:      '@=isAuthenticated()'
+                resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\UserRequestTotpSetupMutation", args)'
+
+            UserConfirmTotpSetup:
+                type:        UserMutationPayload!
+                description: 'Confirm TOTP 2FA setup with a valid code to activate it.'
+                access:      '@=isAuthenticated()'
+                resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\UserConfirmTotpSetupMutation", args)'
+                args:
+                    code: String!
+
+            UserDisableTotp:
+                type:        UserMutationPayload!
+                description: 'Disable TOTP 2FA by providing a valid code.'
+                access:      '@=isAuthenticated()'
+                resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\UserDisableTotpMutation", args)'
+                args:
+                    code: String!
+
             UserLoginLink:
                 type:        UserResultPayload!
                 description: 'Send a magic login link to the user.'
@@ -224,3 +254,11 @@ UserDeleteMutationPayload:
         description: 'User delete mutation payload.'
         fields:
             success: Boolean!
+
+UserTotpSetupPayload:
+    type: object
+    config:
+        description: 'TOTP setup payload containing the secret and QR code URL.'
+        fields:
+            otpauthUrl: String!
+            manualKey:  String!

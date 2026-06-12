@@ -24,6 +24,21 @@
                     :title="!emailIsValid ? 'Enter your email to continue' : null">
                 Continue
             </button>
+
+            <div v-if="passkeySupported" class="flex items-center justify-center gap-x-4 my-6 text-fs-gray-500">
+                <hr class="grow">
+                Or
+                <hr class="grow">
+            </div>
+
+            <button v-if="passkeySupported"
+                    type="button"
+                    class="button w-full bg-fs-gray-300 border-fs-gray-300"
+                    :disabled="state.matches('passkey')"
+                    @click="signInWithPasskey(null)">
+                <LoadingSpinner v-if="state.matches('passkey')" spinner-classes="bg-white" />
+                <template v-else>Sign in with a passkey</template>
+            </button>
         </form>
 
         <!-- posts back the current url -->
@@ -66,7 +81,16 @@
                 <template v-else>Sign in with a link instead</template>
             </button>
 
-            <p class="text-center text-sm">Go passwordless! We’ll send you an email.</p>
+            <p class="text-center text-sm">Go passwordless! We'll send you an email.</p>
+
+            <button v-if="passkeySupported"
+                    type="button"
+                    class="button w-full bg-fs-gray-300 border-fs-gray-300 mt-2"
+                    :disabled="state.matches('passkey')"
+                    @click="signInWithPasskey(email)">
+                <LoadingSpinner v-if="state.matches('passkey')" spinner-classes="bg-white" />
+                <template v-else>Sign in with a passkey instead</template>
+            </button>
 
             <RouterLink :to="{ name: 'user-recover-initiate', query: { email } }" class="block mt-8 text-sm">
                 Forgot your password?
@@ -100,6 +124,7 @@ import FieldPassword from '@/common/field_password.vue';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
 import { email as emailValidator } from '@vuelidate/validators';
+import { prepareRequestOptions, encodeCredential } from '@/common/base64url';
 
 const router = useRouter();
 const route = useRoute();
@@ -111,24 +136,32 @@ const stateMachine = createMachine({
     states: {
         ready: {
             on: {
-                NEXT: 'step2',
+                NEXT:    'step2',
+                PASSKEY: 'passkey',
             },
         },
         step2: {
             on: {
-                SEND: 'sending',
-                BACK: 'ready',
+                SEND:    'sending',
+                BACK:    'ready',
+                PASSKEY: 'passkey',
             },
         },
         sending: {
             on: {
-                SENT: 'sent',
+                SENT:  'sent',
                 ERROR: 'ready',
             },
         },
         sent: {
             on: {
                 BACK: 'step2',
+            },
+        },
+        passkey: {
+            on: {
+                ERROR: 'ready',
+                STEP2: 'step2',
             },
         },
     },
@@ -144,6 +177,8 @@ const password = ref(null);
 const lastErrorMessage = ref(null);
 const alertEl = ref();
 const passwordFormEl = ref();
+
+const passkeySupported = computed(() => window.PublicKeyCredential !== undefined);
 
 const emailIsValid = computed(() => email.value && emailValidator.$validator(email.value));
 const showPasswordForm = computed(() => state.value.matches('step2') || state.value.matches('sending'));
@@ -184,6 +219,55 @@ const submitStep1 = () => {
             passwordFormEl.value.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     });
+};
+
+const signInWithPasskey = async (username) => {
+    sendEvent({ type: 'PASSKEY' });
+    lastErrorMessage.value = null;
+
+    try {
+        const body = username ? JSON.stringify({ username }) : JSON.stringify({});
+        const optionsRes = await fetch('/passkey/login/options', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body,
+        });
+
+        if (!optionsRes.ok) {
+            throw new Error('Failed to get passkey options.');
+        }
+
+        const options = await optionsRes.json();
+        const credential = await navigator.credentials.get({
+            publicKey: prepareRequestOptions(options),
+        });
+
+        const loginRes = await fetch('/passkey/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(encodeCredential(credential)),
+        });
+
+        const data = await loginRes.json();
+        if (data.redirect) {
+            window.location.href = data.redirect;
+
+            return;
+        }
+
+        throw new Error(data.error || 'Passkey authentication failed.');
+
+    } catch (e) {
+        if (e.name === 'NotAllowedError') {
+            // User cancelled or dismissed the prompt — go back to form
+            sendEvent({ type: email.value ? 'STEP2' : 'ERROR' });
+
+            return;
+        }
+        logError(e);
+        lastErrorMessage.value = e.message || 'Passkey sign-in failed. Please try another method.';
+        sendEvent({ type: 'ERROR' });
+    }
 };
 
 const sendLoginLink = async () => {

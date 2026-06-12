@@ -57,5 +57,8 @@ export const apolloClient = new ApolloClient({
     },
     // if you want to hide the message about installing apollo dev tools
     // only applicable to dev
+    devtools: {
+        enabled: false,
+    },
     connectToDevTools: false,
 });

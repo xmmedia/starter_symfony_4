@@ -251,6 +251,50 @@ class UserProjection implements ReadModelProjection
                         'remove',
                         $event->userId()->toString(),
                     );
+                    $readModel->stack(
+                        'totpDelete',
+                        $event->userId()->toString(),
+                    );
+                },
+
+                Event\TotpSetupRequested::class => function (
+                    array $state,
+                    Event\TotpSetupRequested $event,
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'totpSetupRequested',
+                        $event->userId()->toString(),
+                        $event->totpSecret(),
+                    );
+                },
+
+                Event\TotpEnabled::class => function (
+                    array $state,
+                    Event\TotpEnabled $event,
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'totpEnable',
+                        $event->userId()->toString(),
+                    );
+                },
+
+                Event\TotpDisabled::class => function (
+                    array $state,
+                    Event\TotpDisabled $event,
+                ): void {
+                    /** @var UserReadModel $readModel */
+                    /** @var ReadModelProjector $this */
+                    $readModel = $this->readModel();
+                    $readModel->stack(
+                        'totpDelete',
+                        $event->userId()->toString(),
+                    );
                 },
             ]);
 

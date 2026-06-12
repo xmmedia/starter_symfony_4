@@ -46,6 +46,13 @@ User:
                 access:  '@=hasRole("ROLE_ADMIN")'
                 resolve: '@=query("App\\GraphQl\\Query\\User\\AuthLogsCountQuery", value)'
             userData:  UserData
+            twoFactorEnabled:
+                type:    Boolean!
+                resolve: '@=query("App\\GraphQl\\Query\\User\\UserTwoFactorEnabledQuery", value)'
+            passkeys:
+                type:    '[Passkey!]!'
+                access:  '@=isAuthenticated()'
+                resolve: '@=query("App\\GraphQl\\Query\\Passkey\\PasskeysQuery", value)'
 
 UserData:
     type: object

@@ -1,17 +1,24 @@
 <template>
-    <ul class="list-none flex justify-between pl-0">
+    <ul class="flex gap-x-0.5 pl-0 list-none">
         <li class="grow">
             <RouterLink :to="{ name: 'user-profile-edit' }"
                         :class="linkActiveClass('user-profile-edit')"
-                        class="block p-4 text-center hover:no-underline focus:text-white rounded-tl-sm">
+                        class="block p-4 text-center hover:no-underline font-medium">
                 Profile
             </RouterLink>
         </li>
         <li class="grow">
             <RouterLink :to="{ name: 'user-profile-edit-password' }"
                         :class="linkActiveClass('user-profile-edit-password')"
-                        class="block p-4 text-center hover:no-underline rounded-tr-sm">
+                        class="block p-4 text-center hover:no-underline font-medium">
                 Password
+            </RouterLink>
+        </li>
+        <li class="grow">
+            <RouterLink :to="{ name: 'user-profile-security' }"
+                        :class="linkActiveClass('user-profile-security')"
+                        class="block p-4 text-center hover:no-underline font-medium">
+                Security
             </RouterLink>
         </li>
     </ul>

@@ -16,6 +16,9 @@ class UserReadModelTest extends BaseTestCase
         $connection->shouldReceive('executeQuery')
             ->twice()
             ->withArgs(static fn (string $sql): bool => (bool) strpos($sql, '`user`'));
+        $connection->shouldReceive('executeQuery')
+            ->once()
+            ->withArgs(static fn (string $sql): bool => (bool) strpos($sql, '`user_totp`'));
 
         new UserReadModel($connection)->init();
     }

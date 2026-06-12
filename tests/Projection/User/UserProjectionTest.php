@@ -43,6 +43,9 @@ class UserProjectionTest extends BaseTestCase
             Event\UserVerified::class,
             Event\UserActivated::class,
             Event\UserWasDeletedByAdmin::class,
+            Event\TotpSetupRequested::class,
+            Event\TotpEnabled::class,
+            Event\TotpDisabled::class,
         ];
 
         $projection = new UserProjection();
@@ -391,11 +394,57 @@ class UserProjectionTest extends BaseTestCase
 
         $stack = $this->runReadModel($event);
 
-        $this->assertCount(1, $stack);
+        $this->assertCount(2, $stack);
         $this->assertSame('remove', $stack[0][0]);
+        $this->assertSame([$userId->toString()], $stack[0][1]);
+        $this->assertSame('totpDelete', $stack[1][0]);
+        $this->assertSame([$userId->toString()], $stack[1][1]);
+    }
+
+    public function testTotpSetupRequested(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+        $totpSecret = $faker->password();
+
+        $event = Event\TotpSetupRequested::now($userId, $totpSecret);
+
+        $stack = $this->runReadModel($event);
+
+        $this->assertCount(1, $stack);
+        $this->assertSame('totpSetupRequested', $stack[0][0]);
         $this->assertSame([
             $userId->toString(),
+            $totpSecret,
         ], $stack[0][1]);
+    }
+
+    public function testTotpEnabled(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+
+        $event = Event\TotpEnabled::now($userId);
+
+        $stack = $this->runReadModel($event);
+
+        $this->assertCount(1, $stack);
+        $this->assertSame('totpEnable', $stack[0][0]);
+        $this->assertSame([$userId->toString()], $stack[0][1]);
+    }
+
+    public function testTotpDisabled(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+
+        $event = Event\TotpDisabled::now($userId);
+
+        $stack = $this->runReadModel($event);
+
+        $this->assertCount(1, $stack);
+        $this->assertSame('totpDelete', $stack[0][0]);
+        $this->assertSame([$userId->toString()], $stack[0][1]);
     }
 
     private function runReadModel(AggregateChanged $event): mixed

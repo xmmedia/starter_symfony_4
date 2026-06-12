@@ -21,6 +21,8 @@ class User extends AggregateRoot implements Entity
     private bool $verified = false;
     private bool $active = false;
     private bool $deleted = false;
+    private ?string $totpSecret = null;
+    private ?string $totpPendingSecret = null;
 
     public static function addByAdmin(
         UserId $userId,
@@ -333,6 +335,43 @@ class User extends AggregateRoot implements Entity
         );
     }
 
+    public function requestTotpSetup(string $secret): void
+    {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'request TOTP setup');
+        }
+
+        $this->recordThat(
+            Event\TotpSetupRequested::now($this->userId, $secret),
+        );
+    }
+
+    public function confirmTotpSetup(): void
+    {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'confirm TOTP setup');
+        }
+
+        if (null === $this->totpPendingSecret) {
+            throw new \LogicException('Cannot confirm TOTP setup without a pending secret.');
+        }
+
+        $this->recordThat(
+            Event\TotpEnabled::now($this->userId),
+        );
+    }
+
+    public function disableTotp(): void
+    {
+        if ($this->deleted) {
+            throw Exception\UserIsDeleted::triedTo($this->userId, 'disable TOTP');
+        }
+
+        $this->recordThat(
+            Event\TotpDisabled::now($this->userId),
+        );
+    }
+
     public function userId(): UserId
     {
         return $this->userId;
@@ -440,6 +479,23 @@ class User extends AggregateRoot implements Entity
     protected function whenUserWasDeletedByAdmin(Event\UserWasDeletedByAdmin $event): void
     {
         $this->deleted = true;
+    }
+
+    protected function whenTotpSetupRequested(Event\TotpSetupRequested $event): void
+    {
+        $this->totpPendingSecret = $event->totpSecret();
+    }
+
+    protected function whenTotpEnabled(Event\TotpEnabled $event): void
+    {
+        $this->totpSecret = $this->totpPendingSecret;
+        $this->totpPendingSecret = null;
+    }
+
+    protected function whenTotpDisabled(Event\TotpDisabled $event): void
+    {
+        $this->totpSecret = null;
+        $this->totpPendingSecret = null;
     }
 
     /**

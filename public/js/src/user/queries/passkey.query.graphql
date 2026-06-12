@@ -1,0 +1,35 @@
+query Passkeys {
+    Me {
+        passkeys {
+            passkeyId
+            name
+            createdAt
+            lastUsedAt
+        }
+    }
+}
+
+mutation PasskeyDelete($passkeyId: ID!) {
+    PasskeyDelete(passkeyId: $passkeyId) {
+        success
+    }
+}
+
+mutation UserRequestTotpSetup {
+    UserRequestTotpSetup {
+        otpauthUrl
+        manualKey
+    }
+}
+
+mutation UserConfirmTotpSetup($code: String!) {
+    UserConfirmTotpSetup(code: $code) {
+        success
+    }
+}
+
+mutation UserDisableTotp($code: String!) {
+    UserDisableTotp(code: $code) {
+        success
+    }
+}
