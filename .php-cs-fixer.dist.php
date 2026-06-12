@@ -7,12 +7,12 @@ declare(strict_types=1);
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->append(['.php-cs-fixer.dist.php']) // include this file as well
-    ->notPath('config/reference.php')
     ->exclude('var')
     ->exclude('cache')
     // exclude next two because of the size of these dirs
     ->exclude('node_modules')
-    ->exclude('public/js');
+    ->exclude('public/js')
+    ->notPath('config/reference.php');
 
 return new PhpCsFixer\Config()
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
