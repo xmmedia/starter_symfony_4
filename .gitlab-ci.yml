@@ -99,9 +99,10 @@ static:
     APP_ENV: test
   script:
     - *versions-script
-    - *security-checks
     # install php dependencies
     - php composer.phar install --no-interaction --no-progress --ignore-platform-reqs
+    # composer requires packages to be installed before running security checks
+    - *security-checks
     # make sure composer.lock is up to date
     - php composer.phar normalize --dry-run
     # Install node/JS dependencies
