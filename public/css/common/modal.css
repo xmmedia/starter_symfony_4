@@ -22,6 +22,12 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
 .modal {
     /* bg-transparent because white shows through around the rounded corners */
     @apply inset-0 m-auto overflow-y-auto bg-transparent backdrop:bg-gray-900/90 opacity-0 shadow-lg/15;
+    /* reset inherited properties that leak in from wherever the dialog is mounted in the DOM */
+    text-align: initial;
+    font-size: initial;
+    font-weight: initial;
+    line-height: initial;
+    letter-spacing: initial;
     transform: scale(.75);
     transition:
         opacity 0.3s ease-out,
