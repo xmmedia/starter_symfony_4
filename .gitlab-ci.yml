@@ -132,9 +132,10 @@ deploy to staging:
   when: manual
   script:
     - *deploy-setup-script
-    - *security-checks
-    # install dependencies
+    # install php dependencies
     - php composer.phar install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
+    # composer requires packages to be installed before running security checks
+    - *security-checks
     - yarn install --immutable
     - yarn build --mode development
     - *deploy-script
@@ -151,9 +152,10 @@ deploy to prod:
   when: manual
   script:
     - *deploy-setup-script
-    - *security-checks
     # install dependencies (not php dev dependencies)
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
+    # composer requires packages to be installed before running security checks
+    - *security-checks
     - yarn install --immutable
     - yarn build
     - *deploy-script
