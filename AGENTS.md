@@ -2,6 +2,11 @@
 
 This file provides guidance to agents when working with code in this repository.
 
+## Auto-generated Files — Do Not Edit
+
+- `schema.graphql` — auto-generated from YAML config in `config/graphql/types/`. Never edit this file directly.
+- `config/reference.php` — auto-generated. Never edit this file directly.
+
 ## Project Overview
 
 This is a Symfony 7 starter template for creating web applications at XM Media. It uses Event Sourcing with CQRS patterns via Prooph, GraphQL for the API layer, and Vue 3 for the frontend.
