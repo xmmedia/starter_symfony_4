@@ -63,7 +63,7 @@
     "xstate": "^5.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.29.6",
     "@eslint/js": "^9.0.0",
     "@faker-js/faker": "^10.0.0",
     "@graphql-eslint/eslint-plugin": "^4.4.0",
