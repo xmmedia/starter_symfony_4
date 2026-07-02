@@ -8,7 +8,7 @@ use Xm\SymfonyBundle\Model\UuidId;
 use Xm\SymfonyBundle\Model\UuidInterface;
 use Xm\SymfonyBundle\Model\ValueObject;
 
-final class AuthLogId implements ValueObject, UuidInterface, \Stringable
+final readonly class AuthLogId implements ValueObject, UuidInterface, \Stringable
 {
     use UuidId;
 }
