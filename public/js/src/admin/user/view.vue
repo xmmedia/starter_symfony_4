@@ -62,17 +62,13 @@
                 <div class="record_view-item">
                     <div class="record_view-item_label">Email Verified</div>
                     <div class="record_view-item_value">
-                        <AdminIcon icon="check"
-                                   :class="{ 'text-green-500' : user.verified }"
-                                   class="record_list-icon text-gray-500" />
+                        <AdminIconCheck :active="user.verified" />
                     </div>
                 </div>
                 <div class="record_view-item">
                     <div class="record_view-item_label">Active</div>
                     <div class="record_view-item_value">
-                        <AdminIcon icon="check"
-                                   :class="{ 'text-green-500' : user.active }"
-                                   class="record_list-icon text-gray-500" />
+                        <AdminIconCheck :active="user.active" />
                     </div>
                 </div>
                 <div class="record_view-item">

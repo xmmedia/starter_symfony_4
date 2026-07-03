@@ -517,18 +517,10 @@
                     {{ item.col4 }}
                 </template>
                 <template #col5="{ item }">
-                    <AdminIcon icon="check"
-                               class="record_list-icon text-gray-500"
-                               :class="{ 'text-green-600' : item.col5 }"
-                               width="20"
-                               height="20" />
+                    <AdminIconCheck :active="item.col5" />
                 </template>
                 <template #col6="{ item }">
-                    <AdminIcon icon="check"
-                               class="record_list-icon text-gray-500"
-                               :class="{ 'text-green-600' : item.col6 }"
-                               width="20"
-                               height="20" />
+                    <AdminIconCheck :active="item.col6" />
                 </template>
             </RecordList>
 
@@ -561,17 +553,11 @@
                             Nullam quis risus eget urna mollis ornare vel eu leo.
                         </td>
                         <td class="record_list-col">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon text-green-600"
-                                       width="20"
-                                       height="20" />
+                            <AdminIconCheck :active="true" />
                             <span class="record_list-mobile_heading">[True]</span>
                         </td>
                         <td class="record_list-col">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon text-gray-500"
-                                       width="20"
-                                       height="20" />
+                            <AdminIconCheck :active="false" />
                             <span class="record_list-mobile_heading">[True]</span>
                         </td>
                     </tr>
@@ -594,17 +580,11 @@
                         <a href="" class="block">Action 2</a>
                     </div>
                     <div class="record_list-col">
-                        <AdminIcon icon="check"
-                                   class="record_list-icon text-green-600"
-                                   width="20"
-                                   height="20" />
+                        <AdminIconCheck :active="true" />
                         <span class="record_list-mobile_heading">[True]</span>
                     </div>
                     <div class="record_list-col">
-                        <AdminIcon icon="check"
-                                   class="record_list-icon text-gray-500"
-                                   width="20"
-                                   height="20" />
+                        <AdminIconCheck :active="false" />
                         <span class="record_list-mobile_heading">[True]</span>
                     </div>
                     <div class="record_list-col">
@@ -634,20 +614,14 @@
                 <div class="record_view-item_label">Active</div>
                 <div class="record_view-item_value">
                     <button class="button-link align-middle">
-                        <AdminIcon icon="check"
-                                   class="record_list-icon text-green-600 "
-                                   width="20"
-                                   height="20" />
+                        <AdminIconCheck :active="true" />
                     </button>
                 </div>
             </div>
             <div class="record_view-item">
                 <div class="record_view-item_label">Inactive</div>
                 <div class="record_view-item_value">
-                    <AdminIcon icon="check"
-                               class="record_list-icon text-gray-500"
-                               width="20"
-                               height="20" />
+                    <AdminIconCheck :active="false" />
                 </div>
             </div>
             <div class="record_view-item">
@@ -754,16 +728,10 @@
                             <a href="" class="block">Action 2</a>
                         </td>
                         <td class="record_list-col">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon text-green-600"
-                                       width="20"
-                                       height="20" />
+                            <AdminIconCheck :active="true" />
                         </td>
                         <td class="record_list-col">
-                            <AdminIcon icon="check"
-                                       class="record_list-icon text-gray-500"
-                                       width="20"
-                                       height="20" />
+                            <AdminIconCheck :active="false" />
                         </td>
                     </tr>
                 </tbody>
@@ -784,17 +752,11 @@
                         <a href="" class="block">Action 2</a>
                     </div>
                     <div class="record_list-col">
-                        <AdminIcon icon="check"
-                                   class="record_list-icon text-green-600"
-                                   width="20"
-                                   height="20" />
+                        <AdminIconCheck :active="true" />
                         <span class="record_list-mobile_heading">[True]</span>
                     </div>
                     <div class="record_list-col">
-                        <AdminIcon icon="check"
-                                   class="record_list-icon text-gray-500"
-                                   width="20"
-                                   height="20" />
+                        <AdminIconCheck :active="false" />
                         <span class="record_list-mobile_heading">[True]</span>
                     </div>
                 </li>

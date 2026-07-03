@@ -20,6 +20,7 @@ import FormError from './common/form_error.vue';
 import FieldError from './common/field_error.vue';
 import FormButton from './common/form_button.vue';
 import AdminIcon from './common/admin_icon.vue';
+import AdminIconCheck from './common/admin_icon_check.vue';
 import AdminModal from './common/modal.vue';
 import AdminDelete from './admin/admin_delete/index.vue';
 import LocalTime from './common/local_time.vue';
@@ -83,6 +84,7 @@ apolloClient.query({ query: MeQuery })
             .component('FieldError', FieldError)
             .component('FormButton', FormButton)
             .component('AdminIcon', AdminIcon)
+            .component('AdminIconCheck', AdminIconCheck)
             .component('AdminModal', AdminModal)
             .component('AdminDelete', AdminDelete)
             .component('LocalTime', LocalTime);
