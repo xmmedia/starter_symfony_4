@@ -11,8 +11,7 @@
                      height="70"
                      class="h-10"
                      alt="Logo"
-                     loading="lazy"
-                     decoding="async">
+                     fetchpriority="high">
             </RouterLink>
 
             <ul class="sidebar_nav-nav">
@@ -58,8 +57,7 @@
                      height="70"
                      class="h-10 -mt-4 mr-4"
                      alt="Logo"
-                     loading="lazy"
-                     decoding="async">
+                     fetchpriority="high">
             </RouterLink>
         </header>
         <div class="content-wrap">
