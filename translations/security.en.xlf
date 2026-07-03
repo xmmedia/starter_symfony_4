@@ -28,7 +28,7 @@
             </trans-unit>
             <trans-unit id="7">
                 <source>Account is inactive.</source>
-                <target>Your account has inactive. Please contact an admin for more information.</target>
+                <target>Your account is inactive. Please contact an admin for more information.</target>
             </trans-unit>
             <trans-unit id="8">
                 <source>Account is not verified.</source>
