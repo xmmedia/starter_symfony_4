@@ -90,7 +90,7 @@ class UserUpdateTest extends BaseTestCase
         $userData = $faker->userData();
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to update (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
@@ -196,7 +196,7 @@ class UserUpdateTest extends BaseTestCase
         $userData = $faker->userData();
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to update deleted User with ID "%s"', $user->userId()),
         );
 

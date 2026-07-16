@@ -30,7 +30,7 @@ class SecurityControllerTest extends WebTestCase
         $controller = new SecurityController();
 
         $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('Shouldn\'t have gotten to the login link action');
+        $this->expectExceptionMessageIsOrContains('Shouldn\'t have gotten to the login link action');
 
         $controller->loginLink();
     }

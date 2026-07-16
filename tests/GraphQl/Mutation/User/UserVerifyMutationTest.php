@@ -54,7 +54,7 @@ class UserVerifyMutationTest extends BaseTestCase
     public function testThrowsErrorWhenUserIsLoggedIn(): void
     {
         $this->expectException(UserError::class);
-        $this->expectExceptionMessage('Cannot activate account if logged in');
+        $this->expectExceptionMessageIsOrContains('Cannot activate account if logged in');
         $this->expectExceptionCode(404);
 
         new UserVerifyMutation(
@@ -85,7 +85,7 @@ class UserVerifyMutationTest extends BaseTestCase
             ->andReturn($request);
 
         $this->expectException(UserError::class);
-        $this->expectExceptionMessage('The token is invalid');
+        $this->expectExceptionMessageIsOrContains('The token is invalid');
         $this->expectExceptionCode(404);
 
         new UserVerifyMutation(
@@ -104,7 +104,7 @@ class UserVerifyMutationTest extends BaseTestCase
             ->andThrow(new InvalidResetPasswordTokenException());
 
         $this->expectException(UserError::class);
-        $this->expectExceptionMessage('The token is invalid');
+        $this->expectExceptionMessageIsOrContains('The token is invalid');
         $this->expectExceptionCode(404);
 
         new UserVerifyMutation(
@@ -123,7 +123,7 @@ class UserVerifyMutationTest extends BaseTestCase
             ->andThrow(new ExpiredResetPasswordTokenException());
 
         $this->expectException(UserError::class);
-        $this->expectExceptionMessage('The link has expired');
+        $this->expectExceptionMessageIsOrContains('The link has expired');
         $this->expectExceptionCode(405);
 
         new UserVerifyMutation(
@@ -144,7 +144,7 @@ class UserVerifyMutationTest extends BaseTestCase
             ->andReturnTrue();
 
         $this->expectException(UserError::class);
-        $this->expectExceptionMessage('Your account has already been activated');
+        $this->expectExceptionMessageIsOrContains('Your account has already been activated');
         $this->expectExceptionCode(404);
 
         new UserVerifyMutation(

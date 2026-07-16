@@ -44,7 +44,7 @@ class UserPasswordTest extends BaseTestCase
         $user->delete();
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to change password (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
@@ -98,7 +98,7 @@ class UserPasswordTest extends BaseTestCase
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to send password recovery to deleted User with ID "%s"', $user->userId()),
         );
 
@@ -147,7 +147,7 @@ class UserPasswordTest extends BaseTestCase
         $user->delete();
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to change password deleted User with ID "%s"', $user->userId()),
         );
 
@@ -194,7 +194,7 @@ class UserPasswordTest extends BaseTestCase
         $user->delete();
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to upgrade password deleted User with ID "%s"', $user->userId()),
         );
 

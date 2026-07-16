@@ -36,7 +36,7 @@ class UserDeleteTest extends BaseTestCase
         $user->delete();
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to delete User with ID "%s" that\'s already deleted', $user->userId()),
         );
 

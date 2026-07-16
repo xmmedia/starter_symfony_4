@@ -48,7 +48,7 @@ class UserActivateTest extends BaseTestCase
         $user->delete();
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to activate (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
@@ -126,7 +126,7 @@ class UserActivateTest extends BaseTestCase
         $user->delete();
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to activate deleted User with ID "%s"', $user->userId()),
         );
 

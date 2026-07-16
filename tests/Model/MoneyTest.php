@@ -58,7 +58,7 @@ class MoneyTest extends BaseTestCase
     public function testTooLow(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The Money amount must be between');
+        $this->expectExceptionMessageIsOrContains('The Money amount must be between');
 
         Money::fromInt(-1);
     }
@@ -66,7 +66,7 @@ class MoneyTest extends BaseTestCase
     public function testTooHigh(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The Money amount must be between');
+        $this->expectExceptionMessageIsOrContains('The Money amount must be between');
 
         Money::fromInt(Money::MAX + 1);
     }

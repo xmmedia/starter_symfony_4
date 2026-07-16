@@ -313,7 +313,7 @@ class AddUserCommandTest extends BaseTestCase
         $commandTester = new CommandTester($command);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('send-invite and generate-activation-token cannot be used together');
+        $this->expectExceptionMessageIsOrContains('send-invite and generate-activation-token cannot be used together');
 
         $commandTester->execute([
             '--send-invite'               => true,

@@ -23,7 +23,7 @@ class AssertTest extends BaseTestCase
     public function testPasswordLengthEmpty(?string $password): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The password cannot be empty or all whitespace');
+        $this->expectExceptionMessageIsOrContains('The password cannot be empty or all whitespace');
 
         Assert::passwordLength($password);
     }
@@ -31,7 +31,7 @@ class AssertTest extends BaseTestCase
     public function testPasswordLengthTooShort(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The password must length must be between');
+        $this->expectExceptionMessageIsOrContains('The password must length must be between');
 
         Assert::passwordLength($this->faker()->string(11));
     }
@@ -39,7 +39,7 @@ class AssertTest extends BaseTestCase
     public function testPasswordLengthTooLong(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The password must length must be between');
+        $this->expectExceptionMessageIsOrContains('The password must length must be between');
 
         Assert::passwordLength(
             $this->faker()->string(PasswordHasherInterface::MAX_PASSWORD_LENGTH + 1),

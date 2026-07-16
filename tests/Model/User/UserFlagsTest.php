@@ -47,7 +47,7 @@ class UserFlagsTest extends BaseTestCase
         $this->popRecordedEvent($user);
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to verify (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
@@ -89,7 +89,7 @@ class UserFlagsTest extends BaseTestCase
         $this->popRecordedEvent($user);
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to activate (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
@@ -131,7 +131,7 @@ class UserFlagsTest extends BaseTestCase
         $this->popRecordedEvent($user);
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to deactivate (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
@@ -179,7 +179,7 @@ class UserFlagsTest extends BaseTestCase
         $user->delete();
 
         $this->expectException(Exception\UserIsDeleted::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             \sprintf('Tried to verify deleted User with ID "%s"', $user->userId()),
         );
 
