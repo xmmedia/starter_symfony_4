@@ -60,7 +60,7 @@
         "symfony/web-link": "*",
         "symfony/yaml": "*",
         "symfonycasts/reset-password-bundle": "^1.20",
-        "tecnickcom/tcpdf": "^6.6",
+        "tecnickcom/tcpdf": "^7.0",
         "twig/extra-bundle": "^3.0",
         "twig/twig": "^3.5",
         "webmozart/assert": "^2.4",

@@ -249,6 +249,20 @@
       <path value="$PROJECT_DIR$/vendor/ergebnis/agent-detector" />
       <path value="$PROJECT_DIR$/vendor/sebastian/file-filter" />
       <path value="$PROJECT_DIR$/vendor/sebastian/git-state" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-unicode" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-file" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf-sign" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf-font" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf-graph" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf-page" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf-filter" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-color" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf-parser" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-barcode" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf-encrypt" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-unicode-data" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf-image" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.5" />

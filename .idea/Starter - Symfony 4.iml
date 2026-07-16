@@ -222,6 +222,20 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/ergebnis/agent-detector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/file-filter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/git-state" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-barcode" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-color" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-file" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf-encrypt" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf-filter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf-font" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf-graph" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf-image" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf-page" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf-sign" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-unicode" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-unicode-data" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
