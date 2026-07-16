@@ -35,7 +35,7 @@ readonly class ImpersonationSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (SwitchUserListener::EXIT_VALUE === $request->get('_switch_user')) {
+        if (SwitchUserListener::EXIT_VALUE === $request->query->get('_switch_user')) {
             $this->handleExit($event);
         } else {
             $this->handleStart($event);

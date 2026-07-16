@@ -40,7 +40,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 
     protected function determineTargetUrl(Request $request): string
     {
-        $targetUrl = $request->get('_target_path');
+        $targetUrl = $request->query->get('_target_path') ?? $request->request->get('_target_path');
 
         if (\is_string($targetUrl) && (str_starts_with($targetUrl, '/') || str_starts_with($targetUrl, 'http'))) {
             return $targetUrl;

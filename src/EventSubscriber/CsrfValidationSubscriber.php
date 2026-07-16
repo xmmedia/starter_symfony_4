@@ -51,7 +51,7 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (!\in_array($request->get('_route'), $this->routes)) {
+        if (!\in_array($request->attributes->get('_route'), $this->routes)) {
             return;
         }
 

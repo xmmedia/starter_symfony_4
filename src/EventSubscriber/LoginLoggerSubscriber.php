@@ -65,7 +65,7 @@ readonly class LoginLoggerSubscriber implements EventSubscriberInterface
         $this->commandBus->dispatch(
             UserLoginFailed::now(
                 $authId,
-                $request->get('_username'),
+                $request->request->get('_username'),
                 $userId ?? null,
                 $request->headers->get('User-Agent'),
                 $request->getClientIp(),

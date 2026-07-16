@@ -21,11 +21,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
     public function testOnAuthenticationSuccessWithTargetPathParameter(): void
     {
         $targetPath = '/admin/users';
-        $request = \Mockery::mock(Request::class);
-        $request->shouldReceive('get')
-            ->once()
-            ->with('_target_path')
-            ->andReturn($targetPath);
+        $request = Request::create('/login_check', Request::METHOD_POST, ['_target_path' => $targetPath]);
 
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $httpUtils->shouldReceive('createRedirectResponse')
@@ -48,11 +44,7 @@ class LoginSuccessHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $targetPath = $faker->url();
-        $request = \Mockery::mock(Request::class);
-        $request->shouldReceive('get')
-            ->once()
-            ->with('_target_path')
-            ->andReturn($targetPath);
+        $request = Request::create('/login_check', Request::METHOD_POST, ['_target_path' => $targetPath]);
 
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $httpUtils->shouldReceive('createRedirectResponse')
@@ -84,14 +76,8 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->once()
             ->with('_security.main.target_path');
 
-        $request = \Mockery::mock(Request::class);
-        $request->shouldReceive('get')
-            ->once()
-            ->with('_target_path')
-            ->andReturn($invalidTargetPath);
-        $request->shouldReceive('getSession')
-            ->times(2)
-            ->andReturn($session);
+        $request = Request::create('/login_check', Request::METHOD_POST, ['_target_path' => $invalidTargetPath]);
+        $request->setSession($session);
 
         $router = \Mockery::mock(RouterInterface::class);
 
@@ -129,14 +115,8 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->once()
             ->with('_security.main.target_path');
 
-        $request = \Mockery::mock(Request::class);
-        $request->shouldReceive('get')
-            ->once()
-            ->with('_target_path')
-            ->andReturnNull();
-        $request->shouldReceive('getSession')
-            ->times(2)
-            ->andReturn($session);
+        $request = Request::create('/login_check', Request::METHOD_POST);
+        $request->setSession($session);
 
         $httpUtils = \Mockery::mock(HttpUtils::class);
         $httpUtils->shouldReceive('createRedirectResponse')
@@ -166,14 +146,8 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->with('_security.main.target_path')
             ->andReturnNull();
 
-        $request = \Mockery::mock(Request::class);
-        $request->shouldReceive('get')
-            ->once()
-            ->with('_target_path')
-            ->andReturnNull();
-        $request->shouldReceive('getSession')
-            ->once()
-            ->andReturn($session);
+        $request = Request::create('/login_check', Request::METHOD_POST);
+        $request->setSession($session);
 
         $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
@@ -208,14 +182,8 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->with('_security.main.target_path')
             ->andReturnNull();
 
-        $request = \Mockery::mock(Request::class);
-        $request->shouldReceive('get')
-            ->once()
-            ->with('_target_path')
-            ->andReturnNull();
-        $request->shouldReceive('getSession')
-            ->once()
-            ->andReturn($session);
+        $request = Request::create('/login_check', Request::METHOD_POST);
+        $request->setSession($session);
 
         $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
@@ -259,14 +227,8 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->once()
             ->with('_security.custom_firewall.target_path');
 
-        $request = \Mockery::mock(Request::class);
-        $request->shouldReceive('get')
-            ->once()
-            ->with('_target_path')
-            ->andReturnNull();
-        $request->shouldReceive('getSession')
-            ->times(2)
-            ->andReturn($session);
+        $request = Request::create('/login_check', Request::METHOD_POST);
+        $request->setSession($session);
 
         $httpUtils->shouldReceive('createRedirectResponse')
             ->once()
