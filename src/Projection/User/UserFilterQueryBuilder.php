@@ -9,6 +9,7 @@ use Xm\SymfonyBundle\Util\FiltersInterface;
 
 class UserFilterQueryBuilder extends FilterQueryBuilder
 {
+    #[\Override]
     protected string $order = 'u.email ASC, u.first_name ASC, u.last_name ASC';
 
     public function queryParts(UserFilters|FiltersInterface $filters): array

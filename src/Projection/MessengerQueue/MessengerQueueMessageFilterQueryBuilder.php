@@ -9,6 +9,7 @@ use Xm\SymfonyBundle\Util\FiltersInterface;
 
 class MessengerQueueMessageFilterQueryBuilder extends FilterQueryBuilder
 {
+    #[\Override]
     protected string $order = 'm.created_at DESC';
 
     public function queryParts(MessengerQueueMessageFilters|FiltersInterface $filters): array

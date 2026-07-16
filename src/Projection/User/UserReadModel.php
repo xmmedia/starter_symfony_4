@@ -10,6 +10,7 @@ use Xm\SymfonyBundle\EventStore\Projection\AbstractReadModel;
 final class UserReadModel extends AbstractReadModel
 {
     protected const string TABLE = Table::USER;
+    #[\Override]
     protected ?array $tables = [
         self::TABLE,
     ];

@@ -9,6 +9,7 @@ use Xm\SymfonyBundle\Util\FiltersInterface;
 
 class AuthLogFilterQueryBuilder extends FilterQueryBuilder
 {
+    #[\Override]
     protected string $order = 'a.occurred_at DESC';
 
     public function queryParts(AuthLogFilters|FiltersInterface $filters): array
