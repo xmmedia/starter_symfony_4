@@ -162,8 +162,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Change version in `composer.json` & add polyfill for new PHP version, ie, `symfony/polyfill-php84`.
 1. Update the PHP version in the following files:
    - `.lando.yml`
-   - `setup_dev.sh` – 4 places
-   - `setup_prod.sh` – 4 places
+   - `setup_dev.sh` & `setup_prod.sh` – 4 places each
    - `.gitlab-ci.yml` – 2 places
    - `.github/workflows/ci.yml` – 1 place
    - `.php-cs-fixer.dist.php` – update the `@PHP8#Migration` version to match the current version.
