@@ -5,7 +5,17 @@ import pluginVue from 'eslint-plugin-vue';
 import graphqlPlugin from '@graphql-eslint/eslint-plugin';
 
 export default defineConfig([
-    globalIgnores(['public/js/svgxuse.min.js', 'public/js/src/tinymce/!**!/!*.js']),
+    globalIgnores([
+        '.yarn/',
+        'config/',
+        'coverage/',
+        'public/build/',
+        'public/js/svgxuse.min.js',
+        'public/js/src/tinymce/!**!/!*.js',
+        'schema.graphql',
+        'var/',
+        'vendor/',
+    ]),
 
     {
         languageOptions: {
