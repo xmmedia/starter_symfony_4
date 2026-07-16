@@ -20,7 +20,7 @@ printf "Current:  ${PWD}\nRoot:     ${BASE}\nReleases: ${RELEASES}\nRelease:  ${
 PHP_VERSION=$(php -v|grep --only-matching --perl-regexp "(PHP )\d+\.\\d+\.\\d+"|cut -c 5-7)
 PHP_MINIMUM_VERSION=8.4
 printf "Current PHP version: ${PHP_VERSION}\nMinimum PHP version: ${PHP_MINIMUM_VERSION}\n"
-if [ $(echo "$PHP_VERSION >= $PHP_MINIMUM_VERSION" | bc) -eq 0 ]; then
+if [ $(awk "BEGIN {print ($PHP_VERSION >= $PHP_MINIMUM_VERSION) ? 0 : 1}") -eq 1 ]; then
     echo "************"
     echo "Will switch PHP version to ${PHP_MINIMUM_VERSION}"
     echo "************"
@@ -90,7 +90,7 @@ wget --no-verbose -O composer.phar https://getcomposer.org/composer-2.phar
 php composer.phar selfupdate
 printf "\n\n"
 
-echo "Ready! You can start uploading files to: ${$BASE}/current"
+echo "Ready! You can start uploading files to: ${BASE}/current"
 echo
 
 echo 'To change the shell, run:'
