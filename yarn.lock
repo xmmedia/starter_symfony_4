@@ -2563,26 +2563,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zxcvbn-ts/core@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "@zxcvbn-ts/core@npm:3.0.4"
+"@zxcvbn-ts/core@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@zxcvbn-ts/core@npm:4.1.2"
   dependencies:
     fastest-levenshtein: "npm:1.0.16"
-  checksum: 10/9036257b0fdc317832a1942769bf5816dedf5ac2379ad6e4d27ef29a87c5e28e8088788fc42efa15510a57f067f4bfce2843342fa248f3598de4e75fb7ae6fbf
+  checksum: 10/1308d877770d30c124de3c79d44014e40f71cd97745bde9ed6395c96da0672cb150afcc2feab678fede7dbebb3dfecf0208942402c462775854a45bfd04b20de
   languageName: node
   linkType: hard
 
-"@zxcvbn-ts/language-common@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "@zxcvbn-ts/language-common@npm:3.0.4"
-  checksum: 10/90a00418ef0586da77032e59aff45a2c8e6325b21e2930b6c0fdcaba5f9d6c473aac34cfe443d58994dab05c347819fbccfaa310d65b353319ec4f5b63d36c9f
+"@zxcvbn-ts/dictionary-compression@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@zxcvbn-ts/dictionary-compression@npm:3.0.1"
+  checksum: 10/d4c230eebed0ec5074b2b10857dfbabcb7c09f120fb70d44de749237a8e238d3852ce368607f567654cf007e4ebd592ea59f9ce926b84c1a41683ca23e48b6ec
   languageName: node
   linkType: hard
 
-"@zxcvbn-ts/language-en@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "@zxcvbn-ts/language-en@npm:3.0.2"
-  checksum: 10/f627a07e4c635dd3f84f0738d480882ab67fa77c114bb7e63343162cbd442dbed6325cd99ef2eff578ac61984f7a7031051f335bf9313e1ad6737ef2e3c6cd25
+"@zxcvbn-ts/language-common@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@zxcvbn-ts/language-common@npm:4.1.2"
+  dependencies:
+    "@zxcvbn-ts/dictionary-compression": "npm:^3.0.1"
+  checksum: 10/264bba0b09911852acedab0c6460426633229f46b7ae7b728aafab3f76d6f80efd8be656edd282386e10439b825df7f067bf0110147c7a1e5a021ed5d38ad2cb
+  languageName: node
+  linkType: hard
+
+"@zxcvbn-ts/language-en@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "@zxcvbn-ts/language-en@npm:4.1.1"
+  dependencies:
+    "@zxcvbn-ts/dictionary-compression": "npm:^3.0.1"
+  checksum: 10/8ec381bcbc05288e1621e658a189dc9d668ffc7787b48b3463b83e56636fdda248969b88112d57b7d6d3ddb1a86b2e189b43e646bc037b75d6136fa7958d9ce4
   languageName: node
   linkType: hard
 
@@ -6872,9 +6883,9 @@ __metadata:
     "@vuelidate/validators": "npm:^2.0.2"
     "@xstate/vue": "npm:^5.0.0"
     "@zootools/email-spell-checker": "npm:^1.12.0"
-    "@zxcvbn-ts/core": "npm:^3.0.4"
-    "@zxcvbn-ts/language-common": "npm:^3.0.4"
-    "@zxcvbn-ts/language-en": "npm:^3.0.2"
+    "@zxcvbn-ts/core": "npm:^4.1.2"
+    "@zxcvbn-ts/language-common": "npm:^4.1.2"
+    "@zxcvbn-ts/language-en": "npm:^4.1.1"
     apollo-upload-client: "npm:^18.0.1"
     autoprefixer: "npm:^10.0.2"
     cuid: "npm:^3.0.0"

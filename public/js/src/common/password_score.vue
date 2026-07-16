@@ -13,8 +13,7 @@
 </template>
 
 <script setup>
-import { zxcvbn } from '@zxcvbn-ts/core';
-import { install as installZxcvbn } from '@/common/zxcvbn';
+import { getZxcvbn } from '@/common/zxcvbn';
 import userValidation from '@/common/validation/user';
 import { computed } from 'vue';
 
@@ -31,9 +30,7 @@ const props = defineProps({
     },
 });
 
-installZxcvbn();
-
-const result = computed(() => zxcvbn(props.password || '', userDataCompiled.value));
+const result = computed(() => getZxcvbn().check(props.password || '', userDataCompiled.value));
 const score = computed(() => {
     if (!userValidation().password.minLength.$validator(props.password)) {
         return 0;

@@ -7,7 +7,7 @@ import {
 } from '@vuelidate/validators';
 import { validPhone } from '@/common/validators';
 import { pwnedPassword } from 'hibp';
-import { zxcvbn } from '@zxcvbn-ts/core';
+import { getZxcvbn } from '@/common/zxcvbn';
 import { apolloClient } from '@/common/apollo';
 import { UserEmailUnique } from '@/common/queries/user.query.graphql';
 
@@ -46,7 +46,7 @@ export default () => {
                     return true;
                 }
 
-                return zxcvbn(value, [
+                return getZxcvbn().check(value, [
                     user?.email,
                     user?.firstName,
                     user?.lastName,

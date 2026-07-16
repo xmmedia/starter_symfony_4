@@ -1,23 +1,21 @@
-import { zxcvbnOptions } from '@zxcvbn-ts/core';
+import { ZxcvbnFactory } from '@zxcvbn-ts/core';
 import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common';
 import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
 
-let zxcvbnInstalled = false;
+let zxcvbnInstance;
 
-export const install = () => {
-    if (zxcvbnInstalled) {
-        return;
+export const getZxcvbn = () => {
+    if (!zxcvbnInstance) {
+        zxcvbnInstance = new ZxcvbnFactory({
+            translations: zxcvbnEnPackage.translations,
+            graphs: zxcvbnCommonPackage.adjacencyGraphs,
+            useLevenshteinDistance: true,
+            dictionary: {
+                ...zxcvbnCommonPackage.dictionary,
+                ...zxcvbnEnPackage.dictionary,
+            },
+        });
     }
 
-    zxcvbnOptions.setOptions({
-        translations: zxcvbnEnPackage.translations,
-        graphs: zxcvbnCommonPackage.adjacencyGraphs,
-        useLevenshteinDistance: true,
-        dictionary: {
-            ...zxcvbnCommonPackage.dictionary,
-            ...zxcvbnEnPackage.dictionary,
-        },
-    });
-
-    zxcvbnInstalled = true;
+    return zxcvbnInstance;
 };
