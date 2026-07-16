@@ -291,7 +291,7 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 ## Tech Stack
 
 **Backend:**
-- Symfony 7.3 on PHP 8.4
+- Symfony 7.3 on PHP 8.5
 - Prooph PDO Event Store for Event Sourcing
 - OverblogGraphQLBundle for GraphQL API
 - Doctrine ORM for read models only (not domain models)
