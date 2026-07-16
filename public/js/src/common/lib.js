@@ -122,13 +122,11 @@ export const addEditedWatcher = function (state, edited, variable) {
  * @param {Ref} isSaved Must be Vue ref/reactivity object.
  */
 export const addLeaveConfirmation = (edited, isSaved) => {
-    onBeforeRouteLeave((to, from, next) => {
+    onBeforeRouteLeave(() => {
         const msg = 'Are you sure you want to leave? You have unsaved changes.';
         if (edited.value && !isSaved.value && !confirm(msg)) {
-            return next(false);
+            return false;
         }
-
-        next();
     });
 
     const unload = (e) => {
