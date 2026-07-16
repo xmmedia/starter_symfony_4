@@ -59,11 +59,15 @@ when@prod:
                 level:     debug
                 formatter: monolog.formatter.line
             sentry:
-                type:                   sentry
-                level:                  !php/const Monolog\Logger::ERROR
-                hub_id:                 Sentry\State\HubInterface
-                fill_extra_context:     true # Enables sending monolog context to Sentry
-                process_psr_3_messages: false # Disables the resolution of PSR-3 placeholders
+                type: service
+                id:   Sentry\Monolog\Handler
+            # Ships info+ level logs to Sentry's Logs product (separate from error/issue tracking).
+            # Disabled by default (see `enable_logs` in sentry.yaml) since it adds continuous log
+            # volume beyond errors. Uncomment here and set `enable_logs: true` to turn it on.
+            # sentry_logs:
+            #     type:     service
+            #     id:       Sentry\SentryBundle\Monolog\LogsHandler
+            #     channels: [ '!event', '!console' ]
             deprecation:
                 type: stream
                 channels: [ deprecation ]

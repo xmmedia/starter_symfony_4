@@ -16,7 +16,7 @@ when@prod:
         #         enabled: true
 
         # If you are using Monolog, you also need this additional configuration to log the errors correctly:
-        # https://docs.sentry.io/platforms/php/guides/symfony/#monolog-integration
+        # https://docs.sentry.io/platforms/php/guides/symfony/integrations/monolog/
         register_error_listener: false
         register_error_handler:  false
         options:
@@ -35,9 +35,24 @@ when@prod:
             # Add request headers, cookies, IP address and the authenticated user
             # see https://docs.sentry.io/platforms/php/data-management/data-collected/ for more info
             send_default_pii:  true
+            # Enables Sentry's Logs product, which ships structured monolog records (see the
+            # `sentry_logs` handler in monolog.yaml) to Sentry in addition to errors/exceptions.
+            # Disabled by default since it adds continuous log volume beyond errors.
+            enable_logs:       false
 
     # monolog integration in monolog.yaml
 
     services:
         Monolog\Processor\PsrLogMessageProcessor:
             tags: { name: monolog.processor, handler: sentry }
+
+        Sentry\Monolog\Handler:
+            arguments:
+                $hub:              '@Sentry\State\HubInterface'
+                $level:            !php/const Monolog\Logger::ERROR
+                $fillExtraContext: true
+
+        # Only needed if the `sentry_logs` handler in monolog.yaml is enabled.
+        # Sentry\SentryBundle\Monolog\LogsHandler:
+        #     arguments:
+        #         $level: !php/const Monolog\Logger::INFO
