@@ -3,8 +3,7 @@
         <nav class="sidebar_nav-wrap" role="navigation" aria-label="Main">
             <RouterLink :to="logoLinkRoute"
                         class="flex items-center w-40 lg:w-64 border-b border-gray-700
-                                focus:ring-offset-gray-900 rounded-none"
-                        style="height: 3.75rem; padding: 0.65rem 0;">
+                                focus:ring-offset-gray-900 rounded-none h-15 py-[0.65rem] px-0">
                 <!-- @todo-symfony alt -->
                 <img src="../../../images/logo.svg"
                      width="70"
