@@ -63,7 +63,7 @@
         "tecnickcom/tcpdf": "^6.6",
         "twig/extra-bundle": "^3.0",
         "twig/twig": "^3.5",
-        "webmozart/assert": "^1.3",
+        "webmozart/assert": "^2.4",
         "xm/symfony-bundle": "^2.0"
     },
     "require-dev": {
