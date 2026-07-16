@@ -34,7 +34,7 @@ export default defineConfig(({ command }) => {
         ],
         build: {
             outDir: 'public/build',
-            rollupOptions: {
+            rolldownOptions: {
                 input: {
                     admin: './public/js/src/admin.js',
                     user: './public/js/src/user.js',
