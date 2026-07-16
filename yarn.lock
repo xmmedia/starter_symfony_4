@@ -820,10 +820,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@googlemaps/js-api-loader@npm:^1.15.2":
-  version: 1.16.10
-  resolution: "@googlemaps/js-api-loader@npm:1.16.10"
-  checksum: 10/57ff883a40ba455e497f231d3b735f39b77bb32ab647808f9fad7225279eebe3c73d13abe5ca182ebc3deb48f3f3a21c1e9c2ad5b6884ec638793f239e881ad8
+"@googlemaps/js-api-loader@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@googlemaps/js-api-loader@npm:2.1.1"
+  dependencies:
+    "@types/google.maps": "npm:^3.53.1"
+  checksum: 10/beb8dac6eed7be668ba6d5efe9e2f6085898fe7597c667eba0f9ab204d1620885d737881cb7a76d1adc6ea5aeaab9b6bfbadf2f6442ac435783c783c6401407e
   languageName: node
   linkType: hard
 
@@ -2438,6 +2440,13 @@ __metadata:
   version: 1.0.9
   resolution: "@types/estree@npm:1.0.9"
   checksum: 10/16aabfa703b5bdac83f719b07ce92a11b2d3c9b8628eacc92889d8af46cab2d78fc45c7b5378de383d0500585cea5c2f79125eeddfe5fbc6bd6a27eb0c8ccee5
+  languageName: node
+  linkType: hard
+
+"@types/google.maps@npm:^3.53.1":
+  version: 3.65.2
+  resolution: "@types/google.maps@npm:3.65.2"
+  checksum: 10/fae77efa95c8618115a6bf985f251c31d13fe261c1e30adadea2b195e923dfb228fecb83b810d1359185788fa76a21c6e34e2eb1146650c323be658ea0d57c7d
   languageName: node
   linkType: hard
 
@@ -7550,7 +7559,7 @@ __metadata:
     "@date-fns/tz": "npm:^1.0.2"
     "@eslint/js": "npm:^10.0.0"
     "@faker-js/faker": "npm:^10.0.0"
-    "@googlemaps/js-api-loader": "npm:^1.15.2"
+    "@googlemaps/js-api-loader": "npm:^2.1.1"
     "@graphql-eslint/eslint-plugin": "npm:^4.4.0"
     "@rollup/plugin-graphql": "npm:^2.0.3"
     "@sentry/vite-plugin": "npm:^4.0.0"

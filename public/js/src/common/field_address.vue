@@ -83,7 +83,7 @@ import cuid from 'cuid';
 import FieldInput from './field_input.vue';
 import { LocalitiesQuery } from '@/common/queries/localities.query.graphql';
 import { useQuery } from '@vue/apollo-composable';
-import { Loader as MapsLoader } from '@googlemaps/js-api-loader';
+import { importLibrary, setOptions } from '@googlemaps/js-api-loader';
 import { logError } from '@/common/lib';
 import { useVuelidate } from '@vuelidate/core';
 import addressValidation from '@/common/validation/address';
@@ -187,10 +187,12 @@ const autocompletes = {
 };
 
 // options: https://developers.google.com/maps/documentation/javascript/load-maps-js-api#js-api-loader
-new MapsLoader({
-    apiKey: import.meta.env.VITE_GOOGLE_BROWSER_API_KEY,
+setOptions({
+    key: import.meta.env.VITE_GOOGLE_BROWSER_API_KEY,
     region: 'CA',
-}).importLibrary('places').then(async ({ Autocomplete }) => {
+});
+
+importLibrary('places').then(async ({ Autocomplete }) => {
     autocompletes.line1 = new Autocomplete(
         inputLine1.value,
         {
