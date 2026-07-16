@@ -661,12 +661,12 @@
         "version": "v5.3.2"
     },
     "symfony/phpunit-bridge": {
-        "version": "7.3",
+        "version": "8.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "7.3",
-            "ref": "dc13fec96bd527bd399c3c01f0aab915c67fd544"
+            "ref": "56f87409c45ff6654b0bf07c5cc359aebf6016ab"
         },
         "files": []
     },
@@ -686,12 +686,12 @@
         "version": "v1.9.0"
     },
     "symfony/postmark-mailer": {
-        "version": "6.4",
+        "version": "7.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "4.4",
-            "ref": "631f81f2fbf58126ae699a04b1d0984442613a19"
+            "ref": "a5924b4e3d78962df013d8434f463c090594ae79"
         }
     },
     "symfony/process": {
