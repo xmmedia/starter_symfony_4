@@ -49,6 +49,7 @@ return RectorConfig::configure()
         Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
         Rector\CodeQuality\Rector\If_\CombineIfRector::class,
         Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector::class,
+        Rector\CodeQuality\Rector\If_\ObjectExplicitBoolCompareRector::class,
         // from set "deadCode"
         Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
         // from Symfony composer set
