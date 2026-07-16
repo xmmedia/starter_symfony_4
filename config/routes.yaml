@@ -1,10 +1,10 @@
 # yaml-language-server: $schema=../vendor/symfony/routing/Loader/schema/routing.schema.json
 
+# Methods with the #[Route] attribute are automatically imported.
+# See also https://symfony.com/doc/current/routing.html
+
 controllers:
-    resource:
-        path:      ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+    resource: routing.controllers
 
 #public_default:
 #    path:       /public{path}
