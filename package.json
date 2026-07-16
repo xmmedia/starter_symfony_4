@@ -38,7 +38,6 @@
     "@zxcvbn-ts/language-common": "^3.0.4",
     "@zxcvbn-ts/language-en": "^3.0.2",
     "apollo-upload-client": "^18.0.1",
-    "core-js": "^3.4.3",
     "cuid": "^3.0.0",
     "date-fns": "^4.0.0",
     "graphql": "^16.0.0",
@@ -63,7 +62,6 @@
     "xstate": "^5.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
     "@eslint/js": "^9.0.0",
     "@faker-js/faker": "^10.0.0",
     "@graphql-eslint/eslint-plugin": "^4.4.0",
@@ -94,11 +92,6 @@
     "vite-plugin-symfony": "^8.0.0",
     "vitest": "^4.0.7",
     "vue-eslint-parser": "^10.0.0"
-  },
-  "dependenciesMeta": {
-    "core-js": {
-      "built": true
-    }
   },
   "packageManager": "yarn@4.15.0"
 }

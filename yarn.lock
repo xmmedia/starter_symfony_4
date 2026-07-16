@@ -106,7 +106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.0.0, @babel/core@npm:^7.18.5, @babel/core@npm:^7.29.7":
+"@babel/core@npm:^7.18.5, @babel/core@npm:^7.29.7":
   version: 7.29.7
   resolution: "@babel/core@npm:7.29.7"
   dependencies:
@@ -3045,13 +3045,6 @@ __metadata:
   dependencies:
     is-what: "npm:^5.2.0"
   checksum: 10/1ee7e6f55c1016a47871ecd09aa765ca825c1ec89c46e6f58686016c80c6fe3d36452a6010d8498c766ea5d60bc5d892d9511b41310a7355b48ac10b39c90c9a
-  languageName: node
-  linkType: hard
-
-"core-js@npm:^3.4.3":
-  version: 3.49.0
-  resolution: "core-js@npm:3.49.0"
-  checksum: 10/31d018f9830b0240ae40869e380595f2d06a8800709ad63299a42a438ba0c8d5805045fa02a20a78f42761d83103b0b71eca982955f5e890fb7cf6b2fe6a9ab1
   languageName: node
   linkType: hard
 
@@ -6858,7 +6851,6 @@ __metadata:
   resolution: "xm_starter_symfony_4@workspace:."
   dependencies:
     "@apollo/client": "npm:^3.7.12"
-    "@babel/core": "npm:^7.0.0"
     "@date-fns/tz": "npm:^1.0.2"
     "@eslint/js": "npm:^9.0.0"
     "@faker-js/faker": "npm:^10.0.0"
@@ -6885,7 +6877,6 @@ __metadata:
     "@zxcvbn-ts/language-en": "npm:^3.0.2"
     apollo-upload-client: "npm:^18.0.1"
     autoprefixer: "npm:^10.0.2"
-    core-js: "npm:^3.4.3"
     cuid: "npm:^3.0.0"
     date-fns: "npm:^4.0.0"
     dotenv: "npm:^17.0.0"
@@ -6927,9 +6918,6 @@ __metadata:
     vue-router: "npm:^4.0.0"
     vuedraggable: "npm:^4.1.0"
     xstate: "npm:^5.4.0"
-  dependenciesMeta:
-    core-js:
-      built: true
   languageName: unknown
   linkType: soft
 
