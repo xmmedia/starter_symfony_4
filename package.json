@@ -27,7 +27,7 @@
     "@googlemaps/js-api-loader": "^1.15.2",
     "@sentry/vue": "^10.0.0",
     "@types/lodash": "^4.17.15",
-    "@unhead/vue": "^2.0.0",
+    "@unhead/vue": "^3.0.0",
     "@vue/apollo-composable": "^4.0.0",
     "@vuelidate/components": "^1.2.6",
     "@vuelidate/core": "^2.0.2",
