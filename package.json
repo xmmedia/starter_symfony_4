@@ -13,7 +13,6 @@
     "preview": "vite preview",
     "build": "vite build",
     "test:unit": "vitest",
-    "test:e2e": "cypress open",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
     "lint:css": "stylelint public/css/**/*.css",
