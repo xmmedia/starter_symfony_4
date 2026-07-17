@@ -35,11 +35,11 @@ proxy:
 tooling:
   xdebug-on:
     service: appserver
-    description: Enable xdebug for apache.
+    description: Enable xdebug for PHP
     cmd: "docker-php-ext-enable xdebug && /etc/init.d/apache2 reload"
     user: root
   xdebug-off:
     service: appserver
-    description: Disable xdebug for apache.
+    description: Disable xdebug for PHP
     cmd: "rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload"
     user: root
