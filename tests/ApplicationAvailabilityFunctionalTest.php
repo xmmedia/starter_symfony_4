@@ -20,10 +20,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         if (null === $redirectUrl) {
             $this->assertResponseIsSuccessful();
         } else {
-            $this->assertResponseRedirects(
-                'http://localhost'.$redirectUrl,
-                302,
-            );
+            $this->assertResponseRedirects('http://localhost'.$redirectUrl, 302);
         }
     }
 
