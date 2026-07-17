@@ -1,16 +1,18 @@
 # @todo-symfony update
 # URL: https://symfonystarter.lndo.site
-# DB URL: mysql://symfony:symfony@database:3306/symfony?serverVersion=8.0.40.43&charset=utf8mb4
+# DB URL: mysql://symfony:symfony@database:3306/symfony?serverVersion=8.4&charset=utf8mb4
 # @todo-symfony update
 name: symfonystarter
 recipe: symfony
 config:
   php: '8.5'
   # when changed, the .env.local also needs to be updated
-  database: mysql:8.0
+  database: mysql:8.4
   webroot: public
   xdebug: true
   composer_version: 2
+  config:
+    database: lando_mysql.cnf
 services:
   appserver:
     build_as_root:

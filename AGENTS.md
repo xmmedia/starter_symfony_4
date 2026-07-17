@@ -310,7 +310,7 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 **Local Development:**
 - Lando (Docker-based local dev environment)
 - Node 22 with Yarn v4
-- MySQL 8.0
+- MySQL 8.4
 
 ## Browser Automation
 

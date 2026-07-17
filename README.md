@@ -66,7 +66,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 ### Server
 
   - PHP 8.5
-  - MySQL 8.0
+  - MySQL 8.4
 
 ### Locally for Development
 
