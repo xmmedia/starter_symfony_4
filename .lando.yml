@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=vendor/symfony/dependency-injection/Loader/schema/services.schema.json
 # @todo-symfony update
 # URL: https://symfonystarter.lndo.site
 # DB URL: mysql://symfony:symfony@database:3306/symfony?serverVersion=8.4&charset=utf8mb4
