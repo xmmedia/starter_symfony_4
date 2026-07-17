@@ -11,7 +11,7 @@ export default defineConfig([
         'coverage/',
         'public/build/',
         'public/js/svgxuse.min.js',
-        'public/js/src/tinymce/!**!/!*.js',
+        'public/js/src/tinymce/**/*.js',
         'schema.graphql',
         'var/',
         'vendor/',
