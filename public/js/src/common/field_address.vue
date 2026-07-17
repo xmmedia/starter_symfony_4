@@ -79,7 +79,7 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue';
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import FieldInput from './field_input.vue';
 import { LocalitiesQuery } from '@/common/queries/localities.query.graphql';
 import { useQuery } from '@vue/apollo-composable';
@@ -102,10 +102,10 @@ const props = defineProps({
 });
 
 const ids = {
-    line1: cuid(),
-    city: cuid(),
-    province: cuid(),
-    country: cuid(),
+    line1: createId(),
+    city: createId(),
+    province: createId(),
+    country: createId(),
 };
 
 const inputLine1 = ref(null);

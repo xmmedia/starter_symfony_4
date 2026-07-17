@@ -1159,6 +1159,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@noble/hashes@npm:^1.1.5":
+  version: 1.8.0
+  resolution: "@noble/hashes@npm:1.8.0"
+  checksum: 10/474b7f56bc6fb2d5b3a42132561e221b0ea4f91e590f4655312ca13667840896b34195e2b53b7f097ec080a1fdd3b58d902c2a8d0fbdf51d2e238b53808a177e
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1499,6 +1506,15 @@ __metadata:
   version: 0.137.0
   resolution: "@oxc-project/types@npm:0.137.0"
   checksum: 10/50a961188b0fec059a709445290dff201f010c7dee69a15b35251d43ecd7c1f2801b165c6f744a2a8a37a81924d56dc8f35f05d8308bdb704ee6bf0a0275ad36
+  languageName: node
+  linkType: hard
+
+"@paralleldrive/cuid2@npm:^2.2.2":
+  version: 2.3.1
+  resolution: "@paralleldrive/cuid2@npm:2.3.1"
+  dependencies:
+    "@noble/hashes": "npm:^1.1.5"
+  checksum: 10/08687b891dfdad44f13a2c69232e95ca27efffc8b376587c2b89114b100a505808e7af5fbb51c3103053c637a6604f5987afa3ee8b4e1ba4c38742ebd47b4a84
   languageName: node
   linkType: hard
 
@@ -3277,13 +3293,6 @@ __metadata:
   version: 3.2.3
   resolution: "csstype@npm:3.2.3"
   checksum: 10/ad41baf7e2ffac65ab544d79107bf7cd1a4bb9bab9ac3302f59ab4ba655d5e30942a8ae46e10ba160c6f4ecea464cc95b975ca2fefbdeeacd6ac63f12f99fe1f
-  languageName: node
-  linkType: hard
-
-"cuid@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "cuid@npm:3.0.0"
-  checksum: 10/c6d614250c438d5422998f5b1916474a3591316cdb48ff9b0e0e2c750d8a383737dda71436bfc8ed13ba1363c5d1c2255505aa45b602f309bceec6fb504e70bf
   languageName: node
   linkType: hard
 
@@ -7117,6 +7126,7 @@ __metadata:
     "@faker-js/faker": "npm:^10.0.0"
     "@googlemaps/js-api-loader": "npm:^2.1.1"
     "@graphql-eslint/eslint-plugin": "npm:^4.4.0"
+    "@paralleldrive/cuid2": "npm:^2.2.2"
     "@rollup/plugin-graphql": "npm:^3.0.0"
     "@sentry/vite-plugin": "npm:^5.0.0"
     "@sentry/vue": "npm:^10.0.0"
@@ -7138,7 +7148,6 @@ __metadata:
     "@zxcvbn-ts/language-en": "npm:^4.1.1"
     apollo-upload-client: "npm:^18.0.1"
     autoprefixer: "npm:^10.0.2"
-    cuid: "npm:^3.0.0"
     date-fns: "npm:^4.0.0"
     dotenv: "npm:^17.0.0"
     eslint: "npm:^10.0.0"

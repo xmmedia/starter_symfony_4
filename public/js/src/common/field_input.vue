@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import has from 'lodash/has';
 import { useTemplateRef } from 'vue';
 
@@ -111,7 +111,7 @@ const props = defineProps({
     },
     id: {
         type: String,
-        default: () => cuid(),
+        default: () => createId(),
     },
 });
 

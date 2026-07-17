@@ -38,7 +38,7 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue';
 import Flatpickr from 'flatpickr';
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import FieldInput from '@/common/field_input.vue';
 import FieldRadios from '@/common/field_radios.vue';
 import FieldSelect from '@/common/field_select.vue';
@@ -82,7 +82,7 @@ const dateRangeOptions = [
 ];
 
 const dateRangeInputRef = useTemplateRef('dateRangeInputRef');
-const dateRangeInputId = cuid();
+const dateRangeInputId = createId();
 let flatpickrInstance = null;
 
 const handleDateRangeChange = (selectedDates) => {

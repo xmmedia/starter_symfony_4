@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import { computed, defineAsyncComponent, ref, watch } from 'vue';
 import { passwordMinLength } from './validation/user';
 const PasswordScore = defineAsyncComponent(() => import('./password_score.vue'));
@@ -92,7 +92,7 @@ const props = defineProps({
     },
     id: {
         type: String,
-        default: () => cuid(),
+        default: () => createId(),
     },
 });
 

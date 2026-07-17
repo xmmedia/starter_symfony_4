@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import { computed } from 'vue';
 
 const checked = defineModel({ type: Array });
@@ -46,7 +46,7 @@ const props = defineProps({
     },
     id: {
         type: String,
-        default: () => cuid(),
+        default: () => createId(),
     },
 });
 

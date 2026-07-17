@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import { useRootStore } from '@/admin/stores/root';
 
 const rootStore = useRootStore();
@@ -27,7 +27,7 @@ defineProps({
     },
     id: {
         type: String,
-        default: () => cuid(),
+        default: () => createId(),
     },
 });
 </script>

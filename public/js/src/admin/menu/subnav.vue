@@ -27,7 +27,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import { useMenuStore } from '@/admin/stores/menu';
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import MenuLink from './link.vue';
 
 const menuStore = useMenuStore();
@@ -65,7 +65,7 @@ const toggleMenu = () => {
     open.value = !open.value;
 
     if (open.value) {
-        menuStore.subNavOpened(cuid());
+        menuStore.subNavOpened(createId());
         document.documentElement.addEventListener('click', (e) => {
             if (!submenu.value.contains(e.target)) {
                 menuStore.subNavClosed();

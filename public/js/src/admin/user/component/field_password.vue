@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldPassword from '@/common/field_password_with_errors.vue';
 
@@ -46,7 +46,7 @@ defineProps({
     },
     id: {
         type: String,
-        default: () => cuid(),
+        default: () => createId(),
     },
 });
 </script>

@@ -41,7 +41,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import emailSpellChecker from '@zootools/email-spell-checker';
 
 const email = defineModel({ type: String });
@@ -69,7 +69,7 @@ const props = defineProps({
     },
     id: {
         type: String,
-        default: () => cuid(),
+        default: () => createId(),
     },
 });
 

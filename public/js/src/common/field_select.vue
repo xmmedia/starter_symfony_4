@@ -43,7 +43,7 @@
 
 <script setup>
 import { useTemplateRef } from 'vue';
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import FieldSelectElement from './field_select_element.vue';
 
 const value = defineModel({ type: [ String, Number ] });
@@ -107,7 +107,7 @@ defineProps({
     },
     id: {
         type: String,
-        default: () => cuid(),
+        default: () => createId(),
     },
 });
 </script>

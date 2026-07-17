@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 
 const checked = defineModel({ type: Boolean });
 
@@ -33,7 +33,7 @@ defineProps({
     },
     id: {
         type: String,
-        default: () => cuid(),
+        default: () => createId(),
     },
 });
 </script>
