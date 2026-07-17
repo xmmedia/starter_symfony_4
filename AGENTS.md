@@ -74,7 +74,7 @@ This is a Symfony 7 starter template for creating web applications at XM Media. 
 - Show all projection commands: `lando console event-store:projection`
 
 Existing event streams: `user`, `auth`
-Existing projections: `user_projection`, `auth_projection`
+Existing projections: `user_projection`, `auth_projection`, `auth_log_projection`
 
 ### Makers
 - Make aggregate root/model: `bin/console make:model` or `lando console make:model`
@@ -113,14 +113,14 @@ Existing projections: `user_projection`, `auth_projection`
 
 **Projections** (`src/Projection/*/`)
 - Read models built from events (implement `ReadModelProjection`)
-- Examples: `UserProjection`, `AuthProjection`
+- Examples: `UserProjection`, `AuthProjection`, `AuthLogProjection`
 - Automatically run via `RunProjectionMiddleware` on event bus
-- Each projection has: `*Projection.php`, `*ReadModel.php`, `*Finder.php`, `*Filters.php`, `*FilterQueryBuilder.php`
+- Each projection has: `*Projection.php`, `*ReadModel.php`, `*Finder.php`, `*Filters.php`, `*FilterQueryBuilder.php` (not every projection has all of these, e.g. `MessengerQueue` has only Finder/Filters/FilterQueryBuilder)
 - Create tables defined in `src/Projection/Table.php` and `src/Projection/*/ReadModel.php`
 
 **Process Managers** (`src/ProcessManager/`)
 - Coordinate cross-aggregate workflows triggered by events
-- Examples: `UserInviteProcessManager`, `ChangedPasswordProcessManager`
+- Examples: `UserInviteProcessManager`, `UserInviteForMinimumProcessManager`, `ChangedPasswordProcessManager`, `UserUpdatedProfileProcessManager`
 - Listen to events and dispatch new commands
 
 **Repositories** (`src/Infrastructure/Repository/`)
@@ -135,9 +135,9 @@ Existing projections: `user_projection`, `auth_projection`
 - Queries: `src/GraphQl/Query/`
 - Mutations: `src/GraphQl/Mutation/`
 - Custom types: `src/GraphQl/Type/`
-- Access control: `src/GraphQl/Access/`
+- Access control: inline expressions (e.g. `access: '@=hasRole("ROLE_ADMIN")'`) directly in the `*.query.yaml` / `*.mutation.yaml` files
 
-**Domain types** (`config/graphql/types/domain/`): `user.yaml`, `phone_number.yaml`, `upload.yaml`
+**Domain types** (`config/graphql/types/domain/`): `address.yaml`, `auth_log.yaml`, `file.yaml`, `messenger_queue_message.yaml`, `phone_number.yaml`, `upload.yaml`, `user.yaml`
 
 **Frontend GraphQL:**
 - Query/mutation files: `public/js/src/*/queries/*.graphql`
@@ -152,11 +152,13 @@ Entities in `src/Entity/` are projection read models — never used for domain w
 
 - `ChecksUniqueUsersEmailFromReadModel` - validates unique emails
 - `UrlGenerator` - generates signed URLs
+- `DefaultRouteProvider` - determines the default post-login route
 
 ### Controllers (`src/Controller/`)
 
 - `DefaultController` - main entry point
 - `SecurityController` - authentication routes (login, logout)
+- `SwitchUserRedirectController` - redirect handling for user impersonation (switch user)
 
 ### Frontend Architecture
 
@@ -174,12 +176,18 @@ Entities in `src/Entity/` are projection read models — never used for domain w
 **Admin app sections** (`public/js/src/admin/`):
 - `user/` - list, add, edit, view (requires `ROLE_ADMIN`)
 - `admin_dashboard/` - dashboard
+- `admin_delete/` - admin account deletion
+- `auth_log/` - authentication log viewer
+- `menu/` - admin navigation menu
+- `messenger_queue/` - messenger queue viewer
 - `pattern_library/` - UI pattern reference
 
 **User app sections** (`public/js/src/user/`):
+- `dashboard/` - user dashboard
 - `login/` - login page
 - `user_recover/` - initiate, reset (password recovery)
 - `user_activate/` - account activation
+- `user_verify/` - email verification
 - `profile_edit/` - profile, password
 
 **Apollo Client:**
@@ -291,7 +299,7 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 ## Tech Stack
 
 **Backend:**
-- Symfony 7.3 on PHP 8.5
+- Symfony 7.4 on PHP 8.5
 - Prooph PDO Event Store for Event Sourcing
 - OverblogGraphQLBundle for GraphQL API
 - Doctrine ORM for read models only (not domain models)
@@ -309,7 +317,7 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 
 **Local Development:**
 - Lando (Docker-based local dev environment)
-- Node 22 with Yarn v4
+- Node 24 with Yarn v4
 - MySQL 8.4
 
 ## Browser Automation
