@@ -36,14 +36,6 @@ framework:
             'App\Model\User\Command\SendPasswordChangedNotification': async
             'App\Model\User\Command\SendProfileUpdatedNotification':  async
 
-when@prod:
-    framework:
-        messenger:
-            routing:
-                # Route your messages to the transports
-                'App\Model\User\Command\SendPasswordChangedNotification': async
-                'App\Model\User\Command\SendProfileUpdatedNotification':  async
-
 # when@test:
 #    framework:
 #        messenger:
