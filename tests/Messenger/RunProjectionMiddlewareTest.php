@@ -9,7 +9,6 @@ use App\Model\Auth\Event\UserLoggedIn;
 use App\Model\User\Event\UserActivatedByAdmin;
 use App\Model\User\Event\UserWasAddedByAdmin;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Messenger\Envelope;
@@ -51,7 +50,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
                 $faker->userId(),
                 $faker->emailVo(),
                 $faker->password(),
-                Role::ROLE_USER(),
+                $faker->userRole(),
                 true,
                 Name::fromString($faker->firstName()),
                 Name::fromString($faker->lastName()),
@@ -172,7 +171,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->password(),
-            Role::ROLE_USER(),
+            $faker->userRole(),
             true,
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),

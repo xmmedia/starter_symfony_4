@@ -7,7 +7,6 @@ namespace App\Tests\Model\User\Handler;
 use App\Model\User\Command\AdminAddUserMinimum;
 use App\Model\User\Handler\AdminAddUserMinimumHandler;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserList;
@@ -22,7 +21,7 @@ class AdminAddUserMinimumHandlerTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();

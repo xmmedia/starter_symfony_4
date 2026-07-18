@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\GraphQl\Mutation\User\UserPasswordMutation;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Security\PasswordHasher;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
@@ -67,7 +66,7 @@ class UserPasswordMutationTest extends BaseTestCase
             ->andReturn(Name::fromString($faker->lastName()));
         $user->shouldReceive('firstRole')
             ->once()
-            ->andReturn(Role::ROLE_USER());
+            ->andReturn($faker->userRole());
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('getUser')
             ->andReturn($user);

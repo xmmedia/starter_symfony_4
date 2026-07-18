@@ -7,7 +7,6 @@ namespace App\Tests\ProcessManager;
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Event\MinimalUserWasAddedByAdmin;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\ProcessManager\UserInviteForMinimumProcessManager;
 use App\Tests\BaseTestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -29,7 +28,7 @@ class UserInviteForMinimumProcessManagerTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->password(),
-            Role::ROLE_USER(),
+            $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
             true,
@@ -50,7 +49,7 @@ class UserInviteForMinimumProcessManagerTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->password(),
-            Role::ROLE_USER(),
+            $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
             false,

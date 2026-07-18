@@ -6,7 +6,6 @@ namespace App\Tests\Model\User\Command;
 
 use App\Model\User\Command\AdminAddUserMinimum;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 
 class AdminAddUserMinimumTest extends BaseTestCase
@@ -18,7 +17,7 @@ class AdminAddUserMinimumTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();

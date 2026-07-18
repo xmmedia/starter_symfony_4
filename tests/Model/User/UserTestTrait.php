@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Model\User;
 
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Model\User\UserId;
@@ -46,7 +45,7 @@ trait UserTestTrait
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $userData = $faker->userData();

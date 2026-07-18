@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\GraphQl\Mutation\User\UserActivateMutation;
 use App\Model\User\Command\ActivateUser;
 use App\Model\User\Command\ChangePassword;
-use App\Model\User\Role;
 use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
@@ -61,7 +60,7 @@ class UserActivateMutationTest extends BaseTestCase
             ->andReturnFalse();
         $user->shouldReceive('firstRole')
             ->once()
-            ->andReturn(Role::ROLE_USER());
+            ->andReturn($faker->userRole());
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user);
         $security = $this->createSecurity(false);

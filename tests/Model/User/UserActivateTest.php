@@ -7,7 +7,6 @@ namespace App\Tests\Model\User;
 use App\Model\User\Event;
 use App\Model\User\Exception;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Model\User\User;
 use App\Tests\BaseTestCase;
 
@@ -63,7 +62,7 @@ class UserActivateTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->password(),
-            Role::ROLE_USER(),
+            $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
             true,
@@ -105,7 +104,7 @@ class UserActivateTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->password(),
-            Role::ROLE_USER(),
+            $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
             true,

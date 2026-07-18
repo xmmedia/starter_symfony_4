@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Model\User;
 
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Model\User\User;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Tests\FakeAr;
@@ -21,7 +20,7 @@ class UserTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
@@ -56,7 +55,7 @@ class UserTest extends BaseTestCase
 
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
@@ -93,7 +92,7 @@ class UserTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->password(),
-            Role::ROLE_USER(),
+            $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
             $faker->boolean(),

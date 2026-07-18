@@ -6,7 +6,6 @@ namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\MinimalUserWasAddedByAdmin;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
 
@@ -21,7 +20,7 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
@@ -52,7 +51,7 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
@@ -89,7 +88,7 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
 
         /** @var MinimalUserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(

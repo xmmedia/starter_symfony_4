@@ -6,7 +6,6 @@ namespace App\Tests\Infrastructure\Repository;
 
 use App\Infrastructure\Repository\UserRepository;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Model\User\Service\ChecksUniqueUsersEmail;
 use App\Model\User\User;
 use App\Tests\BaseTestCase;
@@ -28,7 +27,7 @@ class UserRepositoryTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->password(),
-            Role::ROLE_USER(),
+            $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
             $faker->boolean(),

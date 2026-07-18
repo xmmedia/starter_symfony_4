@@ -6,7 +6,6 @@ namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\UserWasUpdatedByAdmin;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
 
@@ -20,7 +19,7 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $userData = $faker->userData();
@@ -41,7 +40,7 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $userData = $faker->userData();

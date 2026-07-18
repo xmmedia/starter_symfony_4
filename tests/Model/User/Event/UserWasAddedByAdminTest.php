@@ -6,7 +6,6 @@ namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\UserWasAddedByAdmin;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
 
@@ -21,7 +20,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $active = $faker->boolean();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -58,7 +57,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $active = $faker->boolean();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -101,7 +100,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $userId = $faker->userId();
         $email = $faker->emailVo();
         $password = $faker->password();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $active = $faker->boolean();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());

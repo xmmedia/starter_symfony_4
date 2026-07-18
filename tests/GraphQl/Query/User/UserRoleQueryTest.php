@@ -14,7 +14,9 @@ class UserRoleQueryTest extends BaseTestCase
 {
     public function test(): void
     {
-        $userRoles = [Role::ROLE_USER()->getValue()];
+        $faker = $this->faker();
+
+        $userRoles = [$faker->userRole()->getValue()];
         $resolvedRoles = Role::getValues();
 
         $roleHierarchy = \Mockery::mock(RoleHierarchyInterface::class);

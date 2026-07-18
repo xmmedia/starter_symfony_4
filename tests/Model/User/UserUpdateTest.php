@@ -7,7 +7,6 @@ namespace App\Tests\Model\User;
 use App\Model\User\Event;
 use App\Model\User\Exception;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 
 class UserUpdateTest extends BaseTestCase
@@ -21,7 +20,7 @@ class UserUpdateTest extends BaseTestCase
         $user = $this->getUserActive();
 
         $email = $faker->emailVo();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $userData = $faker->userData();
@@ -59,7 +58,7 @@ class UserUpdateTest extends BaseTestCase
         $user = $this->getUserActive();
 
         $email = $faker->emailVo();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $userData = $faker->userData();
@@ -84,7 +83,7 @@ class UserUpdateTest extends BaseTestCase
         $user->delete();
 
         $email = $faker->emailVo();
-        $role = Role::ROLE_USER();
+        $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
         $userData = $faker->userData();

@@ -9,7 +9,6 @@ use App\GraphQl\Mutation\User\UserRecoverResetMutation;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;
 use App\Tests\EmptyProvider;
@@ -65,7 +64,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->andReturnFalse();
         $user->shouldReceive('firstRole')
             ->once()
-            ->andReturn(Role::ROLE_USER());
+            ->andReturn($faker->userRole());
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user);
 
@@ -146,7 +145,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->andReturnTrue();
         $user->shouldReceive('firstRole')
             ->once()
-            ->andReturn(Role::ROLE_USER());
+            ->andReturn($faker->userRole());
         $user->shouldReceive('email')
             ->once()
             ->andReturn($faker->emailVo());

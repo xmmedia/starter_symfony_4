@@ -29,7 +29,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'setPassword' => false,
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => Role::byValue('ROLE_USER'),
+            'role'        => $faker->userRole(),
             'userData'    => $faker->userData()->toArray(),
         ];
 
@@ -69,7 +69,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'password'    => $faker->password(),
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => Role::byValue('ROLE_USER'),
+            'role'        => $faker->userRole(),
             'userData'    => $faker->userData()->toArray(),
         ];
 
@@ -119,7 +119,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'password'    => $faker->string(4097),
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => Role::byValue('ROLE_USER'),
+            'role'        => $faker->userRole(),
             'userData'    => $faker->userData()->toArray(),
         ];
 
@@ -148,7 +148,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'setPassword' => false,
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => Role::byValue('ROLE_USER')->getValue(),
+            'role'        => $faker->userRole()->getValue(),
             'userData'    => $faker->userData()->toArray(),
         ];
 

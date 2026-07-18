@@ -7,7 +7,6 @@ namespace App\Tests\ProcessManager;
 use App\Model\User\Command\SendActivation;
 use App\Model\User\Event\UserWasAddedByAdmin;
 use App\Model\User\Name;
-use App\Model\User\Role;
 use App\ProcessManager\UserInviteProcessManager;
 use App\Tests\BaseTestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -29,7 +28,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->password(),
-            Role::ROLE_USER(),
+            $faker->userRole(),
             true,
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
@@ -51,7 +50,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
             $faker->userId(),
             $faker->emailVo(),
             $faker->password(),
-            Role::ROLE_USER(),
+            $faker->userRole(),
             true,
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
