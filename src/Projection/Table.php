@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Projection;
 
-class Table
+final readonly class Table
 {
     public const string AUTH_LOG = 'auth_log';
     public const string USER = 'user';
