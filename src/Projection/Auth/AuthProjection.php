@@ -8,6 +8,9 @@ use App\Model\Auth\Event;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\EventStore\Projection\ReadModelProjector;
 
+/**
+ * @method \Prooph\EventStore\Projection\ReadModel readModel()
+ */
 class AuthProjection implements ReadModelProjection
 {
     public function project(ReadModelProjector $projector): ReadModelProjector
