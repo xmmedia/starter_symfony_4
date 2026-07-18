@@ -6,20 +6,22 @@ namespace App\Model\User;
 
 use Xm\SymfonyBundle\Model\PhoneNumber;
 use Xm\SymfonyBundle\Model\ValueObject;
+use Xm\SymfonyBundle\Util\StringUtil;
 
 final readonly class UserData implements ValueObject
 {
     public static function fromArray(array $data): self
     {
-        if (null !== $data['phoneNumber'] ?? null) {
+        $phoneNumber = StringUtil::trim($data['phoneNumber'] ?? null);
+        if (null !== $phoneNumber) {
             if (\is_array($data['phoneNumber'])) {
-                $data['phoneNumber'] = PhoneNumber::fromArray($data['phoneNumber']);
+                $phoneNumber = PhoneNumber::fromArray($data['phoneNumber']);
             } else {
-                $data['phoneNumber'] = PhoneNumber::fromString($data['phoneNumber']);
+                $phoneNumber = PhoneNumber::fromString($data['phoneNumber']);
             }
         }
 
-        return new self($data['phoneNumber'] ?? null);
+        return new self($phoneNumber);
     }
 
     private function __construct(private ?PhoneNumber $phoneNumber)
