@@ -8,6 +8,7 @@ use App\Controller\SecurityController;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
 use App\Security\PasswordHasher;
+use App\Security\Security;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
@@ -26,6 +27,7 @@ final readonly class UserRecoverResetMutation implements MutationInterface
         private MessageBusInterface $commandBus,
         private PasswordHasher $passwordHasher,
         private ResetPasswordHelperInterface $resetPasswordHelper,
+        private Security $security,
         private RequestInfoProvider $requestProvider,
         private ?PasswordStrengthInterface $passwordStrength = null,
         private ?HttpClientInterface $pwnedHttpClient = null,
@@ -34,6 +36,10 @@ final readonly class UserRecoverResetMutation implements MutationInterface
 
     public function __invoke(#[\SensitiveParameter] Argument $args): array
     {
+        if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new UserError('Logged in users cannot change their password this way.', 404);
+        }
+
         $session = $this->requestProvider->currentRequest()->getSession();
         $token = $session->get(SecurityController::TOKEN_SESSION_KEY);
         $newPassword = $args['newPassword'];

@@ -18,6 +18,27 @@ use Xm\SymfonyBundle\Model\Email;
 
 class UserRecoverInitiateMutationTest extends BaseTestCase
 {
+    use UserMockForUserMutationTrait;
+
+    public function testSecurity(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'email' => $faker->email(),
+        ];
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $userFinder = \Mockery::mock(UserFinder::class);
+        $security = $this->createSecurity(true);
+
+        $args = new Argument($data);
+
+        $this->expectException(UserError::class);
+        $this->expectExceptionCode(404);
+
+        (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
+    }
+
     public function testValid(): void
     {
         $faker = $this->faker();
@@ -48,9 +69,11 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->with(\Mockery::type(Email::class))
             ->andReturn($user);
 
+        $security = $this->createSecurity(false);
+
         $args = new Argument($data);
 
-        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
+        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -85,12 +108,14 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->with(\Mockery::type(Email::class))
             ->andReturn($user);
 
+        $security = $this->createSecurity(false);
+
         $args = new Argument($data);
 
         $this->expectException(UserError::class);
         $this->expectExceptionCode(429);
 
-        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
+        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -131,9 +156,11 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             )
             ->andReturn($user);
 
+        $security = $this->createSecurity(false);
+
         $args = new Argument($data);
 
-        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
+        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -158,12 +185,14 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->with(\Mockery::type(Email::class))
             ->andReturn($user);
 
+        $security = $this->createSecurity(false);
+
         $args = new Argument($data);
 
         $this->expectException(UserError::class);
         $this->expectExceptionCode(404);
 
-        (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
+        (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
     }
 
     public function testUserNotFound(): void
@@ -181,12 +210,14 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
             ->with(\Mockery::type(Email::class))
             ->andReturnNull();
 
+        $security = $this->createSecurity(false);
+
         $args = new Argument($data);
 
         $this->expectException(UserError::class);
         $this->expectExceptionCode(404);
 
-        (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
+        (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
     }
 
     public function testInvalidEmail(): void
@@ -200,10 +231,12 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $userFinder = \Mockery::mock(UserFinder::class);
 
+        $security = $this->createSecurity(false);
+
         $args = new Argument($data);
 
         $this->expectException(\InvalidArgumentException::class);
 
-        (new UserRecoverInitiateMutation($commandBus, $userFinder, true))($args);
+        (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
     }
 }

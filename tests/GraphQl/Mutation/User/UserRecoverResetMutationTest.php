@@ -24,6 +24,7 @@ use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
 class UserRecoverResetMutationTest extends BaseTestCase
@@ -67,6 +68,8 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user);
 
+        $security = $this->createSecurity(false);
+
         $requestProvider = $this->getRequestInfoProvider();
 
         $args = new Argument($data);
@@ -75,12 +78,44 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
+    }
+
+    public function testLoggedIn(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'token'       => $faker->password(),
+            'newPassword' => $faker->password(),
+        ];
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
+        $requestProvider = \Mockery::mock(RequestInfoProvider::class);
+
+        $security = $this->createSecurity(true);
+
+        $args = new Argument($data);
+
+        $this->expectException(UserError::class);
+        $this->expectExceptionCode(404);
+
+        (new UserRecoverResetMutation(
+            $commandBus,
+            $passwordHasher,
+            $resetPasswordHelper,
+            $security,
+            $requestProvider,
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
+        ))($args);
     }
 
     public function testAlreadyVerified(): void
@@ -122,6 +157,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->andReturn(Name::fromString($faker->lastName()));
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user);
+        $security = $this->createSecurity(false);
         $requestProvider = $this->getRequestInfoProvider();
 
         $args = new Argument($data);
@@ -130,6 +166,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -160,6 +197,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->with(\Mockery::type('string'))
             ->andThrow(ExpiredResetPasswordTokenException::class);
 
+        $security = $this->createSecurity(false);
         $requestProvider = $this->getRequestInfoProvider(false);
 
         $args = new Argument($data);
@@ -171,6 +209,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -201,6 +240,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->with(\Mockery::type('string'))
             ->andThrow(InvalidResetPasswordTokenException::class);
 
+        $security = $this->createSecurity(false);
         $requestProvider = $this->getRequestInfoProvider(false);
 
         $args = new Argument($data);
@@ -212,6 +252,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -238,6 +279,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->andReturn($faker->userId());
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
+        $security = $this->createSecurity(false);
         $requestProvider = $this->getRequestInfoProvider(false);
 
         $args = new Argument($data);
@@ -248,6 +290,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -271,6 +314,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->andReturn($faker->userId());
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
+        $security = $this->createSecurity(false);
         $requestProvider = $this->getRequestInfoProvider(false);
 
         $args = new Argument($data);
@@ -281,6 +325,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -304,6 +349,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->andReturn($faker->userId());
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
+        $security = $this->createSecurity(false);
         $requestProvider = $this->getRequestInfoProvider(false);
 
         $args = new Argument($data);
@@ -314,6 +360,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -338,6 +385,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->andReturn($faker->userId());
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
+        $security = $this->createSecurity(false);
         $requestProvider = $this->getRequestInfoProvider(false);
 
         $pwnedHttpClient = new MockHttpClient([
@@ -352,6 +400,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $pwnedHttpClient,
@@ -375,6 +424,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             ->andReturn($faker->userId());
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
+        $security = $this->createSecurity(false);
         $requestProvider = $this->getRequestInfoProvider(false);
 
         $args = new Argument($data);
@@ -385,6 +435,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),

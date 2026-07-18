@@ -8,8 +8,10 @@ use App\Controller\SecurityController;
 use App\Entity\User;
 use App\GraphQl\Query\User\UserRecoverResetPasswordStrengthQuery;
 use App\Model\User\Name;
+use App\Security\Security;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +25,34 @@ use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
 {
     use PwnedHttpClientMockTrait;
+
+    private function createSecurity(bool $isGrantedResult): Security|\Mockery\MockInterface
+    {
+        $security = \Mockery::mock(Security::class);
+        $security->shouldReceive('isGranted')
+            ->once()
+            ->andReturn($isGrantedResult);
+
+        return $security;
+    }
+
+    public function testLoggedIn(): void
+    {
+        $security = $this->createSecurity(true);
+
+        $requestProvider = \Mockery::mock(RequestInfoProvider::class);
+
+        $query = new UserRecoverResetPasswordStrengthQuery(
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            $security,
+            $requestProvider,
+        );
+
+        $this->expectException(UserError::class);
+        $this->expectExceptionCode(404);
+
+        $query($this->faker()->password());
+    }
 
     public function testAllowed(): void
     {
@@ -66,8 +96,11 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             ->with($token)
             ->andReturn($user);
 
+        $security = $this->createSecurity(false);
+
         $query = new UserRecoverResetPasswordStrengthQuery(
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -124,8 +157,11 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             new MockResponse(substr(strtoupper(sha1($password)), 5).':5'),
         ]);
 
+        $security = $this->createSecurity(false);
+
         $query = new UserRecoverResetPasswordStrengthQuery(
             $resetPasswordHelper,
+            $security,
             $requestProvider,
             new PasswordStrengthFake(),
             $pwnedHttpClient,
@@ -157,8 +193,11 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             ->once()
             ->andReturn($request);
 
+        $security = $this->createSecurity(false);
+
         $query = new UserRecoverResetPasswordStrengthQuery(
             \Mockery::mock(ResetPasswordHelperInterface::class),
+            $security,
             $requestProvider,
         );
 
@@ -194,7 +233,9 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             ->with($token)
             ->andThrow(ExpiredResetPasswordTokenException::class);
 
-        $query = new UserRecoverResetPasswordStrengthQuery($resetPasswordHelper, $requestProvider);
+        $security = $this->createSecurity(false);
+
+        $query = new UserRecoverResetPasswordStrengthQuery($resetPasswordHelper, $security, $requestProvider);
 
         $result = $query($faker->password());
 
@@ -228,7 +269,9 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             ->with($token)
             ->andThrow(InvalidResetPasswordTokenException::class);
 
-        $query = new UserRecoverResetPasswordStrengthQuery($resetPasswordHelper, $requestProvider);
+        $security = $this->createSecurity(false);
+
+        $query = new UserRecoverResetPasswordStrengthQuery($resetPasswordHelper, $security, $requestProvider);
 
         $result = $query($faker->password());
 

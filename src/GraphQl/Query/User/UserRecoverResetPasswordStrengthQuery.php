@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\GraphQl\Query\User;
 
 use App\Controller\SecurityController;
+use App\Security\Security;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Resolver\QueryInterface;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
@@ -17,6 +19,7 @@ final readonly class UserRecoverResetPasswordStrengthQuery implements QueryInter
 {
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
+        private Security $security,
         private RequestInfoProvider $requestProvider,
         private ?PasswordStrengthInterface $passwordStrength = null,
         private ?HttpClientInterface $pwnedHttpClient = null,
@@ -25,6 +28,10 @@ final readonly class UserRecoverResetPasswordStrengthQuery implements QueryInter
 
     public function __invoke(#[\SensitiveParameter] string $newPassword): array
     {
+        if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new UserError('Logged in users cannot change their password this way.', 404);
+        }
+
         $session = $this->requestProvider->currentRequest()->getSession();
         $token = $session->get(SecurityController::TOKEN_SESSION_KEY);
 
