@@ -34,7 +34,7 @@ class AuthReadModelTest extends BaseTestCase
         $statement = \Mockery::mock(Statement::class);
         $statement->shouldReceive('bindValue')
             ->once()
-            ->with('last_login', $lastLogin, 'datetime_immutable');
+            ->with(':last_login', $lastLogin, 'datetime_immutable');
         $statement->shouldReceive('bindValue')
             ->once()
             ->with(':user_id', $userId);
