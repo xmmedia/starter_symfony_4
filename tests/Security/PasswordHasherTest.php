@@ -7,11 +7,12 @@ namespace App\Tests\Security;
 use App\Model\User\Role;
 use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordHasherTest extends BaseTestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('roleProvider')]
+    #[DataProvider('roleProvider')]
     public function test(Role $role): void
     {
         $faker = $this->faker();

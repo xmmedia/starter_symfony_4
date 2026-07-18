@@ -11,6 +11,7 @@ use App\Model\User\Event\UserWasAddedByAdmin;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Messenger\Envelope;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
@@ -20,7 +21,7 @@ class RunProjectionMiddlewareTest extends BaseTestCase
 {
     use MessengerMiddlewareTestTrait;
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('messageDataProvider')]
+    #[DataProvider('messageDataProvider')]
     public function test(AggregateChanged $message, array $projectionNames): void
     {
         $projectionRunner = \Mockery::mock(ProjectionRunner::class);

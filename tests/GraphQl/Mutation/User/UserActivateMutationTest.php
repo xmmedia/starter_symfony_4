@@ -14,6 +14,7 @@ use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Messenger\Envelope;
@@ -244,7 +245,7 @@ class UserActivateMutationTest extends BaseTestCase
         $this->assertEquals(['success' => true], $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('emptyProvider')]
+    #[DataProvider('emptyProvider')]
     public function testInvalidNewEmpty(?string $empty): void
     {
         $faker = $this->faker();

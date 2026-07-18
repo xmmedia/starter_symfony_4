@@ -6,6 +6,7 @@ namespace App\Tests\EventSubscriber;
 
 use App\EventSubscriber\CsrfValidationSubscriber;
 use App\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -37,7 +38,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         );
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('allCheckedRoutes')]
+    #[DataProvider('allCheckedRoutes')]
     public function testValidateCsrf(string $route): void
     {
         $subscribed = CsrfValidationSubscriber::getSubscribedEvents();

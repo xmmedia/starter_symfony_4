@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Model\User\Role;
 use App\Model\User\UserData;
 use App\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class UserTest extends BaseTestCase
 {
@@ -235,7 +236,7 @@ class UserTest extends BaseTestCase
         $this->assertNull($user->userData());
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('userEqualProvider')]
+    #[DataProvider('userEqualProvider')]
     public function testEqualTo(User $user1, User $user2, bool $result): void
     {
         $this->assertSame($result, $user1->isEqualTo($user2));

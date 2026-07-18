@@ -7,6 +7,7 @@ namespace App\Tests\Util;
 use App\Tests\BaseTestCase;
 use App\Tests\EmptyProvider;
 use App\Util\Assert;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class AssertTest extends BaseTestCase
@@ -19,7 +20,7 @@ class AssertTest extends BaseTestCase
         Assert::passwordLength($this->faker()->string(12));
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('emptyProvider')]
+    #[DataProvider('emptyProvider')]
     public function testPasswordLengthEmpty(?string $password): void
     {
         $this->expectException(\InvalidArgumentException::class);

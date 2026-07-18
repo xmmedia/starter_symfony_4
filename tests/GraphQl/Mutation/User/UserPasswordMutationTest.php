@@ -14,6 +14,7 @@ use App\Security\Security;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Messenger\Envelope;
@@ -87,7 +88,7 @@ class UserPasswordMutationTest extends BaseTestCase
         $this->assertEquals(['success' => true], $result);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('emptyProvider')]
+    #[DataProvider('emptyProvider')]
     public function testInvalidCurrentEmpty(?string $empty): void
     {
         $faker = $this->faker();
@@ -160,7 +161,7 @@ class UserPasswordMutationTest extends BaseTestCase
         ))($args);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('emptyProvider')]
+    #[DataProvider('emptyProvider')]
     public function testInvalidNewEmpty(?string $empty): void
     {
         $faker = $this->faker();
