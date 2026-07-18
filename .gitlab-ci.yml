@@ -39,7 +39,7 @@ before_script:
   - symfony security:check
   - php composer.phar audit
   # check for JS security issues in libs
-  - npm run audit:high
+  - yarn audit:high
 
 .deploy-setup-script: &deploy-setup-script
   - *versions-script

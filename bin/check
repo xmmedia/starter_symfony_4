@@ -16,4 +16,4 @@ lando composer test
 # security checks
 symfony security:check
 lando composer audit --abandoned=report
-npm run audit:high
+yarn audit:high

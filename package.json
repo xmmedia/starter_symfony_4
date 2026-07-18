@@ -17,8 +17,8 @@
     "lint:js:fix": "eslint . --fix",
     "lint:css": "stylelint public/css/**/*.css",
     "lint:css:fix": "stylelint public/css/**/*.css --fix",
-    "audit:moderate": "npx --yes audit-ci@^7 --moderate --config .audit-ci.jsonc --report-type summary",
-    "audit:high": "npx --yes audit-ci@^7 --high --config .audit-ci.jsonc --report-type summary"
+    "audit:moderate": "yarn npm audit --recursive --all --severity moderate",
+    "audit:high": "yarn npm audit --recursive --all --severity high"
   },
   "dependencies": {
     "@apollo/client": "^3.7.12",
