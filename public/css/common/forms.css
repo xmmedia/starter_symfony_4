@@ -39,8 +39,8 @@ select {
         @apply outline-offset-1;
     }
     &::file-selector-button {
-        @apply py-1 px-3 mr-3 text-sm text-white font-extralight bg-blue-500 text-center
-        border-2 border-blue-500 rounded tracking-wider cursor-pointer transition-all duration-150;
+        @apply py-1 px-3 mr-3 text-sm text-white font-extralight bg-blue-500 text-center;
+        @apply border-2 border-blue-500 rounded tracking-wider cursor-pointer transition-all duration-150;
         &:hover {
             @apply bg-blue-800 border-blue-800;
         }

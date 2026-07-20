@@ -1,7 +1,7 @@
 .button {
-    @apply py-2 px-4 text-white font-extralight bg-blue-500 text-center
-    shadow-none border-2 border-blue-500 rounded tracking-wider
-    transition-default outline-hidden cursor-pointer;
+    @apply py-2 px-4 text-white font-extralight bg-blue-500 text-center tracking-wider;
+    @apply shadow-none border-2 border-blue-500 rounded outline-hidden;
+    @apply cursor-pointer transition-default;
     &:hover {
         @apply text-white bg-blue-800 border-blue-800 no-underline;
     }
