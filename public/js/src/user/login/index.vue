@@ -81,7 +81,6 @@
                 <PublicIcon icon="arrow-section" width="12" height="12" class="rotate-90" /> Back
             </button>
         </div>
-
     </PublicFormWrap>
 </template>
 
