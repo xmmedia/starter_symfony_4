@@ -15,13 +15,13 @@ export default {
             "always",
             {
                 "except": [ "blockless-after-same-name-blockless", "first-nested" ],
-                "ignore": [ "after-comment" ],
-                "ignoreAtRules": [ "apply" ],
+                "ignore": [ "after-comment", "first-nested", "inside-block" ],
+                "ignoreAtRules": [ "else", "apply", "import", "source" ],
             },
         ],
         "no-invalid-position-at-import-rule": [
             true,
-            { "ignoreAtRules": [ "config", "source", "theme", "supports", "layer" ] },
+            { "ignoreAtRules": [ "config", "plugin", "source", "theme", "supports", "layer" ] },
         ],
         "custom-property-empty-line-before": null,
         "comment-empty-line-before": null,
