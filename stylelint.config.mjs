@@ -11,6 +11,14 @@ export default {
             },
         ],
         "at-rule-no-deprecated": null,
+        "at-rule-empty-line-before": [
+            "always",
+            {
+                "except": [ "blockless-after-same-name-blockless", "first-nested" ],
+                "ignore": [ "after-comment" ],
+                "ignoreAtRules": [ "apply" ],
+            },
+        ],
         "no-invalid-position-at-import-rule": [
             true,
             { "ignoreAtRules": [ "config", "source", "theme", "supports", "layer" ] },
