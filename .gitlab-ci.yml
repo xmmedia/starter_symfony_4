@@ -99,14 +99,14 @@ static:
     APP_ENV: test
   script:
     - *versions-script
-    # install php dependencies
+    # install PHP dependencies
     - php composer.phar install --no-interaction --no-progress --ignore-platform-reqs
-    # composer requires packages to be installed before running security checks
+    # Install node/JS dependencies
+    - yarn install --immutable
+    # composer & yarn require packages to be installed before running security checks
     - *security-checks
     # make sure composer.lock is up to date
     - php composer.phar normalize --dry-run
-    # Install node/JS dependencies
-    - yarn install --immutable
     # cache warmup for phpstan
     - php bin/console cache:warmup --env=dev
     - php bin/phpstan analyse --no-progress --memory-limit 1G src
@@ -132,11 +132,12 @@ deploy to staging:
   when: manual
   script:
     - *deploy-setup-script
-    # install php dependencies
+    # install PHP dependencies
     - php composer.phar install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
-    # composer requires packages to be installed before running security checks
-    - *security-checks
+    # Install node/JS dependencies
     - yarn install --immutable
+    # composer & yarn require packages to be installed before running security checks
+    - *security-checks
     - yarn build --mode development
     - *deploy-script
 
@@ -152,10 +153,11 @@ deploy to prod:
   when: manual
   script:
     - *deploy-setup-script
-    # install dependencies (not php dev dependencies)
+    # install PHP dependencies (not php dev dependencies)
     - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
-    # composer requires packages to be installed before running security checks
-    - *security-checks
+    # Install node/JS dependencies
     - yarn install --immutable
+    # composer & yarn require packages to be installed before running security checks
+    - *security-checks
     - yarn build
     - *deploy-script
