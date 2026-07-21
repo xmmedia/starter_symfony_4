@@ -6,7 +6,7 @@
         </div>
         <div v-if="address.line2">{{ address.line2 }}</div>
         <div>{{ address.city }}, {{ address.province.abbreviation }}
-            &MediumSpace;{{ address.postalCode.replace(' ', '&nbsp;') }}</div>
+            &MediumSpace;{{ address.postalCode.replace(' ', '\u00A0') }}</div>
     </address>
 </template>
 
