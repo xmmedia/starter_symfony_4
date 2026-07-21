@@ -1159,10 +1159,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:^1.1.5":
-  version: 1.8.0
-  resolution: "@noble/hashes@npm:1.8.0"
-  checksum: 10/474b7f56bc6fb2d5b3a42132561e221b0ea4f91e590f4655312ca13667840896b34195e2b53b7f097ec080a1fdd3b58d902c2a8d0fbdf51d2e238b53808a177e
+"@noble/hashes@npm:^2.0.1":
+  version: 2.2.0
+  resolution: "@noble/hashes@npm:2.2.0"
+  checksum: 10/b1b78bedc2a01394be047429f3d888905015fe8a09f1b7e43e0b5736b54133df62f73dcc73ede43af38e96e86156afb45b86973fdeaa95d9f0880333c3fc0907
   languageName: node
   linkType: hard
 
@@ -1502,12 +1502,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@paralleldrive/cuid2@npm:^2.2.2":
-  version: 2.3.1
-  resolution: "@paralleldrive/cuid2@npm:2.3.1"
+"@paralleldrive/cuid2@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@paralleldrive/cuid2@npm:3.3.0"
   dependencies:
-    "@noble/hashes": "npm:^1.1.5"
-  checksum: 10/08687b891dfdad44f13a2c69232e95ca27efffc8b376587c2b89114b100a505808e7af5fbb51c3103053c637a6604f5987afa3ee8b4e1ba4c38742ebd47b4a84
+    "@noble/hashes": "npm:^2.0.1"
+    bignumber.js: "npm:^9.3.1"
+    error-causes: "npm:^3.0.2"
+  bin:
+    cuid2: bin/cuid2.js
+  checksum: 10/e30db76e23a2bc49d332f0e8ce0e5e0e347f8b104dff9351d326f0cad03db52a27536569fb2acabe47be4d77387c2def76c8bb0e7a53566ab38dd201a55becf0
   languageName: node
   linkType: hard
 
@@ -2980,6 +2984,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bignumber.js@npm:^9.3.1":
+  version: 9.3.1
+  resolution: "bignumber.js@npm:9.3.1"
+  checksum: 10/1be0372bf0d6d29d0a49b9e6a9cefbd54dad9918232ad21fcd4ec39030260773abf0c76af960c6b3b98d3115a3a71e61c6a111812d1395040a039cfa178e0245
+  languageName: node
+  linkType: hard
+
 "birpc@npm:^2.3.0, birpc@npm:^2.6.1":
   version: 2.9.0
   resolution: "birpc@npm:2.9.0"
@@ -3467,6 +3478,13 @@ __metadata:
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
   checksum: 10/65b5df55a8bab92229ab2b40dad3b387fad24613263d103a97f91c9fe43ceb21965cd3392b1ccb5d77088021e525c4e0481adb309625d0cb94ade1d1fb8dc17e
+  languageName: node
+  linkType: hard
+
+"error-causes@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "error-causes@npm:3.0.2"
+  checksum: 10/0f70b8f0a9c0ed3b891964c11bdd87487cd8d8641d2ec84e5fe01c83dd5fd97d53944b97ff91018a4a2de805714220d213eaee75a0dff3b6b7cf2510413d0d28
   languageName: node
   linkType: hard
 
@@ -7084,7 +7102,7 @@ __metadata:
     "@faker-js/faker": "npm:^10.0.0"
     "@googlemaps/js-api-loader": "npm:^2.1.1"
     "@graphql-eslint/eslint-plugin": "npm:^4.4.0"
-    "@paralleldrive/cuid2": "npm:^2.2.2"
+    "@paralleldrive/cuid2": "npm:^3.3.0"
     "@rollup/plugin-graphql": "npm:^3.0.0"
     "@sentry/vite-plugin": "npm:^5.0.0"
     "@sentry/vue": "npm:^10.0.0"
