@@ -112,13 +112,9 @@ onMounted(() => {
 });
 
 const setEmailDebounce = debounce(function (email) {
-    setEmail(email);
-}, 100, { leading: true });
-
-const setEmail = (value) => {
-    user.value.email = value;
+    user.value.email = email;
     changed();
-};
+}, 100, { leading: true });
 
 const submit = async () => {
     if (!state.value.matches('ready') && !state.value.matches('edited')) {

@@ -58,10 +58,7 @@ const userDataForPassword = computed(() => [
     user.value.lastName,
 ]);
 
-const setEmailDebounce = debounce(function (email) {
-    setEmail(email);
+const setEmailDebounce = debounce((email) => {
+    user.value.email = email;
 }, 100, { leading: true });
-const setEmail = (value) => {
-    user.value.email = value;
-};
 </script>
