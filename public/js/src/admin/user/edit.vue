@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
@@ -70,9 +70,6 @@ const {
     v$,
 } = useForm(state, props.userId);
 
-const verified = ref(true);
-const active = ref(true);
-
 const showForm = computed(() => state.value.matches('ready') && !state.value.done);
 const allowSave = computed(() => showForm.value && state.value.matches('ready.ready'));
 
@@ -88,9 +85,6 @@ onResult(({ data: { User }}) => {
     user.value.role = User.roles[0];
     user.value.firstName = User.firstName;
     user.value.lastName = User.lastName;
-
-    verified.value = User.verified;
-    active.value = User.active;
 
     if (User.userData) {
         user.value.phoneNumber = formatPhone(User.userData.phoneNumber);

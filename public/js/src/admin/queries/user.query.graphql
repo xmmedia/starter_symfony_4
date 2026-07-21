@@ -72,8 +72,6 @@ query GetUserQuery($userId: UserId!) {
         roles
         firstName
         lastName
-        verified
-        active
         userData {
             phoneNumber {
                 phoneNumber
