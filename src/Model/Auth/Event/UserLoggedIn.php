@@ -15,7 +15,7 @@ class UserLoggedIn extends AggregateChanged
     private Email $email;
     private ?string $userAgent;
     private string $ipAddress;
-    private string $route;
+    private ?string $route;
 
     public static function now(
         AuthId $authId,
@@ -83,10 +83,11 @@ class UserLoggedIn extends AggregateChanged
         return $this->ipAddress;
     }
 
-    public function route(): string
+    public function route(): ?string
     {
         if (!isset($this->route)) {
-            $this->route = $this->payload['route'];
+            // @todo-symfony remove null coalescing (& related test) if this is a new project
+            $this->route = $this->payload['route'] ?? null;
         }
 
         return $this->route;

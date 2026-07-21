@@ -135,4 +135,38 @@ class UserLoggedInTest extends BaseTestCase
         $this->assertSame($ipAddress, $event->ipAddress());
         $this->assertSame($route, $event->route());
     }
+
+    public function testFromArrayMissingKeys(): void
+    {
+        $faker = $this->faker();
+
+        $authId = $faker->authId();
+        $userId = $faker->userId();
+        $email = $faker->emailVo();
+        $userAgent = $faker->userAgent();
+        $ipAddress = $faker->ipv4();
+
+        /** @var UserLoggedIn $event */
+        $event = $this->createEventFromArray(
+            UserLoggedIn::class,
+            $authId->toString(),
+            [
+                'userId'    => $userId->toString(),
+                'email'     => $email->toString(),
+                'userAgent' => $userAgent,
+                'ipAddress' => $ipAddress,
+                // missing route
+            ],
+        );
+
+        $this->assertInstanceOf(UserLoggedIn::class, $event);
+
+        $this->assertNull($event->route());
+
+        $this->assertSameValueAs($authId, $event->authId());
+        $this->assertSameValueAs($userId, $event->userId());
+        $this->assertSameValueAs($email, $event->email());
+        $this->assertSame($userAgent, $event->userAgent());
+        $this->assertSame($ipAddress, $event->ipAddress());
+    }
 }

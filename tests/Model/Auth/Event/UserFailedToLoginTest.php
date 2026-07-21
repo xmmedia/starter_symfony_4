@@ -151,7 +151,6 @@ class UserFailedToLoginTest extends BaseTestCase
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
         $message = $faker->string(100);
-        $route = $faker->slug();
 
         /** @var UserFailedToLogin $event */
         $event = $this->createEventFromArray(
@@ -162,20 +161,19 @@ class UserFailedToLoginTest extends BaseTestCase
                 'userAgent'        => $userAgent,
                 'ipAddress'        => $ipAddress,
                 'exceptionMessage' => $message,
-                'route'            => $route,
-                // missing userId
+                // missing userId & route
             ],
         );
 
         $this->assertInstanceOf(UserFailedToLogin::class, $event);
 
         $this->assertNull($event->userId());
+        $this->assertNull($event->route());
 
         $this->assertSameValueAs($authId, $event->authId());
         $this->assertSame($email, $event->email());
         $this->assertSame($userAgent, $event->userAgent());
         $this->assertSame($ipAddress, $event->ipAddress());
         $this->assertSame($message, $event->exceptionMessage());
-        $this->assertSame($route, $event->route());
     }
 }

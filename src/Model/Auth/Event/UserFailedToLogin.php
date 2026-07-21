@@ -15,7 +15,7 @@ class UserFailedToLogin extends AggregateChanged
     private ?string $userAgent;
     private string $ipAddress;
     private ?string $exceptionMessage;
-    private string $route;
+    private ?string $route;
 
     public static function now(
         AuthId $authId,
@@ -100,10 +100,11 @@ class UserFailedToLogin extends AggregateChanged
         return $this->exceptionMessage;
     }
 
-    public function route(): string
+    public function route(): ?string
     {
         if (!isset($this->route)) {
-            $this->route = $this->payload['route'];
+            // @todo-symfony remove null coalescing (& related test) if this is a new project
+            $this->route = $this->payload['route'] ?? null;
         }
 
         return $this->route;
