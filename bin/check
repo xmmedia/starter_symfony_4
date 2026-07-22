@@ -2,6 +2,14 @@
 
 set -e
 
+# use the Node version in .nvmrc, if nvm is installed
+NVM_SH="${NVM_DIR:-$HOME/.nvm}/nvm.sh"
+if [ -s "$NVM_SH" ]; then
+    # shellcheck disable=SC1090
+    . "$NVM_SH"
+    nvm use
+fi
+
 # check if composer.json & lock match
 lando composer validate --no-check-all --no-check-version --check-lock
 

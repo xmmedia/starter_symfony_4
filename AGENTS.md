@@ -39,8 +39,8 @@ This is a Symfony 7 starter template for creating web applications at XM Media. 
 - JS/Frontend tests: `yarn test:unit` – not working at the moment
 
 ### Code Quality & Linting
-- Run all checks: `bin/check`
-- Run all checks with auto-fixes: `bin/check_full` (runs rector, php-cs-fixer, then bin/check)
+- Run all checks: `bin/check` (switches to the node version in `.nvmrc` if nvm is installed)
+- Run all checks with auto-fixes: `bin/check_full` (runs rector, php-cs-fixer, bin/generate_schema, then bin/check)
 - PHP CS (dry run): `lando composer cs` or `composer cs`
 - PHP CS (fix): `lando composer cs:fix` or `composer cs:fix`
 - PHPStan static analysis: `lando composer static` or `composer static`
@@ -365,6 +365,6 @@ When upgrading PHP, update version in these files:
 - `setup_dev.sh`, `setup_prod.sh`, `.gitlab-ci.yml`, `.github/workflows/ci.yml`
 - `.php-cs-fixer.dist.php`
 
-Then run: `lando rebuild && lando composer update && nvm use && bin/check_full`
+Then run: `lando rebuild && lando composer update && bin/check_full`
 
 Write conditionals in yoda style.

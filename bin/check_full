@@ -4,4 +4,5 @@ set -e
 
 lando composer rector
 lando composer cs:fix
+bin/generate_schema
 bin/check

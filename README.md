@@ -77,8 +77,8 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 
 ## Commands
 
-  - Run all checks: `nvm use && bin/generate_schema && bin/check_full`
-    - Notes: this generates the GQL schema first, because within the checks we validate the graphql operations files
+  - Run all checks: `bin/check_full`
+    - Notes: this switches to the node version in `.nvmrc` (if nvm is installed) & generates the GQL schema first, because within the checks we validate the graphql operations files
   - Check all code: `bin/check`
   - Generate GQL schema: `bin/generate_schema`
   - Production JS/CSS build: `yarn build`
@@ -169,7 +169,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
    - `~/.bashrc` and/or `~/.zshrc` on the servers
 1. Run `lando rebuild` to rebuild the Lando container with the new PHP version.
 1. Run `lando composer update` or `composer update` to update the PHP dependencies. If running locally without Lando, ensure your local PHP version matches the new version.
-1. Run the checks `nvm use && bin/check_full`.
+1. Run the checks `bin/check_full`.
 1. Update version in `README.md`.
 
 ## User Actions & Fields
