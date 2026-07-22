@@ -37,6 +37,7 @@ public/service-worker.js
 # ignore everything in bin, except...
 /bin/*
 !/bin/console
+!/bin/_output.sh
 !/bin/check
 !/bin/check_full
 !/bin/generate_schema

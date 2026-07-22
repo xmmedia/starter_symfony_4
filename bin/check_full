@@ -1,8 +1,15 @@
 #!/bin/bash
 
-set -e
+set -Ee
 
-lando composer rector
-lando composer cs:fix
-bin/generate_schema
+# shellcheck source=bin/_output.sh
+. "$(dirname "$0")/_output.sh"
+trap report_failure ERR
+
+step "Rector" lando composer rector
+step "PHP CS Fixer" lando composer cs:fix
+step "Generate GraphQL schema" bin/generate_schema
+
+# bin/check prints its own step output & success message
+trap - ERR
 bin/check
