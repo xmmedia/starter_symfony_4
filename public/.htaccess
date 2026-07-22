@@ -52,6 +52,9 @@ DirectoryIndex index.php
     # https://wiki.apache.org/httpd/RewriteHTTPToHTTPS
     RewriteCond %{HTTPS} !=on
     RewriteCond %{ENV:HTTPS} !^.*on
+    # @todo enabled if needed, for when behind Cloudflare's proxy when in SSL Flexible mode
+    # Detect https if behind a proxy (such as Cloudflare)
+    #RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
     # Determine the RewriteBase automatically and set it as environment variable.
