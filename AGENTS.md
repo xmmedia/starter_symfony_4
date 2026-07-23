@@ -39,8 +39,7 @@ This is a Symfony 7 starter template for creating web applications at XM Media. 
 - JS/Frontend tests: `yarn test:unit` – not working at the moment
 
 ### Code Quality & Linting
-- Run all checks: `bin/check` (switches to the node version in `.nvmrc` if nvm is installed)
-- Run all checks with auto-fixes: `bin/check_full` (runs rector, php-cs-fixer, bin/generate_schema, then bin/check)
+- Run all checks: `bin/check_full` (runs rector, php-cs-fixer, bin/generate_schema, then bin/check)
 - PHP CS (dry run): `lando composer cs` or `composer cs`
 - PHP CS (fix): `lando composer cs:fix` or `composer cs:fix`
 - PHPStan static analysis: `lando composer static` or `composer static`
