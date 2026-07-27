@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\PHPUnit\Set\PHPUnitSetList;
 
 return RectorConfig::configure()
     ->withParallel()
+    ->withCache(__DIR__.'/var/cache/rector')
     ->withPreparedSets(
         codeQuality: true,
         codingStyle: true,
@@ -20,22 +20,19 @@ return RectorConfig::configure()
     ->withDeadCodeLevel(40)
     ->withPaths([
         __DIR__.'/src',
-        __DIR__.'/public/index.php',
+        __DIR__.'/public',
         __DIR__.'/config',
+        __DIR__.'/migrations',
         __DIR__.'/tests',
     ])
     ->withRootFiles()
-    ->withSets([
-        PHPUnitSetList::PHPUNIT_90,
-        PHPUnitSetList::PHPUNIT_100,
-        PHPUnitSetList::PHPUNIT_110,
-    ])
     ->withSkip([
         // don't remove useless variables inside AR events
         // it's nice to keep them for editing later
         Rector\CodeQuality\Rector\FunctionLike\SimplifyUselessVariableRector::class => [
             __DIR__.'/src/Model/*/Event/*',
         ],
+        // from the PHP sets
         // we may not want the property to have a default value
         Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector::class,
         Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector::class,
@@ -45,7 +42,7 @@ return RectorConfig::configure()
         Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class,
         Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector::class,
         Rector\CodingStyle\Rector\String_\SimplifyQuoteEscapeRector::class,
-        // from set "codingStyle"
+        // from set "codeQuality"
         Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
         Rector\CodeQuality\Rector\If_\CombineIfRector::class,
         Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector::class,
