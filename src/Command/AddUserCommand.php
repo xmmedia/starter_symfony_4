@@ -93,7 +93,7 @@ final class AddUserCommand extends Command
             // a random password with some of the extras removed/trimmed off
             $password = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
         }
-        $role = Role::byValue($this->askForRole($io));
+        $role = Role::from($this->askForRole($io));
         $firstName = Name::fromString($this->askForName('First name', $io));
         $lastName = Name::fromString($this->askForName('Last name', $io));
 
@@ -125,7 +125,7 @@ final class AddUserCommand extends Command
             $results = [
                 'userId' => $userId->toString(),
                 'email'  => $email->toString(),
-                'role'   => $role->getValue(),
+                'role'   => $role->value,
             ];
 
             if ($generateActivationToken) {
@@ -142,7 +142,7 @@ final class AddUserCommand extends Command
             \sprintf(
                 'Created new active user %s with role %s with ID: %s.',
                 $email,
-                $role->getValue(),
+                $role->value,
                 $userId,
             ),
         );
@@ -193,7 +193,7 @@ final class AddUserCommand extends Command
 
     private function askForRole(SymfonyStyle $io): string
     {
-        return $io->choice('Role', Role::getValues(), 'ROLE_USER');
+        return $io->choice('Role', Role::values(), 'ROLE_USER');
     }
 
     private function askForName(string $label, SymfonyStyle $io): string

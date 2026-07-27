@@ -15,7 +15,7 @@ class UserFakerProvider extends Faker\Provider\Base
 {
     public function userRole(): Role
     {
-        return Role::byValue($this->generator->randomElement(Role::getValues()));
+        return $this->generator->randomElement(Role::cases());
     }
 
     public function userData(): UserData

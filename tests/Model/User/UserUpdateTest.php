@@ -40,7 +40,7 @@ class UserUpdateTest extends BaseTestCase
             Event\UserWasUpdatedByAdmin::class,
             [
                 'email'     => $email->toString(),
-                'role'      => $role->getValue(),
+                'role'      => $role->value,
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
                 'userData'  => $userData->toArray(),

@@ -51,7 +51,7 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
             $userId->toString(),
             [
                 'email'     => $email->toString(),
-                'role'      => $role->getValue(),
+                'role'      => $role->value,
                 'firstName' => $firstName->toString(),
                 'lastName'  => $lastName->toString(),
                 'userData'  => $userData->toArray(),

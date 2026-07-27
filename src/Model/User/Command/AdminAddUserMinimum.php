@@ -26,7 +26,7 @@ final class AdminAddUserMinimum extends Command
             'userId'         => $userId->toString(),
             'email'          => $email->toString(),
             'hashedPassword' => $hashedPassword,
-            'role'           => $role->getValue(),
+            'role'           => $role->value,
             'firstName'      => $firstName->toString(),
             'lastName'       => $lastName->toString(),
             'sendInvite'     => $sendInvite,
@@ -50,7 +50,7 @@ final class AdminAddUserMinimum extends Command
 
     public function role(): Role
     {
-        return Role::byValue($this->payload['role']);
+        return Role::from($this->payload['role']);
     }
 
     public function firstName(): Name

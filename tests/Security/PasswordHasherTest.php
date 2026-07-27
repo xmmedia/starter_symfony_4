@@ -31,7 +31,7 @@ class PasswordHasherTest extends BaseTestCase
 
     public static function roleProvider(): \Generator
     {
-        foreach (Role::getEnumerators() as $role) {
+        foreach (Role::cases() as $role) {
             yield [$role];
         }
     }

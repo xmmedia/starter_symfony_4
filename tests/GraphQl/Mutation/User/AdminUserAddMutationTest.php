@@ -152,7 +152,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             'setPassword' => false,
             'firstName'   => $faker->name(),
             'lastName'    => $faker->name(),
-            'role'        => $faker->userRole()->getValue(),
+            'role'        => $faker->userRole()->value,
             'active'      => true,
             'sendInvite'  => true,
             'userData'    => $faker->userData()->toArray(),

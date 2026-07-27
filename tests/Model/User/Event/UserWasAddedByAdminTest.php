@@ -71,7 +71,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
             [
                 'email'          => $email->toString(),
                 'hashedPassword' => $password,
-                'role'           => $role->getValue(),
+                'role'           => $role->value,
                 'active'         => $active,
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
@@ -116,7 +116,7 @@ class UserWasAddedByAdminTest extends BaseTestCase
                 'encodedPassword' => $password,
 
                 'email'      => $email->toString(),
-                'role'       => $role->getValue(),
+                'role'       => $role->value,
                 'active'     => $active,
                 'firstName'  => $firstName->toString(),
                 'lastName'   => $lastName->toString(),

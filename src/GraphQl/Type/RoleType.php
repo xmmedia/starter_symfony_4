@@ -19,10 +19,7 @@ final class RoleType extends EnumType implements AliasedInterface
     {
         $config = [
             'name'        => self::NAME,
-            'values'      => array_combine(
-                Role::getNames(),
-                Role::getValues(),
-            ),
+            'values'      => Role::namesToValues(),
             'description' => 'Available User roles.',
         ];
 
@@ -40,11 +37,11 @@ final class RoleType extends EnumType implements AliasedInterface
         }
 
         if (\is_string($value)) {
-            $value = Role::byValue($value);
+            $value = Role::tryFrom($value) ?? $value;
         }
 
         if ($value instanceof Role) {
-            return $value->getValue();
+            return $value->value;
         }
 
         throw new Error('Cannot serialize Role value as enum: '.Utils::printSafe($value));
@@ -60,7 +57,8 @@ final class RoleType extends EnumType implements AliasedInterface
             return null;
         }
 
-        return Role::byValue($value);
+        return Role::tryFrom($value)
+            ?? throw new Error('Cannot represent value as Role enum: '.Utils::printSafe($value));
     }
 
     /**

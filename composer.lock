@@ -13134,16 +13134,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.115",
+            "version": "v2.0.119",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "7a608ad69b497397ab67c8b337ad699ad42d437a"
+                "reference": "3573786c52cb2668f81dd2946ffef063ef3efa79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/7a608ad69b497397ab67c8b337ad699ad42d437a",
-                "reference": "7a608ad69b497397ab67c8b337ad699ad42d437a",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/3573786c52cb2668f81dd2946ffef063ef3efa79",
+                "reference": "3573786c52cb2668f81dd2946ffef063ef3efa79",
                 "shasum": ""
             },
             "require": {
@@ -13174,20 +13174,21 @@
                 "wildbit/postmark-php": "^2.8 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "require-dev": {
-                "ekino/phpstan-banned-code": "^1.0",
+                "ekino/phpstan-banned-code": "^3.0",
                 "fakerphp/faker": "^1.8",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "jetbrains/phpstorm-attributes": "^1.0",
+                "marc-mabe/php-enum-phpstan": "^3.0",
                 "mockery/mockery": "^1.2",
                 "pentatrion/vite-bundle": "^6.0",
-                "phpstan/phpstan": "^1.0",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-mockery": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpstan/phpstan-symfony": "^1.0",
-                "phpstan/phpstan-webmozart-assert": "^1.0",
+                "phpstan/phpstan": "^2.0",
+                "phpstan/phpstan-deprecation-rules": "^2.0",
+                "phpstan/phpstan-mockery": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpstan/phpstan-symfony": "^2.0",
+                "phpstan/phpstan-webmozart-assert": "^2.0",
                 "phpunit/phpunit": "^9.0",
-                "rector/rector": "^0.18",
+                "rector/rector": "^2.0",
                 "symfony/debug-pack": "^1.0.0",
                 "symfony/maker-bundle": "^1.0",
                 "symfony/phpunit-bridge": "^7.0",
@@ -13217,9 +13218,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.115"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.119"
             },
-            "time": "2026-07-16T20:13:47+00:00"
+            "time": "2026-07-27T22:21:03+00:00"
         }
     ],
     "packages-dev": [

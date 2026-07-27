@@ -31,7 +31,7 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
         $event = self::occur($userId->toString(), [
             'email'          => $email->toString(),
             'hashedPassword' => $hashedPassword,
-            'role'           => $role->getValue(),
+            'role'           => $role->value,
             'firstName'      => $firstName->toString(),
             'lastName'       => $lastName->toString(),
             'sendInvite'     => $sendInvite,
@@ -73,7 +73,7 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
     public function role(): Role
     {
         if (!isset($this->role)) {
-            $this->role = Role::byValue($this->payload['role']);
+            $this->role = Role::from($this->payload['role']);
         }
 
         return $this->role;

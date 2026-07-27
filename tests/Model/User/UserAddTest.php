@@ -48,7 +48,7 @@ class UserAddTest extends BaseTestCase
             [
                 'email'          => $email->toString(),
                 'hashedPassword' => $password,
-                'role'           => $role->getValue(),
+                'role'           => $role->value,
                 'active'         => true,
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
@@ -99,7 +99,7 @@ class UserAddTest extends BaseTestCase
             [
                 'email'          => $email->toString(),
                 'hashedPassword' => $password,
-                'role'           => $role->getValue(),
+                'role'           => $role->value,
                 'active'         => true,
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
@@ -150,7 +150,7 @@ class UserAddTest extends BaseTestCase
             [
                 'email'          => $email->toString(),
                 'hashedPassword' => $password,
-                'role'           => $role->getValue(),
+                'role'           => $role->value,
                 'active'         => false,
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
@@ -227,7 +227,7 @@ class UserAddTest extends BaseTestCase
             [
                 'email'          => $email->toString(),
                 'hashedPassword' => $password,
-                'role'           => $role->getValue(),
+                'role'           => $role->value,
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
                 'sendInvite'     => $sendInvite,

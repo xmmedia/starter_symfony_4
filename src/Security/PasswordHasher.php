@@ -28,7 +28,7 @@ class PasswordHasher
 
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('roles')
-            ->setValue($user, [$role->getValue()]);
+            ->setValue($user, [$role->value]);
 
         return $user;
     }

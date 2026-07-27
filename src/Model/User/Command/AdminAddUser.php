@@ -29,7 +29,7 @@ final class AdminAddUser extends Command
             'userId'         => $userId->toString(),
             'email'          => $email->toString(),
             'hashedPassword' => $hashedPassword,
-            'role'           => $role->getValue(),
+            'role'           => $role->value,
             'active'         => $active,
             'firstName'      => $firstName->toString(),
             'lastName'       => $lastName->toString(),
@@ -55,7 +55,7 @@ final class AdminAddUser extends Command
 
     public function role(): Role
     {
-        return Role::byValue($this->payload['role']);
+        return Role::from($this->payload['role']);
     }
 
     public function active(): bool

@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace App\Model\AuthLog;
 
-use Xm\SymfonyBundle\Model\Enum;
+use Xm\SymfonyBundle\Model\ValueObjectEnum;
+use Xm\SymfonyBundle\Model\ValueObjectEnumTrait;
 
-/**
- * @method static AuthLogEventType LOGIN()
- * @method static AuthLogEventType LOGIN_FAILED()
- * @method static AuthLogEventType IMPERSONATION_STARTED()
- * @method static AuthLogEventType IMPERSONATION_ENDED()
- */
-final class AuthLogEventType extends Enum
+enum AuthLogEventType: string implements ValueObjectEnum
 {
-    public const string LOGIN = 'login';
-    public const string LOGIN_FAILED = 'login_failed';
-    public const string IMPERSONATION_STARTED = 'impersonation_started';
-    public const string IMPERSONATION_ENDED = 'impersonation_ended';
+    use ValueObjectEnumTrait;
+
+    case LOGIN = 'login';
+    case LOGIN_FAILED = 'login_failed';
+    case IMPERSONATION_STARTED = 'impersonation_started';
+    case IMPERSONATION_ENDED = 'impersonation_ended';
 }

@@ -33,7 +33,7 @@ final readonly class AdminUserAddMutation implements MutationInterface
         $email = Email::fromString($args['user']['email']);
         $role = $args['user']['role'];
         if (!$role instanceof Role) {
-            $role = Role::byValue($role);
+            $role = Role::from($role);
         }
         $firstName = Name::fromString($args['user']['firstName']);
         $lastName = Name::fromString($args['user']['lastName']);

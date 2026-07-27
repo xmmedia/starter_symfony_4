@@ -39,9 +39,9 @@ class AuthLogEventTypeTypeTest extends BaseTestCase
             $valueMap[$v->name] = $v->value;
         }
 
-        $this->assertSame(AuthLogEventType::LOGIN, $valueMap['LOGIN']);
-        $this->assertSame(AuthLogEventType::LOGIN_FAILED, $valueMap['LOGIN_FAILED']);
-        $this->assertSame(AuthLogEventType::IMPERSONATION_STARTED, $valueMap['IMPERSONATION_STARTED']);
-        $this->assertSame(AuthLogEventType::IMPERSONATION_ENDED, $valueMap['IMPERSONATION_ENDED']);
+        $this->assertSame(AuthLogEventType::LOGIN->value, $valueMap['LOGIN']);
+        $this->assertSame(AuthLogEventType::LOGIN_FAILED->value, $valueMap['LOGIN_FAILED']);
+        $this->assertSame(AuthLogEventType::IMPERSONATION_STARTED->value, $valueMap['IMPERSONATION_STARTED']);
+        $this->assertSame(AuthLogEventType::IMPERSONATION_ENDED->value, $valueMap['IMPERSONATION_ENDED']);
     }
 }

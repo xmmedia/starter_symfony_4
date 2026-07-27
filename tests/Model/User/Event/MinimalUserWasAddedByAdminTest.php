@@ -63,7 +63,7 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
             [
                 'email'          => $email->toString(),
                 'hashedPassword' => $password,
-                'role'           => $role->getValue(),
+                'role'           => $role->value,
                 'firstName'      => $firstName->toString(),
                 'lastName'       => $lastName->toString(),
                 'sendInvite'     => $sendInvite,
@@ -97,7 +97,7 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
             [
                 'email'          => $email->toString(),
                 'hashedPassword' => $password,
-                'role'           => $role->getValue(),
+                'role'           => $role->value,
                 // missing: firstName, lastName, sendInvite
             ],
         );

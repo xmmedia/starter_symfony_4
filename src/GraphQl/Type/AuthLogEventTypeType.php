@@ -16,10 +16,7 @@ final class AuthLogEventTypeType extends EnumType implements AliasedInterface
     {
         $config = [
             'name'        => self::NAME,
-            'values'      => array_combine(
-                AuthLogEventType::getNames(),
-                AuthLogEventType::getValues(),
-            ),
+            'values'      => AuthLogEventType::namesToValues(),
             'description' => 'Authentication event event types.',
         ];
 

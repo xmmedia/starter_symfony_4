@@ -25,7 +25,7 @@ final class AdminUpdateUser extends Command
         return new self([
             'userId'    => $userId->toString(),
             'email'     => $email->toString(),
-            'role'      => $role->getValue(),
+            'role'      => $role->value,
             'firstName' => $firstName->toString(),
             'lastName'  => $lastName->toString(),
             'userData'  => $userData->toArray(),
@@ -44,7 +44,7 @@ final class AdminUpdateUser extends Command
 
     public function role(): Role
     {
-        return Role::byValue($this->payload['role']);
+        return Role::from($this->payload['role']);
     }
 
     public function firstName(): Name

@@ -51,14 +51,14 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([$email, $password, $role, $firstName, $lastName]);
+        $commandTester->setInputs([$email, $password, $role->value, $firstName, $lastName]);
 
         $result = $commandTester->execute([]);
 
         $this->assertEquals(Command::SUCCESS, $result);
         $this->assertStringContainsString('Created new active user', $commandTester->getDisplay());
         $this->assertStringContainsString($email, $commandTester->getDisplay());
-        $this->assertStringContainsString($role->getValue(), $commandTester->getDisplay());
+        $this->assertStringContainsString($role->value, $commandTester->getDisplay());
     }
 
     public function testSendInvite(): void
@@ -89,7 +89,7 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([$email, $role, $firstName, $lastName]);
+        $commandTester->setInputs([$email, $role->value, $firstName, $lastName]);
 
         $result = $commandTester->execute(['--send-invite' => true]);
 
@@ -156,7 +156,7 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([$email, $password, $role, $firstName, $lastName]);
+        $commandTester->setInputs([$email, $password, $role->value, $firstName, $lastName]);
 
         $result = $commandTester->execute(['--generate-activation-token' => true]);
 
@@ -197,7 +197,7 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([$email, $password, $role, $firstName, $lastName]);
+        $commandTester->setInputs([$email, $password, $role->value, $firstName, $lastName]);
 
         $result = $commandTester->execute(['--format' => 'json']);
 
@@ -214,7 +214,7 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertArrayHasKey('email', $json);
         $this->assertArrayHasKey('role', $json);
         $this->assertEquals($email, $json['email']);
-        $this->assertEquals($role, $json['role']);
+        $this->assertEquals($role->value, $json['role']);
     }
 
     public function testJsonFormatAndActivationToken(): void
@@ -273,7 +273,7 @@ class AddUserCommandTest extends BaseTestCase
         );
 
         $commandTester = new CommandTester($command);
-        $commandTester->setInputs([$email, $password, $role, $firstName, $lastName]);
+        $commandTester->setInputs([$email, $password, $role->value, $firstName, $lastName]);
 
         $result = $commandTester->execute([
             '--generate-activation-token' => true,
@@ -295,7 +295,7 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertArrayHasKey('activationToken', $json);
         $this->assertArrayHasKey('resetUrl', $json);
         $this->assertEquals($email, $json['email']);
-        $this->assertEquals($role, $json['role']);
+        $this->assertEquals($role->value, $json['role']);
         $this->assertEquals($tokenValue, $json['activationToken']);
         $this->assertEquals($resetUrl, $json['resetUrl']);
     }

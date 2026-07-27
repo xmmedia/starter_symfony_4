@@ -29,18 +29,31 @@ class RoleTypeTest extends BaseTestCase
         new RoleType()->serialize(1);
     }
 
-    #[DataProvider('roleProvider')]
-    public function testParseValue(Role|string|null $expected, ?string $value): void
+    #[DataProvider('roleParseProvider')]
+    public function testParseValue(?Role $expected, ?string $value): void
     {
         $result = new RoleType()->parseValue($value);
 
-        $this->assertEquals($expected, $result);
+        $this->assertSame($expected, $result);
+    }
+
+    public static function roleParseProvider(): \Generator
+    {
+        yield [
+            Role::ROLE_USER,
+            'ROLE_USER',
+        ];
+
+        yield [
+            null,
+            null,
+        ];
     }
 
     public static function roleProvider(): \Generator
     {
         yield [
-            Role::ROLE_USER(),
+            Role::ROLE_USER,
             'ROLE_USER',
         ];
 
@@ -55,28 +68,14 @@ class RoleTypeTest extends BaseTestCase
         ];
     }
 
-    #[DataProvider('roleProviderParseLiteral')]
-    public function testParseLiteral(Role|string $expected, ?string $value): void
+    public function testParseLiteral(): void
     {
         $valueNode = new EnumValueNode([]);
-        $valueNode->value = $value;
+        $valueNode->value = 'ROLE_USER';
 
         $result = new RoleType()->parseLiteral($valueNode);
 
-        $this->assertEquals($expected, $result);
-    }
-
-    public static function roleProviderParseLiteral(): \Generator
-    {
-        yield [
-            Role::ROLE_USER(),
-            'ROLE_USER',
-        ];
-
-        yield [
-            'ROLE_USER',
-            'ROLE_USER',
-        ];
+        $this->assertSame(Role::ROLE_USER, $result);
     }
 
     public function testParseLiteralNotEnum(): void

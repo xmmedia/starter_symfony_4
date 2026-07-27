@@ -39,7 +39,7 @@ class Security
 
     public function hasAdminRole(): bool
     {
-        return $this->isGranted(Role::ROLE_ADMIN()->getValue());
+        return $this->isGranted(Role::ROLE_ADMIN->value);
     }
 
     public function getToken(): ?TokenInterface

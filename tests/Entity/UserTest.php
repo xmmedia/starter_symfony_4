@@ -159,11 +159,11 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('roles')
             ->setValue($user, [
-                Role::ROLE_USER()->getValue(),
-                Role::ROLE_ADMIN()->getValue(),
+                Role::ROLE_USER->value,
+                Role::ROLE_ADMIN->value,
             ]);
 
-        $this->assertSameValueAs(Role::ROLE_USER(), $user->firstRole());
+        $this->assertSameValueAs(Role::ROLE_USER, $user->firstRole());
     }
 
     public function testRolesNone(): void
@@ -180,7 +180,7 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('roles')
             ->setValue($user, [
-                Role::ROLE_USER()->getValue(),
+                Role::ROLE_USER->value,
             ]);
 
         $this->assertSame(['ROLE_USER'], $user->roles());
@@ -193,8 +193,8 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('roles')
             ->setValue($user, [
-                Role::ROLE_USER()->getValue(),
-                Role::ROLE_USER()->getValue(),
+                Role::ROLE_USER->value,
+                Role::ROLE_USER->value,
             ]);
 
         $this->assertSame(['ROLE_USER'], $user->roles());
@@ -207,7 +207,7 @@ class UserTest extends BaseTestCase
         $reflection = new \ReflectionClass(User::class);
         $reflection->getProperty('roles')
             ->setValue($user, [
-                Role::ROLE_ADMIN()->getValue(),
+                Role::ROLE_ADMIN->value,
             ]);
 
         $this->assertSame(['ROLE_ADMIN', 'ROLE_USER'], $user->roles());

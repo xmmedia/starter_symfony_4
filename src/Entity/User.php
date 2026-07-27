@@ -147,7 +147,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = Role::ROLE_USER()->getValue();
+        $roles[] = Role::ROLE_USER->value;
 
         return array_unique($roles);
     }
@@ -159,7 +159,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
 
     public function firstRole(): Role
     {
-        return Role::byValue($this->roles[0]);
+        return Role::from($this->roles[0]);
     }
 
     public function lastLogin(): ?\DateTimeImmutable

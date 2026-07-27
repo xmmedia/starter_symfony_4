@@ -36,7 +36,7 @@ final class UserWasAddedByAdmin extends AggregateChanged
         $event = self::occur($userId->toString(), [
             'email'          => $email->toString(),
             'hashedPassword' => $hashedPassword,
-            'role'           => $role->getValue(),
+            'role'           => $role->value,
             'active'         => $active,
             'firstName'      => $firstName->toString(),
             'lastName'       => $lastName->toString(),
@@ -87,7 +87,7 @@ final class UserWasAddedByAdmin extends AggregateChanged
     public function role(): Role
     {
         if (!isset($this->role)) {
-            $this->role = Role::byValue($this->payload['role']);
+            $this->role = Role::from($this->payload['role']);
         }
 
         return $this->role;
