@@ -19,9 +19,10 @@ class MessengerQueueMessageFinder
     {
         $queryParts = new MessengerQueueMessageFilterQueryBuilder()->queryParts($filters);
 
-        $offset = $filters->applied(MessengerQueueMessageFilters::OFFSET)
-            ? (int) $filters->get(MessengerQueueMessageFilters::OFFSET)
-            : 0;
+        $offset = 0;
+        if ($filters->applied(MessengerQueueMessageFilters::OFFSET)) {
+            $offset = (int) $filters->get(MessengerQueueMessageFilters::OFFSET);
+        }
 
         $sql = <<<Query
 SELECT m.id, m.body, m.queue_name, m.created_at, m.available_at, m.delivered_at
