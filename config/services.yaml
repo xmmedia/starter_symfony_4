@@ -64,6 +64,10 @@ services:
         tags:
             - { name: 'messenger.message_handler', bus: 'messenger.bus.commands' }
 
+#    App\GraphQl\Access\:
+#        resource: '../src/GraphQl/Access/'
+#        public:   true
+
     Xm\SymfonyBundle\EventStore\EventStoreMessengerPlugin:
         tags: [ 'prooph_event_store.plugin' ]
 
