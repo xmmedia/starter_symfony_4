@@ -24,9 +24,9 @@
         @apply border-red-600 ring-red-400;
     }
     &:disabled {
-        @apply bg-white border-gray-400;
+        @apply bg-white border-gray-400 text-gray-400;
         &:hover {
-            @apply text-red-600 bg-white;
+            @apply text-gray-400 bg-white;
         }
     }
 }
