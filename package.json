@@ -70,6 +70,7 @@
     "@tailwindcss/vite": "^4.1.10",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/compiler-dom": "^3.5.0",
+    "@vue/devtools-api": "^8.1.5",
     "@vue/test-utils": "^2.0.0",
     "autoprefixer": "^10.0.2",
     "dotenv": "^17.0.0",
