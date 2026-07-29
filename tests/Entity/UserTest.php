@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Model\User\Role;
 use App\Model\User\UserData;
 use App\Tests\BaseTestCase;
+use Carbon\CarbonImmutable;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class UserTest extends BaseTestCase
@@ -119,7 +120,7 @@ class UserTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $lastLogin = \DateTimeImmutable::createFromMutable($faker->dateTime());
+        $lastLogin = CarbonImmutable::instance($faker->dateTime());
 
         $user = new User();
         $reflection = new \ReflectionClass(User::class);

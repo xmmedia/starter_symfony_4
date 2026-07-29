@@ -8,6 +8,7 @@ use App\Entity\AuthLog;
 use App\Entity\User;
 use App\Model\AuthLog\AuthLogId;
 use App\Tests\BaseTestCase;
+use Carbon\CarbonImmutable;
 
 class AuthLogTest extends BaseTestCase
 {
@@ -179,7 +180,7 @@ class AuthLogTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $occurredAt = \DateTimeImmutable::createFromMutable($faker->dateTime());
+        $occurredAt = CarbonImmutable::instance($faker->dateTime());
 
         $authLog = new AuthLog();
         $reflection = new \ReflectionClass(AuthLog::class);

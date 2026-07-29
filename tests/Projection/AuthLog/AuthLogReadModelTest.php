@@ -7,6 +7,7 @@ namespace App\Tests\Projection\AuthLog;
 use App\Projection\AuthLog\AuthLogReadModel;
 use App\Projection\Table;
 use App\Tests\BaseTestCase;
+use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
 
@@ -52,7 +53,7 @@ class AuthLogReadModelTest extends BaseTestCase
             'event_type'  => 'login',
             'user_id'     => $faker->uuid(),
             'ip_address'  => $faker->ipv4(),
-            'occurred_at' => new \DateTimeImmutable(),
+            'occurred_at' => CarbonImmutable::now(),
         ];
         $types = ['occurred_at' => 'datetime_immutable'];
 

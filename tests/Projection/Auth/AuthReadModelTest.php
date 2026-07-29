@@ -7,6 +7,7 @@ namespace App\Tests\Projection\Auth;
 use App\Projection\Auth\AuthReadModel;
 use App\Projection\Table;
 use App\Tests\BaseTestCase;
+use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
 use Doctrine\DBAL\Statement;
@@ -29,7 +30,7 @@ class AuthReadModelTest extends BaseTestCase
     {
         $faker = $this->faker();
         $userId = $faker->uuid();
-        $lastLogin = new \DateTimeImmutable('2024-01-15 10:30:00');
+        $lastLogin = CarbonImmutable::parse('2024-01-15 10:30:00');
 
         $statement = \Mockery::mock(Statement::class);
         $statement->shouldReceive('bindValue')

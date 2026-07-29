@@ -11,6 +11,7 @@ use App\Model\User\Handler\SendLoginLinkHandler;
 use App\Model\User\UserId;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
+use Carbon\CarbonImmutable;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkDetails;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 use Xm\SymfonyBundle\Infrastructure\Email\EmailGatewayInterface;
@@ -48,7 +49,7 @@ class SendLoginLinkHandlerTest extends BaseTestCase
             ->andReturn(
                 new LoginLinkDetails(
                     $url,
-                    \DateTimeImmutable::createFromMutable($faker->dateTime()),
+                    CarbonImmutable::instance($faker->dateTime()),
                 ),
             );
 

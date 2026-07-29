@@ -15,6 +15,7 @@ use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
+use Carbon\CarbonImmutable;
 use Symfony\Component\Routing\RouterInterface;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
@@ -100,7 +101,7 @@ class SendVerificationHandlerTest extends BaseTestCase
         $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
         $resetPasswordHelper->shouldReceive('generateResetToken')
             ->once()
-            ->andReturn(new ResetPasswordToken('1234', new \DateTimeImmutable(), time()));
+            ->andReturn(new ResetPasswordToken('1234', CarbonImmutable::now(), time()));
 
         $handler = new SendVerificationHandler(
             $repo,

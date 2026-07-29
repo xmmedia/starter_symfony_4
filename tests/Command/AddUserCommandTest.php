@@ -10,6 +10,7 @@ use App\Model\User\Command\AdminAddUserMinimum;
 use App\Projection\User\UserFinder;
 use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;
+use Carbon\CarbonImmutable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -116,7 +117,7 @@ class AddUserCommandTest extends BaseTestCase
         // Create a real ResetPasswordToken instance since it's final
         $resetToken = new ResetPasswordToken(
             $tokenValue,
-            new \DateTimeImmutable('+1 hour'),
+            CarbonImmutable::now()->addHour(),
         );
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
@@ -233,7 +234,7 @@ class AddUserCommandTest extends BaseTestCase
         // Create a real ResetPasswordToken instance since it's final
         $resetToken = new ResetPasswordToken(
             $tokenValue,
-            new \DateTimeImmutable('+1 hour'),
+            CarbonImmutable::now()->addHour(),
         );
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
