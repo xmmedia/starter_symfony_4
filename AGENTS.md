@@ -26,6 +26,8 @@ This is a Symfony 7 starter template for creating web applications at XM Media. 
 - Follow PSR-12 coding standards.
 - Use type hints and return types wherever possible.
 - Avoid use of ternary operators except for very simple cases.
+- Avoid named arguments unless they make the call clearer — skipping over a run of optional
+  parameters, or disambiguating consecutive booleans. Otherwise pass positionally.
 - Use Symfony service auto wiring and autoconfiguration, instead of manually configuring services.
 - Write tests for new features and bug fixes.
 
@@ -243,7 +245,14 @@ $member = Member::add($memberId, $membershipNumber, ...);
 - Use Doctrine attributes for entity mapping
 - Don't use comments unless necessary; prefer self-explanatory code
 - Use VOs to encapsulate primitive types & pass domain concepts
+- Don't call `->toString()` on objects when the receiver already converts them to a string
+  (`sprintf()`, interpolation, concatenation). Keep it only where a real `string` is required
+  (array keys, strict `string` params, strict comparisons)
 - Use FakerPHP to generate test data, including the UuidFakerProvider
+- Use `Carbon\CarbonImmutable` instead of `\DateTimeImmutable` when creating dates/times
+  (it extends `\DateTimeImmutable`, so it satisfies existing type hints). Keep `\DateTimeImmutable`
+  in type hints/return types & Doctrine mappings, since values from Doctrine, Symfony & Prooph
+  won't be Carbon instances; convert with `CarbonImmutable::instance()` when needed.
 - Keep line length to 120 characters unless it makes code less readable
 
 Run `lando composer cs:fix` to auto-fix most style issues.
