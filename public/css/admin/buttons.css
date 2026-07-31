@@ -30,6 +30,12 @@
         }
     }
 }
+.button-critical-solid {
+    @apply bg-red-600 text-white;
+    &:focus {
+        @apply ring-offset-red-800;
+    }
+}
 
 a.button {
     @apply inline-block;

@@ -21,7 +21,7 @@
                 </div>
                 <slot name="additional" />
                 <div class="mt-8">
-                    <button class="button button-critical bg-red-600 text-white focus:ring-offset-red-800"
+                    <button class="button button-critical button-critical-solid"
                             type="button"
                             @click="deleteRecord"><slot name="button-text">Delete</slot></button>
                     <button ref="cancel"
