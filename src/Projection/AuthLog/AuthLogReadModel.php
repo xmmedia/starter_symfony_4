@@ -10,6 +10,7 @@ use Xm\SymfonyBundle\EventStore\Projection\AbstractReadModel;
 final class AuthLogReadModel extends AbstractReadModel
 {
     protected const string TABLE = Table::AUTH_LOG;
+    private const array TYPES = ['occurred_at' => 'datetime_immutable'];
 
     public function init(): void
     {
@@ -43,8 +44,8 @@ EOT;
         $this->connection->executeQuery($sql);
     }
 
-    protected function insert(array $data, array $types = []): void
+    protected function insert(array $data): void
     {
-        $this->connection->insert(self::TABLE, $data, $types);
+        $this->connection->insert(self::TABLE, $data, self::TYPES);
     }
 }

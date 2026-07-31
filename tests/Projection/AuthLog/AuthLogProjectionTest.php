@@ -19,8 +19,6 @@ class AuthLogProjectionTest extends BaseTestCase
     use ProjectionReadModel;
     use ProjectionWhenArgs;
 
-    private const array EXPECTED_TYPES = ['occurred_at' => 'datetime_immutable'];
-
     public function test(): void
     {
         $projectedEvents = [
@@ -80,7 +78,6 @@ class AuthLogProjectionTest extends BaseTestCase
                 'error_message'        => null,
                 'occurred_at'          => $event->createdAt(),
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -122,7 +119,6 @@ class AuthLogProjectionTest extends BaseTestCase
                 'error_message'        => $exceptionMessage,
                 'occurred_at'          => $event->createdAt(),
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -164,7 +160,6 @@ class AuthLogProjectionTest extends BaseTestCase
                 'error_message'        => null,
                 'occurred_at'          => $event->createdAt(),
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -204,7 +199,6 @@ class AuthLogProjectionTest extends BaseTestCase
                 'error_message'        => null,
                 'occurred_at'          => $event->createdAt(),
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 

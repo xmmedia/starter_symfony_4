@@ -16,19 +16,12 @@ class UserProjection implements ReadModelProjection
 {
     public function project(ReadModelProjector $projector): ReadModelProjector
     {
-        $types = [
-            'verified'  => 'boolean',
-            'active'    => 'boolean',
-            'roles'     => 'json',
-            'user_data' => 'json',
-        ];
-
         $projector->fromStream('user')
             ->when([
                 Event\UserWasAddedByAdmin::class => function (
                     array $state,
                     Event\UserWasAddedByAdmin $event,
-                ) use ($types): void {
+                ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -45,13 +38,13 @@ class UserProjection implements ReadModelProjection
                         'first_name' => $event->firstName()->toString(),
                         'last_name'  => $event->lastName()->toString(),
                         'user_data'  => $event->userData()->toArray(),
-                    ], $types);
+                    ]);
                 },
 
                 Event\MinimalUserWasAddedByAdmin::class => function (
                     array $state,
                     Event\MinimalUserWasAddedByAdmin $event,
-                ) use ($types): void {
+                ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -64,13 +57,13 @@ class UserProjection implements ReadModelProjection
                         'roles'      => [$event->role()->value],
                         'first_name' => Utils::serialize($event->firstName()),
                         'last_name'  => Utils::serialize($event->lastName()),
-                    ], $types);
+                    ]);
                 },
 
                 Event\UserWasUpdatedByAdmin::class => function (
                     array $state,
                     Event\UserWasUpdatedByAdmin $event,
-                ) use ($types): void {
+                ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -84,7 +77,6 @@ class UserProjection implements ReadModelProjection
                             'last_name'  => $event->lastName()->toString(),
                             'user_data'  => $event->userData()->toArray(),
                         ],
-                        $types,
                     );
                 },
 
@@ -107,7 +99,7 @@ class UserProjection implements ReadModelProjection
                 Event\UserVerifiedByAdmin::class => function (
                     array $state,
                     Event\UserVerifiedByAdmin $event,
-                ) use ($types): void {
+                ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -117,14 +109,13 @@ class UserProjection implements ReadModelProjection
                         [
                             'verified' => true,
                         ],
-                        $types,
                     );
                 },
 
                 Event\UserActivatedByAdmin::class => function (
                     array $state,
                     Event\UserActivatedByAdmin $event,
-                ) use ($types): void {
+                ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -134,14 +125,13 @@ class UserProjection implements ReadModelProjection
                         [
                             'active' => true,
                         ],
-                        $types,
                     );
                 },
 
                 Event\UserDeactivatedByAdmin::class => function (
                     array $state,
                     Event\UserDeactivatedByAdmin $event,
-                ) use ($types): void {
+                ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -151,14 +141,13 @@ class UserProjection implements ReadModelProjection
                         [
                             'active' => false,
                         ],
-                        $types,
                     );
                 },
 
                 Event\UserUpdatedProfile::class => function (
                     array $state,
                     Event\UserUpdatedProfile $event,
-                ) use ($types): void {
+                ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -171,7 +160,6 @@ class UserProjection implements ReadModelProjection
                             'last_name'  => $event->lastName()->toString(),
                             'user_data'  => $event->userData()->toArray(),
                         ],
-                        $types,
                     );
                 },
 
@@ -210,7 +198,7 @@ class UserProjection implements ReadModelProjection
                 Event\UserVerified::class  => function (
                     array $state,
                     Event\UserVerified $event,
-                ) use ($types): void {
+                ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -220,13 +208,12 @@ class UserProjection implements ReadModelProjection
                         [
                             'verified' => true,
                         ],
-                        $types,
                     );
                 },
                 Event\UserActivated::class => function (
                     array $state,
                     Event\UserActivated $event,
-                ) use ($types): void {
+                ): void {
                     /** @var UserReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -236,7 +223,6 @@ class UserProjection implements ReadModelProjection
                         [
                             'verified' => true,
                         ],
-                        $types,
                     );
                 },
 

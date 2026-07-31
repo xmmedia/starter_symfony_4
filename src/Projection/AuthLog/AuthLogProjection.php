@@ -12,14 +12,12 @@ class AuthLogProjection implements ReadModelProjection
 {
     public function project(ReadModelProjector $projector): ReadModelProjector
     {
-        $types = ['occurred_at' => 'datetime_immutable'];
-
         $projector->fromStream('auth')
             ->when([
                 Event\UserLoggedIn::class => function (
                     array $state,
                     Event\UserLoggedIn $event,
-                ) use ($types): void {
+                ): void {
                     /** @var AuthLogReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -34,12 +32,12 @@ class AuthLogProjection implements ReadModelProjection
                         'route'                => $event->route(),
                         'error_message'        => null,
                         'occurred_at'          => $event->createdAt(),
-                    ], $types);
+                    ]);
                 },
                 Event\UserFailedToLogin::class => function (
                     array $state,
                     Event\UserFailedToLogin $event,
-                ) use ($types): void {
+                ): void {
                     /** @var AuthLogReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -54,13 +52,13 @@ class AuthLogProjection implements ReadModelProjection
                         'route'                => $event->route(),
                         'error_message'        => $event->exceptionMessage(),
                         'occurred_at'          => $event->createdAt(),
-                    ], $types);
+                    ]);
                 },
 
                 Event\UserStartedImpersonating::class => function (
                     array $state,
                     Event\UserStartedImpersonating $event,
-                ) use ($types): void {
+                ): void {
                     /** @var AuthLogReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -75,12 +73,12 @@ class AuthLogProjection implements ReadModelProjection
                         'route'                => $event->route(),
                         'error_message'        => null,
                         'occurred_at'          => $event->createdAt(),
-                    ], $types);
+                    ]);
                 },
                 Event\UserEndedImpersonating::class => function (
                     array $state,
                     Event\UserEndedImpersonating $event,
-                ) use ($types): void {
+                ): void {
                     /** @var AuthLogReadModel $readModel */
                     /** @var ReadModelProjector $this */
                     $readModel = $this->readModel();
@@ -95,7 +93,7 @@ class AuthLogProjection implements ReadModelProjection
                         'route'                => $event->route(),
                         'error_message'        => null,
                         'occurred_at'          => $event->createdAt(),
-                    ], $types);
+                    ]);
                 },
             ]);
 

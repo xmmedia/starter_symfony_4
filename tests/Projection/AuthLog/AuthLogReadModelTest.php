@@ -55,16 +55,14 @@ class AuthLogReadModelTest extends BaseTestCase
             'ip_address'  => $faker->ipv4(),
             'occurred_at' => CarbonImmutable::now(),
         ];
-        $types = ['occurred_at' => 'datetime_immutable'];
-
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('insert')
             ->once()
-            ->with(Table::AUTH_LOG, $data, $types);
+            ->with(Table::AUTH_LOG, $data, ['occurred_at' => 'datetime_immutable']);
 
         $readModel = new AuthLogReadModel($connection);
 
         $method = new \ReflectionClass($readModel)->getMethod('insert');
-        $method->invoke($readModel, $data, $types);
+        $method->invoke($readModel, $data);
     }
 }

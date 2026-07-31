@@ -10,6 +10,12 @@ use Xm\SymfonyBundle\EventStore\Projection\AbstractReadModel;
 final class UserReadModel extends AbstractReadModel
 {
     protected const string TABLE = Table::USER;
+    private const array TYPES = [
+        'verified'  => 'boolean',
+        'active'    => 'boolean',
+        'roles'     => 'json',
+        'user_data' => 'json',
+    ];
     #[\Override]
     protected ?array $tables = [
         self::TABLE,
@@ -20,18 +26,18 @@ final class UserReadModel extends AbstractReadModel
         $this->initUserTable();
     }
 
-    protected function insert(array $data, array $types = []): void
+    protected function insert(array $data): void
     {
-        $this->connection->insert(self::TABLE, $data, $types);
+        $this->connection->insert(self::TABLE, $data, self::TYPES);
     }
 
-    protected function update(string $userId, array $data, array $types = []): void
+    protected function update(string $userId, array $data): void
     {
         $this->connection->update(
             self::TABLE,
             $data,
             ['user_id' => $userId],
-            $types,
+            self::TYPES,
         );
     }
 

@@ -10,6 +10,13 @@ use Doctrine\DBAL\Connection;
 
 class UserReadModelTest extends BaseTestCase
 {
+    private const array TYPES = [
+        'verified'  => 'boolean',
+        'active'    => 'boolean',
+        'roles'     => 'json',
+        'user_data' => 'json',
+    ];
+
     public function testInit(): void
     {
         $connection = \Mockery::mock(Connection::class);
@@ -23,7 +30,7 @@ class UserReadModelTest extends BaseTestCase
     public function testInsert(): void
     {
         $faker = $this->faker();
-        $data = $types = ['key' => $faker->string(5)];
+        $data = ['key' => $faker->string(5)];
 
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('insert')
@@ -33,10 +40,10 @@ class UserReadModelTest extends BaseTestCase
                     string $table,
                     array $passedData,
                     array $passedTypes,
-                ) use ($data, $types): bool {
+                ) use ($data): bool {
                     $this->assertEquals('user', $table);
                     $this->assertEquals($data, $passedData);
-                    $this->assertEquals($types, $passedTypes);
+                    $this->assertEquals(self::TYPES, $passedTypes);
 
                     return true;
                 },
@@ -45,14 +52,14 @@ class UserReadModelTest extends BaseTestCase
         $reflection = new \ReflectionClass(UserReadModel::class);
         $method = $reflection->getMethod('insert');
 
-        $method->invokeArgs(new UserReadModel($connection), [$data, $types]);
+        $method->invokeArgs(new UserReadModel($connection), [$data]);
     }
 
     public function testUpdate(): void
     {
         $faker = $this->faker();
         $userId = $faker->uuid();
-        $data = $types = ['key' => $faker->string(5)];
+        $data = ['key' => $faker->string(5)];
 
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('update')
@@ -63,11 +70,11 @@ class UserReadModelTest extends BaseTestCase
                     array $passedData,
                     array $passedCriteria,
                     array $passedTypes,
-                ) use ($userId, $data, $types): bool {
+                ) use ($userId, $data): bool {
                     $this->assertEquals('user', $table);
                     $this->assertEquals($data, $passedData);
                     $this->assertEquals(['user_id' => $userId], $passedCriteria);
-                    $this->assertEquals($types, $passedTypes);
+                    $this->assertEquals(self::TYPES, $passedTypes);
 
                     return true;
                 },
@@ -76,7 +83,7 @@ class UserReadModelTest extends BaseTestCase
         $reflection = new \ReflectionClass(UserReadModel::class);
         $method = $reflection->getMethod('update');
 
-        $method->invokeArgs(new UserReadModel($connection), [$userId, $data, $types]);
+        $method->invokeArgs(new UserReadModel($connection), [$userId, $data]);
     }
 
     public function testRemove(): void

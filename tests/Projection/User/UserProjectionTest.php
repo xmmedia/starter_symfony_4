@@ -20,13 +20,6 @@ class UserProjectionTest extends BaseTestCase
     use ProjectionReadModel;
     use ProjectionWhenArgs;
 
-    private const array EXPECTED_TYPES = [
-        'verified'  => 'boolean',
-        'active'    => 'boolean',
-        'roles'     => 'json',
-        'user_data' => 'json',
-    ];
-
     public function test(): void
     {
         $projectedEvents = [
@@ -100,7 +93,6 @@ class UserProjectionTest extends BaseTestCase
                 'last_name'  => $lastName->toString(),
                 'user_data'  => $userData->toArray(),
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -140,7 +132,6 @@ class UserProjectionTest extends BaseTestCase
                 'first_name' => $firstName->toString(),
                 'last_name'  => $lastName->toString(),
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -176,7 +167,6 @@ class UserProjectionTest extends BaseTestCase
                 'last_name'  => $lastName->toString(),
                 'user_data'  => $userData->toArray(),
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -219,7 +209,6 @@ class UserProjectionTest extends BaseTestCase
             [
                 'verified' => true,
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -239,7 +228,6 @@ class UserProjectionTest extends BaseTestCase
             [
                 'active' => true,
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -259,7 +247,6 @@ class UserProjectionTest extends BaseTestCase
             [
                 'active' => false,
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -292,7 +279,6 @@ class UserProjectionTest extends BaseTestCase
                 'last_name'  => $lastName->toString(),
                 'user_data'  => $userData->toArray(),
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -358,7 +344,6 @@ class UserProjectionTest extends BaseTestCase
             [
                 'verified' => true,
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
@@ -378,7 +363,6 @@ class UserProjectionTest extends BaseTestCase
             [
                 'verified' => true,
             ],
-            self::EXPECTED_TYPES,
         ], $stack[0][1]);
     }
 
