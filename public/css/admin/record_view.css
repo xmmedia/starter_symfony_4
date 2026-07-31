@@ -47,3 +47,7 @@
 .record_view-item_value:has(.record_list-icon), .record_view-item_value:has(.loading-wrap) {
     @apply flex flex-col justify-center w-auto;
 }
+
+.record_view-actions {
+    @apply flex flex-col sm:flex-row flex-wrap justify-center items-center gap-x-8 gap-y-4 mt-16;
+}

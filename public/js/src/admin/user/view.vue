@@ -99,7 +99,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-x-8 gap-y-4 mt-16">
+            <div class="record_view-actions">
                 <Activate :user-id="userId"
                           :active="user.active"
                           @activated="user.active = true"
