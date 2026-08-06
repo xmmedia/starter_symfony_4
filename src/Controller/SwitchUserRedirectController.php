@@ -8,8 +8,8 @@ use App\Infrastructure\Service\DefaultRouteProvider;
 use App\Security\Security;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -20,7 +20,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class SwitchUserRedirectController extends AbstractController
 {
     #[Route('/switch-user/redirect', name: 'app_switch_user_redirect')]
-    public function __invoke(Request $request, Security $security, DefaultRouteProvider $defaultRoute): Response
+    public function __invoke(Request $request, Security $security, DefaultRouteProvider $defaultRoute): RedirectResponse
     {
         if ($security->isGranted('ROLE_SUPER_ADMIN')) {
             $userId = $request->query->get('userId');
