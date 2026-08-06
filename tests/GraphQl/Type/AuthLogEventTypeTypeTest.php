@@ -7,6 +7,7 @@ namespace App\Tests\GraphQl\Type;
 use App\GraphQl\Type\AuthLogEventTypeType;
 use App\Model\AuthLog\AuthLogEventType;
 use App\Tests\BaseTestCase;
+use GraphQL\Type\Definition\EnumValueDefinition;
 
 class AuthLogEventTypeTypeTest extends BaseTestCase
 {
@@ -21,7 +22,7 @@ class AuthLogEventTypeTypeTest extends BaseTestCase
     {
         $type = new AuthLogEventTypeType();
         $values = $type->getValues();
-        $valueNames = array_map(static fn ($v): string => $v->name, $values);
+        $valueNames = array_map(static fn (EnumValueDefinition $v): string => $v->name, $values);
 
         $this->assertContains('LOGIN', $valueNames);
         $this->assertContains('LOGIN_FAILED', $valueNames);
