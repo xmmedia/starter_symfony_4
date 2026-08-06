@@ -29,7 +29,7 @@ final class UserIdType extends ScalarType implements AliasedInterface
     /**
      * @param string|mixed $value
      */
-    public function parseValue($value): ?UserId
+    public function parseValue($value): UserId
     {
         if (\is_string($value) && Uuid::isValid($value)) {
             return UserId::fromString($value);

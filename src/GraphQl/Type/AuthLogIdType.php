@@ -29,7 +29,7 @@ final class AuthLogIdType extends ScalarType implements AliasedInterface
     /**
      * @param string|mixed $value
      */
-    public function parseValue($value): ?AuthLogId
+    public function parseValue($value): AuthLogId
     {
         if (\is_string($value) && Uuid::isValid($value)) {
             return AuthLogId::fromString($value);
