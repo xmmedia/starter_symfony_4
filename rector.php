@@ -10,6 +10,7 @@ return RectorConfig::configure()
     ->withPreparedSets(
         codeQuality: true,
         codingStyle: true,
+        if: true,
         // no privatization, naming, instanceOf, and earlyReturn
         // no deadCode and typeDeclarations as they're below
     )
@@ -35,15 +36,14 @@ return RectorConfig::configure()
         // from the PHP sets
         // we may not want the property to have a default value
         Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector::class,
-        Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector::class,
         // from set "codingStyle"
         Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector::class,
-        Rector\CodingStyle\Rector\If_\NullableCompareToNullRector::class,
         Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class,
         Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector::class,
         Rector\CodingStyle\Rector\String_\SimplifyQuoteEscapeRector::class,
         // from set "codeQuality"
         Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
+        // from set "if"
         Rector\CodeQuality\Rector\If_\CombineIfRector::class,
         Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector::class,
         Rector\CodeQuality\Rector\If_\ObjectExplicitBoolCompareRector::class,
