@@ -106,7 +106,7 @@ class SendActivationHandlerTest extends BaseTestCase
         $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
         $resetPasswordHelper->shouldReceive('generateResetToken')
             ->once()
-            ->andReturn(new ResetPasswordToken('1234', CarbonImmutable::now(), time()));
+            ->andReturn(new ResetPasswordToken('1234', CarbonImmutable::now(), CarbonImmutable::now()->getTimestamp()));
 
         $handler = new SendActivationHandler(
             $repo,

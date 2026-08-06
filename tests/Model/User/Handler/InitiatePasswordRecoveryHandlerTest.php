@@ -68,7 +68,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
         $passwordResetHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
         $passwordResetHelper->shouldReceive('generateResetToken')
             ->once()
-            ->andReturn(new ResetPasswordToken('1234', CarbonImmutable::now(), time()));
+            ->andReturn(new ResetPasswordToken('1234', CarbonImmutable::now(), CarbonImmutable::now()->getTimestamp()));
 
         new InitiatePasswordRecoveryHandler(
             $repo,
