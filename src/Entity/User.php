@@ -10,6 +10,7 @@ use App\Model\User\UserData;
 use App\Model\User\UserId;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Selectable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -70,17 +71,17 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     private ?array $userData = null;
 
     /**
-     * @var UserToken[]|Collection|ArrayCollection
+     * @var Collection<int, UserToken>
      */
     #[ORM\OneToMany(targetEntity: UserToken::class, mappedBy: 'user')]
-    private array|Collection $tokens;
+    private Collection&Selectable $tokens;
 
     /**
-     * @var AuthLog[]|Collection|ArrayCollection
+     * @var Collection<int, AuthLog>
      */
     #[ORM\OneToMany(targetEntity: AuthLog::class, mappedBy: 'user')]
     #[ORM\OrderBy(['occurredAt' => 'DESC'])]
-    private array|Collection $authLogs;
+    private Collection&Selectable $authLogs;
 
     public function __construct()
     {
@@ -208,9 +209,9 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     }
 
     /**
-     * @return AuthLog[]|Collection
+     * @return Collection<int, AuthLog>
      */
-    public function authLogs(): array|Collection
+    public function authLogs(): Collection&Selectable
     {
         return $this->authLogs;
     }
