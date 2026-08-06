@@ -8,17 +8,16 @@ return RectorConfig::configure()
     ->withParallel()
     ->withCache(__DIR__.'/var/cache/rector')
     ->withPreparedSets(
+        deadCode: true,
         codeQuality: true,
         codingStyle: true,
+        typeDeclarations: true,
         if: true,
         // no privatization, naming, instanceOf, and earlyReturn
-        // no deadCode and typeDeclarations as they're below
     )
     ->withAttributesSets(symfony: true, doctrine: true, phpunit: true)
     ->withComposerBased(twig: true, doctrine: true, phpunit: true, symfony: true)
     ->withPhpSets()
-    ->withTypeCoverageLevel(29)
-    ->withDeadCodeLevel(40)
     ->withPaths([
         __DIR__.'/src',
         __DIR__.'/public',
