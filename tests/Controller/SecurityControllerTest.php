@@ -7,6 +7,7 @@ namespace App\Tests\Controller;
 use App\Controller\SecurityController;
 use App\Tests\UsesFaker;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Note: we don't check for empty tokens because the main routes (where the Vue app is rendered)
@@ -19,7 +20,7 @@ class SecurityControllerTest extends WebTestCase
     public function testLoginWhenNotAuthenticated(): void
     {
         $client = self::createClient();
-        $client->request('GET', '/login');
+        $client->request(Request::METHOD_GET, '/login');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('html');
@@ -40,7 +41,7 @@ class SecurityControllerTest extends WebTestCase
         $client = self::createClient();
         $token = $this->faker()->lexify(str_repeat('?', 32));
 
-        $client->request('GET', '/activate/'.$token);
+        $client->request(Request::METHOD_GET, '/activate/'.$token);
 
         $this->assertResponseRedirects('/activate', 302);
 
@@ -53,7 +54,7 @@ class SecurityControllerTest extends WebTestCase
         $client = self::createClient();
         $token = $this->faker()->lexify(str_repeat('?', 32));
 
-        $client->request('GET', '/verify/'.$token);
+        $client->request(Request::METHOD_GET, '/verify/'.$token);
 
         $this->assertResponseRedirects('/verify');
 
@@ -66,7 +67,7 @@ class SecurityControllerTest extends WebTestCase
         $client = self::createClient();
         $token = $this->faker()->lexify(str_repeat('?', 32));
 
-        $client->request('GET', '/recover/reset/'.$token);
+        $client->request(Request::METHOD_GET, '/recover/reset/'.$token);
 
         $this->assertResponseRedirects('/recover/reset');
 

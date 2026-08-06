@@ -6,6 +6,7 @@ namespace App\Tests;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
@@ -15,7 +16,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     public function testPageIsSuccessful(string $url, ?string $redirectUrl = null): void
     {
         $client = self::createClient();
-        $client->request('GET', $url);
+        $client->request(Request::METHOD_GET, $url);
 
         if (null === $redirectUrl) {
             $this->assertResponseIsSuccessful();
