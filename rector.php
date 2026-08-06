@@ -13,7 +13,7 @@ return RectorConfig::configure()
         // no privatization, naming, instanceOf, and earlyReturn
         // no deadCode and typeDeclarations as they're below
     )
-    ->withAttributesSets(symfony: true, doctrine: true)
+    ->withAttributesSets(symfony: true, doctrine: true, phpunit: true)
     ->withComposerBased(twig: true, doctrine: true, phpunit: true, symfony: true)
     ->withPhpSets()
     ->withTypeCoverageLevel(29)
