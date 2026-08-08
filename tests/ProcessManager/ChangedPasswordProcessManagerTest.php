@@ -7,7 +7,6 @@ namespace App\Tests\ProcessManager;
 use App\Model\User\Command\SendPasswordChangedNotification;
 use App\Model\User\Event\ChangedPassword;
 use App\Model\User\Event\UserActivated;
-use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\UserId;
 use App\Model\User\UserList;
 use App\ProcessManager\ChangedPasswordProcessManager;
