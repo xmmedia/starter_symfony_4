@@ -5,13 +5,5 @@ includes:
 
 parameters:
     level: 6
-    ignoreErrors:
-        -
-            message: '#Call to an undefined method Faker\\Generator::#'
-            path: tests/
-        -
-            message: '#is not subtype of native type Faker\\Generator#'
-            paths:
-                - tests/BaseTestCase.php
-                - tests/ApplicationAvailabilityFunctionalTest.php
+#    ignoreErrors:
 #        - '#Static call to instance method Carbon\\CarbonInterval::[a-zA-Z]+\(\)#'
