@@ -22,9 +22,6 @@ use Xm\SymfonyBundle\Util\StringUtil;
 #[ORM\Entity(repositoryClass: \App\Projection\User\UserFinder::class, readOnly: true)]
 class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @var \Ramsey\Uuid\Uuid
-     */
     #[ORM\Id]
     #[ORM\Column(type: 'uuid')]
     private \Ramsey\Uuid\UuidInterface $userId;
@@ -71,13 +68,13 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     private ?array $userData = null;
 
     /**
-     * @var Collection<int, UserToken>
+     * @var Collection<int, UserToken>&Selectable<int, UserToken>
      */
     #[ORM\OneToMany(targetEntity: UserToken::class, mappedBy: 'user')]
     private Collection&Selectable $tokens;
 
     /**
-     * @var Collection<int, AuthLog>
+     * @var Collection<int, AuthLog>&Selectable<int, AuthLog>
      */
     #[ORM\OneToMany(targetEntity: AuthLog::class, mappedBy: 'user')]
     #[ORM\OrderBy(['occurredAt' => 'DESC'])]
@@ -209,7 +206,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     }
 
     /**
-     * @return Collection<int, AuthLog>
+     * @return Collection<int, AuthLog>&Selectable<int, AuthLog>
      */
     public function authLogs(): Collection&Selectable
     {

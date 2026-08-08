@@ -14,9 +14,6 @@ class UserToken implements ResetPasswordRequestInterface
 {
     use ResetPasswordRequestTrait;
 
-    /**
-     * @var \Ramsey\Uuid\Uuid
-     */
     #[ORM\Id]
     #[ORM\Column(type: 'uuid')]
     private \Ramsey\Uuid\UuidInterface $userTokenId;

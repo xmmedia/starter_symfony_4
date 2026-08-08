@@ -64,7 +64,7 @@ jobs:
               run: yarn audit:high
 
             - name: Cache warmup for PHPStan
-              run: php bin/console cache:warmup --env=dev
+              run: php bin/console cache:warmup --env=test
 
             - name: Run PHPStan
               run: php bin/phpstan analyse --no-progress --memory-limit 1G src
