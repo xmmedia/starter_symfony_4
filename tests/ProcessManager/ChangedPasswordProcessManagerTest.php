@@ -169,6 +169,59 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
         $processManager($changedPasswordEvent);
     }
 
+    public function testSendsNotificationWhenPreviousPasswordChange30MinutesAgoWithRecentProfileUpdate(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+
+        // Previous password change 30 minutes ago, profile update 2 minutes ago, password change now
+        // Should send notification because previous password change was > 10 minutes ago
+        $previousPasswordChange = $this->createChangedPasswordEvent($userId);
+        $this->setEventCreatedAt($previousPasswordChange, CarbonImmutable::now()->subMinutes(30));
+
+        $userUpdatedEvent = $this->createUserUpdatedProfileEvent($userId);
+        $this->setEventCreatedAt($userUpdatedEvent, CarbonImmutable::now()->subMinutes(2));
+
+        $currentPasswordChange = $this->createChangedPasswordEvent($userId);
+        $this->setEventCreatedAt($currentPasswordChange, CarbonImmutable::now());
+
+        $userRepo = $this->createUserRepo($userId, [$previousPasswordChange, $userUpdatedEvent, $currentPasswordChange]);
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldReceive('dispatch')
+            ->once()
+            ->with(\Mockery::type(SendPasswordChangedNotification::class))
+            ->andReturn(new Envelope(new \stdClass()));
+
+        $processManager = new ChangedPasswordProcessManager($userRepo, $commandBus);
+        $processManager($currentPasswordChange);
+    }
+
+    public function testSuppressesNotificationWhenPreviousPasswordChange5MinutesAgoWithOldProfileUpdate(): void
+    {
+        $faker = $this->faker();
+        $userId = $faker->userId();
+
+        // Previous password change 5 minutes ago, profile update 30 minutes ago, password change now
+        // Should suppress notification because previous password change was < 10 minutes ago
+        $previousPasswordChange = $this->createChangedPasswordEvent($userId);
+        $this->setEventCreatedAt($previousPasswordChange, CarbonImmutable::now()->subMinutes(5));
+
+        $userUpdatedEvent = $this->createUserUpdatedProfileEvent($userId);
+        $this->setEventCreatedAt($userUpdatedEvent, CarbonImmutable::now()->subMinutes(30));
+
+        $currentPasswordChange = $this->createChangedPasswordEvent($userId);
+        $this->setEventCreatedAt($currentPasswordChange, CarbonImmutable::now());
+
+        $userRepo = $this->createUserRepo($userId, [$previousPasswordChange, $userUpdatedEvent, $currentPasswordChange]);
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldNotReceive('dispatch');
+
+        $processManager = new ChangedPasswordProcessManager($userRepo, $commandBus);
+        $processManager($currentPasswordChange);
+    }
+
     private function createChangedPasswordEvent(UserId $userId): ChangedPassword
     {
         return ChangedPassword::now($userId, $this->faker()->password());
