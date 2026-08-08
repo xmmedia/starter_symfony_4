@@ -206,7 +206,9 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     }
 
     /**
-     * @return Collection<int, AuthLog>&Selectable<int, AuthLog>
+     * @return Collection<int, AuthLog>
+     *
+     * @phpstan-return Collection<int, AuthLog>&Selectable<int, AuthLog>
      */
     public function authLogs(): Collection&Selectable
     {
