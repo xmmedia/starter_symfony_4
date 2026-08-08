@@ -236,6 +236,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-pdf-sign" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-unicode" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/tecnickcom/tc-lib-unicode-data" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan-doctrine" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

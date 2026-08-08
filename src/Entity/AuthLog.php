@@ -11,9 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: \App\Projection\AuthLog\AuthLogFinder::class, readOnly: true)]
 class AuthLog
 {
-    /**
-     * @var \Ramsey\Uuid\Uuid
-     */
     #[ORM\Id]
     #[ORM\Column(type: 'uuid')]
     private \Ramsey\Uuid\UuidInterface $authLogId;

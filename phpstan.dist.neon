@@ -4,6 +4,8 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
     - vendor/phpstan/phpstan-webmozart-assert/extension.neon
     - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
     - vendor/phpstan/phpstan-mockery/extension.neon
     - vendor/phpstan/phpstan-deprecation-rules/rules.neon
     - vendor/ekino/phpstan-banned-code/extension.neon
@@ -20,7 +22,10 @@ parameters:
     excludePaths:
         - public/js
     symfony:
-        containerXmlPath: '%rootDir%/../../../cache/dev/App_KernelDevDebugContainer.xml'
+        containerXmlPath: '%rootDir%/../../../cache/test/App_KernelTestDebugContainer.xml'
+        consoleApplicationLoader: tests/console-application.php
+    doctrine:
+        objectManagerLoader: tests/object-manager.php
     banned_code:
         # errors emitted by the extension are non-ignorable by default, so they cannot accidentally be put into the baseline.
         non_ignorable: false

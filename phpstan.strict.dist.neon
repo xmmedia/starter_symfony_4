@@ -8,7 +8,7 @@ parameters:
     ignoreErrors:
         -
             message: '#Call to an undefined method Faker\\Generator::#'
-            path: test/
+            path: tests/
         -
             message: '#is not subtype of native type Faker\\Generator#'
             paths:
