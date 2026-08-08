@@ -7,7 +7,6 @@ namespace App\ProcessManager;
 use App\Model\User\Command\SendPasswordChangedNotification;
 use App\Model\User\Event\ChangedPassword;
 use App\Model\User\Event\UserActivated;
-use App\Model\User\Event\UserUpdatedProfile;
 use App\Model\User\UserList;
 use Carbon\CarbonImmutable;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -36,7 +35,7 @@ final readonly class ChangedPasswordProcessManager
 
         $previousChange = null;
         foreach (array_reverse(iterator_to_array($events)) as $previousEvent) {
-            if (!$previousEvent instanceof UserUpdatedProfile) {
+            if (!$previousEvent instanceof ChangedPassword) {
                 continue;
             }
 
@@ -44,7 +43,6 @@ final readonly class ChangedPasswordProcessManager
                 continue;
             }
 
-            /** @var ChangedPassword $previousChange */
             $previousChange = $previousEvent;
             break;
         }
