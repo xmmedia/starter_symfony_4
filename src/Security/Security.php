@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Model\User\Role;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class Security
 {
@@ -16,9 +15,12 @@ class Security
     {
     }
 
-    public function getUser(): User|UserInterface|null
+    public function getUser(): ?User
     {
-        return $this->security->getUser();
+        $user = $this->security->getUser();
+        \assert(null === $user || $user instanceof User);
+
+        return $user;
     }
 
     public function isGranted(mixed $attributes, mixed $subject = null): bool
