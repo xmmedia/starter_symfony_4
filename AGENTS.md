@@ -70,6 +70,10 @@ This is a Symfony 7 starter template for creating web applications at XM Media. 
 - Upgrade all JS packages: `yarn up -R "**"`
 - Upgrade specific JS package: `yarn up -R "package-name"`
 - Upgrade JS packages (interactive for major versions): `yarn upgrade-interactive`
+- Upgrade, ignoring the age gate: `yarn up:bypass <package>` — runs `yarn up -R` with
+  `YARN_NPM_MINIMAL_AGE_GATE=0`, bypassing the 7 day `npmMinimalAgeGate` in `.yarnrc.yml`
+  that otherwise skips just-published versions. Match every package with `"**"`, not
+  `"*"` — `*` doesn't cross the `/` in scoped names, so it misses `@tailwindcss/*` etc.
 
 ### GraphQL Schema
 - Generate GraphQL schema: `bin/generate_schema` (runs `lando console graphql:dump-schema --with-descriptions --format=graphql`)

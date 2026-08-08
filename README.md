@@ -111,6 +111,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
   - Upgrade JS packages: `yarn up -R "**"`
     - Upgrade a specific package: `yarn up -R "package-name"`
     - Upgrade major versions: `yarn upgrade-interactive` (ctrl+c to exit without changes)
+    - Upgrade a package, ignoring the age gate: `yarn up:bypass <package>`
 
 ## Incorporated Libraries & Tools
 

@@ -18,6 +18,7 @@
     "lint:js:fix": "eslint . --fix",
     "lint:css": "stylelint public/css/**/*.css",
     "lint:css:fix": "stylelint public/css/**/*.css --fix",
+    "up:bypass": "YARN_NPM_MINIMAL_AGE_GATE=0 yarn up -R",
     "audit:moderate": "yarn npm audit --recursive --all --severity moderate",
     "audit:high": "yarn npm audit --recursive --all --severity high"
   },
