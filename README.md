@@ -81,8 +81,11 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
     - Notes: this switches to the node version in `.nvmrc` (if nvm is installed) & generates the GQL schema first, because within the checks we validate the graphql operations files
   - Check all code: `bin/check`
   - Generate GQL schema: `bin/generate_schema`
-  - Production JS/CSS build: `yarn build`
   - Dev JS/CSS build: `yarn dev` (recommended command: `nvm use && yarn && yarn dev`)
+  - Compile check: `yarn build:check`
+    - Builds to `node_modules/.build-check`, so it's safe to run while `yarn dev` is running
+  - Production JS/CSS build: `yarn build`
+    - Don't use this to verify a change — it rewrites `public/build`, clobbering the manifest a running `yarn dev` relies on
   - Preview production JS/CSS build: `yarn preview`
   - JS Tests ([Jest](https://jestjs.io/)): `yarn test:unit`
   - Linting:

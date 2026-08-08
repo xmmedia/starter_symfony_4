@@ -55,7 +55,13 @@ This is a Symfony 7 starter template for creating web applications at XM Media. 
 
 ### Building Frontend Assets
 - Development build with watch: `yarn dev` (recommended: `nvm use && yarn && yarn dev`)
-- Production build: `yarn build`
+- Compile check: `yarn build:check` — use this to verify JS/CSS compiles. Builds to
+  `node_modules/.build-check` (gitignored, and ignored by the dev server's watcher), so
+  it's safe to run while `yarn dev` is running. A green build only proves it bundles —
+  the browser is still the real check
+- Production build: `yarn build` — production/deploy only. Never run it to verify a
+  change: it empties and rewrites `public/build`, clobbering the manifest a running
+  `yarn dev` relies on
 - Preview production build: `yarn preview`
 
 ### Package Management
