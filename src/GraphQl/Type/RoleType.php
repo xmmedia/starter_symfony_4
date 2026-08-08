@@ -7,6 +7,7 @@ namespace App\GraphQl\Type;
 use App\Model\User\Role;
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\EnumValueNode;
+use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\EnumType;
 use GraphQL\Utils\Utils;
 use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
@@ -26,9 +27,6 @@ final class RoleType extends EnumType implements AliasedInterface
         parent::__construct($config);
     }
 
-    /**
-     * @param Role|string $value
-     */
     #[\Override]
     public function serialize($value): ?string
     {
@@ -48,7 +46,7 @@ final class RoleType extends EnumType implements AliasedInterface
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      */
     #[\Override]
     public function parseValue($value): ?Role
@@ -62,7 +60,7 @@ final class RoleType extends EnumType implements AliasedInterface
     }
 
     /**
-     * @param EnumValueNode $valueNode
+     * @param Node $valueNode
      */
     #[\Override]
     public function parseLiteral($valueNode, ?array $variables = null): ?Role
