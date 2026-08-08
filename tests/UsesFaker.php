@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use App\DataFixtures\Faker\FakerGenerator;
 use App\DataFixtures\Faker\Provider;
 use Faker;
 use Xm\SymfonyBundle\DataFixtures\Faker\Provider as BundleProviders;
@@ -14,6 +15,8 @@ trait UsesFaker
 
     /**
      * @return Faker\Generator&BundleProviders\AddressFakerProvider&BundleProviders\DateFakerProvider&BundleProviders\EmailFakerProvider&BundleProviders\GenderFakerProvider&BundleProviders\InternetFakerProvider&BundleProviders\NameFakerProvider&BundleProviders\PhoneNumberFakerProvider&BundleProviders\StringFakerProvider&BundleProviders\UuidFakerProvider&Provider\UserFakerProvider&Provider\UuidFakerProvider
+     *
+     * @phpstan-return Faker\Generator&FakerGenerator
      */
     protected function faker(): Faker\Generator
     {
@@ -24,6 +27,11 @@ trait UsesFaker
         return $this->faker;
     }
 
+    /**
+     * @return Faker\Generator&BundleProviders\AddressFakerProvider&BundleProviders\DateFakerProvider&BundleProviders\EmailFakerProvider&BundleProviders\GenderFakerProvider&BundleProviders\InternetFakerProvider&BundleProviders\NameFakerProvider&BundleProviders\PhoneNumberFakerProvider&BundleProviders\StringFakerProvider&BundleProviders\UuidFakerProvider&Provider\UserFakerProvider&Provider\UuidFakerProvider
+     *
+     * @phpstan-return Faker\Generator&FakerGenerator
+     */
     protected static function makeFaker(): Faker\Generator
     {
         $locales = ['en_CA', 'en_US'];
