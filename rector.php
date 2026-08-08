@@ -13,7 +13,14 @@ return RectorConfig::configure()
         codingStyle: true,
         typeDeclarations: true,
         if: true,
-        // no privatization, naming, instanceOf, and earlyReturn
+        earlyReturn: true,
+        carbon: true,
+        phpunitMockToStub: true,
+        doctrineCodeQuality: true,
+        symfonyCodeQuality: true,
+        symfonyConfigs: true,
+        // no typeDeclarationDocblocks, privatization, naming, namedArgs, instanceOf,
+        // rectorPreset, phpunitCodeQuality, and phpunitNarrowAsserts
     )
     ->withAttributesSets(symfony: true, doctrine: true, phpunit: true)
     ->withComposerBased(twig: true, doctrine: true, phpunit: true, symfony: true)
@@ -25,6 +32,12 @@ return RectorConfig::configure()
         __DIR__.'/migrations',
         __DIR__.'/tests',
     ])
+    ->withImportNames(
+        importNames: false,
+        importDocBlockNames: false,
+        importShortClasses: false,
+        removeUnusedImports: true,
+    )
     ->withRootFiles()
     ->withSkip([
         // don't remove useless variables inside AR events
@@ -46,6 +59,9 @@ return RectorConfig::configure()
         Rector\CodeQuality\Rector\If_\CombineIfRector::class,
         Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector::class,
         Rector\CodeQuality\Rector\If_\ObjectExplicitBoolCompareRector::class,
+        // from set "symfonyCodeQuality"
+        // keep injecting services as controller action arguments
+        Rector\Symfony\CodeQuality\Rector\Class_\ControllerMethodInjectionToConstructorRector::class,
         // from set "deadCode"
         Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
         // temporarily disabled because it adds newlines between traits
