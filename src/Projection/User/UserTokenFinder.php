@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Entity\UserToken;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\Repository\ResetPasswordRequestRepositoryTrait;
 use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepositoryInterface;
 
@@ -37,7 +36,7 @@ class UserTokenFinder extends ServiceEntityRepository implements ResetPasswordRe
         \DateTimeInterface $expiresAt,
         string $selector,
         string $hashedToken,
-    ): ResetPasswordRequestInterface {
+    ): UserToken {
         return UserToken::create($user, $expiresAt, $selector, $hashedToken);
     }
 }
