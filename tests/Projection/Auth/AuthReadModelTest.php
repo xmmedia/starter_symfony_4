@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Projection\Auth;
 
 use App\Projection\Auth\AuthReadModel;
-use App\Projection\Table;
 use App\Tests\BaseTestCase;
 use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Connection;
