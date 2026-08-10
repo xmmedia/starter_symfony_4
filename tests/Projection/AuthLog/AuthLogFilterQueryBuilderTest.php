@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Projection\AuthLog;
 
+use App\Model\AuthLog\AuthLogEventType;
 use App\Projection\AuthLog\AuthLogFilterQueryBuilder;
 use App\Projection\AuthLog\AuthLogFilters;
 use App\Tests\BaseTestCase;
@@ -31,7 +32,7 @@ class AuthLogFilterQueryBuilderTest extends BaseTestCase
     public function testEventTypesSingle(): void
     {
         $filters = AuthLogFilters::fromArray([
-            AuthLogFilters::EVENT_TYPES => ['LOGIN'],
+            AuthLogFilters::EVENT_TYPES => [AuthLogEventType::LOGIN],
         ]);
 
         $result = new AuthLogFilterQueryBuilder()->queryParts($filters);
@@ -46,7 +47,7 @@ class AuthLogFilterQueryBuilderTest extends BaseTestCase
     public function testEventTypesMultiple(): void
     {
         $filters = AuthLogFilters::fromArray([
-            AuthLogFilters::EVENT_TYPES => ['LOGIN', 'LOGIN_FAILED'],
+            AuthLogFilters::EVENT_TYPES => [AuthLogEventType::LOGIN, AuthLogEventType::LOGIN_FAILED],
         ]);
 
         $result = new AuthLogFilterQueryBuilder()->queryParts($filters);
@@ -126,7 +127,7 @@ class AuthLogFilterQueryBuilderTest extends BaseTestCase
         $q = $faker->string(5);
 
         $filters = AuthLogFilters::fromArray([
-            AuthLogFilters::EVENT_TYPES => ['LOGIN'],
+            AuthLogFilters::EVENT_TYPES => [AuthLogEventType::LOGIN],
             AuthLogFilters::DATE_FROM   => $date,
             AuthLogFilters::Q           => $q,
         ]);

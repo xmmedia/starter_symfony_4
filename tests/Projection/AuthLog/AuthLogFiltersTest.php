@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Projection\AuthLog;
 
+use App\Model\AuthLog\AuthLogEventType;
 use App\Projection\AuthLog\AuthLogFilters;
 use App\Tests\BaseTestCase;
 
@@ -24,7 +25,7 @@ class AuthLogFiltersTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $eventTypes = ['LOGIN', 'LOGIN_FAILED'];
+        $eventTypes = [AuthLogEventType::LOGIN, AuthLogEventType::LOGIN_FAILED];
         $dateFrom = $faker->dateTime()->format('Y-m-d');
         $dateTo = $faker->dateTime()->format('Y-m-d');
         $q = $faker->string(5);
