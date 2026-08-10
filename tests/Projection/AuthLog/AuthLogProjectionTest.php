@@ -68,7 +68,7 @@ class AuthLogProjectionTest extends BaseTestCase
         $this->assertSame([
             [
                 'auth_log_id'          => $event->aggregateId(),
-                'event_type'           => 'login',
+                'event_type'           => 'LOGIN',
                 'user_id'              => $userId->toString(),
                 'impersonated_user_id' => null,
                 'email'                => $email->toString(),
@@ -109,7 +109,7 @@ class AuthLogProjectionTest extends BaseTestCase
         $this->assertSame([
             [
                 'auth_log_id'          => $event->aggregateId(),
-                'event_type'           => 'login_failed',
+                'event_type'           => 'LOGIN_FAILED',
                 'user_id'              => $userId->toString(),
                 'impersonated_user_id' => null,
                 'email'                => $email,
@@ -150,7 +150,7 @@ class AuthLogProjectionTest extends BaseTestCase
         $this->assertSame([
             [
                 'auth_log_id'          => $event->aggregateId(),
-                'event_type'           => 'impersonation_started',
+                'event_type'           => 'IMPERSONATION_STARTED',
                 'user_id'              => $adminUserId->toString(),
                 'impersonated_user_id' => $impersonatedUserId->toString(),
                 'email'                => $impersonatedEmail->toString(),
@@ -189,7 +189,7 @@ class AuthLogProjectionTest extends BaseTestCase
         $this->assertSame([
             [
                 'auth_log_id'          => $event->aggregateId(),
-                'event_type'           => 'impersonation_ended',
+                'event_type'           => 'IMPERSONATION_ENDED',
                 'user_id'              => $adminUserId->toString(),
                 'impersonated_user_id' => $impersonatedUserId->toString(),
                 'email'                => null,

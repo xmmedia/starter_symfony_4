@@ -11,8 +11,8 @@ enum AuthLogEventType: string implements ValueObjectEnum
 {
     use ValueObjectEnumTrait;
 
-    case LOGIN = 'login';
-    case LOGIN_FAILED = 'login_failed';
-    case IMPERSONATION_STARTED = 'impersonation_started';
-    case IMPERSONATION_ENDED = 'impersonation_ended';
+    case LOGIN = 'LOGIN';
+    case LOGIN_FAILED = 'LOGIN_FAILED';
+    case IMPERSONATION_STARTED = 'IMPERSONATION_STARTED';
+    case IMPERSONATION_ENDED = 'IMPERSONATION_ENDED';
 }
