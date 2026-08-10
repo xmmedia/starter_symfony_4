@@ -9,13 +9,13 @@ use App\Model\User\Role;
 use App\Tests\BaseTestCase;
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\EnumValueNode;
-use GraphQL\Language\AST\FieldNode;
+use GraphQL\Language\AST\StringValueNode;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class RoleTypeTest extends BaseTestCase
 {
     #[DataProvider('roleProvider')]
-    public function testSerialize(Role|string|null $value, ?string $expected): void
+    public function testSerialize(Role|string $value, string $expected): void
     {
         $result = new RoleType()->serialize($value);
 
@@ -30,7 +30,7 @@ class RoleTypeTest extends BaseTestCase
     }
 
     #[DataProvider('roleParseProvider')]
-    public function testParseValue(?Role $expected, ?string $value): void
+    public function testParseValue(Role $expected, string $value): void
     {
         $result = new RoleType()->parseValue($value);
 
@@ -42,11 +42,6 @@ class RoleTypeTest extends BaseTestCase
         yield [
             Role::ROLE_USER,
             'ROLE_USER',
-        ];
-
-        yield [
-            null,
-            null,
         ];
     }
 
@@ -60,11 +55,6 @@ class RoleTypeTest extends BaseTestCase
         yield [
             'ROLE_USER',
             'ROLE_USER',
-        ];
-
-        yield [
-            null,
-            null,
         ];
     }
 
@@ -80,7 +70,7 @@ class RoleTypeTest extends BaseTestCase
 
     public function testParseLiteralNotEnum(): void
     {
-        $valueNode = new FieldNode([]);
+        $valueNode = new StringValueNode(['value' => 'ROLE_USER']);
 
         $result = new RoleType()->parseLiteral($valueNode);
 

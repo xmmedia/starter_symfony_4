@@ -28,12 +28,8 @@ final class RoleType extends EnumType implements AliasedInterface
     }
 
     #[\Override]
-    public function serialize($value): ?string
+    public function serialize(mixed $value): string
     {
-        if (null === $value) {
-            return null;
-        }
-
         if (\is_string($value)) {
             $value = Role::tryFrom($value) ?? $value;
         }
@@ -45,25 +41,15 @@ final class RoleType extends EnumType implements AliasedInterface
         throw new Error('Cannot serialize Role value as enum: '.Utils::printSafe($value));
     }
 
-    /**
-     * @param string|null $value
-     */
     #[\Override]
-    public function parseValue($value): ?Role
+    public function parseValue(mixed $value): Role
     {
-        if (null === $value) {
-            return null;
-        }
-
         return Role::tryFrom($value)
             ?? throw new Error('Cannot represent value as Role enum: '.Utils::printSafe($value));
     }
 
-    /**
-     * @param Node $valueNode
-     */
     #[\Override]
-    public function parseLiteral($valueNode, ?array $variables = null): ?Role
+    public function parseLiteral(Node $valueNode, ?array $variables = null): ?Role
     {
         if (!$valueNode instanceof EnumValueNode) {
             return null;
