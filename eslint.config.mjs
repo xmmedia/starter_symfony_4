@@ -6,6 +6,8 @@ import graphqlPlugin from '@graphql-eslint/eslint-plugin';
 
 export default defineConfig([
     globalIgnores([
+        // git worktrees Claude Code checks out here: a whole second copy of the project
+        '.claude/',
         '.yarn/',
         'config/',
         'coverage/',
