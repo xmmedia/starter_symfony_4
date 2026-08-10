@@ -2,7 +2,7 @@ import { formatNumber as libFormatPhone } from 'libphonenumber-js';
 import Flatpickr from 'flatpickr';
 import pluralizeFunction from 'pluralize';
 import has from 'lodash/has';
-import isObject from 'lodash/isObject';
+import isPlainObject from 'lodash/isPlainObject';
 import lowerCase from 'lodash/lowerCase';
 import upperFirst from 'lodash/upperFirst';
 import { onBeforeUnmount, watch } from 'vue';
@@ -91,16 +91,21 @@ export const vuelidateValue = function (v, key) {
     return !v[key].$invalid;
 };
 
+// returns a copy: Apollo freezes its results, so anything nested can't be deleted in place
 export const omitTypename = function (obj) {
-    for (const key in obj) {
-        if (isObject(obj[key])) {
-            omitTypename(obj[key]);
-        } else if ('__typename' === key) {
-            delete obj[key];
-        }
+    if (Array.isArray(obj)) {
+        return obj.map((item) => omitTypename(item));
     }
 
-    return obj;
+    if (!isPlainObject(obj)) {
+        return obj;
+    }
+
+    return Object.fromEntries(
+        Object.entries(obj)
+            .filter(([key]) => '__typename' !== key)
+            .map(([key, value]) => [key, omitTypename(value)]),
+    );
 };
 
 export const addEditedWatcher = function (state, edited, variable) {
