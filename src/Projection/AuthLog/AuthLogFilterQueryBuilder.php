@@ -20,7 +20,7 @@ class AuthLogFilterQueryBuilder extends FilterQueryBuilder
 
             foreach ($eventTypes as $i => $eventType) {
                 $eventTypeClauses[] = \sprintf(':eventType%d', $i);
-                $this->parameters['eventType'.$i] = $eventType;
+                $this->parameters['eventType'.$i] = $eventType->value;
             }
 
             $this->whereClauses[] = \sprintf('a.event_type IN (%s)', implode(', ', $eventTypeClauses));

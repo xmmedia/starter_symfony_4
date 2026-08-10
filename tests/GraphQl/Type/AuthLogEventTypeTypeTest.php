@@ -7,10 +7,75 @@ namespace App\Tests\GraphQl\Type;
 use App\GraphQl\Type\AuthLogEventTypeType;
 use App\Model\AuthLog\AuthLogEventType;
 use App\Tests\BaseTestCase;
+use GraphQL\Error\Error;
+use GraphQL\Language\AST\EnumValueNode;
+use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\EnumValueDefinition;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AuthLogEventTypeTypeTest extends BaseTestCase
 {
+    #[DataProvider('eventTypeProvider')]
+    public function testSerialize(AuthLogEventType|string $value, string $expected): void
+    {
+        $result = new AuthLogEventTypeType()->serialize($value);
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testSerializeNotEventType(): void
+    {
+        $this->expectException(Error::class);
+
+        new AuthLogEventTypeType()->serialize(1);
+    }
+
+    public function testParseValue(): void
+    {
+        $result = new AuthLogEventTypeType()->parseValue('LOGIN');
+
+        $this->assertSame(AuthLogEventType::LOGIN, $result);
+    }
+
+    public function testParseValueInvalid(): void
+    {
+        $this->expectException(Error::class);
+
+        new AuthLogEventTypeType()->parseValue('asdf');
+    }
+
+    public function testParseLiteral(): void
+    {
+        $valueNode = new EnumValueNode([]);
+        $valueNode->value = 'LOGIN';
+
+        $result = new AuthLogEventTypeType()->parseLiteral($valueNode);
+
+        $this->assertSame(AuthLogEventType::LOGIN, $result);
+    }
+
+    public function testParseLiteralNotEnum(): void
+    {
+        $valueNode = new StringValueNode(['value' => 'LOGIN']);
+
+        $result = new AuthLogEventTypeType()->parseLiteral($valueNode);
+
+        $this->assertNull($result);
+    }
+
+    public static function eventTypeProvider(): \Generator
+    {
+        yield [
+            AuthLogEventType::LOGIN,
+            'LOGIN',
+        ];
+
+        yield [
+            'LOGIN',
+            'LOGIN',
+        ];
+    }
+
     public function testAliases(): void
     {
         $result = AuthLogEventTypeType::getAliases();
