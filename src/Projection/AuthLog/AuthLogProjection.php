@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Projection\AuthLog;
 
 use App\Model\Auth\Event;
+use App\Model\AuthLog\AuthLogEventType;
 use Prooph\Bundle\EventStore\Projection\ReadModelProjection;
 use Prooph\EventStore\Projection\ReadModelProjector;
 
@@ -23,7 +24,7 @@ class AuthLogProjection implements ReadModelProjection
                     $readModel = $this->readModel();
                     $readModel->stack('insert', [
                         'auth_log_id'          => $event->aggregateId(),
-                        'event_type'           => 'login',
+                        'event_type'           => AuthLogEventType::LOGIN->value,
                         'user_id'              => $event->userId()->toString(),
                         'impersonated_user_id' => null,
                         'email'                => $event->email()->toString(),
@@ -43,7 +44,7 @@ class AuthLogProjection implements ReadModelProjection
                     $readModel = $this->readModel();
                     $readModel->stack('insert', [
                         'auth_log_id'          => $event->aggregateId(),
-                        'event_type'           => 'login_failed',
+                        'event_type'           => AuthLogEventType::LOGIN_FAILED->value,
                         'user_id'              => $event->userId()?->toString(),
                         'impersonated_user_id' => null,
                         'email'                => $event->email(),
@@ -64,7 +65,7 @@ class AuthLogProjection implements ReadModelProjection
                     $readModel = $this->readModel();
                     $readModel->stack('insert', [
                         'auth_log_id'          => $event->aggregateId(),
-                        'event_type'           => 'impersonation_started',
+                        'event_type'           => AuthLogEventType::IMPERSONATION_STARTED->value,
                         'user_id'              => $event->adminUserId()->toString(),
                         'impersonated_user_id' => $event->impersonatedUserId()->toString(),
                         'email'                => $event->impersonatedEmail()->toString(),
@@ -84,7 +85,7 @@ class AuthLogProjection implements ReadModelProjection
                     $readModel = $this->readModel();
                     $readModel->stack('insert', [
                         'auth_log_id'          => $event->aggregateId(),
-                        'event_type'           => 'impersonation_ended',
+                        'event_type'           => AuthLogEventType::IMPERSONATION_ENDED->value,
                         'user_id'              => $event->adminUserId()->toString(),
                         'impersonated_user_id' => $event->impersonatedUserId()->toString(),
                         'email'                => null,

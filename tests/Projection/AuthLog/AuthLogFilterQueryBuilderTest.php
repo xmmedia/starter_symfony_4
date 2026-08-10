@@ -31,14 +31,14 @@ class AuthLogFilterQueryBuilderTest extends BaseTestCase
     public function testEventTypesSingle(): void
     {
         $filters = AuthLogFilters::fromArray([
-            AuthLogFilters::EVENT_TYPES => ['login'],
+            AuthLogFilters::EVENT_TYPES => ['LOGIN'],
         ]);
 
         $result = new AuthLogFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND a.event_type IN (:eventType0)';
-        $expected['parameters']['eventType0'] = 'login';
+        $expected['parameters']['eventType0'] = 'LOGIN';
 
         $this->assertEquals($expected, $result);
     }
@@ -46,15 +46,15 @@ class AuthLogFilterQueryBuilderTest extends BaseTestCase
     public function testEventTypesMultiple(): void
     {
         $filters = AuthLogFilters::fromArray([
-            AuthLogFilters::EVENT_TYPES => ['login', 'login_failed'],
+            AuthLogFilters::EVENT_TYPES => ['LOGIN', 'LOGIN_FAILED'],
         ]);
 
         $result = new AuthLogFilterQueryBuilder()->queryParts($filters);
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND a.event_type IN (:eventType0, :eventType1)';
-        $expected['parameters']['eventType0'] = 'login';
-        $expected['parameters']['eventType1'] = 'login_failed';
+        $expected['parameters']['eventType0'] = 'LOGIN';
+        $expected['parameters']['eventType1'] = 'LOGIN_FAILED';
 
         $this->assertEquals($expected, $result);
     }
@@ -126,7 +126,7 @@ class AuthLogFilterQueryBuilderTest extends BaseTestCase
         $q = $faker->string(5);
 
         $filters = AuthLogFilters::fromArray([
-            AuthLogFilters::EVENT_TYPES => ['login'],
+            AuthLogFilters::EVENT_TYPES => ['LOGIN'],
             AuthLogFilters::DATE_FROM   => $date,
             AuthLogFilters::Q           => $q,
         ]);
@@ -135,7 +135,7 @@ class AuthLogFilterQueryBuilderTest extends BaseTestCase
 
         $expected = $this->defaultParts;
         $expected['where'] = '1 AND a.event_type IN (:eventType0) AND a.occurred_at >= :dateFrom AND a.email LIKE :q';
-        $expected['parameters']['eventType0'] = 'login';
+        $expected['parameters']['eventType0'] = 'LOGIN';
         $expected['parameters']['dateFrom'] = $date;
         $expected['parameters']['q'] = '%'.$q.'%';
 

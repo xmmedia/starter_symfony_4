@@ -24,7 +24,7 @@ class AuthLogFiltersTest extends BaseTestCase
     {
         $faker = $this->faker();
 
-        $eventTypes = ['login', 'login_failed'];
+        $eventTypes = ['LOGIN', 'LOGIN_FAILED'];
         $dateFrom = $faker->dateTime()->format('Y-m-d');
         $dateTo = $faker->dateTime()->format('Y-m-d');
         $q = $faker->string(5);

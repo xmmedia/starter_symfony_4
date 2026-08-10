@@ -50,7 +50,7 @@ class AuthLogReadModelTest extends BaseTestCase
 
         $data = [
             'auth_log_id' => $faker->uuid(),
-            'event_type'  => 'login',
+            'event_type'  => 'LOGIN',
             'user_id'     => $faker->uuid(),
             'ip_address'  => $faker->ipv4(),
             'occurred_at' => CarbonImmutable::now(),
