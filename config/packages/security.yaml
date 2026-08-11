@@ -27,7 +27,8 @@ security:
             form_login:
                 check_path:      app_login
                 success_handler: App\Security\LoginSuccessHandler
-                # CSRF validation is done in CsrfValidationSubscriber
+                # stateless: see framework.csrf_protection
+                enable_csrf:     true
             # https://symfony.com/doc/current/security/login_link.html
             login_link:
                 check_route:     app_login_link

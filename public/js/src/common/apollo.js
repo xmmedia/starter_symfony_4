@@ -5,6 +5,18 @@ import extractFiles from 'extract-files/extractFiles.mjs';
 import isExtractableFile from 'extract-files/isExtractableFile.mjs';
 import { onError } from '@apollo/client/link/error';
 import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename';
+import { setContext } from '@apollo/client/link/context';
+import { csrfToken } from '@/common/csrf';
+
+// double submits the CSRF token in a header: see CsrfValidationSubscriber
+const csrfLink = setContext((_, { headers }) => {
+    return {
+        headers: {
+            ...headers,
+            'csrf-token': csrfToken(),
+        },
+    };
+});
 
 // docs: https://www.apollographql.com/docs/react/features/error-handling/
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -44,7 +56,7 @@ const link = split(
 // Create the apollo client
 export const apolloClient = new ApolloClient({
     // strips __typename from variables (must be before the split so both branches get it)
-    link: ApolloLink.from([removeTypenameFromVariables(), errorLink, link]),
+    link: ApolloLink.from([removeTypenameFromVariables(), csrfLink, errorLink, link]),
     // Cache implementation
     cache: new InMemoryCache(),
     defaultOptions: {

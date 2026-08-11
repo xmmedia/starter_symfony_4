@@ -27,7 +27,8 @@
         </form>
 
         <!-- posts back the current url -->
-        <form v-if="showPasswordForm" ref="passwordFormEl" method="post">
+        <!-- csrfToken() re-sets the cookie the token below is checked against -->
+        <form v-if="showPasswordForm" ref="passwordFormEl" method="post" @submit="csrfToken()">
             <div class="mb-4 text-lg font-semibold">
                 <button type="button"
                         class="flex items-center gap-x-1"
@@ -40,6 +41,8 @@
 
             <!-- field names match what Symfony uses by default -->
             <input type="hidden" name="_username" :value="email">
+            <!-- checked by form_login: see framework.csrf_protection -->
+            <input type="hidden" name="_csrf_token" :value="csrfToken()">
 
             <FieldPassword id="inputPassword"
                            v-model="password"
@@ -91,6 +94,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useMutation, useQuery } from '@vue/apollo-composable';
 import { useRootStore } from '@/user/stores/root';
 import { logError } from '@/common/lib';
+import { csrfToken } from '@/common/csrf';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
 import { AuthLast } from '@/user/queries/auth.query.graphql';
