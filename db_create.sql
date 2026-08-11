@@ -74,12 +74,12 @@ CREATE TABLE `projections` (
 --
 
 CREATE TABLE `user_token` (
-    `user_token_id` char(36) COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
-    `user_id` char(36) COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
+    `user_token_id` char(36) COLLATE utf8mb4_bin NOT NULL,
+    `user_id` char(36) COLLATE utf8mb4_bin NOT NULL,
     `selector` varchar(20) COLLATE utf8mb4_bin NOT NULL,
     `hashed_token` varchar(100) COLLATE utf8mb4_bin NOT NULL,
-    `requested_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-    `expires_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+    `requested_at` datetime NOT NULL,
+    `expires_at` datetime NOT NULL,
     PRIMARY KEY (`user_token_id`),
     KEY `user_id` (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

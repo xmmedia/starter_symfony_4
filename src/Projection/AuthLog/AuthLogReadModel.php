@@ -18,16 +18,16 @@ final class AuthLogReadModel extends AbstractReadModel
 
         $sql = <<<EOT
 CREATE TABLE `{$tableName}` (
-  `auth_log_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
+  `auth_log_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `event_type` varchar(50) COLLATE utf8mb4_bin NOT NULL,
-  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '(DC2Type:uuid)',
-  `impersonated_user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '(DC2Type:uuid)',
+  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `impersonated_user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `email` varchar(150) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   `ip_address` varchar(45) COLLATE utf8mb4_bin NOT NULL,
   `user_agent` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL,
   `route` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
   `error_message` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL,
-  `occurred_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)'
+  `occurred_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 EOT;
 

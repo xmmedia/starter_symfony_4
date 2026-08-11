@@ -52,13 +52,13 @@ final class UserReadModel extends AbstractReadModel
 
         $sql = <<<EOT
 CREATE TABLE `{$tableName}` (
-  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:uuid)',
+  `user_id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `email` varchar(150) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `verified` tinyint(1) NOT NULL,
   `active` tinyint(1) NOT NULL,
   `roles` json NOT NULL,
-  `last_login` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `last_login` datetime DEFAULT NULL,
   `login_count` int(11) DEFAULT 0 NOT NULL,
   `first_name` varchar(50) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
   `last_name` varchar(50) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
