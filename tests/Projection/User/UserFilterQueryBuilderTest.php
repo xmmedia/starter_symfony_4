@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Projection\User;
 
+use App\Model\User\Role;
 use App\Projection\User\UserFilterQueryBuilder;
 use App\Projection\User\UserFilters;
 use App\Tests\BaseTestCase;
@@ -182,7 +183,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
     public function testRoles(): void
     {
         $filters = UserFilters::fromArray([
-            UserFilters::ROLES => ['ROLE_ADMIN'],
+            UserFilters::ROLES => [Role::ROLE_ADMIN],
         ]);
 
         $result = new UserFilterQueryBuilder()->queryParts($filters);
@@ -197,7 +198,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
     public function testRolesMultiple(): void
     {
         $filters = UserFilters::fromArray([
-            UserFilters::ROLES => ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],
+            UserFilters::ROLES => [Role::ROLE_ADMIN, Role::ROLE_SUPER_ADMIN],
         ]);
 
         $result = new UserFilterQueryBuilder()->queryParts($filters);
