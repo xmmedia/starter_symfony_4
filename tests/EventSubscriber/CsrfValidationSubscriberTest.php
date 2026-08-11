@@ -8,71 +8,42 @@ use App\EventSubscriber\CsrfValidationSubscriber;
 use App\Tests\BaseTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
-use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Csrf\SameOriginCsrfTokenManager;
 
 #[\PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations]
 class CsrfValidationSubscriberTest extends BaseTestCase
 {
+    private const string TOKEN = 'abcdefghijklmnopqrstuvwx';
+
     public function testSubscribedEvents(): void
     {
         $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
 
         $this->assertArrayHasKey(KernelEvents::REQUEST, $subscribed);
-        $this->assertArrayHasKey(KernelEvents::RESPONSE, $subscribed);
 
         $this->assertEquals(
             10,
-            $subscribed[key($subscribed)][1],
-        );
-        next($subscribed);
-        $this->assertEquals(
-            0,
-            $subscribed[key($subscribed)][1],
+            $subscribed[KernelEvents::REQUEST][1],
         );
     }
 
     #[DataProvider('allCheckedRoutes')]
-    public function testValidateCsrf(string $route): void
+    public function testValidateCsrfHeader(string $route): void
     {
-        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
-        $method = $subscribed[KernelEvents::REQUEST][0];
+        $request = $this->postRequest($route);
+        $request->headers->set('Sec-Fetch-Site', 'same-origin');
+        $request->headers->set('csrf-token', self::TOKEN);
 
-        $request = new Request([], [], [
-            '_route' => $route,
-        ], [
-            'CSRF-TOKEN' => 'token',
-        ]);
-        $request->setMethod('POST');
-
-        $event = \Mockery::mock(RequestEvent::class);
-        $event->shouldReceive('getRequest')
-            ->atLeast()
-            ->once()
-            ->andReturn($request);
-        $event->shouldReceive('isMainRequest')
-            ->once()
-            ->andReturnTrue();
-
-        $tokenManager = \Mockery::mock(CsrfTokenManagerInterface::class);
-        $tokenManager->shouldReceive('isTokenValid')
-            ->once()
-            ->andReturnTrue();
-
-        $subscriber = new CsrfValidationSubscriber($tokenManager);
-
-        $subscriber->{$method}($event);
+        $this->validateCsrf($request);
     }
 
     public static function allCheckedRoutes(): \Generator
     {
-        yield ['app_login'];
         yield ['overblog_graphql_endpoint'];
         yield ['overblog_graphql_batch_endpoint'];
         // @todo-symfony enable if using multiple gql schemas
@@ -80,115 +51,54 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         // yield ['overblog_graphql_batch_multiple_endpoint'];
     }
 
-    public function testValidateCsrfInvalid(): void
+    public function testValidateCsrfOriginOnly(): void
     {
-        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
-        $method = $subscribed[KernelEvents::REQUEST][0];
+        $request = $this->postRequest('overblog_graphql_endpoint');
+        $request->headers->set('Sec-Fetch-Site', 'same-origin');
 
-        $request = new Request([], [], [
-            '_route' => 'app_login',
-        ], [
-            'CSRF-TOKEN' => 'token',
-        ]);
-        $request->setMethod('POST');
-
-        $event = \Mockery::mock(RequestEvent::class);
-        $event->shouldReceive('getRequest')
-            ->atLeast()
-            ->once()
-            ->andReturn($request);
-        $event->shouldReceive('isMainRequest')
-            ->once()
-            ->andReturnTrue();
-
-        $tokenManager = \Mockery::mock(CsrfTokenManagerInterface::class);
-        $tokenManager->shouldReceive('isTokenValid')
-            ->once()
-            ->andReturnFalse();
-
-        $subscriber = new CsrfValidationSubscriber($tokenManager);
-
-        $this->expectException(InvalidCsrfTokenException::class);
-
-        $subscriber->{$method}($event);
+        $this->validateCsrf($request);
     }
 
-    public function testValidateCsrfNoTokenCookie(): void
+    public function testValidateCsrfCrossOrigin(): void
     {
-        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
-        $method = $subscribed[KernelEvents::REQUEST][0];
-
-        $request = new Request([], [], [
-            '_route' => 'app_login',
-        ]);
-        $request->setMethod('POST');
-
-        $event = \Mockery::mock(RequestEvent::class);
-        $event->shouldReceive('getRequest')
-            ->atLeast()
-            ->once()
-            ->andReturn($request);
-        $event->shouldReceive('isMainRequest')
-            ->once()
-            ->andReturnTrue();
-
-        $tokenManager = \Mockery::mock(CsrfTokenManagerInterface::class);
-
-        $subscriber = new CsrfValidationSubscriber($tokenManager);
+        $request = $this->postRequest('overblog_graphql_endpoint');
+        $request->headers->set('Sec-Fetch-Site', 'cross-site');
+        $request->headers->set('csrf-token', self::TOKEN);
 
         $this->expectException(InvalidCsrfTokenException::class);
 
-        $subscriber->{$method}($event);
+        $this->validateCsrf($request);
+    }
+
+    public function testValidateCsrfNoOriginNoToken(): void
+    {
+        $this->expectException(InvalidCsrfTokenException::class);
+
+        $this->validateCsrf($this->postRequest('overblog_graphql_endpoint'));
+    }
+
+    public function testValidateCsrfTokenTooShort(): void
+    {
+        $request = $this->postRequest('overblog_graphql_endpoint');
+        $request->headers->set('Sec-Fetch-Site', 'same-origin');
+        $request->headers->set('csrf-token', 'token');
+
+        $this->expectException(InvalidCsrfTokenException::class);
+
+        $this->validateCsrf($request);
     }
 
     public function testValidateCsrfUncheckedRoute(): void
     {
-        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
-        $method = $subscribed[KernelEvents::REQUEST][0];
-
-        $request = new Request([], [], [
-            '_route' => 'index',
-        ]);
-        $request->setMethod('POST');
-
-        $event = \Mockery::mock(RequestEvent::class);
-        $event->shouldReceive('getRequest')
-            ->atLeast()
-            ->once()
-            ->andReturn($request);
-        $event->shouldReceive('isMainRequest')
-            ->once()
-            ->andReturnTrue();
-
-        $tokenManager = \Mockery::mock(CsrfTokenManagerInterface::class);
-
-        $subscriber = new CsrfValidationSubscriber($tokenManager);
-
-        $subscriber->{$method}($event);
+        $this->validateCsrf($this->postRequest('index'));
     }
 
     public function testValidateCsrfNotPost(): void
     {
-        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
-        $method = $subscribed[KernelEvents::REQUEST][0];
-
         $request = new Request();
         $request->setMethod('GET');
 
-        $event = \Mockery::mock(RequestEvent::class);
-        $event->shouldReceive('getRequest')
-            ->atLeast()
-            ->once()
-            ->andReturn($request);
-        $event->shouldReceive('isMainRequest')
-            ->once()
-            ->andReturnTrue();
-
-        $tokenManager = \Mockery::mock(CsrfTokenManagerInterface::class);
-
-        $subscriber = new CsrfValidationSubscriber($tokenManager);
-
-        $subscriber->{$method}($event);
+        $this->validateCsrf($request);
     }
 
     public function testValidateCsrfNotMasterRequest(): void
@@ -196,7 +106,31 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
         $method = $subscribed[KernelEvents::REQUEST][0];
 
-        $request = new Request();
+        $event = \Mockery::mock(RequestEvent::class);
+        $event->shouldReceive('getRequest')
+            ->atLeast()
+            ->once()
+            ->andReturn(new Request());
+        $event->shouldReceive('isMainRequest')
+            ->once()
+            ->andReturnFalse();
+
+        new CsrfValidationSubscriber(\Mockery::mock(CsrfTokenManagerInterface::class))
+            ->{$method}($event);
+    }
+
+    private function postRequest(string $route): Request
+    {
+        $request = new Request([], [], ['_route' => $route]);
+        $request->setMethod('POST');
+
+        return $request;
+    }
+
+    private function validateCsrf(Request $request): void
+    {
+        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
+        $method = $subscribed[KernelEvents::REQUEST][0];
 
         $event = \Mockery::mock(RequestEvent::class);
         $event->shouldReceive('getRequest')
@@ -205,46 +139,20 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->andReturn($request);
         $event->shouldReceive('isMainRequest')
             ->once()
-            ->andReturnFalse();
+            ->andReturnTrue();
 
-        $tokenManager = \Mockery::mock(CsrfTokenManagerInterface::class);
+        $requestStack = new RequestStack();
+        $requestStack->push($request);
 
-        $subscriber = new CsrfValidationSubscriber($tokenManager);
-
-        $subscriber->{$method}($event);
-    }
-
-    public function testAddCsrfToken(): void
-    {
-        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
-        $method = $subscribed[KernelEvents::RESPONSE][0];
-
-        $kernel = \Mockery::mock(HttpKernelInterface::class);
-        $request = Request::create('/', Request::METHOD_POST);
-        $response = new Response();
-
-        $event = new ResponseEvent(
-            $kernel,
-            $request,
-            HttpKernelInterface::MAIN_REQUEST,
-            $response,
-        );
-
-        $tokenManager = \Mockery::mock(CsrfTokenManagerInterface::class);
-        $tokenManager->shouldReceive('getToken')
-            ->once()
-            ->andReturn(new CsrfToken('main', 'token'));
-
-        $subscriber = new CsrfValidationSubscriber($tokenManager);
-
-        $subscriber->{$method}($event);
-
-        $cookies = $response->headers->getCookies();
-        $this->assertCount(1, $cookies);
-
-        $this->assertSame('CSRF-TOKEN', $cookies[0]->getName());
-        $this->assertSame('token', $cookies[0]->getValue());
-        $this->assertSame(0, $cookies[0]->getExpiresTime());
-        $this->assertTrue($cookies[0]->isSecure());
+        // as configured in framework.csrf_protection
+        new CsrfValidationSubscriber(
+            new SameOriginCsrfTokenManager(
+                $requestStack,
+                null,
+                null,
+                ['authenticate', 'graphql'],
+                SameOriginCsrfTokenManager::CHECK_HEADER,
+            ),
+        )->{$method}($event);
     }
 }

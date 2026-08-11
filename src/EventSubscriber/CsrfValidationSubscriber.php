@@ -5,18 +5,20 @@ declare(strict_types=1);
 namespace App\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
+/**
+ * The GraphQL endpoints aren't forms, so they're not covered by Symfony's CSRF protection.
+ * The token id is stateless (see framework.csrf_protection), so validation is based on the
+ * origin & the token double submitted in the header by the JS (see csrfToken() in csrf.js).
+ */
 class CsrfValidationSubscriber implements EventSubscriberInterface
 {
     private array $routes = [
-        'app_login',
         'overblog_graphql_endpoint',
         'overblog_graphql_batch_endpoint',
         // @todo-symfony enable if using multiple gql schemas
@@ -24,8 +26,10 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
         // 'overblog_graphql_batch_multiple_endpoint',
     ];
 
-    private string $tokenName = 'main';
-    private string $cookieName = 'CSRF-TOKEN';
+    // must be listed in framework.csrf_protection.stateless_token_ids
+    private string $tokenId = 'graphql';
+    // Symfony checks the header & the cookie under one name: framework.csrf_protection.cookie_name
+    private string $headerName = 'csrf-token';
 
     public function __construct(private readonly CsrfTokenManagerInterface $csrfTokenManager)
     {
@@ -34,8 +38,7 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST  => ['validateCsrf', 10],
-            KernelEvents::RESPONSE => ['addCsrfCookie', 0],
+            KernelEvents::REQUEST => ['validateCsrf', 10],
         ];
     }
 
@@ -55,23 +58,17 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $value = $request->cookies->get($this->cookieName);
-        if (!$value) {
-            throw new InvalidCsrfTokenException('Bad CSRF token.');
-        }
+        // without the header the request is validated on the origin alone
+        $token = new CsrfToken(
+            $this->tokenId,
+            $request->headers->get(
+                $this->headerName,
+                $this->csrfTokenManager->getToken($this->tokenId)->getValue(),
+            ),
+        );
 
-        $token = new CsrfToken($this->tokenName, $value);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException('Bad CSRF token.');
         }
-    }
-
-    public function addCsrfCookie(ResponseEvent $event): void
-    {
-        $token = $this->csrfTokenManager->getToken($this->tokenName)->getValue();
-
-        $event->getResponse()->headers->setCookie(
-            Cookie::create($this->cookieName, $token, 0, '/', null, true),
-        );
     }
 }

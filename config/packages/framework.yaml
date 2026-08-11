@@ -2,8 +2,12 @@
 framework:
     secret:                '%env(APP_SECRET)%'
     #default_locale: en
-    #csrf_protection: true
     annotations:           false
+    # stateless CSRF: validated with the origin & a double submitted cookie/header,
+    # so the tokens don't expire with the session. See CsrfValidationSubscriber
+    csrf_protection:
+        stateless_token_ids: [ 'authenticate', 'graphql' ]
+        check_header:        true
     http_method_override:  false
     handle_all_throwables: true
     # @todo-symfony uncomment if it's a private only site
