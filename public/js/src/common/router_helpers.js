@@ -42,7 +42,7 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
 
         if (requiresAuth) {
             if (!rootStore.loggedIn) {
-                window.location = loginUrl + '?_target_path=' + window.location.href;
+                window.location = loginUrl + '?_target_path=' + encodeURIComponent(to.fullPath);
 
                 return false;
             }
@@ -55,7 +55,7 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
                 },
             });
             if (!result.data.Me) {
-                window.location = loginUrl + '?_target_path=' + window.location.href;
+                window.location = loginUrl + '?_target_path=' + encodeURIComponent(to.fullPath);
 
                 return false;
             }
