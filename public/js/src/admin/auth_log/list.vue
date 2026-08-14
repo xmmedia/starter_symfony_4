@@ -277,7 +277,7 @@ onError((error) => {
 const { result: authLogsCountResult, refetch: authLogsCountRefetch } = useQuery(
     GetAuthLogsCountQuery,
     { filters: gqlFilters },
-    { debounce: 300 },
+    { debounce: 500 },
 );
 const authLogsCount = computed(() => authLogsCountResult.value?.AuthLogsCount);
 
