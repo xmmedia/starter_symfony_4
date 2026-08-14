@@ -65,7 +65,19 @@ export default defineConfig(({ command }) => {
             https: true,
             watch: {
                 // this is in part needed because the symfony plugin ignores the public dir completely
-                ignored: [ 'tests/**', '**/vendor/**', '**/var/**', '**/coverage/**' ],
+                // matched against the absolute path, so they must start with **/
+                // node_modules, .git, the cache dir & build.outDir are already ignored by vite
+                ignored: [
+                    '**/.idea/**',
+                    '**/bin/**',
+                    '**/coverage/**',
+                    '**/docs/**',
+                    '**/migrations/**',
+                    // absolute so only the root tests dir is ignored, not e.g. public/js/tests
+                    `${fileURLToPath(new URL('./tests/', import.meta.url))}**`,
+                    '**/var/**',
+                    '**/vendor/**',
+                ],
             },
         },
         appType: 'custom',
