@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "postmark": {
+            "command": "sh",
+            "args": [
+                "-c",
+                "set -a; . ./.env.local; set +a; POSTMARK_SERVER_TOKEN=$POSTMARK_API_KEY DEFAULT_SENDER_EMAIL=$FROM_EMAIL DEFAULT_MESSAGE_STREAM=outbound exec npx -y @activecampaign/postmark-mcp"
+            ]
+        }
+    }
+}
