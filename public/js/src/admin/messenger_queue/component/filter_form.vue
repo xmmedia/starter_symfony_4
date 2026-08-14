@@ -14,26 +14,11 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
 import FieldRadios from '@/common/field_radios.vue';
 
-const emit = defineEmits(['update:modelValue', 'reset']);
+defineEmits(['reset']);
 
-const props = defineProps({
-    modelValue: {
-        type: Object,
-        required: true,
-    },
-});
-
-const filters = computed({
-    get () {
-        return props.modelValue;
-    },
-    set (value) {
-        emit('update:modelValue', value);
-    },
-});
+const filters = defineModel({ type: Object, required: true });
 
 const queueNameOptions = [
     { value: 'ALL', label: 'All' },

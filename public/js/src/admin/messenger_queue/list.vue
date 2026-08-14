@@ -185,7 +185,7 @@ onError((error) => {
 const { result: messageCountResult, refetch: messageCountRefetch } = useQuery(
     GetMessengerQueueMessageCountQuery,
     { filters: gqlFilters },
-    { debounce: 300 },
+    { debounce: 500 },
 );
 const messageCount = computed(() => messageCountResult.value?.MessengerQueueMessageCount ?? 0);
 
