@@ -19,17 +19,20 @@
 
         <slot name="before-line1"></slot>
 
-        <div class="field-wrap">
+        <div class="field-wrap relative">
             <label :for="ids.line1">Line 1</label>
             <FieldError :v="v$.line1" />
-            <!-- prevent enter submitting the form as enter may also be used in the suggest -->
             <input :id="ids.line1"
-                   ref="inputLine1"
                    v-model="address.line1"
+                   v-bind="line1InputAttrs"
                    :maxlength="v$.line1.maxLength.$params.max"
                    type="text"
-                   autocomplete="address-line1"
-                   @keydown.enter.prevent>
+                   autocomplete="address-line1">
+            <PlaceSuggestions :list-id="line1ListId"
+                              :suggestions="line1Suggestions"
+                              :active-index="line1ActiveIndex"
+                              @select="selectLine1($event)"
+                              @activate="line1ActiveIndex = $event" />
         </div>
 
         <FieldInput v-model="address.line2"
@@ -39,17 +42,20 @@
         </FieldInput>
 
         <div class="flex gap-x-4">
-            <div class="field-wrap flex-1">
+            <div class="field-wrap flex-1 relative">
                 <label :for="ids.city">City</label>
                 <FieldError :v="v$.city" />
-                <!-- prevent enter submitting the form as enter may also be used in the suggest -->
                 <input :id="ids.city"
-                       ref="inputCity"
                        v-model="address.city"
+                       v-bind="cityInputAttrs"
                        :maxlength="v$.city.maxLength.$params.max"
                        type="text"
-                       autocomplete="address-level2"
-                       @keydown.enter.prevent>
+                       autocomplete="address-level2">
+                <PlaceSuggestions :list-id="cityListId"
+                                  :suggestions="citySuggestions"
+                                  :active-index="cityActiveIndex"
+                                  @select="selectCity($event)"
+                                  @activate="cityActiveIndex = $event" />
             </div>
 
             <FieldInput :model-value="address.postalCode"
@@ -78,12 +84,13 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { createId } from '@paralleldrive/cuid2';
 import FieldInput from './field_input.vue';
+import PlaceSuggestions from './place_suggestions.vue';
 import { LocalitiesQuery } from '@/common/queries/localities.query.graphql';
 import { useQuery } from '@vue/apollo-composable';
-import { importLibrary, setOptions } from '@googlemaps/js-api-loader';
+import { usePlaceAutocomplete } from '@/common/place_autocomplete';
 import { logError } from '@/common/lib';
 import { useVuelidate } from '@vuelidate/core';
 import addressValidation from '@/common/validation/address';
@@ -107,9 +114,6 @@ const ids = {
     province: createId(),
     country: createId(),
 };
-
-const inputLine1 = ref(null);
-const inputCity = ref(null);
 
 const labels = computed(() => {
     switch (address.value.country) {
@@ -177,99 +181,77 @@ const countryChanged = (country) => {
     };
 };
 
-const autocompletes = {
-    /**
-     * @type {google.maps.places.Autocomplete}
-     * @link https://developers.google.com/maps/documentation/javascript/reference#Autocomplete
-     */
-    line1: null,
-    city: null,
+const completeAddress = (components) => {
+    address.value = {
+        ...address.value,
+        line1: getAddressLine1(components),
+        city: getAddressComponent(components, [ 'locality', 'postal_town' ], 'city'),
+        postalCode: getAddressComponent(components, 'postal_code', 'postalCode'),
+        province: getAddressComponent(components, 'administrative_area_level_1', 'province'),
+        country: props.showCountry
+            ? getAddressComponent(components, 'country', 'country')
+            : address.value.country,
+    };
 };
 
-// options: https://developers.google.com/maps/documentation/javascript/load-maps-js-api#js-api-loader
-setOptions({
-    key: import.meta.env.VITE_GOOGLE_BROWSER_API_KEY,
-    region: 'CA',
+const completeCity = (components) => {
+    address.value = {
+        ...address.value,
+        city: getAddressComponent(components, [ 'locality', 'postal_town' ], 'city'),
+        province: getAddressComponent(components, 'administrative_area_level_1', 'province'),
+        country: props.showCountry
+            ? getAddressComponent(components, 'country', 'country')
+            : address.value.country,
+    };
+};
+
+const {
+    listId: line1ListId,
+    suggestions: line1Suggestions,
+    activeIndex: line1ActiveIndex,
+    inputAttrs: line1InputAttrs,
+    setRegionCode: setLine1RegionCode,
+    select: selectLine1,
+} = usePlaceAutocomplete({
+    includedPrimaryTypes: [ 'street_address', 'premise', 'subpremise', 'route' ],
+    onSelect: completeAddress,
 });
 
-importLibrary('places').then(async ({ Autocomplete }) => {
-    autocompletes.line1 = new Autocomplete(
-        inputLine1.value,
-        {
-            types: ['geocode'],
-            fields: ['address_component'],
-        },
-    );
-    autocompletes.line1.addListener('place_changed', completeAddress);
-
-    autocompletes.city = new Autocomplete(
-        inputCity.value,
-        {
-            types: ['(cities)'],
-            fields: ['address_component'],
-        },
-    );
-    autocompletes.city.addListener('place_changed', completeCity);
-
-    if (address.value.country) {
-        setComponentRestrictions(address.value.country);
-    }
+const {
+    listId: cityListId,
+    suggestions: citySuggestions,
+    activeIndex: cityActiveIndex,
+    inputAttrs: cityInputAttrs,
+    setRegionCode: setCityRegionCode,
+    select: selectCity,
+} = usePlaceAutocomplete({
+    includedPrimaryTypes: [ '(cities)' ],
+    onSelect: completeCity,
 });
 
 watch(() => address.value.country, (country) => {
-    if (country) {
-        setComponentRestrictions(country);
-    }
-});
+    setLine1RegionCode(country);
+    setCityRegionCode(country);
+}, { immediate: true });
 
-const setComponentRestrictions = (country) => {
-    autocompletes.line1.setComponentRestrictions({ country });
-    autocompletes.city.setComponentRestrictions({ country });
-};
-
-const completeAddress = () => {
-    address.value = {
-        ...address.value,
-        line1: getAddressLine1(),
-        city: getAddressComponent(['locality', 'postal_town']),
-        postalCode: getAddressComponent('postal_code'),
-        province: getAddressComponent('administrative_area_level_1'),
-        country: props.showCountry ? getAddressComponent('country') : address.value.country,
-    };
-};
-
-const completeCity = () => {
-    address.value = {
-        ...address.value,
-        city: getAddressComponent(['locality', 'postal_town'], 'city'),
-        province: getAddressComponent('administrative_area_level_1', 'city'),
-        country: props.showCountry ? getAddressComponent('country') : address.value.country,
-    };
-};
-
-const getAddressComponent = (types, autocompleteName = 'line1') => {
+/**
+ * @param {Array} components The place's address components: { longText, shortText, types }.
+ * @param {string|string[]} types The component type(s) to pull the value from.
+ * @param {string} addressField The address field to fall back to when the component isn't found.
+ */
+const getAddressComponent = (components, types, addressField) => {
     try {
         if (!Array.isArray(types)) {
             types = [ types ];
         }
 
-        const addressComponents = autocompletes[autocompleteName].getPlace().address_components;
-        if (!addressComponents) {
-            return null;
-        }
+        const component = components.find((component) => types.includes(component.types[0]));
 
-        const components = addressComponents.filter((component) => {
-            return types.includes(component.types[0]);
-        });
-
-        if (components.length > 0) {
-            return components[0].short_name;
-        } else {
-            return null;
-        }
+        return component ? component.shortText : null;
     } catch (e) {
         logError(e);
-        return address.value[types[0]];
+
+        return address.value[addressField];
     }
 };
 
@@ -280,17 +262,16 @@ const getAddressComponent = (types, autocompleteName = 'line1') => {
  * added as a prefix to the suggested address as it's assumed it's
  * a unit number.
  */
-const getAddressLine1 = () => {
+const getAddressLine1 = (components) => {
     try {
         let unitNumber = null;
         if (address.value.line1) {
             unitNumber = address.value.line1.substr(0, address.value.line1.indexOf(' '));
         }
 
-        const addressComponents = autocompletes.line1.getPlace().address_components;
-
-        let line1 = addressComponents.filter((component) => ([ 'street_number', 'route' ].includes(component.types[0])))
-            .map((component) => component.short_name)
+        const line1 = components
+            .filter((component) => [ 'street_number', 'route' ].includes(component.types[0]))
+            .map((component) => component.shortText)
             .join(' ');
 
         if (unitNumber && !line1.startsWith(unitNumber)) {
@@ -300,6 +281,7 @@ const getAddressLine1 = () => {
         return line1;
     } catch (e) {
         logError(e);
+
         return address.value.line1;
     }
 };
