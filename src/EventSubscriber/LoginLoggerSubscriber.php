@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use App\Entity\User;
 use App\Model\Auth\AuthId;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Command\UserLoginFailed;
@@ -33,8 +34,12 @@ readonly class LoginLoggerSubscriber implements EventSubscriberInterface
      */
     public function loginSuccess(InteractiveLoginEvent $event): void
     {
-        $authId = AuthId::fromUuid(Uuid::uuid4());
         $user = $event->getAuthenticationToken()->getUser();
+        if (!$user instanceof User) {
+            return;
+        }
+
+        $authId = AuthId::fromUuid(Uuid::uuid4());
         $request = $event->getRequest();
 
         $this->commandBus->dispatch(
@@ -55,7 +60,8 @@ readonly class LoginLoggerSubscriber implements EventSubscriberInterface
     public function loginFailure(LoginFailureEvent $event): void
     {
         try {
-            $userId = $event->getPassport()?->getUser()->userId();
+            $user = $event->getPassport()?->getUser();
+            $userId = $user instanceof User ? $user->userId() : null;
         } catch (UserNotFoundException) {
         }
 
