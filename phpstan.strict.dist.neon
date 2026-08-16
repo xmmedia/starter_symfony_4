@@ -4,6 +4,6 @@ includes:
     - phpstan.dist.neon
 
 parameters:
-    level: 6
+    level: 8
 #    ignoreErrors:
 #        - '#Static call to instance method Carbon\\CarbonInterval::[a-zA-Z]+\(\)#'
