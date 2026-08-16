@@ -23,8 +23,8 @@ use Xm\SymfonyBundle\Model\Province;
  * intersecting the provider classes themselves is an impossible type. Keep in sync
  * with UsesFaker::makeFaker(); bundle/app tell the two UuidFakerProviders apart.
  *
- * Omits password() & name() (Faker\Generator declares both), fakeId() (test-only
- * return type) and anything chained off unique(), which returns a different class.
+ * Omits password() & name() (Faker\Generator declares both) and fakeId() (test-only
+ * return type). Chaining off unique() resolves these too, see below.
  *
  * @method array<string, string|null> addressArray()                                                bundle AddressFakerProvider
  * @method Address                    addressVo()                                                   bundle AddressFakerProvider
@@ -43,4 +43,9 @@ use Xm\SymfonyBundle\Model\Province;
  */
 interface FakerGenerator
 {
+    /**
+     * Faker\Generator declares @return self, which drops this interface from the
+     * intersection; static keeps it, so unique() chains resolve the methods above.
+     */
+    public function unique(bool $reset = false, int $maxRetries = 10000): static;
 }
