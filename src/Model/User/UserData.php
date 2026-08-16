@@ -40,7 +40,7 @@ final readonly class UserData implements ValueObject
         ];
     }
 
-    public function sameValueAs(self|ValueObject $other): bool
+    public function sameValueAs(ValueObject $other): bool
     {
         if (self::class !== $other::class) {
             return false;

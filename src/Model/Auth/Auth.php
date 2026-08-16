@@ -145,12 +145,10 @@ class Auth extends AggregateRoot implements Entity
         $this->authId = $event->authId();
     }
 
-    public function sameIdentityAs(self|Entity $other): bool
+    public function sameIdentityAs(Entity $other): bool
     {
-        if (static::class !== $other::class) {
-            return false;
-        }
-
-        return $this->authId->sameValueAs($other->authId);
+        return $other instanceof self
+            && static::class === $other::class
+            && $this->authId->sameValueAs($other->authId);
     }
 }
