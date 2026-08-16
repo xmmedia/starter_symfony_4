@@ -13178,16 +13178,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.122",
+            "version": "v2.0.123",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "65a2da8edb2ea7255d8c21a72fe1de3aa7e3fda7"
+                "reference": "cca113f32411597d4287c2c7def3ddb1184cec9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/65a2da8edb2ea7255d8c21a72fe1de3aa7e3fda7",
-                "reference": "65a2da8edb2ea7255d8c21a72fe1de3aa7e3fda7",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/cca113f32411597d4287c2c7def3ddb1184cec9f",
+                "reference": "cca113f32411597d4287c2c7def3ddb1184cec9f",
                 "shasum": ""
             },
             "require": {
@@ -13261,9 +13261,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.122"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.123"
             },
-            "time": "2026-08-16T04:32:51+00:00"
+            "time": "2026-08-16T05:31:44+00:00"
         }
     ],
     "packages-dev": [
@@ -15504,16 +15504,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "14.3.0",
+            "version": "14.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "060a5c93e81afb01e97dbe8930a5d0c9bd46e54e"
+                "reference": "6ce313bb110384148d1dc7695a99175f59529069"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/060a5c93e81afb01e97dbe8930a5d0c9bd46e54e",
-                "reference": "060a5c93e81afb01e97dbe8930a5d0c9bd46e54e",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6ce313bb110384148d1dc7695a99175f59529069",
+                "reference": "6ce313bb110384148d1dc7695a99175f59529069",
                 "shasum": ""
             },
             "require": {
@@ -15532,7 +15532,7 @@
                 "theseer/tokenizer": "^2.0.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^13.3"
+                "phpunit/phpunit": "^13.3.1"
             },
             "suggest": {
                 "ext-pcov": "PHP extension that provides line coverage",
@@ -15570,7 +15570,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/14.3.0"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/14.3.1"
             },
             "funding": [
                 {
@@ -15590,7 +15590,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-07T07:24:15+00:00"
+            "time": "2026-08-16T05:23:47+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
