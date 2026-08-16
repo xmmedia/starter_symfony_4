@@ -12,7 +12,25 @@ includes:
     - vendor/marc-mabe/php-enum-phpstan/extension.neon
 
 parameters:
-    level: 1
+    level: 5
+    ignoreErrors:
+        # prooph rebinds the when() closures to the projector, so $this really is
+        # a ReadModelProjector at runtime, not the projection class
+        -
+            identifier: varTag.nativeType
+            path: src/Projection/*/*Projection.php
+        # the 2nd param is commented out of the interface for BC, but the helper accepts it
+        -
+            message: '#generateResetToken\(\) invoked with 2 parameters, 1 required#'
+            path: src/Model/User/Handler/SendActivationHandler.php
+        # hydrated by Doctrine, never assigned in PHP
+        -
+            identifier: property.onlyRead
+            path: src/Entity/User.php
+        # scaffolding for the (empty) src/Security/Voter directory
+        -
+            identifier: trait.unused
+            path: tests/Security/Voter/VoterSecurityTrait.php
     paths:
         - bin/
         - config/
