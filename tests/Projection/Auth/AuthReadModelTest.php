@@ -20,9 +20,6 @@ class AuthReadModelTest extends BaseTestCase
         $connection->shouldNotReceive('executeQuery');
 
         new AuthReadModel($connection)->init();
-
-        // If we get here without exception, init() did nothing as expected
-        $this->assertTrue(true);
     }
 
     public function testLoggedIn(): void
