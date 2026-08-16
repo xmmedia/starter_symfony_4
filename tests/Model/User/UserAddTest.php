@@ -39,8 +39,6 @@ class UserAddTest extends BaseTestCase
             $this->userUniquenessCheckerNone,
         );
 
-        $this->assertInstanceOf(User::class, $user);
-
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
@@ -90,8 +88,6 @@ class UserAddTest extends BaseTestCase
             $this->userUniquenessCheckerNone,
         );
 
-        $this->assertInstanceOf(User::class, $user);
-
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
@@ -140,8 +136,6 @@ class UserAddTest extends BaseTestCase
             $userData,
             $this->userUniquenessCheckerNone,
         );
-
-        $this->assertInstanceOf(User::class, $user);
 
         $events = $this->popRecordedEvent($user);
 
@@ -217,8 +211,6 @@ class UserAddTest extends BaseTestCase
             $sendInvite,
             $this->userUniquenessCheckerNone,
         );
-
-        $this->assertInstanceOf(User::class, $user);
 
         $events = $this->popRecordedEvent($user);
 

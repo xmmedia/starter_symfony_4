@@ -25,8 +25,6 @@ class AuthTest extends BaseTestCase
 
         $auth = Auth::success($authId, $userId, $email, $userAgent, $ipAddress, $route);
 
-        $this->assertInstanceOf(Auth::class, $auth);
-
         $events = $this->popRecordedEvent($auth);
 
         $this->assertRecordedEvent(UserLoggedIn::class, [
@@ -53,8 +51,6 @@ class AuthTest extends BaseTestCase
         $route = $faker->slug();
 
         $auth = Auth::success($authId, $userId, $email, null, $ipAddress, $route);
-
-        $this->assertInstanceOf(Auth::class, $auth);
 
         $events = $this->popRecordedEvent($auth);
 
@@ -85,8 +81,6 @@ class AuthTest extends BaseTestCase
 
         $auth = Auth::failure($authId, $email, $userId, $userAgent, $ipAddress, $message, $route);
 
-        $this->assertInstanceOf(Auth::class, $auth);
-
         $events = $this->popRecordedEvent($auth);
 
         $this->assertRecordedEvent(UserFailedToLogin::class, [
@@ -112,8 +106,6 @@ class AuthTest extends BaseTestCase
         $route = $faker->slug();
 
         $auth = Auth::failure($authId, null, null, null, $ipAddress, null, $route);
-
-        $this->assertInstanceOf(Auth::class, $auth);
 
         $events = $this->popRecordedEvent($auth);
 

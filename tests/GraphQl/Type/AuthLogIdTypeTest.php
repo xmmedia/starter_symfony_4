@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\GraphQl\Type;
 
 use App\GraphQl\Type\AuthLogIdType;
-use App\Model\AuthLog\AuthLogId;
 use App\Tests\BaseTestCase;
 use GraphQL\Error\Error;
 
@@ -17,7 +16,6 @@ class AuthLogIdTypeTest extends BaseTestCase
 
         $result = new AuthLogIdType()->parseValue($uuid);
 
-        $this->assertInstanceOf(AuthLogId::class, $result);
         $this->assertSame($uuid, $result->toString());
     }
 
