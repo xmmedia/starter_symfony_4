@@ -6,6 +6,7 @@ namespace App\Security;
 
 use App\Entity\User;
 use App\Model\User\Role;
+use App\Util\Assert;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 
@@ -18,7 +19,8 @@ class Security
     public function getUser(): ?User
     {
         $user = $this->security->getUser();
-        \assert(null === $user || $user instanceof User);
+
+        Assert::nullOrIsInstanceOf($user, User::class);
 
         return $user;
     }
