@@ -42,7 +42,6 @@ class UserUpdatedProfileTest extends BaseTestCase
         $lastName = Name::fromString($faker->lastName());
         $userData = $faker->userData();
 
-        /** @var UserUpdatedProfile $event */
         $event = $this->createEventFromArray(
             UserUpdatedProfile::class,
             $userId->toString(),

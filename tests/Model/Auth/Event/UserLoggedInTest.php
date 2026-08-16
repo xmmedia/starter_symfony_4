@@ -79,7 +79,6 @@ class UserLoggedInTest extends BaseTestCase
         $ipAddress = $faker->ipv4();
         $route = $faker->slug();
 
-        /** @var UserLoggedIn $event */
         $event = $this->createEventFromArray(
             UserLoggedIn::class,
             $authId->toString(),
@@ -112,7 +111,6 @@ class UserLoggedInTest extends BaseTestCase
         $ipAddress = $faker->ipv4();
         $route = $faker->slug();
 
-        /** @var UserLoggedIn $event */
         $event = $this->createEventFromArray(
             UserLoggedIn::class,
             $authId->toString(),
@@ -146,7 +144,6 @@ class UserLoggedInTest extends BaseTestCase
         $userAgent = $faker->userAgent();
         $ipAddress = $faker->ipv4();
 
-        /** @var UserLoggedIn $event */
         $event = $this->createEventFromArray(
             UserLoggedIn::class,
             $authId->toString(),

@@ -33,7 +33,6 @@ class InviteSentTest extends BaseTestCase
         $userId = $faker->userId();
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
-        /** @var InviteSent $event */
         $event = $this->createEventFromArray(
             InviteSent::class,
             $userId->toString(),

@@ -29,7 +29,6 @@ class UserVerifiedTest extends BaseTestCase
 
         $userId = $faker->userId();
 
-        /** @var UserVerified $event */
         $event = $this->createEventFromArray(
             UserVerified::class,
             $userId->toString(),

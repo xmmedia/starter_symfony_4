@@ -29,7 +29,6 @@ class UserVerifiedByAdminTest extends BaseTestCase
 
         $userId = $faker->userId();
 
-        /** @var UserVerifiedByAdmin $event */
         $event = $this->createEventFromArray(
             UserVerifiedByAdmin::class,
             $userId->toString(),

@@ -33,7 +33,6 @@ class PasswordRecoverySentTest extends BaseTestCase
         $userId = $faker->userId();
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
-        /** @var PasswordRecoverySent $event */
         $event = $this->createEventFromArray(
             PasswordRecoverySent::class,
             $userId->toString(),

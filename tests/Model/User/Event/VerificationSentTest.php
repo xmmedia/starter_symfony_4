@@ -34,7 +34,6 @@ class VerificationSentTest extends BaseTestCase
         $userId = $faker->userId();
         $messageId = EmailGatewayMessageId::fromString($faker->uuid());
 
-        /** @var VerificationSent $event */
         $event = $this->createEventFromArray(
             VerificationSent::class,
             $userId->toString(),

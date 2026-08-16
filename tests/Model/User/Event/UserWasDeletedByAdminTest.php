@@ -29,7 +29,6 @@ class UserWasDeletedByAdminTest extends BaseTestCase
 
         $userId = $faker->userId();
 
-        /** @var UserWasDeletedByAdmin $event */
         $event = $this->createEventFromArray(
             UserWasDeletedByAdmin::class,
             $userId->toString(),
