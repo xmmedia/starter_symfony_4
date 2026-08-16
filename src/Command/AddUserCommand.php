@@ -87,7 +87,7 @@ final class AddUserCommand extends Command
         }
 
         $email = Email::fromString($this->askForEmail($io));
-        if (!$sendInvite || $generateActivationToken) {
+        if (!$sendInvite) {
             $password = $this->askForPassword($io);
         } else {
             // a random password with some of the extras removed/trimmed off
