@@ -442,12 +442,10 @@ class User extends AggregateRoot implements Entity
         $this->deleted = true;
     }
 
-    public function sameIdentityAs(self|Entity $other): bool
+    public function sameIdentityAs(Entity $other): bool
     {
-        if (static::class !== $other::class) {
-            return false;
-        }
-
-        return $this->userId->sameValueAs($other->userId);
+        return $other instanceof self
+            && static::class === $other::class
+            && $this->userId->sameValueAs($other->userId);
     }
 }
