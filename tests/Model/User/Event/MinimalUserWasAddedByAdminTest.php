@@ -56,7 +56,6 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
         $lastName = Name::fromString($faker->lastName());
         $sendInvite = $faker->boolean();
 
-        /** @var MinimalUserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(
             MinimalUserWasAddedByAdmin::class,
             $userId->toString(),
@@ -90,7 +89,6 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
         $password = $faker->password();
         $role = $faker->userRole();
 
-        /** @var MinimalUserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(
             MinimalUserWasAddedByAdmin::class,
             $userId->toString(),

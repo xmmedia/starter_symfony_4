@@ -45,7 +45,6 @@ class UserWasUpdatedByAdminTest extends BaseTestCase
         $lastName = Name::fromString($faker->lastName());
         $userData = $faker->userData();
 
-        /** @var UserWasUpdatedByAdmin $event */
         $event = $this->createEventFromArray(
             UserWasUpdatedByAdmin::class,
             $userId->toString(),

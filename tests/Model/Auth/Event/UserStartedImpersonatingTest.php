@@ -87,7 +87,6 @@ class UserStartedImpersonatingTest extends BaseTestCase
         $ipAddress = $faker->ipv4();
         $route = $faker->slug();
 
-        /** @var UserStartedImpersonating $event */
         $event = $this->createEventFromArray(
             UserStartedImpersonating::class,
             $authId->toString(),
@@ -123,7 +122,6 @@ class UserStartedImpersonatingTest extends BaseTestCase
         $ipAddress = $faker->ipv4();
         $route = $faker->slug();
 
-        /** @var UserStartedImpersonating $event */
         $event = $this->createEventFromArray(
             UserStartedImpersonating::class,
             $authId->toString(),

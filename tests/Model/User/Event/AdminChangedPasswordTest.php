@@ -32,7 +32,6 @@ class AdminChangedPasswordTest extends BaseTestCase
         $userId = $faker->userId();
         $password = $faker->password();
 
-        /** @var AdminChangedPassword $event */
         $event = $this->createEventFromArray(
             AdminChangedPassword::class,
             $userId->toString(),
@@ -54,7 +53,6 @@ class AdminChangedPasswordTest extends BaseTestCase
         $userId = $faker->userId();
         $password = $faker->password();
 
-        /** @var AdminChangedPassword $event */
         $event = $this->createEventFromArray(
             AdminChangedPassword::class,
             $userId->toString(),

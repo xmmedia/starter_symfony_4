@@ -83,7 +83,6 @@ class UserFailedToLoginTest extends BaseTestCase
         $message = $faker->string(100);
         $route = $faker->slug();
 
-        /** @var UserFailedToLogin $event */
         $event = $this->createEventFromArray(
             UserFailedToLogin::class,
             $authId->toString(),
@@ -116,7 +115,6 @@ class UserFailedToLoginTest extends BaseTestCase
         $ipAddress = $faker->ipv4();
         $route = $faker->slug();
 
-        /** @var UserFailedToLogin $event */
         $event = $this->createEventFromArray(
             UserFailedToLogin::class,
             $authId->toString(),
@@ -152,7 +150,6 @@ class UserFailedToLoginTest extends BaseTestCase
         $ipAddress = $faker->ipv4();
         $message = $faker->string(100);
 
-        /** @var UserFailedToLogin $event */
         $event = $this->createEventFromArray(
             UserFailedToLogin::class,
             $authId->toString(),

@@ -32,7 +32,6 @@ class PasswordUpgradedTest extends BaseTestCase
         $userId = $faker->userId();
         $password = $faker->password();
 
-        /** @var PasswordUpgraded $event */
         $event = $this->createEventFromArray(
             PasswordUpgraded::class,
             $userId->toString(),
@@ -54,7 +53,6 @@ class PasswordUpgradedTest extends BaseTestCase
         $userId = $faker->userId();
         $password = $faker->password();
 
-        /** @var PasswordUpgraded $event */
         $event = $this->createEventFromArray(
             PasswordUpgraded::class,
             $userId->toString(),

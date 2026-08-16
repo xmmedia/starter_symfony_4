@@ -64,7 +64,6 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $sendInvite = $faker->boolean();
         $userData = $faker->userData();
 
-        /** @var UserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(
             UserWasAddedByAdmin::class,
             $userId->toString(),
@@ -107,7 +106,6 @@ class UserWasAddedByAdminTest extends BaseTestCase
         $sendInvite = $faker->boolean();
         $userData = $faker->userData();
 
-        /** @var UserWasAddedByAdmin $event */
         $event = $this->createEventFromArray(
             UserWasAddedByAdmin::class,
             $userId->toString(),
