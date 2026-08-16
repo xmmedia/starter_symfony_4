@@ -9,6 +9,7 @@ use App\Projection\User\UserTokenFinder;
 use App\Tests\BaseTestCase;
 use Carbon\CarbonImmutable;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\Uuid;
 
 class UserTokenFinderTest extends BaseTestCase
 {
@@ -25,6 +26,8 @@ class UserTokenFinderTest extends BaseTestCase
         $result = $finder->createResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
 
         $this->assertSame($user, $result->getUser());
-        $this->assertNotNull($result->getId());
+        $this->assertTrue(Uuid::isValid($result->getId()));
+        $this->assertSame($expiresAt->getTimestamp(), $result->getExpiresAt()->getTimestamp());
+        $this->assertSame($hashedToken, $result->getHashedToken());
     }
 }
