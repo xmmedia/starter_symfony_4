@@ -33,8 +33,6 @@ class AuthImpersonationTest extends BaseTestCase
             $route,
         );
 
-        $this->assertInstanceOf(Auth::class, $auth);
-
         $events = $this->popRecordedEvent($auth);
 
         $this->assertRecordedEvent(UserStartedImpersonating::class, [
@@ -72,8 +70,6 @@ class AuthImpersonationTest extends BaseTestCase
             $route,
         );
 
-        $this->assertInstanceOf(Auth::class, $auth);
-
         $events = $this->popRecordedEvent($auth);
 
         $this->assertRecordedEvent(UserStartedImpersonating::class, [
@@ -110,8 +106,6 @@ class AuthImpersonationTest extends BaseTestCase
             $route,
         );
 
-        $this->assertInstanceOf(Auth::class, $auth);
-
         $events = $this->popRecordedEvent($auth);
 
         $this->assertRecordedEvent(UserEndedImpersonating::class, [
@@ -145,8 +139,6 @@ class AuthImpersonationTest extends BaseTestCase
             $ipAddress,
             $route,
         );
-
-        $this->assertInstanceOf(Auth::class, $auth);
 
         $events = $this->popRecordedEvent($auth);
 

@@ -17,7 +17,6 @@ class MoneyTest extends BaseTestCase
 
         $money = Money::fromInt($cents);
 
-        $this->assertInstanceOf(Money::class, $money);
         $this->assertSame((string) $cents, $money->toString());
     }
 
@@ -26,7 +25,6 @@ class MoneyTest extends BaseTestCase
         $cents = '10000'; // $100.00
         $money = Money::fromString($cents);
 
-        $this->assertInstanceOf(Money::class, $money);
         $this->assertSame($cents, $money->toString());
     }
 
@@ -37,7 +35,6 @@ class MoneyTest extends BaseTestCase
 
         $money = Money::fromMoney(\Money\Money::CAD($number));
 
-        $this->assertInstanceOf(Money::class, $money);
         $this->assertSame((string) $number, $money->toString());
     }
 
@@ -88,7 +85,6 @@ class MoneyTest extends BaseTestCase
 
         $internalMoney = $money->money();
 
-        $this->assertInstanceOf(\Money\Money::class, $internalMoney);
         $this->assertEquals($money, $internalMoney->getAmount());
     }
 
