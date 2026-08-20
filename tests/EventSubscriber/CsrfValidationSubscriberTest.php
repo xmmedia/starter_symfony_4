@@ -141,8 +141,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
 
-        $requestStack = new RequestStack();
-        $requestStack->push($request);
+        $requestStack = new RequestStack([$request]);
 
         // as configured in framework.csrf_protection
         new CsrfValidationSubscriber(
