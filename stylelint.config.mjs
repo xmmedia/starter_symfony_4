@@ -26,5 +26,6 @@ export default {
         "custom-property-empty-line-before": null,
         "comment-empty-line-before": null,
         "nesting-selector-no-missing-scoping-root": [true, { "ignoreAtRules": ["utility"] }],
+        "no-invalid-position-declaration": [true, { "ignoreAtRules": ["utility"] }],
     },
 };
