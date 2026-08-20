@@ -59,9 +59,6 @@ return RectorConfig::configure()
         Rector\CodeQuality\Rector\If_\CombineIfRector::class,
         Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector::class,
         Rector\CodeQuality\Rector\If_\ObjectExplicitBoolCompareRector::class,
-        // from set "symfonyCodeQuality"
-        // keep injecting services as controller action arguments
-        Rector\Symfony\CodeQuality\Rector\Class_\ControllerMethodInjectionToConstructorRector::class,
         // from set "deadCode"
         Rector\DeadCode\Rector\ClassMethod\RemoveUselessParamTagRector::class,
         // temporarily disabled because it adds newlines between traits
