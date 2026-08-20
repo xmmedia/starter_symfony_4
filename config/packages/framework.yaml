@@ -22,8 +22,8 @@ framework:
         save_path:          '%kernel.project_dir%/var/sessions'
         cookie_secure:      auto
         cookie_samesite:    lax
-        # PHP's default gc_maxlifetime (24 min) collects idle sessions – & the CSRF token
-        # in them – long before the cookies expire, causing "Bad CSRF token" errors
+        # PHP's default gc_maxlifetime (24 min) collects idle sessions while their cookies
+        # are still valid, signing out anyone without remember-me
         gc_maxlifetime:     604800 # 1 week
         gc_probability:     1
         gc_divisor:         100
