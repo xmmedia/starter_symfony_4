@@ -18,11 +18,11 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Copy `.env.local-template` to `.env.local` and update the values where there are `@todo-symfony` comments.
 1. Update `composer.json`: `name`, `license` (likely `proprietary`) and `description`
 1. Update `package.json`: `name`, `version`, `git.url`, `license` (probably delete), `private`
-1. Update the port in `vite.config.js` (`server.port` and `server.origin`)
+1. Update the ports & `siteOrigin` in `vite.config.mjs`, the ports in `lando_apache_vite.conf` (dev) & `.lando.yml` (preview)
 1. Remove or update the `LICENSE` file.
 1. Composer install & update: `lando composer install && lando composer update` (or remove `lando` to run without Lando or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
-1. Run `yarn && yarn up -R "**"`.
-1. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
+1. Run `lando yarn install && lando yarn up -R "**"`.
+1. Run `lando vite` (dev) or `lando yarn build` (production) to compile JS & CSS files.
 1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
 1. Run/Start Lando site: `lando start` 
 1. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
@@ -47,9 +47,8 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Copy `.env.local-template` to `.env.local` and update the values where there are `@todo-symfony` comments.
 1. Run/Start Lando site: `lando start`
 1. Composer install: `lando composer install` or `composer install` to run without Lando.
-1. Ensure correct node version: `nvm use`
-1. Run `yarn`.
-1. Run `yarn dev` or `yarn build` (for production) to compile JS & CSS files.
+1. Run `lando yarn install`.
+1. Run `lando vite` (dev) or `lando yarn build` (production) to compile JS & CSS files.
 1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
 1. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
     - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;` This can be done through PhpMyAdmin (link provided by `lando start` command above or `lando info`)
@@ -70,29 +69,35 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 
 ### Locally for Development
 
-  - [Lando](https://lando.dev/)
-  - [Node 22](https://nodejs.org/)
-  - [nvm](https://github.com/nvm-sh/nvm)
-  - [Yarn v4](https://yarnpkg.com/)
+  - [Lando](https://lando.dev/) – the `node` service runs [Node 24](https://nodejs.org/) & [Yarn v4](https://yarnpkg.com/), so neither is needed on the host
+
+Run yarn through `lando yarn` so the Node version matches `.nvmrc`. `node_modules` is on the shared
+mount, so one `lando yarn install` serves both the container & the host. Host `yarn` still works,
+but the Node version is then up to you.
 
 ## Commands
 
   - Run all checks: `bin/check_full`
-    - Notes: this switches to the node version in `.nvmrc` (if nvm is installed) & generates the GQL schema first, because within the checks we validate the graphql operations files
+    - Note: this generates the GQL schema first, because within the checks we validate the graphql operations files
   - Check all code: `bin/check`
   - Generate GQL schema: `bin/generate_schema`
-  - Dev JS/CSS build: `yarn dev` (recommended command: `nvm use && yarn && yarn dev`)
-  - Compile check: `yarn build:check`
-    - Builds to `node_modules/.build-check`, so it's safe to run while `yarn dev` is running
-  - Production JS/CSS build: `yarn build`
-    - Don't use this to verify a change — it rewrites `public/build`, clobbering the manifest a running `yarn dev` relies on
-  - Preview production JS/CSS build: `yarn preview`
-  - JS Tests ([Jest](https://jestjs.io/)): `yarn test:unit`
+  - Dev JS/CSS server with HMR: `lando vite` (runs `yarn install`, then `yarn dev`)
+    - Assets are proxied through the appserver at `https://[domain]/vite-dev/`, same-origin with the site — the Vite port isn't published. See `lando_apache_vite.conf`
+    - Stop a server left running in the container: `lando vite-stop`
+    - A `503` on a `/vite-dev/…` asset means the dev server isn't running
+    - To run it on the host instead: `yarn dev` — Apache falls back to it, same URLs
+  - Compile check: `lando yarn build:check`
+    - Builds to `node_modules/.build-check`, so it's safe to run while `lando vite` is running
+  - Production JS/CSS build: `lando yarn build`
+    - Don't use this to verify a change — it rewrites `public/build`, clobbering the manifest a running `lando vite` relies on
+  - Preview a production build: `lando yarn preview`
+    - Serves `public/build` at `https://localhost:9508/build/`, mirroring the production paths
+  - JS Tests ([Jest](https://jestjs.io/)): `lando yarn test:unit`
   - Linting:
-    - JS ([ESLint](https://eslint.org/)): `yarn lint:js` or `yarn lint:js:fix`
-    - CSS: `yarn lint:css` or `yarn lint:css:fix`
+    - JS ([ESLint](https://eslint.org/)): `lando yarn lint:js` or `lando yarn lint:js:fix`
+    - CSS: `lando yarn lint:css` or `lando yarn lint:css:fix`
   - Install PHP packages: `lando composer install` or `composer install`
-  - Install JS packages: `yarn`
+  - Install JS packages: `lando yarn install` — also the fix for `Couldn't find the node_modules state file`
   - PHP Tests ([PhpUnit](https://phpunit.de/)): 
     - `lando composer test` or `composer test`
     - no memory limit `php -d memory_limit=-1 bin/phpunit`
@@ -108,10 +113,10 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
   - Makers (PHP):
     - Make aggregate root/model: `bin/console make:model`
     - Make projection: `bin/console make:projection`
-  - Upgrade JS packages: `yarn up -R "**"`
-    - Upgrade a specific package: `yarn up -R "package-name"`
-    - Upgrade major versions: `yarn upgrade-interactive` (ctrl+c to exit without changes)
-    - Upgrade a package, ignoring the age gate: `yarn up:bypass <package>`
+  - Upgrade JS packages: `lando yarn up -R "**"`
+    - Upgrade a specific package: `lando yarn up -R "package-name"`
+    - Upgrade major versions: `lando yarn upgrade-interactive` (ctrl+c to exit without changes)
+    - Upgrade a package, ignoring the age gate: `lando yarn up:bypass <package>`
 
 ## Incorporated Libraries & Tools
 

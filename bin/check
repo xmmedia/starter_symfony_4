@@ -6,20 +6,12 @@ set -Ee
 . "$(dirname "$0")/_output.sh"
 trap report_failure ERR
 
-# use the Node version in .nvmrc, if nvm is installed
-NVM_SH="${NVM_DIR:-$HOME/.nvm}/nvm.sh"
-if [ -s "$NVM_SH" ]; then
-    # shellcheck disable=SC1090
-    . "$NVM_SH"
-    step "Node version (nvm use)" nvm use
-fi
-
 # check if composer.json & lock match
 step "Composer validate" lando composer validate --no-check-all --no-check-version --check-lock
 
 step "PHPStan (static analysis)" lando composer static
-step "ESLint (JS)" yarn lint:js
-step "Stylelint (CSS)" yarn lint:css
+step "ESLint (JS)" lando yarn lint:js
+step "Stylelint (CSS)" lando yarn lint:css
 step "YAML lint" lando console lint:yaml config
 step "Twig lint" lando console lint:twig templates
 step "Container lint" lando console lint:container
@@ -28,6 +20,6 @@ step "PHPUnit tests" lando composer test
 # security checks
 step "Symfony security check" symfony security:check
 step "Composer audit" lando composer audit --abandoned=report
-step "Yarn audit (high)" yarn audit:high
+step "Yarn audit (high)" lando yarn audit:high
 
 report_success "All checks passed"

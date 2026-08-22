@@ -8,11 +8,6 @@
 {% block javascripts %}
     {{ parent() }}
     {{ vite_entry_script_tags('user', { attr: { 'data-entry': 'user' } }) }}
-
-    {% if app.debug %}
-        {# makes svgs work with the dev server #}
-        <script defer src="/js/svgxuse.min.js"></script>
-    {% endif %}
 {% endblock %}
 
 {% block header %}

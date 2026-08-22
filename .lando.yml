@@ -17,7 +17,12 @@ config:
 services:
   appserver:
     build_as_root:
-      - a2enmod headers
+      # LC_ALL: build steps inherit the host's locale vars, which the image doesn't have
+      # (perl warns). LANG won't do — LC_CTYPE takes precedence over it
+      - LC_ALL=C.UTF-8 a2enmod headers
+      # proxy the Vite dev server at /vite-dev/ — see lando_apache_vite.conf
+      - LC_ALL=C.UTF-8 a2enmod proxy proxy_http proxy_wstunnel proxy_balancer lbmethod_byrequests
+      - ln -sf /app/lando_apache_vite.conf /etc/apache2/conf-enabled/vite.conf
       # to fix the "Xdebug: [Log Files] File '/tmp/xdebug.log' could not be opened." error
       - touch /tmp/xdebug.log && chmod 666 /tmp/xdebug.log
   phpmyadmin:
@@ -26,6 +31,20 @@ services:
     sslExpose: false
     hosts:
       - database
+  node:
+    type: node:24
+    ssl: true
+    sslExpose: false
+    # only `yarn preview` is published; the Vite port isn't, so a host-run `yarn dev`
+    # isn't shadowed — the appserver proxies to it internally instead
+    ports:
+      # @todo-symfony change port number 2x (must match vite.config.mjs)
+      - '9508:9508'
+    build:
+      - corepack enable
+    overrides:
+      environment:
+        COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
 proxy:
   appserver:
     # @todo-symfony update
@@ -34,6 +53,19 @@ proxy:
     # @todo-symfony update
     - pma.symfonystarter.lndo.site
 tooling:
+  yarn:
+    service: node
+    description: Run a yarn command
+  vite:
+    service: node
+    description: Install packages, then run the Vite dev server
+    cmd:
+      - yarn install
+      - yarn dev
+  vite-stop:
+    service: node
+    description: Stop the Vite dev server left running in the container
+    cmd: pkill -f vite || true
   xdebug-on:
     service: appserver
     description: Enable xdebug for PHP

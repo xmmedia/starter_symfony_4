@@ -27,6 +27,9 @@ before_script:
   # install node with nvm
   - export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
   - nvm install
+  # .yarnrc.yml widens supportedArchitectures for the Lando node container; narrow it back
+  # to the runner's own platform (doesn't affect --immutable: the lockfile records them all)
+  - yarn config set --json supportedArchitectures '{"os":["current"],"cpu":["current"],"libc":["current"]}'
 
 .versions-script: &versions-script
   - php -v

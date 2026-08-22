@@ -47,30 +47,64 @@ This is a Symfony 7 starter template for creating web applications at XM Media. 
 - PHPStan static analysis: `lando composer static` or `composer static`
 - Rector (dry run): `lando composer rector` or `composer rector`
 - Rector (fix): `lando composer rector:fix` or `composer rector:fix`
-- Lint JS: `yarn lint:js` or `yarn lint:js:fix`
-- Lint CSS: `yarn lint:css` or `yarn lint:css:fix`
+- Lint JS: `lando yarn lint:js` or `lando yarn lint:js:fix`
+- Lint CSS: `lando yarn lint:css` or `lando yarn lint:css:fix`
 - Lint YAML: `lando console lint:yaml config`
 - Lint Twig: `lando console lint:twig templates`
 - Lint container: `lando console lint:container`
 
 ### Building Frontend Assets
-- Development build with watch: `yarn dev` (recommended: `nvm use && yarn && yarn dev`)
-- Compile check: `yarn build:check` — use this to verify JS/CSS compiles. Builds to
+
+Node & Yarn run in the Lando `node` service — use `lando yarn <cmd>`, not host `yarn`, so the
+Node version matches `.nvmrc`. `node_modules` is on the shared mount, so `.yarnrc.yml` widens
+`supportedArchitectures` to cover host & container; without it the container dies on a missing
+`@rolldown/binding-linux-*`. CI narrows it back to the runner's platform.
+
+- Dev server with HMR: `lando vite` — runs `yarn install`, then `yarn dev`, in the container.
+  Assets are served through the appserver at `/vite-dev/`, not the Vite port (see below)
+  - Stop it: `lando vite-stop` — killing `lando vite` on the host can leave the process
+    holding the port inside the container
+  - HTTPS: the cert Lando issues the service in the container, `vite-plugin-mkcert` on the
+    host. `vite.config.mjs` picks by checking for `/certs/cert.crt` — mkcert can't run in the
+    container (needs root, & its CA wouldn't be trusted by the host browser)
+  - To run it on the host instead: `yarn dev`, no config change — Apache falls back to it
+- Compile check: `lando yarn build:check` — use this to verify JS/CSS compiles. Builds to
   `node_modules/.build-check` (gitignored, and ignored by the dev server's watcher), so
-  it's safe to run while `yarn dev` is running. A green build only proves it bundles —
+  it's safe to run while `lando vite` is running. A green build only proves it bundles —
   the browser is still the real check
-- Production build: `yarn build` — production/deploy only. Never run it to verify a
+- Preview a production build: `lando yarn preview` — serves `public/build` at
+  `https://localhost:9508/build/`, mirroring the production paths (`base` keys off `isPreview`
+  as well as `command`). 9508 is the only port the `node` service publishes
+- Production build: `lando yarn build` — production/deploy only. Never run it to verify a
   change: it empties and rewrites `public/build`, clobbering the manifest a running
-  `yarn dev` relies on
-- Preview production build: `yarn preview`
+  `lando vite` relies on
+
+#### Vite through the appserver proxy
+
+Apache proxies `/vite-dev/` to the node service (`lando_apache_vite.conf`, symlinked into
+`conf-enabled` by a `build_as_root` step) so dev assets are same-origin with the site. `base`
+in `vite.config.mjs` must match that path — `vite-plugin-symfony` writes it into
+`entrypoints.json`, so the bundle needs no separate config. The Vite port isn't published:
+the appserver reaches it internally, and publishing it would shadow a host-run `yarn dev`.
+
+- **A `503` on a `/vite-dev/…` URL means the dev server isn't running** — start `lando vite`.
+  `pgrep -f vite` in the container false-positives on its own `sh -c` wrapper; check for a
+  listener on the port instead
+- `ProxyPreserveHost On` passes the site's host through, so it must be in `allowedHosts` —
+  Vite rejects unknown hosts with a bare `400` that looks like a proxy bug
+- `server.hmr` uses `wss` on `clientPort` 443: the HMR socket rides the proxied path
+- The conf must be server-level: `ProxyPass` is inherited by vhosts, mod_rewrite directives
+  aren't (a `RewriteRule … [P]` never fires). Hence `upgrade=websocket` on the members
+- The balancer keeps a host-run `yarn dev` (`host.docker.internal`) as hot standby. Editing a
+  `BalancerMember` needs a full Apache restart — a graceful reload silently keeps the old values
 
 ### Package Management
 - Install PHP packages: `lando composer install` or `composer install`
-- Install JS packages: `yarn`
-- Upgrade all JS packages: `yarn up -R "**"`
-- Upgrade specific JS package: `yarn up -R "package-name"`
-- Upgrade JS packages (interactive for major versions): `yarn upgrade-interactive`
-- Upgrade, ignoring the age gate: `yarn up:bypass <package>` — runs `yarn up -R` with
+- Install JS packages: `lando yarn install`
+- Upgrade all JS packages: `lando yarn up -R "**"`
+- Upgrade specific JS package: `lando yarn up -R "package-name"`
+- Upgrade JS packages (interactive for major versions): `lando yarn upgrade-interactive`
+- Upgrade, ignoring the age gate: `lando yarn up:bypass <package>` — runs `yarn up -R` with
   `YARN_NPM_MINIMAL_AGE_GATE=0`, bypassing the 7 day `npmMinimalAgeGate` in `.yarnrc.yml`
   that otherwise skips just-published versions. Match every package with `"**"`, not
   `"*"` — `*` doesn't cross the `/` in scoped names, so it misses `@tailwindcss/*` etc.
@@ -352,7 +386,10 @@ Core workflow:
 
 - Environment config: Copy `.env.local-template` to `.env.local` and update `@todo-symfony` values
 - Lando site name is in `.lando.yml` (default: `symfonystarter`)
-- Vite dev server port in `vite.config.mjs` (currently: 9008)
+- Vite dev server port in `vite.config.mjs` & `lando_apache_vite.conf` (currently: 9008, unpublished — proxied at `/vite-dev/`)
+- Vite preview port in `vite.config.mjs` & `.lando.yml` (currently: 9508)
+- `lando rebuild` (not `lando start`) is needed after changes under `config:` or a service's
+  `ports:`; it recreates the appserver too, so run `lando start` after or the app 404s
 - Database collation should be `utf8mb4_bin`
 
 ## Code Intelligence
