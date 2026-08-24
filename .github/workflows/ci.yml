@@ -1,91 +1,91 @@
 name: CI
 
 on:
-    push:
-        branches:
-            - master
-    pull_request:
-        branches:
-            - master
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
-    static:
-        runs-on: ubuntu-latest
-        env:
-            APP_ENV: test
-            TRUSTED_PROXIES: ''
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+  static:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: test
+      TRUSTED_PROXIES: ''
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Set up PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: '8.5'
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '24'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
 
-            - name: Get Composer cache directory
-              id: composer-cache
-              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
-            - name: Cache Composer dependencies
-              uses: actions/cache@v4
-              with:
-                  path: ${{ steps.composer-cache.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-composer-
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
 
-            - name: Cache Node.js dependencies
-              uses: actions/cache@v4
-              with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-            - name: Install Composer dependencies
-              run: composer install --no-interaction --no-progress --ignore-platform-reqs
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-progress --ignore-platform-reqs
 
-            - name: Run PHP security checks
-              run: composer audit
+      - name: Run PHP security checks
+        run: composer audit
 
-            - name: Validate composer.json is normalized
-              run: composer normalize --dry-run
+      - name: Validate composer.json is normalized
+        run: composer normalize --dry-run
 
-            - name: Install Node.js dependencies
-              run: yarn install --immutable
+      - name: Install Node.js dependencies
+        run: yarn install --immutable
 
-            - name: Run JS security checks
-              run: yarn audit:high
+      - name: Run JS security checks
+        run: yarn audit:high
 
-            - name: Cache warmup for PHPStan
-              run: php bin/console cache:warmup --env=test
+      - name: Cache warmup for PHPStan
+        run: php bin/console cache:warmup --env=test
 
-            - name: Run PHPStan
-              run: php bin/phpstan analyse --no-progress --memory-limit 1G src
+      - name: Run PHPStan
+        run: php bin/phpstan analyse --no-progress --memory-limit 1G src
 
-            - name: Lint YAML
-              run: bin/console lint:yaml config
+      - name: Lint YAML
+        run: bin/console lint:yaml config
 
-            - name: Lint Twig
-              run: bin/console lint:twig templates
+      - name: Lint Twig
+        run: bin/console lint:twig templates
 
-            - name: Lint Container
-              run: bin/console lint:container
+      - name: Lint Container
+        run: bin/console lint:container
 
-            - name: Lint JS
-              run: yarn lint:js
+      - name: Lint JS
+        run: yarn lint:js
 
-            - name: Lint CSS
-              run: yarn lint:css
+      - name: Lint CSS
+        run: yarn lint:css
 
-            - name: Run PHPUnit tests
-              run: |
-                  mkdir -p public/build
-                  printf "{}" > public/build/manifest.json
-                  bin/phpunit
+      - name: Run PHPUnit tests
+        run: |
+          mkdir -p public/build
+          printf "{}" > public/build/manifest.json
+          bin/phpunit
