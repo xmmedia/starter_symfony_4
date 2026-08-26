@@ -37,7 +37,7 @@ when@test:
                 path:  '%kernel.logs_dir%/%kernel.environment%.log'
                 level: debug
 
-when@prod:
+when@prod: &prod
     monolog:
         handlers:
             main:
@@ -77,6 +77,9 @@ when@prod:
                 type:                   console
                 process_psr_3_messages: false
                 channels: [ '!event', '!doctrine' ]
+
+# staging is a customer-facing preview site: log & report errors exactly like prod
+when@staging: *prod
 
 services:
     Symfony\Bridge\Monolog\Processor\WebProcessor:

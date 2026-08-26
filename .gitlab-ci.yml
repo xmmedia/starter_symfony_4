@@ -135,13 +135,14 @@ deploy to staging:
   when: manual
   script:
     - *deploy-setup-script
-    # install PHP dependencies
-    - php composer.phar install --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
+    # install PHP dependencies (not php dev dependencies)
+    - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
     - yarn install --immutable
     # composer & yarn require packages to be installed before running security checks
     - *security-checks
-    - yarn build --mode development
+    # staging is the customer preview site, so build exactly what prod builds
+    - yarn build
     - *deploy-script
 
 deploy to prod:

@@ -1,4 +1,4 @@
-when@prod:
+when@prod: &prod
     sentry:
         dsn: '%env(SENTRY_DSN)%'
         # this hooks into critical paths of the framework (and vendors) to perform
@@ -56,3 +56,5 @@ when@prod:
         # Sentry\SentryBundle\Monolog\LogsHandler:
         #     arguments:
         #         $level: !php/const Monolog\Logger::INFO
+
+when@staging: *prod

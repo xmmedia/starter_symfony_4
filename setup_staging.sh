@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo
-echo '-- Setting up dev site --'
+echo '-- Setting up STAGING site --'
 echo 'This script can be run multiple times without causing problems'
 echo
 
@@ -47,7 +47,7 @@ touch ~/.ssh/authorized_keys
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
 
-# nvm is only installed on dev (just in case it becomes handy at some point)
+# nvm is only installed on staging (just in case it becomes handy at some point)
 echo "Install oh-my-zsh & add nvm vars"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 printf "\nDISABLE_AUTO_TITLE=\"true\"" >> ~/.zshrc

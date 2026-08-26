@@ -2,7 +2,7 @@
 
 Used to create new projects using [Symfony 7](https://symfony.com/) at [XM Media](https://www.xmmedia.com/).
 
-Dev: https://symfonystarter.lndo.site @todo-symfony  
+Local/Dev: https://symfonystarter.lndo.site @todo-symfony  
 Staging: @todo-symfony  
 Production: @todo-symfony
 
@@ -59,6 +59,27 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Run `bin/check` to run all code tests/checks.
 
 **Local dev site can be accessed at: https://symfonystarter.lndo.site
+
+## Environments
+
+  - `dev` – local development, via Lando
+  - `test` – automated tests
+  - `staging` – the site customers preview & test on, set up with `setup_staging.sh`
+  - `prod` – the live site, set up with `setup_prod.sh`
+
+`staging` is a customer-facing site, so it's configured to behave like `prod`, not like `dev`:
+
+  - `.env.staging` sets `APP_DEBUG=0`. Symfony treats every env except `prod` as a debug env by
+    default (`Dotenv::bootEnv()`), which would expose stack traces & slow the site down
+  - The `when@prod` blocks in `config/packages/` are shared with `staging` through a YAML anchor
+    (`when@prod: &prod` / `when@staging: *prod`), so the two can't drift apart. This covers
+    monolog handlers, Sentry, the doctrine query/result caches & the router's `strict_requirements`
+  - `SentryBundle` is enabled for both `prod` & `staging` in `config/bundles.php`
+  - `framework.disallow_search_engine_index` is on for `staging` so the preview site isn't indexed
+  - The GitLab `deploy to staging` job installs & builds the same way `deploy to prod` does
+    (`composer install --no-dev`, `yarn build`)
+
+Anything genuinely staging-only belongs in a `when@staging` block of its own, below the alias.
 
 ## System Requirements
 
@@ -171,7 +192,7 @@ but the Node version is then up to you.
 1. Change version in `composer.json` & add polyfill for new PHP version, ie, `symfony/polyfill-php84`.
 1. Update the PHP version in the following files:
    - `.lando.yml`
-   - `setup_dev.sh` & `setup_prod.sh` – 4 places each
+   - `setup_staging.sh` & `setup_prod.sh` – 4 places each
    - `.gitlab-ci.yml` – 2 places
    - `.github/workflows/ci.yml` – 1 place
    - `.php-cs-fixer.dist.php` – update the `@PHP8#Migration` version to match the current version.
