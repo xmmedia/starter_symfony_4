@@ -1,6 +1,9 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret:                '%env(APP_SECRET)%'
+    # not dev-only: deployed envs sit behind a proxy too, & without this the client IP
+    # & scheme come from the proxy. Set TRUSTED_PROXIES per env, see .env
+    trusted_proxies:       '%env(TRUSTED_PROXIES)%'
     #default_locale: en
     annotations:           false
     # stateless CSRF: validated with the origin & a double submitted cookie/header,
@@ -38,10 +41,6 @@ when@staging:
     framework:
         # staging is a customer preview site & must never be indexed
         disallow_search_engine_index: true
-
-when@dev:
-    framework:
-        trusted_proxies: '%env(TRUSTED_PROXIES)%'
 
 when@test:
     framework:

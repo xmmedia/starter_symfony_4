@@ -19,7 +19,6 @@ variables:
   APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
-  TRUSTED_PROXIES: ''
 
 before_script:
   # install composer

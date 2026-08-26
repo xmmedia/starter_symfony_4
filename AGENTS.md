@@ -408,6 +408,11 @@ Core workflow:
 - `deploy to staging` in `.gitlab-ci.yml` installs & builds like `deploy to prod`
 - Staging-only config goes in its own `when@staging` block below the alias
 - Verify a config change against staging with `APP_ENV=staging bin/console lint:container`
+- `framework.trusted_proxies` applies in **all** envs (`%env(TRUSTED_PROXIES)%`), not just `dev`:
+  deployed sites sit behind a proxy/CDN. `.env` defaults it to empty (trust nothing); each env
+  sets it in its own `.env.local` (`shared/.env.local` on the servers). `Request::setTrustedProxies()`
+  accepts the `REMOTE_ADDR` & `private_ranges` tokens as well as IPs/CIDRs. An empty value is
+  falsy in `Kernel::initializeContainer()`, so nothing is trusted — it does not become `['']`
 
 ## Code Intelligence
 
