@@ -20,7 +20,6 @@ class AdminAddUserHandlerTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -29,7 +28,6 @@ class AdminAddUserHandlerTest extends BaseTestCase
         $command = AdminAddUser::with(
             $userId,
             $email,
-            $password,
             $role,
             true,
             $firstName,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\GraphQl\Mutation\User;
 
 use App\GraphQl\Mutation\User\AdminUserAddMutation;
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminAddUser;
 use App\Model\User\Role;
 use App\Security\PasswordHasher;
@@ -45,6 +46,10 @@ class AdminUserAddMutationTest extends BaseTestCase
             ->once()
             ->andReturn('string');
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $args = new Argument([
             'user' => $data,
         ]);
@@ -52,6 +57,7 @@ class AdminUserAddMutationTest extends BaseTestCase
         $result = (new AdminUserAddMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -90,6 +96,7 @@ class AdminUserAddMutationTest extends BaseTestCase
         (new AdminUserAddMutation(
             \Mockery::mock(MessageBusInterface::class),
             \Mockery::mock(PasswordHasher::class),
+            \Mockery::mock(UserPasswordStore::class),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -123,6 +130,10 @@ class AdminUserAddMutationTest extends BaseTestCase
             ->with(\Mockery::type(Role::class), $data['password'])
             ->andReturn('string');
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $args = new Argument([
             'user' => $data,
         ]);
@@ -130,6 +141,7 @@ class AdminUserAddMutationTest extends BaseTestCase
         $result = (new AdminUserAddMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -169,6 +181,10 @@ class AdminUserAddMutationTest extends BaseTestCase
             ->once()
             ->andReturn('string');
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $args = new Argument([
             'user' => $data,
         ]);
@@ -176,6 +192,7 @@ class AdminUserAddMutationTest extends BaseTestCase
         $result = (new AdminUserAddMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);

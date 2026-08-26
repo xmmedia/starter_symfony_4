@@ -44,7 +44,6 @@ trait UserTestTrait
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -53,7 +52,6 @@ trait UserTestTrait
         $user = User::addByAdmin(
             $userId,
             $email,
-            $password,
             $role,
             $active,
             $firstName,

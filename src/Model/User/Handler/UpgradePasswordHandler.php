@@ -22,7 +22,7 @@ final readonly class UpgradePasswordHandler
             throw UserNotFound::withUserId($command->userId());
         }
 
-        $user->upgradePassword($command->hashedPassword());
+        $user->upgradePassword();
 
         $this->userRepo->save($user);
     }

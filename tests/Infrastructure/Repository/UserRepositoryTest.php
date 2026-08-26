@@ -26,7 +26,6 @@ class UserRepositoryTest extends BaseTestCase
         $user = User::addByAdminMinimum(
             $faker->userId(),
             $faker->emailVo(),
-            $faker->password(),
             $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),

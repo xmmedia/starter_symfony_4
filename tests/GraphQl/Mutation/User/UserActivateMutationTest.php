@@ -6,6 +6,7 @@ namespace App\Tests\GraphQl\Mutation\User;
 
 use App\Entity\User;
 use App\GraphQl\Mutation\User\UserActivateMutation;
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\ActivateUser;
 use App\Model\User\Command\ChangePassword;
 use App\Security\PasswordHasher;
@@ -52,6 +53,10 @@ class UserActivateMutationTest extends BaseTestCase
             ->once()
             ->andReturn('string');
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
@@ -71,6 +76,7 @@ class UserActivateMutationTest extends BaseTestCase
         $result = (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,
@@ -92,6 +98,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
         $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
         $security = $this->createSecurity(true);
         $requestProvider = \Mockery::mock(RequestInfoProvider::class);
@@ -103,6 +110,7 @@ class UserActivateMutationTest extends BaseTestCase
         $result = (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,
@@ -124,6 +132,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
         $requestProvider = $this->getRequestInfoProvider(false);
 
         $user = $this->getUserMock();
@@ -142,6 +151,7 @@ class UserActivateMutationTest extends BaseTestCase
         $result = (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,
@@ -164,6 +174,7 @@ class UserActivateMutationTest extends BaseTestCase
         $commandBus = \Mockery::mock(MessageBusInterface::class);
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
@@ -187,6 +198,7 @@ class UserActivateMutationTest extends BaseTestCase
         $result = (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,
@@ -209,6 +221,7 @@ class UserActivateMutationTest extends BaseTestCase
         $commandBus = \Mockery::mock(MessageBusInterface::class);
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
@@ -232,6 +245,7 @@ class UserActivateMutationTest extends BaseTestCase
         $result = (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,
@@ -255,6 +269,7 @@ class UserActivateMutationTest extends BaseTestCase
         $commandBus = \Mockery::mock(MessageBusInterface::class);
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
@@ -272,6 +287,7 @@ class UserActivateMutationTest extends BaseTestCase
         (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,
@@ -292,6 +308,7 @@ class UserActivateMutationTest extends BaseTestCase
         $commandBus = \Mockery::mock(MessageBusInterface::class);
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
@@ -309,6 +326,7 @@ class UserActivateMutationTest extends BaseTestCase
         (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,
@@ -329,6 +347,7 @@ class UserActivateMutationTest extends BaseTestCase
         $commandBus = \Mockery::mock(MessageBusInterface::class);
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
@@ -346,6 +365,7 @@ class UserActivateMutationTest extends BaseTestCase
         (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,
@@ -366,6 +386,7 @@ class UserActivateMutationTest extends BaseTestCase
         $commandBus = \Mockery::mock(MessageBusInterface::class);
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
@@ -387,6 +408,7 @@ class UserActivateMutationTest extends BaseTestCase
         (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,
@@ -407,6 +429,7 @@ class UserActivateMutationTest extends BaseTestCase
         $commandBus = \Mockery::mock(MessageBusInterface::class);
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
@@ -424,6 +447,7 @@ class UserActivateMutationTest extends BaseTestCase
         (new UserActivateMutation(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $resetPasswordHelper,
             $security,
             $requestProvider,

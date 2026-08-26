@@ -6,6 +6,7 @@ namespace App\Tests\Command;
 
 use App\Command\AddUserCommand;
 use App\Entity\User;
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminAddUserMinimum;
 use App\Projection\User\UserFinder;
 use App\Security\PasswordHasher;
@@ -43,9 +44,14 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn($faker->string(15));
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             \Mockery::mock(UserFinder::class),
             \Mockery::mock(ResetPasswordHelperInterface::class),
             \Mockery::mock(RouterInterface::class),
@@ -81,9 +87,14 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn($faker->string(15));
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             \Mockery::mock(UserFinder::class),
             \Mockery::mock(ResetPasswordHelperInterface::class),
             \Mockery::mock(RouterInterface::class),
@@ -131,6 +142,10 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn($faker->string(15));
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
             ->once()
@@ -151,6 +166,7 @@ class AddUserCommandTest extends BaseTestCase
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $userFinder,
             $resetPasswordHelper,
             $router,
@@ -189,9 +205,14 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn($faker->string(15));
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             \Mockery::mock(UserFinder::class),
             \Mockery::mock(ResetPasswordHelperInterface::class),
             \Mockery::mock(RouterInterface::class),
@@ -248,6 +269,10 @@ class AddUserCommandTest extends BaseTestCase
             ->once()
             ->andReturn($faker->string(15));
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $userFinder = \Mockery::mock(UserFinder::class);
         $userFinder->shouldReceive('find')
             ->once()
@@ -268,6 +293,7 @@ class AddUserCommandTest extends BaseTestCase
         $command = new AddUserCommand(
             $commandBus,
             $passwordHasher,
+            $passwordStore,
             $userFinder,
             $resetPasswordHelper,
             $router,
@@ -306,6 +332,7 @@ class AddUserCommandTest extends BaseTestCase
         $command = new AddUserCommand(
             \Mockery::mock(MessageBusInterface::class),
             \Mockery::mock(PasswordHasher::class),
+            \Mockery::mock(UserPasswordStore::class),
             \Mockery::mock(UserFinder::class),
             \Mockery::mock(ResetPasswordHelperInterface::class),
             \Mockery::mock(RouterInterface::class),

@@ -19,7 +19,6 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -28,7 +27,6 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
         $event = MinimalUserWasAddedByAdmin::now(
             $userId,
             $email,
-            $password,
             $role,
             $firstName,
             $lastName,
@@ -37,7 +35,6 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
 
         $this->assertSameValueAs($userId, $event->userId());
         $this->assertSameValueAs($email, $event->email());
-        $this->assertEquals($password, $event->hashedPassword());
         $this->assertEquals($role, $event->role());
         $this->assertSameValueAs($firstName, $event->firstName());
         $this->assertSameValueAs($lastName, $event->lastName());
@@ -50,7 +47,6 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -60,12 +56,11 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
             MinimalUserWasAddedByAdmin::class,
             $userId->toString(),
             [
-                'email'          => $email->toString(),
-                'hashedPassword' => $password,
-                'role'           => $role->value,
-                'firstName'      => $firstName->toString(),
-                'lastName'       => $lastName->toString(),
-                'sendInvite'     => $sendInvite,
+                'email'      => $email->toString(),
+                'role'       => $role->value,
+                'firstName'  => $firstName->toString(),
+                'lastName'   => $lastName->toString(),
+                'sendInvite' => $sendInvite,
             ],
         );
 
@@ -73,7 +68,6 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
 
         $this->assertSameValueAs($userId, $event->userId());
         $this->assertSameValueAs($email, $event->email());
-        $this->assertEquals($password, $event->hashedPassword());
         $this->assertEquals($role, $event->role());
         $this->assertSameValueAs($firstName, $event->firstName());
         $this->assertSameValueAs($lastName, $event->lastName());
@@ -86,16 +80,14 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
 
         $event = $this->createEventFromArray(
             MinimalUserWasAddedByAdmin::class,
             $userId->toString(),
             [
-                'email'          => $email->toString(),
-                'hashedPassword' => $password,
-                'role'           => $role->value,
+                'email' => $email->toString(),
+                'role'  => $role->value,
                 // missing: firstName, lastName, sendInvite
             ],
         );
@@ -104,7 +96,6 @@ class MinimalUserWasAddedByAdminTest extends BaseTestCase
 
         $this->assertSameValueAs($userId, $event->userId());
         $this->assertSameValueAs($email, $event->email());
-        $this->assertEquals($password, $event->hashedPassword());
         $this->assertEquals($role, $event->role());
 
         $this->assertNull($event->firstName());

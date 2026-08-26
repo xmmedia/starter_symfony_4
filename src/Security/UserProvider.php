@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\User;
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\UpgradePassword;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
@@ -21,6 +22,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     public function __construct(
         ManagerRegistry $registry,
         private readonly MessageBusInterface $commandBus,
+        private readonly UserPasswordStore $passwordStore,
     ) {
         $this->entityUserProvider = new EntityUserProvider($registry, User::class, 'email');
     }
@@ -34,8 +36,11 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
             return;
         }
 
+        // the hash is deliberately not part of the command
+        $this->passwordStore->store($user->userId(), $newHashedPassword);
+
         $this->commandBus->dispatch(
-            UpgradePassword::forUser($user->userId(), $newHashedPassword),
+            UpgradePassword::forUser($user->userId()),
         );
 
         $user->upgradePassword($newHashedPassword);

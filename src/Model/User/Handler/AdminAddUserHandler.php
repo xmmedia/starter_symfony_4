@@ -22,7 +22,6 @@ final readonly class AdminAddUserHandler
         $user = User::addByAdmin(
             $command->userId(),
             $command->email(),
-            $command->hashedPassword(),
             $command->role(),
             $command->active(),
             $command->firstName(),

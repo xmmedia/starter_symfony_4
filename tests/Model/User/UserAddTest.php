@@ -20,7 +20,6 @@ class UserAddTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -29,7 +28,6 @@ class UserAddTest extends BaseTestCase
         $user = User::addByAdmin(
             $userId,
             $email,
-            $password,
             $role,
             true,
             $firstName,
@@ -44,14 +42,13 @@ class UserAddTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserWasAddedByAdmin::class,
             [
-                'email'          => $email->toString(),
-                'hashedPassword' => $password,
-                'role'           => $role->value,
-                'active'         => true,
-                'firstName'      => $firstName->toString(),
-                'lastName'       => $lastName->toString(),
-                'sendInvite'     => false,
-                'userData'       => $userData->toArray(),
+                'email'      => $email->toString(),
+                'role'       => $role->value,
+                'active'     => true,
+                'firstName'  => $firstName->toString(),
+                'lastName'   => $lastName->toString(),
+                'sendInvite' => false,
+                'userData'   => $userData->toArray(),
             ],
             $events,
         );
@@ -69,7 +66,6 @@ class UserAddTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -78,7 +74,6 @@ class UserAddTest extends BaseTestCase
         $user = User::addByAdmin(
             $userId,
             $email,
-            $password,
             $role,
             true,
             $firstName,
@@ -93,14 +88,13 @@ class UserAddTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserWasAddedByAdmin::class,
             [
-                'email'          => $email->toString(),
-                'hashedPassword' => $password,
-                'role'           => $role->value,
-                'active'         => true,
-                'firstName'      => $firstName->toString(),
-                'lastName'       => $lastName->toString(),
-                'sendInvite'     => true,
-                'userData'       => $userData->toArray(),
+                'email'      => $email->toString(),
+                'role'       => $role->value,
+                'active'     => true,
+                'firstName'  => $firstName->toString(),
+                'lastName'   => $lastName->toString(),
+                'sendInvite' => true,
+                'userData'   => $userData->toArray(),
             ],
             $events,
         );
@@ -118,7 +112,6 @@ class UserAddTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -127,7 +120,6 @@ class UserAddTest extends BaseTestCase
         $user = User::addByAdmin(
             $userId,
             $email,
-            $password,
             $role,
             false,
             $firstName,
@@ -142,14 +134,13 @@ class UserAddTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\UserWasAddedByAdmin::class,
             [
-                'email'          => $email->toString(),
-                'hashedPassword' => $password,
-                'role'           => $role->value,
-                'active'         => false,
-                'firstName'      => $firstName->toString(),
-                'lastName'       => $lastName->toString(),
-                'sendInvite'     => false,
-                'userData'       => $userData->toArray(),
+                'email'      => $email->toString(),
+                'role'       => $role->value,
+                'active'     => false,
+                'firstName'  => $firstName->toString(),
+                'lastName'   => $lastName->toString(),
+                'sendInvite' => false,
+                'userData'   => $userData->toArray(),
             ],
             $events,
         );
@@ -167,7 +158,6 @@ class UserAddTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -178,7 +168,6 @@ class UserAddTest extends BaseTestCase
         User::addByAdmin(
             $userId,
             $email,
-            $password,
             $role,
             true,
             $firstName,
@@ -195,7 +184,6 @@ class UserAddTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -204,7 +192,6 @@ class UserAddTest extends BaseTestCase
         $user = User::addByAdminMinimum(
             $userId,
             $email,
-            $password,
             $role,
             $firstName,
             $lastName,
@@ -217,12 +204,11 @@ class UserAddTest extends BaseTestCase
         $this->assertRecordedEvent(
             Event\MinimalUserWasAddedByAdmin::class,
             [
-                'email'          => $email->toString(),
-                'hashedPassword' => $password,
-                'role'           => $role->value,
-                'firstName'      => $firstName->toString(),
-                'lastName'       => $lastName->toString(),
-                'sendInvite'     => $sendInvite,
+                'email'      => $email->toString(),
+                'role'       => $role->value,
+                'firstName'  => $firstName->toString(),
+                'lastName'   => $lastName->toString(),
+                'sendInvite' => $sendInvite,
             ],
             $events,
         );
@@ -240,7 +226,6 @@ class UserAddTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -251,7 +236,6 @@ class UserAddTest extends BaseTestCase
         User::addByAdminMinimum(
             $userId,
             $email,
-            $password,
             $role,
             $firstName,
             $lastName,

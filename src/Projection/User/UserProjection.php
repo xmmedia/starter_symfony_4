@@ -28,7 +28,6 @@ class UserProjection implements ReadModelProjection
                     $readModel->stack('insert', [
                         'user_id'    => $event->aggregateId(),
                         'email'      => mb_strtolower($event->email()->toString()),
-                        'password'   => $event->hashedPassword(),
                         // if sent an invitation, then account is not verified
                         // if they didn't send an invitation, then account is verified
                         // because there's no way for them to verify the account
@@ -51,7 +50,6 @@ class UserProjection implements ReadModelProjection
                     $readModel->stack('insert', [
                         'user_id'    => $event->aggregateId(),
                         'email'      => mb_strtolower($event->email()->toString()),
-                        'password'   => $event->hashedPassword(),
                         'verified'   => !$event->sendInvite(),
                         'active'     => true,
                         'roles'      => [$event->role()->value],
@@ -76,22 +74,6 @@ class UserProjection implements ReadModelProjection
                             'first_name' => $event->firstName()->toString(),
                             'last_name'  => $event->lastName()->toString(),
                             'user_data'  => $event->userData()->toArray(),
-                        ],
-                    );
-                },
-
-                Event\AdminChangedPassword::class => function (
-                    array $state,
-                    Event\AdminChangedPassword $event,
-                ): void {
-                    /** @var UserReadModel $readModel */
-                    /** @var ReadModelProjector $this */
-                    $readModel = $this->readModel();
-                    $readModel->stack(
-                        'update',
-                        $event->userId()->toString(),
-                        [
-                            'password' => $event->hashedPassword(),
                         ],
                     );
                 },
@@ -159,38 +141,6 @@ class UserProjection implements ReadModelProjection
                             'first_name' => $event->firstName()->toString(),
                             'last_name'  => $event->lastName()->toString(),
                             'user_data'  => $event->userData()->toArray(),
-                        ],
-                    );
-                },
-
-                Event\ChangedPassword::class => function (
-                    array $state,
-                    Event\ChangedPassword $event,
-                ): void {
-                    /** @var UserReadModel $readModel */
-                    /** @var ReadModelProjector $this */
-                    $readModel = $this->readModel();
-                    $readModel->stack(
-                        'update',
-                        $event->userId()->toString(),
-                        [
-                            'password' => $event->hashedPassword(),
-                        ],
-                    );
-                },
-
-                Event\PasswordUpgraded::class => function (
-                    array $state,
-                    Event\PasswordUpgraded $event,
-                ): void {
-                    /** @var UserReadModel $readModel */
-                    /** @var ReadModelProjector $this */
-                    $readModel = $this->readModel();
-                    $readModel->stack(
-                        'update',
-                        $event->userId()->toString(),
-                        [
-                            'password' => $event->hashedPassword(),
                         ],
                     );
                 },

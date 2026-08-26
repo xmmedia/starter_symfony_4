@@ -6,6 +6,7 @@ namespace App\Tests\GraphQl\Mutation\User;
 
 use App\Entity\User;
 use App\GraphQl\Mutation\User\UserPasswordMutation;
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Name;
 use App\Security\PasswordHasher;
@@ -51,9 +52,13 @@ class UserPasswordMutationTest extends BaseTestCase
             ->once()
             ->andReturn('string');
 
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once();
+
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('userId')
-            ->once()
+            ->twice()
             ->andReturn($userId);
         $user->shouldReceive('email')
             ->once()
@@ -79,6 +84,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
+            $passwordStore,
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -101,6 +107,7 @@ class UserPasswordMutationTest extends BaseTestCase
         $userPasswordHasher = \Mockery::mock(UserPasswordHasherInterface::class);
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = \Mockery::mock(User::class);
         $security = \Mockery::mock(Security::class);
@@ -117,6 +124,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
+            $passwordStore,
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -138,6 +146,7 @@ class UserPasswordMutationTest extends BaseTestCase
             ->andReturnFalse();
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = \Mockery::mock(User::class);
         $security = \Mockery::mock(Security::class);
@@ -154,6 +163,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
+            $passwordStore,
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -176,6 +186,7 @@ class UserPasswordMutationTest extends BaseTestCase
             ->andReturnTrue();
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $security = \Mockery::mock(Security::class);
@@ -192,6 +203,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
+            $passwordStore,
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -213,6 +225,7 @@ class UserPasswordMutationTest extends BaseTestCase
             ->andReturnTrue();
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $security = \Mockery::mock(Security::class);
@@ -229,6 +242,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
+            $passwordStore,
             $security,
         ))($args);
     }
@@ -248,6 +262,7 @@ class UserPasswordMutationTest extends BaseTestCase
             ->andReturnTrue();
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $security = \Mockery::mock(Security::class);
@@ -264,6 +279,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
+            $passwordStore,
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -285,6 +301,7 @@ class UserPasswordMutationTest extends BaseTestCase
             ->andReturnTrue();
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $security = \Mockery::mock(Security::class);
@@ -301,6 +318,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
+            $passwordStore,
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
@@ -323,6 +341,7 @@ class UserPasswordMutationTest extends BaseTestCase
             ->andReturnTrue();
 
         $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
 
         $user = $this->getUserMock();
         $security = \Mockery::mock(Security::class);
@@ -343,6 +362,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
+            $passwordStore,
             $security,
             new PasswordStrengthFake(),
             $pwnedHttpClient,

@@ -26,13 +26,10 @@ class UserProjectionTest extends BaseTestCase
             Event\UserWasAddedByAdmin::class,
             Event\MinimalUserWasAddedByAdmin::class,
             Event\UserWasUpdatedByAdmin::class,
-            Event\AdminChangedPassword::class,
             Event\UserVerifiedByAdmin::class,
             Event\UserActivatedByAdmin::class,
             Event\UserDeactivatedByAdmin::class,
             Event\UserUpdatedProfile::class,
-            Event\ChangedPassword::class,
-            Event\PasswordUpgraded::class,
             Event\UserVerified::class,
             Event\UserActivated::class,
             Event\UserWasDeletedByAdmin::class,
@@ -57,7 +54,6 @@ class UserProjectionTest extends BaseTestCase
         $faker = $this->faker();
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $hashedPassword = $faker->password();
         $role = $faker->userRole();
         $active = $faker->boolean();
         $firstName = Name::fromString($faker->firstName());
@@ -68,7 +64,6 @@ class UserProjectionTest extends BaseTestCase
         $event = Event\UserWasAddedByAdmin::now(
             $userId,
             $email,
-            $hashedPassword,
             $role,
             $active,
             $firstName,
@@ -85,7 +80,6 @@ class UserProjectionTest extends BaseTestCase
             [
                 'user_id'    => $userId->toString(),
                 'email'      => mb_strtolower($email->toString()),
-                'password'   => $hashedPassword,
                 'verified'   => !$sendInvite,
                 'active'     => $active,
                 'roles'      => [$role->value],
@@ -101,7 +95,6 @@ class UserProjectionTest extends BaseTestCase
         $faker = $this->faker();
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $hashedPassword = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -110,7 +103,6 @@ class UserProjectionTest extends BaseTestCase
         $event = Event\MinimalUserWasAddedByAdmin::now(
             $userId,
             $email,
-            $hashedPassword,
             $role,
             $firstName,
             $lastName,
@@ -125,7 +117,6 @@ class UserProjectionTest extends BaseTestCase
             [
                 'user_id'    => $userId->toString(),
                 'email'      => mb_strtolower($email->toString()),
-                'password'   => $hashedPassword,
                 'verified'   => !$sendInvite,
                 'active'     => true,
                 'roles'      => [$role->value],
@@ -166,29 +157,6 @@ class UserProjectionTest extends BaseTestCase
                 'first_name' => $firstName->toString(),
                 'last_name'  => $lastName->toString(),
                 'user_data'  => $userData->toArray(),
-            ],
-        ], $stack[0][1]);
-    }
-
-    public function testAdminChangedPassword(): void
-    {
-        $faker = $this->faker();
-        $userId = $faker->userId();
-        $hashedPassword = $faker->password();
-
-        $event = Event\AdminChangedPassword::now(
-            $userId,
-            $hashedPassword,
-        );
-
-        $stack = $this->runReadModel($event);
-
-        $this->assertCount(1, $stack);
-        $this->assertSame('update', $stack[0][0]);
-        $this->assertSame([
-            $userId->toString(),
-            [
-                'password' => $hashedPassword,
             ],
         ], $stack[0][1]);
     }
@@ -278,52 +246,6 @@ class UserProjectionTest extends BaseTestCase
                 'first_name' => $firstName->toString(),
                 'last_name'  => $lastName->toString(),
                 'user_data'  => $userData->toArray(),
-            ],
-        ], $stack[0][1]);
-    }
-
-    public function testChangedPassword(): void
-    {
-        $faker = $this->faker();
-        $userId = $faker->userId();
-        $hashedPassword = $faker->password();
-
-        $event = Event\ChangedPassword::now(
-            $userId,
-            $hashedPassword,
-        );
-
-        $stack = $this->runReadModel($event);
-
-        $this->assertCount(1, $stack);
-        $this->assertSame('update', $stack[0][0]);
-        $this->assertSame([
-            $userId->toString(),
-            [
-                'password' => $hashedPassword,
-            ],
-        ], $stack[0][1]);
-    }
-
-    public function testPasswordUpgraded(): void
-    {
-        $faker = $this->faker();
-        $userId = $faker->userId();
-        $hashedPassword = $faker->password();
-
-        $event = Event\PasswordUpgraded::now(
-            $userId,
-            $hashedPassword,
-        );
-
-        $stack = $this->runReadModel($event);
-
-        $this->assertCount(1, $stack);
-        $this->assertSame('update', $stack[0][0]);
-        $this->assertSame([
-            $userId->toString(),
-            [
-                'password' => $hashedPassword,
             ],
         ], $stack[0][1]);
     }

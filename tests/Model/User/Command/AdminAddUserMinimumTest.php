@@ -16,7 +16,6 @@ class AdminAddUserMinimumTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -25,7 +24,6 @@ class AdminAddUserMinimumTest extends BaseTestCase
         $command = AdminAddUserMinimum::with(
             $userId,
             $email,
-            $password,
             $role,
             $firstName,
             $lastName,
@@ -34,7 +32,6 @@ class AdminAddUserMinimumTest extends BaseTestCase
 
         $this->assertSameValueAs($userId, $command->userId());
         $this->assertSameValueAs($email, $command->email());
-        $this->assertEquals($password, $command->hashedPassword());
         $this->assertEquals($role, $command->role());
         $this->assertSameValueAs($firstName, $command->firstName());
         $this->assertSameValueAs($lastName, $command->lastName());

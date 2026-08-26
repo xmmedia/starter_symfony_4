@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Entity;
 
 use App\Entity\User;
+use App\Entity\UserCredential;
 use App\Model\User\Role;
 use App\Model\User\UserData;
 use App\Tests\BaseTestCase;
@@ -50,9 +51,7 @@ class UserTest extends BaseTestCase
 
         $user = new User();
 
-        $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user, $password);
+        self::setPassword($user, $password);
 
         $this->assertSame($password, $user->password());
         $this->assertSame($password, $user->getPassword());
@@ -248,14 +247,10 @@ class UserTest extends BaseTestCase
         $faker = self::makeFaker();
 
         $user1 = new User();
-        $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user1, $faker->password());
+        self::setPassword($user1, $faker->password());
 
         $user2 = new User();
-        $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user2, $faker->password());
+        self::setPassword($user2, $faker->password());
 
         // #0 - password has changed
         yield [$user1, $user2, false];
@@ -264,15 +259,13 @@ class UserTest extends BaseTestCase
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user1, $password);
+        self::setPassword($user1, $password);
         $reflection->getProperty('email')
             ->setValue($user1, $faker->email());
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user2, $password);
+        self::setPassword($user2, $password);
         $reflection->getProperty('email')
             ->setValue($user2, $faker->email());
 
@@ -284,15 +277,13 @@ class UserTest extends BaseTestCase
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user1, $password);
+        self::setPassword($user1, $password);
         $reflection->getProperty('email')
             ->setValue($user1, $email);
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user2, $password);
+        self::setPassword($user2, $password);
         $reflection->getProperty('email')
             ->setValue($user2, $email);
         $reflection->getProperty('active')
@@ -306,15 +297,13 @@ class UserTest extends BaseTestCase
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user1, $password);
+        self::setPassword($user1, $password);
         $reflection->getProperty('email')
             ->setValue($user1, $email);
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user2, $password);
+        self::setPassword($user2, $password);
         $reflection->getProperty('email')
             ->setValue($user2, $email);
         $reflection->getProperty('active')
@@ -330,8 +319,7 @@ class UserTest extends BaseTestCase
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user1, $password);
+        self::setPassword($user1, $password);
         $reflection->getProperty('email')
             ->setValue($user1, $email);
         $reflection->getProperty('roles')
@@ -339,8 +327,7 @@ class UserTest extends BaseTestCase
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user2, $password);
+        self::setPassword($user2, $password);
         $reflection->getProperty('email')
             ->setValue($user2, $email);
         $reflection->getProperty('active')
@@ -358,8 +345,7 @@ class UserTest extends BaseTestCase
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user1, $password);
+        self::setPassword($user1, $password);
         $reflection->getProperty('email')
             ->setValue($user1, $email);
         $reflection->getProperty('roles')
@@ -367,8 +353,7 @@ class UserTest extends BaseTestCase
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user2, $password);
+        self::setPassword($user2, $password);
         $reflection->getProperty('email')
             ->setValue($user2, $email);
         $reflection->getProperty('active')
@@ -386,8 +371,7 @@ class UserTest extends BaseTestCase
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user1, $password);
+        self::setPassword($user1, $password);
         $reflection->getProperty('email')
             ->setValue($user1, $email);
         $reflection->getProperty('roles')
@@ -395,8 +379,7 @@ class UserTest extends BaseTestCase
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user2, $password);
+        self::setPassword($user2, $password);
         $reflection->getProperty('email')
             ->setValue($user2, $email);
         $reflection->getProperty('active')
@@ -414,15 +397,13 @@ class UserTest extends BaseTestCase
 
         $user1 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user1, $password);
+        self::setPassword($user1, $password);
         $reflection->getProperty('email')
             ->setValue($user1, $email);
 
         $user2 = new User();
         $reflection = new \ReflectionClass(User::class);
-        $reflection->getProperty('password')
-            ->setValue($user2, $password);
+        self::setPassword($user2, $password);
         $reflection->getProperty('email')
             ->setValue($user2, $email);
         $reflection->getProperty('active')
@@ -432,5 +413,15 @@ class UserTest extends BaseTestCase
 
         // #7 - equal
         yield [$user1, $user2, true];
+    }
+
+    private static function setPassword(User $user, string $password): void
+    {
+        $credential = new UserCredential();
+        new \ReflectionClass(UserCredential::class)->getProperty('password')
+            ->setValue($credential, $password);
+
+        new \ReflectionClass(User::class)->getProperty('credential')
+            ->setValue($user, $credential);
     }
 }

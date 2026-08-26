@@ -14,7 +14,6 @@ use Xm\SymfonyBundle\Model\Email;
 final class UserWasAddedByAdmin extends AggregateChanged
 {
     private Email $email;
-    private string $hashedPassword;
     private Role $role;
     private bool $active;
     private Name $firstName;
@@ -25,7 +24,6 @@ final class UserWasAddedByAdmin extends AggregateChanged
     public static function now(
         UserId $userId,
         Email $email,
-        string $hashedPassword,
         Role $role,
         bool $active,
         Name $firstName,
@@ -34,18 +32,16 @@ final class UserWasAddedByAdmin extends AggregateChanged
         UserData $userData,
     ): self {
         $event = self::occur($userId->toString(), [
-            'email'          => $email->toString(),
-            'hashedPassword' => $hashedPassword,
-            'role'           => $role->value,
-            'active'         => $active,
-            'firstName'      => $firstName->toString(),
-            'lastName'       => $lastName->toString(),
-            'sendInvite'     => $sendInvite,
-            'userData'       => $userData->toArray(),
+            'email'      => $email->toString(),
+            'role'       => $role->value,
+            'active'     => $active,
+            'firstName'  => $firstName->toString(),
+            'lastName'   => $lastName->toString(),
+            'sendInvite' => $sendInvite,
+            'userData'   => $userData->toArray(),
         ]);
 
         $event->email = $email;
-        $event->hashedPassword = $hashedPassword;
         $event->role = $role;
         $event->active = $active;
         $event->firstName = $firstName;
@@ -68,20 +64,6 @@ final class UserWasAddedByAdmin extends AggregateChanged
         }
 
         return $this->email;
-    }
-
-    public function hashedPassword(): string
-    {
-        if (!isset($this->hashedPassword)) {
-            if (\array_key_exists('hashedPassword', $this->payload)) {
-                $this->hashedPassword = $this->payload['hashedPassword'];
-            } else {
-                // @todo-symfony remove encodedPassword conditional (& test) if this is a new project (encodedPassword is the old name)
-                $this->hashedPassword = $this->payload['encodedPassword'];
-            }
-        }
-
-        return $this->hashedPassword;
     }
 
     public function role(): Role

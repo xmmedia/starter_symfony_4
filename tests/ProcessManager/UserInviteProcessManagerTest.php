@@ -27,7 +27,6 @@ class UserInviteProcessManagerTest extends BaseTestCase
         $event = UserWasAddedByAdmin::now(
             $faker->userId(),
             $faker->emailVo(),
-            $faker->password(),
             $faker->userRole(),
             true,
             Name::fromString($faker->firstName()),
@@ -49,7 +48,6 @@ class UserInviteProcessManagerTest extends BaseTestCase
         $event = UserWasAddedByAdmin::now(
             $faker->userId(),
             $faker->emailVo(),
-            $faker->password(),
             $faker->userRole(),
             true,
             Name::fromString($faker->firstName()),

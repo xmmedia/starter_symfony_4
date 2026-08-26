@@ -13,7 +13,6 @@ use Xm\SymfonyBundle\Model\Email;
 final class MinimalUserWasAddedByAdmin extends AggregateChanged
 {
     private Email $email;
-    private string $hashedPassword;
     private Role $role;
     private ?Name $firstName;
     private ?Name $lastName;
@@ -22,23 +21,20 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
     public static function now(
         UserId $userId,
         Email $email,
-        string $hashedPassword,
         Role $role,
         Name $firstName,
         Name $lastName,
         bool $sendInvite,
     ): self {
         $event = self::occur($userId->toString(), [
-            'email'          => $email->toString(),
-            'hashedPassword' => $hashedPassword,
-            'role'           => $role->value,
-            'firstName'      => $firstName->toString(),
-            'lastName'       => $lastName->toString(),
-            'sendInvite'     => $sendInvite,
+            'email'      => $email->toString(),
+            'role'       => $role->value,
+            'firstName'  => $firstName->toString(),
+            'lastName'   => $lastName->toString(),
+            'sendInvite' => $sendInvite,
         ]);
 
         $event->email = $email;
-        $event->hashedPassword = $hashedPassword;
         $event->role = $role;
         $event->firstName = $firstName;
         $event->lastName = $lastName;
@@ -59,15 +55,6 @@ final class MinimalUserWasAddedByAdmin extends AggregateChanged
         }
 
         return $this->email;
-    }
-
-    public function hashedPassword(): string
-    {
-        if (!isset($this->hashedPassword)) {
-            $this->hashedPassword = $this->payload['hashedPassword'];
-        }
-
-        return $this->hashedPassword;
     }
 
     public function role(): Role

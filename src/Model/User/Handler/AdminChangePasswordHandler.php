@@ -22,7 +22,7 @@ final readonly class AdminChangePasswordHandler
             throw UserNotFound::withUserId($command->userId());
         }
 
-        $user->changePasswordByAdmin($command->hashedPassword());
+        $user->changePasswordByAdmin();
 
         $this->userRepo->save($user);
     }

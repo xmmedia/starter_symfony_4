@@ -17,7 +17,6 @@ final class AdminAddUser extends Command
     public static function with(
         UserId $userId,
         Email $email,
-        string $hashedPassword,
         Role $role,
         bool $active,
         Name $firstName,
@@ -26,15 +25,14 @@ final class AdminAddUser extends Command
         UserData $userData,
     ): self {
         return new self([
-            'userId'         => $userId->toString(),
-            'email'          => $email->toString(),
-            'hashedPassword' => $hashedPassword,
-            'role'           => $role->value,
-            'active'         => $active,
-            'firstName'      => $firstName->toString(),
-            'lastName'       => $lastName->toString(),
-            'sendInvite'     => $sendInvite,
-            'userData'       => $userData->toArray(),
+            'userId'     => $userId->toString(),
+            'email'      => $email->toString(),
+            'role'       => $role->value,
+            'active'     => $active,
+            'firstName'  => $firstName->toString(),
+            'lastName'   => $lastName->toString(),
+            'sendInvite' => $sendInvite,
+            'userData'   => $userData->toArray(),
         ]);
     }
 
@@ -46,11 +44,6 @@ final class AdminAddUser extends Command
     public function email(): Email
     {
         return Email::fromString($this->payload['email']);
-    }
-
-    public function hashedPassword(): string
-    {
-        return $this->payload['hashedPassword'];
     }
 
     public function role(): Role
@@ -91,10 +84,6 @@ final class AdminAddUser extends Command
 
         Assert::keyExists($payload, 'email');
         Assert::string($payload['email']);
-
-        Assert::keyExists($payload, 'hashedPassword');
-        Assert::notEmpty($payload['hashedPassword']);
-        Assert::string($payload['hashedPassword']);
 
         Assert::keyExists($payload, 'role');
         Assert::string($payload['role']);
