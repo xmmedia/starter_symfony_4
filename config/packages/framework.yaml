@@ -34,6 +34,11 @@ framework:
     validation: { enable_attributes: true }
     serializer: { enable_attributes: true }
 
+when@staging:
+    framework:
+        # staging is a customer preview site & must never be indexed
+        disallow_search_engine_index: true
+
 when@dev:
     framework:
         trusted_proxies: '%env(TRUSTED_PROXIES)%'

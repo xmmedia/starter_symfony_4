@@ -392,6 +392,23 @@ Core workflow:
   `ports:`; it recreates the appserver too, so run `lando start` after or the app 404s
 - Database collation should be `utf8mb4_bin`
 
+### Environments
+
+`dev` (local, Lando), `test`, `staging` (the site customers preview & test on) & `prod` (live).
+`staging` is customer-facing, so it's configured to behave like `prod`, not like `dev`:
+
+- `.env.staging` sets `APP_DEBUG=0` — Symfony treats every env except `prod` as a debug env by
+  default (`Dotenv::bootEnv()`)
+- The `when@prod` blocks in `config/packages/` are shared with `staging` via a YAML anchor
+  (`when@prod: &prod` / `when@staging: *prod`), so the two can't drift. **When adding a
+  `when@prod` block, decide whether `staging` needs it too & alias it rather than copying.**
+  Currently aliased: `monolog.yaml`, `sentry.yaml`, `doctrine.yaml`, `routing.yaml`
+- `config/bundles.php` enables `SentryBundle` for `prod` & `staging`
+- `framework.disallow_search_engine_index` is on for `staging` only
+- `deploy to staging` in `.gitlab-ci.yml` installs & builds like `deploy to prod`
+- Staging-only config goes in its own `when@staging` block below the alias
+- Verify a config change against staging with `APP_ENV=staging bin/console lint:container`
+
 ## Code Intelligence
 
 Prefer LSP over Grep/Glob/Read for code navigation:
@@ -417,7 +434,7 @@ moving on. Fix any type errors or missing imports immediately.
 When upgrading PHP, update version in these files:
 - `composer.json` - add polyfill for new version
 - `.lando.yml`
-- `setup_dev.sh`, `setup_prod.sh`, `.gitlab-ci.yml`, `.github/workflows/ci.yml`
+- `setup_staging.sh`, `setup_prod.sh`, `.gitlab-ci.yml`, `.github/workflows/ci.yml`
 - `.php-cs-fixer.dist.php`
 
 Then run: `lando rebuild && lando composer update && bin/check_full`

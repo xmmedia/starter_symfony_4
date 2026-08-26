@@ -4,7 +4,9 @@ framework:
         # See https://symfony.com/doc/current/routing.html#generating-urls-in-commands
         default_uri: '%env(REQUEST_CONTEXT_SCHEME)%://%env(REQUEST_CONTEXT_HOST)%'
 
-when@prod:
+when@prod: &prod
     framework:
         router:
             strict_requirements: null
+
+when@staging: *prod
