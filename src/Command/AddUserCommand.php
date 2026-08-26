@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminAddUserMinimum;
 use App\Model\User\Name;
 use App\Model\User\Role;
@@ -43,6 +44,7 @@ final class AddUserCommand extends Command
     public function __construct(
         private readonly MessageBusInterface $commandBus,
         private readonly PasswordHasher $passwordHasher,
+        private readonly UserPasswordStore $passwordStore,
         private readonly UserFinder $userFinder,
         private readonly ResetPasswordHelperInterface $resetPasswordHelper,
         private readonly RouterInterface $router,
@@ -103,13 +105,16 @@ final class AddUserCommand extends Command
             AdminAddUserMinimum::with(
                 $userId,
                 $email,
-                ($this->passwordHasher)($role, $password),
                 $role,
                 $firstName,
                 $lastName,
                 $sendInvite,
             ),
         );
+
+        // the hash is deliberately not part of the command: stored after the
+        // user exists so a rejected command doesn't leave a stray credential
+        $this->passwordStore->store($userId, ($this->passwordHasher)($role, $password));
 
         if ($generateActivationToken) {
             $activationToken = $this->resetPasswordHelper->generateResetToken($this->userFinder->find($userId));

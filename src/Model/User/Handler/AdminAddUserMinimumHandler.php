@@ -22,7 +22,6 @@ final readonly class AdminAddUserMinimumHandler
         $user = User::addByAdminMinimum(
             $command->userId(),
             $command->email(),
-            $command->hashedPassword(),
             $command->role(),
             $command->firstName(),
             $command->lastName(),

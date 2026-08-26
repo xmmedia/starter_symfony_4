@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQl\Mutation\User;
 
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminAddUser;
 use App\Model\User\Name;
 use App\Model\User\Role;
@@ -22,6 +23,7 @@ final readonly class AdminUserAddMutation implements MutationInterface
     public function __construct(
         private MessageBusInterface $commandBus,
         private PasswordHasher $passwordHasher,
+        private UserPasswordStore $passwordStore,
         private ?PasswordStrengthInterface $passwordStrength = null,
         private ?HttpClientInterface $pwnedHttpClient = null,
     ) {
@@ -61,7 +63,6 @@ final readonly class AdminUserAddMutation implements MutationInterface
             AdminAddUser::with(
                 $userId,
                 $email,
-                ($this->passwordHasher)($role, $password),
                 $role,
                 $args['user']['active'],
                 $firstName,
@@ -70,6 +71,10 @@ final readonly class AdminUserAddMutation implements MutationInterface
                 UserData::fromArray($args['user']['userData']),
             ),
         );
+
+        // the hash is deliberately not part of the command: stored after the
+        // user exists so a rejected command doesn't leave a stray credential
+        $this->passwordStore->store($userId, ($this->passwordHasher)($role, $password));
 
         return [
             'userId' => $userId,

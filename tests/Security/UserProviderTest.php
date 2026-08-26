@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Security;
 
 use App\Entity\User;
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\UpgradePassword;
 use App\Security\UserProvider;
 use App\Tests\BaseTestCase;
@@ -19,9 +20,13 @@ class UserProviderTest extends BaseTestCase
     /** @var MessageBusInterface|Mockery\MockInterface */
     private MessageBusInterface $commandBus;
 
+    /** @var UserPasswordStore|Mockery\MockInterface */
+    private UserPasswordStore $passwordStore;
+
     protected function setUp(): void
     {
         $this->commandBus = \Mockery::mock(MessageBusInterface::class);
+        $this->passwordStore = \Mockery::mock(UserPasswordStore::class);
     }
 
     public function testUpgradePassword(): void
@@ -32,6 +37,9 @@ class UserProviderTest extends BaseTestCase
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
         $user->shouldReceive('upgradePassword')->once();
+
+        $this->passwordStore->shouldReceive('store')
+            ->once();
 
         $this->commandBus->shouldReceive('dispatch')
             ->once()
@@ -47,6 +55,7 @@ class UserProviderTest extends BaseTestCase
 
         $user = \Mockery::mock(PasswordAuthenticatedUserInterface::class);
 
+        $this->passwordStore->shouldNotReceive('store');
         $this->commandBus->shouldNotReceive('dispatch');
 
         $this->getUserProvider()->upgradePassword($user, $faker->password());
@@ -57,6 +66,7 @@ class UserProviderTest extends BaseTestCase
         return new UserProvider(
             \Mockery::mock(ManagerRegistry::class),
             $this->commandBus,
+            $this->passwordStore,
         );
     }
 }

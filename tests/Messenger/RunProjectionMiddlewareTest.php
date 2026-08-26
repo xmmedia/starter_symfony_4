@@ -49,7 +49,6 @@ class RunProjectionMiddlewareTest extends BaseTestCase
             UserWasAddedByAdmin::now(
                 $faker->userId(),
                 $faker->emailVo(),
-                $faker->password(),
                 $faker->userRole(),
                 true,
                 Name::fromString($faker->firstName()),
@@ -170,7 +169,6 @@ class RunProjectionMiddlewareTest extends BaseTestCase
         $event = UserWasAddedByAdmin::now(
             $faker->userId(),
             $faker->emailVo(),
-            $faker->password(),
             $faker->userRole(),
             true,
             Name::fromString($faker->firstName()),

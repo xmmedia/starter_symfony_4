@@ -15,21 +15,15 @@ class UserPasswordTest extends BaseTestCase
 
     public function testChangePasswordByAdmin(): void
     {
-        $faker = $this->faker();
-
         $user = $this->getUserActive();
 
-        $password = $faker->password();
-
-        $user->changePasswordByAdmin($password);
+        $user->changePasswordByAdmin();
 
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
             Event\AdminChangedPassword::class,
-            [
-                'hashedPassword' => $password,
-            ],
+            [],
             $events,
         );
 
@@ -38,8 +32,6 @@ class UserPasswordTest extends BaseTestCase
 
     public function testChangePasswordByAdminDeleted(): void
     {
-        $faker = $this->faker();
-
         $user = $this->getUserActive();
         $user->delete();
 
@@ -48,7 +40,7 @@ class UserPasswordTest extends BaseTestCase
             \sprintf('Tried to change password (by admin) deleted User with ID "%s"', $user->userId()),
         );
 
-        $user->changePasswordByAdmin($faker->password());
+        $user->changePasswordByAdmin();
     }
 
     public function testPasswordRecoverySent(): void
@@ -107,19 +99,15 @@ class UserPasswordTest extends BaseTestCase
 
     public function testChangePassword(): void
     {
-        $faker = $this->faker();
-
-        $password = $faker->password();
-
         $user = $this->getUserActive();
 
-        $user->changePassword($password);
+        $user->changePassword();
 
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
             Event\ChangedPassword::class,
-            ['hashedPassword' => $password],
+            [],
             $events,
         );
 
@@ -128,21 +116,15 @@ class UserPasswordTest extends BaseTestCase
 
     public function testChangePasswordInactive(): void
     {
-        $faker = $this->faker();
-
-        $password = $faker->password();
-
         $user = $this->getUserInactive();
 
         $this->expectException(Exception\InvalidUserActiveStatus::class);
 
-        $user->changePassword($password);
+        $user->changePassword();
     }
 
     public function testChangePasswordDeleted(): void
     {
-        $faker = $this->faker();
-
         $user = $this->getUserInactive();
         $user->delete();
 
@@ -151,24 +133,20 @@ class UserPasswordTest extends BaseTestCase
             \sprintf('Tried to change password deleted User with ID "%s"', $user->userId()),
         );
 
-        $user->changePassword($faker->password());
+        $user->changePassword();
     }
 
     public function testUpgradePassword(): void
     {
-        $faker = $this->faker();
-
-        $password = $faker->password();
-
         $user = $this->getUserActive();
 
-        $user->upgradePassword($password);
+        $user->upgradePassword();
 
         $events = $this->popRecordedEvent($user);
 
         $this->assertRecordedEvent(
             Event\PasswordUpgraded::class,
-            ['hashedPassword' => $password],
+            [],
             $events,
         );
 
@@ -177,19 +155,15 @@ class UserPasswordTest extends BaseTestCase
 
     public function testUpgradePasswordInactive(): void
     {
-        $faker = $this->faker();
-
         $user = $this->getUserInactive();
 
         $this->expectException(Exception\InvalidUserActiveStatus::class);
 
-        $user->upgradePassword($faker->password());
+        $user->upgradePassword();
     }
 
     public function testUpgradePasswordDeleted(): void
     {
-        $faker = $this->faker();
-
         $user = $this->getUserInactive();
         $user->delete();
 
@@ -198,6 +172,6 @@ class UserPasswordTest extends BaseTestCase
             \sprintf('Tried to upgrade password deleted User with ID "%s"', $user->userId()),
         );
 
-        $user->upgradePassword($faker->password());
+        $user->upgradePassword();
     }
 }

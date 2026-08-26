@@ -224,7 +224,7 @@ class ChangedPasswordProcessManagerTest extends BaseTestCase
 
     private function createChangedPasswordEvent(UserId $userId): ChangedPassword
     {
-        return ChangedPassword::now($userId, $this->faker()->password());
+        return ChangedPassword::now($userId);
     }
 
     private function createUserRepo(UserId $userId, array $events): UserList|\Mockery\MockInterface

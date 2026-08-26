@@ -10,13 +10,10 @@ use Xm\SymfonyBundle\Messaging\Command;
 
 final class AdminChangePassword extends Command
 {
-    public static function with(
-        UserId $userId,
-        string $hashedPassword,
-    ): self {
+    public static function with(UserId $userId): self
+    {
         return new self([
-            'userId'         => $userId->toString(),
-            'hashedPassword' => $hashedPassword,
+            'userId' => $userId->toString(),
         ]);
     }
 
@@ -25,20 +22,11 @@ final class AdminChangePassword extends Command
         return UserId::fromString($this->payload['userId']);
     }
 
-    public function hashedPassword(): string
-    {
-        return $this->payload['hashedPassword'];
-    }
-
     #[\Override]
     protected function setPayload(array $payload): void
     {
         Assert::keyExists($payload, 'userId');
         Assert::uuid($payload['userId']);
-
-        Assert::keyExists($payload, 'hashedPassword');
-        Assert::notEmpty($payload['hashedPassword']);
-        Assert::string($payload['hashedPassword']);
 
         parent::setPayload($payload);
     }

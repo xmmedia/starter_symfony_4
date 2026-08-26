@@ -25,7 +25,6 @@ class User extends AggregateRoot implements Entity
     public static function addByAdmin(
         UserId $userId,
         Email $email,
-        string $hashedPassword,
         Role $role,
         bool $active,
         Name $firstName,
@@ -48,7 +47,6 @@ class User extends AggregateRoot implements Entity
             Event\UserWasAddedByAdmin::now(
                 $userId,
                 $email,
-                $hashedPassword,
                 $role,
                 $active,
                 $firstName,
@@ -64,7 +62,6 @@ class User extends AggregateRoot implements Entity
     public static function addByAdminMinimum(
         UserId $userId,
         Email $email,
-        string $hashedPassword,
         Role $role,
         Name $firstName,
         Name $lastName,
@@ -80,7 +77,6 @@ class User extends AggregateRoot implements Entity
             Event\MinimalUserWasAddedByAdmin::now(
                 $userId,
                 $email,
-                $hashedPassword,
                 $role,
                 $firstName,
                 $lastName,
@@ -121,14 +117,14 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function changePasswordByAdmin(string $hashedPassword): void
+    public function changePasswordByAdmin(): void
     {
         if ($this->deleted) {
             throw Exception\UserIsDeleted::triedTo($this->userId, 'change password (by admin)');
         }
 
         $this->recordThat(
-            Event\AdminChangedPassword::now($this->userId, $hashedPassword),
+            Event\AdminChangedPassword::now($this->userId),
         );
     }
 
@@ -292,7 +288,7 @@ class User extends AggregateRoot implements Entity
         );
     }
 
-    public function changePassword(string $hashedPassword): void
+    public function changePassword(): void
     {
         if ($this->deleted) {
             throw Exception\UserIsDeleted::triedTo($this->userId, 'change password');
@@ -303,11 +299,11 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            Event\ChangedPassword::now($this->userId, $hashedPassword),
+            Event\ChangedPassword::now($this->userId),
         );
     }
 
-    public function upgradePassword(string $hashedPassword): void
+    public function upgradePassword(): void
     {
         if ($this->deleted) {
             throw Exception\UserIsDeleted::triedTo($this->userId, 'upgrade password');
@@ -318,7 +314,7 @@ class User extends AggregateRoot implements Entity
         }
 
         $this->recordThat(
-            Event\PasswordUpgraded::now($this->userId, $hashedPassword),
+            Event\PasswordUpgraded::now($this->userId),
         );
     }
 

@@ -17,12 +17,10 @@ class ChangedPasswordTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId();
-        $password = $faker->password();
 
-        $event = ChangedPassword::now($userId, $password);
+        $event = ChangedPassword::now($userId);
 
         $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($password, $event->hashedPassword());
     }
 
     public function testFromArray(): void
@@ -30,40 +28,14 @@ class ChangedPasswordTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId();
-        $password = $faker->password();
 
         $event = $this->createEventFromArray(
             ChangedPassword::class,
             $userId->toString(),
-            [
-                'hashedPassword' => $password,
-            ],
         );
 
         $this->assertInstanceOf(ChangedPassword::class, $event);
 
         $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($password, $event->hashedPassword());
-    }
-
-    public function testFromArrayOldKey(): void
-    {
-        $faker = $this->faker();
-
-        $userId = $faker->userId();
-        $password = $faker->password();
-
-        $event = $this->createEventFromArray(
-            ChangedPassword::class,
-            $userId->toString(),
-            [
-                'encodedPassword' => $password,
-            ],
-        );
-
-        $this->assertInstanceOf(ChangedPassword::class, $event);
-
-        $this->assertEquals($userId, $event->userId());
-        $this->assertEquals($password, $event->hashedPassword());
     }
 }

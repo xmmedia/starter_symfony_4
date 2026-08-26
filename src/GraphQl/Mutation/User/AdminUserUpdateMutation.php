@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQl\Mutation\User;
 
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
@@ -23,6 +24,7 @@ final readonly class AdminUserUpdateMutation implements MutationInterface
     public function __construct(
         private MessageBusInterface $commandBus,
         private PasswordHasher $passwordHasher,
+        private UserPasswordStore $passwordStore,
         private ?PasswordStrengthInterface $passwordStrength = null,
         private ?HttpClientInterface $pwnedHttpClient = null,
     ) {
@@ -65,11 +67,11 @@ final readonly class AdminUserUpdateMutation implements MutationInterface
         );
 
         if ($args['user']['setPassword']) {
+            // the hash is deliberately not part of the command
+            $this->passwordStore->store($userId, ($this->passwordHasher)($role, $password));
+
             $this->commandBus->dispatch(
-                AdminChangePassword::with(
-                    $userId,
-                    ($this->passwordHasher)($role, $password),
-                ),
+                AdminChangePassword::with($userId),
             );
         }
 

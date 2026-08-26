@@ -19,13 +19,12 @@ class UpgradePasswordHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId();
-        $password = $faker->password();
 
         $user = \Mockery::mock(User::class);
         $user->shouldReceive('upgradePassword')
             ->once();
 
-        $command = UpgradePassword::forUser($userId, $password);
+        $command = UpgradePassword::forUser($userId);
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -43,9 +42,8 @@ class UpgradePasswordHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userId = $faker->userId();
-        $password = $faker->password();
 
-        $command = UpgradePassword::forUser($userId, $password);
+        $command = UpgradePassword::forUser($userId);
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

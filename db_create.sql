@@ -70,6 +70,21 @@ CREATE TABLE `projections` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_credential`
+--
+
+CREATE TABLE `user_credential` (
+    `user_id`    char(36) COLLATE utf8mb4_bin     NOT NULL,
+    `password`   varchar(255) COLLATE utf8mb4_bin NOT NULL,
+    `updated_at` datetime                         NOT NULL,
+    PRIMARY KEY (`user_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_token`
 --
 

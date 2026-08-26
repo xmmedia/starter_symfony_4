@@ -20,7 +20,6 @@ class AdminAddUserMinimumHandlerTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -29,7 +28,6 @@ class AdminAddUserMinimumHandlerTest extends BaseTestCase
         $command = AdminAddUserMinimum::with(
             $userId,
             $email,
-            $password,
             $role,
             $firstName,
             $lastName,

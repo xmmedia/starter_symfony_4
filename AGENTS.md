@@ -165,8 +165,8 @@ Existing projections: `user_projection`, `auth_projection`, `auth_log_projection
 
 **Process Managers** (`src/ProcessManager/`)
 - React to events: coordinate cross-aggregate workflows, or carry out a side effect a projection can't
-- Examples: `UserInviteProcessManager`, `UserInviteForMinimumProcessManager`, `ChangedPasswordProcessManager`, `UserUpdatedProfileProcessManager`
-- Usually dispatch new commands, but don't have to
+- Examples: `UserInviteProcessManager`, `UserInviteForMinimumProcessManager`, `ChangedPasswordProcessManager`, `UserUpdatedProfileProcessManager`, `UserDeletedProcessManager`
+- Usually dispatch new commands, but don't have to — e.g. `UserDeletedProcessManager` only removes the `user_credential` row
 - Every `*ProcessManager.php` in this directory is auto-tagged onto `messenger.bus.events` (`services.yaml`), so this is where anything that listens to a domain event goes
 
 **Repositories** (`src/Infrastructure/Repository/`)
@@ -194,11 +194,15 @@ Existing projections: `user_projection`, `auth_projection`, `auth_log_projection
 Entities in `src/Entity/` are projection read models — never used for domain writes:
 - `User`, `UserToken`, `AuthLog`
 
+`UserCredential` is the exception: it holds the password hash & is **not** projection owned
+(see [Password storage](#password-storage)).
+
 ### Infrastructure Services (`src/Infrastructure/Service/`)
 
 - `ChecksUniqueUsersEmailFromReadModel` - validates unique emails
 - `UrlGenerator` - generates signed URLs
 - `DefaultRouteProvider` - determines the default post-login route
+- `UserPasswordStore` - reads/writes the password hash in `user_credential`
 
 ### Controllers (`src/Controller/`)
 
@@ -332,6 +336,28 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 - **Use type hints** - strict types are declared in all PHP files
 - **Memory**: Some operations (tests, projections) may need `php -d memory_limit=-1`
 - **MySQL**: Add indexes within the create statement. Name them with the column name.
+
+### Password storage
+
+The password hash is authentication state, not domain history, so it's deliberately kept out
+of the event stream & out of command payloads — otherwise every hash a user ever had would be
+kept forever in an append-only store (& a second copy in `command_log`, which records every
+command payload).
+
+- Stored in its own `user_credential` table (`db_create.sql`), written by
+  `UserPasswordStore` & read through the `User` → `UserCredential` association
+- **Not projection owned**: a projection reset or replay doesn't touch it & can't restore it.
+  `user_credential` is the authority for the hash
+- `ChangedPassword`, `AdminChangedPassword` & `PasswordUpgraded` carry no payload — they're
+  the fact that the password changed, which is all the notification process manager & audit
+  trail need
+- Callers write the hash & dispatch the command separately. On the add paths the store is
+  written **after** the command so a rejected command doesn't leave a stray credential; on
+  the change paths it's written **before**
+- `UserDeletedProcessManager` removes the row on `UserWasDeletedByAdmin`, since the user
+  projection can't
+- `User::password()`/`getPassword()` return `null` when there's no credential row, which
+  means the user can't log in
 
 ### User Model
 

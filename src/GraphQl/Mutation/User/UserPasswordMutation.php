@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQl\Mutation\User;
 
+use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\ChangePassword;
 use App\Security\PasswordHasher;
 use App\Security\Security;
@@ -22,6 +23,7 @@ final readonly class UserPasswordMutation implements MutationInterface
         private MessageBusInterface $commandBus,
         private UserPasswordHasherInterface $userPasswordHasher,
         private PasswordHasher $passwordHasher,
+        private UserPasswordStore $passwordStore,
         private Security $security,
         private ?PasswordStrengthInterface $passwordStrength = null,
         private ?HttpClientInterface $pwnedHttpClient = null,
@@ -56,16 +58,14 @@ final readonly class UserPasswordMutation implements MutationInterface
             $this->pwnedHttpClient,
         );
 
-        $hashedPassword = ($this->passwordHasher)(
-            $user->firstRole(),
-            $newPassword,
+        // the hash is deliberately not part of the command
+        $this->passwordStore->store(
+            $user->userId(),
+            ($this->passwordHasher)($user->firstRole(), $newPassword),
         );
 
         $this->commandBus->dispatch(
-            ChangePassword::forUser(
-                $user->userId(),
-                $hashedPassword,
-            ),
+            ChangePassword::forUser($user->userId()),
         );
 
         return [

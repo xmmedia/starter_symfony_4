@@ -27,7 +27,6 @@ class UserInviteForMinimumProcessManagerTest extends BaseTestCase
         $event = MinimalUserWasAddedByAdmin::now(
             $faker->userId(),
             $faker->emailVo(),
-            $faker->password(),
             $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
@@ -48,7 +47,6 @@ class UserInviteForMinimumProcessManagerTest extends BaseTestCase
         $event = MinimalUserWasAddedByAdmin::now(
             $faker->userId(),
             $faker->emailVo(),
-            $faker->password(),
             $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),

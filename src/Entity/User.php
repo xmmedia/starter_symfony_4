@@ -29,8 +29,8 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     #[ORM\Column(length: 150, unique: true)]
     private string $email;
 
-    #[ORM\Column(length: 255)]
-    private string $password;
+    #[ORM\OneToOne(targetEntity: UserCredential::class, mappedBy: 'user')]
+    private ?UserCredential $credential = null;
 
     /**
      * Email address is verified.
@@ -101,21 +101,29 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
         return $this->email()->toString();
     }
 
-    public function password(): string
+    public function credential(): ?UserCredential
     {
-        return $this->password;
+        return $this->credential;
+    }
+
+    /**
+     * Null when the user has no credential row, which means they can't log in.
+     */
+    public function password(): ?string
+    {
+        return $this->credential?->password();
     }
 
     /**
      * Allows setting the password when it changes while the user is logged in,
      * for example when their password is upgraded.
      */
-    public function upgradePassword(string $hashedPassword): void
+    public function upgradePassword(#[\SensitiveParameter] string $hashedPassword): void
     {
-        $this->password = $hashedPassword;
+        $this->credential?->upgradePassword($hashedPassword);
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password();
     }

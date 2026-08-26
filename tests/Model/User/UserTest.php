@@ -19,7 +19,6 @@ class UserTest extends BaseTestCase
 
         $userId = $faker->userId();
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -28,7 +27,6 @@ class UserTest extends BaseTestCase
         $user1 = User::addByAdminMinimum(
             $userId,
             $email,
-            $password,
             $role,
             $firstName,
             $lastName,
@@ -38,7 +36,6 @@ class UserTest extends BaseTestCase
         $user2 = User::addByAdminMinimum(
             $userId,
             $email,
-            $password,
             $role,
             $firstName,
             $lastName,
@@ -54,7 +51,6 @@ class UserTest extends BaseTestCase
         $faker = $this->faker();
 
         $email = $faker->emailVo();
-        $password = $faker->password();
         $role = $faker->userRole();
         $firstName = Name::fromString($faker->firstName());
         $lastName = Name::fromString($faker->lastName());
@@ -63,7 +59,6 @@ class UserTest extends BaseTestCase
         $user1 = User::addByAdminMinimum(
             $faker->userId(),
             $email,
-            $password,
             $role,
             $firstName,
             $lastName,
@@ -73,7 +68,6 @@ class UserTest extends BaseTestCase
         $user2 = User::addByAdminMinimum(
             $faker->userId(),
             $email,
-            $password,
             $role,
             $firstName,
             $lastName,
@@ -91,7 +85,6 @@ class UserTest extends BaseTestCase
         $user = User::addByAdminMinimum(
             $faker->userId(),
             $faker->emailVo(),
-            $faker->password(),
             $faker->userRole(),
             Name::fromString($faker->firstName()),
             Name::fromString($faker->lastName()),
