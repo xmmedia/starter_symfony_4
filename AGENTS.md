@@ -121,6 +121,25 @@ the appserver reaches it internally, and publishing it would shadow a host-run `
 Existing event streams: `user`, `auth`
 Existing projections: `user_projection`, `auth_projection`, `auth_log_projection`
 
+### Database Migrations
+- Generate an empty migration: `lando console doctrine:migrations:generate` — not
+  `make:migration`, which diffs against the entity mapping & would come back empty (`doctrine.yaml`
+  sets `schema_filter` to ignore every table but `doctrine_migration_versions`)
+- Run: `lando console doctrine:migrations:migrate`
+- Status: `lando console doctrine:migrations:status`
+
+Migrations live in `migrations/` under the `DoctrineMigrations` namespace (they're deliberately
+not autoloaded — see `config/packages/doctrine_migrations.yaml`).
+
+**Name them `VersionYYYYMMDD###`** — the date plus a 3 digit sequence for that day, eg
+`Version20260826001`, `Version20260826002`. Doctrine generates `VersionYYYYMMDDHHMMSS`, so
+rename the class & file after generating. Migrations run in string order, so keep the sequence
+zero padded.
+
+Most schema is created by projections (`src/Projection/*/ReadModel.php`) or `db_create.sql`, so
+migrations are for tables that aren't projection owned (eg `user_credential`, `user_token`) &
+for one-off data changes.
+
 ### Makers
 - Make aggregate root/model: `bin/console make:model` or `lando console make:model`
 - Make projection: `bin/console make:projection` or `lando console make:projection`
