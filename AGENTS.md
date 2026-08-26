@@ -164,9 +164,10 @@ Existing projections: `user_projection`, `auth_projection`, `auth_log_projection
 - Create tables defined in `src/Projection/Table.php` and `src/Projection/*/ReadModel.php`
 
 **Process Managers** (`src/ProcessManager/`)
-- Coordinate cross-aggregate workflows triggered by events
+- React to events: coordinate cross-aggregate workflows, or carry out a side effect a projection can't
 - Examples: `UserInviteProcessManager`, `UserInviteForMinimumProcessManager`, `ChangedPasswordProcessManager`, `UserUpdatedProfileProcessManager`
-- Listen to events and dispatch new commands
+- Usually dispatch new commands, but don't have to
+- Every `*ProcessManager.php` in this directory is auto-tagged onto `messenger.bus.events` (`services.yaml`), so this is where anything that listens to a domain event goes
 
 **Repositories** (`src/Infrastructure/Repository/`)
 - Load and save aggregate roots to/from event streams
