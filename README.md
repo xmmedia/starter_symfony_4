@@ -81,6 +81,16 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 
 Anything genuinely staging-only belongs in a `when@staging` block of its own, below the alias.
 
+`TRUSTED_PROXIES` must be set per environment, in that environment's own `.env.local`
+(on the servers: `shared/.env.local`). It applies in every env, not just `dev` — deployed sites
+sit behind a proxy/CDN, and without it the client IP recorded in the auth log & the scheme used
+for cookie security come from the proxy rather than the real client. It defaults to empty (trust
+nothing). Set it no wider than the proxies actually in front of the app:
+
+  - behind Cloudflare only – the [Cloudflare IP ranges](https://www.cloudflare.com/ips/)
+  - behind a local reverse proxy – `private_ranges`
+  - a single proxy on the same box (Lando does this) – `127.0.0.1,REMOTE_ADDR`
+
 ## System Requirements
 
 ### Server
