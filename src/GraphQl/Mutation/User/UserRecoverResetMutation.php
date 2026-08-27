@@ -84,7 +84,7 @@ final readonly class UserRecoverResetMutation implements MutationInterface
         );
 
         $this->commandBus->dispatch(
-            ChangePassword::forUser($user->userId()),
+            ChangePassword::now($user->userId()),
         );
 
         $this->resetPasswordHelper->removeResetRequest($token);

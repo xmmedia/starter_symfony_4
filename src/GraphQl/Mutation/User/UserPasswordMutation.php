@@ -65,7 +65,7 @@ final readonly class UserPasswordMutation implements MutationInterface
         );
 
         $this->commandBus->dispatch(
-            ChangePassword::forUser($user->userId()),
+            ChangePassword::now($user->userId()),
         );
 
         return [
