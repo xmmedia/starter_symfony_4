@@ -1,0 +1,5 @@
+{
+    "version": 1,
+    "phpCommand": ["lando", "php"],
+    "containerProjectRoot": "/app"
+}

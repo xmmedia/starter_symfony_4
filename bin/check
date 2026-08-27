@@ -15,6 +15,8 @@ step "Stylelint (CSS)" lando yarn lint:css
 step "YAML lint" lando console lint:yaml config
 step "Twig lint" lando console lint:twig templates
 step "Container lint" lando console lint:container
+# runs on the host, not in Lando, with runtime indexing, so it boots the app
+step "Symfony Language Tools" symfony lsp:check
 step "PHPUnit tests" lando composer test
 
 # security checks
