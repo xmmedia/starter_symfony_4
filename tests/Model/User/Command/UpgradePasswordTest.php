@@ -15,7 +15,7 @@ class UpgradePasswordTest extends BaseTestCase
 
         $userId = $faker->userId();
 
-        $command = UpgradePassword::forUser($userId);
+        $command = UpgradePassword::now($userId);
 
         $this->assertTrue($userId->sameValueAs($command->userId()));
     }

@@ -40,7 +40,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
         $this->passwordStore->store($user->userId(), $newHashedPassword);
 
         $this->commandBus->dispatch(
-            UpgradePassword::forUser($user->userId()),
+            UpgradePassword::now($user->userId()),
         );
 
         $user->upgradePassword($newHashedPassword);

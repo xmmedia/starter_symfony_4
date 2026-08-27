@@ -24,7 +24,7 @@ class ChangePasswordHandlerTest extends BaseTestCase
         $user->shouldReceive('changePassword')
             ->once();
 
-        $command = ChangePassword::forUser($userId);
+        $command = ChangePassword::now($userId);
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')
@@ -43,7 +43,7 @@ class ChangePasswordHandlerTest extends BaseTestCase
 
         $userId = $faker->userId();
 
-        $command = ChangePassword::forUser($userId);
+        $command = ChangePassword::now($userId);
 
         $repo = \Mockery::mock(UserList::class);
         $repo->shouldReceive('get')

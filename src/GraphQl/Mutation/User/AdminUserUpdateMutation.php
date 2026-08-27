@@ -71,7 +71,7 @@ final readonly class AdminUserUpdateMutation implements MutationInterface
             $this->passwordStore->store($userId, ($this->passwordHasher)($role, $password));
 
             $this->commandBus->dispatch(
-                AdminChangePassword::with($userId),
+                AdminChangePassword::now($userId),
             );
         }
 
