@@ -52,6 +52,14 @@ This is a Symfony 7 starter template for creating web applications at XM Media. 
 - Lint YAML: `lando console lint:yaml config`
 - Lint Twig: `lando console lint:twig templates`
 - Lint container: `lando console lint:container`
+- Symfony Language Tools (Symfony-aware diagnostics: routes, services, Twig, translations,
+  config): `symfony lsp:check` — runs on the host, not in Lando. Add `--source-only` to skip
+  booting the app (what CI uses)
+  - The Symfony CLI downloads, caches & checksums the Language Tools binary itself, outside
+    the repo
+  - `.symfony-lsp.json` points `phpCommand` at `lando php` (with `containerProjectRoot: /app`),
+    so runtime analysis boots the app in the container & doesn't depend on the host's PHP.
+    Editors share this file with the checker
 
 ### Building Frontend Assets
 

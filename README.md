@@ -138,6 +138,11 @@ but the Node version is then up to you.
     - Dry run: `lando composer cs` or `composer cs`
     - Fix: `lando composer cs:fix` or `composer cs:fix`
   - PHP Static Analysis ([PHPStan](https://github.com/phpstan/phpstan)): `lando composer static` or `composer static`
+  - Symfony diagnostics ([Symfony Language Tools](https://github.com/symfony/language-tools)): `symfony lsp:check`
+    - Checks routes, services, Twig, translations & bundle config; runs on the host, not in Lando
+    - `--source-only` skips booting the app (what CI uses)
+    - `.symfony-lsp.json` runs the app through `lando php`, so runtime analysis doesn't depend on the host's PHP version — editors share this config too
+    - The [Symfony CLI](https://symfony.com/download) downloads & caches the Language Tools binary itself, outside the repo
   - Projections:
     - Show all commands: `bin/console event-store:projection`
     - Run once: `bin/console event-store:projection:run user_projection -o`
@@ -189,6 +194,7 @@ but the Node version is then up to you.
     - [PhpUnit](https://phpunit.de/) – for running PHP tests
     - [PHP CS](https://cs.sensiolabs.org/) – PHP coding standards analyzer & fixer
     - [PHPStan](https://github.com/phpstan/phpstan) – static analysis of PHP
+    - [Symfony Language Tools](https://github.com/symfony/language-tools) – Symfony aware diagnostics (routes, services, Twig, translations, config), in the editor & in CI
     - [Postmark](https://postmarkapp.com/) – for sending email, contains email templates (currently setup under XM Media's account)
     - [Cloudflare](https://www.cloudflare.com/) – DNS & CDN
   - [GitLab](https://gitlab.com/) – deployment

@@ -115,6 +115,8 @@ static:
     - bin/console lint:yaml config
     - bin/console lint:twig templates
     - bin/console lint:container
+    # Symfony Language Tools; source-only so CI never boots the app
+    - symfony lsp:check --source-only
     # lint JS
     - yarn lint:js
     - yarn lint:css
