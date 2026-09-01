@@ -24,7 +24,7 @@ const https = inLando ? {
     key: readFileSync(keyPath),
 } : true;
 
-export default defineConfig(({ command, isPreview }) => {
+export default defineConfig(({ command, mode, isPreview }) => {
     return {
         plugins: [
             ...(inLando ? [] : [mkcert()]),
@@ -36,12 +36,13 @@ export default defineConfig(({ command, isPreview }) => {
                 sriAlgorithm: 'sha384',
             }),
             sentryVitePlugin({
-                disable: process.env.NODE_ENV !== 'production' && !!process.env.SENTRY_AUTH_TOKEN,
+                // envs that don't use Sentry have no token, so nothing uploads there
+                disable: !process.env.SENTRY_AUTH_TOKEN || 'production' !== mode,
                 authToken: process.env.SENTRY_AUTH_TOKEN,
                 // @todo-symfony
                 org: 'xm-media',
                 project: 'symfony-starter',
-                telemetry: process.env.NODE_ENV === 'production',
+                telemetry: 'production' === mode,
             }),
             tailwindcss(),
         ],
