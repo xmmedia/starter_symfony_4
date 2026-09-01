@@ -55,6 +55,9 @@ return RectorConfig::configure()
         Rector\CodingStyle\Rector\String_\SimplifyQuoteEscapeRector::class,
         // from set "codeQuality"
         Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
+        // from set "typeDeclarations"
+        // prefer a null check: a type check silently flips to false on another valid type
+        Rector\TypeDeclaration\Rector\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
         // from set "if"
         Rector\CodeQuality\Rector\If_\ObjectExplicitBoolCompareRector::class,
         // from set "deadCode"
