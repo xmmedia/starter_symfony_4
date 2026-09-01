@@ -4838,12 +4838,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "2f891ad13c35ae7d74f84963331a144d33ae3f57"
+                "reference": "75320b4f4aea335128da75a67d55a77dc1f0e8c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2f891ad13c35ae7d74f84963331a144d33ae3f57",
-                "reference": "2f891ad13c35ae7d74f84963331a144d33ae3f57",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/75320b4f4aea335128da75a67d55a77dc1f0e8c1",
+                "reference": "75320b4f4aea335128da75a67d55a77dc1f0e8c1",
                 "shasum": ""
             },
             "conflict": {
@@ -5315,7 +5315,7 @@
                 "lavalite/cms": "<=10.1",
                 "lavitto/typo3-form-to-database": "<2.2.5|>=3,<3.2.2|>=4,<4.2.3|>=5,<5.0.2",
                 "lcobucci/jwt": ">=3.4,<3.4.6|>=4,<4.0.4|>=4.1,<4.1.5",
-                "league/commonmark": "<2.9",
+                "league/commonmark": "<2.10",
                 "league/flysystem": "<1.1.4|>=2,<2.1.1",
                 "league/oauth2-server": ">=8.3.2,<8.4.2|>=8.5,<8.5.3",
                 "leantime/leantime": "<3.3",
@@ -5670,7 +5670,7 @@
                 "starcitizentools/short-description": ">=4,<4.0.1",
                 "starcitizentools/tabber-neue": ">=1.9.1,<2.7.2|>=3,<3.1.1",
                 "starcitizenwiki/embedvideo": "<=4",
-                "statamic/cms": "<5.74.3|>=6,<6.24.2",
+                "statamic/cms": "<5.74.3|>=6,<=6.30",
                 "stormpath/sdk": "<9.9.99",
                 "studio-42/elfinder": "<=2.1.69",
                 "studiomitte/friendlycaptcha": "<0.1.4",
@@ -5972,7 +5972,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-31T22:31:49+00:00"
+            "time": "2026-09-01T20:37:29+00:00"
         },
         {
             "name": "scienta/doctrine-json-functions",
@@ -11827,16 +11827,16 @@
         },
         {
             "name": "tecnickcom/tc-lib-barcode",
-            "version": "2.14.0",
+            "version": "2.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-barcode.git",
-                "reference": "4360438c37084f2ba03a4d67284004e11c6708a0"
+                "reference": "94b2a23eb731f0258e123e3c500000725b157fb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/4360438c37084f2ba03a4d67284004e11c6708a0",
-                "reference": "4360438c37084f2ba03a4d67284004e11c6708a0",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/94b2a23eb731f0258e123e3c500000725b157fb3",
+                "reference": "94b2a23eb731f0258e123e3c500000725b157fb3",
                 "shasum": ""
             },
             "require": {
@@ -11925,7 +11925,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-27T14:19:38+00:00"
+            "time": "2026-09-01T21:18:52+00:00"
         },
         {
             "name": "tecnickcom/tc-lib-color",
@@ -12073,16 +12073,16 @@
         },
         {
             "name": "tecnickcom/tc-lib-pdf",
-            "version": "8.73.0",
+            "version": "8.73.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-pdf.git",
-                "reference": "d87b2bc7f9ba6abec038986946b021c0f0c32d32"
+                "reference": "5859bfeeff3c12a4882daf95e79d7c543f6f8a15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf/zipball/d87b2bc7f9ba6abec038986946b021c0f0c32d32",
-                "reference": "d87b2bc7f9ba6abec038986946b021c0f0c32d32",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-pdf/zipball/5859bfeeff3c12a4882daf95e79d7c543f6f8a15",
+                "reference": "5859bfeeff3c12a4882daf95e79d7c543f6f8a15",
                 "shasum": ""
             },
             "require": {
@@ -12096,7 +12096,7 @@
                 "ext-xml": "*",
                 "ext-zlib": "*",
                 "php": "^8.2",
-                "tecnickcom/tc-lib-barcode": "^2.14",
+                "tecnickcom/tc-lib-barcode": "^2.15",
                 "tecnickcom/tc-lib-color": "^3.0",
                 "tecnickcom/tc-lib-file": "^3.9",
                 "tecnickcom/tc-lib-pdf-encrypt": "^2.11",
@@ -12154,7 +12154,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-31T15:36:48+00:00"
+            "time": "2026-09-01T21:32:24+00:00"
         },
         {
             "name": "tecnickcom/tc-lib-pdf-encrypt",
@@ -13215,7 +13215,7 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.124",
+            "version": "v2.0.125",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
@@ -13298,7 +13298,7 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.124"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.125"
             },
             "time": "2026-08-27T03:08:45+00:00"
         }
