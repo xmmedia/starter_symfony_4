@@ -80,9 +80,7 @@ class UserStartedImpersonating extends AggregateChanged
 
     public function userAgent(): ?string
     {
-        if (!isset($this->userAgent)) {
-            $this->userAgent = $this->payload['userAgent'];
-        }
+        $this->userAgent ??= $this->payload['userAgent'];
 
         return $this->userAgent;
     }

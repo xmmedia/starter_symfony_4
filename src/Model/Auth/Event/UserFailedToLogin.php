@@ -52,9 +52,7 @@ class UserFailedToLogin extends AggregateChanged
 
     public function email(): ?string
     {
-        if (!isset($this->email)) {
-            $this->email = $this->payload['email'];
-        }
+        $this->email ??= $this->payload['email'];
 
         return $this->email;
     }
@@ -75,9 +73,7 @@ class UserFailedToLogin extends AggregateChanged
 
     public function userAgent(): ?string
     {
-        if (!isset($this->userAgent)) {
-            $this->userAgent = $this->payload['userAgent'];
-        }
+        $this->userAgent ??= $this->payload['userAgent'];
 
         return $this->userAgent;
     }
@@ -93,19 +89,14 @@ class UserFailedToLogin extends AggregateChanged
 
     public function exceptionMessage(): ?string
     {
-        if (!isset($this->exceptionMessage)) {
-            $this->exceptionMessage = $this->payload['exceptionMessage'];
-        }
+        $this->exceptionMessage ??= $this->payload['exceptionMessage'];
 
         return $this->exceptionMessage;
     }
 
     public function route(): ?string
     {
-        if (!isset($this->route)) {
-            // @todo-symfony remove null coalescing (& related test) if this is a new project
-            $this->route = $this->payload['route'] ?? null;
-        }
+        $this->route ??= $this->payload['route'] ?? null;
 
         return $this->route;
     }

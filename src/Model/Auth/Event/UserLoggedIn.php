@@ -67,9 +67,7 @@ class UserLoggedIn extends AggregateChanged
 
     public function userAgent(): ?string
     {
-        if (!isset($this->userAgent)) {
-            $this->userAgent = $this->payload['userAgent'];
-        }
+        $this->userAgent ??= $this->payload['userAgent'];
 
         return $this->userAgent;
     }
@@ -85,10 +83,7 @@ class UserLoggedIn extends AggregateChanged
 
     public function route(): ?string
     {
-        if (!isset($this->route)) {
-            // @todo-symfony remove null coalescing (& related test) if this is a new project
-            $this->route = $this->payload['route'] ?? null;
-        }
+        $this->route ??= $this->payload['route'] ?? null;
 
         return $this->route;
     }
