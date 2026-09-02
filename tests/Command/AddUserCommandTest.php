@@ -120,7 +120,8 @@ class AddUserCommandTest extends BaseTestCase
         $role = $faker->userRole();
         $firstName = $faker->firstName();
         $lastName = $faker->lastName();
-        $tokenValue = $faker->string(15);
+        // alphanumeric: like a real reset token & not mangled by the console formatter
+        $tokenValue = $faker->regexify('[A-Za-z0-9]{15}');
         $resetUrl = $faker->url();
 
         $user = \Mockery::mock(User::class);
