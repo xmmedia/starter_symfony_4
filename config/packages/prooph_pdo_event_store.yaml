@@ -7,7 +7,15 @@ services:
             $messageFactory:      '@prooph_event_store.message_factory'
             $connection:          '@app.pdo_connection'
             $persistenceStrategy: '@Xm\SymfonyBundle\EventStore\PersistenceStrategy\StreamStrategy'
+            $writeLockStrategy:   '@Prooph\EventStore\Pdo\WriteLockStrategy\MysqlMetadataLockStrategy'
 
     app.pdo_connection:
         class:   PDO
         factory: '@Xm\SymfonyBundle\Doctrine\PdoProvider'
+
+    # Serialises appends per stream with GET_LOCK so `no` order matches commit
+    # order. Without it a projector can read past an event whose transaction
+    # has not committed yet and never come back for it.
+    Prooph\EventStore\Pdo\WriteLockStrategy\MysqlMetadataLockStrategy:
+        arguments:
+            $connection: '@app.pdo_connection'
