@@ -40,8 +40,8 @@ before_script:
   # check for security issues in PHP libs
   - symfony security:check
   - php composer.phar audit
-  # check for JS security issues in libs
-  - yarn audit:high
+  # check for JS security issues in libs (cap timeout at 10s)
+  - YARN_HTTP_TIMEOUT=10000 yarn audit:high
 
 .deploy-setup-script: &deploy-setup-script
   - *versions-script
