@@ -2,8 +2,12 @@ overblog_graphql:
     definitions:
         schema:
             # @todo separate public?
-            query:    Query
-            mutation: Mutation
+            # the `default` key is what the bundle normalizes the shorthand to
+            # writing it out keeps the config statically valid (the shorthand only works via a
+            # beforeNormalization hook, which static analysis can't follow)
+            default:
+                query:    Query
+                mutation: Mutation
         mappings:
             auto_discover: false
             types:
