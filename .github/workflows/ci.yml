@@ -28,6 +28,11 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Set up Symfony CLI
+        run: |
+          curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | sudo -E bash
+          sudo apt-get install -y --no-install-recommends symfony-cli
+
       - name: Get Composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -77,6 +82,10 @@ jobs:
 
       - name: Lint Container
         run: bin/console lint:container
+
+      # source-only so CI never boots the app; github format annotates the PR
+      - name: Run Symfony Language Tools
+        run: symfony lsp:check --source-only --format=github
 
       - name: Lint JS
         run: yarn lint:js
