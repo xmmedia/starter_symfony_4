@@ -12,6 +12,7 @@
         "ext-mbstring": "*",
         "ext-pcntl": "*",
         "ext-pdo": "*",
+        "ext-zlib": "*",
         "doctrine/doctrine-bundle": "^3.0",
         "doctrine/doctrine-migrations-bundle": "^4.0",
         "doctrine/orm": "^3.0",

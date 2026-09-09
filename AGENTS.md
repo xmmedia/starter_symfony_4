@@ -155,6 +155,20 @@ for one-off data changes.
 ### User Management
 - Add a user: `bin/console app:user:add` or `lando console app:user:add` (select `ROLE_SUPER_ADMIN` for admin access)
 
+### Command Log
+`command_log` records every command payload & is only ever read for auditing, so it grows
+without bound. Archive & prune it with `lando console app:command-log:archive [older-than]`:
+
+- `older-than` is a number of days (`90`), an ISO 8601 period (`P6M`) or a readable interval
+  (`"6 months"`); it defaults to `1 year`
+- Rows are written as `INSERT` statements to a gzipped SQL file in the current directory
+  (`--path` to write elsewhere), then deleted — the file loads straight back into the table
+- `--dry-run` counts what would be archived, `--keep` writes the file without deleting,
+  `--batch-size` (default 1000) sets how many rows are read/written/deleted at a time
+- Nothing is deleted until the archive is closed on disk
+- Load an archive back with `--import=<file>` (gzipped or not). It runs in a transaction, so a
+  failure part way through leaves the table untouched; `--dry-run` counts the statements
+
 ### Lando Commands
 - Start Lando: `lando start`
 - Install PHP packages: `lando composer install`
@@ -230,6 +244,7 @@ Entities in `src/Entity/` are projection read models — never used for domain w
 - `UrlGenerator` - generates signed URLs
 - `DefaultRouteProvider` - determines the default post-login route
 - `UserPasswordStore` - reads/writes the password hash in `user_credential`
+- `CommandLogArchiver` - archives `command_log` rows to a gzipped SQL file & imports them back
 
 ### Controllers (`src/Controller/`)
 
