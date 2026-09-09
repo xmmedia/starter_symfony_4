@@ -84,8 +84,12 @@ jobs:
         run: bin/console lint:container
 
       # source-only so CI never boots the app; github format annotates the PR
+      # GITHUB_TOKEN: the CLI resolves & downloads the tools from the GitHub API,
+      # which 403s on the runners' shared IPs without authentication
       - name: Run Symfony Language Tools
         run: symfony lsp:check --source-only --format=github
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Lint JS
         run: yarn lint:js
