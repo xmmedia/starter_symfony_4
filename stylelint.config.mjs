@@ -1,31 +1,47 @@
+import tailwindcss from "@dreamsicle.io/stylelint-config-tailwindcss";
+
 /** @type {import('stylelint').Config} */
 export default {
-    "extends": [ "stylelint-config-standard", "stylelint-config-tailwindcss" ],
+    "extends": [ "stylelint-config-standard", "@dreamsicle.io/stylelint-config-tailwindcss" ],
+    // Merged manually: stylelint replaces `languageOptions.syntax` wholesale rather than
+    // merging it with the extended config's. Neither at-rule is covered there.
+    "languageOptions": {
+        "syntax": {
+            ...tailwindcss.languageOptions.syntax,
+            "atRules": {
+                ...tailwindcss.languageOptions.syntax.atRules,
+                "config": { "prelude": "<string>" },
+                "plugin": { "prelude": "<string>" },
+                // the extended config declares `@source` as `<string>` only
+                "source": { "prelude": "not? [ <string> | inline( <string> ) ]" },
+            },
+        },
+    },
     "rules": {
+        // blank lines between rules & declarations are used for grouping, not required
         "rule-empty-line-before": null,
         "declaration-empty-line-before": null,
+        "custom-property-empty-line-before": null,
+        "comment-empty-line-before": null,
         "selector-class-pattern": [
-            "^[a-z0-9\\-_]+$",
+            // trailing `:…` segments allow Tailwind variants, e.g. `blocks-wrap\\:text-left`
+            "^[a-z0-9\\-_]+(:[a-z0-9\\-_]+)*$",
             {
-                "message": "Expected class selector to be kebab-case or BEM-style (lowercase, digits, hyphens, underscores).",
+                "message": "Expected class selector to be kebab-case or BEM-style (lowercase, digits, hyphens, underscores), optionally with Tailwind variant prefixes.",
             },
         ],
-        "at-rule-no-deprecated": null,
         "at-rule-empty-line-before": [
             "always",
             {
-                "except": [ "blockless-after-same-name-blockless", "first-nested" ],
-                "ignore": [ "after-comment", "first-nested", "inside-block" ],
-                "ignoreAtRules": [ "else", "apply", "import", "source" ],
+                // `@apply` follows declarations inside a rule; at-rules after their own comment
+                "ignore": [ "after-comment", "inside-block" ],
+                "ignoreAtRules": [ "import", "source" ],
             },
         ],
+        // `@plugin` and the `@import`s inside `@layer` aren't misplaced imports
         "no-invalid-position-at-import-rule": [
             true,
-            { "ignoreAtRules": [ "config", "plugin", "source", "theme", "supports", "layer" ] },
+            { "ignoreAtRules": [ "config", "plugin", "source", "theme", "layer" ] },
         ],
-        "custom-property-empty-line-before": null,
-        "comment-empty-line-before": null,
-        "nesting-selector-no-missing-scoping-root": [true, { "ignoreAtRules": ["utility"] }],
-        "no-invalid-position-declaration": [true, { "ignoreAtRules": ["utility"] }],
     },
 };
