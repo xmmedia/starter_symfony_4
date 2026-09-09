@@ -264,6 +264,7 @@
       <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf" />
       <path value="$PROJECT_DIR$/vendor/tecnickcom/tc-lib-pdf-image" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan-doctrine" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php86" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.5" />
