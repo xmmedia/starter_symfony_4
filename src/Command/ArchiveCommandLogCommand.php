@@ -6,7 +6,6 @@ namespace App\Command;
 
 use App\Infrastructure\Service\CommandLogArchiver;
 use Carbon\CarbonImmutable;
-use Carbon\CarbonInterval;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -22,7 +21,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 final class ArchiveCommandLogCommand extends Command
 {
-    private const string OLDER_THAN = 'older-than';
+    private const string BEFORE = 'before';
+    private const string DATE_FORMAT = 'Y-m-d';
     private const string IMPORT = 'import';
     private const string PATH = 'path';
     private const string BATCH_SIZE = 'batch-size';
@@ -38,11 +38,11 @@ final class ArchiveCommandLogCommand extends Command
     {
         $this
             ->addArgument(
-                self::OLDER_THAN,
+                self::BEFORE,
+                // required to archive, but not to import, so it's checked in execute()
                 InputArgument::OPTIONAL,
-                'Archive rows older than this: a number of days (90),'
-                .' an ISO 8601 period (P6M) or a readable interval ("6 months")',
-                '1 year',
+                'Archive rows sent before midnight UTC on this date (YYYY-MM-DD),'
+                .' required unless --import is used',
             )
             ->addOption(
                 self::IMPORT,
@@ -91,18 +91,34 @@ final class ArchiveCommandLogCommand extends Command
             throw new InvalidArgumentException('The batch size must be at least 1.');
         }
 
-        $cutoff = $this->cutoff((string) $input->getArgument(self::OLDER_THAN));
+        if (null === $input->getArgument(self::BEFORE)) {
+            throw new InvalidArgumentException(
+                \sprintf('The "%s" date is required to archive.', self::BEFORE),
+            );
+        }
 
-        $io->comment(\sprintf('Archiving rows sent before %s', $cutoff->format('Y-m-d H:i:s')));
+        $cutoff = $this->cutoff((string) $input->getArgument(self::BEFORE));
 
         if ($dryRun) {
+            $io->comment(\sprintf('Archiving rows sent before %s UTC', $cutoff->format('Y-m-d H:i:s')));
             $io->success(\sprintf('%s row(s) would be archived.', number_format($this->archiver->count($cutoff))));
 
             return Command::SUCCESS;
         }
 
-        $file = $this->file((string) ($input->getOption(self::PATH) ?? getcwd()), $cutoff);
         $delete = !$input->getOption(self::KEEP);
+
+        if (!$io->confirm(\sprintf(
+            '%s all rows sent before %s UTC?',
+            $delete ? 'Archive & delete' : 'Archive',
+            $cutoff->format('Y-m-d H:i:s'),
+        ))) {
+            $io->comment('Aborted.');
+
+            return Command::SUCCESS;
+        }
+
+        $file = $this->file((string) ($input->getOption(self::PATH) ?? getcwd()), $cutoff);
 
         $archived = $this->archiver->archive($file, $cutoff, $batchSize, $delete);
 
@@ -148,29 +164,31 @@ final class ArchiveCommandLogCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function cutoff(string $olderThan): CarbonImmutable
+    /**
+     * Midnight UTC on the given date, so the whole of the day before it is archived.
+     */
+    private function cutoff(string $before): CarbonImmutable
     {
-        if (ctype_digit($olderThan)) {
-            return CarbonImmutable::now()->subDays((int) $olderThan);
-        }
-
+        // strictly Y-m-d: a relative interval ("6 months") would otherwise be
+        // read as a date in the future & archive the whole table
         try {
-            $interval = CarbonInterval::make($olderThan);
+            $cutoff = CarbonImmutable::createFromFormat('!'.self::DATE_FORMAT, $before, 'UTC');
         } catch (\Exception $e) {
-            throw $this->invalidOlderThan($olderThan, $e);
+            throw $this->invalidDate($before, $e);
         }
 
-        if (null === $interval) {
-            throw $this->invalidOlderThan($olderThan);
+        // a rolled over date (2026-02-31) doesn't format back to what was given
+        if (null === $cutoff || $before !== $cutoff->format(self::DATE_FORMAT)) {
+            throw $this->invalidDate($before);
         }
 
-        return CarbonImmutable::now()->sub($interval->abs());
+        return $cutoff;
     }
 
-    private function invalidOlderThan(string $olderThan, ?\Throwable $previous = null): InvalidArgumentException
+    private function invalidDate(string $before, ?\Throwable $previous = null): InvalidArgumentException
     {
         return new InvalidArgumentException(
-            \sprintf('"%s" is not a number of days or a valid interval.', $olderThan),
+            \sprintf('"%s" is not a date in the format %s.', $before, self::DATE_FORMAT),
             0,
             $previous,
         );
