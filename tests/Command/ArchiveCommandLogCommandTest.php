@@ -52,7 +52,9 @@ class ArchiveCommandLogCommandTest extends BaseTestCase
             new ArchiveCommandLogCommand($archiver),
         );
 
-        $result = $commandTester->execute(['older-than' => '90', '--path' => $this->path]);
+        $commandTester->setInputs(['yes']);
+
+        $result = $commandTester->execute(['before' => '2026-01-01', '--path' => $this->path]);
 
         $this->assertSame(Command::SUCCESS, $result);
         $this->assertStringContainsString('2 row(s) archived to', $commandTester->getDisplay());
@@ -74,7 +76,9 @@ class ArchiveCommandLogCommandTest extends BaseTestCase
             new ArchiveCommandLogCommand($archiver),
         );
 
-        $result = $commandTester->execute(['--keep' => true, '--path' => $this->path]);
+        $commandTester->setInputs(['yes']);
+
+        $result = $commandTester->execute(['before' => '2026-01-01', '--keep' => true, '--path' => $this->path]);
 
         $this->assertSame(Command::SUCCESS, $result);
         $this->assertStringContainsString('1 row(s) copied to', $commandTester->getDisplay());
@@ -91,7 +95,11 @@ class ArchiveCommandLogCommandTest extends BaseTestCase
             new ArchiveCommandLogCommand($archiver),
         );
 
-        $result = $commandTester->execute(['--path' => $this->path]);
+        $commandTester->setInputs(['yes']);
+
+        $commandTester->setInputs(['yes']);
+
+        $result = $commandTester->execute(['before' => '2026-01-01', '--path' => $this->path]);
 
         $this->assertSame(Command::SUCCESS, $result);
         $this->assertStringContainsString('No rows to archive', $commandTester->getDisplay());
@@ -109,31 +117,73 @@ class ArchiveCommandLogCommandTest extends BaseTestCase
             new ArchiveCommandLogCommand($archiver),
         );
 
-        $result = $commandTester->execute(['--dry-run' => true]);
+        $result = $commandTester->execute(['before' => '2026-01-01', '--dry-run' => true]);
 
         $this->assertSame(Command::SUCCESS, $result);
         $this->assertStringContainsString('12 row(s) would be archived', $commandTester->getDisplay());
         $this->assertDirectoryDoesNotExist($this->path);
     }
 
-    /** @return list<array{0: string, 1: string}> */
-    public static function olderThanProvider(): array
+    public function testCutoffIsMidnightUtcOnTheDate(): void
     {
-        return [
-            ['90', '-90 days'],
-            ['P6M', '-6 months'],
-            ['6 months', '-6 months'],
-            ['1 year', '-1 year'],
-        ];
-    }
-
-    #[DataProvider('olderThanProvider')]
-    public function testOlderThanFormats(string $olderThan, string $expected): void
-    {
-        CarbonImmutable::setTestNow(CarbonImmutable::now());
-
         $archiver = \Mockery::mock(CommandLogArchiver::class);
         $archiver->shouldReceive('count')
+            ->once()
+            ->withArgs(static fn (CarbonImmutable $cutoff): bool => '2026-01-01 00:00:00.000000' === $cutoff->format('Y-m-d H:i:s.u')
+                && 'UTC' === $cutoff->getTimezone()->getName())
+            ->andReturn(0);
+
+        $commandTester = new CommandTester(
+            new ArchiveCommandLogCommand($archiver),
+        );
+
+        $commandTester->execute(['before' => '2026-01-01', '--dry-run' => true]);
+
+        $this->assertStringContainsString('sent before 2026-01-01 00:00:00 UTC', $commandTester->getDisplay());
+    }
+
+    public function testConfirmationShowsTheDate(): void
+    {
+        $archiver = \Mockery::mock(CommandLogArchiver::class);
+        $archiver->shouldNotReceive('archive');
+
+        $commandTester = new CommandTester(
+            new ArchiveCommandLogCommand($archiver),
+        );
+        $commandTester->setInputs(['no']);
+
+        $result = $commandTester->execute(['before' => '2026-01-01', '--path' => $this->path]);
+
+        $this->assertSame(Command::SUCCESS, $result);
+        $this->assertStringContainsString(
+            'Archive & delete all rows sent before 2026-01-01 00:00:00 UTC?',
+            $commandTester->getDisplay(),
+        );
+        $this->assertStringContainsString('Aborted', $commandTester->getDisplay());
+    }
+
+    public function testConfirmationWithKeepDoesNotMentionDeleting(): void
+    {
+        $archiver = \Mockery::mock(CommandLogArchiver::class);
+        $archiver->shouldNotReceive('archive');
+
+        $commandTester = new CommandTester(
+            new ArchiveCommandLogCommand($archiver),
+        );
+        $commandTester->setInputs(['no']);
+
+        $commandTester->execute(['before' => '2026-01-01', '--keep' => true, '--path' => $this->path]);
+
+        $this->assertStringContainsString(
+            'Archive all rows sent before 2026-01-01 00:00:00 UTC?',
+            $commandTester->getDisplay(),
+        );
+    }
+
+    public function testNonInteractiveProceedsWithoutConfirming(): void
+    {
+        $archiver = \Mockery::mock(CommandLogArchiver::class);
+        $archiver->shouldReceive('archive')
             ->once()
             ->andReturn(0);
 
@@ -141,17 +191,45 @@ class ArchiveCommandLogCommandTest extends BaseTestCase
             new ArchiveCommandLogCommand($archiver),
         );
 
-        $commandTester->execute(['older-than' => $olderThan, '--dry-run' => true]);
-
-        $this->assertStringContainsString(
-            CarbonImmutable::now()->modify($expected)->format('Y-m-d H:i:s'),
-            $commandTester->getDisplay(),
+        $result = $commandTester->execute(
+            ['before' => '2026-01-01', '--path' => $this->path],
+            ['interactive' => false],
         );
 
-        CarbonImmutable::setTestNow();
+        $this->assertSame(Command::SUCCESS, $result);
+        $this->assertStringContainsString('No rows to archive', $commandTester->getDisplay());
     }
 
-    public function testInvalidOlderThan(): void
+    public function testBeforeIsRequiredToArchive(): void
+    {
+        $archiver = \Mockery::mock(CommandLogArchiver::class);
+        $archiver->shouldNotReceive('archive');
+
+        $commandTester = new CommandTester(
+            new ArchiveCommandLogCommand($archiver),
+        );
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageIsOrContains('The "before" date is required to archive.');
+
+        $commandTester->execute([]);
+    }
+
+    /** @return list<array{0: string}> */
+    public static function invalidDateProvider(): array
+    {
+        return [
+            ['6 months'],
+            ['90'],
+            ['P6M'],
+            ['2026-13-01'],
+            ['2026-02-31'],
+            ['01/01/2026'],
+        ];
+    }
+
+    #[DataProvider('invalidDateProvider')]
+    public function testInvalidDate(string $before): void
     {
         $commandTester = new CommandTester(
             new ArchiveCommandLogCommand(\Mockery::mock(CommandLogArchiver::class)),
@@ -159,7 +237,7 @@ class ArchiveCommandLogCommandTest extends BaseTestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-        $commandTester->execute(['older-than' => $this->faker()->word()]);
+        $commandTester->execute(['before' => $before]);
     }
 
     public function testInvalidBatchSize(): void
@@ -170,7 +248,7 @@ class ArchiveCommandLogCommandTest extends BaseTestCase
 
         $this->expectException(InvalidArgumentException::class);
 
-        $commandTester->execute(['--batch-size' => '0']);
+        $commandTester->execute(['before' => '2026-01-01', '--batch-size' => '0']);
     }
 
     public function testImport(): void

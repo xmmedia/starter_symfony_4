@@ -157,10 +157,13 @@ for one-off data changes.
 
 ### Command Log
 `command_log` records every command payload & is only ever read for auditing, so it grows
-without bound. Archive & prune it with `lando console app:command-log:archive [older-than]`:
+without bound. Archive & prune it with `lando console app:command-log:archive [before]`:
 
-- `older-than` is a number of days (`90`), an ISO 8601 period (`P6M`) or a readable interval
-  (`"6 months"`); it defaults to `1 year`
+- `before` is a required date (`YYYY-MM-DD`) — everything sent before midnight UTC on it is
+  archived. Only that exact format is accepted, so an interval like `"6 months"` can't be read
+  as a future date & take the whole table
+- It shows the date & asks for confirmation before archiving. Run it with `-n` to skip the
+  prompt (for cron)
 - Rows are written as `INSERT` statements to a gzipped SQL file in the current directory
   (`--path` to write elsewhere), then deleted — the file loads straight back into the table
 - `--dry-run` counts what would be archived, `--keep` writes the file without deleting,
