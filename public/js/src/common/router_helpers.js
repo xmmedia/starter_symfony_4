@@ -47,18 +47,13 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
                 return false;
             }
 
-            // check to see if they're still authenticated
+            // if they've been signed out, Me is denied & sessionLink holds this until they sign back in
             const result = await apolloClient.query({
                 query: RouteQuery,
                 variables: {
                     entrypoint: integrityHashKey,
                 },
             });
-            if (!result.data.Me) {
-                window.location = loginUrl + '?_target_path=' + encodeURIComponent(to.fullPath);
-
-                return false;
-            }
 
             // JS files have changed
             if (result.data.EntrypointIntegrity && rootStore.entrypointIntegrityHashes[integrityHashKey]) {

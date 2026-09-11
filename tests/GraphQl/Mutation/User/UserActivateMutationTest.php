@@ -23,6 +23,8 @@ use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\LinkExpiredError;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\NotFoundError;
 use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
@@ -192,8 +194,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(405);
+        $this->expectException(LinkExpiredError::class);
 
         $result = (new UserActivateMutation(
             $commandBus,
@@ -239,8 +240,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(404);
+        $this->expectException(NotFoundError::class);
 
         $result = (new UserActivateMutation(
             $commandBus,

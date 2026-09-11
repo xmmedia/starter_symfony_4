@@ -14,8 +14,20 @@ export const logError = function (e) {
     }
 };
 
-export const hasGraphQlError = function (e) {
-    return e && e.graphQLErrors && e.graphQLErrors[0];
+// the codes sent in a GraphQL error's extensions.code: see the bundle's GraphQlErrorSubscriber & CodedUserError
+export const GraphQlErrorCodes = Object.freeze({
+    UNAUTHENTICATED: 'UNAUTHENTICATED',
+    FORBIDDEN: 'FORBIDDEN',
+    NOT_FOUND: 'NOT_FOUND',
+    LINK_EXPIRED: 'LINK_EXPIRED',
+    TOO_MANY_REQUESTS: 'TOO_MANY_REQUESTS',
+});
+
+/**
+ * @returns {string|null} the first GraphQL error's code, one of GraphQlErrorCodes
+ */
+export const getGraphQlErrorCode = function (e) {
+    return e?.graphQLErrors?.[0]?.extensions?.code ?? null;
 };
 
 export const formatPhone = function (phone, format = 'NATIONAL') {

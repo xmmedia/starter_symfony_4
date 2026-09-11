@@ -61,7 +61,7 @@ import { useRouter } from 'vue-router';
 import { useMutation } from '@vue/apollo-composable';
 import { helpers, required } from '@vuelidate/validators';
 import { apolloClient } from '@/common/apollo';
-import { hasGraphQlError, logError } from '@/common/lib';
+import { GraphQlErrorCodes, getGraphQlErrorCode, logError } from '@/common/lib';
 import FieldPassword from '@/common/field_password_with_errors.vue';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
@@ -168,15 +168,11 @@ const submit = async () => {
             alert('There was a problem saving your password. Please try again later.');
         };
 
-        if (hasGraphQlError(e)) {
-            if (404 === e.graphQLErrors[0].code) {
-                invalidToken.value = true;
-            } else if (405 === e.graphQLErrors[0].code) {
-                tokenExpired.value = true;
-            } else {
-                logError(e);
-                showError();
-            }
+        const code = getGraphQlErrorCode(e);
+        if (GraphQlErrorCodes.NOT_FOUND === code) {
+            invalidToken.value = true;
+        } else if (GraphQlErrorCodes.LINK_EXPIRED === code) {
+            tokenExpired.value = true;
         } else {
             logError(e);
             showError();

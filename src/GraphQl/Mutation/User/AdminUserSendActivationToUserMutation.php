@@ -11,6 +11,7 @@ use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\TooManyRequestsError;
 
 final readonly class AdminUserSendActivationToUserMutation implements MutationInterface
 {
@@ -37,9 +38,8 @@ final readonly class AdminUserSendActivationToUserMutation implements MutationIn
                 ),
             );
         } catch (TooManyPasswordRequestsException $e) {
-            throw new UserError(
+            throw new TooManyRequestsError(
                 'Too many password resets have been requested. A password reset can only be requested every hour',
-                429,
                 $e,
             );
         }

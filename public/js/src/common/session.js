@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { ApolloLink, Observable } from '@apollo/client/core';
+import { GraphQlErrorCodes } from '@/common/lib';
 
 /**
  * Set when the user is found to be signed out, such as after signing out in another window
@@ -21,10 +22,10 @@ export const useSessionStore = () => rootStore;
 // requests rejected because the user was signed out, re-sent once they've signed back in
 const heldRequests = new Set();
 
-// GraphQlErrorSubscriber sets the code to 401 on access denied errors.
-// Denied nullable fields (most queries) come back as warnings instead of errors.
-const isAccessDenied = (result) => [...(result.errors ?? []), ...(result.extensions?.warnings ?? [])]
-    .some((error) => 401 === error.code);
+// GraphQlErrorSubscriber sets UNAUTHENTICATED when access is denied because they're not signed in
+// (FORBIDDEN if they are). Denied nullable fields (most queries) come back as warnings, not errors.
+const isUnauthenticated = (result) => [...(result.errors ?? []), ...(result.extensions?.warnings ?? [])]
+    .some((error) => GraphQlErrorCodes.UNAUTHENTICATED === error.extensions?.code);
 
 /**
  * Who's signed in & how long until their session expires. See SecurityController::sessionInfo().
@@ -40,21 +41,6 @@ export const fetchSessionInfo = async (method = 'GET') => {
 };
 
 export const extendSession = () => fetchSessionInfo('POST');
-
-// access denied is also returned when signed in without the required role, so confirm they're signed out.
-// Shared by requests rejected at the same time, so there's only one check.
-let signedOutCheck = null;
-const isSignedOut = () => {
-    if (!signedOutCheck) {
-        signedOutCheck = fetchSessionInfo()
-            .then(({ userId }) => null === userId, () => false)
-            .finally(() => {
-                signedOutCheck = null;
-            });
-    }
-
-    return signedOutCheck;
-};
 
 export const expireSession = () => {
     sessionExpired.value = true;
@@ -73,35 +59,26 @@ export const sessionLink = new ApolloLink((operation, forward) => new Observable
 
     const send = () => {
         let held = false;
-        let checked = Promise.resolve();
 
         subscription = forward(operation).subscribe({
             next: (result) => {
                 // nothing to hold for if they weren't signed in to begin with
-                if (!rootStore?.loggedIn || !isAccessDenied(result)) {
+                if (!rootStore?.loggedIn || !isUnauthenticated(result)) {
                     observer.next(result);
 
                     return;
                 }
 
-                checked = isSignedOut().then((signedOut) => {
-                    if (signedOut) {
-                        held = true;
-                        heldRequests.add(send);
-                        expireSession();
-
-                        return;
-                    }
-
-                    observer.next(result);
-                });
+                held = true;
+                heldRequests.add(send);
+                expireSession();
             },
             error: (error) => observer.error(error),
-            complete: () => checked.then(() => {
+            complete: () => {
                 if (!held) {
                     observer.complete();
                 }
-            }),
+            },
         });
     };
 

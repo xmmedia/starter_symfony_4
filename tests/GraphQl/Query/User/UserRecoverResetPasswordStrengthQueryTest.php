@@ -11,7 +11,6 @@ use App\Model\User\Name;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
-use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +18,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\NotFoundError;
 use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
@@ -48,8 +48,7 @@ class UserRecoverResetPasswordStrengthQueryTest extends BaseTestCase
             $requestProvider,
         );
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(404);
+        $this->expectException(NotFoundError::class);
 
         $query($this->faker()->password());
     }

@@ -13340,7 +13340,7 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.129",
+            "version": "v2.0.130",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
@@ -13424,7 +13424,7 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.129"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.130"
             },
             "time": "2026-09-11T03:18:46+00:00"
         }

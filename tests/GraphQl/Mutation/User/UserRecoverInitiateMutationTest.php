@@ -10,10 +10,11 @@ use App\Model\User\Command\InitiatePasswordRecovery;
 use App\Projection\User\UserFinder;
 use App\Tests\BaseTestCase;
 use Overblog\GraphQLBundle\Definition\Argument;
-use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\NotFoundError;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\TooManyRequestsError;
 use Xm\SymfonyBundle\Model\Email;
 
 class UserRecoverInitiateMutationTest extends BaseTestCase
@@ -33,8 +34,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(404);
+        $this->expectException(NotFoundError::class);
 
         (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
     }
@@ -112,8 +112,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(429);
+        $this->expectException(TooManyRequestsError::class);
 
         $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
 
@@ -189,8 +188,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(404);
+        $this->expectException(NotFoundError::class);
 
         (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
     }
@@ -214,8 +212,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(404);
+        $this->expectException(NotFoundError::class);
 
         (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
     }

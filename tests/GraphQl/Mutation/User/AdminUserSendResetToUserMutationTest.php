@@ -14,6 +14,7 @@ use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\TooManyRequestsError;
 use Xm\SymfonyBundle\Model\Email;
 
 class AdminUserSendResetToUserMutationTest extends BaseTestCase
@@ -76,8 +77,7 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(429);
+        $this->expectException(TooManyRequestsError::class);
 
         $result = (new AdminUserSendResetToUserMutation(
             $commandBus,
