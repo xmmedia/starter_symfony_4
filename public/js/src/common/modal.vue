@@ -2,6 +2,7 @@
     <dialog ref="dialog"
             class="modal"
             @close="closed"
+            @cancel="props.escapeToClose ? null : $event.preventDefault()"
             @click.self="props.clickToClose ? close() : null">
         <div :class="contentClass">
             <div v-if="props.showClose" :class="closeButtonWrapClass">
@@ -38,6 +39,10 @@ const props = defineProps({
         default: true,
     },
     clickToClose: {
+        type: Boolean,
+        default: true,
+    },
+    escapeToClose: {
         type: Boolean,
         default: true,
     },

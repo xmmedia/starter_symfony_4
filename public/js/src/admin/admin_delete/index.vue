@@ -25,8 +25,7 @@
                             type="button"
                             @click="deleteRecord"><slot name="button-text">Delete</slot></button>
                     <button ref="cancel"
-                            class="form-action button-link text-slate-300
-                                   focus:ring-offset-4 ring-offset-gray-800 focus:text-slate-300 hover:text-slate-400"
+                            class="form-action button-link"
                             type="button"
                             @click="close"><slot name="cancel-text">Cancel</slot></button>
                 </div>

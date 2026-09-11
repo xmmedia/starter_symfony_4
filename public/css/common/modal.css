@@ -83,4 +83,9 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
     .field-errors {
         @apply text-gray-800 text-left;
     }
+
+    /* secondary actions, eg cancel: the default link colour is too dark on the background */
+    .form-action {
+        @apply text-slate-300 hover:text-slate-400 focus:text-slate-300 focus:ring-offset-4 ring-offset-gray-800;
+    }
 }

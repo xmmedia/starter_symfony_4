@@ -7,6 +7,7 @@ import { onError } from '@apollo/client/link/error';
 import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename';
 import { setContext } from '@apollo/client/link/context';
 import { csrfToken } from '@/common/csrf';
+import { sessionLink } from '@/common/session';
 
 // double submits the CSRF token in a header: see CsrfValidationSubscriber
 const csrfLink = setContext((_, { headers }) => {
@@ -56,7 +57,7 @@ const link = split(
 // Create the apollo client
 export const apolloClient = new ApolloClient({
     // strips __typename from variables (must be before the split so both branches get it)
-    link: ApolloLink.from([removeTypenameFromVariables(), csrfLink, errorLink, link]),
+    link: ApolloLink.from([removeTypenameFromVariables(), sessionLink, csrfLink, errorLink, link]),
     // Cache implementation
     cache: new InMemoryCache(),
     defaultOptions: {

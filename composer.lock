@@ -13340,16 +13340,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.128",
+            "version": "v2.0.129",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "cb1f86d8cf849d58f53031f1e204493be4e71f22"
+                "reference": "5e6d9271b3ca01cd89f51b4563d948aa03d243bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/cb1f86d8cf849d58f53031f1e204493be4e71f22",
-                "reference": "cb1f86d8cf849d58f53031f1e204493be4e71f22",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/5e6d9271b3ca01cd89f51b4563d948aa03d243bf",
+                "reference": "5e6d9271b3ca01cd89f51b4563d948aa03d243bf",
                 "shasum": ""
             },
             "require": {
@@ -13398,7 +13398,8 @@
                 "symfony/debug-pack": "^1.0.0",
                 "symfony/maker-bundle": "^1.0",
                 "symfony/phpunit-bridge": "^7.0",
-                "symfony/webpack-encore-bundle": "^1.0"
+                "symfony/webpack-encore-bundle": "^1.0",
+                "symfony/yaml": "^6.2 || ^6.3 || ^6.4 || ^7.0"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -13423,9 +13424,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.128"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.129"
             },
-            "time": "2026-09-03T04:59:16+00:00"
+            "time": "2026-09-11T03:18:46+00:00"
         }
     ],
     "packages-dev": [

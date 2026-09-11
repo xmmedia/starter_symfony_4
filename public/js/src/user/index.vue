@@ -53,6 +53,8 @@
             </div>
         </div>
     </footer>
+
+    <SessionExpired />
 </template>
 
 <script setup>
@@ -60,6 +62,7 @@ import { useHead } from '@unhead/vue';
 import { computed } from 'vue';
 import { useRootStore } from './stores/root';
 import ImpersonationBar from '@/common/impersonation_bar.vue';
+import SessionExpired from '@/common/session_expired.vue';
 
 const rootStore = useRootStore();
 

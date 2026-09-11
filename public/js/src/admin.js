@@ -8,6 +8,7 @@ import { useRootStore } from '@/admin/stores/root';
 
 import { apolloClient } from './common/apollo';
 import { provideApolloClient } from '@vue/apollo-composable';
+import { setSessionStore } from './common/session';
 
 import vFocus from './common/v_focus';
 
@@ -32,6 +33,7 @@ import '../../css/admin.css';
 
 const pinia = createPinia();
 const rootStore = useRootStore(pinia);
+setSessionStore(rootStore);
 
 provideApolloClient(apolloClient);
 

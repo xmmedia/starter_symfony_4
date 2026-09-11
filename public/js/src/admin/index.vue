@@ -78,6 +78,8 @@
                 <RouterView :key="$route.path" />
             </main>
         </div>
+
+        <SessionExpired />
     </div>
 
     <LoadingSpinner v-else class="mt-8" />
@@ -92,6 +94,7 @@ import MenuSmall from './menu/small.vue';
 /* eslint-disable no-unused-vars */
 import MenuLink from './menu/link.vue';
 import ImpersonationBar from '@/common/impersonation_bar.vue';
+import SessionExpired from '@/common/session_expired.vue';
 
 const rootStore = useRootStore();
 
