@@ -17,7 +17,7 @@
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useMutation } from '@vue/apollo-composable';
-import { hasGraphQlError, logError } from '@/common/lib';
+import { GraphQlErrorCodes, getGraphQlErrorCode, logError } from '@/common/lib';
 import { AdminUserSendActivationMutation } from '@/admin/queries/user.mutation.graphql';
 
 const props = defineProps({
@@ -71,7 +71,7 @@ const sendActivation = async () => {
         }, 3000);
 
     } catch (e) {
-        if (hasGraphQlError(e) && 429 === e.graphQLErrors[0].code)  {
+        if (GraphQlErrorCodes.TOO_MANY_REQUESTS === getGraphQlErrorCode(e)) {
             alert('Too many activation links have been sent. Only 1 link can be sent every hour. Please try again later.');
             sendEvent({ type: 'ERROR' });
 

@@ -47,3 +47,4 @@ services:
         tags: [ 'overblog_graphql.query' ]
 
     Xm\SymfonyBundle\EventSubscriber\GraphQlContextInitialization: ~
+    Xm\SymfonyBundle\EventSubscriber\GraphQlErrorSubscriber: ~

@@ -9,7 +9,6 @@ use App\Entity\User;
 use App\GraphQl\Mutation\User\UserVerifyMutation;
 use App\Model\User\Command\VerifyUser;
 use App\Tests\BaseTestCase;
-use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Messenger\Envelope;
@@ -17,6 +16,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\LinkExpiredError;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\NotFoundError;
 use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 
 class UserVerifyMutationTest extends BaseTestCase
@@ -53,9 +54,8 @@ class UserVerifyMutationTest extends BaseTestCase
 
     public function testThrowsErrorWhenUserIsLoggedIn(): void
     {
-        $this->expectException(UserError::class);
+        $this->expectException(NotFoundError::class);
         $this->expectExceptionMessageIsOrContains('Cannot activate account if logged in');
-        $this->expectExceptionCode(404);
 
         new UserVerifyMutation(
             \Mockery::mock(MessageBusInterface::class),
@@ -84,9 +84,8 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andReturn($request);
 
-        $this->expectException(UserError::class);
+        $this->expectException(NotFoundError::class);
         $this->expectExceptionMessageIsOrContains('The token is invalid');
-        $this->expectExceptionCode(404);
 
         new UserVerifyMutation(
             \Mockery::mock(MessageBusInterface::class),
@@ -103,9 +102,8 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andThrow(new InvalidResetPasswordTokenException());
 
-        $this->expectException(UserError::class);
+        $this->expectException(NotFoundError::class);
         $this->expectExceptionMessageIsOrContains('The token is invalid');
-        $this->expectExceptionCode(404);
 
         new UserVerifyMutation(
             \Mockery::mock(MessageBusInterface::class),
@@ -122,9 +120,8 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andThrow(new ExpiredResetPasswordTokenException());
 
-        $this->expectException(UserError::class);
+        $this->expectException(LinkExpiredError::class);
         $this->expectExceptionMessageIsOrContains('The link has expired');
-        $this->expectExceptionCode(405);
 
         new UserVerifyMutation(
             \Mockery::mock(MessageBusInterface::class),
@@ -143,9 +140,8 @@ class UserVerifyMutationTest extends BaseTestCase
             ->once()
             ->andReturnTrue();
 
-        $this->expectException(UserError::class);
+        $this->expectException(NotFoundError::class);
         $this->expectExceptionMessageIsOrContains('Your account has already been activated');
-        $this->expectExceptionCode(404);
 
         new UserVerifyMutation(
             $commandBus,

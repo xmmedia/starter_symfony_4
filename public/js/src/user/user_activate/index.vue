@@ -65,7 +65,7 @@ import { required, sameAs } from '@vuelidate/validators';
 import FieldPassword from '@/common/field_password_with_errors.vue';
 import { UserActivate } from '@/user/queries/user.mutation.graphql';
 import userValidation from '@/common/validation/user';
-import { hasGraphQlError, logError } from '@/common/lib';
+import { GraphQlErrorCodes, getGraphQlErrorCode, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
@@ -144,15 +144,11 @@ async function submit () {
         }, 5000);
 
     } catch (e) {
-        if (hasGraphQlError(e)) {
-            if (404 === e.graphQLErrors[0].code) {
-                invalidToken.value = true;
-            } else if (405 === e.graphQLErrors[0].code) {
-                tokenExpired.value = true;
-            } else {
-                logError(e);
-                showError();
-            }
+        const code = getGraphQlErrorCode(e);
+        if (GraphQlErrorCodes.NOT_FOUND === code) {
+            invalidToken.value = true;
+        } else if (GraphQlErrorCodes.LINK_EXPIRED === code) {
+            tokenExpired.value = true;
         } else {
             logError(e);
             showError();

@@ -226,6 +226,12 @@ without bound. Archive & prune it with `lando console app:command-log:archive [b
 - Mutations: `src/GraphQl/Mutation/`
 - Custom types: `src/GraphQl/Type/`
 - Access control: inline expressions (e.g. `access: '@=hasRole("ROLE_ADMIN")'`) directly in the `*.query.yaml` / `*.mutation.yaml` files
+- Error codes (Apollo style): errors carry a code in `extensions.code`, from `xm/symfony-bundle` (see its
+  AGENTS.md). Its `GraphQlErrorSubscriber` (registered in `config/packages/graphql.yaml`) sets
+  `UNAUTHENTICATED`/`FORBIDDEN` when access is denied (not signed in/signed in). For the others, throw the
+  matching `CodedUserError` from `Xm\SymfonyBundle\Infrastructure\GraphQl\Error`
+  (`throw new NotFoundError($message)`). The frontend checks them with `getGraphQlErrorCode(e)` &
+  `GraphQlErrorCodes` in `common/lib.js`; add new codes there too
 
 **Domain types** (`config/graphql/types/domain/`): `address.yaml`, `auth_log.yaml`, `file.yaml`, `messenger_queue_message.yaml`, `phone_number.yaml`, `upload.yaml`, `user.yaml`
 

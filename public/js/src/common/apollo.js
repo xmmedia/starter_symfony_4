@@ -28,7 +28,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
                 `[GraphQL error]: Message: ${error.message}
                   Location: ${JSON.stringify(error.locations)}
                   Path: ${error.path}
-                  Code: ${error.code}`,
+                  Code: ${error.extensions?.code}`,
             );
             if (error.debugMessage) {
                 // eslint-disable-next-line no-console

@@ -13,12 +13,13 @@ use App\Security\Security;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
-use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\LinkExpiredError;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\NotFoundError;
 use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 
@@ -39,7 +40,7 @@ final readonly class UserActivateMutation implements MutationInterface
     public function __invoke(#[\SensitiveParameter] Argument $args): array
     {
         if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new UserError('Cannot activate account if logged in.', 404);
+            throw new NotFoundError('Cannot activate account if logged in.');
         }
 
         $session = $this->requestProvider->currentRequest()->getSession();
@@ -47,17 +48,15 @@ final readonly class UserActivateMutation implements MutationInterface
         $password = $args['password'];
 
         if (!$token) {
-            throw new UserError('The token is invalid.', 404);
+            throw new NotFoundError('The token is invalid.');
         }
 
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (InvalidResetPasswordTokenException $e) {
-            // 404 -> not found
-            throw new UserError('The token is invalid.', 404, $e);
+            throw new NotFoundError('The token is invalid.', $e);
         } catch (ExpiredResetPasswordTokenException $e) {
-            // 405 -> method not allowed
-            throw new UserError('The link has expired.', 405, $e);
+            throw new LinkExpiredError('The link has expired.', $e);
         }
 
         // done here because we need the user entity
@@ -72,8 +71,7 @@ final readonly class UserActivateMutation implements MutationInterface
         );
 
         if ($user->verified()) {
-            // 404 -> not found
-            throw new UserError('Your account has already been activated.', 404);
+            throw new NotFoundError('Your account has already been activated.');
         }
 
         $this->commandBus->dispatch(

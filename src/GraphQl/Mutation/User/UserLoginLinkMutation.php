@@ -9,8 +9,8 @@ use App\Projection\User\UserFinder;
 use App\Security\Security;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
-use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\NotFoundError;
 use Xm\SymfonyBundle\Model\Email;
 
 final readonly class UserLoginLinkMutation implements MutationInterface
@@ -26,7 +26,7 @@ final readonly class UserLoginLinkMutation implements MutationInterface
     public function __invoke(Argument $args): array
     {
         if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new UserError('Logged in users cannot request a login link', 404);
+            throw new NotFoundError('Logged in users cannot request a login link');
         }
 
         if (!$this->testing) {

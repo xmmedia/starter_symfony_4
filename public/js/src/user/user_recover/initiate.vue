@@ -51,7 +51,7 @@ import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
 import { useMutation } from '@vue/apollo-composable';
 import { email as emailValidator, required } from '@vuelidate/validators';
-import { hasGraphQlError, logError } from '@/common/lib';
+import { GraphQlErrorCodes, getGraphQlErrorCode, logError } from '@/common/lib';
 import FieldEmail from '@/common/field_email.vue';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
@@ -136,15 +136,11 @@ const submit = async () => {
             alert('There was a problem requesting a password reset. Please try again later.');
         };
 
-        if (hasGraphQlError(e)) {
-            if (404 === e.graphQLErrors[0].code) {
-                notFound.value = true;
-            } else if (429 === e.graphQLErrors[0].code) {
-                tooMany.value = true;
-            } else {
-                logError(e);
-                showError();
-            }
+        const code = getGraphQlErrorCode(e);
+        if (GraphQlErrorCodes.NOT_FOUND === code) {
+            notFound.value = true;
+        } else if (GraphQlErrorCodes.TOO_MANY_REQUESTS === code) {
+            tooMany.value = true;
         } else {
             logError(e);
             showError();

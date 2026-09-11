@@ -41,7 +41,7 @@ import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { useRouter } from 'vue-router';
 import { UserVerify } from '@/user/queries/user.mutation.graphql';
-import { hasGraphQlError, logError } from '@/common/lib';
+import { GraphQlErrorCodes, getGraphQlErrorCode, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 
@@ -92,14 +92,11 @@ onMounted(async () => {
         }, 5000);
 
     } catch (e) {
-        if (hasGraphQlError(e)) {
-            if (404 === e.graphQLErrors[0].code) {
-                invalidToken.value = true;
-            } else if (405 === e.graphQLErrors[0].code) {
-                tokenExpired.value = true;
-            } else {
-                logError(e);
-            }
+        const code = getGraphQlErrorCode(e);
+        if (GraphQlErrorCodes.NOT_FOUND === code) {
+            invalidToken.value = true;
+        } else if (GraphQlErrorCodes.LINK_EXPIRED === code) {
+            tokenExpired.value = true;
         } else {
             logError(e);
         }

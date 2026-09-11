@@ -15,7 +15,6 @@ use App\Tests\BaseTestCase;
 use App\Tests\EmptyProvider;
 use App\Tests\PwnedHttpClientMockTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
-use Overblog\GraphQLBundle\Error\UserError;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -25,6 +24,8 @@ use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ExpiredResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\LinkExpiredError;
+use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\NotFoundError;
 use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
 use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
 
@@ -111,8 +112,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(404);
+        $this->expectException(NotFoundError::class);
 
         (new UserRecoverResetMutation(
             $commandBus,
@@ -216,8 +216,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(405);
+        $this->expectException(LinkExpiredError::class);
 
         $result = (new UserRecoverResetMutation(
             $commandBus,
@@ -261,8 +260,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(UserError::class);
-        $this->expectExceptionCode(404);
+        $this->expectException(NotFoundError::class);
 
         $result = (new UserRecoverResetMutation(
             $commandBus,
