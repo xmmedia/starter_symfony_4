@@ -64,6 +64,9 @@ const WARNING_SECONDS = 120;
 // timers drift & pause while the computer's asleep, so don't wait too long between checks
 const MAX_CHECK_INTERVAL = 60 * 60;
 const RETRY_INTERVAL = 60;
+// when they come back to the window, only check if it's been this long. Otherwise their next
+// request finds out they've been signed out (it's held & the modal opened)
+const RETURN_CHECK_INTERVAL = 5 * 60;
 
 const rootStore = useSessionStore();
 
@@ -192,8 +195,8 @@ const returned = () => {
     if (!rootStore.loggedIn || maintenance.value) {
         return;
     }
-    // focus & visibilitychange often fire together
-    if (!sessionExpired.value && Date.now() - lastChecked < 5000) {
+    // while signed out, always check: they may have signed back in in another tab
+    if (!sessionExpired.value && Date.now() - lastChecked < RETURN_CHECK_INTERVAL * 1000) {
         return;
     }
 
