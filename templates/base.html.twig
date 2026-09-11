@@ -28,6 +28,14 @@
         {% endblock %}
     </head>
     <body{% if body_attributes is defined %}{{ body_attributes }}{% endif %}>
+        {# from an allowed IP: everyone else is seeing the maintenance page #}
+        {% if app.request.attributes.get(constant('Xm\\SymfonyBundle\\Infrastructure\\Service\\MaintenanceGate::BYPASS_ATTRIBUTE')) %}
+            <div class="fixed bottom-2 left-2 z-50 rounded bg-yellow-300 px-3 py-1 text-sm font-medium text-gray-900 shadow"
+                 role="status">
+                Maintenance mode is on – only allowed IPs can use the site
+            </div>
+        {% endif %}
+
         {% block body %}
             {% block header %}
                 <header>

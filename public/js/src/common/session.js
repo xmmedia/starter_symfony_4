@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import { ApolloLink, Observable } from '@apollo/client/core';
 import { GraphQlErrorCodes } from '@/common/lib';
+import { MaintenanceError, maintenanceDetails, startMaintenance } from '@/common/maintenance';
 
 /**
  * Set when the user is found to be signed out, such as after signing out in another window
@@ -30,14 +31,28 @@ const isUnauthenticated = (result) => [...(result.errors ?? []), ...(result.exte
 /**
  * Who's signed in & how long until their session expires. See SecurityController::sessionInfo().
  * Plain fetch so it doesn't go through sessionLink. A GET doesn't extend the session.
+ * During maintenance it opens the maintenance modal & throws a MaintenanceError.
  *
  * @param {'GET'|'POST'} method POST extends the session
  * @returns {Promise<{userId: string|null, remaining: number|null}>} remaining is null if it doesn't expire
  */
 export const fetchSessionInfo = async (method = 'GET') => {
-    const response = await fetch('/session-info', { method });
+    // accepting JSON gets the maintenance response as JSON too
+    const response = await fetch('/session-info', { method, headers: { accept: 'application/json' } });
+    const body = await response.json();
 
-    return response.json();
+    const details = maintenanceDetails(response.status, body);
+    if (null !== details) {
+        startMaintenance(details);
+
+        throw new MaintenanceError();
+    }
+
+    if (!response.ok) {
+        throw new Error(`Session info failed with a ${response.status}.`);
+    }
+
+    return body;
 };
 
 export const extendSession = () => fetchSessionInfo('POST');

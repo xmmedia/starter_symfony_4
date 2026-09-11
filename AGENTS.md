@@ -172,6 +172,32 @@ without bound. Archive & prune it with `lando console app:command-log:archive [b
 - Load an archive back with `--import=<file>` (gzipped or not). It runs in a transaction, so a
   failure part way through leaves the table untouched; `--dry-run` counts the statements
 
+### Maintenance mode
+From `xm/symfony-bundle` (see its AGENTS.md), configured in `config/packages/xm_symfony.yaml`.
+It's on while `var/maintenance` exists — `var/` is shared between releases, so no deploy needed:
+
+- `lando console app:maintenance on|off` (no argument for the status). `on` takes `--message`,
+  `--until` (eg `"15:30"`, `"+30 minutes"`, in `user_time_zone`) & the options below; running
+  it again updates it. It renders the page (overridden in `templates/bundles/XmSymfonyBundle/`)
+  to `var/maintenance.html`; `off` deletes both
+- Checked in `public/index.php` before the kernel's created, so it works even if the app won't
+  boot. If the command won't run, a bare `touch var/maintenance` turns it on with a plain page
+- Still let in, with a "Maintenance mode is on" notice (`base.html.twig`):
+  - IPs/CIDR ranges: `--allow-ip`, `--remove-ip`, `--reset-ips`, `--allow-my-ip` (your SSH IP —
+    your browser may use IPv6 instead). It's the connecting IP: the servers have `mod_remoteip`
+  - Anyone with the key (new each time it's turned on, `--new-key` to replace): the command
+    shows its URL. `?maintenance-key=…` on any URL sets a cookie until the browser's closed, or
+    send `X-Maintenance-Key`. A deploy prints it to the job log
+- Everyone else gets a 503 & the page, which reloads once it's over. In the Vue apps,
+  `maintenanceLink` (`common/maintenance.js`) holds GraphQL requests & `common/maintenance.vue`
+  shows a modal (checking every 2 minutes), then re-sends them. `session_expired.vue` pauses
+  during it & re-checks the session after
+- Messenger workers pause between messages until it's off
+- Deploy with `MAINTENANCE=1` to turn it on from before the release switch until the migrations
+  have run. It's then turned off, even if it was already on, & left on if the deploy fails. The
+  up check accepts the maintenance 503
+- In `test` the file is in the cache dir, so having it on locally doesn't fail the tests
+
 ### Lando Commands
 - Start Lando: `lando start`
 - Install PHP packages: `lando composer install`

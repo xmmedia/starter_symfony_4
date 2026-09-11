@@ -1,50 +1,54 @@
 <template>
-    <Modal v-if="sessionModalOpen"
-           :show-close="false"
-           :click-to-close="false"
-           :escape-to-close="false"
-           @closed="sessionModalOpen = false">
-        <div class="max-w-md text-center">
-            <div class="text-lg font-semibold">You've been signed out</div>
-            <p class="my-4">
-                Your session has ended, either because it expired or you signed out in another window.
-                Sign in again in a new tab, then come back here to carry on where you left off.
-            </p>
-            <p v-if="stillSignedOut" class="my-4 font-semibold">You're still signed out.</p>
-            <div class="mt-8">
+    <!-- hidden while the maintenance modal's showing -->
+    <template v-if="!maintenance">
+        <Modal v-if="sessionModalOpen"
+               :show-close="false"
+               :click-to-close="false"
+               :escape-to-close="false"
+               @closed="sessionModalOpen = false">
+            <div class="max-w-md text-center">
+                <div class="text-lg font-semibold">You've been signed out</div>
+                <p class="my-4">
+                    Your session has ended, either because it expired or you signed out in another window.
+                    Sign in again in a new tab, then come back here to carry on where you left off.
+                </p>
+                <p v-if="stillSignedOut" class="my-4 font-semibold">You're still signed out.</p>
+                <div class="mt-8">
+                    <a :href="loginUrl" target="_blank" class="button">Sign in</a>
+                    <button class="form-action button-link" type="button" @click="checkSession">Continue</button>
+                </div>
+            </div>
+        </Modal>
+
+        <!-- shown if they dismiss the modal while still signed out -->
+        <div v-else-if="sessionExpired"
+             class="alert alert-warning fixed inset-x-4 bottom-4 z-50 items-center gap-x-4 text-gray-900 shadow-lg"
+             role="alert">
+            <div>You've been signed out. Sign in again to continue.</div>
+            <div class="flex items-center gap-x-4 shrink-0">
                 <a :href="loginUrl" target="_blank" class="button">Sign in</a>
-                <button class="form-action button-link" type="button" @click="checkSession">Continue</button>
+                <button class="button-link" type="button" @click="checkSession">Continue</button>
             </div>
         </div>
-    </Modal>
 
-    <!-- shown if they dismiss the modal while still signed out -->
-    <div v-else-if="sessionExpired"
-         class="alert alert-warning fixed inset-x-4 bottom-4 z-50 items-center gap-x-4 text-gray-900 shadow-lg"
-         role="alert">
-        <div>You've been signed out. Sign in again to continue.</div>
-        <div class="flex items-center gap-x-4 shrink-0">
-            <a :href="loginUrl" target="_blank" class="button">Sign in</a>
-            <button class="button-link" type="button" @click="checkSession">Continue</button>
-        </div>
-    </div>
-
-    <Modal v-else-if="showWarning" @closed="warningDismissed = null !== expiresAt">
-        <div class="max-w-md text-center">
-            <div class="text-lg font-semibold">Your session is about to expire</div>
-            <p class="my-4">You'll be signed out in {{ countdown }}.</p>
-            <div class="mt-8">
-                <button type="button" class="button" @click="keepSignedIn">Keep me signed in</button>
-                <a href="/logout" class="form-action button-link">Sign out now</a>
+        <Modal v-else-if="showWarning" @closed="warningDismissed = null !== expiresAt">
+            <div class="max-w-md text-center">
+                <div class="text-lg font-semibold">Your session is about to expire</div>
+                <p class="my-4">You'll be signed out in {{ countdown }}.</p>
+                <div class="mt-8">
+                    <button type="button" class="button" @click="keepSignedIn">Keep me signed in</button>
+                    <a href="/logout" class="form-action button-link">Sign out now</a>
+                </div>
             </div>
-        </div>
-    </Modal>
+        </Modal>
+    </template>
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { logError } from '@/common/lib';
 import Modal from '@/common/modal.vue';
+import { MaintenanceError, maintenance } from '@/common/maintenance';
 import {
     expireSession,
     extendSession,
@@ -133,8 +137,16 @@ const update = async (request) => {
     try {
         info = await request();
     } catch (e) {
-        logError(e);
         clearTimers();
+
+        // the session can't be checked or extended until it's over, when it's checked again (see below)
+        if (e instanceof MaintenanceError) {
+            expiresAt.value = null;
+
+            return;
+        }
+
+        logError(e);
         checkTimer = setTimeout(checkSession, RETRY_INTERVAL * 1000);
 
         return;
@@ -164,12 +176,20 @@ const update = async (request) => {
 const checkSession = () => update(fetchSessionInfo);
 const keepSignedIn = () => update(extendSession);
 
+// the session may have expired during the maintenance, as nothing could extend it
+watch(maintenance, (details, previous) => {
+    if (null === details && null !== previous && rootStore.loggedIn) {
+        checkSession();
+    }
+});
+
 // check when they come back to the window so they know before they start working
 const returned = () => {
     if ('visible' !== document.visibilityState) {
         return;
     }
-    if (!rootStore.loggedIn) {
+    // maintenance.vue checks during it & the session's checked once it's over
+    if (!rootStore.loggedIn || maintenance.value) {
         return;
     }
     // focus & visibilitychange often fire together

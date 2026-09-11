@@ -1,21 +1,4 @@
 # ######################################################################
-# # MAINTENANCE                                                        #
-# ######################################################################
-
-# Change to the page you want to show.
-# Add any IPs you want to still have access.
-
-# Order deny,allow
-# Deny from all
-# Allow from XXX.XXX.XXX.XX
-
-# <Files maintenance.html>
-#     Allow from all
-# </Files>
-
-# ErrorDocument 403 /maintenance.html
-
-# ######################################################################
 # # SYMFONY + DEFAULT REDIRECTS                                        #
 # ######################################################################
 

@@ -1,0 +1,13 @@
+{# overrides the bundle's maintenance page: keep it free of the Vite build, the database & the session #}
+{% extends '@!XmSymfony/maintenance.html.twig' %}
+
+{% block title %}Maintenance | {{ 'app.parameter.name'|trans }}{% endblock %}
+
+{% block head %}
+    {% include 'favicons.html.twig' %}
+{% endblock %}
+
+{% block logo %}
+    {# @todo-symfony logo & size #}
+    <img src="/images/logo.svg" width="150" height="154" alt="{{ 'app.parameter.name'|trans }}">
+{% endblock %}
