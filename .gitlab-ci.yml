@@ -19,6 +19,11 @@ variables:
   APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
+  MAINTENANCE:
+    value: "0"
+    description: >-
+      1 to turn on maintenance mode while deploying, until the migrations have run
+      (then it's turned off, even if it was on before)
 
 before_script:
   # install composer
@@ -45,6 +50,10 @@ before_script:
 
 .deploy-setup-script: &deploy-setup-script
   - *versions-script
+  # helpers for the rest of the job (its lines all run in one shell):
+  # run a command on the server; run a console command in a release dir
+  - remote () { ssh -p "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_SERVER" "$@"; }
+  - console () { dir=$1; shift; remote "cd $dir && $SERVER_PHP_PATH bin/console $*"; }
   # setup vars for paths
   - TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
   - echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
@@ -65,31 +74,55 @@ before_script:
   # remove temp .env file just in case
   - rm .env.local
   # ensure based paths exist
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/var/log/archive $SHARED/public/uploads"
+  - remote "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/var/log/archive $SHARED/public/uploads"
   # sync files to release directory
   - rsync --archive --stats --human-readable --no-perms --exclude ".git/" --exclude ".idea/" --exclude "node_modules/" -e "ssh -p $REMOTE_PORT" . $REMOTE_USER@$REMOTE_SERVER:$RELEASE
   # make console file executable
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; chmod u+x bin/console"
+  - remote "chmod u+x $RELEASE/bin/console"
   # ensure platform has all requirements
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; $SERVER_PHP_PATH -v; printf "\n\n"; $SERVER_PHP_PATH composer.phar check-platform-reqs --no-dev"
+  - remote "$SERVER_PHP_PATH -v; echo; cd $RELEASE && $SERVER_PHP_PATH composer.phar check-platform-reqs --no-dev"
   # link shared folders
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "rm -rf $RELEASE/var || true; ln -s $SHARED/var $RELEASE/var; rm -rf $RELEASE/public/uploads || true; ln -s $SHARED/public/uploads $RELEASE/public/uploads; rm -rf $RELEASE/config/jwt || true; ln -s $SHARED/config/jwt $RELEASE/config/jwt"
+  - remote "cd $RELEASE && rm -rf var public/uploads config/jwt && ln -s $SHARED/var var && ln -s $SHARED/public/uploads public/uploads && ln -s $SHARED/config/jwt config/jwt"
   # copy env file into place; dump env
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cp -a $SHARED/.env.local $RELEASE/.env.local && cd $RELEASE && $SERVER_PHP_PATH composer.phar dump-env"
+  - remote "cp -a $SHARED/.env.local $RELEASE/.env.local && cd $RELEASE && $SERVER_PHP_PATH composer.phar dump-env"
   # run composer post update cmds on server
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $RELEASE; $SERVER_PHP_PATH composer.phar run-script post-update-cmd"
+  - remote "cd $RELEASE && $SERVER_PHP_PATH composer.phar run-script post-update-cmd"
+  # turn on maintenance mode until the migrations have run, when the job is run with MAINTENANCE=1.
+  # Uses the new release, which shares var/. If the deploy fails part way, it's left on
+  - |
+    if [ "$MAINTENANCE" = "1" ]; then
+      console $RELEASE app:maintenance on --no-interaction
+    fi
   # switch to new version
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ln -sfn $RELEASE $REMOTE_BASE/current"
+  - remote "ln -sfn $RELEASE $REMOTE_BASE/current"
   # reload php-fpm (to reset cache)
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "sudo /bin/systemctl reload php85-php-fpm"
+  - remote "sudo /bin/systemctl reload php85-php-fpm"
   # stop/restart the doctrine message works/consumers & ensure the transports exist
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; $SERVER_PHP_PATH bin/console messenger:stop-workers; $SERVER_PHP_PATH bin/console messenger:setup-transports"
+  - |
+    console $REMOTE_BASE/current messenger:stop-workers
+    console $REMOTE_BASE/current messenger:setup-transports
   # run migrations
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "cd $REMOTE_BASE/current; $SERVER_PHP_PATH bin/console doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration"
+  - console $REMOTE_BASE/current doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration
+  # turn off maintenance mode, if the deploy turned it on (even if it was already on)
+  - |
+    if [ "$MAINTENANCE" = "1" ]; then
+      console $REMOTE_BASE/current app:maintenance off --no-interaction
+    fi
   # remove >2 releases
-  - ssh -p $REMOTE_PORT $REMOTE_USER@$REMOTE_SERVER "ls -1d $RELEASES/* | sort -rg | tail -n +3 | xargs /bin/rm -rf"
-  # test if website is up
-  - if wget --spider --server-response "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST" 2>&1 | grep '200\ OK'; then echo "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST is up"; else echo "$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST is down"; exit 1; fi
+  - remote "ls -1d $RELEASES/* | sort -rg | tail -n +3 | xargs /bin/rm -rf"
+  # test if website is up. A 503 is fine when it's from maintenance mode (it sends X-Maintenance),
+  # but only proves the app boots far enough to show the maintenance page
+  - |
+    URL="$REQUEST_CONTEXT_SCHEME://$REQUEST_CONTEXT_HOST"
+    RESPONSE=$(wget --spider --server-response "$URL" 2>&1 || true)
+    if echo "$RESPONSE" | grep -q '200 OK'; then
+      echo "$URL is up"
+    elif echo "$RESPONSE" | grep -q '503 Service Unavailable' && echo "$RESPONSE" | grep -qi 'X-Maintenance: 1'; then
+      echo "$URL is in maintenance mode: deployed, but check the site once it's turned off"
+    else
+      echo "$URL is down"
+      exit 1
+    fi
   # success message
   - echo "Deployment completed successfully. Release at $RELEASE"
 

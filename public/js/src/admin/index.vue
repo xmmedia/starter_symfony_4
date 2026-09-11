@@ -83,6 +83,9 @@
     </div>
 
     <LoadingSpinner v-else class="mt-8" />
+
+    <!-- outside the ready check: maintenance can start before the app's loaded -->
+    <Maintenance />
 </template>
 
 <script setup>
@@ -94,6 +97,7 @@ import MenuSmall from './menu/small.vue';
 /* eslint-disable no-unused-vars */
 import MenuLink from './menu/link.vue';
 import ImpersonationBar from '@/common/impersonation_bar.vue';
+import Maintenance from '@/common/maintenance.vue';
 import SessionExpired from '@/common/session_expired.vue';
 
 const rootStore = useRootStore();

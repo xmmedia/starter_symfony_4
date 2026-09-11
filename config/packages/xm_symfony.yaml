@@ -1,0 +1,10 @@
+xm_symfony:
+    # see "Maintenance mode" in AGENTS.md
+    maintenance:
+        time_zone: '%user_time_zone%'
+
+when@test:
+    xm_symfony:
+        maintenance:
+            # so turning maintenance mode on locally doesn't fail the functional tests
+            file: '%kernel.cache_dir%/maintenance'

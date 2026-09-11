@@ -7,6 +7,7 @@ import { onError } from '@apollo/client/link/error';
 import { removeTypenameFromVariables } from '@apollo/client/link/remove-typename';
 import { setContext } from '@apollo/client/link/context';
 import { csrfToken } from '@/common/csrf';
+import { isMaintenanceError, maintenanceLink } from '@/common/maintenance';
 import { sessionLink } from '@/common/session';
 
 // double submits the CSRF token in a header: see CsrfValidationSubscriber
@@ -21,6 +22,12 @@ const csrfLink = setContext((_, { headers }) => {
 
 // docs: https://www.apollographql.com/docs/react/features/error-handling/
 const errorLink = onError(({ graphQLErrors, networkError }) => {
+    // maintenance isn't an error: maintenanceLink holds the request until it's over.
+    // Apollo also copies the response's errors into graphQLErrors, so check first
+    if (isMaintenanceError(networkError)) {
+        return;
+    }
+
     if (graphQLErrors) {
         graphQLErrors.map((error) => {
             // eslint-disable-next-line no-console
@@ -57,7 +64,7 @@ const link = split(
 // Create the apollo client
 export const apolloClient = new ApolloClient({
     // strips __typename from variables (must be before the split so both branches get it)
-    link: ApolloLink.from([removeTypenameFromVariables(), sessionLink, csrfLink, errorLink, link]),
+    link: ApolloLink.from([removeTypenameFromVariables(), maintenanceLink, sessionLink, csrfLink, errorLink, link]),
     // Cache implementation
     cache: new InMemoryCache(),
     defaultOptions: {

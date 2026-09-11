@@ -14,13 +14,16 @@ export const logError = function (e) {
     }
 };
 
-// the codes sent in a GraphQL error's extensions.code: see the bundle's GraphQlErrorSubscriber & CodedUserError
+// the codes sent in a GraphQL error's extensions.code: see the bundle's GraphQlErrorSubscriber & CodedUserError.
+// MAINTENANCE is sent with a 503 by the bundle's MaintenanceSubscriber, so it arrives as a network error
+// (see maintenance.js)
 export const GraphQlErrorCodes = Object.freeze({
     UNAUTHENTICATED: 'UNAUTHENTICATED',
     FORBIDDEN: 'FORBIDDEN',
     NOT_FOUND: 'NOT_FOUND',
     LINK_EXPIRED: 'LINK_EXPIRED',
     TOO_MANY_REQUESTS: 'TOO_MANY_REQUESTS',
+    MAINTENANCE: 'MAINTENANCE',
 });
 
 /**
