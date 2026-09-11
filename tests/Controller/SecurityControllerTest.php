@@ -36,6 +36,21 @@ class SecurityControllerTest extends WebTestCase
         $controller->loginLink();
     }
 
+    public function testSessionInfoNotAuthenticated(): void
+    {
+        $client = self::createClient();
+
+        foreach ([Request::METHOD_GET, Request::METHOD_POST] as $method) {
+            $client->request($method, '/session-info');
+
+            $this->assertResponseIsSuccessful();
+            $this->assertSame(
+                ['userId' => null, 'remaining' => null],
+                json_decode($client->getResponse()->getContent(), true),
+            );
+        }
+    }
+
     public function testActivateRedirect(): void
     {
         $client = self::createClient();

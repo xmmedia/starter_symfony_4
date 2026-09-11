@@ -25,6 +25,7 @@
     @import "./common/radios.css";
     @import "./common/embed.css";
     @import "./common/loading.css";
+    @import "./common/modal.css";
 
     /* public only styles */
     @import "./user/buttons.css";

@@ -404,6 +404,22 @@ command payload).
 - `User::password()`/`getPassword()` return `null` when there's no credential row, which
   means the user can't log in
 
+### Session expiry
+
+Sessions expire after `framework.session.gc_maxlifetime` of inactivity, enforced by
+`xm/symfony-bundle` (`SessionExpiry` & `SessionExpirySubscriber`, on by default — PHP's GC
+alone doesn't: it doesn't check a session's age when reading it). Remember-me sign ins don't
+expire; the bundle reads the cookie names from the firewall config.
+
+- Every request by a signed in user extends the session, except routes with
+  `SessionExpiry::EXTEND_ATTRIBUTE` (`_extend_session`) set to `false` in their defaults
+- `/session-info` is one: a `GET` returns the user ID & seconds remaining without extending
+  it, a `POST` extends it
+- `common/session_expired.vue` checks it, warns 2 minutes before with a countdown ("Keep me
+  signed in"), then shows the signed out modal
+- GraphQL requests rejected because the user's signed out are held by `sessionLink`
+  (`common/session.js`) & re-sent once they sign back in, instead of the component showing an error
+
 ### User Model
 
 **User States:**
