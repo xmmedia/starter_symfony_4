@@ -53,7 +53,6 @@ security:
 
             remember_me:
                 secret:   '%kernel.secret%'
-                name:     '%remember_me_cookie%'
                 lifetime: 2592000 # 30 days
                 path:     /
                 secure:   true
