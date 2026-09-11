@@ -2,8 +2,8 @@
     <dialog ref="dialog"
             class="modal"
             @close="closed"
-            @cancel="props.escapeToClose ? null : $event.preventDefault()"
-            @click.self="props.clickToClose ? close() : null">
+            @cancel="cancel"
+            @click.self="backdropClicked">
         <div :class="contentClass">
             <div v-if="props.showClose" :class="closeButtonWrapClass">
                 <button :class="closeButtonClass" type="button" @click="close">×</button>
@@ -72,6 +72,19 @@ const close = () => {
     }
 
     closed();
+};
+
+// Escape: browsers only let the first one be prevented, so a second in a row still closes it
+const cancel = (event) => {
+    if (!props.escapeToClose) {
+        event.preventDefault();
+    }
+};
+
+const backdropClicked = () => {
+    if (props.clickToClose) {
+        close();
+    }
 };
 
 const closed = () => {
