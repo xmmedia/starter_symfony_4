@@ -629,8 +629,8 @@ FileETag None
 
   # Favicon (cannot be renamed!) and cursor images
 
-    ExpiresByType image/vnd.microsoft.icon              "access plus 1 week"
-    ExpiresByType image/x-icon                          "access plus 1 week"
+    ExpiresByType image/vnd.microsoft.icon              "access plus 1 month"
+    ExpiresByType image/x-icon                          "access plus 1 month"
 
   # HTML
 
