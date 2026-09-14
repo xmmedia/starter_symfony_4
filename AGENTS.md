@@ -252,6 +252,9 @@ It's on while `var/maintenance` exists — `var/` is shared between releases, so
 - Mutations: `src/GraphQl/Mutation/`
 - Custom types: `src/GraphQl/Type/`
 - Access control: inline expressions (e.g. `access: '@=hasRole("ROLE_ADMIN")'`) directly in the `*.query.yaml` / `*.mutation.yaml` files
+  - `Query` & `Mutation` set `fieldsDefaultAccess` to `ROLE_ADMIN`, so a root field without `access` is admin only
+    (it covers the decorator fields too). Public fields need `access: '@=true'` — keep `access` explicit on every
+    root field. Don't set it on nested types: a denied field there nulls the parent object
 - Error codes (Apollo style): errors carry a code in `extensions.code`, from `xm/symfony-bundle` (see its
   AGENTS.md). Its `GraphQlErrorSubscriber` (registered in `config/packages/graphql.yaml`) sets
   `UNAUTHENTICATED`/`FORBIDDEN` when access is denied (not signed in/signed in). For the others, throw the

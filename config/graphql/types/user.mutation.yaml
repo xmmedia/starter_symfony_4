@@ -14,6 +14,7 @@ UserMutation:
             UserLoginLink:
                 type:        UserResultPayload!
                 description: 'Send a magic login link to the user.'
+                access:      '@=true'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\UserLoginLinkMutation", args)'
                 args:
                     email: String!
@@ -29,6 +30,7 @@ UserMutation:
             UserRecoverInitiate:
                 type:        UserResultPayload!
                 description: 'Initiate User account recovery.'
+                access:      '@=true'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\UserRecoverInitiateMutation", args)'
                 args:
                     email: String!
@@ -36,6 +38,7 @@ UserMutation:
             UserRecoverReset:
                 type:        UserResultPayload!
                 description: 'Set User password. Token is stored in the session.'
+                access:      '@=true'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\UserRecoverResetMutation", args)'
                 args:
                     newPassword: String!
@@ -43,6 +46,7 @@ UserMutation:
             UserActivate:
                 type:        UserResultPayload!
                 description: 'Activate User account with password. Token is stored in the session.'
+                access:      '@=true'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\UserActivateMutation", args)'
                 args:
                     password: String!
@@ -50,6 +54,7 @@ UserMutation:
             UserVerify:
                 type:        UserResultPayload!
                 description: 'Verify User account. Token is stored in the session.'
+                access:      '@=true'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\UserVerifyMutation", args)'
 
             AdminUserAdd:
