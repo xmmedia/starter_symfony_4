@@ -1,4 +1,7 @@
-{# overrides the bundle's maintenance page: keep it free of the Vite build, the database & the session #}
+{#
+    overrides the bundle's maintenance page, styled like the public pages (user/index.vue).
+    Keep it free of the Vite build, the database & the session
+#}
 {% extends '@!XmSymfony/maintenance.html.twig' %}
 
 {% block title %}Maintenance | {{ 'app.parameter.name'|trans }}{% endblock %}
@@ -7,7 +10,82 @@
     {% include 'favicons.html.twig' %}
 {% endblock %}
 
-{% block logo %}
-    {# @todo-symfony logo & size #}
-    <img src="/images/logo.svg" width="150" height="154" alt="{{ 'app.parameter.name'|trans }}">
+{% block styles %}
+    body {
+        display: block;
+        min-height: 0;
+        padding: 0;
+        background-color: #fff;
+        color: oklch(0.278 0.033 256.848);
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 300;
+    }
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+    }
+    header img {
+        max-width: 100%;
+        height: auto;
+    }
+    .dark {
+        background-color: oklch(0.21 0.034 264.665);
+    }
+    .header-bar {
+        width: 100%;
+        height: 1.5rem;
+        margin-top: 1rem;
+        padding: 1.5rem 0;
+    }
+    main {
+        width: 91.666%;
+        max-width: 40rem;
+        margin: 2rem auto;
+        padding: 1rem 1rem 2.5rem;
+        border: 1px solid oklch(0.872 0.01 258.338);
+        border-radius: 0;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        box-sizing: border-box;
+    }
+    h1 {
+        margin: 0 0 2rem;
+        padding: 1.5rem 1rem;
+        background-color: oklch(0.21 0.034 264.665);
+        color: #fff;
+        font-family: "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1;
+    }
+    main p {
+        padding: 0 1rem;
+    }
+    footer {
+        padding: 2rem 1rem 4rem;
+        color: #fff;
+        font-size: 0.875rem;
+        text-align: right;
+    }
+    footer div {
+        max-width: 80rem;
+        margin: 0 auto;
+        padding-top: 1.5rem;
+    }
+{% endblock %}
+
+{% block header %}
+    <header>
+        {# @todo-symfony logo & size #}
+        <img src="/images/logo.svg" width="200" height="84" alt="{{ 'app.parameter.name'|trans }}">
+        <div class="header-bar dark"></div>
+    </header>
+{% endblock %}
+
+{% block footer %}
+    <footer class="dark">
+        {# @todo-symfony #}
+        <div>© {{ 'now'|date('Y') }} XM Media Inc. All Rights Reserved</div>
+    </footer>
 {% endblock %}
