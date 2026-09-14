@@ -13,6 +13,8 @@ includes:
 
 parameters:
     level: 5
+    # in the project (not the system temp dir) so CI can cache the result cache between runs
+    tmpDir: var/phpstan
     ignoreErrors:
         # prooph rebinds the when() closures to the projector, so $this really is
         # a ReadModelProjector at runtime, not the projection class
