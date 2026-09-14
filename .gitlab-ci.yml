@@ -13,6 +13,12 @@ cache:
   paths:
     - vendor/
     - node_modules/
+    # yarn's package cache (enableGlobalCache is off) & install state: without them yarn
+    # re-downloads every package, even when node_modules is restored
+    - .yarn/cache/
+    - .yarn/install-state.gz
+    # phpstan's result cache (static job only): only changed files & their dependents are re-analysed
+    - var/phpstan/
 
 variables:
   SERVER_PHP_PATH: php85
