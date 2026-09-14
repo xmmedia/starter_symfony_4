@@ -2,6 +2,7 @@ Query:
     type: object
     config:
         description: 'Main Queries'
+        fieldsDefaultAccess: '@=hasRole("ROLE_ADMIN")'
         fields:
             Me:
                 type:        User
@@ -12,6 +13,7 @@ Query:
             EntrypointIntegrity:
                 type:        String
                 description: 'Retrieve the current integrity hash for a script (JavaScript) file.'
+                access:      '@=true'
                 resolve:     '@=query("Xm\\SymfonyBundle\\Infrastructure\\GraphQl\\Query\\EntrypointIntegrityHashViteQuery", args["entrypoint"])'
                 args:
                     entrypoint: String!

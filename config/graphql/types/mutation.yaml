@@ -2,10 +2,12 @@ Mutation:
     type: object
     config:
         description: 'Main Mutations'
+        fieldsDefaultAccess: '@=hasRole("ROLE_ADMIN")'
         # uncomment if all the mutations are removed
 #        fields:
 #            # so there's always a mutation available
 #            Ping:
 #                type: Boolean!
 #                description: 'A default query so public pages have a mutation.'
+#                access: '@=true'
 #                resolve: '@=true'

@@ -30,6 +30,7 @@ UserQuery:
             UserEmailUnique:
                 type:        UserEmailUnique!
                 description: 'Check if an email address is unique. Excludes the current user.'
+                access:      '@=isAuthenticated()'
                 resolve:     '@=query("App\\GraphQl\\Query\\User\\UserEmailUniqueQuery", args["email"])'
                 args:
                     email: String!
@@ -45,6 +46,7 @@ UserQuery:
             UserRecoverResetPasswordStrength:
                 type:        UserPasswordAllowed!
                 description: 'Check if users password meets the minimum strength requirements. Token must be stored in the session. This will return true if the token is not stored in the session or has already been used.'
+                access:      '@=true'
                 resolve:     '@=query("App\\GraphQl\\Query\\User\\UserRecoverResetPasswordStrengthQuery", args["newPassword"])'
                 args:
                     newPassword: String!
