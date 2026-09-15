@@ -29,7 +29,7 @@
 }
 
 .record_view-item_label {
-    @apply w-full md:w-1/5 min-w-20 md:pr-4 text-gray-500;
+    @apply w-full md:w-1/5 min-w-20 md:shrink-0 md:pr-4 text-gray-500;
 }
 
 .record_view-item_value {

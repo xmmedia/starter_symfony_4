@@ -625,6 +625,18 @@
                 </div>
             </div>
             <div class="record_view-item">
+                <div class="record_view-item_label">Active with Help</div>
+                <div class="record_view-item_value">
+                    <button class="button-link align-middle">
+                        <AdminIconCheck :active="true" />
+                    </button>
+                    <div class="text-sm text-gray-500">
+                        Long help text next to an icon should wrap within the value column instead of pushing the
+                        value below the label. Inactive records will only be accessible by admins.
+                    </div>
+                </div>
+            </div>
+            <div class="record_view-item">
                 <div class="record_view-item_label">Address</div>
                 <div class="record_view-item_value">
                     Address
