@@ -690,9 +690,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/executor-legacy-ws@npm:^1.1.34":
-  version: 1.1.34
-  resolution: "@graphql-tools/executor-legacy-ws@npm:1.1.34"
+"@graphql-tools/executor-legacy-ws@npm:^1.1.35":
+  version: 1.1.35
+  resolution: "@graphql-tools/executor-legacy-ws@npm:1.1.35"
   dependencies:
     "@graphql-tools/utils": "npm:^12.0.1"
     "@types/ws": "npm:^8.0.0"
@@ -701,7 +701,7 @@ __metadata:
     ws: "npm:^8.21.3"
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-  checksum: 10/ea42533c70a91b6659627e510032067b0498123803097c7117c74089b4fbec9f8b82f291c16bbff27a5246f332f9c6ac47a4db44ecf6c15e8fd4562956cb88f6
+  checksum: 10/68350fbe5eaa11a72a4093bef13e99a8808c021086ea5dff85611224f25fed98a834117e72b1c41f0a5aaee19efde8e468ed7c03188bfd386d0a320c62f77851
   languageName: node
   linkType: hard
 
@@ -819,12 +819,12 @@ __metadata:
   linkType: hard
 
 "@graphql-tools/url-loader@npm:^9.0.0":
-  version: 9.1.8
-  resolution: "@graphql-tools/url-loader@npm:9.1.8"
+  version: 9.1.9
+  resolution: "@graphql-tools/url-loader@npm:9.1.9"
   dependencies:
     "@graphql-tools/executor-graphql-ws": "npm:^3.1.4"
     "@graphql-tools/executor-http": "npm:^3.3.0"
-    "@graphql-tools/executor-legacy-ws": "npm:^1.1.34"
+    "@graphql-tools/executor-legacy-ws": "npm:^1.1.35"
     "@graphql-tools/utils": "npm:^12.0.1"
     "@graphql-tools/wrap": "npm:^11.1.1"
     "@types/ws": "npm:^8.0.0"
@@ -836,7 +836,7 @@ __metadata:
     ws: "npm:^8.21.3"
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-  checksum: 10/ca2d087d519dc26cae0c69e86d91b6443f645db72795b72a3ee0e4b752603e743778d84772ccbe23a98f172fc108e6875ceffff84561b32598afe6fbb5ae3d15
+  checksum: 10/65548d04a68166aeaf3c5f23b2faa7cc4cc845b942ebf105b2e83c21bcd645dad436f818193ae3d8358af0789ae6cf04489105117391a2d131b49fab7b7ab378
   languageName: node
   linkType: hard
 
@@ -3662,9 +3662,9 @@ __metadata:
   linkType: hard
 
 "ignore@npm:^7.0.5, ignore@npm:^7.0.6":
-  version: 7.0.8
-  resolution: "ignore@npm:7.0.8"
-  checksum: 10/100573dc4ab73ffe0f2231194850a45c6687ac74deb3dce1050add0f849e42d5e530acf59d5612c959afdb83149dec92cfcaf8b44f02d7b57b03fb46fbe9cbc3
+  version: 7.0.9
+  resolution: "ignore@npm:7.0.9"
+  checksum: 10/0364b6e5895a2e3b187654048de07c3369b4d106f51f8c0294c823f717aaf92d4f42d138e52d6d498bfc71f123eddb9d1fdb01977fd1cf1f29cc4f5ceaca2d77
   languageName: node
   linkType: hard
 
