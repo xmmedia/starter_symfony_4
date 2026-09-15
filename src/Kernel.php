@@ -14,6 +14,6 @@ class Kernel extends BaseKernel
     #[\Override]
     public function getCacheDir(): string
     {
-        return \dirname(__DIR__).'/cache/'.$this->environment;
+        return $this->getProjectDir().'/cache/'.$this->environment;
     }
 }
