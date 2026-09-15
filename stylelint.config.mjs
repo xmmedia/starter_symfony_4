@@ -38,10 +38,12 @@ export default {
                 "ignoreAtRules": [ "import", "source" ],
             },
         ],
-        // `@plugin` and the `@import`s inside `@layer` aren't misplaced imports
+        // imports after Tailwind's at-rules (`@plugin`, `@custom-variant`, …) & inside `@layer` aren't misplaced
         "no-invalid-position-at-import-rule": [
             true,
-            { "ignoreAtRules": [ "config", "plugin", "source", "theme", "layer" ] },
+            {
+                "ignoreAtRules": [ "config", "plugin", "source", "theme", "custom-variant", "variant", "utility", "layer" ],
+            },
         ],
     },
 };
