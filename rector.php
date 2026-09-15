@@ -55,6 +55,8 @@ return RectorConfig::configure()
         Rector\CodingStyle\Rector\String_\SimplifyQuoteEscapeRector::class,
         // from set "codeQuality"
         Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
+        // keeps real paths (no `..`) and matches the Symfony recipes
+        Rector\CodeQuality\Rector\Concat\DirnameDirConcatStringToDirectStringPathRector::class,
         // from set "typeDeclarations"
         // prefer a null check: a type check silently flips to false on another valid type
         Rector\TypeDeclaration\Rector\BooleanAnd\BinaryOpNullableToInstanceofRector::class,
