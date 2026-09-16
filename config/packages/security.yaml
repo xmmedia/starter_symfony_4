@@ -41,6 +41,12 @@ security:
                 login_path:      app_login
                 success_handler: App\Security\LoginSuccessHandler
             user_checker: App\Security\UserChecker
+            # https://symfony.com/doc/current/security.html#limiting-login-attempts
+            # failed attempts per email+IP, with 5x that per IP across all emails
+            # the client IP depends on framework.trusted_proxies
+            login_throttling:
+                max_attempts: 10
+                interval:     '15 minutes'
             logout:
                 path: '/logout'
                 # the available options are 'cache', 'cookies', 'storage', 'executionContexts'
