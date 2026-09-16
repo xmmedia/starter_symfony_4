@@ -455,6 +455,18 @@ expire; the bundle reads the cookie names from the firewall config.
 - GraphQL requests rejected because the user's signed out are held by `sessionLink`
   (`common/session.js`) & re-sent once they sign back in, instead of the component showing an error
 
+### Login throttling
+
+Symfony's `login_throttling` on the `main` firewall (`security.yaml`, needs `symfony/rate-limiter`):
+10 failed attempts per email + IP per 15 minutes, & 50 per IP across all emails. It applies to every
+authenticator on the firewall (password & login link). A successful login resets the email + IP limit only.
+
+- The limiter state is in `cache.rate_limiter` (on `cache.app`, the filesystem)
+- It's keyed on the client IP, so it depends on `framework.trusted_proxies` — without it every
+  request behind the proxy shares one IP
+- The error ("Too many failed login attempts, please try again in X minutes.") reaches the login
+  page through `AuthLast`, like any other auth error
+
 ### User Model
 
 **User States:**
