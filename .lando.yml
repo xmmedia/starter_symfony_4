@@ -14,6 +14,10 @@ config:
   config:
     database: lando_mysql.cnf
 services:
+  database:
+    run_as_root:
+      # load named time zones
+      - mysql_tzinfo_to_sql /usr/share/zoneinfo 2>/dev/null | mysql -uroot mysql
   appserver:
     build_as_root:
       # LC_ALL: build steps inherit the host's locale vars, which the image doesn't have
