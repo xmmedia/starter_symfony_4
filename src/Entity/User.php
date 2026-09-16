@@ -77,7 +77,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
      * @var Collection<int, AuthLog>&Selectable<int, AuthLog>
      */
     #[ORM\OneToMany(targetEntity: AuthLog::class, mappedBy: 'user')]
-    #[ORM\OrderBy(['occurredAt' => 'DESC'])]
+    #[ORM\OrderBy(['occurredAt' => \SortDirection::Descending])]
     private Collection&Selectable $authLogs;
 
     public function __construct()

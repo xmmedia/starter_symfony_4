@@ -34,7 +34,7 @@ class AuthLogFinder extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->where('IDENTITY(a.user) = :user OR IDENTITY(a.impersonatedUser) = :user')
             ->setParameter('user', $user)
-            ->orderBy('a.occurredAt', 'DESC')
+            ->orderBy('a.occurredAt', \SortDirection::Descending)
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->getQuery()
