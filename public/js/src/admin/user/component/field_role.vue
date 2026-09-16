@@ -18,7 +18,7 @@ import { useRootStore } from '@/admin/stores/root';
 
 const rootStore = useRootStore();
 
-const role = defineModel({ type: String });
+const role = defineModel({ type: String, default: null });
 
 defineProps({
     v: {

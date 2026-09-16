@@ -49,7 +49,7 @@ import { computed, defineAsyncComponent, ref, watch } from 'vue';
 import { passwordMinLength } from './validation/user';
 const PasswordScore = defineAsyncComponent(() => import('./password_score.vue'));
 
-const password = defineModel({ type: String });
+const password = defineModel({ type: String, default: null });
 
 const props = defineProps({
     name: {

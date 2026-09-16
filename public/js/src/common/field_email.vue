@@ -44,7 +44,7 @@ import { ref } from 'vue';
 import { createId } from '@paralleldrive/cuid2';
 import emailSpellChecker from '@zootools/email-spell-checker';
 
-const email = defineModel({ type: String });
+const email = defineModel({ type: String, default: null });
 
 const props = defineProps({
     autofocus: {

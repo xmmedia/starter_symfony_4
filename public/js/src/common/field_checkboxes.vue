@@ -26,7 +26,7 @@
 import { createId } from '@paralleldrive/cuid2';
 import { computed } from 'vue';
 
-const checked = defineModel({ type: Array });
+const checked = defineModel({ type: Array, default: null });
 
 const props = defineProps({
     /**

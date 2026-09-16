@@ -19,7 +19,7 @@
 <script setup>
 import { computed, useTemplateRef } from 'vue';
 
-const value = defineModel({ type: [ String, Number ] });
+const value = defineModel({ type: [ String, Number ], default: null });
 defineExpose({
     field: useTemplateRef('select'),
 });

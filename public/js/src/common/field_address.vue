@@ -95,7 +95,7 @@ import { logError } from '@/common/lib';
 import { useVuelidate } from '@vuelidate/core';
 import addressValidation from '@/common/validation/address';
 
-const address = defineModel({ type: Object });
+const address = defineModel({ type: Object, default: null });
 
 const props = defineProps({
     showCountry: {

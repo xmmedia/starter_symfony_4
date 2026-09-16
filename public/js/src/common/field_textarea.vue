@@ -27,7 +27,7 @@
 import { createId } from '@paralleldrive/cuid2';
 import has from 'lodash/has';
 
-const textArea = defineModel({ type: String });
+const textArea = defineModel({ type: String, default: null });
 
 const props = defineProps({
     placeholder: {
