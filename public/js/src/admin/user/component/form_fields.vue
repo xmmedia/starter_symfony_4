@@ -39,7 +39,7 @@ import FieldRole from './field_role.vue';
 import debounce from 'lodash/debounce';
 import { computed } from 'vue';
 
-const user = defineModel({ type: Object });
+const user = defineModel({ type: Object, default: null });
 
 defineProps({
     editing: {

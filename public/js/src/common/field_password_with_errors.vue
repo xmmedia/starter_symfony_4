@@ -47,7 +47,7 @@ import FieldPassword from './field_password.vue';
 import { computed } from 'vue';
 import { hasVuelidateProp, vuelidateValue } from '@/common/lib';
 
-const passwordWithErrors = defineModel({ type: String });
+const passwordWithErrors = defineModel({ type: String, default: null });
 
 const props = defineProps({
     autocomplete: {

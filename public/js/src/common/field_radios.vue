@@ -30,7 +30,7 @@
 import { createId } from '@paralleldrive/cuid2';
 import { computed } from 'vue';
 
-const checked = defineModel({ type: [ String, Boolean ] });
+const checked = defineModel({ type: [ String, Boolean ], default: null });
 
 const props = defineProps({
     /**

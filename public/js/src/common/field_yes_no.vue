@@ -11,7 +11,7 @@
 <script setup>
 import FieldRadios from '@/common/field_radios.vue';
 
-const radioValue = defineModel({ type: String });
+const radioValue = defineModel({ type: String, default: null });
 
 defineProps({
     darkPills: {

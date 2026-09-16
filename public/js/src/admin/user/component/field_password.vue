@@ -22,7 +22,7 @@ import { createId } from '@paralleldrive/cuid2';
 import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldPassword from '@/common/field_password_with_errors.vue';
 
-const password = defineModel({ type: String });
+const password = defineModel({ type: String, default: null });
 const setPassword = defineModel('setPassword', { type: Boolean });
 
 defineProps({

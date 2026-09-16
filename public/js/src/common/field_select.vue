@@ -46,7 +46,7 @@ import { useTemplateRef } from 'vue';
 import { createId } from '@paralleldrive/cuid2';
 import FieldSelectElement from './field_select_element.vue';
 
-const value = defineModel({ type: [ String, Number ] });
+const value = defineModel({ type: [ String, Number ], default: null });
 defineExpose({
     field: useTemplateRef('select'),
 });

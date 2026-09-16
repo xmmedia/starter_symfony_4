@@ -51,7 +51,7 @@ import { useTemplateRef } from 'vue';
 
 defineEmits([ 'focus', 'blur' ]);
 
-const inputValue = defineModel({ type: [ String, Number ] });
+const inputValue = defineModel({ type: [ String, Number ], default: null });
 
 const input = useTemplateRef('input');
 defineExpose({ input });
