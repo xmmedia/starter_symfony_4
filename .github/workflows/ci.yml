@@ -62,6 +62,9 @@ jobs:
       - name: Validate composer.json is normalized
         run: composer normalize --dry-run
 
+      - name: Check autoload PSR-4 mapping
+        run: composer dump-autoload --optimize --strict-psr --strict-ambiguous --dry-run
+
       - name: Install Node.js dependencies
         run: yarn install --immutable
 
