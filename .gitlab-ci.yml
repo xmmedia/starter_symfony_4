@@ -148,6 +148,8 @@ static:
     - *security-checks
     # make sure composer.lock is up to date
     - php composer.phar normalize --dry-run
+    # PSR-4 mapping & duplicate class check (deploys use --classmap-authoritative)
+    - php composer.phar dump-autoload --optimize --strict-psr --strict-ambiguous --dry-run
     # cache warmup for phpstan
     - php bin/console cache:warmup --env=test
     - php bin/phpstan analyse --no-progress --memory-limit 1G src
@@ -176,7 +178,7 @@ deploy to staging:
   script:
     - *deploy-setup-script
     # install PHP dependencies (not php dev dependencies)
-    - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
+    - php composer.phar install --no-dev --optimize-autoloader --classmap-authoritative --strict-psr-autoloader --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
     - yarn install --immutable
     # composer & yarn require packages to be installed before running security checks
@@ -198,7 +200,7 @@ deploy to prod:
   script:
     - *deploy-setup-script
     # install PHP dependencies (not php dev dependencies)
-    - php composer.phar install --no-dev --classmap-authoritative --no-interaction --no-progress --ignore-platform-reqs
+    - php composer.phar install --no-dev --optimize-autoloader --classmap-authoritative --strict-psr-autoloader --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
     - yarn install --immutable
     # composer & yarn require packages to be installed before running security checks
