@@ -25,5 +25,7 @@ step "PHPUnit tests" lando composer test
 step "Symfony security check" symfony security:check
 step "Composer audit" lando composer audit --abandoned=report
 step "Yarn audit (high)" lando yarn audit:high
+# informational only: moderate issues are shown but don't fail the check
+step "Yarn audit (moderate)" lando yarn audit:moderate || report_warning
 
 report_success "All checks passed"
