@@ -6,9 +6,10 @@ if [ -t 1 ]; then
     C_STEP=$'\033[1;36m'
     C_OK=$'\033[1;32m'
     C_FAIL=$'\033[1;31m'
+    C_WARN=$'\033[1;33m'
     C_OFF=$'\033[0m'
 else
-    C_STEP='' C_OK='' C_FAIL='' C_OFF=''
+    C_STEP='' C_OK='' C_FAIL='' C_WARN='' C_OFF=''
 fi
 
 CURRENT_STEP=''
@@ -23,6 +24,11 @@ step() {
 # shellcheck disable=SC2317
 report_failure() {
     printf '\n%s✖ %s failed%s\n' "$C_FAIL" "${CURRENT_STEP:-command}" "$C_OFF"
+}
+
+# for steps that shouldn't fail the check: step "Label" cmd... || report_warning
+report_warning() {
+    printf '\n%s⚠ %s reported issues (not failing the check)%s\n' "$C_WARN" "${CURRENT_STEP:-command}" "$C_OFF"
 }
 
 report_success() {
