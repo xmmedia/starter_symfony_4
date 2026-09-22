@@ -114,7 +114,7 @@ const adminMenuItems = ref({
     'Messenger Queue':    'admin-messenger-queue',
 });
 
-const ready = computed(() => rootStore.ready);
+const ready = computed(() => rootStore.isReady);
 const loggedIn = computed(() => rootStore.loggedIn);
 const hasRole = computed(() => rootStore.hasRole);
 
