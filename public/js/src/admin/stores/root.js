@@ -3,7 +3,7 @@ import { formatPhone } from '@/common/lib';
 
 export const useRootStore = defineStore('rootStore', {
     state: () => ({
-        ready: false,
+        isReady: false,
         user: null,
         availableRoles: {
             ROLE_USER: 'User',
@@ -17,7 +17,7 @@ export const useRootStore = defineStore('rootStore', {
 
     getters: {
         loggedIn: (state) => {
-            if (!state.ready) {
+            if (!state.isReady) {
                 return false;
             }
 
@@ -46,7 +46,7 @@ export const useRootStore = defineStore('rootStore', {
 
     actions: {
         ready () {
-            this.ready = true;
+            this.isReady = true;
         },
         updateUser (user) {
             if (user.phoneNumber) {
