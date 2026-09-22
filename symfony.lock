@@ -402,9 +402,6 @@
     "rector/rector": {
         "version": "0.12.15"
     },
-    "roave/security-advisories": {
-        "version": "dev-master"
-    },
     "scienta/doctrine-json-functions": {
         "version": "4.3.0"
     },
