@@ -30,7 +30,6 @@
         "prooph/pdo-event-store": "^1.15.0",
         "ramsey/uuid": "^4.0",
         "ramsey/uuid-doctrine": "^2.0",
-        "roave/security-advisories": "dev-master",
         "scienta/doctrine-json-functions": "^6.0",
         "sentry/sentry-symfony": "^5.0",
         "symfony/asset": "*",
