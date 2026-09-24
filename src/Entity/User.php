@@ -11,7 +11,6 @@ use App\Model\User\UserId;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -49,7 +48,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     #[ORM\Column]
     private bool $active = false;
 
-    #[ORM\Column(type: Types::JSON)]
+    #[ORM\Column]
     private array $roles = [];
 
     #[ORM\Column(nullable: true)]
@@ -64,7 +63,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $lastName = null;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?array $userData = null;
 
     /**
