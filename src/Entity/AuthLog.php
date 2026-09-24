@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Model\AuthLog\AuthLogId;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: \App\Projection\AuthLog\AuthLogFinder::class, readOnly: true)]
@@ -41,7 +40,7 @@ class AuthLog
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $errorMessage = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column]
     private \DateTimeImmutable $occurredAt;
 
     public function authLogId(): AuthLogId
