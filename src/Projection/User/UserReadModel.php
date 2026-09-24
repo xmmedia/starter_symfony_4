@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace App\Projection\User;
 
 use App\Projection\Table;
+use Doctrine\DBAL\Types\Types;
 use Xm\SymfonyBundle\EventStore\Projection\AbstractReadModel;
 
 final class UserReadModel extends AbstractReadModel
 {
     protected const string TABLE = Table::USER;
     private const array TYPES = [
-        'verified'  => 'boolean',
-        'active'    => 'boolean',
-        'roles'     => 'json',
-        'user_data' => 'json',
+        'verified'  => Types::BOOLEAN,
+        'active'    => Types::BOOLEAN,
+        'roles'     => Types::JSON,
+        'user_data' => Types::JSON,
     ];
     #[\Override]
     protected ?array $tables = [

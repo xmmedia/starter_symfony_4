@@ -10,6 +10,7 @@ use App\Tests\BaseTestCase;
 use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
+use Doctrine\DBAL\Types\Types;
 
 class AuthLogReadModelTest extends BaseTestCase
 {
@@ -58,7 +59,7 @@ class AuthLogReadModelTest extends BaseTestCase
         $connection = \Mockery::mock(Connection::class);
         $connection->shouldReceive('insert')
             ->once()
-            ->with(Table::AUTH_LOG, $data, ['occurred_at' => 'datetime_immutable']);
+            ->with(Table::AUTH_LOG, $data, ['occurred_at' => Types::DATETIME_IMMUTABLE]);
 
         $readModel = new AuthLogReadModel($connection);
 
