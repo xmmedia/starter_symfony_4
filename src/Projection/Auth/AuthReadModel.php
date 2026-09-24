@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Projection\Auth;
 
 use App\Projection\Table;
+use Doctrine\DBAL\Types\Types;
 use Xm\SymfonyBundle\EventStore\Projection\AbstractReadModel;
 
 final class AuthReadModel extends AbstractReadModel
@@ -23,7 +24,7 @@ UPDATE `{$tableName}` SET login_count = login_count + 1, last_login = :last_logi
 Query;
         $statement = $this->connection->prepare($sql);
 
-        $statement->bindValue(':last_login', $lastLogin, 'datetime_immutable');
+        $statement->bindValue(':last_login', $lastLogin, Types::DATETIME_IMMUTABLE);
         $statement->bindValue(':user_id', $userId);
 
         $statement->executeQuery();

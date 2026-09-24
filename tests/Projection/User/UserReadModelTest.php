@@ -7,14 +7,15 @@ namespace App\Tests\Projection\User;
 use App\Projection\User\UserReadModel;
 use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 
 class UserReadModelTest extends BaseTestCase
 {
     private const array TYPES = [
-        'verified'  => 'boolean',
-        'active'    => 'boolean',
-        'roles'     => 'json',
-        'user_data' => 'json',
+        'verified'  => Types::BOOLEAN,
+        'active'    => Types::BOOLEAN,
+        'roles'     => Types::JSON,
+        'user_data' => Types::JSON,
     ];
 
     public function testInit(): void

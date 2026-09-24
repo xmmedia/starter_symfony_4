@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Projection\AuthLog;
 
 use App\Projection\Table;
+use Doctrine\DBAL\Types\Types;
 use Xm\SymfonyBundle\EventStore\Projection\AbstractReadModel;
 
 final class AuthLogReadModel extends AbstractReadModel
 {
     protected const string TABLE = Table::AUTH_LOG;
-    private const array TYPES = ['occurred_at' => 'datetime_immutable'];
+    private const array TYPES = ['occurred_at' => Types::DATETIME_IMMUTABLE];
 
     public function init(): void
     {
