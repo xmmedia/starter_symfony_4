@@ -415,7 +415,8 @@ Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 - **Test coverage required** - especially for aggregates and handlers
 - **Use type hints** - strict types are declared in all PHP files
 - **Memory**: Some operations (tests, projections) may need `php -d memory_limit=-1`
-- **MySQL**: Add indexes within the create statement. Name them with the column name.
+- **MySQL**: Add indexes within the create statement. Name them with the column name (or the columns, for a
+  composite index, e.g. `user_date`).
 
 ### Password storage
 
@@ -525,7 +526,8 @@ Core workflow:
 - Vite preview port in `vite.config.mjs` & `.lando.yml` (currently: 9508)
 - `lando rebuild` (not `lando start`) is needed after changes under `config:` or a service's
   `ports:`; it recreates the appserver too, so run `lando start` after or the app 404s
-- Database collation should be `utf8mb4_bin`
+- Database collation should be `utf8mb4_bin`, but `utf8mb4_unicode_520_ci` for text people read or sort (names,
+  emails)
 
 ### Environments
 
