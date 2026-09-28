@@ -6257,6 +6257,7 @@ __metadata:
     dotenv: "npm:^17.0.0"
     eslint: "npm:^10.0.0"
     eslint-plugin-vue: "npm:^10.0.0"
+    flatpickr: "npm:^4.6.13"
     globals: "npm:^17.0.0"
     graphql: "npm:^16.0.0"
     graphql-tag: "npm:^2.10.0"

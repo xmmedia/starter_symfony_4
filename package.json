@@ -41,6 +41,7 @@
     "@zxcvbn-ts/language-en": "^4.1.1",
     "apollo-upload-client": "^18.0.1",
     "date-fns": "^4.0.0",
+    "flatpickr": "^4.6.13",
     "graphql": "^16.0.0",
     "graphql-tag": "^2.10.0",
     "hibp": "^15.0.0",
