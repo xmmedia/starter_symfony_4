@@ -48,7 +48,6 @@
         "symfony/process": "*",
         "symfony/property-access": "*",
         "symfony/property-info": "*",
-        "symfony/proxy-manager-bridge": "*",
         "symfony/rate-limiter": "*",
         "symfony/runtime": "*",
         "symfony/security-bundle": "*",

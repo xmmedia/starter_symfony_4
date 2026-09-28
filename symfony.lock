@@ -114,9 +114,6 @@
             ".php-cs-fixer.dist.php"
         ]
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.3"
-    },
     "giggsey/libphonenumber-for-php": {
         "version": "8.9.16"
     },
@@ -143,9 +140,6 @@
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v6.10.0"
-    },
-    "laminas/laminas-code": {
-        "version": "4.0.0"
     },
     "marc-mabe/php-enum": {
         "version": "v3.0.2"
@@ -708,9 +702,6 @@
         "files": [
             "config/packages/property_info.yaml"
         ]
-    },
-    "symfony/proxy-manager-bridge": {
-        "version": "v5.2.1"
     },
     "symfony/routing": {
         "version": "7.4",
