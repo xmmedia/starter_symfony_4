@@ -88,5 +88,5 @@
     "vitest": "^4.0.7",
     "vue-eslint-parser": "^10.0.0"
   },
-  "packageManager": "yarn@4.18.0"
+  "packageManager": "yarn@4.18.1"
 }
