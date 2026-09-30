@@ -33,6 +33,17 @@
 
         <Modal v-else-if="showWarning" @closed="warningDismissed = null !== expiresAt">
             <div class="max-w-md text-center">
+                <!-- positioned against .modal-content, so it sits along the top edge -->
+                <div class="absolute inset-x-0 top-0 h-1.5 overflow-hidden rounded-t-lg bg-gray-700"
+                     role="progressbar"
+                     aria-label="Time left before you're signed out"
+                     aria-valuemin="0"
+                     :aria-valuemax="WARNING_SECONDS"
+                     :aria-valuenow="secondsLeft"
+                     :aria-valuetext="countdown">
+                    <div class="h-full bg-blue-500 transition-[width] duration-1000 ease-linear"
+                         :style="{ width: progress + '%' }" />
+                </div>
                 <div class="text-lg font-semibold">Your session is about to expire</div>
                 <p class="my-4">You'll be signed out in {{ countdown }}</p>
                 <div class="mt-8">
@@ -94,6 +105,7 @@ const secondsLeft = computed(() => Math.max(0, Math.ceil((expiresAt.value - now.
 const countdown = computed(() => {
     return Math.floor(secondsLeft.value / 60) + ':' + String(secondsLeft.value % 60).padStart(2, '0');
 });
+const progress = computed(() => Math.min(100, (secondsLeft.value / WARNING_SECONDS) * 100));
 const showWarning = computed(() => null !== expiresAt.value && !warningDismissed.value);
 
 let lastChecked = 0;
