@@ -34,7 +34,7 @@
         <Modal v-else-if="showWarning" @closed="warningDismissed = null !== expiresAt">
             <div class="max-w-md text-center">
                 <div class="text-lg font-semibold">Your session is about to expire</div>
-                <p class="my-4">You'll be signed out in {{ countdown }}.</p>
+                <p class="my-4">You'll be signed out in {{ countdown }}</p>
                 <div class="mt-8">
                     <button type="button" class="button" @click="keepSignedIn">Keep me signed in</button>
                     <a href="/logout" class="form-action button-link">Sign out now</a>
@@ -46,6 +46,7 @@
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { logError } from '@/common/lib';
 import Modal from '@/common/modal.vue';
 import { MaintenanceError, maintenance } from '@/common/maintenance';
@@ -69,16 +70,20 @@ const RETRY_INTERVAL = 60;
 const RETURN_CHECK_INTERVAL = 5 * 60;
 
 const rootStore = useSessionStore();
+const route = useRoute();
 
 const stillSignedOut = ref(false);
 // the sign in page skips to the password step when it's given the email.
 // Not when impersonating: they need to sign in as themselves.
+// The sign in tab goes to the page they're on, so they can carry on in either.
 const loginUrl = computed(() => {
-    if (!rootStore.loggedIn || rootStore.user.isImpersonating) {
-        return '/login';
+    const params = new URLSearchParams({ _target_path: route.fullPath });
+
+    if (rootStore.loggedIn && !rootStore.user.isImpersonating) {
+        params.set('email', rootStore.user.email);
     }
 
-    return '/login?' + new URLSearchParams({ email: rootStore.user.email });
+    return '/login?' + params;
 });
 
 // set while warning them, in ms
