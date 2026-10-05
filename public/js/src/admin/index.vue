@@ -82,7 +82,7 @@
         <SessionExpired />
     </div>
 
-    <LoadingSpinner v-else class="mt-8" />
+    <LoadingSpinner v-else class="mt-8">Loading…</LoadingSpinner>
 
     <!-- outside the ready check: maintenance can start before the app's loaded -->
     <Maintenance />
