@@ -334,14 +334,14 @@
                     </div>
                 </div>
 
-                <FieldRadios :values="radiosPillsValues" :row="false">
+                <FieldRadios :values="radiosPillsValues" :row="false" :pills="true">
                     Radio pills component
                     <template #help>Some help…</template>
                 </FieldRadios>
                 <fieldset class="field-wrap-radios mb-5">
                     <legend>Radio pills</legend>
                     <div class="flex gap-2 flex-wrap">
-                        <span class="radio-pill radio-pill-bad">
+                        <span class="radio-pill radio-pill-green">
                             <input id="radio-pill-1"
                                    name="radio-pill"
                                    value="yes"
@@ -349,16 +349,19 @@
                             <label for="radio-pill-1">Yes</label>
                         </span>
 
-                        <span class="radio-pill radio-pill-good">
+                        <span class="radio-pill radio-pill-red">
                             <input id="radio-pill-2"
                                    name="radio-pill"
                                    value="no"
-                                   type="radio"
-                                   class="radio-pill-red">
+                                   type="radio">
                             <label for="radio-pill-2">No</label>
                         </span>
                     </div>
                 </fieldset>
+
+                <FieldCheckbox v-model="checkboxPillValue" :pill="true">
+                    Checkbox pill component
+                </FieldCheckbox>
 
                 <fieldset class="mt-6 mb-4 p-4 border border-gray-300">
                     <legend>Fieldset with border</legend>
@@ -834,6 +837,7 @@ const textValue = ref();
 const emailValue = ref();
 const textareaValue = ref();
 const checkboxValue = ref(false);
+const checkboxPillValue = ref(false);
 
 const checkboxesValue = ref([ 2 ]);
 const checkboxesValues = [{ value: 1, label: 'Item 1'}, { value: 2, label: 'Item 2'}, { value: 3, label: 'Item 3'}];

@@ -9,7 +9,7 @@
     }
 
     label {
-        @apply block py-1 px-5 text-blue-800 rounded-full border-2 border-transparent cursor-pointer text-sm;
+        @apply block mb-0 py-1 px-5 text-blue-800 rounded-full border-2 border-transparent cursor-pointer text-sm;
         &::after {
             @apply absolute inset-0 border-2 border-gray-400 rounded-full cursor-pointer content-[''];
             transition:
