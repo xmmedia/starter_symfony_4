@@ -16,19 +16,19 @@ class Money implements ValueObject, \Stringable
 
     protected \Money\Money $money;
 
-    public static function fromInt(int $cents): self
+    public static function fromInt(int $cents): static
     {
         // @phpstan-ignore-next-line
         return new static((string) $cents);
     }
 
-    public static function fromString(string $cents): self
+    public static function fromString(string $cents): static
     {
         // @phpstan-ignore-next-line
         return new static($cents);
     }
 
-    public static function fromMoney(\Money\Money $money): self
+    public static function fromMoney(\Money\Money $money): static
     {
         // @phpstan-ignore-next-line
         return new static($money->getAmount());
