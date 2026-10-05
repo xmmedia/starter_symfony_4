@@ -4,7 +4,7 @@
             <template #required><slot name="required"></slot></template>
         </FieldError>
 
-        <div class="field-wrap-checkbox">
+        <div :class="{ 'field-wrap-checkbox' : !pill, 'radio-pill' : pill }">
             <input :id="id" v-model="checked" type="checkbox" :value="true" :disabled="disabled">
             <label :for="id" :class="labelClasses"><slot></slot></label>
         </div>
@@ -20,6 +20,10 @@ const checked = defineModel({ type: Boolean });
 
 defineProps({
     disabled: {
+        type: Boolean,
+        default: false,
+    },
+    pill: {
         type: Boolean,
         default: false,
     },
