@@ -25,7 +25,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Run `lando vite` (dev) or `lando yarn build` (production) to compile JS & CSS files.
 1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
 1. Run/Start Lando site: `lando start` 
-1. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
+1. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create.sql`. 
     - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`
 1. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
 1. Run all projections once: `bin/console app:projection:run user -o && bin/console app:projection:run auth -o && bin/console app:projection:run auth_log -o` (or if using lando: `lando console app:projection:run user -o && lando console app:projection:run auth -o && lando console app:projection:run auth_log -o`).
@@ -50,7 +50,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Run `lando yarn install`.
 1. Run `lando vite` (dev) or `lando yarn build` (production) to compile JS & CSS files.
 1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
-1. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create_sql`. 
+1. Create database with event streams & projections tables from `db_create.sql` using `lando db-import db_create.sql`. 
     - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;` This can be done through PhpMyAdmin (link provided by `lando start` command above or `lando info`)
 1. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using Lando: `lando console event-store:event-stream:create user && lando console event-store:event-stream:create auth`).
 1. Run all projections once: `bin/console app:projection:run user -o && bin/console app:projection:run auth -o && bin/console app:projection:run auth_log -o` (or if using lando: `lando console app:projection:run user -o && lando console app:projection:run auth -o && lando console app:projection:run auth_log -o`).
@@ -123,7 +123,7 @@ but the Node version is then up to you.
     - Don't use this to verify a change — it rewrites `public/build`, clobbering the manifest a running `lando vite` relies on
   - Preview a production build: `lando yarn preview`
     - Serves `public/build` at `https://localhost:9508/build/`, mirroring the production paths
-  - JS Tests ([Jest](https://jestjs.io/)): `lando yarn test:unit`
+  - JS Tests ([Vitest](https://vitest.dev/)): `lando yarn test:unit`
   - Linting:
     - JS ([ESLint](https://eslint.org/)): `lando yarn lint:js` or `lando yarn lint:js:fix`
     - CSS: `lando yarn lint:css` or `lando yarn lint:css:fix`
@@ -134,7 +134,7 @@ but the Node version is then up to you.
     - no memory limit `php -d memory_limit=-1 bin/phpunit`
     - with coverage (HTML) `composer test:coverage`
     - show deprecations `composer test:deprecations`
-  - [PHP CS](https://cs.sensiolabs.org/): (must be installed first)
+  - [PHP CS](https://cs.sensiolabs.org/):
     - Dry run: `lando composer cs` or `composer cs`
     - Fix: `lando composer cs:fix` or `composer cs:fix`
   - PHP Static Analysis ([PHPStan](https://github.com/phpstan/phpstan)): `lando composer static` or `composer static`
@@ -167,12 +167,8 @@ but the Node version is then up to you.
     - [Vitest](https://vitest.dev/) – to manage & run the frontend testing
     - [GraphQL](https://graphql.org/) – the communication (query) language for the API
       - [Apollo Client](https://www.apollographql.com/docs/react/) through [Vue Apollo](https://vue-apollo.netlify.com) – frontend GraphQL 
-    - [SASS](https://sass-lang.com/) – CSS preprocessor (uses [node-sass](https://www.npmjs.com/package/node-sass))
-    - [PostCSS](https://github.com/postcss/postcss) – transforms CSS
-    - [Autoprefixer](ub.com/postcss/autoprefixer) – for adding browser prefixes
     - [SVGO](https://github.com/svg/svgo) – optimizes SVG files
     - [Tailwind](https://tailwindcss.com/docs/what-is-tailwind/) – utility first styling framework
-    - [Jest](https://jestjs.io/) – JS unit testing
     - [Lodash](https://lodash.com/) – helper functions for JS
     - [date-fns](https://date-fns.org/) – helper functions for Dates in JS
     - [Faker.js](https://github.com/marak/Faker.js/) – for generating fake data in tests
@@ -205,7 +201,7 @@ but the Node version is then up to you.
 
 ## Updating PHP version
 
-1. Change version in `composer.json` & add polyfill for new PHP version, ie, `symfony/polyfill-php84`.
+1. Change version in `composer.json` & add polyfill for new PHP version, ie, `symfony/polyfill-php85`.
 1. Update the PHP version in the following files:
    - `.lando.yml`
    - `setup_staging.sh` & `setup_prod.sh` – 4 places each
