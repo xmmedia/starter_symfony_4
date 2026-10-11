@@ -28,7 +28,12 @@ export default defineConfig(({ command, mode, isPreview }) => {
     return {
         plugins: [
             ...(inLando ? [] : [mkcert()]),
-            vuePlugin(),
+            vuePlugin({
+                // leave absolute URLs (/images/…) in templates as-is: they're served from
+                // the webroot, not resolved as imports (which fail without a publicDir;
+                // vite-plugin-symfony disables it)
+                template: { transformAssetUrls: { includeAbsolute: false } },
+            }),
             graphqlPlugin(),
             manifestSRIPlugin(),
             symfonyPlugin({
