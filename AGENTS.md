@@ -144,6 +144,13 @@ not autoloaded — see `config/packages/doctrine_migrations.yaml`).
 rename the class & file after generating. Migrations run in string order, so keep the sequence
 zero padded.
 
+**A migration that creates, alters or drops a table must override `isTransactional()` to return
+`false`.** MySQL implicitly commits on DDL, so Doctrine skips its commit & DBAL is left thinking a
+transaction is still open. Anything later in the same `migrate` run that uses a transaction (eg a
+projection run by another migration) then fails with "There is no active transaction" or
+"SAVEPOINT DOCTRINE_2 does not exist". Data-only migrations should stay transactional. Migrations
+using `ProjectionAwareMigration` are already non-transactional (the trait overrides it).
+
 Most schema is created by projections (`src/Projection/*/ReadModel.php`) or `db_create.sql`, so
 migrations are for tables that aren't projection owned (eg `user_credential`, `user_token`) &
 for one-off data changes.
