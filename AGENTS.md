@@ -196,6 +196,9 @@ It's on while `var/maintenance` exists — `var/` is shared between releases, so
 - Deploy with `MAINTENANCE=1` to turn it on from before the release switch until the migrations
   have run. It's then turned off, even if it was already on, & left on if the deploy fails. The
   up check accepts the maintenance 503
+- Deploy with `SKIP_MIGRATIONS=1` to skip the migrations (so a long one doesn't use CI time), then
+  run `doctrine:migrations:migrate` on the server. With `MAINTENANCE=1` too, maintenance mode is
+  left on until you turn it off after the migrations
 - In `test` the file is in the cache dir, so having it on locally doesn't fail the tests
 
 ### Lando Commands

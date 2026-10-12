@@ -30,6 +30,11 @@ variables:
     description: >-
       1 to turn on maintenance mode while deploying, until the migrations have run
       (then it's turned off, even if it was on before)
+  SKIP_MIGRATIONS:
+    value: "0"
+    description: >-
+      1 to skip running the migrations, so a long one doesn't run on CI time: run them on the server
+      after. With MAINTENANCE=1, maintenance mode is left on until you turn it off
 
 before_script:
   # install composer
@@ -107,11 +112,22 @@ before_script:
   - |
     console $REMOTE_BASE/current messenger:stop-workers
     console $REMOTE_BASE/current messenger:setup-transports
-  # run migrations
-  - console $REMOTE_BASE/current doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration
-  # turn off maintenance mode, if the deploy turned it on (even if it was already on)
+  # run migrations, unless the job is run with SKIP_MIGRATIONS=1 (they're then run on the server)
   - |
-    if [ "$MAINTENANCE" = "1" ]; then
+    if [ "$SKIP_MIGRATIONS" = "1" ]; then
+      echo "Skipped the migrations. Run them on the server:"
+      echo "  cd $REMOTE_BASE/current && $SERVER_PHP_PATH bin/console doctrine:migrations:migrate"
+      console $REMOTE_BASE/current doctrine:migrations:status --no-debug
+    else
+      console $REMOTE_BASE/current doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration
+    fi
+  # turn off maintenance mode, if the deploy turned it on (even if it was already on).
+  # Left on if the migrations were skipped, as they've still to run
+  - |
+    if [ "$MAINTENANCE" = "1" ] && [ "$SKIP_MIGRATIONS" = "1" ]; then
+      echo "Maintenance mode is still on. Once the migrations have run:"
+      echo "  cd $REMOTE_BASE/current && $SERVER_PHP_PATH bin/console app:maintenance off"
+    elif [ "$MAINTENANCE" = "1" ]; then
       console $REMOTE_BASE/current app:maintenance off --no-interaction
     fi
   # remove >2 releases
