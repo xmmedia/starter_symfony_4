@@ -8,6 +8,7 @@ trap report_failure ERR
 
 # check if composer.json & lock match
 step "Composer validate" lando composer validate --no-check-all --no-check-version --check-lock
+step "Composer normalize" lando composer normalize --dry-run
 # PSR-4 mapping & duplicate class check (deploys use --classmap-authoritative)
 step "Composer autoload" lando composer dump-autoload --optimize --strict-psr --strict-ambiguous --dry-run
 
