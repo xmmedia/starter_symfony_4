@@ -300,6 +300,10 @@ Entities in `src/Entity/` are projection read models — never used for domain w
 - `SecurityController` - authentication routes (login, logout)
 - `SwitchUserRedirectController` - redirect handling for user impersonation (switch user)
 
+Set a download's `Content-Disposition` with `ContentDisposition::make()` from `xm/symfony-bundle`
+(`Xm\SymfonyBundle\Util`), not `HeaderUtils::makeDisposition()` – that throws on a filename with a
+user's name in it, eg "Zoë" (see the bundle's AGENTS.md).
+
 ### Frontend Architecture
 
 **Entry Points:**
