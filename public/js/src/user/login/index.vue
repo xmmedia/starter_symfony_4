@@ -24,6 +24,11 @@
                     :title="!emailIsValid ? 'Enter your email to continue' : null">
                 Continue
             </button>
+
+            <RouterLink :to="{ name: 'user-recover-initiate', query: email ? { email } : {} }"
+                        class="block mt-8 text-sm">
+                Forgot your password?
+            </RouterLink>
         </form>
 
         <!-- posts back the current url -->
