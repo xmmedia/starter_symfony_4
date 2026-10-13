@@ -47,7 +47,7 @@
     "hibp": "^15.0.0",
     "libphonenumber-js": "^1.7.22",
     "lodash": "^4.17.11",
-    "pinia": "^3.0.0",
+    "pinia": "^4.0.0",
     "pluralize": "^8.0.0",
     "qs": "^6.7.0",
     "slugify": "^1.4.0",

@@ -1975,36 +1975,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-api@npm:^7.7.7":
-  version: 7.7.10
-  resolution: "@vue/devtools-api@npm:7.7.10"
-  dependencies:
-    "@vue/devtools-kit": "npm:^7.7.10"
-  checksum: 10/ca55ffe1600c8c55c0304358cdb669e3f97399c8fdb3a4f0c4ff7d96c99b8a07bf42299551b1fe0c3cc6978b3668f843150ae58946f3b7076cd6e47d6d3cd6ef
-  languageName: node
-  linkType: hard
-
 "@vue/devtools-api@npm:^8.1.5":
   version: 8.2.1
   resolution: "@vue/devtools-api@npm:8.2.1"
   dependencies:
     "@vue/devtools-kit": "npm:^8.2.1"
   checksum: 10/313476c4392d63a569a48b0088feba4df7386a5a7165b08da153ec67bbd7e7509d847cfadf561c7c9c7b56cc13ad2ccf9468e9ecc30b23d56e79f4458f19ac5a
-  languageName: node
-  linkType: hard
-
-"@vue/devtools-kit@npm:^7.7.10":
-  version: 7.7.10
-  resolution: "@vue/devtools-kit@npm:7.7.10"
-  dependencies:
-    "@vue/devtools-shared": "npm:^7.7.10"
-    birpc: "npm:^2.3.0"
-    hookable: "npm:^5.5.3"
-    mitt: "npm:^3.0.1"
-    perfect-debounce: "npm:^1.0.0"
-    speakingurl: "npm:^14.0.1"
-    superjson: "npm:^2.2.2"
-  checksum: 10/ed0a518c72fad5e60642d83daad070d7fa86312fb422c52d5bd15fcfdc1e1f9ee49ac1e70998ad0f75ffb3a1ce081aec400a8ae928d7ee58e8d73eee9c634320
   languageName: node
   linkType: hard
 
@@ -2017,15 +1993,6 @@ __metadata:
     hookable: "npm:^5.5.3"
     perfect-debounce: "npm:^2.0.0"
   checksum: 10/63a105471c8cb8162d5d3bed25a1972d9e0385654ce37eb10d861b26ec595a1553ed01e256cd6ba2aaf8bd24db557b72bbc84abb8980056a2fd6ef2d2cd60943
-  languageName: node
-  linkType: hard
-
-"@vue/devtools-shared@npm:^7.7.10":
-  version: 7.7.10
-  resolution: "@vue/devtools-shared@npm:7.7.10"
-  dependencies:
-    rfdc: "npm:^1.4.1"
-  checksum: 10/d5e4c8bf90dc814d2822648df98e36da79dc553e498f5795d1b4a77bed7fc6684c293cb3f69917bfedee8db205615b26145cb44b302a223c23b82aa455f76a1d
   languageName: node
   linkType: hard
 
@@ -2515,7 +2482,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"birpc@npm:^2.3.0, birpc@npm:^2.6.1":
+"birpc@npm:^2.6.1":
   version: 2.9.0
   resolution: "birpc@npm:2.9.0"
   checksum: 10/2e620815cb01ac51257ce23d052bc03a6c42003faf0c48f2ae8beca37af44583b7865528752a9d2ce403b7a8dededfff6fef2ceb627399caf9656ab7155e12b6
@@ -2697,13 +2664,6 @@ __metadata:
   version: 2.0.0
   resolution: "convert-source-map@npm:2.0.0"
   checksum: 10/c987be3ec061348cdb3c2bfb924bec86dea1eacad10550a85ca23edb0fe3556c3a61c7399114f3331ccb3499d7fd0285ab24566e5745929412983494c3926e15
-  languageName: node
-  linkType: hard
-
-"copy-anything@npm:^4":
-  version: 4.1.5
-  resolution: "copy-anything@npm:4.1.5"
-  checksum: 10/cea600c6472cbf561762bb6adfb3ada0a56f8fe4eb30fe9f31f19b7adda153d13f0e3134a9fa73f61c4601f946069571c756d09ffde305e8990f9adbf4bc0cc6
   languageName: node
   linkType: hard
 
@@ -4425,13 +4385,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mitt@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "mitt@npm:3.0.1"
-  checksum: 10/287c70d8e73ffc25624261a4989c783768aed95ecb60900f051d180cf83e311e3e59865bfd6e9d029cdb149dc20ba2f128a805e9429c5c4ce33b1416c65bbd14
-  languageName: node
-  linkType: hard
-
 "mlly@npm:^1.7.4, mlly@npm:^1.8.2":
   version: 1.8.2
   resolution: "mlly@npm:1.8.2"
@@ -4734,13 +4687,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"perfect-debounce@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "perfect-debounce@npm:1.0.0"
-  checksum: 10/220343acf52976947958fef3599849471605316e924fe19c633ae2772576298e9d38f02cefa8db46f06607505ce7b232cbb35c9bfd477bd0329bd0a2ce37c594
-  languageName: node
-  linkType: hard
-
 "perfect-debounce@npm:^2.0.0":
   version: 2.1.0
   resolution: "perfect-debounce@npm:2.1.0"
@@ -4769,18 +4715,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pinia@npm:^3.0.0":
-  version: 3.0.4
-  resolution: "pinia@npm:3.0.4"
+"pinia@npm:^4.0.0":
+  version: 4.0.3
+  resolution: "pinia@npm:4.0.3"
   dependencies:
-    "@vue/devtools-api": "npm:^7.7.7"
+    nostics: "npm:^1.1.4"
   peerDependencies:
-    typescript: ">=4.5.0"
+    "@vue/devtools-api": ^8.1.5
+    typescript: ">=5.6.0"
     vue: ^3.5.11
   peerDependenciesMeta:
+    "@vue/devtools-api":
+      optional: false
     typescript:
       optional: true
-  checksum: 10/1f58c468729997f1bae330126e14b3f2010230bddb101fcda8d479b5a3188ce39e687240fe758fc865339fcc6de643688571558d72b3d0788a852db5b0640d94
+  checksum: 10/345ed6db415a4bbd36e1c129817bbe6b2ba207ebeff7229d376486da834b25792115d05411d5be3675f48169308dfcac5640f61929b728d8b707f65f7a56837d
   languageName: node
   linkType: hard
 
@@ -5007,13 +4956,6 @@ __metadata:
   version: 1.1.0
   resolution: "reusify@npm:1.1.0"
   checksum: 10/af47851b547e8a8dc89af144fceee17b80d5beaf5e6f57ed086432d79943434ff67ca526e92275be6f54b6189f6920a24eace75c2657eed32d02c400312b21ec
-  languageName: node
-  linkType: hard
-
-"rfdc@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "rfdc@npm:1.4.1"
-  checksum: 10/2f3d11d3d8929b4bfeefc9acb03aae90f971401de0add5ae6c5e38fec14f0405e6a4aad8fdb76344bfdd20c5193110e3750cbbd28ba86d73729d222b6cf4a729
   languageName: node
   linkType: hard
 
@@ -5253,13 +5195,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"speakingurl@npm:^14.0.1":
-  version: 14.0.1
-  resolution: "speakingurl@npm:14.0.1"
-  checksum: 10/4a49e532e495436982c9555867f0f97a7bc331b4567c8263942f9a11bd8570efe0d5d08a0f8a549c28819f10b8884e27fc5c2b04b93fd6eaa6c4494104e6c763
-  languageName: node
-  linkType: hard
-
 "stackback@npm:0.0.2":
   version: 0.0.2
   resolution: "stackback@npm:0.0.2"
@@ -5382,15 +5317,6 @@ __metadata:
   bin:
     stylelint: bin/stylelint.mjs
   checksum: 10/9776f701f486e78b0f6170fddceb5c7705b9491deed77056618b3606b298fe2d197c3d4a456349f7b96d71f6a262699d16625a7af3f5009f0d9dca7392fdd1c3
-  languageName: node
-  linkType: hard
-
-"superjson@npm:^2.2.2":
-  version: 2.2.6
-  resolution: "superjson@npm:2.2.6"
-  dependencies:
-    copy-anything: "npm:^4"
-  checksum: 10/7bb6446b70e8a37ec9aa2f2d08295ae4e7e8268b86c89d83a306b3798cd0cc60d89016c0c5fa83b558db23e8de8863c585a4cf52d18c4834c48bad7d2b6ee25b
   languageName: node
   linkType: hard
 
@@ -6299,7 +6225,7 @@ __metadata:
     jsdom: "npm:^29.0.0"
     libphonenumber-js: "npm:^1.7.22"
     lodash: "npm:^4.17.11"
-    pinia: "npm:^3.0.0"
+    pinia: "npm:^4.0.0"
     pluralize: "npm:^8.0.0"
     qs: "npm:^6.7.0"
     slugify: "npm:^1.4.0"
