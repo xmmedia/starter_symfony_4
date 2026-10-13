@@ -17,6 +17,7 @@
                   v-focus="autofocus"
                   :maxlength="maxLength"
                   :placeholder="placeholder"
+                  :rows="rows"
                   :class="inputClasses" />
 
         <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
@@ -32,6 +33,10 @@ const textArea = defineModel({ type: String, default: null });
 const props = defineProps({
     placeholder: {
         type: String,
+        default: null,
+    },
+    rows: {
+        type: Number,
         default: null,
     },
     autofocus: {
