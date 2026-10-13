@@ -60,7 +60,6 @@ apolloClient.query({ query: MeQuery })
             Sentry.init({
                 app,
                 dsn: import.meta.env.VITE_SENTRY_DSN,
-                sendDefaultPii: true,
                 integrations: [
                     Sentry.browserTracingIntegration({ router }),
                 ],
