@@ -22,12 +22,6 @@ query UserPasswordValid($password: String!) {
     }
 }
 
-query UserPasswordAllowed($newPassword: String!) {
-    UserRecoverResetPasswordStrength(newPassword: $newPassword) {
-        allowed
-    }
-}
-
 query GetDuplicateUsers($filters: UserFilterInput) {
     Users(filters: $filters) {
         userId

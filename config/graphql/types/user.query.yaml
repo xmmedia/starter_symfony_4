@@ -43,14 +43,6 @@ UserQuery:
                 args:
                     password: String!
 
-            UserRecoverResetPasswordStrength:
-                type:        UserPasswordAllowed!
-                description: 'Check if users password meets the minimum strength requirements. Token must be stored in the session. This will return true if the token is not stored in the session or has already been used.'
-                access:      '@=true'
-                resolve:     '@=query("App\\GraphQl\\Query\\User\\UserRecoverResetPasswordStrengthQuery", args["newPassword"])'
-                args:
-                    newPassword: String!
-
             EmailSuppression:
                 type:        EmailSuppression!
                 description: 'Check if an email is in Postmark suppression list.'
@@ -83,12 +75,6 @@ UserPasswordValid:
     config:
         fields:
             valid: Boolean!
-
-UserPasswordAllowed:
-    type: object
-    config:
-        fields:
-            allowed: Boolean!
 
 EmailSuppression:
     type: object

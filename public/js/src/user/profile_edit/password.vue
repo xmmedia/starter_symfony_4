@@ -72,11 +72,12 @@ import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
 import { useMutation } from '@vue/apollo-composable';
 import { sameAs } from '@vuelidate/validators';
-import { logError } from '@/common/lib';
+import { GraphQlErrorCodes, getGraphQlErrorCode, logError } from '@/common/lib';
 import ProfileTabs from './component/tabs.vue';
 import FieldPassword from '@/common/field_password_with_errors.vue';
 import { ChangePassword } from '@/user/queries/user.mutation.graphql';
 import userValidation from './user.validation';
+import { useRejectedPasswords } from '@/common/validation/user';
 
 const rootStore = useRootStore();
 
@@ -109,11 +110,13 @@ const newPassword = ref(null);
 const repeatPassword = ref(null);
 
 const userValidations = userValidation();
+const { allowed, reject: rejectPassword } = useRejectedPasswords();
 const v$ = useVuelidate({
     currentPassword: userValidations.currentPassword,
     newPassword: {
         ...userValidations.newPassword,
         sameAs: sameAs(repeatPassword),
+        allowed,
     },
     repeatPassword: userValidations.repeatPassword,
 }, {
@@ -160,8 +163,12 @@ const submit = async () => {
         }, 30000);
 
     } catch (e) {
-        logError(e);
-        alert('There was a problem saving your password. Please try again later.');
+        if (GraphQlErrorCodes.PASSWORD_NOT_ALLOWED === getGraphQlErrorCode(e)) {
+            rejectPassword(newPassword.value);
+        } else {
+            logError(e);
+            alert('There was a problem saving your password. Please try again later.');
+        }
 
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);

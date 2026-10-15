@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\GraphQl\Mutation\User;
 
 use App\Entity\User;
+use App\GraphQl\Error\PasswordNotAllowedError;
 use App\GraphQl\Mutation\User\UserActivateMutation;
 use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\ActivateUser;
@@ -282,7 +283,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(PasswordNotAllowedError::class);
 
         (new UserActivateMutation(
             $commandBus,
@@ -321,7 +322,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(PasswordNotAllowedError::class);
 
         (new UserActivateMutation(
             $commandBus,
@@ -360,7 +361,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(PasswordNotAllowedError::class);
 
         (new UserActivateMutation(
             $commandBus,
@@ -403,7 +404,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(PasswordNotAllowedError::class);
 
         (new UserActivateMutation(
             $commandBus,
@@ -442,7 +443,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(PasswordNotAllowedError::class);
 
         (new UserActivateMutation(
             $commandBus,

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQl\Mutation\User;
 
+use App\GraphQl\Error\PasswordNotAllowedError;
 use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
@@ -44,15 +45,19 @@ final readonly class AdminUserUpdateMutation implements MutationInterface
         if ($args['user']['setPassword']) {
             $password = $args['user']['password'];
             // password checked here because it's encoded prior to the command
-            Assert::passwordAllowed(
-                $password,
-                $email,
-                $firstName,
-                $lastName,
-                null,
-                $this->passwordStrength,
-                $this->pwnedHttpClient,
-            );
+            try {
+                Assert::passwordAllowed(
+                    $password,
+                    $email,
+                    $firstName,
+                    $lastName,
+                    null,
+                    $this->passwordStrength,
+                    $this->pwnedHttpClient,
+                );
+            } catch (\InvalidArgumentException $e) {
+                throw new PasswordNotAllowedError($e->getMessage(), $e);
+            }
         }
 
         $this->commandBus->dispatch(

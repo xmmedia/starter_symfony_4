@@ -59,15 +59,13 @@ import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
 import { useRouter } from 'vue-router';
 import { useMutation } from '@vue/apollo-composable';
-import { helpers, required } from '@vuelidate/validators';
-import { apolloClient } from '@/common/apollo';
+import { required } from '@vuelidate/validators';
 import { GraphQlErrorCodes, getGraphQlErrorCode, logError } from '@/common/lib';
 import FieldPassword from '@/common/field_password_with_errors.vue';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
 import PublicAlert from '@/common/public_alert.vue';
-import { UserPasswordAllowed } from '@/user/queries/user.query.graphql';
 import { UserRecoverReset } from '@/user/queries/user.mutation.graphql';
-import userValidation from '@/common/validation/user';
+import userValidation, { useRejectedPasswords } from '@/common/validation/user';
 
 const router = useRouter();
 
@@ -98,32 +96,11 @@ const tokenExpired = ref(false);
 const newPassword = ref(null);
 const repeatPassword = ref(null);
 
-const userValidationGenerated = userValidation();
+const { allowed, reject: rejectPassword } = useRejectedPasswords();
 const v$ = useVuelidate({
     newPassword: {
-        ...userValidationGenerated.password,
-        strength: helpers.withAsync(async function (value) {
-            if (!userValidationGenerated.password.strength(value)) {
-                return false;
-            }
-
-            try {
-                // use apolloClient directly so we can async
-                const result = await apolloClient.query({
-                    query: UserPasswordAllowed,
-                    variables: {
-                        newPassword: value,
-                    },
-                });
-
-                return result.data.UserRecoverResetPasswordStrength.allowed;
-            } catch (e) {
-                logError(e);
-
-                // more than likely it's okay and if it isn't the mutation will fail
-                return true;
-            }
-        }),
+        ...userValidation().password,
+        allowed,
     },
     repeatPassword: {
         required,
@@ -173,6 +150,8 @@ const submit = async () => {
             invalidToken.value = true;
         } else if (GraphQlErrorCodes.LINK_EXPIRED === code) {
             tokenExpired.value = true;
+        } else if (GraphQlErrorCodes.PASSWORD_NOT_ALLOWED === code) {
+            rejectPassword(newPassword.value);
         } else {
             logError(e);
             showError();

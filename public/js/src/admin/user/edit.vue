@@ -45,7 +45,7 @@ import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { edit as stateMachineConfig } from '@/common/state_machines';
 import { useMutation, useQuery } from '@vue/apollo-composable';
-import { formatPhone, logError } from '@/common/lib';
+import { GraphQlErrorCodes, formatPhone, getGraphQlErrorCode, logError } from '@/common/lib';
 import { GetUserQuery } from '../queries/user.query.graphql';
 import { AdminUserUpdateMutation } from '../queries/user.mutation.graphql';
 import { pick } from 'lodash';
@@ -68,6 +68,7 @@ const {
     user,
     edited,
     v$,
+    rejectPassword,
 } = useForm(state, props.userId);
 
 const showForm = computed(() => state.value.matches('ready') && !state.value.done);
@@ -129,8 +130,12 @@ const submit = async () => {
         }, 500);
 
     } catch (e) {
-        logError(e);
-        alert('There was a problem saving. Please try again later.');
+        if (GraphQlErrorCodes.PASSWORD_NOT_ALLOWED === getGraphQlErrorCode(e)) {
+            rejectPassword(user.value.password);
+        } else {
+            logError(e);
+            alert('There was a problem saving. Please try again later.');
+        }
 
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);

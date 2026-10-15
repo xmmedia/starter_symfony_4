@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQl\Mutation\User;
 
+use App\GraphQl\Error\PasswordNotAllowedError;
 use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\ChangePassword;
 use App\Security\PasswordHasher;
@@ -48,15 +49,19 @@ final readonly class UserPasswordMutation implements MutationInterface
             'Current password does not match.',
         );
 
-        Assert::passwordAllowed(
-            $newPassword,
-            $user->email(),
-            $user->firstName(),
-            $user->lastName(),
-            null,
-            $this->passwordStrength,
-            $this->pwnedHttpClient,
-        );
+        try {
+            Assert::passwordAllowed(
+                $newPassword,
+                $user->email(),
+                $user->firstName(),
+                $user->lastName(),
+                null,
+                $this->passwordStrength,
+                $this->pwnedHttpClient,
+            );
+        } catch (\InvalidArgumentException $e) {
+            throw new PasswordNotAllowedError($e->getMessage(), $e);
+        }
 
         // the hash is deliberately not part of the command
         $this->passwordStore->store(

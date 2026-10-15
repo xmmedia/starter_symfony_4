@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\GraphQl\Mutation\User;
 
+use App\GraphQl\Error\PasswordNotAllowedError;
 use App\GraphQl\Mutation\User\AdminUserUpdateMutation;
 use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminChangePassword;
@@ -135,7 +136,7 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(PasswordNotAllowedError::class);
 
         (new AdminUserUpdateMutation(
             \Mockery::mock(MessageBusInterface::class),
