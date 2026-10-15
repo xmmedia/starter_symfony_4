@@ -15,9 +15,6 @@ type Query {
   "Check if the password is valid/correct for the current user."
   UserPasswordValid(password: String!): UserPasswordValid!
 
-  "Check if users password meets the minimum strength requirements. Token must be stored in the session. This will return true if the token is not stored in the session or has already been used."
-  UserRecoverResetPasswordStrength(newPassword: String!): UserPasswordAllowed!
-
   "Check if an email is in Postmark suppression list."
   EmailSuppression(email: String!): EmailSuppression!
 
@@ -134,10 +131,6 @@ type UserEmailUnique {
 
 type UserPasswordValid {
   valid: Boolean!
-}
-
-type UserPasswordAllowed {
-  allowed: Boolean!
 }
 
 type EmailSuppression {

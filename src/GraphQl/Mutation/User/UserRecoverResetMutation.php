@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQl\Mutation\User;
 
 use App\Controller\SecurityController;
+use App\GraphQl\Error\PasswordNotAllowedError;
 use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\ChangePassword;
 use App\Model\User\Command\VerifyUser;
@@ -60,15 +61,19 @@ final readonly class UserRecoverResetMutation implements MutationInterface
         }
 
         // done here because we need the user entity
-        Assert::passwordAllowed(
-            $newPassword,
-            $user->email(),
-            $user->firstName(),
-            $user->lastName(),
-            null,
-            $this->passwordStrength,
-            $this->pwnedHttpClient,
-        );
+        try {
+            Assert::passwordAllowed(
+                $newPassword,
+                $user->email(),
+                $user->firstName(),
+                $user->lastName(),
+                null,
+                $this->passwordStrength,
+                $this->pwnedHttpClient,
+            );
+        } catch (\InvalidArgumentException $e) {
+            throw new PasswordNotAllowedError($e->getMessage(), $e);
+        }
 
         if (!$user->verified()) {
             $this->commandBus->dispatch(

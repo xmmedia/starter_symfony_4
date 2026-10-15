@@ -64,7 +64,7 @@ import { useRouter } from 'vue-router';
 import { required, sameAs } from '@vuelidate/validators';
 import FieldPassword from '@/common/field_password_with_errors.vue';
 import { UserActivate } from '@/user/queries/user.mutation.graphql';
-import userValidation from '@/common/validation/user';
+import userValidation, { useRejectedPasswords } from '@/common/validation/user';
 import { GraphQlErrorCodes, getGraphQlErrorCode, logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
@@ -102,8 +102,12 @@ const repeatPassword = ref(null);
 
 const showForm = computed(() => !state.value.matches('verified'));
 
+const { allowed, reject: rejectPassword } = useRejectedPasswords();
 const v$ = useVuelidate({
-    password: userValidation().password,
+    password: {
+        ...userValidation().password,
+        allowed,
+    },
     repeatPassword: {
         required,
         sameAs: sameAs(password),
@@ -149,6 +153,8 @@ async function submit () {
             invalidToken.value = true;
         } else if (GraphQlErrorCodes.LINK_EXPIRED === code) {
             tokenExpired.value = true;
+        } else if (GraphQlErrorCodes.PASSWORD_NOT_ALLOWED === code) {
+            rejectPassword(password.value);
         } else {
             logError(e);
             showError();

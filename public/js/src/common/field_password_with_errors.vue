@@ -34,6 +34,10 @@
                     It appears that this password was part of a data breach
                     and may not be accepted. Consider using a different password.
                 </template>
+                <template v-else-if="!allowed">
+                    This password is not complex enough or was part of a data breach.
+                    Please choose a different password.
+                </template>
             </FieldError>
         </template>
         <template #help><slot name="help"></slot></template>
@@ -85,4 +89,5 @@ const sameAs = computed(() => vuelidateValue(props.v, 'sameAs'));
 const valid = computed(() => vuelidateValue(props.v, 'valid'));
 const strength = computed(() => vuelidateValue(props.v, 'strength'));
 const compromised = computed(() => vuelidateValue(props.v, 'compromised'));
+const allowed = computed(() => vuelidateValue(props.v, 'allowed'));
 </script>

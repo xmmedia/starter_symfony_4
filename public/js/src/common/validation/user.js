@@ -5,6 +5,7 @@ import {
     required,
     email,
 } from '@vuelidate/validators';
+import { ref } from 'vue';
 import { validPhone } from '@/common/validators';
 import { pwnedPassword } from 'hibp';
 import { getZxcvbn } from '@/common/zxcvbn';
@@ -12,6 +13,22 @@ import { apolloClient } from '@/common/apollo';
 import { UserEmailUnique } from '@/common/queries/user.query.graphql';
 
 export const passwordMinLength = 12;
+
+/**
+ * Passwords the server rejected with a PASSWORD_NOT_ALLOWED error. Its complexity score can differ from zxcvbn-ts's,
+ * so a password that passes here can still be rejected. Add `allowed` to the password's validations
+ * & pass the password to `reject()` when the mutation returns the error.
+ */
+export const useRejectedPasswords = () => {
+    const rejectedPasswords = ref([]);
+
+    return {
+        allowed: (value) => !rejectedPasswords.value.includes(value),
+        reject: (password) => {
+            rejectedPasswords.value.push(password);
+        },
+    };
+};
 
 export default () => {
     return {

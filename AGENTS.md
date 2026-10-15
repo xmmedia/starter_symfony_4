@@ -269,8 +269,12 @@ It's on while `var/maintenance` exists — `var/` is shared between releases, so
   AGENTS.md). Its `GraphQlErrorSubscriber` (registered in `config/packages/graphql.yaml`) sets
   `UNAUTHENTICATED`/`FORBIDDEN` when access is denied (not signed in/signed in). For the others, throw the
   matching `CodedUserError` from `Xm\SymfonyBundle\Infrastructure\GraphQl\Error`
-  (`throw new NotFoundError($message)`). The frontend checks them with `getGraphQlErrorCode(e)` &
-  `GraphQlErrorCodes` in `common/lib.js`; add new codes there too
+  (`throw new NotFoundError($message)`), or a project one from `src/GraphQl/Error/`. The frontend checks them
+  with `getGraphQlErrorCode(e)` & `GraphQlErrorCodes` in `common/lib.js`; add new codes there too
+- Passwords: mutations that set one throw `PasswordNotAllowedError` (`PASSWORD_NOT_ALLOWED`) when
+  `Assert::passwordAllowed()` rejects it. The frontend runs the same checks, but its complexity score
+  (zxcvbn-ts) can differ from the backend's (zxcvbn-php), so a password it accepts can still be rejected.
+  The forms pass it to `useRejectedPasswords()` (`common/validation/user.js`) to show the error on the field
 
 **Domain types** (`config/graphql/types/domain/`): `address.yaml`, `auth_log.yaml`, `file.yaml`, `messenger_queue_message.yaml`, `phone_number.yaml`, `upload.yaml`, `user.yaml`
 
