@@ -213,6 +213,8 @@ It's on while `var/maintenance` exists — `var/` is shared between releases, so
 - Install PHP packages: `lando composer install`
 - Run Symfony console: `lando console <command>`
 - Import database: `lando db-import <file.sql>`
+- Run the Messenger worker: `lando messenger` — sends what's routed to `async` (e.g.
+  notification emails); runs in the foreground, stop it with Ctrl-C
 - Enable Xdebug: `lando xdebug-on`
 - Disable Xdebug: `lando xdebug-off`
 
