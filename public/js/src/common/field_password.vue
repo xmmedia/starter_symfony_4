@@ -32,7 +32,7 @@
         <slot name="after"></slot>
 
         <PasswordScore v-if="showHelp && showMeter"
-                       :password="modelValue"
+                       :password="password"
                        :user-data="userData" />
 
         <div v-if="showHelp" class="field-help relative">
@@ -51,7 +51,7 @@ const PasswordScore = defineAsyncComponent(() => import('./password_score.vue'))
 
 const password = defineModel({ type: String, default: null });
 
-const props = defineProps({
+defineProps({
     name: {
         type: String,
         default: null,
@@ -102,8 +102,8 @@ const minLength = passwordMinLength;
 const fieldType = computed(() => visible.value ? 'text' : 'password');
 const icon = computed(() => visible.value ? 'visible' : 'invisible');
 
-watch(() => props.modelValue, (modelValue) => {
-    if (null === modelValue) {
+watch(password, (value) => {
+    if (null === value) {
         showMeter.value = false;
     }
 });
