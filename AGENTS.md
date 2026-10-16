@@ -596,7 +596,7 @@ moving on. Fix any type errors or missing imports immediately.
 When upgrading PHP, update version in these files:
 - `composer.json` - add polyfill for new version
 - `.lando.yml`
-- `setup_staging.sh`, `setup_prod.sh`, `.gitlab-ci.yml`, `.github/workflows/ci.yml`
+- `bin/setup_staging.sh`, `bin/setup_prod.sh`, `.gitlab-ci.yml`, `.github/workflows/ci.yml`
 - `.php-cs-fixer.dist.php`
 
 Then run: `lando rebuild && lando composer update && bin/check_full`

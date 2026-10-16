@@ -41,6 +41,10 @@ public/service-worker.js
 !/bin/check
 !/bin/check_full
 !/bin/generate_schema
+!/bin/setup_node.sh
+!/bin/setup_gitlab_ci_vars
+!/bin/setup_prod.sh
+!/bin/setup_staging.sh
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

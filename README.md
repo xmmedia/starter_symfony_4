@@ -60,12 +60,27 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 
 **Local dev site can be accessed at: https://symfonystarter.lndo.site
 
+## Setting Up a Server
+
+The scripts in `bin/` ending in `.sh` run on the server. The ones without run locally.
+
+1. Upload `bin/setup_staging.sh` (or `bin/setup_prod.sh`) to the domain dir, where the `html` dir is, and run
+   it: `bash ./setup_staging.sh`. It creates the `releases`/`shared` structure & the links
+   (`html` → `current/public`), switches PHP to the minimum version if it's older and installs oh-my-zsh (plus nvm
+   & Composer on staging).
+   - The staging script can be run more than once. The prod script stops if the `releases` dir already exists.
+1. Fill in `shared/.env.local` on the server. The script creates it empty, and each deploy copies it into the release.
+1. Locally, run `bin/setup_gitlab_ci_vars <group/project>` once per scope (staging, production) to set the GitLab
+   CI/CD variables. It needs `glab` (authenticated) & `jq`. If it generates an SSH key, add the public key it prints
+   to the server's `~/.ssh/authorized_keys`.
+1. Run the deploy job in GitLab.
+
 ## Environments
 
   - `dev` – local development, via Lando
   - `test` – automated tests
-  - `staging` – the site customers preview & test on, set up with `setup_staging.sh`
-  - `prod` – the live site, set up with `setup_prod.sh`
+  - `staging` – the site customers preview & test on, set up with `bin/setup_staging.sh`
+  - `prod` – the live site, set up with `bin/setup_prod.sh`
 
 `staging` is a customer-facing site, so it's configured to behave like `prod`, not like `dev`:
 
@@ -205,7 +220,7 @@ but the Node version is then up to you.
 1. Change version in `composer.json` & add polyfill for new PHP version, ie, `symfony/polyfill-php85`.
 1. Update the PHP version in the following files:
    - `.lando.yml`
-   - `setup_staging.sh` & `setup_prod.sh` – 4 places each
+   - `bin/setup_staging.sh` & `bin/setup_prod.sh` – 4 places each
    - `.gitlab-ci.yml` – 2 places
    - `.github/workflows/ci.yml` – 1 place
    - `.php-cs-fixer.dist.php` – update the `@PHP8#Migration` version to match the current version.

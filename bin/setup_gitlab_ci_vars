@@ -6,9 +6,9 @@
 #   - glab CLI installed and authenticated (glab auth login)
 #   - jq installed (brew install jq)
 #
-# Usage: ./setup_gitlab_ci_vars.sh <group/project>
-# Example: ./setup_gitlab_ci_vars.sh xmmedia/my-client-site
-#          ./setup_gitlab_ci_vars.sh xmmedia/company/my-client-site
+# Usage: bin/setup_gitlab_ci_vars <group/project>
+# Example: bin/setup_gitlab_ci_vars xmmedia/my-client-site
+#          bin/setup_gitlab_ci_vars xmmedia/company/my-client-site
 set -euo pipefail
 
 RED='\033[0;31m'
