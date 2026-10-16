@@ -27,6 +27,7 @@ import AdminDelete from './admin/admin_delete/index.vue';
 import LocalTime from './common/local_time.vue';
 
 import { MeQuery } from './admin/queries/user.query.graphql';
+import { reloadOnChangedBuild } from './common/router_helpers';
 
 // CSS
 import '../../css/admin.css';
@@ -34,6 +35,8 @@ import '../../css/admin.css';
 const pinia = createPinia();
 const rootStore = useRootStore(pinia);
 setSessionStore(rootStore);
+
+reloadOnChangedBuild(useRootStore, 'admin');
 
 provideApolloClient(apolloClient);
 

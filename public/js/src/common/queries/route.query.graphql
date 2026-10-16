@@ -4,3 +4,7 @@ query RouteQuery($entrypoint: String!) {
     }
     EntrypointIntegrity(entrypoint: $entrypoint)
 }
+
+query EntrypointIntegrityQuery($entrypoint: String!) {
+    EntrypointIntegrity(entrypoint: $entrypoint)
+}

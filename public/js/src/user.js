@@ -25,6 +25,7 @@ import UserModal from './common/modal.vue';
 import LocalTime from './common/local_time.vue';
 
 import { MeQuery } from './user/queries/user.query.graphql';
+import { reloadOnChangedBuild } from './common/router_helpers';
 
 // CSS
 import '../../css/user.css';
@@ -32,6 +33,8 @@ import '../../css/user.css';
 const pinia = createPinia();
 const rootStore = useRootStore(pinia);
 setSessionStore(rootStore);
+
+reloadOnChangedBuild(useRootStore, 'user');
 
 provideApolloClient(apolloClient);
 

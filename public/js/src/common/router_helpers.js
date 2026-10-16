@@ -1,6 +1,6 @@
 import qs from 'qs';
 import { apolloClient } from '@/common/apollo';
-import { RouteQuery } from '@/common/queries/route.query.graphql';
+import { RouteQuery, EntrypointIntegrityQuery } from '@/common/queries/route.query.graphql';
 
 export const scrollBehaviour = function (to, from, savedPosition) {
     if (savedPosition) {
@@ -29,6 +29,10 @@ export const logPageView = function (to) {
     }
 };
 
+const buildHasChanged = function (loadedHash, currentHash) {
+    return !!loadedHash && !!currentHash && loadedHash !== currentHash;
+};
+
 export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
     return async (to, from) => {
         // don't do any checks if we're staying on the same route
@@ -55,13 +59,13 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
                 },
             });
 
-            // JS files have changed
-            if (result.data.EntrypointIntegrity && rootStore.entrypointIntegrityHashes[integrityHashKey]) {
-                if (result.data.EntrypointIntegrity !== rootStore.entrypointIntegrityHashes[integrityHashKey]) {
-                    window.location.reload();
+            // JS files have changed, so load the target page fresh
+            // (prefixed with the origin so a path starting with // can't go to another site)
+            const loadedHash = rootStore.entrypointIntegrityHashes[integrityHashKey];
+            if (buildHasChanged(loadedHash, result.data.EntrypointIntegrity)) {
+                window.location = window.location.origin + to.fullPath;
 
-                    return false;
-                }
+                return false;
             }
 
             // find the first matched route that has a role
@@ -74,3 +78,34 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
         }
     };
 }
+
+// a dynamic import fails when a deploy has removed the chunk, so reload if the JS has changed
+// (a failed request, such as when offline, leaves the page as is)
+// several imports can fail at once (such as a chunk & its CSS), so only one check runs at a time
+export const reloadOnChangedBuild = function (useRootStore, integrityHashKey) {
+    let checking = false;
+
+    window.addEventListener('vite:preloadError', async () => {
+        if (checking) {
+            return;
+        }
+        checking = true;
+
+        try {
+            const { data } = await apolloClient.query({
+                query: EntrypointIntegrityQuery,
+                variables: {
+                    entrypoint: integrityHashKey,
+                },
+            });
+            const loadedHash = useRootStore().entrypointIntegrityHashes[integrityHashKey];
+            if (buildHasChanged(loadedHash, data.EntrypointIntegrity)) {
+                window.location.reload();
+            }
+        } catch {
+            // the import failure is already reported, so there's nothing more to do
+        } finally {
+            checking = false;
+        }
+    });
+};
