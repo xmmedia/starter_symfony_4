@@ -72,6 +72,11 @@ DirectoryIndex index.php
 #    RewriteCond %{REQUEST_FILENAME} -s
 #    RewriteRule ^files/(.*)$ $1 [QSA,L,NC]
 
+    # a missing build file is most likely a chunk removed by a deploy, so 404 instead of serving the app's HTML
+    # (in dev, the files are served from /vite-dev/, not /build/)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^build/ - [R=404,L]
+
     # If the requested filename exists, simply serve it.
     # We only want to let Apache serve files and not directories.
     # Rewrite all other queries to the front controller.
