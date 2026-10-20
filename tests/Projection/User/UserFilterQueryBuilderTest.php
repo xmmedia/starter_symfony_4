@@ -17,7 +17,7 @@ class UserFilterQueryBuilderTest extends BaseTestCase
     private array $defaultParts = [
         'join'           => '',
         'where'          => '1',
-        'order'          => 'u.email ASC, u.first_name ASC, u.last_name ASC',
+        'order'          => 'u.first_name ASC, u.last_name ASC, u.email ASC',
         'parameters'     => [],
         'parameterTypes' => [],
     ];
@@ -49,8 +49,53 @@ class UserFilterQueryBuilderTest extends BaseTestCase
         $expected['where'] = '1 AND (u.email LIKE :q0 OR u.first_name LIKE :q0 OR u.last_name LIKE :q0 OR u.email LIKE :q1 OR u.first_name LIKE :q1 OR u.last_name LIKE :q1)';
         $expected['parameters']['q0'] = '%name1%';
         $expected['parameters']['q1'] = '%name2%';
+        $expected['order'] = 'CONCAT_WS(\' \', u.first_name, u.last_name) LIKE :fullName DESC, '
+            .$this->defaultParts['order'];
+        $expected['parameters']['fullName'] = 'name1 name2%';
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testQueryFullNameExtraWhitespace(): void
+    {
+        $firstName = $this->faker()->firstName();
+        $lastName = $this->faker()->lastName();
+
+        $filters = UserFilters::fromArray([
+            UserFilters::Q => $firstName."  \t".$lastName,
+        ]);
+
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
+
+        $this->assertStringStartsWith(
+            'CONCAT_WS(\' \', u.first_name, u.last_name) LIKE :fullName DESC, ',
+            $result['order'],
+        );
+        $this->assertSame($firstName.' '.$lastName.'%', $result['parameters']['fullName']);
+    }
+
+    public function testQueryCommaSeparatedNotFullName(): void
+    {
+        $filters = UserFilters::fromArray([
+            UserFilters::Q => $this->faker()->firstName().','.$this->faker()->lastName(),
+        ]);
+
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
+
+        $this->assertSame($this->defaultParts['order'], $result['order']);
+        $this->assertArrayNotHasKey('fullName', $result['parameters']);
+    }
+
+    public function testQuerySingleWordNotFullName(): void
+    {
+        $filters = UserFilters::fromArray([
+            UserFilters::Q => $this->faker()->firstName(),
+        ]);
+
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
+
+        $this->assertSame($this->defaultParts['order'], $result['order']);
+        $this->assertArrayNotHasKey('fullName', $result['parameters']);
     }
 
     public function testQueryEmpty(): void

@@ -10,12 +10,20 @@ use Xm\SymfonyBundle\Util\FiltersInterface;
 class UserFilterQueryBuilder extends FilterQueryBuilder
 {
     #[\Override]
-    protected string $order = 'u.email ASC, u.first_name ASC, u.last_name ASC';
+    protected string $order = 'u.first_name ASC, u.last_name ASC, u.email ASC';
 
     public function queryParts(UserFilters|FiltersInterface $filters): array
     {
         if ($filters->applied(UserFilters::Q)) {
             $this->applyBasicQ($filters, UserFilters::Q, ['u.email', 'u.first_name', 'u.last_name']);
+
+            // a search of more than 1 word may be a full name ("first last"),
+            // so put the users whose full name starts with it first
+            $words = preg_split('/\s+/', $filters->get(UserFilters::Q));
+            if (\count($words) > 1) {
+                $this->order = 'CONCAT_WS(\' \', u.first_name, u.last_name) LIKE :fullName DESC, '.$this->order;
+                $this->parameters['fullName'] = implode(' ', $words).'%';
+            }
         }
 
         if ($filters->applied(UserFilters::EMAIL)) {

@@ -88,6 +88,8 @@ Query;
     public function countByFilters(UserFilters $filters): int
     {
         $queryParts = new UserFilterQueryBuilder()->queryParts($filters);
+        // only used to order the results
+        unset($queryParts['parameters']['fullName']);
 
         $sql = <<<Query
 SELECT COUNT(DISTINCT u.user_id)

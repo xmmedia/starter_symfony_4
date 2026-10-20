@@ -276,4 +276,54 @@ class UserFinderTest extends BaseTestCase
 
         $this->assertSame($count, $result);
     }
+
+    public function testCountByFiltersFullName(): void
+    {
+        $faker = $this->faker();
+
+        $count = $faker->randomNumber();
+
+        $firstName = $faker->firstName();
+        $lastName = $faker->lastName();
+        $filters = UserFilters::fromArray([
+            UserFilters::Q => $firstName.' '.$lastName,
+        ]);
+
+        $statement = \Mockery::mock(\Doctrine\DBAL\Result::class);
+        $statement->shouldReceive('fetchNumeric')
+            ->once()
+            ->andReturn([$count]);
+
+        $connection = \Mockery::mock(Connection::class);
+        $connection->shouldReceive('executeQuery')
+            ->once()
+            ->with(
+                \Mockery::on(static fn ($sql): bool => str_contains($sql, 'SELECT COUNT(DISTINCT u.user_id)')
+                    && str_contains($sql, 'FROM `user` u')
+                    && str_contains($sql, 'WHERE')),
+                // the full name is only used to order the results
+                ['q0' => '%'.$firstName.'%', 'q1' => '%'.$lastName.'%'],
+                [],
+            )
+            ->andReturn($statement);
+
+        $entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $entityManager->shouldReceive('getConnection')
+            ->once()
+            ->andReturn($connection);
+        $entityManager->shouldReceive('getClassMetadata')
+            ->with(User::class)
+            ->andReturn(\Mockery::mock(ClassMetadata::class));
+
+        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+        $finder->shouldReceive('getEntityManager')
+            ->once()
+            ->andReturn($entityManager);
+
+        $result = $finder->countByFilters($filters);
+
+        $this->assertSame($count, $result);
+    }
 }
