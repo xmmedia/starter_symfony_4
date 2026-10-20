@@ -142,7 +142,7 @@ but the Node version is then up to you.
   - Linting:
     - JS ([ESLint](https://eslint.org/)): `lando yarn lint:js` or `lando yarn lint:js:fix`
     - CSS: `lando yarn lint:css` or `lando yarn lint:css:fix`
-  - Messenger worker: `lando messenger` – processes the `async` queue (e.g. notification emails) until stopped with Ctrl-C
+  - Messenger worker: `lando messenger` – processes the `async` queue (e.g. notification emails) until stopped with Ctrl-C, restarting on code changes
   - Install PHP packages: `lando composer install` or `composer install`
   - Install JS packages: `lando yarn install` — also the fix for `Couldn't find the node_modules state file`
   - PHP Tests ([PhpUnit](https://phpunit.de/)): 

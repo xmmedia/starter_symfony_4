@@ -71,8 +71,8 @@ tooling:
     cmd: pkill -f vite || true
   messenger:
     service: appserver
-    description: Run the Messenger worker, processing the async queue (e.g. notification emails)
-    cmd: php bin/console messenger:consume async -vv
+    description: Run the Messenger worker, processing the async queue (e.g. notification emails), restarting on code changes
+    cmd: symfony run --watch=config,src,templates,vendor php bin/console messenger:consume async -vv
   xdebug-on:
     service: appserver
     description: Enable xdebug for PHP
