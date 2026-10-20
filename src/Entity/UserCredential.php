@@ -19,7 +19,7 @@ class UserCredential
 {
     #[ORM\Id]
     #[ORM\OneToOne(inversedBy: 'credential')]
-    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'user_id', nullable: false)]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'user_id')]
     private User $user;
 
     #[ORM\Column(length: 255)]
