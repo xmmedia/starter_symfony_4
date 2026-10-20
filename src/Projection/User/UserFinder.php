@@ -89,7 +89,11 @@ Query;
     {
         $queryParts = new UserFilterQueryBuilder()->queryParts($filters);
         // only used to order the results
-        unset($queryParts['parameters']['fullName']);
+        unset(
+            $queryParts['parameters']['fullName'],
+            $queryParts['parameters']['firstWord'],
+            $queryParts['parameters']['lastWord'],
+        );
 
         $sql = <<<Query
 SELECT COUNT(DISTINCT u.user_id)

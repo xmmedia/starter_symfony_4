@@ -11,6 +11,9 @@ use App\Tests\BaseTestCase;
 
 class UserFilterQueryBuilderTest extends BaseTestCase
 {
+    private const string FULL_NAME_ORDER = 'CONCAT_WS(\' \', u.first_name, u.last_name) LIKE :fullName DESC, '
+        .'(u.first_name LIKE :firstWord AND u.last_name LIKE :lastWord) DESC, ';
+
     /**
      * @var array<string|array>
      */
@@ -49,9 +52,10 @@ class UserFilterQueryBuilderTest extends BaseTestCase
         $expected['where'] = '1 AND (u.email LIKE :q0 OR u.first_name LIKE :q0 OR u.last_name LIKE :q0 OR u.email LIKE :q1 OR u.first_name LIKE :q1 OR u.last_name LIKE :q1)';
         $expected['parameters']['q0'] = '%name1%';
         $expected['parameters']['q1'] = '%name2%';
-        $expected['order'] = 'CONCAT_WS(\' \', u.first_name, u.last_name) LIKE :fullName DESC, '
-            .$this->defaultParts['order'];
+        $expected['order'] = self::FULL_NAME_ORDER.$this->defaultParts['order'];
         $expected['parameters']['fullName'] = 'name1 name2%';
+        $expected['parameters']['firstWord'] = 'name1%';
+        $expected['parameters']['lastWord'] = 'name2%';
 
         $this->assertEquals($expected, $result);
     }
@@ -67,11 +71,28 @@ class UserFilterQueryBuilderTest extends BaseTestCase
 
         $result = new UserFilterQueryBuilder()->queryParts($filters);
 
-        $this->assertStringStartsWith(
-            'CONCAT_WS(\' \', u.first_name, u.last_name) LIKE :fullName DESC, ',
-            $result['order'],
-        );
+        $this->assertStringStartsWith(self::FULL_NAME_ORDER, $result['order']);
         $this->assertSame($firstName.' '.$lastName.'%', $result['parameters']['fullName']);
+        $this->assertSame($firstName.'%', $result['parameters']['firstWord']);
+        $this->assertSame($lastName.'%', $result['parameters']['lastWord']);
+    }
+
+    public function testQueryFullNameWithMiddleName(): void
+    {
+        $firstName = $this->faker()->firstName();
+        $middleInitial = $this->faker()->randomLetter();
+        $lastName = $this->faker()->lastName();
+
+        $filters = UserFilters::fromArray([
+            UserFilters::Q => $firstName.' '.$middleInitial.' '.$lastName,
+        ]);
+
+        $result = new UserFilterQueryBuilder()->queryParts($filters);
+
+        $this->assertStringStartsWith(self::FULL_NAME_ORDER, $result['order']);
+        $this->assertSame($firstName.' '.$middleInitial.' '.$lastName.'%', $result['parameters']['fullName']);
+        $this->assertSame($firstName.'%', $result['parameters']['firstWord']);
+        $this->assertSame($lastName.'%', $result['parameters']['lastWord']);
     }
 
     public function testQueryCommaSeparatedNotFullName(): void

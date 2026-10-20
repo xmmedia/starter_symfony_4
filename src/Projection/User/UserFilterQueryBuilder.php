@@ -17,12 +17,17 @@ class UserFilterQueryBuilder extends FilterQueryBuilder
         if ($filters->applied(UserFilters::Q)) {
             $this->applyBasicQ($filters, UserFilters::Q, ['u.email', 'u.first_name', 'u.last_name']);
 
-            // a search of more than 1 word may be a full name ("first last"),
-            // so put the users whose full name starts with it first
+            // a search of more than 1 word may be a full name ("first last"), so put the users whose
+            // full name starts with it first, then those whose first & last names start with the
+            // first & last words, so a middle name or initial in either doesn't stop them matching
             $words = preg_split('/\s+/', $filters->get(UserFilters::Q));
             if (\count($words) > 1) {
-                $this->order = 'CONCAT_WS(\' \', u.first_name, u.last_name) LIKE :fullName DESC, '.$this->order;
+                $this->order = 'CONCAT_WS(\' \', u.first_name, u.last_name) LIKE :fullName DESC, '
+                    .'(u.first_name LIKE :firstWord AND u.last_name LIKE :lastWord) DESC, '
+                    .$this->order;
                 $this->parameters['fullName'] = implode(' ', $words).'%';
+                $this->parameters['firstWord'] = $words[0].'%';
+                $this->parameters['lastWord'] = end($words).'%';
             }
         }
 
