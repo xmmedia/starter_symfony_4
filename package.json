@@ -88,5 +88,9 @@
     "vitest": "^4.0.7",
     "vue-eslint-parser": "^10.0.0"
   },
+  "//resolutions": "@graphql-eslint/eslint-plugin requires @graphql-tools/utils v10, which has prototype pollution advisories (GHSA-7mx3-vvmw-hjmv, GHSA-c4qx-w738-7hr3) fixed in v12 – remove once the plugin supports v12",
+  "resolutions": {
+    "@graphql-eslint/eslint-plugin/@graphql-tools/utils": "^12.1.0"
+  },
   "packageManager": "yarn@4.18.1"
 }
