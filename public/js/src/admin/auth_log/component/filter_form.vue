@@ -19,7 +19,7 @@
                                class="w-56" />
                     </div>
                 </div>
-                <FieldInput v-model="filters.q" placeholder="Search by email…">
+                <FieldInput v-model="filters.q" placeholder="Search by email…" autocomplete="off">
                     Email
                 </FieldInput>
             </div>
