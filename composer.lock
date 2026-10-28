@@ -11939,16 +11939,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.141",
+            "version": "v2.0.142",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "46e56c75ded3501d54df71d0dc85fbdbc68b8a97"
+                "reference": "65a588b3de636d46a6bf26ede445fbe86923912d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/46e56c75ded3501d54df71d0dc85fbdbc68b8a97",
-                "reference": "46e56c75ded3501d54df71d0dc85fbdbc68b8a97",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/65a588b3de636d46a6bf26ede445fbe86923912d",
+                "reference": "65a588b3de636d46a6bf26ede445fbe86923912d",
                 "shasum": ""
             },
             "require": {
@@ -12029,9 +12029,9 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.141"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.142"
             },
-            "time": "2026-10-20T18:27:32+00:00"
+            "time": "2026-10-28T19:24:52+00:00"
         }
     ],
     "packages-dev": [

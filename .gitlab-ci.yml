@@ -147,6 +147,9 @@ before_script:
     fi
   # success message
   - echo "Deployment completed successfully. Release at $RELEASE"
+  # check Postmark has every email template; last, so a missing one fails the job but doesn't hold back
+  # the release or leave it in maintenance mode
+  - console $REMOTE_BASE/current app:postmark:check-templates --no-debug
 
 static:
   stage: static

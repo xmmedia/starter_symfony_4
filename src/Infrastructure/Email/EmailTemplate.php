@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Email;
 
-final readonly class EmailTemplate
+/**
+ * The Postmark template aliases. app:postmark:check-templates requires Postmark to have every one.
+ */
+enum EmailTemplate: string
 {
-    public const string AUTH_USER_INVITE = 'auth-user_invite';
-    public const string AUTH_USER_VERIFICATION = 'auth-user_verification';
-    public const string AUTH_LOGIN_LINK = 'auth-login_link';
-    public const string AUTH_PASSWORD_RESET = 'auth-password_reset';
-    public const string USER_PROFILE_UPDATED = 'profile_updated';
-    public const string USER_PASSWORD_CHANGED = 'password_changed';
+    case AUTH_USER_INVITE = 'auth-user_invite';
+    case AUTH_USER_VERIFICATION = 'auth-user_verification';
+    case AUTH_LOGIN_LINK = 'auth-login_link';
+    case AUTH_PASSWORD_RESET = 'auth-password_reset';
+    case USER_PROFILE_UPDATED = 'profile_updated';
+    case USER_PASSWORD_CHANGED = 'password_changed';
 }

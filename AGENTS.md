@@ -179,6 +179,18 @@ without bound. Archive & prune it with `lando console app:command-log:archive [b
 - Load an archive back with `--import=<file>` (gzipped or not). It runs in a transaction, so a
   failure part way through leaves the table untouched; `--dry-run` counts the statements
 
+### Email templates
+Emails are sent with Postmark templates through `EmailGatewayInterface` (`xm/symfony-bundle`).
+Each template's alias is a case of the `App\Infrastructure\Email\EmailTemplate` enum, which is
+passed straight to `send()`.
+
+- To add an email, add a case to `EmailTemplate` & create the template in Postmark with that
+  alias, on each Postmark server (local/dev, staging & production), before deploying
+- `lando console app:postmark:check-templates` checks the Postmark server for the current
+  `POSTMARK_API_KEY` has an active template for every case & exits non-zero if not
+- It runs as the last step of a deploy, after maintenance mode is turned off, so a missing
+  template fails the job without holding back the release
+
 ### Maintenance mode
 From `xm/symfony-bundle` (see its AGENTS.md), configured in `config/packages/xm_symfony.yaml`.
 It's on while `var/maintenance` exists — `var/` is shared between releases, so no deploy needed:
