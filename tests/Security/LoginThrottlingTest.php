@@ -61,8 +61,9 @@ class LoginThrottlingTest extends WebTestCase
         $error = $this->login($email);
 
         $this->assertInstanceOf(TooManyLoginAttemptsAuthenticationException::class, $error);
-        $this->assertSame(
-            'Too many failed login attempts, please try again in 15 minutes.',
+        // the limiter rounds the retry time up to the second, so a 15 minute wait is usually shown as 16
+        $this->assertMatchesRegularExpression(
+            '/^Too many failed login attempts, please try again in 1[56] minutes\.$/',
             self::getContainer()->get(TranslatorInterface::class)->trans(
                 $error->getMessageKey(),
                 $error->getMessageData(),
