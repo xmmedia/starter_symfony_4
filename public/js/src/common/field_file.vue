@@ -41,7 +41,9 @@
                 {{ file.originalFilename ?? 'Existing file' }}
             </a>
 
-            <button class="button-link block text-sm" type="button" @click="remove">× Remove</button>
+            <button v-if="removable" class="button-link block text-sm" type="button" @click="remove">
+                × Remove
+            </button>
         </div>
     </div>
 </template>
@@ -69,6 +71,11 @@ const props = defineProps({
     preview: {
         type: Boolean,
         default: false,
+    },
+    // false where there's nothing to remove it from, eg a file that's only read, not saved
+    removable: {
+        type: Boolean,
+        default: true,
     },
     inputClasses: {
         type: [ String, Array, Object ],

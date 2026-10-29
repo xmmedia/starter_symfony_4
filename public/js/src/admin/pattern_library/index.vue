@@ -153,6 +153,19 @@
                     <input id="pattern-library-file" type="file">
                     <div class="field-help">Accepted formats: PDF, JPG, PNG.</div>
                 </div>
+                <FieldFile v-model="fileValue" accept=".pdf,application/pdf">
+                    File field component
+                    <template #help>Accepted format: PDF.</template>
+                </FieldFile>
+                <FieldFile v-model="imageValue" accept="image/*" :preview="true">
+                    Image field component with preview
+                </FieldFile>
+                <FieldFile v-model="existingFileValue">
+                    File field component with an existing file
+                </FieldFile>
+                <FieldFile v-model="notRemovableFileValue" :removable="false">
+                    File field component with an existing file that can't be removed
+                </FieldFile>
                 <div class="field-wrap">
                     <label for="pattern-library-select">Select</label>
                     <select id="pattern-library-select">
@@ -812,6 +825,7 @@ import { useHead } from '@unhead/vue';
 import FieldInput from '@/common/field_input.vue';
 import FieldEmail from '@/common/field_email.vue';
 import FieldTextarea from '@/common/field_textarea.vue';
+import FieldFile from '@/common/field_file.vue';
 import FieldRadios from '@/common/field_radios.vue';
 import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldCheckboxes from '@/common/field_checkboxes.vue';
@@ -836,6 +850,10 @@ const radiosPillsValues = [
 const textValue = ref();
 const emailValue = ref();
 const textareaValue = ref();
+const fileValue = ref(null);
+const imageValue = ref(null);
+const existingFileValue = ref({ file: '#', originalFilename: 'existing-file.pdf' });
+const notRemovableFileValue = ref({ file: '#', originalFilename: 'existing-file.pdf' });
 const checkboxValue = ref(false);
 const checkboxPillValue = ref(false);
 
