@@ -103,7 +103,7 @@ const fieldType = computed(() => visible.value ? 'text' : 'password');
 const icon = computed(() => visible.value ? 'visible' : 'invisible');
 
 watch(password, (value) => {
-    if (null === value) {
+    if (!value) {
         showMeter.value = false;
     }
 });
