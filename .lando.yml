@@ -35,7 +35,7 @@ services:
     hosts:
       - database
   node:
-    type: node:24
+    type: node:26
     ssl: true
     sslExpose: false
     # only `yarn preview` is published; the Vite port isn't, so a host-run `yarn dev`

@@ -129,7 +129,7 @@ nothing). Set it no wider than the proxies actually in front of the app:
 
 ### Locally for Development
 
-  - [Lando](https://lando.dev/) – the `node` service runs [Node 24](https://nodejs.org/) & [Yarn v4](https://yarnpkg.com/), so neither is needed on the host
+  - [Lando](https://lando.dev/) – the `node` service runs [Node 26](https://nodejs.org/) & [Yarn v4](https://yarnpkg.com/), so neither is needed on the host
 
 Run yarn through `lando yarn` so the Node version matches `.nvmrc`. `node_modules` is on the shared
 mount, so one `lando yarn install` serves both the container & the host. Host `yarn` still works,

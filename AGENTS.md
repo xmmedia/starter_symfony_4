@@ -538,7 +538,7 @@ authenticator on the firewall (password & login link). A successful login resets
 
 **Local Development:**
 - Lando (Docker-based local dev environment)
-- Node 24 with Yarn v4
+- Node 26 with Yarn v4
 - MySQL 8.4
 
 ## Browser Automation
