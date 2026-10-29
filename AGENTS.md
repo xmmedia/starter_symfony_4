@@ -559,8 +559,8 @@ Core workflow:
 - Vite preview port in `vite.config.mjs` & `.lando.yml` (currently: 9508)
 - `lando rebuild` (not `lando start`) is needed after changes under `config:` or a service's
   `ports:`; it recreates the appserver too, so run `lando start` after or the app 404s
-- Database collation should be `utf8mb4_bin`, but `utf8mb4_unicode_520_ci` for text people read or sort (names,
-  emails)
+- Database collation: tables, IDs & codes use `utf8mb4_bin`; human-readable text (names, emails,
+  messages) uses `utf8mb4_unicode_520_ci`
 
 ### Environments
 
