@@ -2,36 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\EventSubscriber;
+namespace App\EventListener;
 
 use App\Entity\User;
 use App\Model\Auth\AuthId;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Command\UserLoginFailed;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 
-readonly class LoginLoggerSubscriber implements EventSubscriberInterface
+readonly class LoginLoggerListener
 {
     public function __construct(private MessageBusInterface $commandBus)
     {
     }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            InteractiveLoginEvent::class => 'loginSuccess',
-            LoginFailureEvent::class     => 'loginFailure',
-        ];
-    }
-
     /**
      * Logs the successful login.
      */
+    #[AsEventListener(InteractiveLoginEvent::class)]
     public function loginSuccess(InteractiveLoginEvent $event): void
     {
         $user = $event->getAuthenticationToken()->getUser();
@@ -57,6 +50,7 @@ readonly class LoginLoggerSubscriber implements EventSubscriberInterface
     /**
      * Logs a failed login.
      */
+    #[AsEventListener(LoginFailureEvent::class)]
     public function loginFailure(LoginFailureEvent $event): void
     {
         try {

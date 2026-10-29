@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\EventSubscriber;
+namespace App\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -16,7 +16,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  * The token id is stateless (see framework.csrf_protection), so validation is based on the
  * origin & the token double submitted in the header by the JS (see csrfToken() in csrf.js).
  */
-class CsrfValidationSubscriber implements EventSubscriberInterface
+class CsrfValidationListener
 {
     private array $routes = [
         'overblog_graphql_endpoint',
@@ -35,13 +35,7 @@ class CsrfValidationSubscriber implements EventSubscriberInterface
     {
     }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::REQUEST => ['validateCsrf', 10],
-        ];
-    }
-
+    #[AsEventListener(KernelEvents::REQUEST, priority: 10)]
     public function validateCsrf(RequestEvent $event): void
     {
         $request = $event->getRequest();

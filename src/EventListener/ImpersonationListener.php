@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\EventSubscriber;
+namespace App\EventListener;
 
 use App\Entity\User;
 use App\Model\Auth\AuthId;
 use App\Model\Auth\Command\UserEndedImpersonating;
 use App\Model\Auth\Command\UserStartedImpersonating;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Symfony\Component\Security\Http\Firewall\SwitchUserListener;
 
-readonly class ImpersonationSubscriber implements EventSubscriberInterface
+readonly class ImpersonationListener
 {
     public function __construct(
         private MessageBusInterface $commandBus,
@@ -24,13 +24,7 @@ readonly class ImpersonationSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            SwitchUserEvent::class => 'onSwitchUser',
-        ];
-    }
-
+    #[AsEventListener(SwitchUserEvent::class)]
     public function onSwitchUser(SwitchUserEvent $event): void
     {
         $request = $event->getRequest();

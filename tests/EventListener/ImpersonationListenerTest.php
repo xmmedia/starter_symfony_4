@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\EventSubscriber;
+namespace App\Tests\EventListener;
 
 use App\Entity\User;
-use App\EventSubscriber\ImpersonationSubscriber;
+use App\EventListener\ImpersonationListener;
 use App\Model\Auth\Command\UserEndedImpersonating;
 use App\Model\Auth\Command\UserStartedImpersonating;
 use App\Tests\BaseTestCase;
@@ -18,21 +18,22 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Xm\SymfonyBundle\Model\Email;
 
-class ImpersonationSubscriberTest extends BaseTestCase
+class ImpersonationListenerTest extends BaseTestCase
 {
-    public function testSubscribedEvents(): void
-    {
-        $subscribed = ImpersonationSubscriber::getSubscribedEvents();
+    use EventListenerAttributeTrait;
 
-        $this->assertArrayHasKey(SwitchUserEvent::class, $subscribed);
+    public function testListensTo(): void
+    {
+        $this->assertSame(
+            SwitchUserEvent::class,
+            $this->eventListenerAttribute(ImpersonationListener::class, 'onSwitchUser')->event,
+        );
     }
 
     public function testStart(): void
     {
         $faker = $this->faker();
         $email = $faker->email();
-
-        $method = ImpersonationSubscriber::getSubscribedEvents()[SwitchUserEvent::class];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -76,15 +77,12 @@ class ImpersonationSubscriberTest extends BaseTestCase
 
         $tokenStorage = \Mockery::mock(TokenStorageInterface::class);
 
-        $subscriber = new ImpersonationSubscriber($commandBus, $tokenStorage);
-        $subscriber->{$method}($event);
+        new ImpersonationListener($commandBus, $tokenStorage)->onSwitchUser($event);
     }
 
     public function testExit(): void
     {
         $faker = $this->faker();
-
-        $method = ImpersonationSubscriber::getSubscribedEvents()[SwitchUserEvent::class];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -126,7 +124,6 @@ class ImpersonationSubscriberTest extends BaseTestCase
 
         $event = new SwitchUserEvent($request, $adminUser, $originalToken);
 
-        $subscriber = new ImpersonationSubscriber($commandBus, $tokenStorage);
-        $subscriber->{$method}($event);
+        new ImpersonationListener($commandBus, $tokenStorage)->onSwitchUser($event);
     }
 }

@@ -7,7 +7,7 @@ framework:
     #default_locale: en
     annotations:           false
     # stateless CSRF: validated with the origin & a double submitted cookie/header,
-    # so the tokens don't expire with the session. See CsrfValidationSubscriber
+    # so the tokens don't expire with the session. See CsrfValidationListener
     csrf_protection:
         stateless_token_ids: [ 'authenticate', 'graphql' ]
         check_header:        true

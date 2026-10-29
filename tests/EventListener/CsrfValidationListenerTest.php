@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\EventSubscriber;
+namespace App\Tests\EventListener;
 
-use App\EventSubscriber\CsrfValidationSubscriber;
+use App\EventListener\CsrfValidationListener;
 use App\Tests\BaseTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,20 +16,18 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Csrf\SameOriginCsrfTokenManager;
 
 #[\PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations]
-class CsrfValidationSubscriberTest extends BaseTestCase
+class CsrfValidationListenerTest extends BaseTestCase
 {
+    use EventListenerAttributeTrait;
+
     private const string TOKEN = 'abcdefghijklmnopqrstuvwx';
 
-    public function testSubscribedEvents(): void
+    public function testListensTo(): void
     {
-        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
+        $attribute = $this->eventListenerAttribute(CsrfValidationListener::class, 'validateCsrf');
 
-        $this->assertArrayHasKey(KernelEvents::REQUEST, $subscribed);
-
-        $this->assertEquals(
-            10,
-            $subscribed[KernelEvents::REQUEST][1],
-        );
+        $this->assertSame(KernelEvents::REQUEST, $attribute->event);
+        $this->assertSame(10, $attribute->priority);
     }
 
     #[DataProvider('allCheckedRoutes')]
@@ -103,9 +101,6 @@ class CsrfValidationSubscriberTest extends BaseTestCase
 
     public function testValidateCsrfNotMasterRequest(): void
     {
-        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
-        $method = $subscribed[KernelEvents::REQUEST][0];
-
         $event = \Mockery::mock(RequestEvent::class);
         $event->shouldReceive('getRequest')
             ->atLeast()
@@ -115,8 +110,8 @@ class CsrfValidationSubscriberTest extends BaseTestCase
             ->once()
             ->andReturnFalse();
 
-        new CsrfValidationSubscriber(\Mockery::mock(CsrfTokenManagerInterface::class))
-            ->{$method}($event);
+        new CsrfValidationListener(\Mockery::mock(CsrfTokenManagerInterface::class))
+            ->validateCsrf($event);
     }
 
     private function postRequest(string $route): Request
@@ -129,9 +124,6 @@ class CsrfValidationSubscriberTest extends BaseTestCase
 
     private function validateCsrf(Request $request): void
     {
-        $subscribed = CsrfValidationSubscriber::getSubscribedEvents();
-        $method = $subscribed[KernelEvents::REQUEST][0];
-
         $event = \Mockery::mock(RequestEvent::class);
         $event->shouldReceive('getRequest')
             ->atLeast()
@@ -144,7 +136,7 @@ class CsrfValidationSubscriberTest extends BaseTestCase
         $requestStack = new RequestStack([$request]);
 
         // as configured in framework.csrf_protection
-        new CsrfValidationSubscriber(
+        new CsrfValidationListener(
             new SameOriginCsrfTokenManager(
                 $requestStack,
                 null,
@@ -152,6 +144,6 @@ class CsrfValidationSubscriberTest extends BaseTestCase
                 ['authenticate', 'graphql'],
                 SameOriginCsrfTokenManager::CHECK_HEADER,
             ),
-        )->{$method}($event);
+        )->validateCsrf($event);
     }
 }

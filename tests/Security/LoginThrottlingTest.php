@@ -39,7 +39,7 @@ class LoginThrottlingTest extends WebTestCase
         $userProvider->method('loadUserByIdentifier')->willThrowException(new UserNotFoundException());
         self::getContainer()->set(UserProvider::class, $userProvider);
 
-        // LoginLoggerSubscriber logs each failure
+        // LoginLoggerListener logs each failure
         $commandBus = $this->createStub(MessageBusInterface::class);
         $commandBus->method('dispatch')->willReturnCallback(
             static fn (object $message): Envelope => new Envelope($message),

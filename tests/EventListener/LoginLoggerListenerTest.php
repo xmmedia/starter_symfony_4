@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\EventSubscriber;
+namespace App\Tests\EventListener;
 
 use App\Entity\User;
-use App\EventSubscriber\LoginLoggerSubscriber;
+use App\EventListener\LoginLoggerListener;
 use App\Model\Auth\Command\UserLoggedInSuccessfully;
 use App\Model\Auth\Command\UserLoginFailed;
 use App\Tests\BaseTestCase;
@@ -19,21 +19,25 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 use Xm\SymfonyBundle\Model\Email;
 
-class LoginLoggerSubscriberTest extends BaseTestCase
+class LoginLoggerListenerTest extends BaseTestCase
 {
-    public function testSubscribedEvents(): void
-    {
-        $subscribed = LoginLoggerSubscriber::getSubscribedEvents();
+    use EventListenerAttributeTrait;
 
-        $this->assertArrayHasKey(InteractiveLoginEvent::class, $subscribed);
-        $this->assertArrayHasKey(LoginFailureEvent::class, $subscribed);
+    public function testListensTo(): void
+    {
+        $this->assertSame(
+            InteractiveLoginEvent::class,
+            $this->eventListenerAttribute(LoginLoggerListener::class, 'loginSuccess')->event,
+        );
+        $this->assertSame(
+            LoginFailureEvent::class,
+            $this->eventListenerAttribute(LoginLoggerListener::class, 'loginFailure')->event,
+        );
     }
 
     public function testSuccessfulLogin(): void
     {
         $faker = $this->faker();
-
-        $method = LoginLoggerSubscriber::getSubscribedEvents()[InteractiveLoginEvent::class];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -67,16 +71,12 @@ class LoginLoggerSubscriberTest extends BaseTestCase
 
         $event = new InteractiveLoginEvent($request, $token);
 
-        $listener = new LoginLoggerSubscriber($commandBus);
-
-        $listener->{$method}($event);
+        new LoginLoggerListener($commandBus)->loginSuccess($event);
     }
 
     public function testFailedLogin(): void
     {
         $faker = $this->faker();
-
-        $method = LoginLoggerSubscriber::getSubscribedEvents()[LoginFailureEvent::class];
 
         $commandBus = \Mockery::mock(MessageBusInterface::class);
         $commandBus->shouldReceive('dispatch')
@@ -107,8 +107,6 @@ class LoginLoggerSubscriberTest extends BaseTestCase
             'main',
         );
 
-        $listener = new LoginLoggerSubscriber($commandBus);
-
-        $listener->{$method}($event);
+        new LoginLoggerListener($commandBus)->loginFailure($event);
     }
 }
