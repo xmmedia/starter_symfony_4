@@ -33,6 +33,9 @@ select {
 [type="checkbox"], [type="radio"], [type="submit"], [type="image"], label, select {
     @apply cursor-pointer;
 }
+[type="checkbox"]:disabled, [type="radio"]:disabled {
+    @apply cursor-not-allowed;
+}
 [type="file"] {
     @apply w-full;
     &:focus {
