@@ -11,8 +11,8 @@ export NVM_DIR="$HOME/.nvm"
 nvm install
 nvm use --delete-prefix --silent
 
-# provides the yarn command, which runs the version in .yarn/releases
-corepack enable
+# provides the yarn command, which hands off to the version in .yarn/releases (yarnPath)
+npm install --global yarn
 
 # install local node packages with yarn
 yarn install --immutable

@@ -43,11 +43,6 @@ services:
     ports:
       # @todo-symfony change port number 2x (must match vite.config.mjs)
       - '9508:9508'
-    build:
-      - corepack enable
-    overrides:
-      environment:
-        COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
 proxy:
   appserver:
     # @todo-symfony update
