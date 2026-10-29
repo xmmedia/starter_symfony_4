@@ -29,8 +29,25 @@ export const logPageView = function (to) {
     }
 };
 
-const buildHasChanged = function (loadedHash, currentHash) {
-    return !!loadedHash && !!currentHash && loadedHash !== currentHash;
+// true when the JS has changed since the page loaded & it hasn't already reloaded for this build:
+// if the HTML is cached with the old build, reloading again would only loop
+const shouldReloadForBuild = function (useRootStore, integrityHashKey, currentHash) {
+    const loadedHash = useRootStore().entrypointIntegrityHashes[integrityHashKey];
+    if (!loadedHash || !currentHash || loadedHash === currentHash) {
+        return false;
+    }
+
+    const reloadedForKey = 'reloadedForBuild:' + integrityHashKey;
+    try {
+        if (sessionStorage.getItem(reloadedForKey) === currentHash) {
+            return false;
+        }
+        sessionStorage.setItem(reloadedForKey, currentHash);
+    } catch {
+        // storage is unavailable (such as when blocked), so reload without the guard
+    }
+
+    return true;
 };
 
 export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
@@ -61,8 +78,7 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
 
             // JS files have changed, so load the target page fresh
             // (prefixed with the origin so a path starting with // can't go to another site)
-            const loadedHash = rootStore.entrypointIntegrityHashes[integrityHashKey];
-            if (buildHasChanged(loadedHash, result.data.EntrypointIntegrity)) {
+            if (shouldReloadForBuild(useRootStore, integrityHashKey, result.data.EntrypointIntegrity)) {
                 window.location = window.location.origin + to.fullPath;
 
                 return false;
@@ -98,8 +114,7 @@ export const reloadOnChangedBuild = function (useRootStore, integrityHashKey) {
                     entrypoint: integrityHashKey,
                 },
             });
-            const loadedHash = useRootStore().entrypointIntegrityHashes[integrityHashKey];
-            if (buildHasChanged(loadedHash, data.EntrypointIntegrity)) {
+            if (shouldReloadForBuild(useRootStore, integrityHashKey, data.EntrypointIntegrity)) {
                 window.location.reload();
             }
         } catch {
