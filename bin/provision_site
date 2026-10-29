@@ -1,0 +1,416 @@
+#!/usr/bin/env bash
+# Provisions a new dev/staging site end to end.
+#
+# Orchestrates the steps from the "New Dev/Staging Site" Notion doc:
+#   1. Create the 1Password server + database items, with generated passwords
+#   2. Create the SiteWorx account (InterWorx nodeworx CLI, over ssh)
+#   3. Create the database + database user
+#   4. Upload and run setup_staging.sh or setup_prod.sh as the site user
+#   5. Write shared/.env.local, filling in what's known
+#   6. Add the PHP restart sudoers entry for the site user
+#   7. (optional) Add the Messenger worker cron job
+#   8. Run bin/setup_gitlab_ci_vars locally
+#
+# The SSL certificate is not generated here — the InterWorx CLI always includes
+# the www subdomain and gives no way to exclude it. Generate it in SiteWorx
+# instead (see the manual steps at the end), once the DNS record is in place.
+#
+# Prerequisites:
+#   - ssh access to the server via a configured ssh Host, with passwordless sudo
+#   - op CLI signed in (op signin), glab authenticated, jq & openssl installed
+#
+# Usage: bin/provision_site
+set -euo pipefail
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NODEWORX='nodeworx'
+SITEWORX='siteworx'
+# Database name/user suffix — always symfony for this starter.
+SITE_TYPE='symfony'
+
+die() { echo -e "${RED}Error: $*${NC}" >&2; exit 1; }
+heading() { echo ""; echo -e "${BOLD}${CYAN}$*${NC}"; }
+ok() { echo -e "  ${GREEN}✓${NC} $*"; }
+warn() { echo -e "  ${YELLOW}!${NC} $*"; }
+
+# ask <label> [default]
+ask() {
+    local label="$1" default="${2:-}" result
+    if [[ -n "$default" ]]; then
+        read -r -p "$label [$default]: " result
+        echo "${result:-$default}"
+    else
+        read -r -p "$label: " result
+        echo "$result"
+    fi
+}
+
+# ask_required <label> [default] — re-prompts until non-empty
+ask_required() {
+    local label="$1" default="${2:-}" result
+    while true; do
+        result=$(ask "$label" "$default")
+        [[ -n "$result" ]] && break
+        echo -e "  ${RED}Required.${NC}" >&2
+    done
+    echo "$result"
+}
+
+# confirm <question> [default y|n] — returns 0 for yes
+confirm() {
+    local question="$1" default="${2:-n}" prompt reply
+    [[ "$default" == "y" ]] && prompt="[Y/n]" || prompt="[y/N]"
+    read -r -p "$question $prompt: " reply
+    reply="$(echo "${reply:-$default}" | tr '[:upper:]' '[:lower:]')"
+    [[ "$reply" == "y" ]]
+}
+
+# shell-quote args for the remote shell
+rq() {
+    local out="" arg
+    for arg in "$@"; do
+        out+=" $(printf '%q' "$arg")"
+    done
+    printf '%s' "${out# }"
+}
+
+# remote <command> [args…] — runs a single command on the server
+remote() { ssh "$SSH_HOST" "$(rq "$@")"; }
+
+# generate_password — 32 letters & digits
+generate_password() {
+    local value
+    value=$(openssl rand -base64 64 | tr -dc 'A-Za-z0-9' | cut -c1-32)
+    [[ ${#value} -eq 32 ]] || die "failed to generate a password"
+    printf '%s' "$value"
+}
+
+# create_op_item <password> <op item create args…> — prints the new item's id.
+# The password goes in through a piped edit, as op only generates passwords for
+# Login & Password items and assignment arguments show in the process list.
+create_op_item() {
+    local password="$1" item id
+    shift
+    item=$(op item create "$@" --format json) || die "failed to create the 1Password item"
+    id=$(jq -r '.id' <<<"$item")
+    if ! PASSWORD="$password" jq '(.fields[] | select(.id == "password")).value = env.PASSWORD' <<<"$item" \
+            | op item edit "$id" --vault "$OP_VAULT" >/dev/null \
+        || [[ "$(op item get "$id" --vault "$OP_VAULT" --fields password --reveal)" != "$password" ]]; then
+        op item delete "$id" --vault "$OP_VAULT" >/dev/null 2>&1 || true
+        die "failed to set the password on the 1Password item — item removed"
+    fi
+    printf '%s' "$id"
+}
+
+# --- Preflight ---------------------------------------------------------------
+
+command -v op   >/dev/null 2>&1 || die "op CLI not installed. Run: brew install 1password-cli"
+command -v glab >/dev/null 2>&1 || die "glab CLI not installed. See: https://gitlab.com/gitlab-org/cli"
+command -v jq   >/dev/null 2>&1 || die "jq not installed. Run: brew install jq"
+op account list >/dev/null 2>&1 || die "Not signed in to 1Password. Run: op signin"
+for script in setup_staging.sh setup_prod.sh; do
+    [[ -f "$SCRIPT_DIR/$script" ]] || die "$script not found in $SCRIPT_DIR"
+done
+[[ -f "$SCRIPT_DIR/setup_gitlab_ci_vars" ]] || die "setup_gitlab_ci_vars not found in $SCRIPT_DIR"
+command -v openssl >/dev/null 2>&1 || die "openssl not installed"
+
+echo ""
+echo -e "${BOLD}${CYAN}New Site Setup${NC}"
+
+# --- Gather input ------------------------------------------------------------
+
+heading "Environment"
+echo "  1) staging"
+echo "  2) production"
+read -r -p "Which are you provisioning? [1]: " env_choice
+case "${env_choice:-1}" in
+    2|production) SCOPE="production"; APP_ENV="prod";    SETUP_SCRIPT="setup_prod.sh" ;;
+    *)            SCOPE="staging";    APP_ENV="staging"; SETUP_SCRIPT="setup_staging.sh" ;;
+esac
+
+heading "Server"
+SSH_HOST=$(ask_required "ssh Host name (from ~/.ssh/config, e.g. dev3)")
+echo -n "  Connecting… "
+remote true >/dev/null 2>&1 || die "cannot ssh to '$SSH_HOST'"
+remote sudo -n true >/dev/null 2>&1 || die "no passwordless sudo on '$SSH_HOST'"
+remote sudo -n sh -c "command -v $NODEWORX" >/dev/null 2>&1 \
+    || die "'$NODEWORX' not on root's PATH on '$SSH_HOST' — is this an InterWorx server?"
+echo -e "${GREEN}ok${NC}"
+
+SERVER_HOST=$(ask_required "Server hostname (for 1Password + GitLab, e.g. dev3.xmmedia.com)" "${SSH_HOST}.xmmedia.com")
+
+heading "Site"
+DOMAIN=$(ask_required "Domain (e.g. example.com without the www prefix)")
+DOMAIN="${DOMAIN#https://}"; DOMAIN="${DOMAIN#http://}"; DOMAIN="${DOMAIN%/}"
+SITE_USER=$(ask_required "SiteWorx username (e.g. exampledev — avoid using 'dev' as the prefix)")
+ADMIN_EMAIL=$(ask_required "InterWorx account email" "admin@xmmedia.com")
+DB_NAME="${SITE_USER}_${SITE_TYPE}"
+SITE_BASE="/home/$SITE_USER/$DOMAIN"
+
+# Verify the account doesn't already exist
+ACCOUNTS=$(remote sudo -n "$NODEWORX" -u -n -c Siteworx -a listAccounts) \
+    || die "failed to list the SiteWorx accounts on $SSH_HOST"
+if awk -F'\t' -v d="$DOMAIN" -v u="$SITE_USER" '$2==u || $10==d {found=1} END {exit !found}' <<<"$ACCOUNTS"; then
+    die "a SiteWorx account for '$DOMAIN' or user '$SITE_USER' already exists on $SSH_HOST"
+fi
+
+heading "PHP"
+PHP_AVAILABLE=$(remote sudo -n "$NODEWORX" -u -n -c Siteworx -a add --help \
+    | awk '/^--php_version/ {print $NF}')
+echo "  Available: $PHP_AVAILABLE"
+PHP_PATH=$(ask "PHP version path" "$(echo "$PHP_AVAILABLE" | tr '|' '\n' | grep -E '^/opt/remi/php[0-9]+$' | tail -1)")
+[[ "$PHP_PATH" =~ php([0-9]+)$ ]] || die "cannot derive the sudoers macro from '$PHP_PATH'"
+PHP_RESTART="PHP${BASH_REMATCH[1]}_RESTART"
+
+heading "1Password"
+OP_VAULT=$(ask_required "Vault")
+OP_TAG=$(ask "Tag (client name, optional)")
+
+heading "Optional steps"
+DO_GITLAB=n; confirm "Set the GitLab CI/CD variables?" y && DO_GITLAB=y || true
+GITLAB_PROJECT=""
+if [[ "$DO_GITLAB" == "y" ]]; then
+    GITLAB_PROJECT=$(ask_required "GitLab project (e.g. xmmedia/my-client-site)")
+fi
+DO_CRON=n;   confirm "Add the Messenger worker cron job?" y && DO_CRON=y || true
+
+# --- Summary -----------------------------------------------------------------
+
+heading "Summary"
+printf "  %-22s %s\n" "environment"   "$SCOPE"
+printf "  %-22s %s\n" "ssh host"      "$SSH_HOST"
+printf "  %-22s %s\n" "server"        "$SERVER_HOST"
+printf "  %-22s %s\n" "domain"        "$DOMAIN"
+printf "  %-22s %s\n" "site user"     "$SITE_USER"
+printf "  %-22s %s\n" "account email" "$ADMIN_EMAIL"
+printf "  %-22s %s\n" "site base"     "$SITE_BASE"
+printf "  %-22s %s\n" "database/user" "$DB_NAME"
+printf "  %-22s %s\n" "PHP"           "$PHP_PATH ($PHP_RESTART)"
+printf "  %-22s %s\n" "1P vault"      "$OP_VAULT${OP_TAG:+ (tag: $OP_TAG)}"
+printf "  %-22s %s\n" "GitLab vars"   "$DO_GITLAB${GITLAB_PROJECT:+ ($GITLAB_PROJECT)}"
+printf "  %-22s %s\n" "worker cron"   "$DO_CRON"
+echo ""
+confirm "Proceed? Everything after this point makes changes." n || { echo "Aborted."; exit 0; }
+
+# --- 1. 1Password items ------------------------------------------------------
+
+heading "1/8 Creating 1Password items"
+SITE_PASSWORD=$(generate_password)
+DB_PASSWORD=$(generate_password)
+
+OP_ARGS=(--category server --title "$DOMAIN" --vault "$OP_VAULT"
+    "username=$SITE_USER"
+    'port[text]=10022'
+    "path[text]=$SITE_BASE/current"
+    "domain[text]=$DOMAIN"
+    "url[text]=$SERVER_HOST")
+if [[ -n "$OP_TAG" ]]; then OP_ARGS+=(--tags "$OP_TAG"); fi
+OP_SERVER_ID=$(create_op_item "$SITE_PASSWORD" "${OP_ARGS[@]}")
+ok "server item: $OP_SERVER_ID"
+
+OP_ARGS=(--category database --title "$DOMAIN" --vault "$OP_VAULT"
+    "username=$DB_NAME"
+    "database[text]=$DB_NAME"
+    'hostname[text]=localhost'
+    'port[text]=3306'
+    'database_type[text]=MySQL')
+if [[ -n "$OP_TAG" ]]; then OP_ARGS+=(--tags "$OP_TAG"); fi
+OP_DB_ID=$(create_op_item "$DB_PASSWORD" "${OP_ARGS[@]}")
+ok "database item: $OP_DB_ID"
+
+# --- 2. SiteWorx account -----------------------------------------------------
+
+heading "2/8 Creating the SiteWorx account"
+warn "the SiteWorx and database passwords are passed as CLI arguments — briefly visible in the"
+echo "    server's process list, and kept in sudo's log (/var/log/secure) until it rotates out."
+
+# Reproduce a package template by expanding its options into --OPT_* flags;
+# nodeworx's Siteworx add has no --package option.
+PACKAGE=$(ask "Package template" "Default")
+PACKAGE_OPTS=$(remote sudo -n "$NODEWORX" -u -n -c Packages -a listPackages \
+    | awk -F'\t' -v p="$PACKAGE" '$2==p {print $3}')
+[[ -n "$PACKAGE_OPTS" ]] || die "package '$PACKAGE' not found on $SSH_HOST"
+
+ALLOWED_FLAGS=$(remote sudo -n "$NODEWORX" -u -n -c Siteworx -a add --help \
+    | grep -oE '^--[a-zA-Z_]+' | sed 's/^--//')
+SW_ARGS=()
+while IFS='=' read -r key value; do
+    [[ -z "$key" || -z "$value" ]] && continue
+    grep -qx "$key" <<<"$ALLOWED_FLAGS" || continue
+    SW_ARGS+=("--$key" "$value")
+done < <(tr ',' '\n' <<<"$PACKAGE_OPTS")
+
+IPV4=$(remote sudo -n "$NODEWORX" -u -n -c Siteworx -a add --help \
+    | awk '/^--master_domain_ipv4/ {print $NF}' | cut -d'|' -f1)
+[[ -n "$IPV4" ]] || die "could not determine the IPv4 address for the account on $SSH_HOST"
+
+remote sudo -n "$NODEWORX" -u -n -c Siteworx -a add \
+    --master_domain "$DOMAIN" \
+    --master_domain_ipv4 "$IPV4" \
+    --uniqname "$SITE_USER" \
+    --email "$ADMIN_EMAIL" \
+    --encrypted n \
+    --password "$SITE_PASSWORD" \
+    --confirm_password "$SITE_PASSWORD" \
+    --requires_password_change 0 \
+    --language en-us \
+    --php_version "$PHP_PATH" \
+    --php_available "$PHP_PATH" \
+    --create_package 0 \
+    --restart_httpd 1 \
+    "${SW_ARGS[@]}" \
+    || die "failed to create the SiteWorx account"
+ok "account created ($SITE_USER / $DOMAIN)"
+
+# --- 3. Database -------------------------------------------------------------
+
+heading "3/8 Creating the database and user"
+# InterWorx prefixes both with the account username, so pass the suffix only.
+remote sudo -n "$SITEWORX" -u -n --login_domain "$DOMAIN" -c MysqlDb -a add \
+    --name "$SITE_TYPE" \
+    --create_user 1 \
+    --user "$SITE_TYPE" \
+    --password "$DB_PASSWORD" \
+    --confirm_password "$DB_PASSWORD" \
+    --host localhost \
+    || die "failed to create the database"
+ok "database and user created ($DB_NAME)"
+
+# --- 4. Server setup script --------------------------------------------------
+
+heading "4/8 Running $SETUP_SCRIPT"
+# The account's real path — /chroot/home/… on chrooted servers, /home/… otherwise.
+REAL_BASE=$(remote sudo -n "$NODEWORX" -u -n -c Siteworx -a listAccounts \
+    | awk -F'\t' -v u="$SITE_USER" '$2==u {print $21}')
+[[ -n "$REAL_BASE" ]] || die "could not determine the site path for '$SITE_USER' on $SSH_HOST"
+echo "  Site path on server: $REAL_BASE"
+
+REMOTE_TMP=$(remote mktemp) || die "failed to create a temp file on $SSH_HOST"
+scp -q "$SCRIPT_DIR/$SETUP_SCRIPT" "$SSH_HOST:$REMOTE_TMP" || die "failed to copy $SETUP_SCRIPT"
+remote sudo -n install -o "$SITE_USER" -g "$SITE_USER" -m 755 \
+    "$REMOTE_TMP" "$REAL_BASE/$SETUP_SCRIPT" \
+    || die "failed to place $SETUP_SCRIPT in the site directory"
+remote rm -f "$REMOTE_TMP"
+
+# Run as the site user, in the domain dir; "Y" answers the script's confirm prompt.
+remote sudo -n su - "$SITE_USER" -c "cd $(printf '%q' "$DOMAIN") && echo Y | bash ./$SETUP_SCRIPT" \
+    || die "$SETUP_SCRIPT failed — fix and re-run it manually on the server"
+ok "site directory structure created"
+
+# --- 5. .env.local -----------------------------------------------------------
+
+heading "5/8 Writing shared/.env.local"
+REMOTE_ENV="$REAL_BASE/shared/.env.local"
+if remote sudo -n test -s "$REMOTE_ENV"; then
+    warn "$REMOTE_ENV already has content — left as is."
+else
+    # Overrides .env; the deploy copies it into each release & runs composer dump-env.
+    # The passwords are letters & digits only, so they're safe in the URL unencoded.
+    ENV_CONTENT=$(cat <<EOF
+APP_ENV=$APP_ENV
+APP_SECRET=$(generate_password)
+DATABASE_URL="mysql://$DB_NAME:$DB_PASSWORD@localhost:3306/$DB_NAME?serverVersion=8.4&charset=utf8mb4"
+REQUEST_CONTEXT_HOST=$DOMAIN
+REQUEST_CONTEXT_SCHEME=https
+# TRUSTED_PROXIES=
+
+# MAILER_DSN=postmark+api://API_KEY@default
+# POSTMARK_API_KEY=
+# FROM_EMAIL=
+# FROM_EMAIL_NAME=
+# ADMIN_EMAIL=
+# SENTRY_DSN=
+EOF
+    )
+
+    # Written to a temp file beside it & moved into place, so a failed write can't leave a
+    # partial file (which the next run would skip)
+    printf '%s\n' "$ENV_CONTENT" | remote sudo -n sh -c "tmp=\$(mktemp $(printf '%q' "$REMOTE_ENV").XXXXXX) \
+        && chown $(printf '%q' "$SITE_USER:$SITE_USER") \"\$tmp\" \
+        && chmod 600 \"\$tmp\" \
+        && cat > \"\$tmp\" \
+        && mv \"\$tmp\" $(printf '%q' "$REMOTE_ENV") \
+        || { rm -f \"\$tmp\"; exit 1; }" \
+        || die "failed to write $REMOTE_ENV"
+    ok "written: environment, app secret, database and request context"
+fi
+
+# --- 6. PHP restart sudoers --------------------------------------------------
+
+heading "6/8 Adding the PHP restart sudoers entry"
+SUDOERS_LINE=$(printf '\n# %s\n%s ALL=NOPASSWD: %s' "$DOMAIN" "$SITE_USER" "$PHP_RESTART")
+if remote sudo -n grep -qE "^$SITE_USER ALL=NOPASSWD: $PHP_RESTART\$" /etc/sudoers.d/iworx-php-restart; then
+    ok "entry already present"
+else
+    remote sudo -n sh -c "printf '%s' $(printf '%q' "$SUDOERS_LINE") >> /etc/sudoers.d/iworx-php-restart" \
+        || die "failed to update /etc/sudoers.d/iworx-php-restart"
+    ok "added: $SITE_USER ALL=NOPASSWD: $PHP_RESTART"
+fi
+
+# --- 7. Messenger worker cron ------------------------------------------------
+
+heading "7/8 Messenger worker cron job"
+# Starts a worker every 5 minutes unless one's running (flock). The worker exits after an
+# hour, or when a deploy runs messenger:stop-workers, & the next run starts a new one.
+if [[ "$DO_CRON" == "y" ]]; then
+    if remote sudo -n "$SITEWORX" -u -n --login_domain "$DOMAIN" -c Cron -a add \
+        --interface simple \
+        --minute '*/5' --hour '*' --day '*' --month '*' --dayofweek '*' \
+        --script "cd $SITE_BASE/current && flock -n var/messenger.lock bin/console messenger:consume async --time-limit=3600 --memory-limit=128M --quiet 2>&1"; then
+        ok "cron job added"
+    else
+        warn "failed to add the cron job — add it in SiteWorx instead"
+    fi
+else
+    echo "  Skipped."
+fi
+
+# --- 8. GitLab CI variables --------------------------------------------------
+
+heading "8/8 GitLab CI/CD variables"
+if [[ "$DO_GITLAB" == "y" ]]; then
+    "$SCRIPT_DIR/setup_gitlab_ci_vars" "$GITLAB_PROJECT" \
+        --scope "$SCOPE" \
+        --remote-base "$SITE_BASE" \
+        --remote-server "$SERVER_HOST" \
+        --remote-user "$SITE_USER" \
+        --context-host "$DOMAIN" \
+        || warn "setup_gitlab_ci_vars did not complete"
+else
+    echo "  Skipped."
+fi
+
+# --- Done --------------------------------------------------------------------
+
+echo ""
+echo -e "${GREEN}Done!${NC}"
+echo ""
+echo -e "  The SiteWorx and database passwords are in 1Password: vault ${YELLOW}$OP_VAULT${NC},"
+echo -e "  the server and database items titled ${YELLOW}$DOMAIN${NC}."
+echo ""
+echo ""
+echo -e "${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${BOLD}  Remaining manual steps${NC}"
+echo -e "${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo ""
+echo -e "  ${BOLD}1.${NC} Add the DNS record for ${YELLOW}$DOMAIN${NC} if it isn't in place yet"
+echo -e "  ${BOLD}2.${NC} Generate the SSL certificate in SiteWorx, once DNS has propagated"
+echo -e "     (not scriptable — the CLI always includes www and cannot exclude it)"
+echo -e "     Log in as ${YELLOW}$SITE_USER${NC} at ${YELLOW}https://$SERVER_HOST:2443/${NC} → SSL/TLS → Let's Encrypt"
+echo -e "     Untick ${YELLOW}www.$DOMAIN${NC} unless it has its own DNS record"
+echo -e "  ${BOLD}3.${NC} Add the CI public key to ~/.ssh/authorized_keys for ${YELLOW}$SITE_USER${NC} on ${YELLOW}$SSH_HOST${NC}"
+echo -e "  ${BOLD}4.${NC} Complete ${YELLOW}$SITE_BASE/shared/.env.local${NC}"
+echo "     Fill in the email settings, Sentry DSN & trusted proxies; check the MySQL serverVersion"
+echo -e "  ${BOLD}5.${NC} Deploy from GitLab (the first attempt often fails — fix and retry)"
+echo -e "  ${BOLD}6.${NC} Import the database, or create the event streams, run the projections"
+echo "     & add a user (see the README's setup steps)"
+echo ""
+echo -e "${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo ""

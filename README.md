@@ -62,7 +62,21 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 
 ## Setting Up a Server
 
-The scripts in `bin/` ending in `.sh` run on the server. The ones without run locally.
+`bin/setup_staging.sh` & `bin/setup_prod.sh` run on the server. The other setup scripts run locally.
+
+For sites on an InterWorx server, `bin/provision_site` (run locally) does the whole setup:
+1Password items, the SiteWorx account, the database, `setup_staging.sh`/`setup_prod.sh`, `shared/.env.local`,
+the PHP restart sudoers entry, the Messenger worker cron job and the GitLab CI/CD variables.
+
+  - Requires an ssh Host with passwordless sudo, [`op`](https://developer.1password.com/docs/cli/)
+    signed in, [`glab`](https://gitlab.com/gitlab-org/cli) authenticated and `jq` installed.
+  - It asks whether you're provisioning staging or production, then prompts for everything
+    else and shows a summary before making any changes.
+  - The remaining manual steps (DNS record, SSL certificate, CI public key, completing `shared/.env.local`,
+    first deploy, database) are printed at the end. The DNS record doesn't need to exist beforehand —
+    it's only needed before generating the SSL certificate.
+
+To do it by hand instead:
 
 1. Upload `bin/setup_staging.sh` (or `bin/setup_prod.sh`) to the domain dir, where the `html` dir is, and run
    it: `bash ./setup_staging.sh`. It creates the `releases`/`shared` structure & the links
@@ -72,7 +86,7 @@ The scripts in `bin/` ending in `.sh` run on the server. The ones without run lo
 1. Fill in `shared/.env.local` on the server. The script creates it empty, and each deploy copies it into the release.
 1. Locally, run `bin/setup_gitlab_ci_vars <group/project>` once per scope (staging, production) to set the GitLab
    CI/CD variables. It needs `glab` (authenticated) & `jq`. If it generates an SSH key, add the public key it prints
-   to the server's `~/.ssh/authorized_keys`.
+   to the server's `~/.ssh/authorized_keys`. See `--help` for the options that pre-fill its prompts.
 1. Run the deploy job in GitLab.
 
 ## Environments

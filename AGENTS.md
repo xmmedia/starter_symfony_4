@@ -584,6 +584,17 @@ Core workflow:
   accepts the `REMOTE_ADDR` & `private_ranges` tokens as well as IPs/CIDRs. An empty value is
   falsy in `Kernel::initializeContainer()`, so nothing is trusted — it does not become `['']`
 
+### Provisioning Scripts
+
+Run once when a project's server is set up, never against the starter (the README has the runbook):
+- `bin/provision_site` — orchestrates provisioning a new site on an InterWorx server
+- `bin/setup_gitlab_ci_vars` — sets the GitLab CI/CD variables for one scope
+- `bin/setup_staging.sh` & `bin/setup_prod.sh` — create the release/shared structure; run on the server
+
+Never run these — they're interactive and make changes to servers, 1Password and GitLab.
+`provision_site` and `setup_gitlab_ci_vars` share the same structure, helpers and output style
+with the Craft starter's; keep them in sync when editing either one.
+
 ## Code Intelligence
 
 Prefer LSP over Grep/Glob/Read for code navigation:
