@@ -14,7 +14,7 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * @extends ServiceEntityRepository<User>
  *
- * @method User|null find(UserId|string $id, \Doctrine\DBAL\LockMode|int|null $lockMode = null, int|null $lockVersion = null)
+ * @method User|null find(UserId $id, \Doctrine\DBAL\LockMode|int|null $lockMode = null, int|null $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
@@ -27,7 +27,7 @@ class UserFinder extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findOrThrow(UserId|string $id): User
+    public function findOrThrow(UserId $id): User
     {
         $user = $this->find($id);
         if (!$user) {
@@ -37,7 +37,7 @@ class UserFinder extends ServiceEntityRepository
         return $user;
     }
 
-    public function findRefreshed(UserId|string $id): ?User
+    public function findRefreshed(UserId $id): ?User
     {
         $user = $this->find($id);
 

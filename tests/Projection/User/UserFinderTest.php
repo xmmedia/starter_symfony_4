@@ -57,45 +57,6 @@ class UserFinderTest extends BaseTestCase
         $finder->findOrThrow($userId);
     }
 
-    public function testFindOrThrowNotFoundWithStringId(): void
-    {
-        $faker = $this->faker();
-        $userId = $faker->uuid();
-
-        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
-            ->makePartial()
-            ->shouldAllowMockingProtectedMethods();
-
-        $finder->shouldReceive('find')
-            ->once()
-            ->with($userId)
-            ->andReturnNull();
-
-        $this->expectException(UserNotFound::class);
-
-        $finder->findOrThrow($userId);
-    }
-
-    public function testFindOrThrowWithStringId(): void
-    {
-        $faker = $this->faker();
-        $userIdString = $faker->uuid();
-        $user = \Mockery::mock(User::class);
-
-        $finder = \Mockery::mock(UserFinder::class, [\Mockery::mock(ManagerRegistry::class)])
-            ->makePartial()
-            ->shouldAllowMockingProtectedMethods();
-
-        $finder->shouldReceive('find')
-            ->once()
-            ->with($userIdString)
-            ->andReturn($user);
-
-        $result = $finder->findOrThrow($userIdString);
-
-        $this->assertSame($user, $result);
-    }
-
     public function testFindRefreshed(): void
     {
         $faker = $this->faker();
