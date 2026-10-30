@@ -19,7 +19,9 @@ class UserFakerProvider extends Faker\Provider\Base
 
     public function userRole(): Role
     {
-        return $this->generator->randomElement(Role::cases());
+        return $this->generator->randomElement(
+            array_filter(Role::cases(), static fn (Role $role): bool => Role::ROLE_ALLOWED_TO_SWITCH !== $role),
+        );
     }
 
     public function userData(): UserData

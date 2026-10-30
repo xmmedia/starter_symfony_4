@@ -10,9 +10,11 @@ use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminAddUser;
 use App\Model\User\Role;
 use App\Security\PasswordHasher;
+use App\Security\RoleAssignment;
 use App\Tests\BaseTestCase;
 use App\Tests\PwnedHttpClientMockTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
@@ -59,6 +61,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $passwordStore,
+            $this->roleAssignment(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -98,6 +101,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             \Mockery::mock(MessageBusInterface::class),
             \Mockery::mock(PasswordHasher::class),
             \Mockery::mock(UserPasswordStore::class),
+            $this->roleAssignment(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -143,6 +147,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $passwordStore,
+            $this->roleAssignment(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -194,6 +199,7 @@ class AdminUserAddMutationTest extends BaseTestCase
             $commandBus,
             $passwordHasher,
             $passwordStore,
+            $this->roleAssignment(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -205,5 +211,46 @@ class AdminUserAddMutationTest extends BaseTestCase
         ];
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testRoleNotAllowed(): void
+    {
+        $faker = $this->faker();
+        $args = new Argument([
+            'user' => [
+                'userId'      => $faker->userId(),
+                'email'       => $faker->email(),
+                'setPassword' => false,
+                'firstName'   => $faker->name(),
+                'lastName'    => $faker->name(),
+                'role'        => Role::ROLE_SUPER_ADMIN,
+                'userData'    => $faker->userData()->toArray(),
+            ],
+        ]);
+
+        $roleAssignment = \Mockery::mock(RoleAssignment::class);
+        $roleAssignment->shouldReceive('allowed')
+            ->once()
+            ->andReturnFalse();
+
+        $this->expectException(UserError::class);
+
+        (new AdminUserAddMutation(
+            \Mockery::mock(MessageBusInterface::class),
+            \Mockery::mock(PasswordHasher::class),
+            \Mockery::mock(UserPasswordStore::class),
+            $roleAssignment,
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
+        ))($args);
+    }
+
+    private function roleAssignment(): RoleAssignment
+    {
+        $roleAssignment = \Mockery::mock(RoleAssignment::class);
+        $roleAssignment->shouldReceive('allowed')
+            ->andReturnTrue();
+
+        return $roleAssignment;
     }
 }

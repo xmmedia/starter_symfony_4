@@ -198,7 +198,11 @@ final class AddUserCommand extends Command
 
     private function askForRole(SymfonyStyle $io): string
     {
-        return $io->choice('Role', Role::values(), 'ROLE_USER');
+        return $io->choice(
+            'Role',
+            array_values(array_diff(Role::values(), [Role::ROLE_ALLOWED_TO_SWITCH->value])),
+            'ROLE_USER',
+        );
     }
 
     private function askForName(string $label, SymfonyStyle $io): string

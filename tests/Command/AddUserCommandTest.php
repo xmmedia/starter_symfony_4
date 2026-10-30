@@ -8,6 +8,7 @@ use App\Command\AddUserCommand;
 use App\Entity\User;
 use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminAddUserMinimum;
+use App\Model\User\Role;
 use App\Projection\User\UserFinder;
 use App\Security\PasswordHasher;
 use App\Tests\BaseTestCase;
@@ -66,6 +67,7 @@ class AddUserCommandTest extends BaseTestCase
         $this->assertStringContainsString('Created new active user', $commandTester->getDisplay());
         $this->assertStringContainsString($email, $commandTester->getDisplay());
         $this->assertStringContainsString($role->value, $commandTester->getDisplay());
+        $this->assertStringNotContainsString(Role::ROLE_ALLOWED_TO_SWITCH->value, $commandTester->getDisplay());
     }
 
     public function testSendInvite(): void

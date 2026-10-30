@@ -11,12 +11,16 @@ use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Name;
 use App\Model\User\Role;
 use App\Model\User\UserData;
+use App\Projection\User\UserFinder;
 use App\Security\PasswordHasher;
+use App\Security\RoleAssignment;
 use App\Util\Assert;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Xm\SymfonyBundle\EventSubscriber\GraphQlErrorSubscriber;
 use Xm\SymfonyBundle\Model\Email;
 use Xm\SymfonyBundle\Util\PasswordStrengthInterface;
 
@@ -26,6 +30,8 @@ final readonly class AdminUserUpdateMutation implements MutationInterface
         private MessageBusInterface $commandBus,
         private PasswordHasher $passwordHasher,
         private UserPasswordStore $passwordStore,
+        private RoleAssignment $roleAssignment,
+        private UserFinder $userFinder,
         private ?PasswordStrengthInterface $passwordStrength = null,
         private ?HttpClientInterface $pwnedHttpClient = null,
     ) {
@@ -38,6 +44,9 @@ final readonly class AdminUserUpdateMutation implements MutationInterface
         $role = $args['user']['role'];
         if (!$role instanceof Role) {
             $role = Role::from($role);
+        }
+        if (!$this->roleAssignment->allowed($role, $this->userFinder->findRefreshed($userId)?->firstRole())) {
+            throw new UserError(GraphQlErrorSubscriber::ACCESS_DENIED_MESSAGE);
         }
         $firstName = Name::fromString($args['user']['firstName']);
         $lastName = Name::fromString($args['user']['lastName']);
