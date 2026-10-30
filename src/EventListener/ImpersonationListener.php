@@ -10,9 +10,11 @@ use App\Model\Auth\Command\UserEndedImpersonating;
 use App\Model\Auth\Command\UserStartedImpersonating;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
+use Symfony\Component\Security\Http\Event\LogoutEvent;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 
 readonly class ImpersonationListener
@@ -60,10 +62,27 @@ readonly class ImpersonationListener
         );
     }
 
+    /**
+     * Signing out while impersonating ends it too.
+     */
+    #[AsEventListener(LogoutEvent::class)]
+    public function onLogout(LogoutEvent $event): void
+    {
+        $token = $event->getToken();
+        if (!$token instanceof SwitchUserToken) {
+            return;
+        }
+
+        /** @var User $adminUser */
+        $adminUser = $token->getOriginalToken()->getUser();
+        /** @var User $impersonatedUser */
+        $impersonatedUser = $token->getUser();
+
+        $this->ended($event->getRequest(), $adminUser, $impersonatedUser);
+    }
+
     private function handleExit(SwitchUserEvent $event): void
     {
-        $request = $event->getRequest();
-
         /** @var User $adminUser */
         $adminUser = $event->getTargetUser();
 
@@ -72,6 +91,11 @@ readonly class ImpersonationListener
         /** @var User $impersonatedUser */
         $impersonatedUser = $currentToken->getUser();
 
+        $this->ended($event->getRequest(), $adminUser, $impersonatedUser);
+    }
+
+    private function ended(Request $request, User $adminUser, User $impersonatedUser): void
+    {
         $this->commandBus->dispatch(
             UserEndedImpersonating::now(
                 AuthId::fromUuid(Uuid::uuid4()),

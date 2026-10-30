@@ -16,6 +16,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Event\LogoutEvent;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Xm\SymfonyBundle\Model\Email;
 
@@ -28,6 +29,10 @@ class ImpersonationListenerTest extends BaseTestCase
         $this->assertSame(
             SwitchUserEvent::class,
             $this->eventListenerAttribute(ImpersonationListener::class, 'onSwitchUser')->event,
+        );
+        $this->assertSame(
+            LogoutEvent::class,
+            $this->eventListenerAttribute(ImpersonationListener::class, 'onLogout')->event,
         );
     }
 
@@ -127,6 +132,55 @@ class ImpersonationListenerTest extends BaseTestCase
         $event = new SwitchUserEvent($request, $adminUser, $originalToken);
 
         new ImpersonationListener($commandBus, $tokenStorage)->onSwitchUser($event);
+    }
+
+    public function testLogoutWhileImpersonating(): void
+    {
+        $faker = $this->faker();
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldReceive('dispatch')
+            ->once()
+            ->with(\Mockery::type(UserEndedImpersonating::class))
+            ->andReturn(new Envelope(new \stdClass()));
+
+        $adminUser = \Mockery::mock(User::class);
+        $adminUser->shouldReceive('userId')
+            ->once()
+            ->andReturn($faker->userId());
+
+        $impersonatedUser = \Mockery::mock(User::class);
+        $impersonatedUser->shouldReceive('userId')
+            ->once()
+            ->andReturn($faker->userId());
+
+        $originalToken = \Mockery::mock(TokenInterface::class);
+        $originalToken->shouldReceive('getUser')
+            ->once()
+            ->andReturn($adminUser);
+
+        $token = \Mockery::mock(SwitchUserToken::class);
+        $token->shouldReceive('getOriginalToken')
+            ->once()
+            ->andReturn($originalToken);
+        $token->shouldReceive('getUser')
+            ->once()
+            ->andReturn($impersonatedUser);
+
+        $request = Request::create('', Request::METHOD_GET, [], [], [], ['REMOTE_ADDR' => $faker->ipv4()]);
+        $request->attributes->set('_route', $faker->slug());
+
+        new ImpersonationListener($commandBus, \Mockery::mock(TokenStorageInterface::class))
+            ->onLogout(new LogoutEvent($request, $token));
+    }
+
+    public function testLogoutNotImpersonating(): void
+    {
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldNotReceive('dispatch');
+
+        new ImpersonationListener($commandBus, \Mockery::mock(TokenStorageInterface::class))
+            ->onLogout(new LogoutEvent(Request::create(''), \Mockery::mock(TokenInterface::class)));
     }
 
     /**
