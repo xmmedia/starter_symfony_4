@@ -10,7 +10,7 @@ import { csrfToken } from '@/common/csrf';
 import { isMaintenanceError, maintenanceLink } from '@/common/maintenance';
 import { sessionLink } from '@/common/session';
 
-// double submits the CSRF token in a header: see CsrfValidationSubscriber
+// double submits the CSRF token in a header: see CsrfValidationListener
 const csrfLink = setContext((_, { headers }) => {
     return {
         headers: {
