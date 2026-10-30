@@ -67,7 +67,7 @@ class UserVerifyMutationTest extends BaseTestCase
 
     public function testThrowsErrorWhenTokenIsMissing(): void
     {
-        // Create request provider that returns null for token
+        // Session returns null for the token
         $session = \Mockery::mock(SessionInterface::class);
         $session->shouldReceive('get')
             ->once()

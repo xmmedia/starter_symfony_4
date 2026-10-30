@@ -6,7 +6,6 @@ namespace App\Command;
 
 use App\Infrastructure\Email\EmailTemplate;
 use Postmark\Models\PostmarkException;
-use Postmark\Models\PostmarkTemplate;
 use Postmark\PostmarkClient;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -70,7 +69,7 @@ final class PostmarkCheckTemplatesCommand extends Command
     }
 
     /**
-     * @return array<string, PostmarkTemplate> keyed by alias
+     * @return array<string, \Postmark\Models\PostmarkTemplate> keyed by alias
      *
      * @throws PostmarkException
      */

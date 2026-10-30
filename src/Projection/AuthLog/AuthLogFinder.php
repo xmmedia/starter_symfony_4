@@ -6,17 +6,15 @@ namespace App\Projection\AuthLog;
 
 use App\Entity\AuthLog;
 use App\Entity\User;
-use App\Model\AuthLog\AuthLogId;
 use App\Model\User\UserId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @extends ServiceEntityRepository<AuthLog>
  *
- * @method AuthLog|null find(AuthLogId|string $id, LockMode|int|null $lockMode = null, int|null $lockVersion = null)
+ * @method AuthLog|null find(\App\Model\AuthLog\AuthLogId|string $id, \Doctrine\DBAL\LockMode|int|null $lockMode = null, int|null $lockVersion = null)
  * @method AuthLog|null findOneBy(array $criteria, array $orderBy = null)
  * @method AuthLog[]    findAll()
  * @method AuthLog[]    findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)

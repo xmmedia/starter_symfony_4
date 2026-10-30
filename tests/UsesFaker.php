@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\DataFixtures\Faker\FakerGenerator;
 use App\DataFixtures\Faker\Provider;
 use Faker;
 use Xm\SymfonyBundle\DataFixtures\Faker\Provider as BundleProviders;
 
 trait UsesFaker
 {
-    /** @var Faker\Generator&FakerGenerator */
+    /** @var Faker\Generator&\App\DataFixtures\Faker\FakerGenerator */
     private static Faker\Generator $faker;
 
     /**
@@ -20,7 +19,7 @@ trait UsesFaker
      *
      * @return Faker\Generator&BundleProviders\AddressFakerProvider&BundleProviders\DateFakerProvider&BundleProviders\EmailFakerProvider&BundleProviders\GenderFakerProvider&BundleProviders\InternetFakerProvider&BundleProviders\NameFakerProvider&BundleProviders\PhoneNumberFakerProvider&BundleProviders\StringFakerProvider&BundleProviders\UuidFakerProvider&Provider\UserFakerProvider&Provider\UuidFakerProvider
      *
-     * @phpstan-return Faker\Generator&FakerGenerator
+     * @phpstan-return Faker\Generator&\App\DataFixtures\Faker\FakerGenerator
      */
     protected static function faker(): Faker\Generator
     {
@@ -34,13 +33,13 @@ trait UsesFaker
     /**
      * @return Faker\Generator&BundleProviders\AddressFakerProvider&BundleProviders\DateFakerProvider&BundleProviders\EmailFakerProvider&BundleProviders\GenderFakerProvider&BundleProviders\InternetFakerProvider&BundleProviders\NameFakerProvider&BundleProviders\PhoneNumberFakerProvider&BundleProviders\StringFakerProvider&BundleProviders\UuidFakerProvider&Provider\UserFakerProvider&Provider\UuidFakerProvider
      *
-     * @phpstan-return Faker\Generator&FakerGenerator
+     * @phpstan-return Faker\Generator&\App\DataFixtures\Faker\FakerGenerator
      */
     protected static function makeFaker(): Faker\Generator
     {
         $locales = ['en_CA', 'en_US'];
 
-        /** @var Faker\Generator&FakerGenerator $faker */
+        /** @var Faker\Generator&\App\DataFixtures\Faker\FakerGenerator $faker */
         $faker = Faker\Factory::create($locales[array_rand($locales)]);
         $faker->addProvider(new BundleProviders\AddressFakerProvider($faker));
         $faker->addProvider(new BundleProviders\DateFakerProvider($faker));

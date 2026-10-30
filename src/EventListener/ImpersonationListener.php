@@ -12,7 +12,6 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Symfony\Component\Security\Http\Firewall\SwitchUserListener;
 
@@ -40,7 +39,7 @@ readonly class ImpersonationListener
     {
         $request = $event->getRequest();
 
-        /** @var SwitchUserToken $token */
+        /** @var \Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken $token */
         $token = $event->getToken();
 
         /** @var User $adminUser */
@@ -68,7 +67,7 @@ readonly class ImpersonationListener
         /** @var User $adminUser */
         $adminUser = $event->getTargetUser();
 
-        /** @var SwitchUserToken $currentToken */
+        /** @var \Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken $currentToken */
         $currentToken = $this->tokenStorage->getToken();
         /** @var User $impersonatedUser */
         $impersonatedUser = $currentToken->getUser();

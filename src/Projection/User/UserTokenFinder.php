@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Projection\User;
 
-use App\Entity\User;
 use App\Entity\UserToken;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -29,7 +28,7 @@ class UserTokenFinder extends ServiceEntityRepository implements ResetPasswordRe
     }
 
     /**
-     * @param User|object $user
+     * @param \App\Entity\User|object $user
      */
     public function createResetPasswordRequest(
         object $user,

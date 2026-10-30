@@ -10,17 +10,16 @@ use App\Model\User\Command\UpgradePassword;
 use App\Security\UserProvider;
 use App\Tests\BaseTestCase;
 use Doctrine\Persistence\ManagerRegistry;
-use Mockery;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class UserProviderTest extends BaseTestCase
 {
-    /** @var MessageBusInterface|Mockery\MockInterface */
+    /** @var MessageBusInterface|\Mockery\MockInterface */
     private MessageBusInterface $commandBus;
 
-    /** @var UserPasswordStore|Mockery\MockInterface */
+    /** @var UserPasswordStore|\Mockery\MockInterface */
     private UserPasswordStore $passwordStore;
 
     protected function setUp(): void

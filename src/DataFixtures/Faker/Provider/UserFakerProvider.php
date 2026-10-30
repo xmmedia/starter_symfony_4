@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\Faker\Provider;
 
-use App\DataFixtures\Faker\FakerGenerator;
 use App\Model\User\Role;
 use App\Model\User\UserData;
 use Faker;
@@ -14,7 +13,7 @@ use Faker;
  */
 class UserFakerProvider extends Faker\Provider\Base
 {
-    /** @var Faker\Generator&FakerGenerator */
+    /** @var Faker\Generator&\App\DataFixtures\Faker\FakerGenerator */
     #[\Override]
     protected $generator;
 
