@@ -59,7 +59,8 @@
                         {{ rootStore.availableRoles[item.roles[0]] }}
                     </template>
                     <template #col6="{ item }">
-                        <RouterLink :to="{ name: 'admin-user-edit', params: { userId: item.userId } }">
+                        <RouterLink v-if="rootStore.canEditUser(item)"
+                                    :to="{ name: 'admin-user-edit', params: { userId: item.userId } }">
                             Edit
                         </RouterLink>
                     </template>

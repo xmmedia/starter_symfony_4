@@ -10,7 +10,6 @@ use App\Infrastructure\Service\UserPasswordStore;
 use App\Model\User\Command\AdminChangePassword;
 use App\Model\User\Command\AdminUpdateUser;
 use App\Model\User\Role;
-use App\Projection\User\UserFinder;
 use App\Security\PasswordHasher;
 use App\Security\RoleAssignment;
 use App\Tests\BaseTestCase;
@@ -56,7 +55,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             $passwordHasher,
             $passwordStore,
             $this->roleAssignment(),
-            $this->userFinder(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -111,7 +109,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             $passwordHasher,
             $passwordStore,
             $this->roleAssignment(),
-            $this->userFinder(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))(
@@ -150,7 +147,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             \Mockery::mock(PasswordHasher::class),
             \Mockery::mock(UserPasswordStore::class),
             $this->roleAssignment(),
-            $this->userFinder(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))(
@@ -189,7 +185,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             $passwordHasher,
             $passwordStore,
             $this->roleAssignment(),
-            $this->userFinder(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -228,7 +223,6 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             \Mockery::mock(PasswordHasher::class),
             \Mockery::mock(UserPasswordStore::class),
             $roleAssignment,
-            $this->userFinder(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
         ))($args);
@@ -241,14 +235,5 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             ->andReturnTrue();
 
         return $roleAssignment;
-    }
-
-    private function userFinder(): UserFinder
-    {
-        $userFinder = \Mockery::mock(UserFinder::class);
-        $userFinder->shouldReceive('findRefreshed')
-            ->andReturnNull();
-
-        return $userFinder;
     }
 }

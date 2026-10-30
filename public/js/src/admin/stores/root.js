@@ -42,6 +42,11 @@ export const useRootStore = defineStore('rootStore', {
                 return state.user.roles.includes(role);
             };
         },
+
+        // admins can only change users whose roles they have themselves, eg an admin can't change a super admin
+        canEditUser () {
+            return (user) => user.roles.every((role) => this.hasRole(role));
+        },
     },
 
     actions: {

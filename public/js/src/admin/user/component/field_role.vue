@@ -21,9 +21,9 @@ const rootStore = useRootStore();
 
 const role = defineModel({ type: String, default: null });
 
-// only super admins can make someone a super admin, but anyone can keep a super admin's role
+// only super admins can make someone a super admin
 const availableRoles = computed(() => {
-    if (rootStore.hasRole('ROLE_SUPER_ADMIN') || 'ROLE_SUPER_ADMIN' === role.value) {
+    if (rootStore.hasRole('ROLE_SUPER_ADMIN')) {
         return rootStore.availableRoles;
     }
 

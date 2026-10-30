@@ -1,6 +1,6 @@
 <template>
     <Teleport to="#header-actions">
-        <RouterLink v-if="state.matches('loaded')"
+        <RouterLink v-if="state.matches('loaded') && rootStore.canEditUser(user)"
                     :to="{ name: 'admin-user-edit', params: { userId: props.userId } }"
                     class="header-action header-action-main">Edit User</RouterLink>
         <div class="header-secondary_actions">
@@ -100,11 +100,12 @@
             </div>
 
             <div class="record_view-actions">
-                <Activate :user-id="userId"
+                <Activate v-if="canEdit"
+                          :user-id="userId"
                           :active="user.active"
                           @activated="user.active = true"
                           @deactivated="user.active = false" />
-                <Verify v-if="!user.verified"
+                <Verify v-if="canEdit && !user.verified"
                         :user-id="userId"
                         :active="user.active"
                         :verified="user.verified"
@@ -118,7 +119,7 @@
                                  && user.userId !== rootStore.user.userId"
                              :user-email="user.email" />
 
-                <AdminDelete record-desc="user" @delete="deleteUser">
+                <AdminDelete v-if="canEdit" record-desc="user" @delete="deleteUser">
                     <template #button="{ open }">
                         <button ref="link"
                                 class="button button-critical text-sm"
@@ -201,6 +202,7 @@ const showView = computed(
 );
 
 const isImpersonating = computed(() => rootStore.user?.isImpersonating ?? false);
+const canEdit = computed(() => rootStore.canEditUser(user.value));
 
 const deleteUser = async () => {
     sendEvent({ type: 'DELETE' });

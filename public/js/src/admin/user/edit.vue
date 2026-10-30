@@ -23,6 +23,10 @@
             <p><RouterLink :to="{ name: 'admin-user' }">Return to user list</RouterLink></p>
         </div>
 
+        <div v-else-if="!canEdit" class="alert alert-warning">
+            Only a super admin can change a super admin.
+        </div>
+
         <form v-else-if="showForm" method="post" novalidate @submit.prevent="submit">
             <FormError :v="v$" />
 
@@ -39,11 +43,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMachine } from '@xstate/vue';
 import { createMachine } from 'xstate';
 import { edit as stateMachineConfig } from '@/common/state_machines';
+import { useRootStore } from '@/admin/stores/root';
 import { useMutation, useQuery } from '@vue/apollo-composable';
 import { GraphQlErrorCodes, formatPhone, getGraphQlErrorCode, logError } from '@/common/lib';
 import { GetUserQuery } from '../queries/user.query.graphql';
@@ -53,6 +58,7 @@ import { useForm } from './form';
 import FormFields from './component/form_fields.vue';
 
 const router = useRouter();
+const rootStore = useRootStore();
 
 const props = defineProps({
     userId: {
@@ -71,6 +77,8 @@ const {
     rejectPassword,
 } = useForm(state, props.userId);
 
+const canEdit = ref(true);
+
 const showForm = computed(() => state.value.matches('ready') && !state.value.done);
 const allowSave = computed(() => showForm.value && state.value.matches('ready.ready'));
 
@@ -81,6 +89,8 @@ onResult(({ data: { User }}) => {
 
         return;
     }
+
+    canEdit.value = rootStore.canEditUser(User);
 
     user.value.email = User.email;
     user.value.role = User.roles[0];

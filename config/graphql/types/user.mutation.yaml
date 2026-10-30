@@ -68,7 +68,7 @@ UserMutation:
             AdminUserUpdate:
                 type:        AdminUserMutationPayload!
                 description: 'Admin User update.'
-                access:      '@=hasRole("ROLE_ADMIN")'
+                access:      '@=service("App\\GraphQl\\Access\\AdminUserAccess").allowed(args["user"]["userId"])'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserUpdateMutation", args)'
                 args:
                     user: AdminUserUpdateInput!
@@ -76,7 +76,7 @@ UserMutation:
             AdminUserActivate:
                 type:        AdminUserMutationPayload!
                 description: 'Activate User by Admin.'
-                access:      '@=hasRole("ROLE_ADMIN")'
+                access:      '@=service("App\\GraphQl\\Access\\AdminUserAccess").allowed(args["user"]["userId"])'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserActivateMutation", args)'
                 args:
                     user: AdminUserActivateInput!
@@ -84,7 +84,7 @@ UserMutation:
             AdminUserVerify:
                 type:        AdminUserMutationPayload!
                 description: 'Verify User by Admin.'
-                access:      '@=hasRole("ROLE_ADMIN")'
+                access:      '@=service("App\\GraphQl\\Access\\AdminUserAccess").allowed(args["userId"])'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserVerifyMutation", args["userId"])'
                 args:
                     userId: UserId!
@@ -116,7 +116,7 @@ UserMutation:
             AdminUserDelete:
                 type:        UserDeleteMutationPayload!
                 description: 'Delete User.'
-                access:      '@=hasRole("ROLE_ADMIN")'
+                access:      '@=service("App\\GraphQl\\Access\\AdminUserAccess").allowed(args["userId"])'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserDeleteMutation", args["userId"])'
                 args:
                     userId: UserId!

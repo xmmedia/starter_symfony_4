@@ -13,26 +13,23 @@ use PHPUnit\Framework\Attributes\DataProvider;
 class RoleAssignmentTest extends BaseTestCase
 {
     #[DataProvider('allowedProvider')]
-    public function testAllowed(Role $role, ?Role $currentRole, bool $isSuperAdmin, bool $expected): void
+    public function testAllowed(Role $role, bool $granted, bool $expected): void
     {
         $security = \Mockery::mock(Security::class);
         $security->shouldReceive('isGranted')
-            ->with(Role::ROLE_SUPER_ADMIN->value)
-            ->andReturn($isSuperAdmin);
+            ->with($role->value)
+            ->andReturn($granted);
 
-        $this->assertSame($expected, new RoleAssignment($security)->allowed($role, $currentRole));
+        $this->assertSame($expected, new RoleAssignment($security)->allowed($role));
     }
 
     public static function allowedProvider(): \Generator
     {
-        yield 'user' => [Role::ROLE_USER, null, false, true];
-        yield 'admin' => [Role::ROLE_ADMIN, Role::ROLE_USER, false, true];
-        yield 'switch as admin' => [Role::ROLE_ALLOWED_TO_SWITCH, null, false, false];
-        yield 'switch as super admin' => [Role::ROLE_ALLOWED_TO_SWITCH, null, true, false];
-        yield 'switch kept' => [Role::ROLE_ALLOWED_TO_SWITCH, Role::ROLE_ALLOWED_TO_SWITCH, true, false];
-        yield 'super admin as admin' => [Role::ROLE_SUPER_ADMIN, null, false, false];
-        yield 'promote to super admin as admin' => [Role::ROLE_SUPER_ADMIN, Role::ROLE_ADMIN, false, false];
-        yield 'super admin kept as admin' => [Role::ROLE_SUPER_ADMIN, Role::ROLE_SUPER_ADMIN, false, true];
-        yield 'super admin as super admin' => [Role::ROLE_SUPER_ADMIN, null, true, true];
+        yield 'user' => [Role::ROLE_USER, true, true];
+        yield 'admin' => [Role::ROLE_ADMIN, true, true];
+        yield 'super admin as admin' => [Role::ROLE_SUPER_ADMIN, false, false];
+        yield 'super admin as super admin' => [Role::ROLE_SUPER_ADMIN, true, true];
+        yield 'switch as admin' => [Role::ROLE_ALLOWED_TO_SWITCH, false, false];
+        yield 'switch as super admin' => [Role::ROLE_ALLOWED_TO_SWITCH, true, false];
     }
 }
