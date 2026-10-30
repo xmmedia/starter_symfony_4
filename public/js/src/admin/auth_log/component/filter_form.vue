@@ -1,28 +1,25 @@
 <template>
-    <form class="form-wrap w-full max-w-5xl" method="post" @submit.prevent>
-        <div class="flex gap-8">
-            <div class="flex flex-col md:flex-row gap-x-8">
-                <FieldSelect v-model="filters.dateRange"
-                             :values="dateRangeOptions"
-                             :hide-default-option="true">
-                    Date
-                    <template v-if="dateRangeLabel" #help>{{ dateRangeLabel }}</template>
-                </FieldSelect>
-                <div v-if="'CUSTOM' === filters.dateRange" class="field-wrap">
-                    <label :for="dateRangeInputId">Custom Range</label>
-                    <div class="flex items-center gap-x-2">
-                        <input :id="dateRangeInputId"
-                               ref="dateRangeInputRef"
-                               type="text"
-                               readonly
-                               placeholder="Select range…"
-                               class="w-56" />
-                    </div>
-                </div>
-                <FieldInput v-model="filters.q" placeholder="Search by email…" autocomplete="off">
-                    Email
-                </FieldInput>
+    <form class="form-wrap w-full max-w-7xl" method="post" @submit.prevent>
+        <div class="flex flex-col md:flex-row md:flex-wrap gap-x-8">
+            <FieldSelect v-model="filters.dateRange"
+                         :values="dateRangeOptions"
+                         :hide-default-option="true">
+                Date
+                <template v-if="dateRangeLabel" #help>{{ dateRangeLabel }}</template>
+            </FieldSelect>
+            <div v-if="'CUSTOM' === filters.dateRange" class="field-wrap">
+                <label :for="dateRangeInputId">Custom Range</label>
+                <input :id="dateRangeInputId"
+                       ref="dateRangeInputRef"
+                       type="text"
+                       readonly
+                       placeholder="Select range…"
+                       autocomplete="off"
+                       class="w-56 max-w-full" />
             </div>
+            <FieldInput v-model="filters.q" placeholder="Search by email…" autocomplete="off">
+                Email
+            </FieldInput>
             <FieldRadios v-model="filters.eventType" :values="filterValues" :pills="true">
                 Type
             </FieldRadios>
@@ -93,9 +90,6 @@ const dateRangeLabel = computed(() => {
 
         return `${date} at ${time}`;
     };
-    const fmtDate = (d) => d.toLocaleDateString(undefined, {
-        month: 'short', day: 'numeric', year: 'numeric',
-    });
     const now = new Date();
 
     switch (filters.value.dateRange) {
@@ -107,13 +101,6 @@ const dateRangeLabel = computed(() => {
             return `${fmtDateTime(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))} – ${fmtDateTime(now)}`;
         case 'LAST_MONTH':
             return `${fmtDateTime(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000))} – ${fmtDateTime(now)}`;
-        case 'CUSTOM':
-            if (!filters.value.customDateFrom || !filters.value.customDateTo) {
-                return null;
-            }
-
-            return `${fmtDate(new Date(filters.value.customDateFrom + 'T00:00:00'))} –
-                ${fmtDate(new Date(filters.value.customDateTo + 'T00:00:00'))}`;
         default:
             return null;
     }
