@@ -25,8 +25,36 @@ textarea {
     /* fixes space below textareas, making it consistent across browsers */
     @apply align-top text-black;
 }
+/* our own select arrow: once a select has a border or background, Chrome draws its own thin chevron
+   against the right edge whatever the padding, & the glyph differs by browser. A data URI can't read
+   a CSS variable, so the stroke is set here; override --select-arrow where selects sit on a dark bg */
+:root {
+    /* the stroke (%23 is #) is gray-500 */
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%236a7282' stroke-width='2'%3E%3Cpath d='M5 7.5l5 5 5-5'/%3E%3C/svg%3E");
+}
 select {
-    @apply w-full h-[2.14rem] px-2 py-1 text-black border border-gray-300 bg-gray-100 transition-default;
+    @apply w-full h-[2.14rem] appearance-none pl-2 pr-8 py-1 bg-gray-100 bg-no-repeat bg-size-[1.25rem] bg-position-[right_0.5rem_center] border border-gray-300 text-black transition-default;
+    background-image: var(--select-arrow);
+    /* browsers skip background images when printing, which would drop the arrow */
+    print-color-adjust: exact;
+
+    /* list boxes show their options, so no arrow */
+    &[multiple],
+    &[size]:not([size="1"]) {
+        @apply h-auto pr-2 bg-none;
+        print-color-adjust: unset;
+    }
+
+    &:disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    /* forced colours replace the background colour but keep url() images, so the arrow could vanish
+       against it; the native arrow is drawn in the forced colours */
+    @media (forced-colors: active) {
+        appearance: auto;
+        background-image: none;
+    }
 }
 
 /* make sure everything shows a pointer on hover */
