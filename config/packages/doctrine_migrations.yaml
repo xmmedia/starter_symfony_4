@@ -1,10 +1,14 @@
 doctrine_migrations:
     enable_service_migrations: true
     migrations_paths:
-        # namespace is arbitrary but should be different from App\Migrations
-        # as migrations classes should NOT be autoloaded
-        'DoctrineMigrations': '%kernel.project_dir%/migrations'
+        'App\Migrations': '%kernel.project_dir%/src/Migrations'
+        # @todo-symfony remove next 4 lines when setting up project
+        # projects started before migrations moved to src/Migrations: keep the existing ones where they
+        # are (moving them changes their versions in doctrine_migration_versions) & keep App\Doctrine\MigrationFactory,
+        # which calls setKernel() on the old projection migrations
+        #'DoctrineMigrations': '%kernel.project_dir%/migrations'
     enable_profiler: false
-
-    services:
-        Doctrine\Migrations\Version\MigrationFactory: 'App\Doctrine\MigrationFactory'
+    # @todo-symfony remove next 3 lines when setting up project
+    # with both migrations paths: run them in date order, instead of every App\Migrations one first
+    #services:
+    #    Doctrine\Migrations\Version\Comparator: 'Xm\SymfonyBundle\Migrations\VersionComparator'

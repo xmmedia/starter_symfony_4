@@ -99,7 +99,6 @@ export default defineConfig(({ command, mode, isPreview }) => {
                     '**/bin/**',
                     '**/coverage/**',
                     '**/docs/**',
-                    '**/migrations/**',
                     // absolute so only the root tests dir is ignored, not e.g. public/js/tests
                     `${fileURLToPath(new URL('./tests/', import.meta.url))}**`,
                     '**/var/**',

@@ -29,7 +29,6 @@ return RectorConfig::configure()
         __DIR__.'/src',
         __DIR__.'/public',
         __DIR__.'/config',
-        __DIR__.'/migrations',
         __DIR__.'/tests',
     ])
     ->withImportNames(

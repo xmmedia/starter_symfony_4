@@ -136,8 +136,9 @@ Existing projections: `user_projection`, `auth_projection`, `auth_log_projection
 - Run: `lando console doctrine:migrations:migrate`
 - Status: `lando console doctrine:migrations:status`
 
-Migrations live in `migrations/` under the `DoctrineMigrations` namespace (they're deliberately
-not autoloaded — see `config/packages/doctrine_migrations.yaml`).
+Migrations live in `src/Migrations/` under the `App\Migrations` namespace. They're services
+(`enable_service_migrations`), so they're autowired — inject what they need (eg the kernel) through
+the constructor or a `#[Required]` setter.
 
 **Name them `VersionYYYYMMDD###`** — the date plus a 3 digit sequence for that day, eg
 `Version20260826001`, `Version20260826002`. Doctrine generates `VersionYYYYMMDDHHMMSS`, so
