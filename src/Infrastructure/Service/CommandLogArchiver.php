@@ -222,7 +222,7 @@ class CommandLogArchiver
             "-- Archive of `%s` rows sent before %s\n-- Created %s\n\n",
             self::TABLE,
             $cutoff->format('Y-m-d H:i:s.u'),
-            CarbonImmutable::now()->format('Y-m-d H:i:s'),
+            CarbonImmutable::now()->toDateTimeString(),
         );
     }
 

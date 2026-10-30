@@ -100,7 +100,7 @@ final class ArchiveCommandLogCommand extends Command
         $cutoff = $this->cutoff((string) $input->getArgument(self::BEFORE));
 
         if ($dryRun) {
-            $io->comment(\sprintf('Archiving rows sent before %s UTC', $cutoff->format('Y-m-d H:i:s')));
+            $io->comment(\sprintf('Archiving rows sent before %s UTC', $cutoff->toDateTimeString()));
             $io->success(\sprintf('%s row(s) would be archived.', number_format($this->archiver->count($cutoff))));
 
             return Command::SUCCESS;
@@ -111,7 +111,7 @@ final class ArchiveCommandLogCommand extends Command
         if (!$io->confirm(\sprintf(
             '%s all rows sent before %s UTC?',
             $delete ? 'Archive & delete' : 'Archive',
-            $cutoff->format('Y-m-d H:i:s'),
+            $cutoff->toDateTimeString(),
         ))) {
             $io->comment('Aborted.');
 
@@ -204,7 +204,7 @@ final class ArchiveCommandLogCommand extends Command
             '%s/%s_before_%s_%s.sql.gz',
             rtrim($path, '/'),
             CommandLogArchiver::TABLE,
-            $cutoff->format('Y-m-d'),
+            $cutoff->toDateString(),
             CarbonImmutable::now()->format('YmdHis'),
         );
     }

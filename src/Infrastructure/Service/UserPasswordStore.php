@@ -34,7 +34,7 @@ class UserPasswordStore
             [
                 $userId->toString(),
                 $hashedPassword,
-                CarbonImmutable::now()->format('Y-m-d H:i:s'),
+                CarbonImmutable::now()->toDateTimeString(),
             ],
         );
     }
