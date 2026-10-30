@@ -106,8 +106,6 @@ before_script:
     fi
   # switch to new version
   - remote "ln -sfn $RELEASE $REMOTE_BASE/current"
-  # reload php-fpm (to reset cache)
-  - remote "sudo /bin/systemctl reload php85-php-fpm"
   # stop/restart the doctrine message works/consumers & ensure the transports exist
   - |
     console $REMOTE_BASE/current messenger:stop-workers

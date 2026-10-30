@@ -7,9 +7,8 @@
 #   3. Create the database + database user
 #   4. Upload and run setup_staging.sh or setup_prod.sh as the site user
 #   5. Write shared/.env.local, filling in what's known
-#   6. Add the PHP restart sudoers entry for the site user
-#   7. (optional) Add the Messenger worker cron job
-#   8. Run bin/setup_gitlab_ci_vars locally
+#   6. (optional) Add the Messenger worker cron job
+#   7. Run bin/setup_gitlab_ci_vars locally
 #
 # The SSL certificate is not generated here — the InterWorx CLI always includes
 # the www subdomain and gives no way to exclude it. Generate it in SiteWorx
@@ -166,8 +165,6 @@ PHP_AVAILABLE=$(remote sudo -n "$NODEWORX" -u -n -c Siteworx -a add --help \
     | awk '/^--php_version/ {print $NF}')
 echo "  Available: $PHP_AVAILABLE"
 PHP_PATH=$(ask "PHP version path" "$(echo "$PHP_AVAILABLE" | tr '|' '\n' | grep -E '^/opt/remi/php[0-9]+$' | tail -1)")
-[[ "$PHP_PATH" =~ php([0-9]+)$ ]] || die "cannot derive the sudoers macro from '$PHP_PATH'"
-PHP_RESTART="PHP${BASH_REMATCH[1]}_RESTART"
 
 heading "1Password"
 OP_VAULT=$(ask_required "Vault")
@@ -192,7 +189,7 @@ printf "  %-22s %s\n" "site user"     "$SITE_USER"
 printf "  %-22s %s\n" "account email" "$ADMIN_EMAIL"
 printf "  %-22s %s\n" "site base"     "$SITE_BASE"
 printf "  %-22s %s\n" "database/user" "$DB_NAME"
-printf "  %-22s %s\n" "PHP"           "$PHP_PATH ($PHP_RESTART)"
+printf "  %-22s %s\n" "PHP"           "$PHP_PATH"
 printf "  %-22s %s\n" "1P vault"      "$OP_VAULT${OP_TAG:+ (tag: $OP_TAG)}"
 printf "  %-22s %s\n" "GitLab vars"   "$DO_GITLAB${GITLAB_PROJECT:+ ($GITLAB_PROJECT)}"
 printf "  %-22s %s\n" "worker cron"   "$DO_CRON"
@@ -201,7 +198,7 @@ confirm "Proceed? Everything after this point makes changes." n || { echo "Abort
 
 # --- 1. 1Password items ------------------------------------------------------
 
-heading "1/8 Creating 1Password items"
+heading "1/7 Creating 1Password items"
 SITE_PASSWORD=$(generate_password)
 DB_PASSWORD=$(generate_password)
 
@@ -227,7 +224,7 @@ ok "database item: $OP_DB_ID"
 
 # --- 2. SiteWorx account -----------------------------------------------------
 
-heading "2/8 Creating the SiteWorx account"
+heading "2/7 Creating the SiteWorx account"
 warn "the SiteWorx and database passwords are passed as CLI arguments — briefly visible in the"
 echo "    server's process list, and kept in sudo's log (/var/log/secure) until it rotates out."
 
@@ -271,7 +268,7 @@ ok "account created ($SITE_USER / $DOMAIN)"
 
 # --- 3. Database -------------------------------------------------------------
 
-heading "3/8 Creating the database and user"
+heading "3/7 Creating the database and user"
 # InterWorx prefixes both with the account username, so pass the suffix only.
 remote sudo -n "$SITEWORX" -u -n --login_domain "$DOMAIN" -c MysqlDb -a add \
     --name "$SITE_TYPE" \
@@ -285,7 +282,7 @@ ok "database and user created ($DB_NAME)"
 
 # --- 4. Server setup script --------------------------------------------------
 
-heading "4/8 Running $SETUP_SCRIPT"
+heading "4/7 Running $SETUP_SCRIPT"
 # The account's real path — /chroot/home/… on chrooted servers, /home/… otherwise.
 REAL_BASE=$(remote sudo -n "$NODEWORX" -u -n -c Siteworx -a listAccounts \
     | awk -F'\t' -v u="$SITE_USER" '$2==u {print $21}')
@@ -306,7 +303,7 @@ ok "site directory structure created"
 
 # --- 5. .env.local -----------------------------------------------------------
 
-heading "5/8 Writing shared/.env.local"
+heading "5/7 Writing shared/.env.local"
 REMOTE_ENV="$REAL_BASE/shared/.env.local"
 if remote sudo -n test -s "$REMOTE_ENV"; then
     warn "$REMOTE_ENV already has content — left as is."
@@ -342,21 +339,9 @@ EOF
     ok "written: environment, app secret, database and request context"
 fi
 
-# --- 6. PHP restart sudoers --------------------------------------------------
+# --- 6. Messenger worker cron ------------------------------------------------
 
-heading "6/8 Adding the PHP restart sudoers entry"
-SUDOERS_LINE=$(printf '\n# %s\n%s ALL=NOPASSWD: %s' "$DOMAIN" "$SITE_USER" "$PHP_RESTART")
-if remote sudo -n grep -qE "^$SITE_USER ALL=NOPASSWD: $PHP_RESTART\$" /etc/sudoers.d/iworx-php-restart; then
-    ok "entry already present"
-else
-    remote sudo -n sh -c "printf '%s' $(printf '%q' "$SUDOERS_LINE") >> /etc/sudoers.d/iworx-php-restart" \
-        || die "failed to update /etc/sudoers.d/iworx-php-restart"
-    ok "added: $SITE_USER ALL=NOPASSWD: $PHP_RESTART"
-fi
-
-# --- 7. Messenger worker cron ------------------------------------------------
-
-heading "7/8 Messenger worker cron job"
+heading "6/7 Messenger worker cron job"
 # Starts a worker every 5 minutes unless one's running (flock). The worker exits after an
 # hour, or when a deploy runs messenger:stop-workers, & the next run starts a new one.
 if [[ "$DO_CRON" == "y" ]]; then
@@ -372,9 +357,9 @@ else
     echo "  Skipped."
 fi
 
-# --- 8. GitLab CI variables --------------------------------------------------
+# --- 7. GitLab CI variables --------------------------------------------------
 
-heading "8/8 GitLab CI/CD variables"
+heading "7/7 GitLab CI/CD variables"
 if [[ "$DO_GITLAB" == "y" ]]; then
     "$SCRIPT_DIR/setup_gitlab_ci_vars" "$GITLAB_PROJECT" \
         --scope "$SCOPE" \
