@@ -12,8 +12,8 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
-use Symfony\Component\Security\Http\Firewall\SwitchUserListener;
 
 readonly class ImpersonationListener
 {
@@ -26,12 +26,12 @@ readonly class ImpersonationListener
     #[AsEventListener(SwitchUserEvent::class)]
     public function onSwitchUser(SwitchUserEvent $event): void
     {
-        $request = $event->getRequest();
-
-        if (SwitchUserListener::EXIT_VALUE === $request->query->get('_switch_user')) {
-            $this->handleExit($event);
-        } else {
+        // not the _switch_user value: switching while impersonating exits first,
+        // with the new user in the request but the original (non-switch) token
+        if ($event->getToken() instanceof SwitchUserToken) {
             $this->handleStart($event);
+        } else {
+            $this->handleExit($event);
         }
     }
 
@@ -39,7 +39,7 @@ readonly class ImpersonationListener
     {
         $request = $event->getRequest();
 
-        /** @var \Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken $token */
+        /** @var SwitchUserToken $token */
         $token = $event->getToken();
 
         /** @var User $adminUser */
@@ -67,7 +67,7 @@ readonly class ImpersonationListener
         /** @var User $adminUser */
         $adminUser = $event->getTargetUser();
 
-        /** @var \Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken $currentToken */
+        /** @var SwitchUserToken $currentToken */
         $currentToken = $this->tokenStorage->getToken();
         /** @var User $impersonatedUser */
         $impersonatedUser = $currentToken->getUser();

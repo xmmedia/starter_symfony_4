@@ -9,6 +9,7 @@ use App\EventListener\ImpersonationListener;
 use App\Model\Auth\Command\UserEndedImpersonating;
 use App\Model\Auth\Command\UserStartedImpersonating;
 use App\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -80,7 +81,8 @@ class ImpersonationListenerTest extends BaseTestCase
         new ImpersonationListener($commandBus, $tokenStorage)->onSwitchUser($event);
     }
 
-    public function testExit(): void
+    #[DataProvider('exitProvider')]
+    public function testExit(?string $switchUser): void
     {
         $faker = $this->faker();
 
@@ -115,7 +117,7 @@ class ImpersonationListenerTest extends BaseTestCase
         $request = Request::create(
             '',
             Request::METHOD_GET,
-            ['_switch_user' => '_exit'],
+            ['_switch_user' => $switchUser ?? $faker->email()],
             [],
             [],
             ['REMOTE_ADDR' => $faker->ipv4()],
@@ -125,5 +127,14 @@ class ImpersonationListenerTest extends BaseTestCase
         $event = new SwitchUserEvent($request, $adminUser, $originalToken);
 
         new ImpersonationListener($commandBus, $tokenStorage)->onSwitchUser($event);
+    }
+
+    /**
+     * Switching to another user while impersonating exits first, with the new user in the request.
+     */
+    public static function exitProvider(): \Generator
+    {
+        yield 'exit' => ['_exit'];
+        yield 'switching to another user' => [null];
     }
 }
