@@ -6,12 +6,12 @@
            @closed="maintenanceModalOpen = false">
         <div class="max-w-md text-center">
             <div class="text-lg font-semibold">We're doing some maintenance</div>
-            <p class="my-4 whitespace-pre-line">{{ maintenance.message }}</p>
-            <p v-if="until" class="my-4">We expect to be back around {{ until }}.</p>
-            <p class="my-4">
+            <p class="whitespace-pre-line">{{ maintenance.message }}</p>
+            <p v-if="until">We expect to be back around {{ until }}.</p>
+            <p>
                 Nothing you've entered has been lost. We'll carry on where you left off once we're back.
             </p>
-            <p v-if="stillDown" class="my-4 font-semibold">We're not back yet.</p>
+            <p v-if="stillDown" class="font-semibold">We're not back yet.</p>
             <div class="mt-8">
                 <button type="button" class="button" @click="check">Check now</button>
             </div>

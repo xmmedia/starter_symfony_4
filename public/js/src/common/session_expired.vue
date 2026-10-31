@@ -8,11 +8,11 @@
                @closed="sessionModalOpen = false">
             <div class="max-w-md text-center">
                 <div class="text-lg font-semibold">You've been signed out</div>
-                <p class="my-4">
+                <p>
                     Your session has ended, either because it expired or you signed out in another window.
                     Sign in again in a new tab, then come back here to carry on where you left off.
                 </p>
-                <p v-if="stillSignedOut" class="my-4 font-semibold">You're still signed out.</p>
+                <p v-if="stillSignedOut" class="font-semibold">You're still signed out.</p>
                 <div class="mt-8">
                     <a :href="loginUrl" target="_blank" class="button">Sign in</a>
                     <button class="form-action button-link" type="button" @click="checkSession">Continue</button>
@@ -45,7 +45,7 @@
                          :style="{ width: progress + '%' }" />
                 </div>
                 <div class="text-lg font-semibold">Your session is about to expire</div>
-                <p class="my-4">You'll be signed out in {{ countdown }}</p>
+                <p>You'll be signed out in {{ countdown }}</p>
                 <div class="mt-8">
                     <button type="button" class="button" @click="keepSignedIn">Keep me signed in</button>
                     <a href="/logout" class="form-action button-link">Sign out now</a>
