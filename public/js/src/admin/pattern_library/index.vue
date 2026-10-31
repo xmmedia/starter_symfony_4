@@ -422,21 +422,19 @@
                     </fieldset>
                 </div>
 
-                <div>
-                    <button class="button">Primary Button</button>
-                    <button class="form-action button-link">Cancel Link</button>
-                    <a href="" class="form-action">Go Back</a>
-                    <div class="field-help">Form button help.</div>
+                <button class="button">Primary Button</button>
+                <button class="form-action button-link">Cancel Link</button>
+                <a href="" class="form-action">Go Back</a>
+                <div class="field-help">Form button help.</div>
 
-                    <ul class="form-extra_actions">
-                        <li>
-                            <AdminDelete record-desc="Fake" />
-                        </li>
-                        <li>
-                            <a href="" class="form-action">Other Action</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="form-extra_actions">
+                    <li>
+                        <AdminDelete record-desc="Fake" />
+                    </li>
+                    <li>
+                        <a href="" class="form-action">Other Action</a>
+                    </li>
+                </ul>
 
             </form>
         </div>

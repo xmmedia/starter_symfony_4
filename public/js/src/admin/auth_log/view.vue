@@ -63,7 +63,7 @@
                 <div class="record_view-item_label">User Agent</div>
                 <div class="record_view-item_value">
                     <template v-if="authLog.userAgent">
-                        <div>{{ parsedUserAgent }}</div>
+                        {{ parsedUserAgent }}
                         <div class="mt-1 text-sm text-gray-500 break-all">{{ authLog.userAgent }}</div>
                     </template>
                     <template v-else>–</template>

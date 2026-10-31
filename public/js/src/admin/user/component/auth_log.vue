@@ -26,14 +26,12 @@
                         <LocalTime :datetime="item.occurredAt" />
                     </template>
                     <template #col2="{ item }">
-                        <div>
-                            <template v-if="'IMPERSONATION_STARTED' === item.eventType">
-                                {{ item.impersonatedUser?.userId === props.userId
-                                    ? 'Impersonation Started'
-                                    : 'Started Impersonating' }}
-                            </template>
-                            <EventTypeLabel v-else :event-type="item.eventType" />
-                        </div>
+                        <template v-if="'IMPERSONATION_STARTED' === item.eventType">
+                            {{ item.impersonatedUser?.userId === props.userId
+                                ? 'Impersonation Started'
+                                : 'Started Impersonating' }}
+                        </template>
+                        <EventTypeLabel v-else :event-type="item.eventType" />
                         <div v-if="item.impersonatedUser" class="text-sm text-gray-500">
                             <template v-if="item.impersonatedUser.userId === props.userId">
                                 by <router-link :to="userViewRoute(item)">{{ item.user.email }}</router-link>
