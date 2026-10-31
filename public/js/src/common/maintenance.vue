@@ -20,7 +20,7 @@
 
     <!-- shown if they dismiss the modal -->
     <div v-else-if="maintenance"
-         class="alert alert-warning fixed inset-x-4 bottom-4 z-50 items-center gap-x-4 text-gray-900 shadow-lg"
+         class="alert alert-warning fixed z-50 items-center gap-x-4 inset-x-4 bottom-4 shadow-lg text-gray-900"
          role="alert">
         <div>We're doing some maintenance. We'll carry on where you left off once we're back.</div>
         <div class="flex items-center gap-x-4 shrink-0">

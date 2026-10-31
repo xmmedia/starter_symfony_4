@@ -1,6 +1,6 @@
 .sidebar_nav-submenu-wrap {
-    @apply fixed top-0 left-0 right-0 z-0 w-40 lg:w-64 h-full mt-[var(--header-height)] lg:mt-0 opacity-0 invisible;
-    @apply text-left bg-gray-800;
+    @apply invisible opacity-0 fixed z-0 top-0 right-0 left-0;
+    @apply w-40 lg:w-64 h-full mt-[var(--header-height)] lg:mt-0 bg-gray-800 text-left;
 }
 
 .sidebar_nav-submenu-wrap-open {
@@ -9,5 +9,5 @@
 
 .sidebar_nav-submenu_header {
     @apply min-h-[var(--header-height)] pt-[0.9rem] pb-4 pl-4 lg:pt-[0.7rem] lg:pl-4;
-    @apply text-lg lg:text-2xl font-extralight border-b border-gray-600;
+    @apply border-b border-gray-600 text-lg lg:text-2xl font-extralight;
 }

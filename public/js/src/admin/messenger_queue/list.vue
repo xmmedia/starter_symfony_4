@@ -12,12 +12,12 @@
         <LoadingSpinner v-if="state.matches('loading')">
             Loading messenger queue…
         </LoadingSpinner>
-        <div v-if="state.matches('error')" class="italic text-center">
+        <div v-if="state.matches('error')" class="text-center italic">
             There was a problem loading the queue. Please try again later.
         </div>
 
         <template v-if="state.matches('loaded')">
-            <div v-if="!messages.length" class="italic text-center">
+            <div v-if="!messages.length" class="text-center italic">
                 No queued messages found.
             </div>
             <template v-else>
@@ -41,7 +41,7 @@
                         {{ queueName(item.queueName) }}
                     </template>
                     <template #col3="{ item }">
-                        <div class="font-mono text-sm break-all">
+                        <div class="text-sm font-mono break-all">
                             <span class="hidden xl:inline">{{ item.messageClass ?? '–' }}</span>
                             <!-- eslint-disable-next-line @stylistic/max-len -->
                             <span class="xl:hidden">{{ item.messageClass ? item.messageClass.split('\\').at(-1) : '–' }}</span>

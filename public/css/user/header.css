@@ -1,10 +1,10 @@
 .header_nav-nav {
-    @apply flex justify-center divide-x divide-gray-500 list-none pl-0;
+    @apply flex justify-center pl-0 list-none divide-x divide-gray-500;
 }
 .header_nav-nav a {
     @apply text-gray-300;
     @apply hover:text-gray-200;
-    @apply focus:text-gray-200 focus:ring-offset-2 focus:ring-offset-gray-900;
+    @apply focus:ring-offset-2 focus:ring-offset-gray-900 focus:text-gray-200;
 }
 
 .header-nav_item {

@@ -353,7 +353,7 @@
                 </FieldRadios>
                 <fieldset class="field-wrap-radios mb-5">
                     <legend>Radio pills</legend>
-                    <div class="flex gap-2 flex-wrap">
+                    <div class="flex flex-wrap gap-2">
                         <span class="radio-pill radio-pill-green">
                             <input id="radio-pill-1"
                                    name="radio-pill"

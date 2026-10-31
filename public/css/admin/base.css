@@ -1,6 +1,6 @@
 @layer base {
     html {
-        @apply font-light leading-normal text-gray-800;
+        @apply leading-normal font-light text-gray-800;
     }
 
     body {

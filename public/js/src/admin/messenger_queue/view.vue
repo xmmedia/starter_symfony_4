@@ -8,11 +8,11 @@
     <LoadingSpinner v-if="state.matches('loading')">
         Loading…
     </LoadingSpinner>
-    <div v-else-if="state.matches('not_found')" class="italic text-center">
+    <div v-else-if="state.matches('not_found')" class="text-center italic">
         <p>The record could not be found.</p>
         <p><RouterLink :to="{ name: 'admin-messenger-queue' }">Return to list</RouterLink></p>
     </div>
-    <div v-else-if="state.matches('error')" class="italic text-center">
+    <div v-else-if="state.matches('error')" class="text-center italic">
         <p>There was a problem loading this record. Please try again later.</p>
         <p><RouterLink :to="{ name: 'admin-messenger-queue' }">Return to list</RouterLink></p>
     </div>
@@ -35,7 +35,7 @@
                 <div class="record_view-item_label">Message Class</div>
                 <!-- flex is to vertically center -->
                 <div class="record_view-item_value flex items-center">
-                    <div class="font-mono text-sm break-all">{{ message.messageClass ?? '–' }}</div>
+                    <div class="text-sm font-mono break-all">{{ message.messageClass ?? '–' }}</div>
                 </div>
             </div>
             <div class="record_view-item">

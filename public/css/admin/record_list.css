@@ -30,7 +30,7 @@
 }
 
 .record_list-headers {
-    @apply items-center font-bold border-none bg-gray-300 text-left;
+    @apply items-center bg-gray-300 border-none font-bold text-left;
 }
 
 .record_list-mobile_heading {
@@ -86,7 +86,7 @@
 }
 
 .record_list-empty {
-    @apply text-gray-400 italic text-sm;
+    @apply text-sm italic text-gray-400;
 }
 
 .record_list-col-actions {
@@ -94,5 +94,5 @@
 }
 
 .record_list-record_count {
-    @apply text-xs mb-4 text-center text-gray-700;
+    @apply mb-4 text-xs text-center text-gray-700;
 }

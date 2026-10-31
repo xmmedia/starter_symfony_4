@@ -4,9 +4,11 @@
     }
 
     a, .button-link {
-        @apply text-blue-500 text-left no-underline transition-default;
+        @apply text-left no-underline text-blue-500 transition-default;
         @apply hover:underline hover:text-blue-700 active:underline active:text-blue-700;
-        @apply focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-inherit focus:rounded-sm focus:outline-hidden focus:text-blue-700 focus:underline;
+        @apply focus:rounded-sm focus:outline-hidden;
+        @apply focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-inherit;
+        @apply focus:underline focus:text-blue-700;
         @apply disabled:opacity-75;
         @apply disabled:hover:no-underline disabled:hover:cursor-not-allowed;
     }

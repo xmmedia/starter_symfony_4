@@ -1,16 +1,16 @@
 <template>
-    <div class="record_view-item_wrap mt-16 max-w-6xl">
+    <div class="record_view-item_wrap max-w-6xl mt-16">
         <div class="record_view-header_wrap">
             <h3 class="m-0">Authentication History</h3>
         </div>
         <LoadingSpinner v-if="state.matches('loading')">
             Loading authentication history…
         </LoadingSpinner>
-        <div v-else-if="state.matches('error')" class="italic text-center">
+        <div v-else-if="state.matches('error')" class="text-center italic">
             There was a problem loading the authentication history. Please try again later.
         </div>
         <template v-else-if="state.matches('loaded')">
-            <div v-if="!authLogs.length" class="italic text-center">
+            <div v-if="!authLogs.length" class="text-center italic">
                 No history available.
             </div>
             <template v-else>

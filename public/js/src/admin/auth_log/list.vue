@@ -12,12 +12,12 @@
         <LoadingSpinner v-if="state.matches('loading')">
             Loading authentication log…
         </LoadingSpinner>
-        <div v-if="state.matches('error')" class="italic text-center">
+        <div v-if="state.matches('error')" class="text-center italic">
             There was a problem loading the authentication log. Please try again later.
         </div>
 
         <template v-if="state.matches('loaded')">
-            <div v-if="!authLogs.length" class="italic text-center">
+            <div v-if="!authLogs.length" class="text-center italic">
                 No records found.
             </div>
             <template v-else>

@@ -1,5 +1,5 @@
 <template>
-    <button class="button-link text-white -mt-4 ml-4 hover:text-white focus:text-white focus:ring-offset-gray-900"
+    <button class="button-link -mt-4 ml-4 focus:ring-offset-gray-900 text-white hover:text-white focus:text-white"
             @click.stop="toggleMenu">Menu</button>
 </template>
 

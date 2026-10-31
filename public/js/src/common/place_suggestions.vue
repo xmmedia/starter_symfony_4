@@ -1,12 +1,12 @@
 <template>
     <ul v-if="suggestions.length > 0"
         :id="listId"
-        class="absolute z-10 w-full mt-1 list-none pl-0 bg-white border border-gray-300 shadow-lg"
+        class="absolute z-10 w-full mt-1 pl-0 list-none bg-white border border-gray-300 shadow-lg"
         role="listbox">
         <li v-for="(suggestion, index) in suggestions"
             :id="`${listId}-${index}`"
             :key="suggestion.placePrediction.placeId"
-            :class="['px-3 py-2 cursor-pointer text-sm', { 'bg-gray-100': index === activeIndex }]"
+            :class="['px-3 py-2 text-sm cursor-pointer', { 'bg-gray-100': index === activeIndex }]"
             role="option"
             :aria-selected="index === activeIndex"
             @mousedown.prevent="$emit('select', suggestion)"

@@ -27,7 +27,7 @@
                 </template>
             </ul>
 
-            <div class="absolute bottom-0 w-40 lg:w-64 pt-2 text-gray-300 font-extralight">
+            <div class="absolute bottom-0 w-40 lg:w-64 pt-2 font-extralight text-gray-300">
                 <div class="flex items-end justify-between px-4">
                     <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap: break-word;">
                         <!-- @todo-symfony if admin only system -->
@@ -40,7 +40,7 @@
                         <a href="/logout" class="sidebar_nav-bottom_links whitespace-nowrap">Sign Out</a>
                     </div>
                 </div>
-                <div class="py-2 pl-4 text-xs text-gray-400 border-t border-gray-600">
+                <div class="py-2 pl-4 border-t border-gray-600 text-xs text-gray-400">
                     <!-- @todo-symfony -->
                     ©{{ new Date().getFullYear() }} XM Media Inc.
                 </div>
@@ -54,7 +54,7 @@
                 <img src="../../../images/logo.svg"
                      width="70"
                      height="70"
-                     class="h-10 mr-4 -mt-4"
+                     class="h-10 -mt-4 mr-4"
                      fetchpriority="high"
                      alt="Logo">
             </RouterLink>

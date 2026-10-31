@@ -13,17 +13,17 @@
 }
 
 .sidebar_nav-link {
-    @apply block w-full text-gray-300 fill-current outline-hidden;
+    @apply block w-full fill-current outline-hidden text-gray-300;
     &:hover {
-        @apply text-white bg-gray-800 no-underline transition-none;
+        @apply bg-gray-800 no-underline text-white transition-none;
     }
     &:focus {
-        @apply text-white ring-offset-gray-900 outline-hidden no-underline;
+        @apply ring-offset-gray-900 outline-hidden no-underline text-white;
     }
 }
 
 .sidebar_nav-nav {
-    @apply w-40 lg:w-64 pl-0 pt-3 list-none;
+    @apply w-40 lg:w-64 pt-3 pl-0 list-none;
 }
 
 .sidebar_nav-nav li {

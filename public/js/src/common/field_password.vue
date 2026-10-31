@@ -15,7 +15,7 @@
                    :data-1p-ignore="'off' === autocomplete"
                    :name="name"
                    :class="inputClasses"
-                   class="pr-10 mb-1"
+                   class="mb-1 pr-10"
                    autocapitalize="off"
                    autocorrect="off"
                    spellcheck="false"

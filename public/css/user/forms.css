@@ -2,7 +2,7 @@
     @apply bg-white max-w-[40rem];
 }
 .form-wrap-notification {
-    @apply mt-16 mb-12 p-8 text-center text-sm;
+    @apply mt-16 mb-12 p-8 text-sm text-center;
 }
 
 .field-wrap-radio, .field-wrap-checkbox {
@@ -14,7 +14,7 @@
 }
 
 .form-subheading {
-    @apply text-sm mb-4 font-semibold uppercase text-gray-500;
+    @apply mb-4 text-sm font-semibold uppercase text-gray-500;
 }
 
 .form_button-wrap {

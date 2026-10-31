@@ -11,11 +11,11 @@
     <LoadingSpinner v-if="state.matches('loading')">
         Loading user…
     </LoadingSpinner>
-    <div v-else-if="state.matches('not_found')" class="italic text-center">
+    <div v-else-if="state.matches('not_found')" class="text-center italic">
         <p>The user could not be found.</p>
         <p><RouterLink :to="{ name: 'admin-user' }">Return to list</RouterLink></p>
     </div>
-    <div v-else-if="state.matches('error')" class="italic text-center">
+    <div v-else-if="state.matches('error')" class="text-center italic">
         <p>There was a problem loading the user. Please try again later.</p>
         <p><RouterLink :to="{ name: 'admin-user' }">Return to list</RouterLink></p>
     </div>
@@ -26,7 +26,7 @@
         <LoadingSpinner v-if="state.matches('deleting')" class="my-8">
             Deleting user…
         </LoadingSpinner>
-        <div v-else-if="state.matches('deleted')" class="my-8 italic text-center">
+        <div v-else-if="state.matches('deleted')" class="my-8 text-center italic">
             The user has been deleted.
         </div>
         <template v-else>

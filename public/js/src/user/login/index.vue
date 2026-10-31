@@ -74,7 +74,7 @@
                 <template v-else>Sign in with a link instead</template>
             </button>
 
-            <p class="text-center text-sm">Go passwordless! We’ll send you an email.</p>
+            <p class="text-sm text-center">Go passwordless! We’ll send you an email.</p>
 
             <RouterLink :to="{ name: 'user-recover-initiate', query: { email } }" class="block mt-8 text-sm">
                 Forgot your password?
@@ -84,7 +84,7 @@
         <div v-if="state.matches('sent')" class="alert alert-success">
             <div>A magic link has been sent to your email. Click the link in the email to access your account.</div>
             <button type="button"
-                    class="button-link pl-4 flex items-center gap-x-1 fill-current"
+                    class="button-link flex items-center gap-x-1 pl-4 fill-current"
                     @click="sendEvent({ type: 'BACK' })">
                 <PublicIcon icon="arrow-section" width="12" height="12" class="rotate-90" /> Back
             </button>

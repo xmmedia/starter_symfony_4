@@ -33,7 +33,7 @@
                          class="w-50 border border-gray-300"
                          alt="Existing image"
                          @error="existingImageError = true">
-                    <div v-else class="text-sm text-gray-500 italic">Image missing</div>
+                    <div v-else class="text-sm italic text-gray-500">Image missing</div>
                 </template>
             </template>
             <!-- an existing file that's already saved -->

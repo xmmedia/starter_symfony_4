@@ -35,7 +35,7 @@
             <span v-else
                   :key="'else-'+page"
                   :class="spanClasses + ' ' + currentClasses"
-                  class="hidden sm:inline-block text-gray-800 border border-gray-400">{{ page }}</span>
+                  class="hidden sm:inline-block border border-gray-400 text-gray-800">{{ page }}</span>
         </template>
 
         <span v-if="showAfterEllipsis"
@@ -137,8 +137,8 @@ const props = defineProps({
 
 const isRouterMode = computed(() => !!props.routeName);
 
-const linkClasses = 'w-12 p-1 hover:no-underline focus:no-underline hover:bg-blue-100 rounded text-center ' + props.linkClasses;
-const spanClasses = 'w-12 p-1 text-gray-400 focus:no-underline rounded ' + props.disabledClasses;
+const linkClasses = 'w-12 p-1 hover:bg-blue-100 rounded text-center hover:no-underline focus:no-underline ' + props.linkClasses;
+const spanClasses = 'w-12 p-1 rounded focus:no-underline text-gray-400 ' + props.disabledClasses;
 
 const current = computed(() => {
     if (props.offset === 0) {

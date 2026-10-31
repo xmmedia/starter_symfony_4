@@ -1,13 +1,13 @@
 <template>
-    <LoadingSpinner v-if="state.matches('loading')" class="text-gray-500 italic">
+    <LoadingSpinner v-if="state.matches('loading')" class="italic text-gray-500">
         Checking email deliverability status...
     </LoadingSpinner>
-    <div v-else-if="state.matches('error')" class="text-gray-500 italic">
+    <div v-else-if="state.matches('error')" class="italic text-gray-500">
         Unable to check email status.
     </div>
     <template v-else-if="state.matches('loaded')">
         <div v-if="suppressionData.suppressed"
-             class="mt-2 px-4 py-3 text-red-900 bg-red-50 border border-red-200 rounded-md">
+             class="mt-2 px-4 py-3 bg-red-50 border border-red-200 rounded-md text-red-900">
             <h4 class="flex gap-x-2 items-end mt-0">
                 <AdminIcon icon="warning" class="record_list-icon size-8" />
                 Cannot Send Emails to this Address

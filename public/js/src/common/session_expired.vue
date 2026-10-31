@@ -22,7 +22,7 @@
 
         <!-- shown if they dismiss the modal while still signed out -->
         <div v-else-if="sessionExpired"
-             class="alert alert-warning fixed inset-x-4 bottom-4 z-50 items-center gap-x-4 text-gray-900 shadow-lg"
+             class="alert alert-warning fixed z-50 items-center gap-x-4 inset-x-4 bottom-4 shadow-lg text-gray-900"
              role="alert">
             <div>You've been signed out. Sign in again to continue.</div>
             <div class="flex items-center gap-x-4 shrink-0">
@@ -34,7 +34,7 @@
         <Modal v-else-if="showWarning" @closed="warningDismissed = null !== expiresAt">
             <div class="max-w-md text-center">
                 <!-- positioned against .modal-content, so it sits along the top edge -->
-                <div class="absolute inset-x-0 top-0 h-1.5 overflow-hidden rounded-t-lg bg-gray-700"
+                <div class="absolute inset-x-0 top-0 h-1.5 overflow-hidden bg-gray-700 rounded-t-lg"
                      role="progressbar"
                      aria-label="Time left before you're signed out"
                      aria-valuemin="0"

@@ -1,5 +1,5 @@
 .record_view-item_wrap {
-    @apply max-w-3xl mt-4 mx-auto p-2 border-4 border-gray-300 rounded;
+    @apply max-w-3xl mx-auto mt-4 p-2 border-4 border-gray-300 rounded;
     &:first-child {
         @apply mt-0;
     }
@@ -25,7 +25,7 @@
     @apply flex justify-between mb-2 px-2;
 }
 .record_view-header_actions {
-    @apply flex gap-x-4 items-center text-sm text-right opacity-75 hover:opacity-100;
+    @apply opacity-75 hover:opacity-100 flex gap-x-4 items-center text-sm text-right;
 }
 
 .record_view-item_label {
@@ -38,7 +38,7 @@
 
 /* align the loading spinner to the left */
 .record_view-item_value .loading-wrap {
-    @apply justify-start ml-px mb-1;
+    @apply justify-start mb-1 ml-px;
 }
 
 /* this should center the icon vertically

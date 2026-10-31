@@ -1,5 +1,5 @@
 <template>
-    <span class="flex justify-between items-center w-full py-2 pr-2 pl-4 mb-1 font-light">
+    <span class="flex justify-between items-center w-full mb-1 py-2 pr-2 pl-4 font-light">
         <span class="flex flex-wrap justify-start items-center w-full lg:text-base">
             <AdminIcon :icon="icon"
                        class="size-5 mr-3"

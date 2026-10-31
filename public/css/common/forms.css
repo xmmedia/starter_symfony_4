@@ -16,7 +16,7 @@
 [type="url"],
 [type="color"],
 textarea {
-    @apply w-full px-2 py-1 text-gray-800 border border-gray-300 bg-gray-100 transition-default;
+    @apply w-full px-2 py-1 bg-gray-100 border border-gray-300 text-gray-800 transition-default;
     &:focus {
         @apply bg-gray-100;
     }
@@ -33,7 +33,9 @@ textarea {
     --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%236a7282' stroke-width='2'%3E%3Cpath d='M5 7.5l5 5 5-5'/%3E%3C/svg%3E");
 }
 select {
-    @apply w-full h-[2.14rem] appearance-none pl-2 pr-8 py-1 bg-gray-100 bg-no-repeat bg-size-[1.25rem] bg-position-[right_0.5rem_center] border border-gray-300 text-black transition-default;
+    @apply w-full h-[2.14rem] appearance-none py-1 pr-8 pl-2;
+    @apply bg-gray-100 bg-no-repeat bg-size-[1.25rem] bg-position-[right_0.5rem_center] border border-gray-300;
+    @apply text-black transition-default;
     background-image: var(--select-arrow);
     /* browsers skip background images when printing, which would drop the arrow */
     print-color-adjust: exact;
@@ -70,8 +72,8 @@ select {
         @apply outline-offset-1;
     }
     &::file-selector-button {
-        @apply py-1 px-3 mr-3 text-sm text-white font-extralight bg-blue-500 text-center;
-        @apply border-2 border-blue-500 rounded tracking-wider cursor-pointer transition-all duration-150;
+        @apply mr-3 px-3 py-1 bg-blue-500 border-2 border-blue-500 rounded;
+        @apply text-sm font-extralight text-center text-white tracking-wider cursor-pointer transition-all duration-150;
         &:hover {
             @apply bg-blue-800 border-blue-800;
         }
@@ -99,7 +101,7 @@ select {
 [type="submit"],
 textarea,
 select {
-    @apply outline-blue-300 rounded-sm;
+    @apply rounded-sm outline-blue-300;
     &:focus {
         @apply outline-2;
     }
@@ -112,7 +114,7 @@ select {
 .fieldset-wrap {
     @apply mb-4;
     legend, .form-fieldset-legend {
-        @apply font-medium text-lg mb-2;
+        @apply mb-2 text-lg font-medium;
     }
     > .field-wrap {
         @apply ml-4;
@@ -148,7 +150,7 @@ select {
         @apply mb-1;
     }
     .field-wrap-radio, .field-wrap-checkbox {
-        @apply mb-1 mr-4;
+        @apply mr-4 mb-1;
     }
 }
 
@@ -194,11 +196,12 @@ select {
     @apply flex flex-col flex-wrap items-end justify-end list-none;
 }
 .form-action {
-    @apply text-sm ml-4;
+    @apply ml-4 text-sm;
 }
 
 .form-button_bar {
-    @apply fixed left-0 bottom-0 hidden sm:flex justify-center items-center w-full p-3 bg-white border-gray-300 border-t;
+    @apply hidden fixed bottom-0 left-0 sm:flex justify-center items-center w-full p-3;
+    @apply bg-white border-t border-gray-300;
 }
 
 /* vue fade transition */

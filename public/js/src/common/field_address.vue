@@ -42,7 +42,7 @@
         </FieldInput>
 
         <div class="flex gap-x-4">
-            <div class="field-wrap flex-1 relative">
+            <div class="field-wrap relative flex-1">
                 <label :for="ids.city">City</label>
                 <FieldError :v="v$.city" />
                 <input :id="ids.city"

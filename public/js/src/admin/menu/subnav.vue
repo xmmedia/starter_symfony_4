@@ -10,10 +10,10 @@
              :class="{ 'sidebar_nav-submenu-wrap-open' : open }"
              class="sidebar_nav-submenu-wrap">
             <div class="sidebar_nav-submenu_header">{{ label }}</div>
-            <ul class="h-full pt-2 list-none pl-0 overflow-y-scroll">
+            <ul class="h-full pt-2 pl-0 overflow-y-scroll list-none">
                 <li v-for="(route, anchor) in items" :key="route" class="mb-1">
                     <RouterLink :to="{ name: route }"
-                                class="sidebar_nav-link block py-2 px-4 hover:bg-blue-800
+                                class="sidebar_nav-link block px-4 py-2 hover:bg-blue-800
                                        ring-offset-gray-800 focus:no-underline"
                                 @click="subnavItemClicked">
                         {{ anchor }}

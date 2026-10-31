@@ -13,10 +13,10 @@
     }
 }
 .button_pair-button {
-    @apply block py-2 px-5 text-sm text-blue-500 border border-blue-600 rounded;
-    @apply hover:bg-white hover:border-blue-500 hover:no-underline;
+    @apply block px-5 py-2 hover:bg-white border border-blue-600 hover:border-blue-500 rounded;
+    @apply text-sm hover:no-underline text-blue-500;
     @apply focus:no-underline;
 }
 .button_pair-inactive {
-    @apply text-gray-400 border-gray-200;
+    @apply border-gray-200 text-gray-400;
 }

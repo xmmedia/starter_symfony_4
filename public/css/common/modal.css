@@ -72,20 +72,20 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
     @apply absolute top-4 right-5 text-2xl leading-[0.5];
 }
 .modal-close-button {
-    @apply pb-1 text-slate-600 no-underline hover:text-slate-300;
-    @apply focus:ring-offset-2 ring-offset-gray-800 focus:text-slate-300;
+    @apply pb-1 ring-offset-gray-800 focus:ring-offset-2 no-underline text-slate-600 hover:text-slate-300;
+    @apply focus:text-slate-300;
 }
 
 /* applied to the content inside the modal */
 .modal-content {
-    @apply flex flex-col relative p-4 text-slate-300 bg-gray-800 border border-gray-700 rounded-lg;
+    @apply relative flex flex-col p-4 bg-gray-800 border border-gray-700 rounded-lg text-slate-300;
 
     .field-errors {
-        @apply text-gray-800 text-left;
+        @apply text-left text-gray-800;
     }
 
     /* secondary actions, eg cancel: the default link colour is too dark on the background */
     .form-action {
-        @apply text-slate-300 hover:text-slate-400 focus:text-slate-300 focus:ring-offset-4 ring-offset-gray-800;
+        @apply ring-offset-gray-800 focus:ring-offset-4 text-slate-300 hover:text-slate-400 focus:text-slate-300;
     }
 }

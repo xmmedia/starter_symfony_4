@@ -14,12 +14,12 @@
         <LoadingSpinner v-if="state.matches('loading')">
             Loading users…
         </LoadingSpinner>
-        <div v-if="state.matches('error')" class="italic text-center">
+        <div v-if="state.matches('error')" class="text-center italic">
             There was a problem loading the user list. Please try again later.
         </div>
 
         <template v-if="state.matches('loaded')">
-            <div v-if="users.length === 0" class="italic text-center">
+            <div v-if="users.length === 0" class="text-center italic">
                 No users were found.
             </div>
 
