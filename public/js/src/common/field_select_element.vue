@@ -5,6 +5,7 @@
             :disabled="disabled"
             :inert="inert"
             :required="required"
+            :class="selectClasses"
             @change="value = $event.target.value">
         <option v-if="!hideDefaultOption" value="" :selected="null === value" :disabled="selectOneDisabled">
             <slot name="default-option">– Select one –</slot>
@@ -61,6 +62,10 @@ const props = defineProps({
     selectOneDisabled: {
         type: Boolean,
         default: true,
+    },
+    selectClasses: {
+        type: [ String, Array, Object ],
+        default: null,
     },
     id: {
         type: String,
