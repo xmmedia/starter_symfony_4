@@ -19,7 +19,7 @@
         @apply font-bold;
     }
 
-    /* re-add margin to p as it's reset in tailwind's normalize */
+    /* re-add margin to p as it's reset in tailwind's preflight */
     p {
         @apply my-4;
     }

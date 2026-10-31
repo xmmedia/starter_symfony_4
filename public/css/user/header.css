@@ -1,5 +1,3 @@
-/* No direct equivalent for @use "../common/media"; in CSS/PostCSS; see below for handling media mixins. */
-
 .header_nav-nav {
     @apply flex justify-center divide-x divide-gray-500 list-none pl-0;
 }
@@ -37,7 +35,6 @@
 
 /* } */
 
-/* this here because it makes sense, but it's more specific than the @each above anyway */
 .header-mobile-open .header-nav_item {
     @apply block;
 }

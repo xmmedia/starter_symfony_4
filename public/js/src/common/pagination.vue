@@ -172,9 +172,6 @@ const next = computed(() => {
 
     return current.value + 1;
 });
-/**
- * Last page number.
- */
 const last = computed(() => (pageCount.value - 1) * props.itemsPerPage);
 
 const rangeDelta = computed(() => Math.ceil(props.pageRange / 2));
