@@ -208,10 +208,12 @@ const returned = () => {
     if ('visible' !== document.visibilityState) {
         return;
     }
+
     // maintenance.vue checks during it & the session's checked once it's over
     if (!rootStore.loggedIn || maintenance.value) {
         return;
     }
+
     // while signed out, always check: they may have signed back in in another tab
     if (!sessionExpired.value && Date.now() - lastChecked < RETURN_CHECK_INTERVAL * 1000) {
         return;

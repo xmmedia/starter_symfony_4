@@ -144,6 +144,7 @@ const current = computed(() => {
     if (props.offset === 0) {
         return 1;
     }
+
     if (props.offset > props.count) {
         return last.value / props.itemsPerPage;
     }
@@ -231,6 +232,7 @@ const goToNext = () => {
 
 const handleNav = (pageIndex) => {
     if (isRouterMode.value) return;
+
     emit('update:offset', pageIndex * props.itemsPerPage);
 };
 

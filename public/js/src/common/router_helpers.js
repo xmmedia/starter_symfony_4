@@ -42,6 +42,7 @@ const shouldReloadForBuild = function (useRootStore, integrityHashKey, currentHa
         if (sessionStorage.getItem(reloadedForKey) === currentHash) {
             return false;
         }
+
         sessionStorage.setItem(reloadedForKey, currentHash);
     } catch {
         // storage is unavailable (such as when blocked), so reload without the guard
@@ -105,6 +106,7 @@ export const reloadOnChangedBuild = function (useRootStore, integrityHashKey) {
         if (checking) {
             return;
         }
+
         checking = true;
 
         try {
