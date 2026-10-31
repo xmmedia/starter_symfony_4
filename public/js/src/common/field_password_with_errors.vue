@@ -5,8 +5,6 @@
                    :show-help="showHelp"
                    :required="false"
                    :autocomplete="autocomplete"
-                   :data-1p-ignore="'off' === autocomplete"
-                   :minlength="hasVuelidateProp(v, 'minLength') ? v.minLength.$params.min : null"
                    :icon-component="iconComponent">
         <template #default><slot></slot></template>
         <template #errors>
@@ -49,7 +47,7 @@
 import { createId } from '@paralleldrive/cuid2';
 import FieldPassword from './field_password.vue';
 import { computed } from 'vue';
-import { hasVuelidateProp, vuelidateValue } from '@/common/lib';
+import { vuelidateValue } from '@/common/lib';
 
 const passwordWithErrors = defineModel({ type: String, default: null });
 
