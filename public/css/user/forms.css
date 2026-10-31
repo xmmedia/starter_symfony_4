@@ -1,5 +1,5 @@
 .form-wrap {
-    @apply bg-white max-w-[40rem];
+    @apply max-w-160 bg-white;
 }
 .form-wrap-notification {
     @apply mt-16 mb-12 p-8 text-sm text-center;

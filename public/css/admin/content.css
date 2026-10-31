@@ -7,7 +7,7 @@
         @apply translate-x-40 lg:translate-x-64;
     }
     .sidebar_nav-submenu-open & {
-        @apply translate-x-[20rem] lg:translate-x-[16rem];
+        @apply translate-x-80 lg:translate-x-64;
     }
 }
 

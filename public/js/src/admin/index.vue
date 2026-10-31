@@ -29,7 +29,7 @@
 
             <div class="absolute bottom-0 w-40 lg:w-64 pt-2 font-extralight text-gray-300">
                 <div class="flex items-end justify-between px-4">
-                    <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm" style="overflow-wrap: break-word;">
+                    <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm break-words">
                         <!-- @todo-symfony if admin only system -->
                         <!--<RouterLink :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
                             {{ profileLinkText }}
