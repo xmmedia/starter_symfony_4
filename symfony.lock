@@ -189,18 +189,6 @@
             "config/packages/misd_phone_number.yaml"
         ]
     },
-    "overblog/graphiql-bundle": {
-        "version": "0.1",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "0.1",
-            "ref": "96d185c63491cd15c1570f6243ec1808f4462970"
-        },
-        "files": [
-            "config/routes/dev/graphiql.yaml"
-        ]
-    },
     "overblog/graphql-bundle": {
         "version": "0.12",
         "recipe": {

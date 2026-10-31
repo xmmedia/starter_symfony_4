@@ -9,7 +9,7 @@ This file provides guidance to agents when working with code in this repository.
 
 ## Project Overview
 
-This is a Symfony 7 starter template for creating web applications at XM Media. It uses Event Sourcing with CQRS patterns via Prooph, GraphQL for the API layer, and Vue 3 for the frontend.
+This is a Symfony 8 starter template for creating web applications at XM Media. It uses Event Sourcing with CQRS patterns via Prooph, GraphQL for the API layer, and Vue 3 for the frontend.
 
 **Key architectural patterns:**
 - Event Sourcing with CQRS for domain logic
@@ -119,7 +119,6 @@ the appserver reaches it internally, and publishing it would shadow a host-run `
 
 ### GraphQL Schema
 - Generate GraphQL schema: `bin/generate_schema` (runs `lando console graphql:dump-schema --with-descriptions --format=graphql`)
-- Access GraphiQL (dev only): `/graphiql`
 
 ### Event Store & Projections
 - Create event stream: `lando console event-store:event-stream:create <stream_name>`
@@ -548,7 +547,7 @@ authenticator on the firewall (password & login link). A successful login resets
 ## Tech Stack
 
 **Backend:**
-- Symfony 7.4 on PHP 8.5
+- Symfony 8.1 on PHP 8.5
 - Prooph PDO Event Store for Event Sourcing
 - OverblogGraphQLBundle for GraphQL API
 - Doctrine ORM for read models only (not domain models)

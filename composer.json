@@ -26,7 +26,7 @@
         "pentatrion/vite-bundle": "^8.0",
         "phpoffice/phpspreadsheet": "^5.0",
         "prooph/event-store-bus-bridge": "^3.3",
-        "prooph/event-store-symfony-bundle": "^0.11",
+        "prooph/event-store-symfony-bundle": "^0.12",
         "prooph/pdo-event-store": "^1.15.0",
         "ramsey/uuid": "^4.0",
         "ramsey/uuid-doctrine": "^2.0",
@@ -43,7 +43,7 @@
         "symfony/http-client": "*",
         "symfony/mailer": "*",
         "symfony/messenger": "*",
-        "symfony/monolog-bundle": "^3.5",
+        "symfony/monolog-bundle": "^4.0",
         "symfony/postmark-mailer": "*",
         "symfony/process": "*",
         "symfony/property-access": "*",
@@ -72,7 +72,6 @@
         "jetbrains/phpstorm-attributes": "^1.0",
         "marc-mabe/php-enum-phpstan": "^3.0",
         "mockery/mockery": "^1.2",
-        "overblog/graphiql-bundle": "^1.0",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-doctrine": "^2.0",
@@ -111,6 +110,12 @@
     "conflict": {
         "symfony/symfony": "*"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/xmmedia/event-store-symfony-bundle"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -139,7 +144,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "require": "7.4.*"
+            "require": "8.1.*"
         }
     },
     "scripts": {

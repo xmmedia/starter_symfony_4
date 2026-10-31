@@ -132,12 +132,6 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
         return null;
     }
 
-    #[\Deprecated('Since Symfony 7.3, erase credentials using the "__serialize()" method instead')]
-    public function eraseCredentials(): void
-    {
-        // nothing atm, object never stores un-encoded password
-    }
-
     public function verified(): bool
     {
         return $this->verified;

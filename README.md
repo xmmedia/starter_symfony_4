@@ -207,7 +207,6 @@ but the Node version is then up to you.
   - Backend – full list of dependencies can be found in [composer.json](https://github.com/xmmedia/starter_symfony_4/blob/master/composer.json)
     - [Symfony](https://symfony.com/doc/current/index.html#gsc.tab=0) – backend framework
     - [GraphQLBundle](https://github.com/overblog/GraphQLBundle) – provides GraphQL in PHP using [graphql-php](https://github.com/webonyx/graphql-php)
-      - [GraphQiL](https://github.com/graphql/graphiql) is available at `/graphiql` (on dev only)
     - [Doctrine](https://www.doctrine-project.org/) – ORM
     - [Doctrine Migrations](https://www.doctrine-project.org/projects/doctrine-migrations.html) – for database migrations
     - [Nelmio CORS Bundle](https://github.com/nelmio/NelmioCorsBundle) – for CORS

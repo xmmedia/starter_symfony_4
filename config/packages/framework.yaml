@@ -5,7 +5,6 @@ framework:
     # & scheme come from the proxy. Set TRUSTED_PROXIES per env, see .env
     trusted_proxies:       '%env(TRUSTED_PROXIES)%'
     #default_locale: en
-    annotations:           false
     # stateless CSRF: validated with the origin & a double submitted cookie/header,
     # so the tokens don't expire with the session. See CsrfValidationListener
     csrf_protection:
