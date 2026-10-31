@@ -27,7 +27,7 @@
         </template>
     </FieldCheckbox>
 
-    <FieldInput v-model="user.phoneNumber" type="tel" :v="v.phoneNumber">Phone number</FieldInput>
+    <FieldInput v-model="user.phoneNumber" type="tel" :v="v.phoneNumber" autocomplete="off">Phone number</FieldInput>
 </template>
 
 <script setup>
