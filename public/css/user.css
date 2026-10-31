@@ -26,6 +26,7 @@
     @import "./common/embed.css";
     @import "./common/loading.css";
     @import "./common/modal.css";
+    @import "./common/password.css";
 
     /* public only styles */
     @import "./user/buttons.css";
