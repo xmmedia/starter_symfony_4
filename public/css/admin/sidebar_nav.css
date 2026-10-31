@@ -10,9 +10,7 @@
 
 /* .sidebar_nav-submenu-open added to body */
 .sidebar_nav-submenu-open .sidebar_nav-wrap {
-    width: 20rem;
-
-    @apply lg:w-[32rem];
+    @apply w-80 lg:w-128;
 }
 
 .sidebar_nav-link {

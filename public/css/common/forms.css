@@ -162,8 +162,7 @@ select {
     @apply relative;
 
     &::after {
-        @apply absolute right-0 text-xs opacity-50;
-        top: 0.5rem;
+        @apply opacity-50 absolute top-2 right-0 text-xs;
         content: "read-only";
     }
 

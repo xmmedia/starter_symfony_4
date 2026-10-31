@@ -1,7 +1,7 @@
 <template>
     <div class="form-wrap my-8 pb-10">
-        <div class="mb-8 py-6 text-white text-center bg-gray-900">
-            <h1 class="text-[28px] my-0 font-semibold leading-none font-headings">
+        <div class="mb-8 py-6 bg-gray-900 text-center text-white">
+            <h1 class="my-0 text-[1.75rem] leading-none font-semibold">
                 <slot name="heading"></slot>
             </h1>
         </div>

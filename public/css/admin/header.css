@@ -36,19 +36,14 @@
 
 /* for the main action(s) */
 .header-action-main {
-    @apply order-3 my-2 text-sm text-center text-white hover:text-white focus:text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 border-blue-500 hover:border-blue-600 focus:rounded focus:ring-offset-inherit;
-
-    @media (width >= 880px) {
-        @apply my-0;
-    }
+    @apply order-3 my-2 min-[55rem]:my-0 bg-blue-500 hover:bg-blue-600 focus:bg-blue-600;
+    @apply border-blue-500 hover:border-blue-600 focus:rounded focus:ring-offset-inherit;
+    @apply text-sm text-center text-white hover:text-white focus:text-white;
 }
 
 .header-secondary_actions {
-    @apply order-1 ml-4 space-x-4 text-xs leading-loose;
+    @apply order-1 ml-4 space-x-4 text-xs leading-loose min-[35rem]:leading-none;
 
-    @media (width >= 560px) {
-        @apply leading-none;
-    }
     a {
         @apply focus:py-1;
     }
