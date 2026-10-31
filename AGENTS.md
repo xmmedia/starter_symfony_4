@@ -221,6 +221,33 @@ It's on while `var/maintenance` exists — `var/` is shared between releases, so
   left on until you turn it off after the migrations
 - In `test` the file is in the cache dir, so having it on locally doesn't fail the tests
 
+### Sentry
+Only enabled in `prod` & `staging` (backend `SentryBundle`, frontend `PROD` builds with a
+`VITE_SENTRY_DSN`).
+
+- Backend errors reach Sentry through Monolog (`Sentry\Monolog\Handler`), so the SDK's own error
+  handlers are off. Don't add `FatalError` to `ignore_exceptions`: Monolog is the only way fatal
+  errors get there
+- `data_collection` (not `send_default_pii`) decides what request data is sent: the defaults
+  include the body, so the GraphQL query, but filter values whose names look sensitive
+  (password, token, key, session…) in headers, query params & JSON/form bodies. Cookies aren't
+  sent: their values would be filtered & the CSRF cookie's name is its token. Check a
+  new credential's name matches the list (`Sentry\DataCollection\KeyValueDataFilter`). Values in
+  the URL path, eg the `/activate/{token}`, `/verify/{token}` & `/recover/reset/{token}` tokens,
+  aren't filtered
+- GraphQL errors also send the query text (`extra.query`, unfiltered), so pass secrets as
+  variables, never inline in a query
+- Frontend: `common/sentry.js`, called before any store is created (Pinia only applies plugins to
+  stores created after them). `logError()` sends to Sentry, so use it for unexpected errors only.
+  Component props aren't sent (`attachProps: false`), as they aren't filtered, & neither are
+  failed `fetch()`s (`ignoreErrors`). JS/CSS files that fail to load are grouped into one
+  `file-load-failure` issue as warnings: alert on its event count in Sentry, as a spike can mean
+  a broken deploy
+- The deploy sets the release (the commit SHA: `SENTRY_RELEASE` & `VITE_SENTRY_RELEASE`) & the
+  frontend environment (`VITE_SENTRY_ENVIRONMENT`). Source maps are generated (`hidden`), uploaded
+  & then deleted only when `SENTRY_AUTH_TOKEN` is set. It's a protected variable, so a staging
+  deploy from an unprotected branch still reports errors, but without source maps
+
 ### Lando Commands
 - Start Lando: `lando start`
 - Install PHP packages: `lando composer install`

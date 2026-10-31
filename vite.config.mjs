@@ -25,6 +25,9 @@ const https = inLando ? {
 } : true;
 
 export default defineConfig(({ command, mode, isPreview }) => {
+    // envs that don't use Sentry have no token, so nothing's uploaded (or generated) there
+    const uploadSourceMaps = !!process.env.SENTRY_AUTH_TOKEN && 'build' === command && 'production' === mode;
+
     return {
         plugins: [
             ...(inLando ? [] : [mkcert()]),
@@ -41,13 +44,14 @@ export default defineConfig(({ command, mode, isPreview }) => {
                 sriAlgorithm: 'sha384',
             }),
             sentryVitePlugin({
-                // envs that don't use Sentry have no token, so nothing uploads there
-                disable: !process.env.SENTRY_AUTH_TOKEN || 'production' !== mode,
+                disable: !uploadSourceMaps,
                 authToken: process.env.SENTRY_AUTH_TOKEN,
                 // @todo-symfony
                 org: 'xm-media',
                 project: 'symfony-starter',
                 telemetry: 'production' === mode,
+                // the maps are only for Sentry: don't deploy them
+                sourcemaps: { filesToDeleteAfterUpload: ['public/build/**/*.map'] },
             }),
             tailwindcss(),
         ],
@@ -62,7 +66,8 @@ export default defineConfig(({ command, mode, isPreview }) => {
                     user: './public/js/src/user.js',
                 },
             },
-            sourcemap: 'serve' === command,
+            // hidden: generated for Sentry, but not referenced from the bundles
+            sourcemap: uploadSourceMaps ? 'hidden' : ('serve' === command),
             // don't inline assets
             assetsInlineLimit: 0,
         },

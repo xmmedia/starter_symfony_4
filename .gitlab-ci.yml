@@ -25,6 +25,10 @@ variables:
   APP_ENV: prod
   RELEASES: "$REMOTE_BASE/releases"
   SHARED: "$REMOTE_BASE/shared"
+  # the release in Sentry: the backend's is added to .env.local, the Vite plugin uploads the source
+  # maps to SENTRY_RELEASE & the frontend reports VITE_SENTRY_RELEASE (even without the plugin)
+  SENTRY_RELEASE: "$CI_COMMIT_SHA"
+  VITE_SENTRY_RELEASE: "$CI_COMMIT_SHA"
   MAINTENANCE:
     value: "0"
     description: >-
@@ -94,8 +98,8 @@ before_script:
   - remote "$SERVER_PHP_PATH -v; echo; cd $RELEASE && $SERVER_PHP_PATH composer.phar check-platform-reqs --no-dev"
   # link shared folders
   - remote "cd $RELEASE && rm -rf var public/uploads config/jwt && ln -s $SHARED/var var && ln -s $SHARED/public/uploads public/uploads && ln -s $SHARED/config/jwt config/jwt"
-  # copy env file into place; dump env
-  - remote "cp -a $SHARED/.env.local $RELEASE/.env.local && cd $RELEASE && $SERVER_PHP_PATH composer.phar dump-env"
+  # copy env file into place, adding the Sentry release; dump env
+  - remote "cp -a $SHARED/.env.local $RELEASE/.env.local && printf '\nSENTRY_RELEASE=$SENTRY_RELEASE\n' >> $RELEASE/.env.local && cd $RELEASE && $SERVER_PHP_PATH composer.phar dump-env"
   # run composer post update cmds on server
   - remote "cd $RELEASE && $SERVER_PHP_PATH composer.phar run-script post-update-cmd"
   # turn on maintenance mode until the migrations have run, when the job is run with MAINTENANCE=1.
@@ -191,6 +195,7 @@ deploy to staging:
     url: $STAGING_URL
   variables:
     APP_ENV: staging
+    VITE_SENTRY_ENVIRONMENT: staging
   when: manual
   script:
     - *deploy-setup-script
@@ -213,6 +218,8 @@ deploy to prod:
   environment:
     name: production
     url: $PROD_URL
+  variables:
+    VITE_SENTRY_ENVIRONMENT: prod
   when: manual
   script:
     - *deploy-setup-script

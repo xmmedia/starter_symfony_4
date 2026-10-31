@@ -20,10 +20,9 @@ when@prod: &prod
         register_error_listener: false
         register_error_handler:  false
         options:
+            # FatalError mustn't be ignored: with register_error_handler off, fatal errors
+            # (eg out of memory) only reach Sentry through Monolog, as a FatalError
             ignore_exceptions:
-                # these 2 were defaults before, but in Sentry v5 they are no longer included
-                - Symfony\Component\ErrorHandler\Error\FatalError
-                - Symfony\Component\Debug\Exception\FatalErrorException
                 - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
                 - Symfony\Component\Security\Core\Exception\AccessDeniedException
                 - Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException
@@ -32,9 +31,14 @@ when@prod: &prod
                 - SymfonyCasts\Bundle\ResetPassword\Exception\InvalidResetPasswordTokenException
                 - SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException
             attach_stacktrace: true
-            # Add request headers, cookies, IP address and the authenticated user
+            # replaces send_default_pii. The defaults send the user, IP, headers, query params &
+            # request bodies (so the GraphQL query), but drop the Cookie header & filter values
+            # whose names look sensitive (password, token, key, session, remember, etc.)
             # see https://docs.sentry.io/platforms/php/data-management/data-collected/ for more info
-            send_default_pii:  true
+            data_collection:
+                # their values are filtered anyway & the CSRF cookie's name is its token
+                cookies:
+                    mode: off
             # Enables Sentry's Logs product, which ships structured monolog records (see the
             # `sentry_logs` handler in monolog.yaml) to Sentry in addition to errors/exceptions.
             # Disabled by default since it adds continuous log volume beyond errors.

@@ -6,9 +6,16 @@ import lowerCase from 'lodash/lowerCase';
 import upperFirst from 'lodash/upperFirst';
 import { onBeforeUnmount, watch } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
+import * as Sentry from '@sentry/vue';
 
 export const logError = function (e) {
-    if (console && e !== undefined) {
+    if (undefined === e || null === e) {
+        return;
+    }
+
+    Sentry.captureException(e);
+
+    if (console) {
         // eslint-disable-next-line no-console
         console.error(e);
     }

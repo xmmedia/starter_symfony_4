@@ -66,6 +66,7 @@ import {
     extendSession,
     fetchSessionInfo,
     resumeSession,
+    SessionInfoError,
     sessionExpired,
     sessionModalOpen,
     useSessionStore,
@@ -166,7 +167,11 @@ const update = async (request) => {
             return;
         }
 
-        logError(e);
+        // a server error is reported by the backend & is retried every minute in every open tab,
+        // so it would flood Sentry during an outage
+        if (!(e instanceof SessionInfoError && 500 <= e.status)) {
+            logError(e);
+        }
         checkTimer = setTimeout(checkSession, RETRY_INTERVAL * 1000);
 
         return;

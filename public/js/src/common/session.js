@@ -20,6 +20,17 @@ export const setSessionStore = (store) => {
 
 export const useSessionStore = () => rootStore;
 
+/**
+ * Thrown when the session info request fails or doesn't return JSON.
+ */
+export class SessionInfoError extends Error {
+    constructor (status) {
+        super(`Session info failed with a ${status}.`);
+        this.name = 'SessionInfoError';
+        this.status = status;
+    }
+}
+
 // requests rejected because the user was signed out, re-sent once they've signed back in
 const heldRequests = new Set();
 
@@ -39,7 +50,12 @@ const isUnauthenticated = (result) => [...(result.errors ?? []), ...(result.exte
 export const fetchSessionInfo = async (method = 'GET') => {
     // accepting JSON gets the maintenance response as JSON too
     const response = await fetch('/session-info', { method, headers: { accept: 'application/json' } });
-    const body = await response.json();
+    let body = null;
+    try {
+        body = await response.json();
+    } catch {
+        // not JSON, such as a proxy's error page
+    }
 
     const details = maintenanceDetails(response.status, body);
     if (null !== details) {
@@ -48,8 +64,8 @@ export const fetchSessionInfo = async (method = 'GET') => {
         throw new MaintenanceError();
     }
 
-    if (!response.ok) {
-        throw new Error(`Session info failed with a ${response.status}.`);
+    if (!response.ok || null === body) {
+        throw new SessionInfoError(response.status);
     }
 
     return body;

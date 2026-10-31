@@ -12,7 +12,7 @@ import { setSessionStore } from './common/session';
 
 import vFocus from './common/v_focus';
 
-import * as Sentry from '@sentry/vue';
+import { initSentry } from './common/sentry';
 
 import App from './user/index.vue';
 
@@ -30,7 +30,11 @@ import { reloadOnChangedBuild } from './common/router_helpers';
 // CSS
 import '../../css/user.css';
 
+const app = createApp(App);
 const pinia = createPinia();
+app.use(pinia);
+initSentry(app, pinia, useRootStore);
+
 const rootStore = useRootStore(pinia);
 setSessionStore(rootStore);
 
@@ -57,25 +61,7 @@ apolloClient.query({ query: MeQuery })
 
         rootStore.ready();
 
-        const app = createApp(App);
-
-        if (import.meta.env.PROD && import.meta.env.VITE_SENTRY_DSN) {
-            Sentry.init({
-                app,
-                dsn: import.meta.env.VITE_SENTRY_DSN,
-                integrations: [
-                    Sentry.browserTracingIntegration({ router }),
-                ],
-            });
-            if (rootStore.user) {
-                Sentry.setUser({ userId: rootStore.user.userId });
-            }
-
-            pinia.use(Sentry.createSentryPiniaPlugin());
-        }
-
         app.use(router)
-            .use(pinia)
             .use(createHead());
 
         app.directive('focus', vFocus);

@@ -44,6 +44,15 @@ ask() {
     fi
 }
 
+# ask_secret <label> — like ask, but doesn't show what's typed & trims the spaces a paste can add
+ask_secret() {
+    local label="$1" result
+    read -r -s -p "$label: " result
+    echo "" >&2
+    result="${result#"${result%%[![:space:]]*}"}"
+    echo "${result%"${result##*[![:space:]]}"}"
+}
+
 # ask_required <label> [default] — re-prompts until non-empty
 ask_required() {
     local label="$1" default="${2:-}" result
@@ -111,10 +120,14 @@ var_exists_scope() {
 }
 
 # The value goes in on stdin, as arguments show in the process list.
+# set_var <name> <value> <scope> [secret] — a secret is masked & protected in every scope
 set_var() {
-    local name="$1" value="$2" scope="$3"
+    local name="$1" value="$2" scope="$3" secret="${4:-}"
     local args=(variable set "$name" --scope "$scope" --raw -R "$PROJECT")
-    [[ "$SCOPE" == "production" ]] && args+=(--protected)
+    if [[ "$SCOPE" == "production" || "$secret" == "secret" ]]; then
+        args+=(--protected)
+    fi
+    [[ "$secret" == "secret" ]] && args+=(--masked)
     local out
     if out=$(printf '%s' "$value" | glab "${args[@]}" 2>&1); then
         printf "  ${GREEN}✓${NC} %-35s scope: %s\n" "$name" "$scope"
@@ -194,7 +207,7 @@ fi
 echo ""
 echo -n "Checking existing GitLab variables… "
 fetch_variables
-SCOPED_VARS=("SSH_PRIVATE_KEY" "REMOTE_BASE" "REMOTE_SERVER" "REMOTE_USER" "REQUEST_CONTEXT_HOST" "VITE_SENTRY_DSN")
+SCOPED_VARS=("SSH_PRIVATE_KEY" "REMOTE_BASE" "REMOTE_SERVER" "REMOTE_USER" "REQUEST_CONTEXT_HOST" "VITE_SENTRY_DSN" "SENTRY_AUTH_TOKEN")
 EXISTING=()
 for var in "${SCOPED_VARS[@]}"; do
     if var_exists_scope "$var" "$SCOPE"; then
@@ -245,6 +258,9 @@ CONTEXT_HOST="${CONTEXT_HOST%/}"
 
 heading "Sentry"
 VITE_SENTRY_DSN=$(ask_required "VITE_SENTRY_DSN for $SCOPE (Sentry DSN URL)")
+# without it, the build doesn't upload source maps, so frontend stack traces are minified.
+# It's protected, so only deploys from protected branches upload them
+SENTRY_AUTH_TOKEN=$(ask_secret "SENTRY_AUTH_TOKEN for $SCOPE (organization auth token; blank to skip)")
 
 # REMOTE_PORT and REQUEST_CONTEXT_SCHEME — only asked when missing at * scope
 heading "Shared (* scope) variables"
@@ -284,6 +300,9 @@ printf "  %-35s scope: %s  = %s\n" "REMOTE_SERVER" "$SCOPE" "$REMOTE_SERVER"
 printf "  %-35s scope: %s  = %s\n" "REMOTE_USER" "$SCOPE" "$REMOTE_USER"
 printf "  %-35s scope: %s  = %s\n" "REQUEST_CONTEXT_HOST" "$SCOPE" "$CONTEXT_HOST"
 printf "  %-35s scope: %s  = %s\n" "VITE_SENTRY_DSN" "$SCOPE" "$VITE_SENTRY_DSN"
+if [[ -n "$SENTRY_AUTH_TOKEN" ]]; then
+    printf "  %-35s scope: %s  (masked & protected)\n" "SENTRY_AUTH_TOKEN" "$SCOPE"
+fi
 if [[ "$SCOPE" == "production" ]]; then
     printf "  %-35s scope: %s  = %s\n" "REQUEST_CONTEXT_HOST" "static" "$CONTEXT_HOST"
 fi
@@ -314,6 +333,9 @@ set_var "REMOTE_SERVER"          "$REMOTE_SERVER"  "$SCOPE"
 set_var "REMOTE_USER"            "$REMOTE_USER"    "$SCOPE"
 set_var "REQUEST_CONTEXT_HOST"   "$CONTEXT_HOST"   "$SCOPE"
 set_var "VITE_SENTRY_DSN"        "$VITE_SENTRY_DSN" "$SCOPE"
+if [[ -n "$SENTRY_AUTH_TOKEN" ]]; then
+    set_var "SENTRY_AUTH_TOKEN"  "$SENTRY_AUTH_TOKEN" "$SCOPE" secret
+fi
 if [[ "$SCOPE" == "production" ]]; then
     set_var "REQUEST_CONTEXT_HOST" "$CONTEXT_HOST" "static"
 fi

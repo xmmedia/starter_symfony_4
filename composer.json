@@ -31,7 +31,7 @@
         "ramsey/uuid": "^4.0",
         "ramsey/uuid-doctrine": "^2.0",
         "scienta/doctrine-json-functions": "^6.0",
-        "sentry/sentry-symfony": "^5.0",
+        "sentry/sentry-symfony": "^5.14",
         "symfony/asset": "*",
         "symfony/console": "*",
         "symfony/doctrine-messenger": "*",
