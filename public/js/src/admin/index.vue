@@ -9,8 +9,8 @@
                      width="70"
                      height="70"
                      class="h-10"
-                     alt="Logo"
-                     fetchpriority="high">
+                     fetchpriority="high"
+                     alt="Logo">
             </RouterLink>
 
             <ul class="sidebar_nav-nav">
@@ -54,9 +54,9 @@
                 <img src="../../../images/logo.svg"
                      width="70"
                      height="70"
-                     class="h-10 -mt-4 mr-4"
-                     alt="Logo"
-                     fetchpriority="high">
+                     class="h-10 mr-4 -mt-4"
+                     fetchpriority="high"
+                     alt="Logo">
             </RouterLink>
         </header>
         <div class="content-wrap">

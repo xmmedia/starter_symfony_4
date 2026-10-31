@@ -16,9 +16,9 @@
         </li>
         <li class="px-3 py-1 border-t border-gray-200">
             <img src="https://maps.gstatic.com/mapfiles/api-3/images/powered-by-google-on-white3.png"
-                 alt="Powered by Google"
                  width="144"
-                 height="18">
+                 height="18"
+                 alt="Powered by Google">
         </li>
     </ul>
 </template>

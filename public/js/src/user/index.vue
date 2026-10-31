@@ -11,9 +11,9 @@
             <img src="../../../images/logo.svg"
                  width="200"
                  height="84"
-                 alt="Logo"
                  loading="lazy"
-                 decoding="async">
+                 decoding="async"
+                 alt="Logo">
         </RouterLink>
 
         <div class="w-full mt-4 py-6 bg-gray-900">
