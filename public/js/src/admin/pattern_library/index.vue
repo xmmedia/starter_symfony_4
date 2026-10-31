@@ -102,7 +102,6 @@
         IMPORTANT
         Spaces between inputs and labels that are inline with each other (beside)
         cause issues with formatting. Leave the HTML formatting as is!
-        Use the dashes in the Twig output tags, such as `{{- var -}}`
         -->
         <div class="form-wrap">
             <h2 class="-mt-2">Forms</h2>
