@@ -5,15 +5,16 @@
 }
 
 .record_list-wrap {
-    @apply w-full pl-0 border-t border-gray-300 md:border-t-0 list-none;
-    th, td {
-        @apply px-2 py-1;
-        &:first-child {
-            @apply md:pl-2;
-        }
-        &:last-child {
-            @apply pr-2;
-        }
+    @apply w-full pl-0 list-none border-t border-gray-300 md:border-t-0;
+}
+
+.record_list-wrap :is(th, td) {
+    @apply px-2 py-1;
+    &:first-child {
+        @apply md:pl-2;
+    }
+    &:last-child {
+        @apply pr-2;
     }
 }
 
@@ -71,9 +72,10 @@
    add this .record_list-col-top when the row expands */
 .record_list-col-top, .record_list-col-top:has(.record_list-icon) {
     @apply md:align-top;
-    .record_list-icon {
-        @apply my-[2px];
-    }
+}
+
+:is(.record_list-col-top, .record_list-col-top:has(.record_list-icon)) .record_list-icon {
+    @apply my-0.5;
 }
 
 .record_list-item-inactive > .record_list-col {

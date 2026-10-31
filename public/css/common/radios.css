@@ -37,11 +37,9 @@
         }
     }
 
-    input:focus ~ label {
-        &, &::after {
-            @apply border-blue-600 cursor-pointer;
-            inset: -.20rem;
-        }
+    input:focus ~ label, input:focus ~ label::after {
+        inset: -.20rem;
+        @apply border-blue-600 cursor-pointer;
     }
 }
 .radio-pill-dark {
@@ -53,18 +51,15 @@
         @apply text-gray-700;
     }
 
-    input:checked + label {
-        &, &:hover {
-            @apply text-white;
-        }
+    input:checked + label, input:checked + label:hover {
+        @apply text-white;
     }
 }
 
 .radio-pill-green {
-    input:hover ~ label, label:hover, input:focus ~ label {
-        &, &::after {
-            @apply border-green-700;
-        }
+    :is(input:hover ~ label, label:hover, input:focus ~ label),
+    :is(input:hover ~ label, label:hover, input:focus ~ label)::after {
+        @apply border-green-700;
     }
 
     input:checked + label {
@@ -77,10 +72,9 @@
     }
 }
 .radio-pill-red {
-    input:hover ~ label, label:hover, input:focus ~ label {
-        &, &::after {
-            @apply border-red-700;
-        }
+    :is(input:hover ~ label, label:hover, input:focus ~ label),
+    :is(input:hover ~ label, label:hover, input:focus ~ label)::after {
+        @apply border-red-700;
     }
 
     input:checked + label {

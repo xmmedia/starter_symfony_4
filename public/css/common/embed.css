@@ -14,12 +14,10 @@
 
 .embed-container {
     @apply relative h-auto overflow-hidden;
+}
 
-    iframe,
-    object,
-    embed {
-        @apply absolute top-0 left-0 right-0 w-full h-full max-w-full mx-auto;
-    }
+.embed-container :is(iframe, object, embed) {
+    @apply absolute top-0 left-0 right-0 size-full max-w-full mx-auto;
 }
 
 .embed-container-21-9 { padding-top: 42.86%; }

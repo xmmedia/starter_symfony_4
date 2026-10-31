@@ -28,11 +28,9 @@ h3 + p, h4 + p {
 }
 
 /* make anchors that are inside headers look like the header, but underline when hovered */
-h1, h2, h3, h4 {
-    a {
-        @apply no-underline text-inherit;
-        &:hover, &:active {
-            @apply underline text-inherit;
-        }
+:is(h1, h2, h3, h4) a {
+    @apply no-underline text-inherit;
+    &:hover, &:active {
+        @apply underline text-inherit;
     }
 }

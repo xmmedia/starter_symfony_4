@@ -121,9 +121,10 @@ select {
 
 .field-wrap {
     @apply mb-4;
-    label {
-        @apply block mb-1;
-    }
+}
+
+.field-wrap label {
+    @apply block mb-1;
 }
 
 /* if no .field-help, then add .field-wrap to container along with these classes */
@@ -153,9 +154,10 @@ select {
 
 .field-errors {
     @apply mb-1 pl-0 list-none;
-    > li {
-        @apply mb-1 px-2 py-1.5 bg-gray-200 border-l-10 border-red-700;
-    }
+}
+
+.field-errors > li {
+    @apply mb-1 px-2 py-1.5 bg-gray-200 border-l-10 border-red-700;
 }
 
 .field-wrap-readonly {

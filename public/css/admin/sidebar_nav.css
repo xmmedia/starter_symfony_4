@@ -1,11 +1,10 @@
 .sidebar_nav-wrap {
     /* shift the menu to the left so it's hidden when the content (.content-wrap) jumps up & down on scroll */
-    @apply fixed left-[-10rem] z-10 w-40 h-full text-white bg-gray-900 fill-current text-sm;
-    @apply lg:left-0 lg:w-64 lg:text-base;
+    @apply fixed z-10 -left-40 lg:left-0 w-40 lg:w-64 h-full bg-gray-900 fill-current text-sm lg:text-base text-white;
+}
 
-    .sidebar_nav-visible & {
-        @apply left-0;
-    }
+.sidebar_nav-visible .sidebar_nav-wrap {
+    @apply left-0;
 }
 
 /* .sidebar_nav-submenu-open added to body */
@@ -24,12 +23,12 @@
 }
 
 .sidebar_nav-nav {
-    @apply w-40 pt-3 pl-0 list-none;
-    @apply lg:w-64;
-    li {
-        /* so we can control the positioning of the submenu arrow */
-        @apply relative;
-    }
+    @apply w-40 lg:w-64 pl-0 pt-3 list-none;
+}
+
+.sidebar_nav-nav li {
+    /* so we can control the positioning of the submenu arrow */
+    @apply relative;
 }
 
 .sidebar_nav-bottom_links {

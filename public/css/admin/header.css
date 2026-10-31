@@ -10,12 +10,11 @@
 }
 
 .header-wrap-small {
-    @apply flex lg:hidden justify-between items-center relative z-10 pt-4 text-white bg-black border-b border-gray-400;
-    @apply h-[var(--header-height)];
+    @apply relative z-10 flex lg:hidden justify-between items-center h-[var(--header-height)] pt-4 bg-black border-b border-gray-400 text-white;
+}
 
-    a {
-        @apply text-white;
-    }
+.header-wrap-small a {
+    @apply text-white;
 }
 
 .header-page_title {

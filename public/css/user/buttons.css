@@ -37,8 +37,6 @@ a.button {
         @apply bg-blue-500 text-white;
     }
 }
-a.button-critical {
-    &:focus {
-        @apply bg-white;
-    }
+a.button-critical:focus {
+    @apply bg-white;
 }
