@@ -32,8 +32,7 @@
                 </div>
                 <RecordList :headings="headings"
                             :items="authLogs"
-                            :cell-classes="[null, null, null, null, null, null, 'record_list-col-actions']"
-                            class="p-0">
+                            :cell-classes="[null, null, null, null, null, null, 'record_list-col-actions']">
                     <template #col1="{ item }">
                         <LocalTime :datetime="item.occurredAt" />
                     </template>

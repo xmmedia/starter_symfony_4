@@ -63,13 +63,13 @@
 
             <button type="submit" class="button w-full">Sign in</button>
 
-            <div class="flex items-center justify-center gap-x-4 my-6 text-fs-gray-500">
+            <div class="flex items-center justify-center gap-x-4 my-6">
                 <hr class="grow">
                 Or
                 <hr class="grow">
             </div>
 
-            <button type="button" class="button w-full bg-fs-gray-300 border-fs-gray-300" @click="sendLoginLink">
+            <button type="button" class="button w-full" @click="sendLoginLink">
                 <LoadingSpinner v-if="state.matches('sending')" spinner-classes="bg-white" />
                 <template v-else>Sign in with a link instead</template>
             </button>

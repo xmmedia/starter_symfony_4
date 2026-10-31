@@ -17,9 +17,6 @@
 [type="color"],
 textarea {
     @apply w-full px-2 py-1 bg-gray-100 border border-gray-300 text-gray-800 transition-default;
-    &:focus {
-        @apply bg-gray-100;
-    }
 }
 textarea {
     /* fixes space below textareas, making it consistent across browsers */

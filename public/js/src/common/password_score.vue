@@ -2,7 +2,7 @@
     <transition appear name="password-slide">
         <!-- eslint-disable-next-line vue/require-toggle-inside-transition -->
         <div class="text-xs password-slide">
-            <div class="flex items-center w-full bg-gray-500">
+            <div class="flex items-center bg-gray-500">
                 <div :class="scoreBackgroundClasses" class="h-6"></div>
                 <span class="absolute py-1 pl-2 text-white">
                     Strength<template v-if="passwordWarning">: {{ passwordWarning }}</template>

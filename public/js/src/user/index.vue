@@ -31,14 +31,14 @@
             </div>
             <div v-else class="header_nav-nav">
                 <RouterLink :to="{ name: 'login' }"
-                            class="text-gray-300 hover:text-gray-200 hover:underline">
+                            class="text-gray-300 hover:text-gray-200">
                     Sign In
                 </RouterLink>
             </div>
         </div>
     </header>
 
-    <main class="w-full">
+    <main>
         <!-- *** where the router component is placed *** -->
         <RouterView :key="$route.path" />
     </main>

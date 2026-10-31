@@ -8,6 +8,6 @@
 }
 
 .sidebar_nav-submenu_header {
-    @apply min-h-[var(--header-height)] pt-[0.9rem] pb-4 pl-4 lg:pt-[0.7rem] lg:pl-4;
+    @apply min-h-[var(--header-height)] pt-[0.9rem] lg:pt-[0.7rem] pb-4 pl-4;
     @apply border-b border-gray-600 text-lg lg:text-2xl font-extralight;
 }
