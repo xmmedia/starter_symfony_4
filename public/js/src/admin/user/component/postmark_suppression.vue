@@ -9,7 +9,7 @@
         <div v-if="suppressionData.suppressed"
              class="mt-2 px-4 py-3 text-red-900 bg-red-50 border border-red-200 rounded-md">
             <h4 class="flex gap-x-2 items-end mt-0">
-                <AdminIcon icon="warning" class="record_list-icon w-8 h-8" />
+                <AdminIcon icon="warning" class="record_list-icon size-8" />
                 Cannot Send Emails to this Address
             </h4>
             <div class="grid gap-y-2 text-sm">

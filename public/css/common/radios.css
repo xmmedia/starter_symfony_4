@@ -5,7 +5,7 @@
     @apply inline-block relative;
 
     input {
-        @apply absolute w-full h-full top-0 left-0 border-2 appearance-none opacity-[0.00001] bg-none z-[2];
+        @apply opacity-[0.00001] absolute z-2 top-0 left-0 size-full bg-none border-2 appearance-none;
     }
 
     label {

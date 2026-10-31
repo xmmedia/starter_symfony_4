@@ -19,7 +19,7 @@ const props = defineProps({
     },
     iconClasses: {
         type: [ String, Array ],
-        default: 'w-4 h-4 fill-current',
+        default: 'size-4 fill-current',
     },
     iconComponent: {
         type: String,

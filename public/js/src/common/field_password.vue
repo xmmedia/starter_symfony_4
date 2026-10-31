@@ -24,7 +24,7 @@
                     class="button-link field-button-password_view"
                     style="margin-top: 0.3rem;"
                     @click.prevent="visible = !visible">
-                <component :is="iconComponent" :icon="icon" class="w-6 h-6 fill-current" width="24" height="24" />
+                <component :is="iconComponent" :icon="icon" class="size-6 fill-current" width="24" height="24" />
                 <span class="sr-only">Show password</span>
             </button>
         </div>

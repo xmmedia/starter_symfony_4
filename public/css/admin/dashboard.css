@@ -1,5 +1,5 @@
 .dashboard-link {
-    @apply block w-40 h-40 p-2 text-center leading-none border border-gray-300 transition-colors duration-150 ease-in-out;
+    @apply block size-40 p-2 border border-gray-300 leading-none text-center transition-colors duration-150 ease-in-out;
     &:hover,
     &:active,
     &:focus {
@@ -7,6 +7,6 @@
     }
 
     svg {
-        @apply block w-24 h-24 mt-2 mx-auto mb-2 text-black fill-current;
+        @apply size-24 mx-auto mt-2 mb-2 fill-current text-black;
     }
 }

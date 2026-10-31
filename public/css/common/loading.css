@@ -2,7 +2,7 @@
     @apply flex justify-center items-center;
 }
 .loading {
-    @apply inline-block w-4 h-4 mr-2 bg-black rounded-full;
+    @apply inline-block size-4 mr-2 bg-black rounded-full;
     animation: loading 1s infinite ease-in-out;
 }
 
