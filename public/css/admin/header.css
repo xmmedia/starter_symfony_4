@@ -3,10 +3,10 @@
 }
 
 .header-wrap {
-    /* bg-white hides side menu bg color on mobile. Otherwise content is transparent */
-    @apply flex flex-col md:flex-row justify-between items-end md:items-center py-2 md:py-0 bg-gray-100 border-b border-gray-300;
+    /* bg-gray-100 hides side menu bg color on mobile. Otherwise content is transparent */
+    @apply flex flex-col md:flex-row justify-between items-end md:items-center;
     min-height: calc(var(--header-height) + 3.5rem);
-    @apply xs:min-h-[var(--header-height)];
+    @apply xs:min-h-[var(--header-height)] py-2 md:py-0 bg-gray-100 border-b border-gray-300;
 }
 
 .header-wrap-small {
