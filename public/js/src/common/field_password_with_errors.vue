@@ -15,7 +15,7 @@
                     <slot name="required-msg">A password is required.</slot>
                 </template>
                 <template v-else-if="!minLength">
-                    Passwords must more than {{ v.minLength.$params.min }} characters.
+                    Passwords must be more than {{ v.minLength.$params.min }} characters.
                 </template>
                 <template v-else-if="!maxLength">
                     The password is too long.
