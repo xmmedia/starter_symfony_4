@@ -178,10 +178,12 @@ select {
 
 /* 100% width wraps help when within a flexbox (ex. for a checkbox). */
 .field-help {
-    @apply w-full mt-px text-xs italic text-gray-600 leading-tight;
+    @apply w-full mt-px;
 
     /* the padding helps it align better with field above */
     padding-left: 0.1em;
+
+    @apply text-xs leading-tight italic text-gray-600;
 }
 
 /* these show up after the form buttons, outside the form tag
