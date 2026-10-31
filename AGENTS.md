@@ -433,7 +433,7 @@ ESLint enforces code style. Key rules:
 
 **Vue Specific:**
 - 4-space indentation for HTML templates
-- Max 3 attributes per line for single-line tags
+- Max 5 attributes per line for single-line tags
 - 1 attribute per line for multiline (first attribute on same line allowed)
 - Component self-closing: always for components, optional for HTML elements
 - No newline before closing bracket in multiline tags
