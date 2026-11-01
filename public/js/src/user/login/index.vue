@@ -211,7 +211,7 @@ const sendLoginLink = async () => {
 
     } catch (e) {
         logError(e);
-        alert('There was a problem send the magic link. Please try again later or login with your password.');
+        alert('There was a problem sending the magic link. Please try again later or login with your password.');
         sendEvent({ type: 'ERROR' });
     }
 };
