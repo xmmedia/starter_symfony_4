@@ -127,12 +127,13 @@ const defaultFilters = {
     role: 'ALL',
     accountStatus: 'ALL',
 };
+// the values in the URL may not be valid, so they're left to the defaults
 const cleanQueryFilters = (queryFilters) => {
-    if ('ALL' === queryFilters.accountStatus) {
+    if (![ 'ACTIVE', 'INACTIVE' ].includes(queryFilters.accountStatus)) {
         delete queryFilters.accountStatus;
     }
-    if (!queryFilters.roles) {
-        delete queryFilters.roles;
+    if (![ 'ADMIN', 'USER' ].includes(queryFilters.role)) {
+        delete queryFilters.role;
     }
 
     return queryFilters;
@@ -140,7 +141,7 @@ const cleanQueryFilters = (queryFilters) => {
 const filters = ref({
     ...defaultFilters,
     ...filtersStore.user,
-    ...cleanQueryFilters(route.query.filters || {}),
+    ...cleanQueryFilters({ ...(route.query.filters || {}) }),
 });
 const offset = ref(route.query.offset || 0);
 
