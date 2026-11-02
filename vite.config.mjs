@@ -50,6 +50,9 @@ export default defineConfig(({ command, mode, isPreview }) => {
                 org: 'xm-media',
                 project: 'symfony-starter',
                 telemetry: false,
+                // a Sentry outage shouldn't block a deploy: warn & carry on without the upload
+                // eslint-disable-next-line no-console
+                errorHandler: (err) => console.warn(err),
                 // the maps are only for Sentry: don't deploy them
                 sourcemaps: { filesToDeleteAfterUpload: ['public/build/**/*.map'] },
             }),
