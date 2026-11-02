@@ -176,7 +176,7 @@ static:
     - php composer.phar dump-autoload --optimize --strict-psr --strict-ambiguous --dry-run
     # cache warmup for phpstan
     - php bin/console cache:warmup --env=test
-    - php bin/phpstan analyse --no-progress --memory-limit 1G src
+    - php bin/phpstan analyse -c phpstan.ci.neon --no-progress --memory-limit 1G src
     - bin/console lint:yaml config
     - bin/console lint:twig templates
     - bin/console lint:container

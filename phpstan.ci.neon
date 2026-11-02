@@ -1,0 +1,10 @@
+# CI only: one process. Since Symfony 8.1, every worker that waits for another to build the
+# container runs the cache warmers too, so parallel workers booting the non-debug test kernel
+# (the doctrine & console loaders) race to delete & regenerate Overblog's GraphQL types.
+# Locally the non-debug container's usually already built, so phpstan.dist.neon stays parallel
+includes:
+    - phpstan.dist.neon
+
+parameters:
+    parallel:
+        maximumNumberOfProcesses: 1
