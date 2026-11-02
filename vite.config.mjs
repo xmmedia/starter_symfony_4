@@ -49,7 +49,7 @@ export default defineConfig(({ command, mode, isPreview }) => {
                 // @todo-symfony
                 org: 'xm-media',
                 project: 'symfony-starter',
-                telemetry: 'production' === mode,
+                telemetry: false,
                 // the maps are only for Sentry: don't deploy them
                 sourcemaps: { filesToDeleteAfterUpload: ['public/build/**/*.map'] },
             }),
