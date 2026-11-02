@@ -24,6 +24,9 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
     @apply opacity-0 inset-0 m-auto overflow-y-auto bg-transparent backdrop:bg-gray-900/90;
     transform: scale(.75);
     @apply shadow-lg/15;
+    /* otherwise the dialog shrinks to its content, so a short message or form is cramped.
+       Only from sm: up, as a min-width beats the dialog's max-width on a narrow screen */
+    @apply sm:min-w-md;
 
     /* reset inherited properties that leak in from wherever the dialog is mounted in the DOM */
     font-size: initial;
