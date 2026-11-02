@@ -19,6 +19,8 @@
 #   --remote-server <host>        ssh hostname or IP
 #   --remote-user <user>          ssh username
 #   --context-host <host>         e.g. www.example.com
+#   --public-key-out <file>       writes the CI public key to <file> instead of showing it, for
+#                                 the caller to install (bin/provision_site does)
 set -euo pipefail
 
 RED='\033[0;31m'
@@ -84,6 +86,7 @@ usage() {
     echo "  --remote-server <host>        ssh hostname or IP"
     echo "  --remote-user <user>          ssh username"
     echo "  --context-host <host>         e.g. www.example.com"
+    echo "  --public-key-out <file>       writes the public key to <file> instead of showing it"
 }
 
 VARIABLES_JSON=""
@@ -151,6 +154,7 @@ ARG_REMOTE_BASE=""
 ARG_REMOTE_SERVER=""
 ARG_REMOTE_USER=""
 ARG_CONTEXT_HOST=""
+ARG_PUBLIC_KEY_OUT=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -159,6 +163,7 @@ while [[ $# -gt 0 ]]; do
         --remote-server) ARG_REMOTE_SERVER=$(option_value "$1" "${2:-}"); shift 2 ;;
         --remote-user)   ARG_REMOTE_USER=$(option_value "$1" "${2:-}");   shift 2 ;;
         --context-host)  ARG_CONTEXT_HOST=$(option_value "$1" "${2:-}");  shift 2 ;;
+        --public-key-out) ARG_PUBLIC_KEY_OUT=$(option_value "$1" "${2:-}"); shift 2 ;;
         -h|--help)       usage; exit 0 ;;
         -*)              usage >&2; die "unknown option: $1" ;;
         *)
@@ -355,20 +360,25 @@ if [[ "$FAILED" -eq 1 ]]; then
 fi
 echo -e "${GREEN}Done!${NC}"
 
-if [[ -f "${KEY_FILE}.pub" ]]; then
+# Derived from the private key, so an existing key doesn't need its .pub file
+PUBLIC_KEY=$(ssh-keygen -y -P '' -f "$KEY_FILE" 2>/dev/null) || PUBLIC_KEY=""
+if [[ -n "$ARG_PUBLIC_KEY_OUT" ]]; then
+    printf '%s\n' "$PUBLIC_KEY" > "$ARG_PUBLIC_KEY_OUT"
+elif [[ -n "$PUBLIC_KEY" ]]; then
     echo ""
     echo ""
     echo -e "${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${BOLD}  Add this public key to the server's ~/.ssh/authorized_keys${NC}"
     echo -e "${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
-    cat "${KEY_FILE}.pub"
+    echo "$PUBLIC_KEY"
     echo ""
     echo -e "${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
-    if [[ "$GENERATE_KEY" == "true" ]]; then
-        echo -e "${YELLOW}Once the public key is on the server, delete the local key files:${NC}"
-        echo "  rm \"$KEY_FILE\" \"${KEY_FILE}.pub\""
-        echo ""
-    fi
+fi
+if [[ "$GENERATE_KEY" == "true" ]]; then
+    echo ""
+    echo -e "${YELLOW}Once the public key is on the server, delete the local key files:${NC}"
+    echo "  rm \"$KEY_FILE\" \"${KEY_FILE}.pub\""
+    echo ""
 fi

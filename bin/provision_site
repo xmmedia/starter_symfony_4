@@ -29,6 +29,7 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ENV_TEMPLATE="$SCRIPT_DIR/../.env"
 NODEWORX='nodeworx'
 SITEWORX='siteworx'
 # Database name/user suffix — always symfony for this starter.
@@ -127,6 +128,7 @@ for script in setup_staging.sh setup_prod.sh; do
     [[ -f "$SCRIPT_DIR/$script" ]] || die "$script not found in $SCRIPT_DIR"
 done
 [[ -f "$SCRIPT_DIR/setup_gitlab_ci_vars" ]] || die "setup_gitlab_ci_vars not found in $SCRIPT_DIR"
+[[ -f "$ENV_TEMPLATE" ]] || die ".env not found in $(dirname "$SCRIPT_DIR")"
 command -v openssl >/dev/null 2>&1 || die "openssl not installed"
 
 echo ""
@@ -317,23 +319,21 @@ REMOTE_ENV="$REAL_BASE/shared/.env.local"
 if remote sudo -n test -s "$REMOTE_ENV"; then
     warn "$REMOTE_ENV already has content — left as is."
 else
-    # Overrides .env; the deploy copies it into each release & runs composer dump-env.
-    # The passwords are URL safe (see generate_password), so they go in the URL unencoded.
-    ENV_CONTENT=$(cat <<EOF
-APP_ENV=$APP_ENV
-APP_SECRET=$(generate_password)
-DATABASE_URL="mysql://$DB_NAME:$DB_PASSWORD@localhost:3306/$DB_NAME?serverVersion=8.4&charset=utf8mb4"
-REQUEST_CONTEXT_HOST=$DOMAIN
-REQUEST_CONTEXT_SCHEME=https
-# TRUSTED_PROXIES=
-
-# MAILER_DSN=postmark+api://API_KEY@default
-# POSTMARK_API_KEY=
-# FROM_EMAIL=
-# FROM_EMAIL_NAME=
-# ADMIN_EMAIL=
-# SENTRY_DSN=
-EOF
+    # The repo's .env with what's known filled in. It overrides .env; the deploy copies it into
+    # each release & runs composer dump-env. The passwords are URL safe (see generate_password),
+    # so they go in the URL unencoded.
+    ENV_CONTENT=$(
+        APP_ENV="$APP_ENV" \
+        APP_SECRET="$(generate_password)" \
+        DATABASE_URL="\"mysql://$DB_NAME:$DB_PASSWORD@localhost:3306/$DB_NAME?serverVersion=8.4&charset=utf8mb4\"" \
+        REQUEST_CONTEXT_HOST="$DOMAIN" \
+        REQUEST_CONTEXT_SCHEME=https \
+        awk -v keys='APP_ENV APP_SECRET DATABASE_URL REQUEST_CONTEXT_HOST REQUEST_CONTEXT_SCHEME' '
+            BEGIN { n = split(keys, k, " "); for (i = 1; i <= n; i++) set[k[i]] = 1 }
+            { key = $0; sub(/=.*/, "", key) }
+            /^[A-Z_]+=/ && (key in set) { print key "=" ENVIRON[key]; next }
+            { print }
+        ' "$ENV_TEMPLATE"
     )
 
     # Written to a temp file beside it & moved into place, so a failed write can't leave a
@@ -369,19 +369,43 @@ fi
 # --- 7. GitLab CI variables --------------------------------------------------
 
 heading "7/7 GitLab CI/CD variables"
+KEY_INSTALLED=n
 if [[ "$DO_GITLAB" == "y" ]]; then
-    "$SCRIPT_DIR/setup_gitlab_ci_vars" "$GITLAB_PROJECT" \
+    PUBLIC_KEY_FILE=$(mktemp)
+    trap 'rm -f "$PUBLIC_KEY_FILE"' EXIT
+    if "$SCRIPT_DIR/setup_gitlab_ci_vars" "$GITLAB_PROJECT" \
         --scope "$SCOPE" \
         --remote-base "$SITE_BASE" \
         --remote-server "$SERVER_HOST" \
         --remote-user "$SITE_USER" \
         --context-host "$DOMAIN" \
-        || warn "setup_gitlab_ci_vars did not complete"
+        --public-key-out "$PUBLIC_KEY_FILE"; then
+        PUBLIC_KEY=$(<"$PUBLIC_KEY_FILE")
+        QUOTED_KEY=$(printf '%q' "$PUBLIC_KEY")
+        # Added unless it's already there (an existing key can be reused across sites)
+        if [[ -z "$PUBLIC_KEY" ]]; then
+            warn "could not read the CI public key — add it to ~/.ssh/authorized_keys yourself"
+        elif remote sudo -n su - "$SITE_USER" -c "umask 077 && mkdir -p ~/.ssh \
+            && touch ~/.ssh/authorized_keys \
+            && { grep -qxF $QUOTED_KEY ~/.ssh/authorized_keys \
+                || printf '%s\n' $QUOTED_KEY >> ~/.ssh/authorized_keys; }"; then
+            KEY_INSTALLED=y
+            ok "CI public key added to ~/.ssh/authorized_keys for $SITE_USER"
+        else
+            warn "failed to add the CI public key — add it to ~/.ssh/authorized_keys yourself:"
+            echo "    $PUBLIC_KEY"
+        fi
+    else
+        warn "setup_gitlab_ci_vars did not complete"
+    fi
 else
     echo "  Skipped."
 fi
 
 # --- Done --------------------------------------------------------------------
+
+STEP=0
+manual_step() { STEP=$((STEP + 1)); echo -e "  ${BOLD}$STEP.${NC} $*"; }
 
 echo ""
 echo -e "${GREEN}Done!${NC}"
@@ -394,16 +418,18 @@ echo -e "${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━�
 echo -e "${BOLD}  Remaining manual steps${NC}"
 echo -e "${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "  ${BOLD}1.${NC} Add the DNS record for ${YELLOW}$DOMAIN${NC} if it isn't in place yet"
-echo -e "  ${BOLD}2.${NC} Generate the SSL certificate in SiteWorx, once DNS has propagated"
+manual_step "Add the DNS record for ${YELLOW}$DOMAIN${NC} if it isn't in place yet"
+manual_step "Generate the SSL certificate in SiteWorx, once DNS has propagated"
 echo -e "     (not scriptable — the CLI always includes www and cannot exclude it)"
 echo -e "     Log in as ${YELLOW}$SITE_USER${NC} at ${YELLOW}https://$SERVER_HOST:2443/${NC} → SSL/TLS → Let's Encrypt"
 echo -e "     Untick ${YELLOW}www.$DOMAIN${NC} unless it has its own DNS record"
-echo -e "  ${BOLD}3.${NC} Add the CI public key to ~/.ssh/authorized_keys for ${YELLOW}$SITE_USER${NC} on ${YELLOW}$SSH_HOST${NC}"
-echo -e "  ${BOLD}4.${NC} Complete ${YELLOW}$SITE_BASE/shared/.env.local${NC}"
+if [[ "$KEY_INSTALLED" != "y" ]]; then
+    manual_step "Add the CI public key to ~/.ssh/authorized_keys for ${YELLOW}$SITE_USER${NC} on ${YELLOW}$SSH_HOST${NC}"
+fi
+manual_step "Complete ${YELLOW}$SITE_BASE/shared/.env.local${NC}"
 echo "     Fill in the email settings, Sentry DSN & trusted proxies; check the MySQL serverVersion"
-echo -e "  ${BOLD}5.${NC} Deploy from GitLab (the first attempt often fails — fix and retry)"
-echo -e "  ${BOLD}6.${NC} Import the database, or create the event streams, run the projections"
+manual_step "Deploy from GitLab (the first attempt often fails — fix and retry)"
+manual_step "Import the database, or create the event streams, run the projections"
 echo "     & add a user (see the README's setup steps)"
 echo ""
 echo -e "${BOLD}${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

@@ -65,15 +65,16 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 `bin/setup_staging.sh` & `bin/setup_prod.sh` run on the server. The other setup scripts run locally.
 
 For sites on an InterWorx server, `bin/provision_site` (run locally) does the whole setup:
-1Password items, the SiteWorx account, the database, `setup_staging.sh`/`setup_prod.sh`, `shared/.env.local`,
-the Messenger worker cron job and the GitLab CI/CD variables.
+1Password items, the SiteWorx account, the database, `setup_staging.sh`/`setup_prod.sh`, `shared/.env.local`
+(the repo's `.env` with the environment, app secret, database & request context filled in), the Messenger worker
+cron job, the GitLab CI/CD variables and the CI public key in the site user's `~/.ssh/authorized_keys`.
 
   - Requires an ssh Host with passwordless sudo, [`op`](https://developer.1password.com/docs/cli/)
     signed in, [`glab`](https://gitlab.com/gitlab-org/cli) authenticated and `jq` installed.
   - It asks whether you're provisioning staging or production, then prompts for everything
     else and shows a summary before making any changes.
-  - The remaining manual steps (DNS record, SSL certificate, CI public key, completing `shared/.env.local`,
-    first deploy, database) are printed at the end. The DNS record doesn't need to exist beforehand —
+  - The remaining manual steps (DNS record, SSL certificate, completing `shared/.env.local`, first deploy,
+    database) are printed at the end. The DNS record doesn't need to exist beforehand —
     it's only needed before generating the SSL certificate.
 
 To do it by hand instead:
