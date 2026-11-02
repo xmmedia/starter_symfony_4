@@ -83,12 +83,21 @@ rq() {
 # remote <command> [args…] — runs a single command on the server
 remote() { ssh "$SSH_HOST" "$(rq "$@")"; }
 
-# generate_password — 32 letters & digits
+# generate_password — 32 letters, digits & URL-safe symbols (- . _ ~), with at least one of
+# each kind (the servers' MySQL password policy requires a symbol). It starts with a letter or
+# digit so a CLI can't read it as an option. Every character is unreserved in a URL, so it can
+# go in a DSN unencoded, & none are special in a shell, .env or 1Password.
 generate_password() {
     local value
-    value=$(openssl rand -base64 64 | tr -dc 'A-Za-z0-9' | cut -c1-32)
-    [[ ${#value} -eq 32 ]] || die "failed to generate a password"
-    printf '%s' "$value"
+    for _ in {1..20}; do
+        value=$(openssl rand 512 | LC_ALL=C tr -dc 'A-Za-z0-9._~-' | cut -c1-32)
+        if [[ ${#value} -eq 32 && "$value" =~ ^[A-Za-z0-9] && "$value" =~ [A-Z] && "$value" =~ [a-z]
+            && "$value" =~ [0-9] && "$value" =~ [._~-] ]]; then
+            printf '%s' "$value"
+            return
+        fi
+    done
+    die "failed to generate a password"
 }
 
 # create_op_item <password> <op item create args…> — prints the new item's id.
@@ -309,7 +318,7 @@ if remote sudo -n test -s "$REMOTE_ENV"; then
     warn "$REMOTE_ENV already has content — left as is."
 else
     # Overrides .env; the deploy copies it into each release & runs composer dump-env.
-    # The passwords are letters & digits only, so they're safe in the URL unencoded.
+    # The passwords are URL safe (see generate_password), so they go in the URL unencoded.
     ENV_CONTENT=$(cat <<EOF
 APP_ENV=$APP_ENV
 APP_SECRET=$(generate_password)
