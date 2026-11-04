@@ -92,4 +92,13 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
     .form-action {
         @apply ring-offset-gray-800 focus:ring-offset-4 text-slate-300 hover:text-slate-400 focus:text-slate-300;
     }
+
+    /* alerts keep their light background, so they need the dark text back */
+    .alert {
+        @apply text-gray-800;
+
+        .form-action {
+            @apply ring-offset-gray-100 focus:ring-offset-1 text-blue-500 hover:text-blue-700 focus:text-blue-500;
+        }
+    }
 }
