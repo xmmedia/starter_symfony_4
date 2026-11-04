@@ -88,6 +88,12 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
         @apply text-left text-gray-800;
     }
 
+    /* the default link colour is too dark on the background.
+       :where() keeps the specificity low, so .button & .form-action still win */
+    :where(a, .button-link) {
+        @apply ring-offset-gray-800 text-blue-300 hover:text-blue-200 active:text-blue-200 focus:text-blue-200;
+    }
+
     /* secondary actions, eg cancel: the default link colour is too dark on the background */
     .form-action {
         @apply ring-offset-gray-800 focus:ring-offset-4 text-slate-300 hover:text-slate-400 focus:text-slate-300;
@@ -96,6 +102,10 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
     /* alerts keep their light background, so they need the dark text back */
     .alert {
         @apply text-gray-800;
+
+        :where(a, .button-link) {
+            @apply ring-offset-gray-100 text-blue-500 hover:text-blue-700 active:text-blue-700 focus:text-blue-700;
+        }
 
         .form-action {
             @apply ring-offset-gray-100 focus:ring-offset-1 text-blue-500 hover:text-blue-700 focus:text-blue-500;
