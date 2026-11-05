@@ -151,13 +151,13 @@ projection run by another migration) then fails with "There is no active transac
 "SAVEPOINT DOCTRINE_2 does not exist". Data-only migrations should stay transactional. Migrations
 using `ProjectionAwareMigration` are already non-transactional (the trait overrides it).
 
-Most schema is created by projections (`src/Projection/*/ReadModel.php`) or `db_create.sql`, so
+Most schema is created by projections (`src/Projection/*/*ReadModel.php`) or `db_create.sql`, so
 migrations are for tables that aren't projection owned (eg `user_credential`, `user_token`) &
 for one-off data changes.
 
 ### Makers
-- Make aggregate root/model: `bin/console make:model` or `lando console make:model`
-- Make projection: `bin/console make:projection` or `lando console make:projection`
+- Make aggregate root/model: `bin/console make:model` or `lando console make:model` — also creates
+  the model's projection, read model, finder & entity (there's no separate projection maker)
 
 ### User Management
 - Add a user: `bin/console app:user:add` or `lando console app:user:add` (select `ROLE_SUPER_ADMIN` for admin access)
@@ -172,7 +172,7 @@ is the parameter in kebab-case; an option needs a default). Don't add `configure
 `command_log` records every command payload & is only ever read for auditing, so it grows
 without bound. Archive & prune it with `lando console app:command-log:archive [before]`:
 
-- `before` is a required date (`YYYY-MM-DD`) — everything sent before midnight UTC on it is
+- `before` is a date (`YYYY-MM-DD`), required unless `--import` is used — everything sent before midnight UTC on it is
   archived. Only that exact format is accepted, so an interval like `"6 months"` can't be read
   as a future date & take the whole table
 - It shows the date & asks for confirmation before archiving. Run it with `-n` to skip the
@@ -289,7 +289,7 @@ Only enabled in `prod` & `staging` (backend `SentryBundle`, frontend `PROD` buil
 - Examples: `UserProjection`, `AuthProjection`, `AuthLogProjection`
 - Automatically run via `RunProjectionMiddleware` on event bus
 - Each projection has: `*Projection.php`, `*ReadModel.php`, `*Finder.php`, `*Filters.php`, `*FilterQueryBuilder.php` (not every projection has all of these, e.g. `MessengerQueue` has only Finder/Filters/FilterQueryBuilder)
-- Create tables defined in `src/Projection/Table.php` and `src/Projection/*/ReadModel.php`
+- Tables are created by `src/Projection/*/*ReadModel.php`; their names are constants in `src/Projection/Table.php`
 
 **Process Managers** (`src/ProcessManager/`)
 - React to events: coordinate cross-aggregate workflows, or carry out a side effect a projection can't
@@ -333,10 +333,11 @@ Only enabled in `prod` & `staging` (backend `SentryBundle`, frontend `PROD` buil
 ### Doctrine Entities (Read Models Only)
 
 Entities in `src/Entity/` are projection read models — never used for domain writes:
-- `User`, `UserToken`, `AuthLog`
+- `User`, `AuthLog`
 
-`UserCredential` is the exception: it holds the password hash & is **not** projection owned
-(see [Password storage](#password-storage)).
+The exceptions aren't projection owned (their tables are in `db_create.sql`):
+- `UserCredential` holds the password hash (see [Password storage](#password-storage))
+- `UserToken` holds the activation/verification/reset tokens
 
 ### Infrastructure Services (`src/Infrastructure/Service/`)
 
@@ -374,12 +375,14 @@ user's name in it, eg "Zoë" (see the bundle's AGENTS.md).
 - `admin_dashboard/` - dashboard
 - `admin_delete/` - admin account deletion
 - `auth_log/` - authentication log viewer
+- `error/` - 403 & 404 pages
 - `menu/` - admin navigation menu
 - `messenger_queue/` - messenger queue viewer
 - `pattern_library/` - UI pattern reference
 
 **User app sections** (`public/js/src/user/`):
 - `dashboard/` - user dashboard
+- `error/` - 403 & 404 pages
 - `login/` - login page
 - `user_recover/` - initiate, reset (password recovery)
 - `user_activate/` - account activation

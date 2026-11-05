@@ -178,8 +178,7 @@ but the Node version is then up to you.
     - Show all commands: `bin/console event-store:projection`
     - Run once: `bin/console event-store:projection:run user_projection -o`
   - Makers (PHP):
-    - Make aggregate root/model: `bin/console make:model`
-    - Make projection: `bin/console make:projection`
+    - Make aggregate root/model (including its projection): `bin/console make:model`
   - Upgrade JS packages: `lando yarn up -R "**"`
     - Upgrade a specific package: `lando yarn up -R "package-name"`
     - Upgrade major versions: `lando yarn upgrade-interactive` (ctrl+c to exit without changes)
