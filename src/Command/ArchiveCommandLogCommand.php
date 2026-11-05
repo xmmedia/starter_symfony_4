@@ -6,98 +6,56 @@ namespace App\Command;
 
 use App\Infrastructure\Service\CommandLogArchiver;
 use Carbon\CarbonImmutable;
+use Symfony\Component\Console\Attribute\Argument;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:command-log:archive',
     description: 'Archive old command_log rows to a gzipped SQL file, or import one back.',
 )]
-final class ArchiveCommandLogCommand extends Command
+final readonly class ArchiveCommandLogCommand
 {
-    private const string BEFORE = 'before';
     private const string DATE_FORMAT = 'Y-m-d';
-    private const string IMPORT = 'import';
-    private const string PATH = 'path';
-    private const string BATCH_SIZE = 'batch-size';
-    private const string KEEP = 'keep';
-    private const string DRY_RUN = 'dry-run';
 
-    public function __construct(private readonly CommandLogArchiver $archiver)
+    public function __construct(private CommandLogArchiver $archiver)
     {
-        parent::__construct();
     }
 
-    protected function configure(): void
-    {
-        $this
-            ->addArgument(
-                self::BEFORE,
-                // required to archive, but not to import, so it's checked in execute()
-                InputArgument::OPTIONAL,
-                'Archive rows sent before midnight UTC on this date (YYYY-MM-DD),'
-                .' required unless --import is used',
-            )
-            ->addOption(
-                self::IMPORT,
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Import an archive back into the table instead of creating one',
-            )
-            ->addOption(
-                self::PATH,
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Directory to write the archive to, defaults to the current directory',
-            )
-            ->addOption(
-                self::BATCH_SIZE,
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Number of rows read, written & deleted at a time',
-                '1000',
-            )
-            ->addOption(
-                self::KEEP,
-                null,
-                InputOption::VALUE_NONE,
-                'Write the archive but don\'t delete the rows',
-            )
-            ->addOption(
-                self::DRY_RUN,
-                null,
-                InputOption::VALUE_NONE,
-                'Report what would be archived without writing or deleting anything',
-            );
-    }
-
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $io = new SymfonyStyle($input, $output);
-        $dryRun = (bool) $input->getOption(self::DRY_RUN);
-
-        if (null !== $input->getOption(self::IMPORT)) {
-            return $this->import((string) $input->getOption(self::IMPORT), $dryRun, $io);
+    public function __invoke(
+        SymfonyStyle $io,
+        // required to archive, but not to import, so it's checked below
+        #[Argument(
+            'Archive rows sent before midnight UTC on this date (YYYY-MM-DD), required unless --import is used',
+        )]
+        ?string $before = null,
+        #[Option('Import an archive back into the table instead of creating one')]
+        ?string $import = null,
+        #[Option('Directory to write the archive to, defaults to the current directory')]
+        ?string $path = null,
+        #[Option('Number of rows read, written & deleted at a time')]
+        int $batchSize = 1000,
+        #[Option('Write the archive but don\'t delete the rows')]
+        bool $keep = false,
+        #[Option('Report what would be archived without writing or deleting anything')]
+        bool $dryRun = false,
+    ): int {
+        if (null !== $import) {
+            return $this->import($import, $dryRun, $io);
         }
 
-        $batchSize = (int) $input->getOption(self::BATCH_SIZE);
         if (1 > $batchSize) {
             throw new InvalidArgumentException('The batch size must be at least 1.');
         }
 
-        if (null === $input->getArgument(self::BEFORE)) {
-            throw new InvalidArgumentException(
-                \sprintf('The "%s" date is required to archive.', self::BEFORE),
-            );
+        if (null === $before) {
+            throw new InvalidArgumentException('The "before" date is required to archive.');
         }
 
-        $cutoff = $this->cutoff((string) $input->getArgument(self::BEFORE));
+        $cutoff = $this->cutoff($before);
 
         if ($dryRun) {
             $io->comment(\sprintf('Archiving rows sent before %s UTC', $cutoff->toDateTimeString()));
@@ -106,11 +64,9 @@ final class ArchiveCommandLogCommand extends Command
             return Command::SUCCESS;
         }
 
-        $delete = !$input->getOption(self::KEEP);
-
         if (!$io->confirm(\sprintf(
             '%s all rows sent before %s UTC?',
-            $delete ? 'Archive & delete' : 'Archive',
+            $keep ? 'Archive' : 'Archive & delete',
             $cutoff->toDateTimeString(),
         ))) {
             $io->comment('Aborted.');
@@ -118,9 +74,9 @@ final class ArchiveCommandLogCommand extends Command
             return Command::SUCCESS;
         }
 
-        $file = $this->file((string) ($input->getOption(self::PATH) ?? getcwd()), $cutoff);
+        $file = $this->file($path ?? (string) getcwd(), $cutoff);
 
-        $archived = $this->archiver->archive($file, $cutoff, $batchSize, $delete);
+        $archived = $this->archiver->archive($file, $cutoff, $batchSize, !$keep);
 
         if (0 === $archived) {
             $io->success('No rows to archive.');
@@ -131,7 +87,7 @@ final class ArchiveCommandLogCommand extends Command
         $io->success(\sprintf(
             '%s row(s) %s to %s (%s).',
             number_format($archived),
-            $delete ? 'archived' : 'copied',
+            $keep ? 'copied' : 'archived',
             $file,
             $this->formatBytes((int) filesize($file)),
         ));

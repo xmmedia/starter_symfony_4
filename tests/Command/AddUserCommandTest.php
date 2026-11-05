@@ -351,4 +351,23 @@ class AddUserCommandTest extends BaseTestCase
             '--generate-activation-token' => true,
         ]);
     }
+
+    public function testThrowsExceptionWhenFormatIsInvalid(): void
+    {
+        $command = new AddUserCommand(
+            \Mockery::mock(MessageBusInterface::class),
+            \Mockery::mock(PasswordHasher::class),
+            \Mockery::mock(UserPasswordStore::class),
+            \Mockery::mock(UserFinder::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            \Mockery::mock(RouterInterface::class),
+        );
+
+        $commandTester = new CommandTester($command);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageIsOrContains('The format "xml" is not supported');
+
+        $commandTester->execute(['--format' => 'xml']);
+    }
 }

@@ -9,8 +9,6 @@ use Postmark\Models\PostmarkException;
 use Postmark\PostmarkClient;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Attribute\AutowireInline;
 
@@ -22,21 +20,19 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireInline;
     name: 'app:postmark:check-templates',
     description: 'Checks Postmark has an active template for every email the platform sends.',
 )]
-final class PostmarkCheckTemplatesCommand extends Command
+final readonly class PostmarkCheckTemplatesCommand
 {
     // the most Postmark returns at a time
     private const int PAGE_SIZE = 500;
 
     public function __construct(
         #[AutowireInline(PostmarkClient::class, ['$serverToken' => '%env(POSTMARK_API_KEY)%'])]
-        private readonly PostmarkClient $postmarkClient,
+        private PostmarkClient $postmarkClient,
     ) {
-        parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    public function __invoke(SymfonyStyle $io): int
     {
-        $io = new SymfonyStyle($input, $output);
         $io->title('Postmark Template Check');
 
         try {
@@ -44,7 +40,7 @@ final class PostmarkCheckTemplatesCommand extends Command
         } catch (PostmarkException $e) {
             $io->error(\sprintf('The templates could not be read from Postmark: %s', $e->getMessage()));
 
-            return self::FAILURE;
+            return Command::FAILURE;
         }
 
         $problems = [];
@@ -59,13 +55,13 @@ final class PostmarkCheckTemplatesCommand extends Command
         if ([] === $problems) {
             $io->success(\sprintf('Postmark has all %d templates.', \count(EmailTemplate::cases())));
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $io->listing($problems);
         $io->error('Postmark is missing templates.');
 
-        return self::FAILURE;
+        return Command::FAILURE;
     }
 
     /**

@@ -162,6 +162,12 @@ for one-off data changes.
 ### User Management
 - Add a user: `bin/console app:user:add` or `lando console app:user:add` (select `ROLE_SUPER_ADMIN` for admin access)
 
+### Console commands
+Write commands as invokable classes: `#[AsCommand]` on a class that doesn't extend `Command`, with
+`__invoke()` taking `SymfonyStyle $io` & the input as `#[Argument]`/`#[Option]` parameters (the name
+is the parameter in kebab-case; an option needs a default). Don't add `configure()` or name constants.
+`CommandTester` takes the object directly.
+
 ### Command Log
 `command_log` records every command payload & is only ever read for auditing, so it grows
 without bound. Archive & prune it with `lando console app:command-log:archive [before]`:

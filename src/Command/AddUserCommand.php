@@ -17,10 +17,9 @@ use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Attribute\Option;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -35,57 +34,42 @@ use Xm\SymfonyBundle\Util\Json;
     name: 'app:user:add',
     description: 'Add a user.',
 )]
-final class AddUserCommand extends Command
+final readonly class AddUserCommand
 {
-    private const string SEND_INVITE = 'send-invite';
-    private const string GENERATE_ACTIVATION_TOKEN = 'generate-activation-token';
-    private const string FORMAT = 'format';
+    private const array FORMATS = ['default', 'json'];
 
     public function __construct(
-        private readonly MessageBusInterface $commandBus,
-        private readonly PasswordHasher $passwordHasher,
-        private readonly UserPasswordStore $passwordStore,
-        private readonly UserFinder $userFinder,
-        private readonly ResetPasswordHelperInterface $resetPasswordHelper,
-        private readonly RouterInterface $router,
+        private MessageBusInterface $commandBus,
+        private PasswordHasher $passwordHasher,
+        private UserPasswordStore $passwordStore,
+        private UserFinder $userFinder,
+        private ResetPasswordHelperInterface $resetPasswordHelper,
+        private RouterInterface $router,
     ) {
-        parent::__construct();
     }
 
-    protected function configure(): void
-    {
-        $this
-            ->addOption(
-                self::SEND_INVITE,
-                null,
-                InputOption::VALUE_NONE,
-                'Send the user an invite instead of asking for a password.',
-            )
-            ->addOption(
-                self::GENERATE_ACTIVATION_TOKEN,
-                null,
-                InputOption::VALUE_NONE,
-                'Generates the activation token and either displays or returns it. Cannot be used with send-invite.',
-            )
-            ->addOption(
-                self::FORMAT,
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Determines the format of the output. Options: "default" or "json"',
-                'default',
-            );
-    }
-
-    public function __invoke(InputInterface $input, OutputInterface $output): int
-    {
-        $io = new SymfonyStyle($input, $output);
+    public function __invoke(
+        SymfonyStyle $io,
+        #[Option('Send the user an invite instead of asking for a password.')]
+        bool $sendInvite = false,
+        #[Option('Generates the activation token and either displays or returns it. Cannot be used with send-invite.')]
+        bool $generateActivationToken = false,
+        #[Option(
+            'Determines the format of the output. Options: "default" or "json"',
+            suggestedValues: self::FORMATS,
+        )]
+        string $format = 'default',
+    ): int {
         $io->title('Create New User');
 
-        $sendInvite = $input->getOption(self::SEND_INVITE);
-        $generateActivationToken = $input->getOption(self::GENERATE_ACTIVATION_TOKEN);
-
         if ($sendInvite && $generateActivationToken) {
-            throw new InvalidArgumentException(\sprintf('%s and %s cannot be used together.', self::SEND_INVITE, self::GENERATE_ACTIVATION_TOKEN));
+            throw new InvalidArgumentException('send-invite and generate-activation-token cannot be used together.');
+        }
+
+        if (!\in_array($format, self::FORMATS, true)) {
+            throw new InvalidArgumentException(
+                \sprintf('The format "%s" is not supported. Use one of: %s.', $format, implode(', ', self::FORMATS)),
+            );
         }
 
         $email = Email::fromString($this->askForEmail($io));
@@ -126,7 +110,7 @@ final class AddUserCommand extends Command
             );
         }
 
-        if ('json' === $input->getOption(self::FORMAT)) {
+        if ('json' === $format) {
             $results = [
                 'userId' => $userId->toString(),
                 'email'  => $email->toString(),
@@ -140,7 +124,7 @@ final class AddUserCommand extends Command
 
             $io->write(Json::encode($results), false, OutputInterface::OUTPUT_RAW);
 
-            return self::SUCCESS;
+            return Command::SUCCESS;
         }
 
         $io->writeln(
@@ -160,7 +144,7 @@ final class AddUserCommand extends Command
             $io->writeln(\sprintf('Reset URL %s.', $resetUrl));
         }
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 
     private function askForEmail(SymfonyStyle $io): string
