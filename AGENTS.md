@@ -29,7 +29,15 @@ This is a Symfony 8 starter template for creating web applications at XM Media. 
 - Avoid named arguments unless they make the call clearer — skipping over a run of optional
   parameters, or disambiguating consecutive booleans. Otherwise pass positionally.
 - Use Symfony service auto wiring and autoconfiguration, instead of manually configuring services.
-- Write tests for new features and bug fixes.
+  Where a type hint can't express it, stay in the class with `#[Autowire]` (parameters, env vars)
+  or `#[Target]` (one of several implementations), and use `#[AsAlias]`/`#[AsTaggedItem]`/
+  `#[Autoconfigure]` before reaching for `services.yaml`.
+- Before hand-writing infrastructure (locks, caches, HTTP clients, schedulers) or adding a library,
+  check whether a Symfony component covers it. Use `symfony/lock` (`LockFactory`) for mutual
+  exclusion, not a hand-built flag or lock file.
+- Write tests for new features and bug fixes. A feature isn't done until a test exercises it the way
+  a caller would (a GraphQL request for a query/mutation, a dispatched command for a handler), not
+  just "it didn't throw".
 
 ## Development Commands
 
@@ -60,6 +68,17 @@ This is a Symfony 8 starter template for creating web applications at XM Media. 
   - `.symfony-lsp.json` points `phpCommand` at `lando php` (with `containerProjectRoot: /app`),
     so runtime analysis boots the app in the container & doesn't depend on the host's PHP.
     Editors share this file with the checker
+
+### Debugging & Discovery
+When something fails, read `var/log/dev.log` & the profiler (`/_profiler`, which includes GraphQL
+requests) before changing code.
+
+Framework APIs change between versions, so check the project rather than relying on memory:
+- `lando console about` – versions, environment, paths
+- `lando console debug:router`, `debug:container`, `debug:autowiring <name>`, `debug:config <bundle>`,
+  `config:dump-reference <bundle>` – what exists & how it's configured
+- Read the installed source & docblocks in `vendor/` (for `xm/symfony-bundle`, see its AGENTS.md)
+- Docs: https://symfony.com/doc/current/
 
 ### Building Frontend Assets
 
@@ -107,6 +126,8 @@ the appserver reaches it internally, and publishing it would shadow a host-run `
   `BalancerMember` needs a full Apache restart — a graceful reload silently keeps the old values
 
 ### Package Management
+- Add a capability with `lando composer require <package>` & let its Flex recipe register the bundle
+  & write its config — don't hand-edit `config/bundles.php` or hand-write a bundle's base config
 - Install PHP packages: `lando composer install` or `composer install`
 - Install JS packages: `lando yarn install`
 - Upgrade all JS packages: `lando yarn up -R "**"`
@@ -134,6 +155,7 @@ Existing projections: `user_projection`, `auth_projection`, `auth_log_projection
   sets `schema_filter` to ignore every table but `doctrine_migration_versions`)
 - Run: `lando console doctrine:migrations:migrate`
 - Status: `lando console doctrine:migrations:status`
+- Never use `doctrine:schema:update` — schema changes go through projections or migrations
 
 Migrations live in `src/Migrations/` under the `App\Migrations` namespace. They're services
 (`enable_service_migrations`), so they're autowired — inject what they need (eg the kernel) through
@@ -158,6 +180,8 @@ for one-off data changes.
 ### Makers
 - Make aggregate root/model: `bin/console make:model` or `lando console make:model` — also creates
   the model's projection, read model, finder & entity (there's no separate projection maker)
+- Pass every argument up front & add `--no-interaction` — makers prompt by default, which hangs a
+  non-interactive shell
 
 ### User Management
 - Add a user: `bin/console app:user:add` or `lando console app:user:add` (select `ROLE_SUPER_ADMIN` for admin access)
@@ -435,7 +459,7 @@ $member = Member::add($memberId, $membershipNumber, ...);
 
 **Other PHP Standards:**
 - `declare(strict_types=1);` at the top of every PHP file
-- Constructor property promotion (PHP 8.0+)
+- Constructor property promotion (PHP 8.0+), & `readonly` for VOs & DTOs
 - Short array syntax `[]` not `array()`
 - Trailing commas in multiline arrays, arguments, and parameters
 - Ordered imports alphabetically
@@ -590,6 +614,7 @@ Core workflow:
 ## Configuration Notes
 
 - Environment config: Copy `.env.local-template` to `.env.local` and update `@todo-symfony` values
+- `.env` is committed & holds defaults only — secrets go in `.env.local` (git-ignored), never `.env`
 - Lando site name is in `.lando.yml` (default: `symfonystarter`)
 - Vite dev server port in `vite.config.mjs` & `lando_apache_vite.conf` (currently: 9008, unpublished — proxied at `/vite-dev/`)
 - Vite preview port in `vite.config.mjs` & `.lando.yml` (currently: 9508)
@@ -651,6 +676,11 @@ After writing or editing code, check LSP diagnostics before
 moving on. Fix any type errors or missing imports immediately.
 
 ## Maintenance
+
+### Updating Recipes
+The `symfony/framework-bundle` recipe copies its own generic `AGENTS.md` into the project, so
+`composer recipes:update symfony/framework-bundle` replaces this file. Restore ours after (keep
+anything useful from the recipe's version by merging it in by hand).
 
 ### Updating PHP Version
 When upgrading PHP, update version in these files:
