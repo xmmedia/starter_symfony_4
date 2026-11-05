@@ -3,7 +3,7 @@
         <li class="grow">
             <RouterLink :to="{ name: 'user-profile-edit' }"
                         :class="linkActiveClass('user-profile-edit')"
-                        class="block p-4 rounded-tl-sm text-center hover:no-underline focus:text-white">
+                        class="block p-4 rounded-tl-sm text-center hover:no-underline">
                 Profile
             </RouterLink>
         </li>
