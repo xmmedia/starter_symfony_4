@@ -3680,10 +3680,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hibp@npm:^15.0.0":
-  version: 15.2.1
-  resolution: "hibp@npm:15.2.1"
-  checksum: 10/b0e9f301b290ca94bd18bdfb0b19f9367dc187b2b1b7d06f66e7cd6f660bcc86fd031b7a921cf570906a9e6924e82b4f849e321217380c7e4402cb77af96d5e2
+"hibp@npm:^16.0.0":
+  version: 16.0.0
+  resolution: "hibp@npm:16.0.0"
+  checksum: 10/c8dddaee6c0cce47d91cecb38f6529b74c6a00a5caabeb86692dd1e7e603c1f511151033a1ea38f2b2e1433ee2ebd2d2f6843c78c71c5748c67463a8602d0dca
   languageName: node
   linkType: hard
 
@@ -6347,7 +6347,7 @@ __metadata:
     globals: "npm:^17.0.0"
     graphql: "npm:^16.0.0"
     graphql-tag: "npm:^2.10.0"
-    hibp: "npm:^15.0.0"
+    hibp: "npm:^16.0.0"
     jsdom: "npm:^29.0.0"
     libphonenumber-js: "npm:^1.7.22"
     lodash: "npm:^4.17.11"
