@@ -3,7 +3,7 @@
         <slot :id="id" name="label">
             <label :for="id" :class="labelClasses"><slot>Password</slot></label>
         </slot>
-        <slot name="errors"></slot>
+        <slot name="errors" />
 
         <div class="relative z-20">
             <input :id="id"
@@ -29,7 +29,7 @@
             </button>
         </div>
 
-        <slot name="after"></slot>
+        <slot name="after" />
 
         <PasswordScore v-if="showHelp && showMeter"
                        :password="password"

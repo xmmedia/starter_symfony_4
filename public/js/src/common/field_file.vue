@@ -1,12 +1,12 @@
 <template>
     <div class="field-wrap">
         <slot :id="id" name="label">
-            <label :for="id"><slot></slot></label>
+            <label :for="id"><slot /></label>
         </slot>
 
         <FieldError v-if="v" :v="v">
-            <template #required><slot name="required"></slot></template>
-            <template #valid><slot name="valid"></slot></template>
+            <template #required><slot name="required" /></template>
+            <template #valid><slot name="valid" /></template>
         </FieldError>
         <ul v-if="tooSmall" class="field-errors" role="alert">
             <li>The file is too small. Check it's the right file.</li>
@@ -18,7 +18,7 @@
                :accept="accept"
                :class="inputClasses"
                @change="fileSelected">
-        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help" /></div>
 
         <div v-if="file" class="mt-2">
             <template v-if="preview">

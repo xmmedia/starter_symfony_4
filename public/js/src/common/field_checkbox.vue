@@ -1,15 +1,15 @@
 <template>
     <div class="field-wrap">
         <FieldError v-if="v" :v="v">
-            <template #required><slot name="required"></slot></template>
+            <template #required><slot name="required" /></template>
         </FieldError>
 
         <div :class="{ 'field-wrap-checkbox' : !pill, 'radio-pill' : pill }">
             <input :id="id" v-model="checked" type="checkbox" :value="true" :disabled="disabled">
-            <label :for="id" :class="labelClasses"><slot></slot></label>
+            <label :for="id" :class="labelClasses"><slot /></label>
         </div>
 
-        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help" /></div>
     </div>
 </template>
 

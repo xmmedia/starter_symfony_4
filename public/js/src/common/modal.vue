@@ -10,7 +10,7 @@
             </div>
 
             <div class="p-6">
-                <slot :close="close"></slot>
+                <slot :close="close" />
             </div>
         </div>
     </dialog>

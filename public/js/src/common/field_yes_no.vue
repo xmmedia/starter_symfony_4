@@ -4,7 +4,7 @@
                  :v="v"
                  :pills="true"
                  :dark-pills="darkPills">
-        <slot></slot>
+        <slot />
     </FieldRadios>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="loading-wrap">
         <div class="loading" :class="spinnerClasses" aria-hidden="true" />
-        <slot></slot>
+        <slot />
     </div>
 </template>
 

@@ -1,14 +1,14 @@
 <template>
     <div class="field-wrap">
         <slot :id="id" name="label">
-            <label :for="id"><slot></slot></label>
+            <label :for="id"><slot /></label>
         </slot>
 
         <FieldError v-if="v" :v="v">
-            <template #required><slot name="required"></slot></template>
-            <template #minLength><slot name="minLength"></slot></template>
-            <template #maxLength><slot name="maxLength"></slot></template>
-            <template #valid><slot name="valid"></slot></template>
+            <template #required><slot name="required" /></template>
+            <template #minLength><slot name="minLength" /></template>
+            <template #maxLength><slot name="maxLength" /></template>
+            <template #valid><slot name="valid" /></template>
         </FieldError>
 
         <textarea :id="id"
@@ -20,7 +20,7 @@
                   :rows="rows"
                   :class="inputClasses" />
 
-        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help" /></div>
     </div>
 </template>
 

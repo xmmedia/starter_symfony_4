@@ -6,7 +6,7 @@
                    :required="false"
                    :autocomplete="autocomplete"
                    :icon-component="iconComponent">
-        <template #default><slot></slot></template>
+        <template #default><slot /></template>
         <template #errors>
             <FieldError v-if="v.$error && v.$invalid">
                 <template v-if="!required">
@@ -38,8 +38,8 @@
                 </template>
             </FieldError>
         </template>
-        <template #help><slot name="help"></slot></template>
-        <template #after><slot name="after"></slot></template>
+        <template #help><slot name="help" /></template>
+        <template #after><slot name="after" /></template>
     </FieldPassword>
 </template>
 

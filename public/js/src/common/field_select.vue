@@ -1,11 +1,11 @@
 <template>
     <div v-if="!selectOnly" class="field-wrap">
         <slot :id="id" name="label">
-            <label :for="id" :class="labelClasses"><slot></slot></label>
+            <label :for="id" :class="labelClasses"><slot /></label>
         </slot>
 
         <FieldError v-if="v" :v="v">
-            <template #required><slot name="required"></slot></template>
+            <template #required><slot name="required" /></template>
         </FieldError>
 
         <FieldSelectElement :id="id"
@@ -19,10 +19,10 @@
                             :hide-default-option="hideDefaultOption"
                             :select-one-disabled="selectOneDisabled"
                             :select-classes="selectClasses">
-            <template #default-option><slot name="default-option"></slot></template>
+            <template #default-option><slot name="default-option" /></template>
         </FieldSelectElement>
 
-        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help" /></div>
     </div>
 
     <FieldSelectElement v-else
@@ -37,7 +37,7 @@
                         :hide-default-option="hideDefaultOption"
                         :select-one-disabled="selectOneDisabled"
                         :select-classes="selectClasses">
-        <template #default-option><slot name="default-option"></slot></template>
+        <template #default-option><slot name="default-option" /></template>
     </FieldSelectElement>
 </template>
 

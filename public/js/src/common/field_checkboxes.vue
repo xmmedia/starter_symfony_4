@@ -1,9 +1,9 @@
 <template>
     <fieldset class="field-wrap-checkboxes">
-        <legend><slot></slot></legend>
+        <legend><slot /></legend>
 
         <FieldError v-if="v" :v="v">
-            <template #required><slot name="required"></slot></template>
+            <template #required><slot name="required" /></template>
         </FieldError>
 
         <div v-for="value in valuesCollection"
@@ -18,7 +18,7 @@
             <label :for="id+'-'+value.value">{{ value.label }}</label>
         </div>
 
-        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help" /></div>
     </fieldset>
 </template>
 

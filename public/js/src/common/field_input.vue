@@ -1,25 +1,25 @@
 <template>
     <div class="field-wrap">
         <slot :id="id" name="label">
-            <label :for="id" :class="labelClasses"><slot></slot></label>
+            <label :for="id" :class="labelClasses"><slot /></label>
         </slot>
 
         <FieldError v-if="v" :v="v">
-            <template #required><slot name="required"></slot></template>
-            <template #minLength><slot name="minLength"></slot></template>
-            <template #maxLength><slot name="maxLength"></slot></template>
-            <template #between><slot name="between"></slot></template>
-            <template #minValue><slot name="minValue"></slot></template>
-            <template #maxValue><slot name="maxValue"></slot></template>
-            <template #numeric><slot name="numeric"></slot></template>
-            <template #decimal><slot name="decimal"></slot></template>
-            <template #url><slot name="url"></slot></template>
-            <template #email><slot name="email"></slot></template>
-            <template #valid><slot name="valid"></slot></template>
+            <template #required><slot name="required" /></template>
+            <template #minLength><slot name="minLength" /></template>
+            <template #maxLength><slot name="maxLength" /></template>
+            <template #between><slot name="between" /></template>
+            <template #minValue><slot name="minValue" /></template>
+            <template #maxValue><slot name="maxValue" /></template>
+            <template #numeric><slot name="numeric" /></template>
+            <template #decimal><slot name="decimal" /></template>
+            <template #url><slot name="url" /></template>
+            <template #email><slot name="email" /></template>
+            <template #valid><slot name="valid" /></template>
         </FieldError>
 
         <div :class="inputWrapperClasses">
-            <slot name="prefix"></slot>
+            <slot name="prefix" />
             <input :id="id"
                    ref="input"
                    v-model="inputValue"
@@ -37,10 +37,10 @@
                    :class="inputClasses"
                    @focus="$emit('focus')"
                    @blur="$emit('blur')">
-            <slot name="suffix"></slot>
+            <slot name="suffix" />
         </div>
 
-        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help" /></div>
     </div>
 </template>
 

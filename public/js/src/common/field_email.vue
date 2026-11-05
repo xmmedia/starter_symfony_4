@@ -35,7 +35,7 @@
                     @click="useSuggested">{{ suggestedEmail }}</button>?
         </div>
 
-        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help" /></div>
     </div>
 </template>
 

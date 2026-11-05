@@ -1,7 +1,7 @@
 <template>
     <div ref="wrapper" :class="wrapperClasses">
         <div :class="buttonWrapperClasses ? buttonWrapperClasses : 'contents'">
-            <slot name="before"></slot>
+            <slot name="before" />
 
             <button v-if="showButton"
                     type="submit"
@@ -17,7 +17,7 @@
                 <slot name="cancel-text">Cancel</slot>
             </RouterLink>
         </slot>
-        <slot v-if="!isSaving && !isSaved" name="additional"></slot>
+        <slot v-if="!isSaving && !isSaved" name="additional" />
 
         <span v-if="isSaving" class="ml-4 text-sm italic">
             <span class="loading" aria-hidden="true" />
@@ -30,7 +30,7 @@
 
     <Transition name="form-button_bar">
         <div v-if="edited && showButtonBar" class="form-button_bar">
-            <slot name="before"></slot>
+            <slot name="before" />
 
             <button v-if="showButton"
                     type="submit"
@@ -43,7 +43,7 @@
                     <slot name="cancel-text">Cancel</slot>
                 </RouterLink>
             </slot>
-            <slot v-if="!isSaving && !isSaved" name="additional"></slot>
+            <slot v-if="!isSaving && !isSaved" name="additional" />
 
             <span v-if="isSaving" class="ml-4 text-sm italic">
                 <span class="loading" aria-hidden="true" />

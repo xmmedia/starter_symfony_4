@@ -17,7 +17,7 @@
             </select>
         </div>
 
-        <slot name="before-line1"></slot>
+        <slot name="before-line1" />
 
         <div class="field-wrap relative">
             <label :for="ids.line1">Line 1</label>

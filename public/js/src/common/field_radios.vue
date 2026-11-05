@@ -1,9 +1,9 @@
 <template>
     <fieldset class="field-wrap-radios">
-        <legend v-if="!!$slots.default"><slot></slot></legend>
+        <legend v-if="!!$slots.default"><slot /></legend>
 
         <FieldError v-if="v" :v="v">
-            <template #required><slot name="required"></slot></template>
+            <template #required><slot name="required" /></template>
         </FieldError>
 
         <div :class="inputWrapperClasses">
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div v-if="!!$slots.help" class="field-help"><slot name="help"></slot></div>
+        <div v-if="!!$slots.help" class="field-help"><slot name="help" /></div>
     </fieldset>
 </template>
 

@@ -13,7 +13,7 @@
                     <tr v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
                         <template v-for="(heading,j) in headings" :key="i+'-'+j">
                             <td :class="cellClassFunction(item, j)" class="record_list-col">
-                                <slot :name="`col${j+1}`" :item="item" :item-key="i" :cell-key="j"></slot>
+                                <slot :name="`col${j+1}`" :item="item" :item-key="i" :cell-key="j" />
                             </td>
                         </template>
                     </tr>
@@ -27,7 +27,7 @@
                     <template v-for="(heading,j) in headings" :key="i+'-'+j">
                         <div :class="cellClassFunction(item, j)" class="record_list-col">
                             <div v-if="heading" class="record_list-mobile_heading">{{ heading }}</div>
-                            <slot :name="`col${j+1}`" :item="item" :item-key="i" :cell-key="j"></slot>
+                            <slot :name="`col${j+1}`" :item="item" :item-key="i" :cell-key="j" />
                         </div>
                     </template>
                 </li>
