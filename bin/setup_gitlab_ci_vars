@@ -21,6 +21,10 @@
 #   --context-host <host>         e.g. www.example.com
 #   --public-key-out <file>       writes the CI public key to <file> instead of showing it, for
 #                                 the caller to install (bin/provision_site does)
+#
+# SSH_KNOWN_HOSTS pins the server's host keys, so a deploy fails if they change instead of trusting
+# whatever answers. The keys are scanned & checked against your ~/.ssh/known_hosts: those that match
+# are kept & the rest dropped. When none match, you're asked to check the fingerprints on the server.
 set -euo pipefail
 
 RED='\033[0;31m'
@@ -122,6 +126,12 @@ var_exists_scope() {
         > /dev/null 2>&1
 }
 
+# var_value <name> <scope> — empty when it doesn't exist
+var_value() {
+    echo "$VARIABLES_JSON" \
+        | jq -r --arg n "$1" --arg s "$2" 'map(select(.key == $n and .environment_scope == $s))[0].value // empty'
+}
+
 # The value goes in on stdin, as arguments show in the process list.
 # set_var <name> <value> <scope> [secret] — a secret is masked & protected in every scope
 set_var() {
@@ -138,6 +148,51 @@ set_var() {
         printf "  ${RED}✗${NC} %-35s scope: %s  — FAILED: %s\n" "$name" "$scope" "$out"
         FAILED=1
     fi
+}
+
+# fingerprints <known_hosts lines> — "SHA256:… (TYPE)" per key
+fingerprints() {
+    ssh-keygen -lf - <<<"$1" 2>/dev/null | awk '{print $2, $NF}'
+}
+
+# scan_host_keys <host> <port> — sets KNOWN_HOSTS to the server's host keys, in known_hosts format.
+# Only keys that match one in your ~/.ssh/known_hosts are kept: anyone in the way could add their
+# own key to what the scan returns, but can't fake the server's. When none match, the fingerprints
+# have to be checked on the server.
+scan_host_keys() {
+    local host="$1" port="$2" scanned trusted="" line fp kept="" total=0 matched=0
+    echo "  Scanning ${host}:${port}…"
+    scanned=$(ssh-keyscan -T 10 -p "$port" "$host" 2>/dev/null | grep -v '^#' | sort -u) || true
+    [[ -n "$scanned" ]] || die "ssh-keyscan didn't get any host keys from $host:$port"
+    if [[ -f "$HOME/.ssh/known_hosts" ]]; then
+        trusted=$(ssh-keygen -lf "$HOME/.ssh/known_hosts" 2>/dev/null | awk '{print $2}') || true
+    fi
+
+    while IFS= read -r line; do
+        total=$((total + 1))
+        fp=$(ssh-keygen -lf - <<<"$line" 2>/dev/null | awk '{print $2}')
+        if [[ -n "$fp" && -n "$trusted" ]] && grep -qxF "$fp" <<<"$trusted"; then
+            matched=$((matched + 1))
+            kept+="$line"$'\n'
+            ok "$(fingerprints "$line") — in your known_hosts"
+        else
+            echo -e "  ${YELLOW}?${NC} $(fingerprints "$line")"
+        fi
+    done <<<"$scanned"
+
+    if [[ "$matched" -gt 0 ]]; then
+        KNOWN_HOSTS="${kept%$'\n'}"
+        if [[ "$matched" -lt "$total" ]]; then
+            echo "  Only the $matched key(s) in your known_hosts will be kept."
+        fi
+        return 0
+    fi
+
+    echo ""
+    echo -e "  ${YELLOW}None of these are in your ~/.ssh/known_hosts.${NC} Check them against the server's:"
+    echo '    for f in /etc/ssh/ssh_host_*_key.pub; do ssh-keygen -lf "$f"; done'
+    confirm "Do they all match?" n || die "host keys not confirmed — SSH_KNOWN_HOSTS not set"
+    KNOWN_HOSTS="$scanned"
 }
 
 # option_value <option> <value> — dies when an option is missing its value
@@ -186,6 +241,7 @@ esac
 # --- Preflight ---------------------------------------------------------------
 
 command -v glab >/dev/null 2>&1 || die "glab CLI not installed. See: https://gitlab.com/gitlab-org/cli"
+command -v ssh-keyscan >/dev/null 2>&1 || die "ssh-keyscan not installed"
 command -v jq   >/dev/null 2>&1 || die "jq not installed. Run: brew install jq"
 glab auth status >/dev/null 2>&1 || die "Not authenticated with glab. Run: glab auth login"
 
@@ -212,7 +268,8 @@ fi
 echo ""
 echo -n "Checking existing GitLab variables… "
 fetch_variables
-SCOPED_VARS=("SSH_PRIVATE_KEY" "REMOTE_BASE" "REMOTE_SERVER" "REMOTE_USER" "REQUEST_CONTEXT_HOST" "VITE_SENTRY_DSN" "SENTRY_AUTH_TOKEN")
+
+SCOPED_VARS=("SSH_PRIVATE_KEY" "SSH_KNOWN_HOSTS" "REMOTE_BASE" "REMOTE_SERVER" "REMOTE_USER" "REQUEST_CONTEXT_HOST" "VITE_SENTRY_DSN" "SENTRY_AUTH_TOKEN")
 EXISTING=()
 for var in "${SCOPED_VARS[@]}"; do
     if var_exists_scope "$var" "$SCOPE"; then
@@ -292,6 +349,13 @@ else
     REQUEST_CONTEXT_SCHEME=$(ask "REQUEST_CONTEXT_SCHEME" "https")
 fi
 
+heading "Server host keys"
+SCAN_PORT="$REMOTE_PORT"
+if [[ "$NEED_PORT" == "false" ]]; then
+    SCAN_PORT=$(var_value "REMOTE_PORT" "*")
+fi
+scan_host_keys "$REMOTE_SERVER" "$SCAN_PORT"
+
 # --- Summary -----------------------------------------------------------------
 
 heading "Summary"
@@ -303,6 +367,7 @@ fi
 printf "  %-35s scope: %s  = %s\n" "REMOTE_BASE" "$SCOPE" "$REMOTE_BASE"
 printf "  %-35s scope: %s  = %s\n" "REMOTE_SERVER" "$SCOPE" "$REMOTE_SERVER"
 printf "  %-35s scope: %s  = %s\n" "REMOTE_USER" "$SCOPE" "$REMOTE_USER"
+printf "  %-35s scope: %s  (%s key(s))\n" "SSH_KNOWN_HOSTS" "$SCOPE" "$(grep -c . <<<"$KNOWN_HOSTS")"
 printf "  %-35s scope: %s  = %s\n" "REQUEST_CONTEXT_HOST" "$SCOPE" "$CONTEXT_HOST"
 printf "  %-35s scope: %s  = %s\n" "VITE_SENTRY_DSN" "$SCOPE" "$VITE_SENTRY_DSN"
 if [[ -n "$SENTRY_AUTH_TOKEN" ]]; then
@@ -336,6 +401,7 @@ set_var "SSH_PRIVATE_KEY"        "$SSH_KEY"        "$SCOPE"
 set_var "REMOTE_BASE"            "$REMOTE_BASE"    "$SCOPE"
 set_var "REMOTE_SERVER"          "$REMOTE_SERVER"  "$SCOPE"
 set_var "REMOTE_USER"            "$REMOTE_USER"    "$SCOPE"
+set_var "SSH_KNOWN_HOSTS"        "$KNOWN_HOSTS"    "$SCOPE"
 set_var "REQUEST_CONTEXT_HOST"   "$CONTEXT_HOST"   "$SCOPE"
 set_var "VITE_SENTRY_DSN"        "$VITE_SENTRY_DSN" "$SCOPE"
 if [[ -n "$SENTRY_AUTH_TOKEN" ]]; then

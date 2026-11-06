@@ -76,9 +76,7 @@ before_script:
   # setup SSH & private key
   - eval $(ssh-agent -s)
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-  - ssh-keyscan -p $REMOTE_PORT $REMOTE_SERVER >> ~/.ssh/known_hosts
-  # the following line is optional (likely remove previous line)
-  #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts
+  - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
   # keep SSH alive through long silent commands (eg a slow migration), so an idle connection isn't dropped
   # by a firewall/NAT & left hanging; if it's lost anyway, ssh gives up after 5 minutes instead of waiting forever
