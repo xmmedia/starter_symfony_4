@@ -7,7 +7,7 @@
 #   3. Create the database + database user
 #   4. Upload and run setup_staging.sh or setup_prod.sh as the site user
 #   5. Write shared/.env.local, filling in what's known
-#   6. (optional) Add the Messenger worker cron job
+#   6. (optional) Add the Messenger worker & log rotation cron jobs
 #   7. Run bin/setup_gitlab_ci_vars locally
 #
 # The SSL certificate is not generated here — the InterWorx CLI always includes
@@ -188,6 +188,7 @@ if [[ "$DO_GITLAB" == "y" ]]; then
     GITLAB_PROJECT=$(ask_required "GitLab project (e.g. xmmedia/my-client-site)")
 fi
 DO_CRON=n;   confirm "Add the Messenger worker cron job?" y && DO_CRON=y || true
+DO_LOGROTATE=n; confirm "Add the log rotation cron job (weekly)?" y && DO_LOGROTATE=y || true
 
 # --- Summary -----------------------------------------------------------------
 
@@ -204,6 +205,7 @@ printf "  %-22s %s\n" "PHP"           "$PHP_PATH"
 printf "  %-22s %s\n" "1P vault"      "$OP_VAULT${OP_TAG:+ (tag: $OP_TAG)}"
 printf "  %-22s %s\n" "GitLab vars"   "$DO_GITLAB${GITLAB_PROJECT:+ ($GITLAB_PROJECT)}"
 printf "  %-22s %s\n" "worker cron"   "$DO_CRON"
+printf "  %-22s %s\n" "logrotate cron" "$DO_LOGROTATE"
 echo ""
 confirm "Proceed? Everything after this point makes changes." n || { echo "Aborted."; exit 0; }
 
@@ -348,9 +350,9 @@ else
     ok "written: environment, app secret, database and request context"
 fi
 
-# --- 6. Messenger worker cron ------------------------------------------------
+# --- 6. Cron jobs ------------------------------------------------------------
 
-heading "6/7 Messenger worker cron job"
+heading "6/7 Cron jobs"
 # Starts a worker every 5 minutes unless one's running (flock). The worker exits after an
 # hour, or when a deploy runs messenger:stop-workers, & the next run starts a new one.
 if [[ "$DO_CRON" == "y" ]]; then
@@ -358,12 +360,26 @@ if [[ "$DO_CRON" == "y" ]]; then
         --interface simple \
         --minute '*/5' --hour '*' --day '*' --month '*' --dayofweek '*' \
         --script "cd $SITE_BASE/current && flock -n var/messenger.lock bin/console messenger:consume async --time-limit=3600 --memory-limit=128M --quiet 2>&1"; then
-        ok "cron job added"
+        ok "Messenger worker cron job added"
     else
-        warn "failed to add the cron job — add it in SiteWorx instead"
+        warn "failed to add the Messenger worker cron job — add it in SiteWorx instead"
     fi
 else
-    echo "  Skipped."
+    echo "  Messenger worker: skipped."
+fi
+# Rotates var/log/*.log (config/packages/logrotate.conf) every Monday at 3am. var/ is shared
+# between releases, so the state file survives deploys.
+if [[ "$DO_LOGROTATE" == "y" ]]; then
+    if remote sudo -n "$SITEWORX" -u -n --login_domain "$DOMAIN" -c Cron -a add \
+        --interface simple \
+        --minute '0' --hour '3' --day '*' --month '*' --dayofweek '1' \
+        --script "cd $SITE_BASE/current && /usr/sbin/logrotate config/packages/logrotate.conf --state var/logrotate-state"; then
+        ok "log rotation cron job added"
+    else
+        warn "failed to add the log rotation cron job — add it in SiteWorx instead"
+    fi
+else
+    echo "  Log rotation: skipped."
 fi
 
 # --- 7. GitLab CI variables --------------------------------------------------

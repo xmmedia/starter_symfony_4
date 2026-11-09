@@ -67,7 +67,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 For sites on an InterWorx server, `bin/provision_site` (run locally) does the whole setup:
 1Password items, the SiteWorx account, the database, `setup_staging.sh`/`setup_prod.sh`, `shared/.env.local`
 (the repo's `.env` with the environment, app secret, database & request context filled in), the Messenger worker
-cron job, the GitLab CI/CD variables and the CI public key in the site user's `~/.ssh/authorized_keys`.
+& log rotation cron jobs, the GitLab CI/CD variables and the CI public key in the site user's `~/.ssh/authorized_keys`.
 
   - Requires an ssh Host with passwordless sudo, [`op`](https://developer.1password.com/docs/cli/)
     signed in, [`glab`](https://gitlab.com/gitlab-org/cli) authenticated and `jq` installed.
