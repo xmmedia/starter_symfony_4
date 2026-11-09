@@ -162,6 +162,8 @@ static:
     APP_ENV: test
   script:
     - *versions-script
+    # the image's 128M isn't enough for cache:clear in a debug env (it serialises the container for the debug dump)
+    - echo "memory_limit=256M" > "$PHP_INI_DIR/conf.d/zz-memory-limit.ini"
     # install PHP dependencies
     - php composer.phar install --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
