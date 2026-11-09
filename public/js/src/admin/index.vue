@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useHead } from '@unhead/vue';
 import { useRootStore } from './stores/root';
 import MenuSubnav from './menu/subnav.vue';
@@ -108,15 +108,16 @@ useHead({
     titleTemplate: '%s | Symfony Starter',
 });
 
-const adminMenuItems = ref({
-    'Users':              'admin-user',
-    'Authentication Log': 'admin-auth-log',
-    'Messenger Queue':    'admin-messenger-queue',
-});
-
 const ready = computed(() => rootStore.isReady);
 const loggedIn = computed(() => rootStore.loggedIn);
 const hasRole = computed(() => rootStore.hasRole);
+
+const adminMenuItems = computed(() => ({
+    'Users':              'admin-user',
+    'Authentication Log': 'admin-auth-log',
+    'Messenger Queue':    'admin-messenger-queue',
+    ...(import.meta.env.DEV && hasRole.value('ROLE_SUPER_ADMIN') ? { 'Pattern Library': 'pattern-library' } : {}),
+}));
 
 const isImpersonating = computed(() => rootStore.user?.isImpersonating ?? false);
 
