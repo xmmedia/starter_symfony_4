@@ -41,20 +41,20 @@
                     </template>
                     <template #col3="{ item }">
                         <template v-if="item.user">
-                            <router-link v-if="'LOGIN' === item.eventType"
-                                         :to="{ name: 'admin-user-view', params: { userId: item.user.userId } }">
+                            <RouterLink v-if="'LOGIN' === item.eventType"
+                                        :to="{ name: 'admin-user-view', params: { userId: item.user.userId } }">
                                 {{ item.user.email }}
-                            </router-link>
+                            </RouterLink>
                             <span v-else>{{ item.user.email }}</span>
                         </template>
                         <span v-else-if="item.email">{{ item.email }}</span>
                         <template v-if="item.impersonatedUser">
                             <div class="text-sm text-gray-500">
                                 →
-                                <router-link :to="{
+                                <RouterLink :to="{
                                     name: 'admin-user-view',
                                     params: { userId: item.impersonatedUser.userId },
-                                }">{{ item.impersonatedUser.email }}</router-link>
+                                }">{{ item.impersonatedUser.email }}</RouterLink>
                             </div>
                         </template>
                     </template>

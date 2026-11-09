@@ -498,7 +498,7 @@ ESLint enforces code style. Key rules:
 - 1 attribute per line for multiline (first attribute on same line allowed)
 - Component self-closing: always for components, optional for HTML elements
 - No newline before closing bracket in multiline tags
-- Component names: kebab-case
+- Component names in templates: PascalCase (`<RouterLink>`, `<FieldInput>`)
 
 Run `yarn lint:js:fix` and `yarn lint:css:fix` to auto-fix style issues.
 
