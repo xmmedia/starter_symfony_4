@@ -212,3 +212,11 @@ select {
 .form-button_bar-leave-to {
     @apply opacity-0;
 }
+
+/* flatpickr's month dropdown & year/time inputs would pick up the field styles above,
+   so send them back to flatpickr's own styles (the vendor layer) */
+.flatpickr-calendar :is(select, input) {
+    &, &:focus {
+        all: revert-layer;
+    }
+}
