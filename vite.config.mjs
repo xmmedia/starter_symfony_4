@@ -101,10 +101,12 @@ export default defineConfig(({ command, mode, isPreview }) => {
             watch: {
                 // this is in part needed because the symfony plugin ignores the public dir completely
                 // matched against the absolute path, so they must start with **/
-                // node_modules, .git, the cache dir & build.outDir are already ignored by vite
+                // node_modules, .git, vite's cacheDir & build.outDir are already ignored by vite
                 ignored: [
                     '**/.idea/**',
                     '**/bin/**',
+                    // Symfony's cache (Kernel::getCacheDir()), eg the profiler writing on every request
+                    `${fileURLToPath(new URL('./cache/', import.meta.url))}**`,
                     '**/coverage/**',
                     '**/docs/**',
                     // absolute so only the root tests dir is ignored, not e.g. public/js/tests
