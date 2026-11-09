@@ -1,5 +1,9 @@
 @config "../../tailwind.config.js";
 
+/* Tailwind's layer order with a vendor layer added below components,
+   so our styles & utilities override the library CSS */
+@layer theme, base, vendor, components, utilities;
+
 @import "tailwindcss";
 
 @theme {

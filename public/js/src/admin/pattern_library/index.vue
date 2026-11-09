@@ -174,6 +174,30 @@
                 </div>
 
                 <div class="field-wrap">
+                    <label for="pattern-library-multiselect-single">Multiselect (single)</label>
+                    <VueMultiselect id="pattern-library-multiselect-single"
+                                    v-model="multiselectSingleValue"
+                                    :options="multiselectOptions"
+                                    placeholder="Select one" />
+                </div>
+                <div class="field-wrap">
+                    <label for="pattern-library-multiselect-multiple">Multiselect (multiple)</label>
+                    <VueMultiselect id="pattern-library-multiselect-multiple"
+                                    v-model="multiselectMultipleValue"
+                                    :options="multiselectOptions"
+                                    :multiple="true"
+                                    :close-on-select="false"
+                                    placeholder="Select some" />
+                </div>
+                <div class="field-wrap">
+                    <label for="pattern-library-multiselect-disabled">Multiselect (disabled)</label>
+                    <VueMultiselect id="pattern-library-multiselect-disabled"
+                                    v-model="multiselectDisabledValue"
+                                    :options="multiselectOptions"
+                                    :disabled="true" />
+                </div>
+
+                <div class="field-wrap">
                     <div class="field-wrap-checkbox">
                         <input id="pattern-library-checkbox-1"
                                type="checkbox"
@@ -819,6 +843,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useHead } from '@unhead/vue';
+import VueMultiselect from 'vue-multiselect';
 import FieldInput from '@/common/field_input.vue';
 import FieldEmail from '@/common/field_email.vue';
 import FieldTextarea from '@/common/field_textarea.vue';
@@ -853,6 +878,11 @@ const existingFileValue = ref({ file: '#', originalFilename: 'existing-file.pdf'
 const notRemovableFileValue = ref({ file: '#', originalFilename: 'existing-file.pdf' });
 const checkboxValue = ref(false);
 const checkboxPillValue = ref(false);
+
+const multiselectOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
+const multiselectSingleValue = ref(null);
+const multiselectMultipleValue = ref(['Option 2', 'Option 3']);
+const multiselectDisabledValue = ref('Option 1');
 
 const checkboxesValue = ref([ 2 ]);
 const checkboxesValues = [{ value: 1, label: 'Item 1'}, { value: 2, label: 'Item 2'}, { value: 3, label: 'Item 3'}];

@@ -1,5 +1,9 @@
 @config "../../tailwind.config.js";
 
+/* Tailwind's layer order with a vendor layer added below components,
+   so our styles & utilities override the library CSS */
+@layer theme, base, vendor, components, utilities;
+
 @import "tailwindcss";
 
 @theme {
@@ -10,8 +14,8 @@
 @source inline("");
 
 /* External library styles */
-@import "../../node_modules/vue-multiselect/dist/vue-multiselect.css";
-@import '../../node_modules/flatpickr/dist/flatpickr.min.css';
+@import "../../node_modules/vue-multiselect/dist/vue-multiselect.css" layer(vendor);
+@import '../../node_modules/flatpickr/dist/flatpickr.min.css' layer(vendor);
 
 /* Common styles */
 @import "./common/common.css";
@@ -22,6 +26,7 @@
 @layer components {
     /* Common modules */
     @import "./common/forms.css";
+    @import "./common/multiselect.css";
     @import "./common/radios.css";
     @import "./common/alerts.css";
     @import "./common/headings.css";

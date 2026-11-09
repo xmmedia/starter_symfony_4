@@ -1,0 +1,121 @@
+/* stylelint-disable no-descending-specificity */
+
+.multiselect {
+    @apply min-h-0 text-base text-black;
+}
+
+.multiselect__tags {
+    @apply min-h-[2.14rem] py-1 pr-8 pl-2 bg-gray-100 border border-gray-300 rounded-sm text-base transition-default;
+}
+
+.multiselect:focus-within .multiselect__tags {
+    @apply outline-2 outline-blue-300;
+}
+
+.multiselect__input,
+.multiselect__single,
+.multiselect__placeholder {
+    @apply m-0 p-0 bg-transparent border-0 rounded-none text-base leading-normal;
+}
+
+/* the box around it shows the focus */
+.multiselect__input:focus {
+    @apply outline-none;
+}
+
+.multiselect__input::placeholder,
+.multiselect__placeholder {
+    @apply text-gray-500;
+}
+
+/* the arrow is centred so it stays in place when the box is rotated while open */
+.multiselect__select {
+    @apply top-0 right-0 w-9 h-full p-0;
+    @apply bg-no-repeat bg-size-[1.25rem] bg-center;
+    background-image: var(--select-arrow);
+    print-color-adjust: exact;
+
+    /* replaced by the arrow above */
+    &::before {
+        @apply hidden;
+    }
+
+    @media (forced-colors: active) {
+        background-image: none;
+
+        &::before {
+            @apply absolute block top-1/2 left-1/2 m-0;
+            border-color: CanvasText transparent transparent;
+            @apply -translate-1/2;
+        }
+    }
+}
+
+.multiselect__tag {
+    @apply my-0.5 mr-1 py-0 pr-6 pl-2 bg-blue-500 rounded-sm text-sm align-top;
+}
+.multiselect__tag-icon {
+    @apply w-5 rounded-sm leading-[inherit];
+
+    &::after {
+        @apply text-blue-100;
+    }
+
+    &:focus,
+    &:hover {
+        @apply bg-blue-800;
+    }
+}
+
+.multiselect__content-wrapper {
+    @apply border-gray-300 shadow-md;
+}
+
+.multiselect__option {
+    @apply min-h-0 px-2 py-1.5 leading-normal;
+}
+.multiselect__option::after {
+    @apply flex items-center bottom-0 pr-2 text-xs leading-none;
+}
+
+.multiselect__option--highlight,
+.multiselect__option--highlight::after {
+    @apply bg-blue-500;
+}
+
+.multiselect__option--selected {
+    @apply bg-gray-100 font-medium text-black;
+}
+.multiselect__option--selected::after {
+    @apply text-gray-500;
+}
+
+.multiselect__option--selected.multiselect__option--highlight,
+.multiselect__option--selected.multiselect__option--highlight::after,
+.multiselect__option--group-selected.multiselect__option--highlight,
+.multiselect__option--group-selected.multiselect__option--highlight::after {
+    @apply bg-red-700 text-white;
+}
+
+.multiselect__option--group {
+    @apply bg-gray-200 font-medium text-gray-800;
+}
+.multiselect__option--group.multiselect__option--highlight,
+.multiselect__option--group.multiselect__option--highlight::after {
+    @apply bg-gray-700 text-white;
+}
+
+.multiselect__spinner {
+    @apply inset-y-px w-9 h-auto bg-gray-100;
+}
+.multiselect__spinner::before,
+.multiselect__spinner::after {
+    @apply border-t-blue-500;
+}
+
+.multiselect--disabled {
+    @apply opacity-50 bg-transparent;
+}
+.multiselect--disabled .multiselect__select {
+    @apply bg-transparent;
+}
