@@ -20,6 +20,9 @@ services:
       - mysql_tzinfo_to_sql /usr/share/zoneinfo 2>/dev/null | mysql -uroot mysql
   appserver:
     build_as_root:
+      # PHP's bundled timezone database lags behind the zone rules (eg Alberta's move to permanent -06:00). The
+      # timezonedb extension is newer & takes precedence over the bundled one, so it's what PHP's date functions use
+      - pecl install timezonedb && docker-php-ext-enable timezonedb
       # LC_ALL: build steps inherit the host's locale vars, which the image doesn't have
       # (perl warns). LANG won't do — LC_CTYPE takes precedence over it
       - LC_ALL=C.UTF-8 a2enmod headers

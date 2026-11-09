@@ -475,6 +475,8 @@ $member = Member::add($memberId, $membershipNumber, ...);
   (it extends `\DateTimeImmutable`, so it satisfies existing type hints). Keep `\DateTimeImmutable`
   in type hints/return types & Doctrine mappings, since values from Doctrine, Symfony & Prooph
   won't be Carbon instances; convert with `CarbonImmutable::instance()` when needed.
+- Never write a UTC offset into code or tests — convert through the zone. Zone rules change (eg a
+  region dropping daylight saving), so an offset that's right today can be wrong later
 - Keep line length to 120 characters unless it makes code less readable
 
 Run `lando composer cs:fix` to auto-fix most style issues.
