@@ -198,6 +198,31 @@
                 </div>
 
                 <div class="field-wrap">
+                    <label for="pattern-library-date">Date picker</label>
+                    <FlatPickr id="pattern-library-date"
+                               v-model="dateValue"
+                               :config="dateConfig"
+                               placeholder="Select a date…"
+                               class="w-48" />
+                </div>
+                <div class="field-wrap">
+                    <label for="pattern-library-date-time">Date & time picker</label>
+                    <FlatPickr id="pattern-library-date-time"
+                               v-model="dateTimeValue"
+                               :config="dateTimeConfig"
+                               placeholder="Select a date & time…"
+                               class="w-56" />
+                </div>
+                <div class="field-wrap">
+                    <label for="pattern-library-date-range">Date range picker</label>
+                    <FlatPickr id="pattern-library-date-range"
+                               v-model="dateRangeValue"
+                               :config="dateRangeConfig"
+                               placeholder="Select a range…"
+                               class="w-64" />
+                </div>
+
+                <div class="field-wrap">
                     <div class="field-wrap-checkbox">
                         <input id="pattern-library-checkbox-1"
                                type="checkbox"
@@ -844,6 +869,7 @@
 import { ref } from 'vue';
 import { useHead } from '@unhead/vue';
 import VueMultiselect from 'vue-multiselect';
+import FlatPickr from 'vue-flatpickr-component';
 import FieldInput from '@/common/field_input.vue';
 import FieldEmail from '@/common/field_email.vue';
 import FieldTextarea from '@/common/field_textarea.vue';
@@ -883,6 +909,13 @@ const multiselectOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Opt
 const multiselectSingleValue = ref(null);
 const multiselectMultipleValue = ref(['Option 2', 'Option 3']);
 const multiselectDisabledValue = ref('Option 1');
+
+const dateValue = ref(null);
+const dateConfig = { dateFormat: 'Y-m-d' };
+const dateTimeValue = ref(null);
+const dateTimeConfig = { dateFormat: 'Y-m-d H:i', enableTime: true };
+const dateRangeValue = ref(null);
+const dateRangeConfig = { dateFormat: 'Y-m-d', mode: 'range' };
 
 const checkboxesValue = ref([ 2 ]);
 const checkboxesValues = [{ value: 1, label: 'Item 1'}, { value: 2, label: 'Item 2'}, { value: 3, label: 'Item 3'}];
