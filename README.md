@@ -90,6 +90,22 @@ To do it by hand instead:
    to the server's `~/.ssh/authorized_keys`. See `--help` for the options that pre-fill its prompts.
 1. Run the deploy job in GitLab.
 
+### Cron Jobs
+
+`bin/provision_site` adds the Messenger worker & log rotation jobs. To add them by hand, or any others, add them in
+SiteWorx (Cron), replacing `[site_base]` with the domain dir, where `current` is:
+
+  - Start a Messenger worker every 5 minutes, unless one's running (`flock`). The worker exits after an hour, or when
+    a deploy runs `messenger:stop-workers`, & the next run starts a new one:
+    ```
+    */5 * * * * cd [site_base]/current && flock -n var/messenger.lock bin/console messenger:consume async --time-limit=3600 --memory-limit=128M --quiet 2>&1
+    ```
+  - Rotate the logs in `var/log/` (`config/packages/logrotate.conf`), every Monday at 3am. `var/` is shared between
+    releases, so the state file is kept across deploys:
+    ```
+    0 3 * * 1 cd [site_base]/current && /usr/sbin/logrotate config/packages/logrotate.conf --state var/logrotate-state
+    ```
+
 ## Environments
 
   - `dev` – local development, via Lando
