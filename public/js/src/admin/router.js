@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useRootStore } from './stores/root';
-import { scrollBehaviour as scrollBehavior, parseQuery, stringifyQuery, logPageView, beforeEach } from '@/common/router_helpers';
+import {
+    scrollBehaviour as scrollBehavior, parseQuery, stringifyQuery, logPageView, beforeEach, trackNavigation,
+} from '@/common/router_helpers';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -118,6 +120,7 @@ const router = createRouter({
     stringifyQuery,
 });
 
+trackNavigation(router);
 router.beforeEach(beforeEach('/login', useRootStore, 'admin'));
 
 router.afterEach((to) => {

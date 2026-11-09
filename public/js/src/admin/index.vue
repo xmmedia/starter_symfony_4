@@ -73,7 +73,9 @@
                               :email="rootStore.user.email"
                               :user-id="rootStore.user.userId" />
 
-            <main class="p-4">
+            <main class="p-4 transition-opacity"
+                  :class="{ 'opacity-60 cursor-progress': navigating }"
+                  :aria-busy="navigating">
                 <!-- *** where the router component is placed *** -->
                 <RouterView :key="$route.path" />
             </main>
@@ -99,6 +101,7 @@ import MenuLink from './menu/link.vue';
 import ImpersonationBar from '@/common/impersonation_bar.vue';
 import Maintenance from '@/common/maintenance.vue';
 import SessionExpired from '@/common/session_expired.vue';
+import { navigating } from '@/common/router_helpers';
 
 const rootStore = useRootStore();
 

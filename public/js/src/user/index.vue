@@ -37,7 +37,9 @@
         </div>
     </header>
 
-    <main>
+    <main class="transition-opacity"
+          :class="{ 'opacity-60 cursor-progress': navigating }"
+          :aria-busy="navigating">
         <!-- *** where the router component is placed *** -->
         <RouterView :key="$route.path" />
     </main>
@@ -64,6 +66,7 @@ import { useRootStore } from './stores/root';
 import ImpersonationBar from '@/common/impersonation_bar.vue';
 import Maintenance from '@/common/maintenance.vue';
 import SessionExpired from '@/common/session_expired.vue';
+import { navigating } from '@/common/router_helpers';
 
 const rootStore = useRootStore();
 

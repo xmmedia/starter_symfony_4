@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { ref } from 'vue';
 import { apolloClient } from '@/common/apollo';
 import { RouteQuery, EntrypointIntegrityQuery } from '@/common/queries/route.query.graphql';
 
@@ -49,6 +50,26 @@ const shouldReloadForBuild = function (useRootStore, integrityHashKey, currentHa
     }
 
     return true;
+};
+
+export const navigating = ref(false);
+
+export const trackNavigation = function (router) {
+    let timer = null;
+    const done = () => {
+        clearTimeout(timer);
+        navigating.value = false;
+    };
+
+    router.beforeEach(() => {
+        clearTimeout(timer);
+        // delayed so quick navigations don't flicker
+        timer = setTimeout(() => {
+            navigating.value = true;
+        }, 100);
+    });
+    router.afterEach(done);
+    router.onError(done);
 };
 
 export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
