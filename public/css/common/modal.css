@@ -17,6 +17,10 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
     @apply opacity-100;
     transform: scale(1);
 }
+/* the dialog scrolls, so it'd cut off a date picker's calendar that hangs below it; while one's open, it doesn't */
+.modal:has(.flatpickr-calendar.open) {
+    @apply overflow-visible;
+}
 
 /* Closed state of the dialog */
 .modal {
