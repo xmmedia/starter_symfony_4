@@ -71,9 +71,9 @@ select {
     &::file-selector-button {
         @apply mr-3 px-3 py-1 bg-blue-500 border-2 border-blue-500 rounded;
         @apply text-sm font-extralight text-center text-white tracking-wider cursor-pointer transition-all duration-150;
-        &:hover {
-            @apply bg-blue-800 border-blue-800;
-        }
+    }
+    &::file-selector-button:hover {
+        @apply bg-blue-800 border-blue-800;
     }
 }
 
