@@ -42,6 +42,7 @@
     @import "./admin/header.css";
     @import "./admin/forms.css";
     @import "./admin/record_list.css";
+    @import "./admin/action_menu.css";
     @import "./admin/record_view.css";
     @import "./admin/sidebar_nav.css";
     @import "./admin/sidebar_nav_submenu.css";

@@ -89,8 +89,15 @@
     @apply text-sm italic text-gray-400;
 }
 
+/* each action stays on one line, but the actions wrap when there isn't room
+   on desktop every action gets a left margin (not space-x's right margin on all but the last)
+   so wrapped lines stay aligned on the right; on mobile the cell is a flex item, so use a gap */
 .record_list-col-actions {
-    @apply space-x-4 md:text-right;
+    @apply flex md:table-cell flex-wrap items-center gap-x-4 gap-y-1 md:text-right;
+}
+
+.record_list-col-actions > * {
+    @apply whitespace-nowrap md:inline-block md:ml-4;
 }
 
 .record_list-record_count {

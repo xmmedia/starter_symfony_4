@@ -584,6 +584,47 @@
                 <template #col6="{ item }">
                     <AdminIconCheck :active="item.col6" />
                 </template>
+                <template #col7>
+                    <a href="">Edit</a>
+                    <button type="button" class="button-link">Send reminder</button>
+                </template>
+            </RecordList>
+
+            <h4 class="mt-8 mb-2">RecordList with several actions</h4>
+            <RecordList :headings="[ 'Name', 'Expiry Date', 'Outstanding', 'Client', 'Price', 'Active', '' ]"
+                        :items="recordListActionItems"
+                        :cell-classes="[
+                            null, null, 'md:text-center', null, null, 'md:text-center', 'record_list-col-actions'
+                        ]">
+                <template #col1="{ item }">
+                    <a href="">{{ item.name }}</a>
+                </template>
+                <template #col2="{ item }">
+                    {{ item.expiryDate }}
+                    <div v-if="!item.renewed" class="text-sm italic text-gray-500">Not renewed yet</div>
+                </template>
+                <template #col3="{ item }">
+                    <AdminIconCheck :active="item.outstanding" />
+                </template>
+                <template #col4="{ item }">
+                    <a href="">{{ item.client }}</a>
+                </template>
+                <template #col5="{ item }">
+                    {{ item.price }}
+                </template>
+                <template #col6="{ item }">
+                    <AdminIconCheck :active="item.active" />
+                </template>
+                <template #col7="{ item }">
+                    <a href="">Edit</a>
+                    <ActionMenu>
+                        <template v-if="item.renewed">
+                            <a href="">Add Renewal</a>
+                            <button type="button">Invoice in Advance</button>
+                        </template>
+                        <button v-else type="button">Use Renewal</button>
+                    </ActionMenu>
+                </template>
             </RecordList>
 
             <h4 class="mt-8 mb-2">Custom table (hidden below md)</h4>
@@ -656,7 +697,49 @@
                 </li>
             </ul>
         </div>
+    </div>
 
+    <!-- the rest of the pattern library is limited to max-w-5xl, so this is outside it to show a list at full width -->
+    <div class="my-12">
+        <h4 class="mb-2">RecordList at full width</h4>
+        <RecordList :headings="[ 'Name', 'Expiry Date', 'Outstanding', 'Client', 'Price', 'Active', '' ]"
+                    :items="recordListActionItems"
+                    :cell-classes="[
+                        null, null, 'md:text-center', null, null, 'md:text-center', 'record_list-col-actions'
+                    ]">
+            <template #col1="{ item }">
+                <a href="">{{ item.name }}</a>
+            </template>
+            <template #col2="{ item }">
+                {{ item.expiryDate }}
+                <div v-if="!item.renewed" class="text-sm italic text-gray-500">Not renewed yet</div>
+            </template>
+            <template #col3="{ item }">
+                <AdminIconCheck :active="item.outstanding" />
+            </template>
+            <template #col4="{ item }">
+                <a href="">{{ item.client }}</a>
+            </template>
+            <template #col5="{ item }">
+                {{ item.price }}
+            </template>
+            <template #col6="{ item }">
+                <AdminIconCheck :active="item.active" />
+            </template>
+            <template #col7="{ item }">
+                <a href="">Edit</a>
+                <ActionMenu>
+                    <template v-if="item.renewed">
+                        <a href="">Add Renewal</a>
+                        <button type="button">Invoice in Advance</button>
+                    </template>
+                    <button v-else type="button">Use Renewal</button>
+                </ActionMenu>
+            </template>
+        </RecordList>
+    </div>
+
+    <div class="max-w-5xl">
         <!-- ############################# -->
         <!-- ####### Record View ######### -->
         <!-- ############################# -->
@@ -944,6 +1027,45 @@ const recordListItems = [
         col4: 'Nullam quis risus eget urna mollis ornare vel eu leo. Nullam quis risus eget urna mollis ornare vel eu leo.',
         col5: true,
         col6: false,
+    },
+];
+
+const recordListActionItems = [
+    {
+        name: 'Form Builder',
+        expiryDate: '2026-10-26',
+        renewed: false,
+        outstanding: false,
+        client: 'Northern Lights Development Group',
+        price: '$150.00',
+        active: true,
+    },
+    {
+        name: 'SEO Toolkit',
+        expiryDate: '2026-12-05',
+        renewed: false,
+        outstanding: false,
+        client: 'Prairie Fuel Distributors Ltd.',
+        price: '$35.00',
+        active: true,
+    },
+    {
+        name: 'Shipping Rates Plugin',
+        expiryDate: '2027-11-03',
+        renewed: true,
+        outstanding: false,
+        client: 'Riverside Trucking Ltd.',
+        price: '$150.00',
+        active: true,
+    },
+    {
+        name: 'Shipping Rates Plugin',
+        expiryDate: '2028-02-11',
+        renewed: true,
+        outstanding: true,
+        client: 'Jane Smith',
+        price: '$150.00',
+        active: false,
     },
 ];
 </script>

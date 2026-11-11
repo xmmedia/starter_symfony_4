@@ -1,0 +1,54 @@
+.action_menu {
+    @apply inline-block align-middle;
+}
+
+/* one line tall, so rows with a menu aren't taller than rows with only links */
+.action_menu-button {
+    @apply flex items-center justify-center w-8 h-lh rounded text-blue-500 transition-default;
+    &:hover, &:active {
+        @apply text-blue-700;
+    }
+    &:focus-visible {
+        @apply outline-hidden ring-2 ring-blue-500 ring-offset-1;
+    }
+}
+
+.action_menu-icon {
+    @apply size-5 fill-current;
+}
+
+/* without anchor positioning, the popover is centred in the viewport
+   (the browser's default margin: auto, which preflight's margin reset removes) */
+.action_menu-menu {
+    @apply min-w-40 m-auto py-1 bg-white border border-gray-300 rounded outline-hidden shadow-lg;
+
+    @supports (position-area: bottom) {
+        position-area: bottom span-left;
+        position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+        inset: auto;
+        @apply m-0 mt-1;
+    }
+
+    > :is(a, button) {
+        @apply text-left text-blue-500 whitespace-nowrap;
+
+        /* the items are highlighted instead of getting the links' focus ring, which the menu's edge would clip */
+        @variant md {
+            @apply block w-full px-4 py-2 rounded-none font-normal;
+            &:hover, &:focus {
+                @apply bg-blue-100 outline-hidden ring-0 no-underline text-blue-700;
+            }
+        }
+    }
+}
+
+/* on mobile there's room, so the actions show inline with the others instead of in the menu
+   display: contents overrides the closed popover's display: none */
+@variant max-md {
+    .action_menu, .action_menu-menu {
+        @apply contents;
+    }
+    .action_menu-button {
+        @apply hidden;
+    }
+}

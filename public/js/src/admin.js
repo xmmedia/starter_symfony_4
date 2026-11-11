@@ -23,6 +23,7 @@ import FormButton from './common/form_button.vue';
 import AdminIcon from './common/admin_icon.vue';
 import AdminIconCheck from './common/admin_icon_check.vue';
 import AdminModal from './common/modal.vue';
+import ActionMenu from './common/action_menu.vue';
 import AdminDelete from './admin/admin_delete/index.vue';
 import LocalTime from './common/local_time.vue';
 
@@ -76,6 +77,7 @@ apolloClient.query({ query: MeQuery })
             .component('AdminIcon', AdminIcon)
             .component('AdminIconCheck', AdminIconCheck)
             .component('AdminModal', AdminModal)
+            .component('ActionMenu', ActionMenu)
             .component('AdminDelete', AdminDelete)
             .component('LocalTime', LocalTime);
 
