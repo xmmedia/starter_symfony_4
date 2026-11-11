@@ -83,7 +83,7 @@ when@staging: *prod
 
 services:
     Symfony\Bridge\Monolog\Processor\WebProcessor:
-        tags: [ 'kernel.event_subscriber', 'monolog.processor' ]
+        autoconfigure: true
         arguments:
             $extraFields:
                 referrer:    'HTTP_REFERER'
@@ -92,4 +92,4 @@ services:
                 user_agent:  'HTTP_USER_AGENT'
 
     Xm\SymfonyBundle\Infrastructure\Logger\GraphQlProcessor:
-        tags: [ 'kernel.event_subscriber', 'monolog.processor' ]
+        autoconfigure: true
