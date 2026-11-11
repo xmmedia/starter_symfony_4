@@ -2,6 +2,17 @@ xm_symfony:
     # see "Maintenance mode" in AGENTS.md
     maintenance:
         time_zone: '%user_time_zone%'
+    # replaces the tokens in URLs in what's sent to Sentry (its before_send in sentry.yaml), as Sentry
+    # doesn't filter values in a URL path or a query param whose name doesn't look sensitive
+    sentry_scrubber:
+        paths:
+            # SecurityController
+            activate: { prefix: '/activate/' }
+            verify:   { prefix: '/verify/' }
+            reset:    { prefix: '/recover/reset/' }
+        query_params:
+            # the login link's signature (login_link in security.yaml)
+            login_link: { path: '/login-link', param: 'hash' }
 
 when@test:
     xm_symfony:

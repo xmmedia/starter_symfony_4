@@ -39,6 +39,8 @@ when@prod: &prod
                 # their values are filtered anyway & the CSRF cookie's name is its token
                 cookies:
                     mode: off
+            # replaces the tokens in URLs, which aren't filtered (sentry_scrubber in xm_symfony.yaml)
+            before_send: Xm\SymfonyBundle\Infrastructure\Sentry\TokenScrubber
             # Enables Sentry's Logs product, which ships structured monolog records (see the
             # `sentry_logs` handler in monolog.yaml) to Sentry in addition to errors/exceptions.
             # Disabled by default since it adds continuous log volume beyond errors.

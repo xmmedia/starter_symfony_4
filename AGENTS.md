@@ -262,8 +262,10 @@ Only enabled in `prod` & `staging` (backend `SentryBundle`, frontend `PROD` buil
   (password, token, key, session…) in headers, query params & JSON/form bodies. Cookies aren't
   sent: their values would be filtered & the CSRF cookie's name is its token. Check a
   new credential's name matches the list (`Sentry\DataCollection\KeyValueDataFilter`). Values in
-  the URL path, eg the `/activate/{token}`, `/verify/{token}` & `/recover/reset/{token}` tokens,
-  aren't filtered
+  the URL path aren't filtered, so the bundle's `TokenScrubber` (`before_send`) replaces the
+  `/activate/{token}`, `/verify/{token}` & `/recover/reset/{token}` tokens & the login link's `hash`
+  everywhere in an event. Add any new token in a URL to `sentry_scrubber` in `xm_symfony.yaml` (see the
+  bundle's AGENTS.md). The frontend never has these: each redirects before a page loads
 - GraphQL errors also send the query text (`extra.query`, unfiltered), so pass secrets as
   variables, never inline in a query
 - Frontend: `common/sentry.js`, called before any store is created (Pinia only applies plugins to
