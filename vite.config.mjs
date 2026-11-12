@@ -109,7 +109,9 @@ export default defineConfig(({ command, mode, isPreview }) => {
                     '**/docs/**',
                     // absolute so only the root tests dir is ignored, not e.g. public/js/tests
                     `${fileURLToPath(new URL('./tests/', import.meta.url))}**`,
-                    '**/var/**',
+                    // absolute: '**/var/**' also matches the project's own path in DDEV (/var/www/html),
+                    // so it ignores every file & hot reload never fires
+                    `${fileURLToPath(new URL('./var/', import.meta.url))}**`,
                     '**/vendor/**',
                 ],
             },
