@@ -6,27 +6,31 @@ set -Ee
 . "$(dirname "$0")/_output.sh"
 trap report_failure ERR
 
-# check if composer.json & lock match
-step "Composer validate" lando composer validate --no-check-all --no-check-version --check-lock
-step "Composer normalize" lando composer normalize --dry-run
-# PSR-4 mapping & duplicate class check (deploys use --classmap-authoritative)
-step "Composer autoload" lando composer dump-autoload --optimize --strict-psr --strict-ambiguous --dry-run
+# the steps use `ddev exec`, not `ddev composer`/`yarn`/`console`: those sync Mutagen on every call
+# (3–6s each). Sync once here instead, so the container has every change made on the host
+step "Sync files" ddev mutagen sync
 
-step "PHPStan (static analysis)" lando composer static
-step "ESLint (JS)" lando yarn lint:js
-step "Stylelint (CSS)" lando yarn lint:css
-step "YAML lint" lando console lint:yaml config
-step "Twig lint" lando console lint:twig templates
-step "Container lint" lando console lint:container
-# runs on the host, not in Lando, with runtime indexing, so it boots the app
+# check if composer.json & lock match
+step "Composer validate" ddev exec composer validate --no-check-all --no-check-version --check-lock
+step "Composer normalize" ddev exec composer normalize --dry-run
+# PSR-4 mapping & duplicate class check (deploys use --classmap-authoritative)
+step "Composer autoload" ddev exec composer dump-autoload --optimize --strict-psr --strict-ambiguous --dry-run
+
+step "PHPStan (static analysis)" ddev exec composer static
+step "ESLint (JS)" ddev exec yarn lint:js
+step "Stylelint (CSS)" ddev exec yarn lint:css
+step "YAML lint" ddev exec php bin/console lint:yaml config
+step "Twig lint" ddev exec php bin/console lint:twig templates
+step "Container lint" ddev exec php bin/console lint:container
+# runs on the host, not in DDEV, with runtime indexing, so it boots the app
 step "Symfony Language Tools" symfony lsp:check
-step "PHPUnit tests" lando composer test
+step "PHPUnit tests" ddev exec composer test
 
 # security checks
 step "Symfony security check" symfony security:check
-step "Composer audit" lando composer audit --abandoned=report
-step "Yarn audit (high)" lando yarn audit:high
+step "Composer audit" ddev exec composer audit --abandoned=report
+step "Yarn audit (high)" ddev exec yarn audit:high
 # informational only: moderate issues are shown but don't fail the check
-step "Yarn audit (moderate)" lando yarn audit:moderate || report_warning
+step "Yarn audit (moderate)" ddev exec yarn audit:moderate || report_warning
 
 report_success "All checks passed"

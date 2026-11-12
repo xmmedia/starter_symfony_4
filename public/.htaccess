@@ -27,6 +27,7 @@ DirectoryIndex index.php
     RewriteCond %{HTTP_HOST} !^www\. [NC]
     RewriteCond %{HTTP_HOST} !^dev\. [NC]
     RewriteCond %{HTTP_HOST} !\.lndo\.site$ [NC]
+    RewriteCond %{HTTP_HOST} !\.ddev\.site(:[0-9]+)?$ [NC]
     RewriteCond %{SERVER_ADDR} !=127.0.0.1
     RewriteCond %{SERVER_ADDR} !=::1
     RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]

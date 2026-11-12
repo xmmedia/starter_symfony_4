@@ -18,15 +18,14 @@ type Query {
   "Check if an email is in Postmark suppression list."
   EmailSuppression(email: String!): EmailSuppression!
 
-  AuthLog(authLogId: AuthLogId!): AuthLog
-  AuthLogs(filters: AuthLogFilterInput): [AuthLog!]!
-  AuthLogsCount(filters: AuthLogFilterInput): Int!
+  "Retrieve all Countries."
+  Countries: [Country!]!
 
   "Retrieves the last email used on the login form and the last error from the last auth attempt (from session)."
   AuthLast: AuthLast!
 
-  "Retrieve all Countries."
-  Countries: [Country!]!
+  "Retrieve all Provinces."
+  Provinces: [Province!]!
 
   "Retrieve a single Messenger queue message by ID."
   MessengerQueueMessage(id: Int!): MessengerQueueMessage
@@ -37,8 +36,9 @@ type Query {
   "Retrieve the Messenger queue message count."
   MessengerQueueMessageCount(filters: MessengerQueueMessageFilterInput): Int!
 
-  "Retrieve all Provinces."
-  Provinces: [Province!]!
+  AuthLog(authLogId: AuthLogId!): AuthLog
+  AuthLogs(filters: AuthLogFilterInput): [AuthLog!]!
+  AuthLogsCount(filters: AuthLogFilterInput): Int!
 
   "The current User object or null if not authenticated."
   Me: User
@@ -146,12 +146,9 @@ type EmailSuppression {
   espUrl: String
 }
 
-input AuthLogFilterInput {
-  eventTypes: [AuthLogEventType!]
-  dateFrom: String
-  dateTo: String
-  q: String
-  offset: Int
+type Country {
+  name: String!
+  abbreviation: String!
 }
 
 "The last email & last error after a login attempt."
@@ -160,7 +157,8 @@ type AuthLast {
   error: String
 }
 
-type Country {
+type Province {
+  country: Country!
   name: String!
   abbreviation: String!
 }
@@ -188,10 +186,12 @@ input MessengerQueueMessageFilterInput {
   offset: Int
 }
 
-type Province {
-  country: Country!
-  name: String!
-  abbreviation: String!
+input AuthLogFilterInput {
+  eventTypes: [AuthLogEventType!]
+  dateFrom: String
+  dateTo: String
+  q: String
+  offset: Int
 }
 
 "Main Mutations"

@@ -42,30 +42,30 @@ This is a Symfony 8 starter template for creating web applications at XM Media. 
 ## Development Commands
 
 ### Running Tests
-- All PHP tests: `lando composer test` or `composer test`
+- All PHP tests: `ddev composer test` or `composer test`
 - Single PHP test: `bin/phpunit tests/Path/To/TestFile.php`
-- Test with coverage (HTML): `composer test:coverage`
+- Test with coverage (HTML): `ddev composer test:coverage` (PCOV, so Xdebug can stay off)
 - Show deprecations: `composer test:deprecations`
 - JS/Frontend tests: `yarn test:unit` – not working at the moment
 
 ### Code Quality & Linting
 - Run all checks: `bin/check_full` (runs composer normalize, rector, php-cs-fixer, bin/generate_schema, then bin/check)
-- PHP CS (dry run): `lando composer cs` or `composer cs`
-- PHP CS (fix): `lando composer cs:fix` or `composer cs:fix`
-- PHPStan static analysis: `lando composer static` or `composer static`
-- Rector (dry run): `lando composer rector` or `composer rector`
-- Rector (fix): `lando composer rector:fix` or `composer rector:fix`
-- Lint JS: `lando yarn lint:js` or `lando yarn lint:js:fix`
-- Lint CSS: `lando yarn lint:css` or `lando yarn lint:css:fix`
-- Lint YAML: `lando console lint:yaml config`
-- Lint Twig: `lando console lint:twig templates`
-- Lint container: `lando console lint:container`
+- PHP CS (dry run): `ddev composer cs` or `composer cs`
+- PHP CS (fix): `ddev composer cs:fix` or `composer cs:fix`
+- PHPStan static analysis: `ddev composer static` or `composer static`
+- Rector (dry run): `ddev composer rector` or `composer rector`
+- Rector (fix): `ddev composer rector:fix` or `composer rector:fix`
+- Lint JS: `ddev yarn lint:js` or `ddev yarn lint:js:fix`
+- Lint CSS: `ddev yarn lint:css` or `ddev yarn lint:css:fix`
+- Lint YAML: `ddev console lint:yaml config`
+- Lint Twig: `ddev console lint:twig templates`
+- Lint container: `ddev console lint:container`
 - Symfony Language Tools (Symfony-aware diagnostics: routes, services, Twig, translations,
-  config): `symfony lsp:check` — runs on the host, not in Lando. Add `--source-only` to skip
+  config): `symfony lsp:check` — runs on the host, not in DDEV. Add `--source-only` to skip
   booting the app (what CI uses)
   - The Symfony CLI downloads, caches & checksums the Language Tools binary itself, outside
     the repo
-  - `.symfony-lsp.json` points `phpCommand` at `lando php` (with `containerProjectRoot: /app`),
+  - `.symfony-lsp.json` points `phpCommand` at `ddev exec php` (with `containerProjectRoot: /var/www/html`),
     so runtime analysis boots the app in the container & doesn't depend on the host's PHP.
     Editors share this file with the checker
 
@@ -74,87 +74,79 @@ When something fails, read `var/log/dev.log` & the profiler (`/_profiler`, which
 requests) before changing code.
 
 Framework APIs change between versions, so check the project rather than relying on memory:
-- `lando console about` – versions, environment, paths
-- `lando console debug:router`, `debug:container`, `debug:autowiring <name>`, `debug:config <bundle>`,
+- `ddev console about` – versions, environment, paths
+- `ddev console debug:router`, `debug:container`, `debug:autowiring <name>`, `debug:config <bundle>`,
   `config:dump-reference <bundle>` – what exists & how it's configured
 - Read the installed source & docblocks in `vendor/` (for `xm/symfony-bundle`, see its AGENTS.md)
 - Docs: https://symfony.com/doc/current/
 
 ### Building Frontend Assets
 
-Node & Yarn run in the Lando `node` service — use `lando yarn <cmd>`, not host `yarn`, so the
-Node version matches `.nvmrc`. `node_modules` is on the shared mount, so `.yarnrc.yml` widens
-`supportedArchitectures` to cover host & container; without it the container dies on a missing
-`@rolldown/binding-linux-*`. CI narrows it back to the runner's platform.
+Node & Yarn run in the DDEV web container (Node from `.nvmrc`, `nodejs_version: auto`) — use
+`ddev yarn <cmd>`, not host `yarn`. `node_modules` is synced between the host & the container, so
+`.yarnrc.yml` widens `supportedArchitectures` to cover both; without it the container dies on a
+missing `@rolldown/binding-linux-*`. CI narrows it back to the runner's platform.
 
-- Dev server with HMR: `lando vite` — runs `yarn install`, then `yarn dev`, in the container.
-  Assets are served through the appserver at `/vite-dev/`, not the Vite port (see below)
-  - Stop it: `lando vite-stop` — killing `lando vite` on the host can leave the process
-    holding the port inside the container
-  - HTTPS: the cert Lando issues the service in the container, `vite-plugin-mkcert` on the
-    host. `vite.config.mjs` picks by checking for `/certs/cert.crt` — mkcert can't run in the
-    container (needs root, & its CA wouldn't be trusted by the host browser)
-  - To run it on the host instead: `yarn dev`, no config change — Apache falls back to it
-- Compile check: `lando yarn build:check` — use this to verify JS/CSS compiles. Builds to
+- Dev server with HMR: `ddev yarn dev` (run `ddev yarn install` first if packages changed); stop
+  it with Ctrl-C. Assets are served through Apache at `/vite-dev/`, not the Vite port (see below)
+  - If one's left running (`ddev yarn dev` fails on the port): `ddev exec pkill -f '[v]ite/bin/vite.js'`
+- Compile check: `ddev yarn build:check` — use this to verify JS/CSS compiles. Builds to
   `node_modules/.build-check` (gitignored, and ignored by the dev server's watcher), so
-  it's safe to run while `lando vite` is running. A green build only proves it bundles —
+  it's safe to run while the dev server is running. A green build only proves it bundles —
   the browser is still the real check
-- Preview a production build: `lando yarn preview` — serves `public/build` at
-  `https://localhost:9508/build/`, mirroring the production paths (`base` keys off `isPreview`
-  as well as `command`). 9508 is the only port the `node` service publishes
-- Production build: `lando yarn build` — production/deploy only. Never run it to verify a
-  change: it empties and rewrites `public/build`, clobbering the manifest a running
-  `lando vite` relies on
+- Preview a production build: `ddev yarn preview` — serves `public/build` at
+  `https://<site>.ddev.site:4173/build/`, mirroring the production paths
+- Production build: `ddev yarn build` — production/deploy only. Never run it to verify a
+  change: it empties and rewrites `public/build`, clobbering the manifest a running dev
+  server relies on
 
-#### Vite through the appserver proxy
+#### Vite through Apache's proxy
 
-Apache proxies `/vite-dev/` to the node service (`lando_apache_vite.conf`, symlinked into
-`conf-enabled` by a `build_as_root` step) so dev assets are same-origin with the site. `base`
-in `vite.config.mjs` must match that path — `vite-plugin-symfony` writes it into
-`entrypoints.json`, so the bundle needs no separate config. The Vite port isn't published:
-the appserver reaches it internally, and publishing it would shadow a host-run `yarn dev`.
+Apache proxies `/vite-dev/` to the dev server in the same container (`.ddev/web-build/apache-vite.conf`,
+copied into the image by `.ddev/web-build/Dockerfile`, so a change needs `ddev restart`). Dev assets are
+same-origin with the site because browsers won't load an SVG `<use>` (the icon sprites) from another
+origin, even with CORS. The dev `base` in `vite.config.mjs` must match the path — `vite-plugin-symfony`
+writes it into `entrypoints.json`, so the bundle needs no separate config. The Vite port isn't exposed.
 
-- **A `503` on a `/vite-dev/…` URL means the dev server isn't running** — start `lando vite`.
-  `pgrep -f vite` in the container false-positives on its own `sh -c` wrapper; check for a
-  listener on the port instead
-- `ProxyPreserveHost On` passes the site's host through, so it must be in `allowedHosts` —
-  Vite rejects unknown hosts with a bare `400` that looks like a proxy bug
-- `server.hmr` uses `wss` on `clientPort` 443: the HMR socket rides the proxied path
+- **A `503` on a `/vite-dev/…` URL means the dev server isn't running** — start `ddev yarn dev`
+- `server.origin`, `allowedHosts` & `server.hmr` are built from DDEV's `DDEV_PRIMARY_URL` (which
+  includes the router's port when it isn't 443). `ProxyPreserveHost On` passes the site's host
+  through, so it must be in `allowedHosts` — Vite rejects unknown hosts with a bare `400`
+- The HMR socket rides the proxied path (`wss`, `upgrade=websocket` on the `ProxyPass`)
 - The conf must be server-level: `ProxyPass` is inherited by vhosts, mod_rewrite directives
-  aren't (a `RewriteRule … [P]` never fires). Hence `upgrade=websocket` on the members
-- The balancer keeps a host-run `yarn dev` (`host.docker.internal`) as hot standby. Editing a
-  `BalancerMember` needs a full Apache restart — a graceful reload silently keeps the old values
+  aren't (a `RewriteRule … [P]` never fires)
 
 ### Package Management
-- Add a capability with `lando composer require <package>` & let its Flex recipe register the bundle
+- Add a capability with `ddev composer require <package>` & let its Flex recipe register the bundle
   & write its config — don't hand-edit `config/bundles.php` or hand-write a bundle's base config
-- Install PHP packages: `lando composer install` or `composer install`
-- Install JS packages: `lando yarn install`
-- Upgrade all JS packages: `lando yarn up -R "**"`
-- Upgrade specific JS package: `lando yarn up -R "package-name"`
-- Upgrade JS packages (interactive for major versions): `lando yarn upgrade-interactive`
-- Upgrade, ignoring the age gate: `lando yarn up:bypass <package>` — runs `yarn up -R` with
+- Install PHP packages: `ddev composer install` or `composer install`
+- Install JS packages: `ddev yarn install`
+- Upgrade all JS packages: `ddev yarn up -R "**"`
+- Upgrade specific JS package: `ddev yarn up -R "package-name"`
+- Upgrade JS packages (interactive for major versions): `ddev yarn upgrade-interactive`
+- Upgrade, ignoring the age gate: `ddev yarn up:bypass <package>` — runs `yarn up -R` with
   `YARN_NPM_MINIMAL_AGE_GATE=0`, bypassing the 7 day `npmMinimalAgeGate` in `.yarnrc.yml`
   that otherwise skips just-published versions. Match every package with `"**"`, not
   `"*"` — `*` doesn't cross the `/` in scoped names, so it misses `@tailwindcss/*` etc.
 
 ### GraphQL Schema
-- Generate GraphQL schema: `bin/generate_schema` (runs `lando console graphql:dump-schema --with-descriptions --format=graphql`)
+- Generate GraphQL schema: `bin/generate_schema` (runs `ddev exec php bin/console graphql:dump-schema --with-descriptions --format=graphql`,
+  with a Mutagen sync before & after so `schema.graphql` is on the host)
 
 ### Event Store & Projections
-- Create event stream: `lando console event-store:event-stream:create <stream_name>`
-- Run projection once: `lando console event-store:projection:run <projection_name> -o`
-- Show all projection commands: `lando console event-store:projection`
+- Create event stream: `ddev console event-store:event-stream:create <stream_name>`
+- Run projection once: `ddev console event-store:projection:run <projection_name> -o`
+- Show all projection commands: `ddev console event-store:projection`
 
 Existing event streams: `user`, `auth`
 Existing projections: `user_projection`, `auth_projection`, `auth_log_projection`
 
 ### Database Migrations
-- Generate an empty migration: `lando console doctrine:migrations:generate` — not
+- Generate an empty migration: `ddev console doctrine:migrations:generate` — not
   `make:migration`, which diffs against the entity mapping & would come back empty (`doctrine.yaml`
   sets `schema_filter` to ignore every table but `doctrine_migration_versions`)
-- Run: `lando console doctrine:migrations:migrate`
-- Status: `lando console doctrine:migrations:status`
+- Run: `ddev console doctrine:migrations:migrate`
+- Status: `ddev console doctrine:migrations:status`
 - Never use `doctrine:schema:update` — schema changes go through projections or migrations
 
 Migrations live in `src/Migrations/` under the `App\Migrations` namespace. They're services
@@ -178,13 +170,13 @@ migrations are for tables that aren't projection owned (eg `user_credential`, `u
 for one-off data changes.
 
 ### Makers
-- Make aggregate root/model: `bin/console make:model` or `lando console make:model` — also creates
+- Make aggregate root/model: `bin/console make:model` or `ddev console make:model` — also creates
   the model's projection, read model, finder & entity (there's no separate projection maker)
 - Pass every argument up front & add `--no-interaction` — makers prompt by default, which hangs a
   non-interactive shell
 
 ### User Management
-- Add a user: `bin/console app:user:add` or `lando console app:user:add` (select `ROLE_SUPER_ADMIN` for admin access)
+- Add a user: `bin/console app:user:add` or `ddev console app:user:add` (select `ROLE_SUPER_ADMIN` for admin access)
 
 ### Console commands
 Write commands as invokable classes: `#[AsCommand]` on a class that doesn't extend `Command`, with
@@ -194,7 +186,7 @@ is the parameter in kebab-case; an option needs a default). Don't add `configure
 
 ### Command Log
 `command_log` records every command payload & is only ever read for auditing, so it grows
-without bound. Archive & prune it with `lando console app:command-log:archive [before]`:
+without bound. Archive & prune it with `ddev console app:command-log:archive [before]`:
 
 - `before` is a date (`YYYY-MM-DD`), required unless `--import` is used — everything sent before midnight UTC on it is
   archived. Only that exact format is accepted, so an interval like `"6 months"` can't be read
@@ -216,7 +208,7 @@ passed straight to `send()`.
 
 - To add an email, add a case to `EmailTemplate` & create the template in Postmark with that
   alias, on each Postmark server (local/dev, staging & production), before deploying
-- `lando console app:postmark:check-templates` checks the Postmark server for the current
+- `ddev console app:postmark:check-templates` checks the Postmark server for the current
   `POSTMARK_API_KEY` has an active template for every case & exits non-zero if not
 - It runs as the last step of a deploy, after maintenance mode is turned off, so a missing
   template fails the job without holding back the release
@@ -225,7 +217,7 @@ passed straight to `send()`.
 From `xm/symfony-bundle` (see its AGENTS.md), configured in `config/packages/xm_symfony.yaml`.
 It's on while `var/maintenance` exists — `var/` is shared between releases, so no deploy needed:
 
-- `lando console app:maintenance on|off` (no argument for the status). `on` takes `--message`,
+- `ddev console app:maintenance on|off` (no argument for the status). `on` takes `--message`,
   `--until` (eg `"15:30"`, `"+30 minutes"`, in `user_time_zone`) & the options below; running
   it again updates it. It renders the page (overridden in `templates/bundles/XmSymfonyBundle/`)
   to `var/maintenance.html`; `off` deletes both
@@ -279,16 +271,17 @@ Only enabled in `prod` & `staging` (backend `SentryBundle`, frontend `PROD` buil
   & then deleted only when `SENTRY_AUTH_TOKEN` is set. It's a protected variable, so a staging
   deploy from an unprotected branch still reports errors, but without source maps
 
-### Lando Commands
-- Start Lando: `lando start`
-- Install PHP packages: `lando composer install`
-- Run Symfony console: `lando console <command>`
-- Import database: `lando db-import <file.sql>`
-- Run the Messenger worker: `lando messenger` — sends what's routed to `async` (e.g.
+### DDEV Commands
+- Start DDEV: `ddev start` (`ddev describe` for the URLs, including phpMyAdmin)
+- Install PHP packages: `ddev composer install`
+- Run Symfony console: `ddev console <command>`
+- Import database: `ddev import-db --file=<file.sql[.gz]>` — replaces the database
+- Run the Messenger worker: `ddev messenger` — sends what's routed to `async` (e.g.
   notification emails); runs in the foreground, stop it with Ctrl-C. It restarts when anything
   in `config/`, `src/`, `templates/` or `vendor/` changes (`symfony run --watch`)
-- Enable Xdebug: `lando xdebug-on`
-- Disable Xdebug: `lando xdebug-off`
+- Xdebug: `ddev xdebug on` / `ddev xdebug off` (off by default)
+- Moving a project from Lando: `/xm:lando-to-ddev`. Run it after pulling a project's switch to DDEV too:
+  it moves your local databases from Lando into DDEV
 
 ## Architecture
 
@@ -481,7 +474,7 @@ $member = Member::add($memberId, $membershipNumber, ...);
   region dropping daylight saving), so an offset that's right today can be wrong later
 - Keep line length to 120 characters unless it makes code less readable
 
-Run `lando composer cs:fix` to auto-fix most style issues.
+Run `ddev composer cs:fix` to auto-fix most style issues.
 
 ### JavaScript/Vue
 
@@ -601,7 +594,7 @@ authenticator on the firewall (password & login link). A successful login resets
 - Tailwind CSS for styling
 
 **Local Development:**
-- Lando (Docker-based local dev environment)
+- DDEV (Docker-based local dev environment)
 - Node 26 with Yarn v4
 - MySQL 8.4
 
@@ -619,17 +612,18 @@ Core workflow:
 
 - Environment config: Copy `.env.local-template` to `.env.local` and update `@todo-symfony` values
 - `.env` is committed & holds defaults only — secrets go in `.env.local` (git-ignored), never `.env`
-- Lando site name is in `.lando.yml` (default: `symfonystarter`)
-- Vite dev server port in `vite.config.mjs` & `lando_apache_vite.conf` (currently: 9008, unpublished — proxied at `/vite-dev/`)
-- Vite preview port in `vite.config.mjs` & `.lando.yml` (currently: 9508)
-- `lando rebuild` (not `lando start`) is needed after changes under `config:` or a service's
-  `ports:`; it recreates the appserver too, so run `lando start` after or the app 404s
+- DDEV project name is in `.ddev/config.yaml` (default: `symfonystarter`, so https://symfonystarter.ddev.site)
+- `DATABASE_URL` is set by DDEV (`web_environment` in `.ddev/config.yaml`), so it overrides the `.env` files
+- Vite uses its default ports in every project: 5173 for the dev server (in `.ddev/web-build/apache-vite.conf`; not exposed — proxied at `/vite-dev/`) & 4173 for the preview (in `.ddev/config.yaml`). Ports are per container & DDEV's router routes by hostname, so they don't clash between projects
+- `ddev restart` applies changes to `.ddev/config.yaml`
+- Local-only DDEV overrides (eg `router_https_port` while another tool holds 443) go in the git-ignored
+  `.ddev/config.local.yaml`
 - Database collation: tables, IDs & codes use `utf8mb4_bin`; human-readable text (names, emails,
   messages) uses `utf8mb4_unicode_520_ci`
 
 ### Environments
 
-`dev` (local, Lando), `test`, `staging` (the site customers preview & test on) & `prod` (live).
+`dev` (local, DDEV), `test`, `staging` (the site customers preview & test on) & `prod` (live).
 `staging` is customer-facing, so it's configured to behave like `prod`, not like `dev`:
 
 - `.env.staging` sets `APP_DEBUG=0` — Symfony treats every env except `prod` as a debug env by
@@ -689,10 +683,10 @@ anything useful from the recipe's version by merging it in by hand).
 ### Updating PHP Version
 When upgrading PHP, update version in these files:
 - `composer.json` - add polyfill for new version
-- `.lando.yml`
+- `.ddev/config.yaml`
 - `bin/setup_staging.sh`, `bin/setup_prod.sh`, `.gitlab-ci.yml`, `.github/workflows/ci.yml`
 - `.php-cs-fixer.dist.php`
 
-Then run: `lando rebuild && lando composer update && bin/check_full`
+Then run: `ddev restart && ddev composer update && bin/check_full`
 
 Write conditionals in yoda style.

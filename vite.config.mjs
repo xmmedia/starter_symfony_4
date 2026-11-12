@@ -1,36 +1,35 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
-import mkcert from 'vite-plugin-mkcert';
 import vuePlugin from '@vitejs/plugin-vue';
 import graphqlPlugin from '@rollup/plugin-graphql';
 import manifestSRIPlugin from 'vite-plugin-manifest-sri';
 import symfonyPlugin from 'vite-plugin-symfony';
 import tailwindcss from '@tailwindcss/vite';
 import dns from 'dns';
-import { existsSync, readFileSync } from 'node:fs';
 
 dns.setDefaultResultOrder('verbatim');
 
-// in the Lando node service use the cert Lando issues it; mkcert can't run there
-// (needs root, & a CA made in the container isn't trusted by the host browser)
-const certPath = '/certs/cert.crt';
-const keyPath = '/certs/cert.key';
-const inLando = existsSync(certPath) && existsSync(keyPath);
-// @todo-symfony update to match your local dev URL
-const siteOrigin = 'https://symfonystarter.lndo.site';
-const https = inLando ? {
-    cert: readFileSync(certPath),
-    key: readFileSync(keyPath),
-} : true;
+// runs in the DDEV web container, behind https it doesn't serve itself: the dev server through
+// Apache's proxy at /vite-dev/ (.ddev/web-build/apache-vite.conf), so dev assets are same-origin
+// with the site (browsers won't load an SVG <use> from another origin), & the preview through
+// DDEV's router (web_extra_exposed_ports in .ddev/config.yaml). Both use Vite's default ports,
+// set explicitly as apache-vite.conf & .ddev/config.yaml rely on them: they're per container &
+// the router routes by hostname, so every project uses the same ones
+// includes the router's port, when it isn't 443; only the dev server uses it
+const siteUrl = new URL(process.env.DDEV_PRIMARY_URL || 'https://localhost');
 
 export default defineConfig(({ command, mode, isPreview }) => {
     // envs that don't use Sentry have no token, so nothing's uploaded (or generated) there
     const uploadSourceMaps = !!process.env.SENTRY_AUTH_TOKEN && 'build' === command && 'production' === mode;
 
+    // Vitest loads this config as `serve` too, & doesn't need DDEV
+    if ('serve' === command && !isPreview && !process.env.VITEST && !process.env.DDEV_PRIMARY_URL) {
+        throw new Error('The dev server only runs in DDEV, behind its Apache proxy: use `ddev yarn dev`');
+    }
+
     return {
         plugins: [
-            ...(inLando ? [] : [mkcert()]),
             vuePlugin({
                 // leave absolute URLs (/images/…) in templates as-is: they're served from
                 // the webroot, not resolved as imports (which fail without a publicDir;
@@ -58,8 +57,8 @@ export default defineConfig(({ command, mode, isPreview }) => {
             }),
             tailwindcss(),
         ],
-        // the dev base must match the proxied path in lando_apache_vite.conf;
-        // preview runs as `serve`, but should mirror the production paths
+        // the dev base must match the proxied path in apache-vite.conf; preview runs as `serve`,
+        // but should mirror the production paths
         base: 'build' === command || isPreview ? '/build/' : '/vite-dev/',
         build: {
             outDir: 'public/build',
@@ -84,25 +83,24 @@ export default defineConfig(({ command, mode, isPreview }) => {
         },
         server: {
             host: true,
-            // @todo-symfony change port number 2x (must match lando_apache_vite.conf)
-            port: 9008,
-            // always reached through the appserver proxy, in the container or on the host
-            origin: siteOrigin,
+            // Vite's default
+            port: 5173,
+            strictPort: true,
+            origin: siteUrl.origin,
             // the proxy passes the site's Host through; Vite 400s unknown hosts
-            allowedHosts: [new URL(siteOrigin).hostname],
+            allowedHosts: [siteUrl.hostname],
             // the HMR socket rides the proxied path, not the Vite port
             hmr: {
                 protocol: 'wss',
-                host: new URL(siteOrigin).hostname,
-                clientPort: 443,
+                host: siteUrl.hostname,
+                clientPort: Number(siteUrl.port || 443),
             },
-            strictPort: true,
-            https,
             watch: {
                 // this is in part needed because the symfony plugin ignores the public dir completely
                 // matched against the absolute path, so they must start with **/
                 // node_modules, .git, vite's cacheDir & build.outDir are already ignored by vite
                 ignored: [
+                    '**/.ddev/**',
                     '**/.idea/**',
                     '**/bin/**',
                     // Symfony's cache (Kernel::getCacheDir()), eg the profiler writing on every request
@@ -117,8 +115,8 @@ export default defineConfig(({ command, mode, isPreview }) => {
             },
         },
         preview: {
-            // @todo-symfony change port number (must match .lando.yml)
-            port: 9508,
+            // Vite's default
+            port: 4173,
             strictPort: true,
         },
         appType: 'custom',

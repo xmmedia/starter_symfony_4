@@ -5598,7 +5598,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^8.3.0, undici@npm:^8.4.1":
+"undici@npm:^8.4.1":
   version: 8.12.3
   resolution: "undici@npm:8.12.3"
   checksum: 10/8a238fd928ec1791b76b6b1df512eb6b77bdf51eb609d5b2248c3d8545100e2bdeb4d1695cf1594456dd9d085a6a51069ed42be231e56b270f3ee2191bc6517a
@@ -5740,19 +5740,6 @@ __metadata:
   version: 0.2.0
   resolution: "vite-plugin-manifest-sri@npm:0.2.0"
   checksum: 10/b7b9a1d0cd2166b4c483b5857b97fd411655af43017f8a149d788cb916a2c800816026eda15802837e1397e156cca5c4a40c1418e8463632d4ab6512c1fe4d8c
-  languageName: node
-  linkType: hard
-
-"vite-plugin-mkcert@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "vite-plugin-mkcert@npm:2.1.0"
-  dependencies:
-    debug: "npm:^4.4.3"
-    supports-color: "npm:^10.2.2"
-    undici: "npm:^8.3.0"
-  peerDependencies:
-    vite: ">=3"
-  checksum: 10/42884e47958f2d4ab67cc20992549d5e0f0966cd7d5eab4bdaacf274850d5b3140b681cea78eca41b7b1b7dd655f5493b00a4ca38cb1dfad36a8d11e07043350
   languageName: node
   linkType: hard
 
@@ -6234,7 +6221,6 @@ __metadata:
     uuid: "npm:^14.0.0"
     vite: "npm:^8.0.0"
     vite-plugin-manifest-sri: "npm:^0.2.0"
-    vite-plugin-mkcert: "npm:^2.0.0"
     vite-plugin-symfony: "npm:^8.0.0"
     vitest: "npm:^4.0.7"
     vue: "npm:^3.5.0"

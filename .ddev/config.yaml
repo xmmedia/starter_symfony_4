@@ -1,0 +1,33 @@
+# @todo-symfony update (the site is https://<name>.ddev.site)
+name: symfonystarter
+type: symfony
+docroot: public
+php_version: "8.5"
+# Apache, not nginx, like the servers: public/.htaccess & the Vite proxy (web-build/apache-vite.conf) need it
+webserver_type: apache-fpm
+# `ddev xdebug on` when needed: with it on, every request & command tries to connect to the IDE
+xdebug_enabled: false
+# for `composer test:coverage`: faster than Xdebug, which can stay off
+webimage_extra_packages:
+    - php${DDEV_PHP_VERSION}-pcov
+database:
+    type: mysql
+    # when changed, update serverVersion in DATABASE_URL below
+    version: "8.4"
+# a real env var, so it takes precedence over the .env files
+web_environment:
+    - DATABASE_URL=mysql://db:db@db:3306/db?serverVersion=8.4&charset=utf8mb4
+composer_version: "2"
+# read from .nvmrc
+nodejs_version: auto
+# relative to the docroot; kept out of the Mutagen sync
+upload_dirs:
+    - ../var/uploads
+# the Vite dev server isn't exposed: Apache proxies it at /vite-dev/ (web-build/apache-vite.conf)
+web_extra_exposed_ports:
+    # `ddev yarn preview` on Vite's default port, served over https by DDEV's router, which routes
+    # by hostname, so every project can use the same port
+    - name: vite-preview
+      container_port: 4173
+      http_port: 4172
+      https_port: 4173

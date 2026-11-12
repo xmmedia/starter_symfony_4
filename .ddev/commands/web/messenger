@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#ddev-silent-no-warn
+
+## Description: Run the Messenger worker, processing the async queue (e.g. notification emails), restarting on code changes
+## Usage: messenger
+## Example: "ddev messenger"
+
+symfony run --watch=config,src,templates,vendor php bin/console messenger:consume async -vv

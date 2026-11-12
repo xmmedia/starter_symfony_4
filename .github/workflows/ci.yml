@@ -22,7 +22,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
-          # the newer timezone database, as in Lando & the GitLab job (PHP's bundled one can lag behind)
+          # the newer timezone database, as in the GitLab job (PHP's bundled one can lag behind; DDEV uses the system's)
           extensions: timezonedb
 
       - name: Set up Node.js

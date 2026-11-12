@@ -2,5 +2,14 @@
 
 set -e
 
-# generates the GraphQL schema
-lando console graphql:dump-schema --with-descriptions --format=graphql
+# generates the GraphQL schema, then syncs it back to the host (`ddev exec` doesn't sync Mutagen)
+# bin/check_full sets SKIP_MUTAGEN_SYNC: it syncs before & bin/check syncs after
+sync_files() {
+    if [ -z "${SKIP_MUTAGEN_SYNC:-}" ]; then
+        ddev mutagen sync
+    fi
+}
+
+sync_files
+ddev exec php bin/console graphql:dump-schema --with-descriptions --format=graphql
+sync_files
