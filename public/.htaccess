@@ -24,12 +24,9 @@ DirectoryIndex index.php
 
     # Rewrite example.com → www.example.com
     # And redirect to https at the same time
-    RewriteCond %{HTTP_HOST} !^www\. [NC]
-    RewriteCond %{HTTP_HOST} !^dev\. [NC]
-    RewriteCond %{HTTP_HOST} !\.lndo\.site$ [NC]
-    RewriteCond %{HTTP_HOST} !\.ddev\.site(:[0-9]+)?$ [NC]
-    RewriteCond %{SERVER_ADDR} !=127.0.0.1
-    RewriteCond %{SERVER_ADDR} !=::1
+    # Only bare domains match, so subdomains (staging, dev, ddev.site, lndo.site), localhost & IPs are left alone.
+    # @todo-symfony add a condition if the domain has a two-part TLD (e.g. example.co.uk)
+    RewriteCond %{HTTP_HOST} ^[^.]+\.[^.]+$ [NC]
     RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
     # Redirect from the `http://` to the `https://` version of the URL.
