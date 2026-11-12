@@ -17,6 +17,9 @@ database:
 # a real env var, so it takes precedence over the .env files
 web_environment:
     - DATABASE_URL=mysql://db:db@db:3306/db?serverVersion=8.4&charset=utf8mb4
+# UTC, like the servers: DDEV otherwise uses the host's zone, so dates made without one (PHP's default
+# zone) differ from production & tests that assume UTC fail
+timezone: UTC
 composer_version: "2"
 # read from .nvmrc
 nodejs_version: auto
