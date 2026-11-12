@@ -74,7 +74,7 @@ class LoginThrottlingTest extends WebTestCase
 
     public function testOtherEmailNotThrottled(): void
     {
-        $email = $this->faker()->email();
+        $email = $this->faker()->unique()->email();
 
         for ($i = 0; $i <= self::MAX_ATTEMPTS; ++$i) {
             $this->login($email);
