@@ -26,7 +26,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Run `ddev yarn dev` (dev) or `ddev yarn build` (production) to compile JS & CSS files.
 1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
 1. Create database with event streams & projections tables from `db_create.sql` using `ddev import-db --file=db_create.sql`. 
-    - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;`
+    - If possible, set database collation to `utf8mb4_0900_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_bin;`
 1. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using DDEV: `ddev console event-store:event-stream:create user && ddev console event-store:event-stream:create auth`).
 1. Run all projections once: `bin/console app:projection:run user -o && bin/console app:projection:run auth -o && bin/console app:projection:run auth_log -o` (or if using DDEV: `ddev console app:projection:run user -o && ddev console app:projection:run auth -o && ddev console app:projection:run auth_log -o`).
 1. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`) (or if using DDEV: `ddev console app:user:add`).
@@ -51,7 +51,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Run `ddev yarn dev` (dev) or `ddev yarn build` (production) to compile JS & CSS files.
 1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
 1. Create database with event streams & projections tables from `db_create.sql` using `ddev import-db --file=db_create.sql`. 
-    - If possible, set database collation to `utf8mb4_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;` This can be done through PhpMyAdmin (URL shown by `ddev describe`)
+    - If possible, set database collation to `utf8mb4_0900_bin`: `ALTER DATABASE <database_name> CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_bin;` This can be done through PhpMyAdmin (URL shown by `ddev describe`)
 1. Create the required event streams with the command: `bin/console event-store:event-stream:create user && bin/console event-store:event-stream:create auth` (or if using DDEV: `ddev console event-store:event-stream:create user && ddev console event-store:event-stream:create auth`).
 1. Run all projections once: `bin/console app:projection:run user -o && bin/console app:projection:run auth -o && bin/console app:projection:run auth_log -o` (or if using DDEV: `ddev console app:projection:run user -o && ddev console app:projection:run auth -o && ddev console app:projection:run auth_log -o`).
 1. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`) (or if using DDEV: `ddev console app:user:add`).

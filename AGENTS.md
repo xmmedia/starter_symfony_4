@@ -618,8 +618,10 @@ Core workflow:
 - `ddev restart` applies changes to `.ddev/config.yaml`
 - Local-only DDEV overrides (eg `router_https_port` while another tool holds 443) go in the git-ignored
   `.ddev/config.local.yaml`
-- Database collation: tables, IDs & codes use `utf8mb4_bin`; human-readable text (names, emails,
-  messages) uses `utf8mb4_unicode_520_ci`
+- Database collation: tables, IDs & codes use `utf8mb4_0900_bin`; human-readable text (names, emails,
+  messages) uses `utf8mb4_0900_ai_ci`. Both are `NO PAD`, so trailing spaces count in comparisons &
+  unique indexes – trim values before saving. Columns compared or joined across tables must use the
+  same collation, or MySQL throws "Illegal mix of collations"
 
 ### Environments
 
