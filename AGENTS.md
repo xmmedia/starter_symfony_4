@@ -70,7 +70,7 @@ This is a Symfony 8 starter template for creating web applications at XM Media. 
     Editors share this file with the checker
 
 ### Debugging & Discovery
-When something fails, read `var/log/dev.log` & the profiler (`/_profiler`, which includes GraphQL
+When something fails, read today's `var/log/dev-YYYY-MM-DD.log` & the profiler (`/_profiler`, which includes GraphQL
 requests) before changing code.
 
 Framework APIs change between versions, so check the project rather than relying on memory:

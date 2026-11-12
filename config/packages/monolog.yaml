@@ -5,10 +5,13 @@ monolog:
 when@dev:
     monolog:
         handlers:
+            # a file per day (dev-YYYY-MM-DD.log), keeping the last week, so it doesn't grow without bound.
+            # Staging & prod rotate with logrotate instead (config/packages/logrotate.conf)
             main:
-                type:  stream
-                path:  '%kernel.logs_dir%/%kernel.environment%.log'
-                level: debug
+                type:      rotating_file
+                path:      '%kernel.logs_dir%/%kernel.environment%.log'
+                max_files: 7
+                level:     debug
                 channels: [ '!event' ]
             # uncomment to get logging in your browser
             # you may have to allow bigger header sizes in your Web server configuration
