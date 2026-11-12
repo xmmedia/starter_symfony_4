@@ -8,146 +8,102 @@ use App\Infrastructure\Service\DefaultRouteProvider;
 use App\Security\LoginSuccessHandler;
 use App\Security\Security;
 use App\Tests\BaseTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\HttpUtils;
 
 class LoginSuccessHandlerTest extends BaseTestCase
 {
-    public function testOnAuthenticationSuccessWithTargetPathParameter(): void
+    private const string DEFAULT_URL = '/login';
+    private const string TARGET_PATH_KEY = '_security.main.target_path';
+
+    #[DataProvider('ownTargetPathProvider')]
+    public function testTargetPathParameter(string $targetPathFormat): void
     {
-        $targetPath = '/admin/users';
-        $request = Request::create('/login_check', Request::METHOD_POST, ['_target_path' => $targetPath]);
+        $targetPath = \sprintf($targetPathFormat, $this->faker()->slug());
 
-        $httpUtils = \Mockery::mock(HttpUtils::class);
-        $httpUtils->shouldReceive('createRedirectResponse')
-            ->once()
-            ->with($request, $targetPath)
-            ->andReturn(new RedirectResponse($targetPath));
-
-        $defaultRoute = $this->createDefaultRouteProvider(['app_login']);
-
-        $handler = new LoginSuccessHandler(\Mockery::mock(RouterInterface::class), $httpUtils, $defaultRoute);
-        $handler->setFirewallName('main');
-
-        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
-
-        $this->assertSame($result->getTargetUrl(), $targetPath);
+        $this->assertRedirectsTo($targetPath, $this->createLoginRequest($targetPath));
     }
 
-    public function testOnAuthenticationSuccessWithHttpTargetPathParameter(): void
+    public static function ownTargetPathProvider(): \Generator
     {
-        $faker = $this->faker();
-
-        $targetPath = $faker->url();
-        $request = Request::create('/login_check', Request::METHOD_POST, ['_target_path' => $targetPath]);
-
-        $httpUtils = \Mockery::mock(HttpUtils::class);
-        $httpUtils->shouldReceive('createRedirectResponse')
-            ->once()
-            ->with($request, $targetPath)
-            ->andReturn(new RedirectResponse($targetPath));
-
-        $defaultRoute = $this->createDefaultRouteProvider(['app_login']);
-
-        $handler = new LoginSuccessHandler(\Mockery::mock(RouterInterface::class), $httpUtils, $defaultRoute);
-        $handler->setFirewallName('main');
-
-        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
-
-        $this->assertSame($result->getTargetUrl(), $targetPath);
+        yield 'path' => ['/admin/%s'];
+        yield 'path with query & fragment' => ['/profile/%s?tab=1#section'];
+        yield 'absolute' => ['https://localhost/%s'];
     }
 
-    public function testOnAuthenticationSuccessWithInvalidTargetPathParameter(): void
+    #[DataProvider('otherSiteTargetPathProvider')]
+    public function testOtherSiteTargetPathParameterUsesDefaultRoute(string $targetPathFormat): void
     {
-        $invalidTargetPath = 'javascript:alert(1)';
-        $sessionTargetPath = '/user/dashboard';
+        $request = $this->createLoginRequest(\sprintf($targetPathFormat, $this->faker()->domainName()));
+        $request->setSession($this->createSession(null));
 
-        $session = \Mockery::mock(SessionInterface::class);
-        $session->shouldReceive('get')
-            ->once()
-            ->with('_security.main.target_path')
-            ->andReturn($sessionTargetPath);
-        $session->shouldReceive('remove')
-            ->once()
-            ->with('_security.main.target_path');
+        $this->assertRedirectsTo(self::DEFAULT_URL, $request);
+    }
 
-        $request = Request::create('/login_check', Request::METHOD_POST, ['_target_path' => $invalidTargetPath]);
-        $request->setSession($session);
+    public static function otherSiteTargetPathProvider(): \Generator
+    {
+        yield 'https' => ['https://%s/'];
+        yield 'http' => ['http://%s/admin'];
+        yield 'this site over http' => ['http://localhost/%s'];
+        yield 'protocol relative' => ['//%s'];
+        yield 'backslash protocol relative' => ['/\%s'];
+        yield 'user info' => ['https://localhost@%s'];
+        yield 'backslash user info' => ['https://%s\@localhost'];
+        // without a scheme & host, HttpUtils would treat it as a route name & throw
+        yield 'http prefixed, not a URL' => ['http%s'];
+        yield 'javascript' => ['javascript:alert("%s")'];
+    }
 
-        $router = \Mockery::mock(RouterInterface::class);
+    public function testInvalidTargetPathParameterUsesSessionTargetPath(): void
+    {
+        $sessionTargetPath = '/admin/'.$this->faker()->slug();
 
-        $httpUtils = \Mockery::mock(HttpUtils::class);
-        $httpUtils->shouldReceive('createRedirectResponse')
-            ->once()
-            ->with($request, $sessionTargetPath)
-            ->andReturn(new RedirectResponse($sessionTargetPath));
-
-        $defaultRoute = $this->createDefaultRouteProvider(['user_default', ['path' => 'dashboard']]);
+        $request = $this->createLoginRequest('javascript:alert(1)');
+        $request->setSession($this->createSession($sessionTargetPath));
 
         $logger = \Mockery::mock(LoggerInterface::class);
         $logger->shouldReceive('debug')
             ->once()
             ->with('Ignoring query parameter "_target_path": not a valid URL.');
 
-        $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute, $logger);
-        $handler->setFirewallName('main');
-
-        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
-
-        $this->assertSame($result->getTargetUrl(), $sessionTargetPath);
+        $this->assertRedirectsTo($sessionTargetPath, $request, $logger);
     }
 
-    public function testOnAuthenticationSuccessWithSessionTargetPath(): void
+    #[DataProvider('ownTargetPathProvider')]
+    public function testSessionTargetPath(string $targetPathFormat): void
     {
-        $sessionTargetPath = '/user/profile';
+        $sessionTargetPath = \sprintf($targetPathFormat, $this->faker()->slug());
 
-        $session = \Mockery::mock(SessionInterface::class);
-        $session->shouldReceive('get')
-            ->once()
-            ->with('_security.main.target_path')
-            ->andReturn($sessionTargetPath);
-        $session->shouldReceive('remove')
-            ->once()
-            ->with('_security.main.target_path');
+        $request = $this->createLoginRequest();
+        $request->setSession($this->createSession($sessionTargetPath));
 
-        $request = Request::create('/login_check', Request::METHOD_POST);
-        $request->setSession($session);
-
-        $httpUtils = \Mockery::mock(HttpUtils::class);
-        $httpUtils->shouldReceive('createRedirectResponse')
-            ->once()
-            ->with($request, $sessionTargetPath)
-            ->andReturn(new RedirectResponse($sessionTargetPath));
-
-        $defaultRoute = $this->createDefaultRouteProvider(['user_default', ['path' => 'dashboard']]);
-
-        $handler = new LoginSuccessHandler(\Mockery::mock(RouterInterface::class), $httpUtils, $defaultRoute);
-        $handler->setFirewallName('main');
-
-        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
-
-        $this->assertSame($result->getTargetUrl(), $sessionTargetPath);
+        $this->assertRedirectsTo($sessionTargetPath, $request);
     }
 
-    public function testOnAuthenticationSuccessWithDefaultRoute(): void
+    public function testOtherSiteSessionTargetPathUsesDefaultRoute(): void
+    {
+        $request = $this->createLoginRequest();
+        $request->setSession($this->createSession($this->faker()->url()));
+
+        $this->assertRedirectsTo(self::DEFAULT_URL, $request);
+    }
+
+    public function testDefaultRoute(): void
     {
         $defaultRouteName = 'user_default';
         $defaultRouteParams = ['path' => 'dashboard'];
         $generatedUrl = '/user/dashboard';
 
-        $session = \Mockery::mock(SessionInterface::class);
-        $session->shouldReceive('get')
-            ->once()
-            ->with('_security.main.target_path')
-            ->andReturnNull();
-
-        $request = Request::create('/login_check', Request::METHOD_POST);
-        $request->setSession($session);
+        $request = $this->createLoginRequest();
+        $request->setSession($this->createSession(null));
 
         $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
@@ -155,67 +111,47 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->with($defaultRouteName, $defaultRouteParams)
             ->andReturn($generatedUrl);
 
-        $httpUtils = \Mockery::mock(HttpUtils::class);
-        $httpUtils->shouldReceive('createRedirectResponse')
-            ->once()
-            ->with($request, $generatedUrl)
-            ->andReturn(new RedirectResponse($generatedUrl));
-
-        $defaultRoute = $this->createDefaultRouteProvider([$defaultRouteName, $defaultRouteParams]);
-
-        $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute);
+        $handler = new LoginSuccessHandler(
+            $router,
+            $this->createHttpUtils($request, $generatedUrl),
+            $this->createDefaultRouteProvider([$defaultRouteName, $defaultRouteParams]),
+        );
         $handler->setFirewallName('main');
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertSame($result->getTargetUrl(), $generatedUrl);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($generatedUrl, $result->getTargetUrl());
     }
 
-    public function testOnAuthenticationSuccessWithDefaultRouteNoParams(): void
+    public function testDefaultRouteNoParams(): void
     {
         $defaultRouteName = 'app_login';
-        $generatedUrl = '/login';
 
-        $session = \Mockery::mock(SessionInterface::class);
-        $session->shouldReceive('get')
-            ->once()
-            ->with('_security.main.target_path')
-            ->andReturnNull();
-
-        $request = Request::create('/login_check', Request::METHOD_POST);
-        $request->setSession($session);
+        $request = $this->createLoginRequest();
+        $request->setSession($this->createSession(null));
 
         $router = \Mockery::mock(RouterInterface::class);
         $router->shouldReceive('generate')
             ->once()
             ->with($defaultRouteName)
-            ->andReturn($generatedUrl);
+            ->andReturn(self::DEFAULT_URL);
 
-        $httpUtils = \Mockery::mock(HttpUtils::class);
-        $httpUtils->shouldReceive('createRedirectResponse')
-            ->once()
-            ->with($request, $generatedUrl)
-            ->andReturn(new RedirectResponse($generatedUrl));
-
-        $defaultRoute = $this->createDefaultRouteProvider([$defaultRouteName]);
-
-        $handler = new LoginSuccessHandler($router, $httpUtils, $defaultRoute);
+        $handler = new LoginSuccessHandler(
+            $router,
+            $this->createHttpUtils($request, self::DEFAULT_URL),
+            $this->createDefaultRouteProvider([$defaultRouteName]),
+        );
         $handler->setFirewallName('main');
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertSame($result->getTargetUrl(), $generatedUrl);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame(self::DEFAULT_URL, $result->getTargetUrl());
     }
 
     public function testSetFirewallName(): void
     {
-        $httpUtils = \Mockery::mock(HttpUtils::class);
-        $defaultRoute = $this->createDefaultRouteProvider(['admin_default']);
-
-        $handler = new LoginSuccessHandler(\Mockery::mock(RouterInterface::class), $httpUtils, $defaultRoute);
-        $handler->setFirewallName('custom_firewall');
-
-        // Test that the firewall name is used in session key lookup
         $sessionTargetPath = '/admin';
 
         $session = \Mockery::mock(SessionInterface::class);
@@ -227,17 +163,80 @@ class LoginSuccessHandlerTest extends BaseTestCase
             ->once()
             ->with('_security.custom_firewall.target_path');
 
-        $request = Request::create('/login_check', Request::METHOD_POST);
+        $request = $this->createLoginRequest();
         $request->setSession($session);
 
-        $httpUtils->shouldReceive('createRedirectResponse')
-            ->once()
-            ->with($request, $sessionTargetPath)
-            ->andReturn(new RedirectResponse($sessionTargetPath));
+        $handler = new LoginSuccessHandler(
+            $this->createRouter(),
+            $this->createHttpUtils($request, $sessionTargetPath),
+            $this->createDefaultRouteProvider(['app_login']),
+        );
+        $handler->setFirewallName('custom_firewall');
 
         $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
 
-        $this->assertSame($result->getTargetUrl(), $sessionTargetPath);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($sessionTargetPath, $result->getTargetUrl());
+    }
+
+    private function assertRedirectsTo(string $expectedUrl, Request $request, ?LoggerInterface $logger = null): void
+    {
+        $handler = new LoginSuccessHandler(
+            $this->createRouter(),
+            $this->createHttpUtils($request, $expectedUrl),
+            $this->createDefaultRouteProvider(['app_login']),
+            $logger,
+        );
+        $handler->setFirewallName('main');
+
+        $result = $handler->onAuthenticationSuccess($request, \Mockery::mock(TokenInterface::class));
+
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertSame($expectedUrl, $result->getTargetUrl());
+        if ($request->hasSession()) {
+            $this->assertFalse($request->getSession()->has(self::TARGET_PATH_KEY));
+        }
+    }
+
+    private function createLoginRequest(?string $targetPath = null): Request
+    {
+        $parameters = [];
+        if (null !== $targetPath) {
+            $parameters['_target_path'] = $targetPath;
+        }
+
+        return Request::create('https://localhost/login_check', Request::METHOD_POST, $parameters);
+    }
+
+    private function createSession(?string $targetPath): SessionInterface
+    {
+        $session = new Session(new MockArraySessionStorage());
+        if (null !== $targetPath) {
+            $session->set(self::TARGET_PATH_KEY, $targetPath);
+        }
+
+        return $session;
+    }
+
+    private function createRouter(): RouterInterface
+    {
+        $router = \Mockery::mock(RouterInterface::class);
+        $router->shouldReceive('generate')
+            ->with('app_login')
+            ->andReturn(self::DEFAULT_URL);
+
+        return $router;
+    }
+
+    private function createHttpUtils(Request $request, string $expectedUrl): HttpUtils
+    {
+        $httpUtils = \Mockery::mock(HttpUtils::class);
+        $httpUtils->shouldReceive('createRedirectResponse')
+            ->once()
+            ->with($request, $expectedUrl)
+            ->andReturn(new RedirectResponse($expectedUrl));
+
+        return $httpUtils;
     }
 
     private function createDefaultRouteProvider(array $returnValue): DefaultRouteProvider

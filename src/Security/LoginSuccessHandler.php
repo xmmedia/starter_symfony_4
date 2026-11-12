@@ -6,56 +6,54 @@ namespace App\Security;
 
 use App\Infrastructure\Service\DefaultRouteProvider;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
+use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler;
 use Symfony\Component\Security\Http\HttpUtils;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
+/**
+ * Symfony's handler, with the default route depending on the user & only redirecting to this site.
+ */
+class LoginSuccessHandler extends DefaultAuthenticationSuccessHandler
 {
-    use TargetPathTrait;
-
-    private string $firewallName;
-
     public function __construct(
         private readonly RouterInterface $router,
-        private readonly HttpUtils $httpUtils,
+        HttpUtils $httpUtils,
         private readonly DefaultRouteProvider $defaultRoute,
-        private readonly ?LoggerInterface $logger = null,
+        ?LoggerInterface $logger = null,
     ) {
-    }
-
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token): RedirectResponse
-    {
-        return $this->httpUtils->createRedirectResponse($request, $this->determineTargetUrl($request));
-    }
-
-    public function setFirewallName(string $firewallName): void
-    {
-        $this->firewallName = $firewallName;
+        parent::__construct($httpUtils, [], $logger);
     }
 
     protected function determineTargetUrl(Request $request): string
     {
-        $targetUrl = $request->query->get('_target_path') ?? $request->request->get('_target_path');
+        // depends on the signed in user's roles, so it can't be set in config
+        $this->options['default_target_path'] = $this->router->generate(...($this->defaultRoute)());
 
-        if (\is_string($targetUrl) && (str_starts_with($targetUrl, '/') || str_starts_with($targetUrl, 'http'))) {
+        $targetUrl = parent::determineTargetUrl($request);
+        if ($this->isOwnUrl($request, $targetUrl)) {
             return $targetUrl;
         }
 
-        if ($this->logger && $targetUrl) {
-            $this->logger->debug(\sprintf('Ignoring query parameter "%s": not a valid URL.', '_target_path'));
+        $this->logger?->debug(\sprintf('Ignoring target path "%s": not on this site.', $targetUrl));
+
+        return $this->options['default_target_path'];
+    }
+
+    /**
+     * The target can come from the query string, so anyone can put anything in it: only a path or an
+     * https URL on this site is followed. "//example.com" & "/\example.com" aren't paths we link to, so
+     * they're turned down too (HttpUtils would keep them on this site anyway).
+     */
+    private function isOwnUrl(Request $request, string $targetUrl): bool
+    {
+        if (str_starts_with($targetUrl, '/')
+            && !str_starts_with($targetUrl, '//')
+            && !str_starts_with($targetUrl, '/\\')
+        ) {
+            return true;
         }
 
-        if ($targetUrl = $this->getTargetPath($request->getSession(), $this->firewallName)) {
-            $this->removeTargetPath($request->getSession(), $this->firewallName);
-
-            return $targetUrl;
-        }
-
-        return $this->router->generate(...($this->defaultRoute)());
+        return str_starts_with($targetUrl, 'https://'.$request->getHttpHost().'/');
     }
 }
