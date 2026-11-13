@@ -34,3 +34,10 @@ web_extra_exposed_ports:
       container_port: 4173
       http_port: 4172
       https_port: 4173
+
+hooks:
+    post-start:
+        # DDEV's db database is pre-created with utf8mb4_general_ci, so .ddev/mysql/collation.cnf
+        # doesn't reach it. Tables created without a collation (eg messenger_messages) use this
+        - exec: mysql -uroot -proot -e "ALTER DATABASE db CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_bin"
+          service: db

@@ -306,6 +306,18 @@ remote sudo -n "$SITEWORX" -u -n --login_domain "$DOMAIN" -c MysqlDb -a add \
     || die "failed to create the database"
 ok "database and user created ($DB_NAME)"
 
+# SiteWorx has no collation option. Tables created without one (eg messenger_messages,
+# doctrine_migration_versions) take the database's, so match the rest of the schema.
+# The password goes in on stdin as an option file, so it's not in either process list.
+if printf '[client]\npassword="%s"\n' "$DB_PASSWORD" \
+    | remote mysql --defaults-file=/dev/stdin -u "$DB_NAME" "$DB_NAME" \
+        -e "ALTER DATABASE \`$DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_bin"; then
+    ok "database collation set (utf8mb4_0900_bin)"
+else
+    warn "failed to set the database collation — run in phpMyAdmin:"
+    warn "  ALTER DATABASE \`$DB_NAME\` CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_bin;"
+fi
+
 # --- 4. Server setup script --------------------------------------------------
 
 heading "4/7 Running $SETUP_SCRIPT"
