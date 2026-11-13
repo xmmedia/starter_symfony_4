@@ -56,11 +56,13 @@ before_script:
   - node --version
   - yarn --version
 
+# check for security issues in libs. They only read the lock files, so they run before installing to
+# fail faster. The deploys re-run them for advisories published since the static job, & set
+# PHP_SECURITY_CHECK_FLAGS to --no-dev so a dev only PHP advisory doesn't block a deploy
 .security-checks: &security-checks
-  # check for security issues in PHP libs
-  - symfony security:check
-  - php composer.phar audit
-  # check for JS security issues in libs (cap timeout at 10s)
+  - symfony security:check $PHP_SECURITY_CHECK_FLAGS
+  - php composer.phar audit --locked $PHP_SECURITY_CHECK_FLAGS
+  # cap timeout at 10s
   - YARN_HTTP_TIMEOUT=10000 yarn audit:high
 
 .deploy-setup-script: &deploy-setup-script
@@ -164,12 +166,11 @@ static:
     - *versions-script
     # the image's 128M isn't enough for cache:clear in a debug env (it serialises the container for the debug dump)
     - echo "memory_limit=256M" > "$PHP_INI_DIR/conf.d/zz-memory-limit.ini"
+    - *security-checks
     # install PHP dependencies
     - php composer.phar install --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
     - yarn install --immutable
-    # composer & yarn require packages to be installed before running security checks
-    - *security-checks
     # make sure composer.lock is up to date
     - php composer.phar normalize --dry-run
     # PSR-4 mapping & duplicate class check (deploys use --classmap-authoritative)
@@ -199,15 +200,15 @@ deploy to staging:
   variables:
     APP_ENV: staging
     VITE_SENTRY_ENVIRONMENT: staging
+    PHP_SECURITY_CHECK_FLAGS: --no-dev
   when: manual
   script:
     - *deploy-setup-script
+    - *security-checks
     # install PHP dependencies (not php dev dependencies)
     - php composer.phar install --no-dev --optimize-autoloader --classmap-authoritative --strict-psr-autoloader --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
     - yarn install --immutable
-    # composer & yarn require packages to be installed before running security checks
-    - *security-checks
     # staging is the customer preview site, so build exactly what prod builds
     - yarn build
     - *deploy-script
@@ -223,14 +224,14 @@ deploy to prod:
     url: $PROD_URL
   variables:
     VITE_SENTRY_ENVIRONMENT: prod
+    PHP_SECURITY_CHECK_FLAGS: --no-dev
   when: manual
   script:
     - *deploy-setup-script
+    - *security-checks
     # install PHP dependencies (not php dev dependencies)
     - php composer.phar install --no-dev --optimize-autoloader --classmap-authoritative --strict-psr-autoloader --no-interaction --no-progress --ignore-platform-reqs
     # Install node/JS dependencies
     - yarn install --immutable
-    # composer & yarn require packages to be installed before running security checks
-    - *security-checks
     - yarn build
     - *deploy-script

@@ -55,11 +55,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      # reads composer.lock, so it runs before installing to fail faster
+      - name: Run PHP security checks
+        run: composer audit --locked
+
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-progress --ignore-platform-reqs
-
-      - name: Run PHP security checks
-        run: composer audit
 
       - name: Validate composer.json is normalized
         run: composer normalize --dry-run
@@ -67,11 +68,12 @@ jobs:
       - name: Check autoload PSR-4 mapping
         run: composer dump-autoload --optimize --strict-psr --strict-ambiguous --dry-run
 
-      - name: Install Node.js dependencies
-        run: yarn install --immutable
-
+      # reads yarn.lock, so it runs before installing to fail faster
       - name: Run JS security checks
         run: yarn audit:high
+
+      - name: Install Node.js dependencies
+        run: yarn install --immutable
 
       - name: Cache warmup for PHPStan
         run: php bin/console cache:warmup --env=test
