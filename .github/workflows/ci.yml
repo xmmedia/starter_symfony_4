@@ -68,9 +68,10 @@ jobs:
       - name: Check autoload PSR-4 mapping
         run: composer dump-autoload --optimize --strict-psr --strict-ambiguous --dry-run
 
-      # reads yarn.lock, so it runs before installing to fail faster
+      # the audit:high script, called directly: yarn run needs the install state, so this runs before
+      # installing to fail faster
       - name: Run JS security checks
-        run: yarn audit:high
+        run: yarn npm audit --recursive --all --severity high --no-deprecations
 
       - name: Install Node.js dependencies
         run: yarn install --immutable

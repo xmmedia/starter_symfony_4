@@ -62,8 +62,8 @@ before_script:
 .security-checks: &security-checks
   - symfony security:check $PHP_SECURITY_CHECK_FLAGS
   - php composer.phar audit --locked $PHP_SECURITY_CHECK_FLAGS
-  # cap timeout at 10s
-  - YARN_HTTP_TIMEOUT=10000 yarn audit:high
+  # the audit:high script, called directly: yarn run needs the install state (cap timeout at 10s)
+  - YARN_HTTP_TIMEOUT=10000 yarn npm audit --recursive --all --severity high --no-deprecations
 
 .deploy-setup-script: &deploy-setup-script
   - *versions-script
