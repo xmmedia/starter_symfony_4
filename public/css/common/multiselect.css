@@ -18,6 +18,12 @@
     @apply m-0 p-0 bg-transparent border-0 rounded-none text-base leading-normal;
 }
 
+/* the library hides the input on close by setting its width to 0. The form input transition
+   would animate that, showing its placeholder over the value as it shrinks */
+.multiselect__input {
+    @apply transition-none;
+}
+
 /* the box around it shows the focus */
 .multiselect__input:focus {
     @apply outline-none;
