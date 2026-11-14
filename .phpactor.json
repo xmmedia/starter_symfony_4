@@ -1,0 +1,6 @@
+{
+    "language_server_phpstan.enabled": true,
+    "language_server_phpstan.bin": "%project_root%/bin/phpstan",
+    "language_server_php_cs_fixer.enabled": true,
+    "language_server_php_cs_fixer.bin": "%project_root%/bin/php-cs-fixer"
+}
