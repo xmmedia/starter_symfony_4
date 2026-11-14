@@ -21,14 +21,16 @@
                 No records found.
             </div>
             <template v-else>
-                <Pagination route-name="admin-auth-log"
+                <Pagination v-if="null !== authLogsCount"
+                            route-name="admin-auth-log"
                             :count="authLogsCount"
                             :offset="+offset"
                             :route-query-additions="{ filters }"
                             class="my-2" />
 
                 <div class="record_list-record_count">
-                    Showing {{ authLogs.length }} of {{ authLogsCount.toLocaleString() }}
+                    Showing {{ authLogs.length }}<template v-if="null !== authLogsCount">
+                        of {{ authLogsCount.toLocaleString() }}</template>
                 </div>
                 <RecordList :headings="headings"
                             :items="authLogs"
@@ -74,7 +76,8 @@
                     </template>
                 </RecordList>
 
-                <Pagination route-name="admin-auth-log"
+                <Pagination v-if="null !== authLogsCount"
+                            route-name="admin-auth-log"
                             :count="authLogsCount"
                             :offset="+offset"
                             :route-query-additions="{ filters }"
@@ -278,7 +281,7 @@ const { result: authLogsCountResult, refetch: authLogsCountRefetch } = useQuery(
     { filters: gqlFilters },
     { debounce: 500 },
 );
-const authLogsCount = computed(() => authLogsCountResult.value?.AuthLogsCount);
+const authLogsCount = computed(() => authLogsCountResult.value?.AuthLogsCount ?? null);
 
 onMounted(() => {
     updateQuery();

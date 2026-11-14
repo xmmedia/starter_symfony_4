@@ -57,6 +57,7 @@ query GetUserAuthLogsQuery($userId: UserId!, $offset: Int, $limit: Int) {
                 userId
                 email
             }
+            email
             ipAddress
             userAgent
             errorMessage

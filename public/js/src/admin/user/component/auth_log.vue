@@ -34,7 +34,7 @@
                         <EventTypeLabel v-else :event-type="item.eventType" />
                         <div v-if="item.impersonatedUser" class="text-sm text-gray-500">
                             <template v-if="item.impersonatedUser.userId === props.userId">
-                                by <RouterLink :to="userViewRoute(item)">{{ item.user.email }}</RouterLink>
+                                by <RouterLink :to="userViewRoute(item.user)">{{ item.user.email }}</RouterLink>
                             </template>
                             <template v-else>→
                                 <RouterLink :to="userViewRoute(item.impersonatedUser)">
