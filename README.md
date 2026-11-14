@@ -224,7 +224,6 @@ but the Node version is then up to you.
     - [GraphQLBundle](https://github.com/overblog/GraphQLBundle) – provides GraphQL in PHP using [graphql-php](https://github.com/webonyx/graphql-php)
     - [Doctrine](https://www.doctrine-project.org/) – ORM
     - [Doctrine Migrations](https://www.doctrine-project.org/projects/doctrine-migrations.html) – for database migrations
-    - [Nelmio CORS Bundle](https://github.com/nelmio/NelmioCorsBundle) – for CORS
     - [Symfony Messenger](https://symfony.com/doc/current/messenger.html) – for async messaging
     - [Symfony Mailer](https://symfony.com/doc/current/mailer.html) – for sending emails
     - [Symfony Security](https://symfony.com/doc/current/security.html) – for authentication & authorization

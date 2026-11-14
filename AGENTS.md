@@ -558,6 +558,21 @@ authenticator on the firewall (password & login link). A successful login resets
 - The error ("Too many failed login attempts, please try again in X minutes.") reaches the login
   page through `AuthLast`, like any other auth error
 
+### CORS
+
+The app sends no CORS headers, so browsers stop other sites' JS from reading its responses or sending
+custom headers. `CsrfValidationListener` relies on that: a browser can't send the `csrf-token` header
+cross-origin. Code on the server (PHP, curl) isn't affected — CORS is only enforced by browsers.
+
+If another site's browser JS has to call the app (not its backend — that needs no CORS):
+- Add `nelmio/cors-bundle` & leave its `defaults` empty
+- Allow only the routes it calls, under `paths` (never `'^/'`), with exact origins & `origin_regex: false`.
+  With `origin_regex` on, an empty origin (eg an unset env var) matches every origin
+- Allow only the methods & headers those routes use, never `csrf-token`, & leave `allow_credentials` off
+- Don't use `/graphql` or anything that relies on the session: give it its own routes or GraphQL
+  schema, public or token authenticated (stateless firewall), & treat whatever it returns as public
+- Test that the allowed origin gets `Access-Control-Allow-Origin` on those routes & nothing else does
+
 ### User Model
 
 **User States:**

@@ -15,6 +15,9 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  * The GraphQL endpoints aren't forms, so they're not covered by Symfony's CSRF protection.
  * The token id is stateless (see framework.csrf_protection), so validation is based on the
  * origin & the token double submitted in the header by the JS (see csrfToken() in csrf.js).
+ * With check_header, the header alone counts as the double submit & the cookie isn't compared:
+ * a browser only sends a custom header cross-origin after a CORS preflight, & the app sends no CORS
+ * headers (see CORS in AGENTS.md).
  */
 class CsrfValidationListener
 {
@@ -28,7 +31,7 @@ class CsrfValidationListener
 
     // must be listed in framework.csrf_protection.stateless_token_ids
     private string $tokenId = 'graphql';
-    // Symfony checks the header & the cookie under one name: framework.csrf_protection.cookie_name
+    // the header & the cookie share one name: framework.csrf_protection.cookie_name
     private string $headerName = 'csrf-token';
 
     public function __construct(private readonly CsrfTokenManagerInterface $csrfTokenManager)

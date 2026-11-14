@@ -159,18 +159,6 @@
     "myclabs/deep-copy": {
         "version": "1.8.1"
     },
-    "nelmio/cors-bundle": {
-        "version": "2.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "1.5",
-            "ref": "6bea22e6c564fba3a1391615cada1437d0bde39c"
-        },
-        "files": [
-            "config/packages/nelmio_cors.yaml"
-        ]
-    },
     "nesbot/carbon": {
         "version": "2.4.1"
     },
