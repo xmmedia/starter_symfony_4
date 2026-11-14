@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49449f3c20b8f28fea1d74ea15b87d98",
+    "content-hash": "ca37827304b7612f832623b8d942d959",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -13568,57 +13568,6 @@
             },
             "time": "2026-10-24T08:53:34+00:00",
             "published-time": "2026-10-24T08:53:38+00:00"
-        },
-        {
-            "name": "marc-mabe/php-enum-phpstan",
-            "version": "v3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/marc-mabe/php-enum-phpstan.git",
-                "reference": "9c39239c76cc4dfb8cd33463253568c23c208276"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/marc-mabe/php-enum-phpstan/zipball/9c39239c76cc4dfb8cd33463253568c23c208276",
-                "reference": "9c39239c76cc4dfb8cd33463253568c23c208276",
-                "shasum": ""
-            },
-            "require": {
-                "marc-mabe/php-enum": "^4.0",
-                "php": "^7.4 | ^8.0",
-                "phpstan/phpstan": "^2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.6"
-            },
-            "type": "phpstan-extension",
-            "extra": {
-                "phpstan": {
-                    "includes": [
-                        "extension.neon"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "MabeEnumPHPStan\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Enum class reflection extension for PHPStan",
-            "keywords": [
-                "PHPStan",
-                "enum"
-            ],
-            "support": {
-                "issues": "https://github.com/marc-mabe/php-enum-phpstan/issues",
-                "source": "https://github.com/marc-mabe/php-enum-phpstan/tree/v3.0.0"
-            },
-            "time": "2024-12-10T08:20:38+00:00",
-            "published-time": "2024-12-10T08:22:26+00:00"
         },
         {
             "name": "mockery/mockery",

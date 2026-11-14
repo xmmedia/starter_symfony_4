@@ -226,7 +226,6 @@
       <path value="$PROJECT_DIR$/vendor/ergebnis/json-schema-validator" />
       <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
       <path value="$PROJECT_DIR$/vendor/localheinz/diff" />
-      <path value="$PROJECT_DIR$/vendor/marc-mabe/php-enum-phpstan" />
       <path value="$PROJECT_DIR$/vendor/staabm/side-effects-detector" />
       <path value="$PROJECT_DIR$/vendor/symfony/type-info" />
       <path value="$PROJECT_DIR$/vendor/scheb/2fa-bundle" />
