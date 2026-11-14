@@ -21,7 +21,7 @@
                v-model="email"
                v-focus="autofocus"
                :autocomplete="autocomplete"
-               :data-1p-ignore="'off' === autocomplete"
+               :data-1p-ignore="'off' === autocomplete || null"
                :placeholder="placeholder"
                type="email"
                maxlength="150"

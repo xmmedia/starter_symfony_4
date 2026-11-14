@@ -12,7 +12,7 @@
                    :type="fieldType"
                    :required="required"
                    :autocomplete="autocomplete"
-                   :data-1p-ignore="'off' === autocomplete"
+                   :data-1p-ignore="'off' === autocomplete || null"
                    :name="name"
                    :class="inputClasses"
                    class="mb-1 pr-10"

@@ -11,7 +11,7 @@
                        :show-help="true"
                        :required="setPassword"
                        :autocomplete="autocomplete"
-                       :data-1p-ignore="'off' === autocomplete"
+                       :data-1p-ignore="'off' === autocomplete || null"
                        icon-component="AdminIcon"
                        class="ml-6" />
     </div>
