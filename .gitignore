@@ -95,6 +95,13 @@ public/service-worker.js
 !.vscode/extensions.json
 ###< vscode ###
 
+###> zed ###
+.zed/*
+!.zed/settings.json
+!.zed/tasks.json
+!.zed/debug.json
+###< zed ###
+
 ###> claude-code ###
 .claude/
 ###< claude-code ###
