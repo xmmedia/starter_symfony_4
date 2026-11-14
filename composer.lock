@@ -12062,16 +12062,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.151",
+            "version": "v2.0.152",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "d5eec049e93999276d84da67e3a91bf44abec9a9"
+                "reference": "1871d0b3282e6521b7dabc2d23ab207cc56f47ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/d5eec049e93999276d84da67e3a91bf44abec9a9",
-                "reference": "d5eec049e93999276d84da67e3a91bf44abec9a9",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/1871d0b3282e6521b7dabc2d23ab207cc56f47ba",
+                "reference": "1871d0b3282e6521b7dabc2d23ab207cc56f47ba",
                 "shasum": ""
             },
             "require": {
@@ -12115,7 +12115,6 @@
                 "fakerphp/faker": "^1.8",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "jetbrains/phpstorm-attributes": "^1.0",
-                "marc-mabe/php-enum-phpstan": "^3.0",
                 "mockery/mockery": "^1.2",
                 "pentatrion/vite-bundle": "^6.0 || ^7.0 || ^8.0",
                 "phpstan/phpstan": "^2.0",
@@ -12156,10 +12155,10 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.151"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.152"
             },
-            "time": "2026-11-12T21:18:06+00:00",
-            "published-time": "2026-11-12T21:19:39+00:00"
+            "time": "2026-11-14T04:09:01+00:00",
+            "published-time": "2026-11-14T04:10:52+00:00"
         }
     ],
     "packages-dev": [
