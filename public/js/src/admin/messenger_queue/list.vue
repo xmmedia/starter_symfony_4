@@ -42,8 +42,7 @@
                     <template #col3="{ item }">
                         <div class="text-sm font-mono break-all">
                             <span class="hidden xl:inline">{{ item.messageClass ?? '–' }}</span>
-                            <!-- eslint-disable-next-line @stylistic/max-len -->
-                            <span class="xl:hidden">{{ item.messageClass ? item.messageClass.split('\\').at(-1) : '–' }}</span>
+                            <span class="xl:hidden">{{ item.messageClass ? shortClass(item.messageClass) : '–' }}</span>
                         </div>
                     </template>
                     <template #col4="{ item }">
@@ -210,6 +209,8 @@ watch(filters, () => {
 watch(appliedFilters, () => {
     updateQuery();
 }, { deep: true });
+
+const shortClass = (name) => name.split('\\').at(-1);
 
 const updateQuery = () => {
     router.push({

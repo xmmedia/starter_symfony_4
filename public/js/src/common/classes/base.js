@@ -25,7 +25,11 @@ export default class BaseClass {
                 return !this.hasKeys([key], object);
             });
 
-            throw new ReferenceError('Keys missing in class/object.\nMissing key(s): '+missingKeys.join(', ')+'\nRequired key(s): '+requiredKeys.join(', ')+'\nIncluded in class: '+Object.keys(object).join(', '));
+            throw new ReferenceError(
+                'Keys missing in class/object.\nMissing key(s): ' + missingKeys.join(', ')
+                + '\nRequired key(s): ' + requiredKeys.join(', ')
+                + '\nIncluded in class: ' + Object.keys(object).join(', '),
+            );
         }
     }
 }

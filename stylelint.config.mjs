@@ -42,7 +42,9 @@ export default {
         "no-invalid-position-at-import-rule": [
             true,
             {
-                "ignoreAtRules": [ "config", "plugin", "source", "theme", "custom-variant", "variant", "utility", "layer" ],
+                "ignoreAtRules": [
+                    "config", "plugin", "source", "theme", "custom-variant", "variant", "utility", "layer",
+                ],
             },
         ],
     },

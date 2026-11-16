@@ -3,7 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block page_title_wrap %}{% block page_title %}{% endblock %}{{ 'app.parameter.name'|trans }}{% endblock %}</title>
+        <title>
+            {% block page_title_wrap %}{% block page_title %}{% endblock %}{{ 'app.parameter.name'|trans }}{% endblock %}
+        </title>
 
         {% block head %}{% endblock %}
 
@@ -29,8 +31,11 @@
     </head>
     <body{% if body_attributes is defined %}{{ body_attributes }}{% endif %}>
         {# from an allowed IP: everyone else is seeing the maintenance page #}
-        {% if app.request.attributes.get(constant('Xm\\SymfonyBundle\\Infrastructure\\Service\\MaintenanceGate::BYPASS_ATTRIBUTE')) %}
-            <div class="fixed z-50 bottom-2 left-2 px-3 py-1 bg-yellow-300 rounded shadow text-sm font-medium text-gray-900"
+        {% if app.request.attributes.get(
+            constant('Xm\\SymfonyBundle\\Infrastructure\\Service\\MaintenanceGate::BYPASS_ATTRIBUTE')
+        ) %}
+            <div class="fixed z-50 bottom-2 left-2 px-3 py-1 bg-yellow-300 rounded shadow
+                        text-sm font-medium text-gray-900"
                  role="status">
                 Maintenance mode is on – only allowed IPs can use the site
             </div>
@@ -40,7 +45,11 @@
             {% block header %}
                 <header>
                     {# @todo-symfony this isn't visible if all SPA #}
-                    <div><a href="{{ path('index') }}"><img src="/images/logo.svg" width="250" alt="{{ 'app.parameter.name'|trans }}"></a></div>
+                    <div>
+                        <a href="{{ path('index') }}"><img src="/images/logo.svg"
+                                                           width="250"
+                                                           alt="{{ 'app.parameter.name'|trans }}"></a>
+                    </div>
                 </header>
             {% endblock header %}
             {% block content_wrap %}
@@ -53,7 +62,8 @@
             {% block footer %}
                 <footer>
                     <div class="text-sm">
-                        ©{{ 'now'|date('Y') }} {{ 'app.parameter.name'|trans }} {{ "app.string.all_rights_reserved"|trans }}
+                        ©{{ 'now'|date('Y') }} {{ 'app.parameter.name'|trans }}
+                        {{ "app.string.all_rights_reserved"|trans }}
                     </div>
                 </footer>
             {% endblock footer %}

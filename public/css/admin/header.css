@@ -10,7 +10,8 @@
 }
 
 .header-wrap-small {
-    @apply relative z-10 flex lg:hidden justify-between items-center h-[var(--header-height)] pt-4 bg-black border-b border-gray-400 text-white;
+    @apply relative z-10 flex lg:hidden justify-between items-center;
+    @apply h-[var(--header-height)] pt-4 bg-black border-b border-gray-400 text-white;
 }
 
 .header-wrap-small a {

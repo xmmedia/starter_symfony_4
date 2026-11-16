@@ -26,11 +26,12 @@ const props = defineProps({
 });
 
 const string = computed(() => {
-    let str = props.address.line1 + "\n";
+    let str = props.address.line1 + '\n';
     if (props.address.line2) {
-        str += ', ' + props.address.line2 + "\n";
+        str += ', ' + props.address.line2 + '\n';
     }
-    str += props.address.city + ', ' + props.address.province.abbreviation + '  ' + props.address.postalCode + "\n" + props.address.country.name;
+    str += props.address.city + ', ' + props.address.province.abbreviation + '  ' + props.address.postalCode
+        + '\n' + props.address.country.name;
 
     return str;
 });
