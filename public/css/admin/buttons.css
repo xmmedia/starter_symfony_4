@@ -1,5 +1,5 @@
 .button {
-    @apply px-4 py-2 bg-blue-500 border-2 border-blue-500 rounded outline-hidden shadow-none;
+    @apply px-4 py-2 bg-blue-500 border-2 border-blue-500 rounded outline-hidden;
     @apply font-extralight text-center text-white tracking-wider;
     @apply cursor-pointer transition-default;
     &:hover {

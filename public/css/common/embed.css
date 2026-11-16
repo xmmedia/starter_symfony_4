@@ -13,7 +13,7 @@
 }
 
 .embed-container {
-    @apply relative h-auto overflow-hidden;
+    @apply relative overflow-hidden;
 }
 
 .embed-container :is(iframe, object, embed) {

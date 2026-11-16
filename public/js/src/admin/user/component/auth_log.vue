@@ -21,7 +21,7 @@
                 <div class="record_list-record_count">
                     Showing {{ authLogs.length }} of {{ authLogsCount.toLocaleString() }}
                 </div>
-                <RecordList :headings="headings" :items="authLogs" class="p-0">
+                <RecordList :headings="headings" :items="authLogs">
                     <template #col1="{ item }">
                         <LocalTime :datetime="item.occurredAt" />
                     </template>

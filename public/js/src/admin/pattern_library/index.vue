@@ -271,7 +271,7 @@
                 </FieldRadios>
                 <fieldset class="field-wrap-radios">
                     <legend>Horizontal radios</legend>
-                    <div class="flex flex-row">
+                    <div class="flex">
                         <div class="field-wrap-radio">
                             <input id="pattern-library-radio-01"
                                    type="radio"

@@ -30,7 +30,7 @@
 /* for actions that should show as buttons
    this styling is similar to buttons */
 .header-action {
-    @apply order-2 block ml-4 px-5 py-2 hover:bg-white border border-blue-600 border-solid rounded;
+    @apply order-2 block ml-4 px-5 py-2 hover:bg-white border border-blue-600 rounded;
     @apply text-xs hover:no-underline focus:no-underline transition-colors duration-150 ease-in-out;
 }
 

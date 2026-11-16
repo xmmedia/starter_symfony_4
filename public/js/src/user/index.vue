@@ -45,7 +45,7 @@
     </main>
 
     <footer class="px-4 2xl:px-0 pt-8 pb-16 bg-gray-900 text-sm">
-        <div class="footer-content max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto">
             <div class="mt-8 md:mt-0 text-right">
                 <!-- @todo-symfony -->
                 <div class="pt-6 mb-8 text-white">
