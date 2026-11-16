@@ -52,7 +52,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const link = split(
     // split based if there's an upload
-    operation => extractFiles(operation, isExtractableFile).files.size > 0,
+    (operation) => extractFiles(operation, isExtractableFile).files.size > 0,
     createUploadLink({
         uri: window.location.origin + '/graphql',
     }),

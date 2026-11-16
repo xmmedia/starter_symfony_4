@@ -3,15 +3,15 @@
         <table class="record_list-wrap hidden md:table">
             <thead class="record_list-headers">
                 <tr>
-                    <th v-for="(heading,i) in headings" :key="i" :class="cellClasses[i]">
+                    <th v-for="(heading, i) in headings" :key="i" :class="cellClasses[i]">
                         <slot :name="`heading${i + 1}`" :heading-key="i">{{ heading }}</slot>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <slot name="tableRow" :items="items">
-                    <tr v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
-                        <template v-for="(heading,j) in headings" :key="i + '-' + j">
+                    <tr v-for="(item, i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
+                        <template v-for="(heading, j) in headings" :key="i + '-' + j">
                             <td :class="cellClassFunction(item, j)" class="record_list-col">
                                 <slot :name="`col${j + 1}`" :item="item" :item-key="i" :cell-key="j" />
                             </td>
@@ -23,8 +23,8 @@
 
         <ul class="record_list-wrap md:hidden">
             <slot name="listRow" :items="items">
-                <li v-for="(item,i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
-                    <template v-for="(heading,j) in headings" :key="i + '-' + j">
+                <li v-for="(item, i) in items" :key="i" class="record_list-item" :class="rowClasses(item)">
+                    <template v-for="(heading, j) in headings" :key="i + '-' + j">
                         <div :class="cellClassFunction(item, j)" class="record_list-col">
                             <div v-if="heading" class="record_list-mobile_heading">{{ heading }}</div>
                             <slot :name="`col${j + 1}`" :item="item" :item-key="i" :cell-key="j" />

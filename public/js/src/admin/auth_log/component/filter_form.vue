@@ -44,6 +44,7 @@ defineEmits(['reset']);
 
 const filters = defineModel({ type: Object, required: true });
 
+/* eslint-disable @stylistic/no-multi-spaces */
 const filterValues = [
     { value: 'ALL',           label: 'All' },
     { value: 'login',         label: 'Successful' },
@@ -59,6 +60,7 @@ const dateRangeOptions = [
     { value: 'LAST_MONTH', label: 'Last Month' },
     { value: 'CUSTOM',     label: 'Custom…' },
 ];
+/* eslint-enable @stylistic/no-multi-spaces */
 
 const dateRangeInputRef = useTemplateRef('dateRangeInputRef');
 const dateRangeInputId = createId();

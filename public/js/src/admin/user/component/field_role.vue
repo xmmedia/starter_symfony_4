@@ -7,7 +7,7 @@
         </FieldError>
 
         <select :id="id" v-model="role">
-            <option v-for="(name,_role) in availableRoles" :key="_role" :value="_role">{{ name }}</option>
+            <option v-for="(name, _role) in availableRoles" :key="_role" :value="_role">{{ name }}</option>
         </select>
     </div>
 </template>

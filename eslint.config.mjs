@@ -5,6 +5,15 @@ import pluginVue from 'eslint-plugin-vue';
 import stylistic from '@stylistic/eslint-plugin';
 import graphqlPlugin from '@graphql-eslint/eslint-plugin';
 
+const stylisticConfig = stylistic.configs.customize({
+    indent: 4,
+    quotes: 'single',
+    semi: true,
+    jsx: false,
+    braceStyle: '1tbs',
+    arrowParens: true,
+});
+
 export default defineConfig([
     globalIgnores([
         // git worktrees Claude Code checks out here: a whole second copy of the project
@@ -21,10 +30,7 @@ export default defineConfig([
 
     {
         languageOptions: {
-            globals: {
-                ...globals.browser,
-                ...globals.node,
-            },
+            globals: globals.browser,
         },
     },
 
@@ -32,10 +38,11 @@ export default defineConfig([
     ...pluginVue.configs['flat/recommended'],
 
     {
-        plugins: {
-            '@stylistic': stylistic,
-        },
+        files: ['**/*.{js,mjs,cjs,vue}'],
+        plugins: stylisticConfig.plugins,
         rules: {
+            ...stylisticConfig.rules,
+
             "no-console": "error",
             "no-debugger": "error",
 
@@ -54,8 +61,28 @@ export default defineConfig([
                 "functions": "only-multiline",
             }],
 
-            "vue/multi-word-component-names": "off",
             "@stylistic/space-before-function-paren": ["error", "always"],
+            // either way reads fine: a map of labels quotes them all, attrs quote only the aria-* ones
+            "@stylistic/quote-props": "off",
+
+            // the code has both [a] & [ a ]
+            "@stylistic/array-bracket-spacing": "off",
+            // minimum allows values aligned with extra spaces
+            "@stylistic/key-spacing": ["error", { "mode": "minimum" }],
+            "@stylistic/no-multi-spaces": ["error", {
+                "exceptions": {
+                    "Property": true,
+                    "VariableDeclarator": true,
+                    "ImportDeclaration": true,
+                },
+            }],
+            // a blank line before } catch is allowed, but only some try blocks have one
+            "@stylistic/padded-blocks": "off",
+
+            "vue/multi-word-component-names": "off",
+            "vue/object-curly-spacing": ["error", "always"],
+            "vue/space-infix-ops": "error",
+            "vue/comma-spacing": "error",
 
             "vue/max-attributes-per-line": ["error", {
                 "singleline": 5,
@@ -94,6 +121,25 @@ export default defineConfig([
         },
     },
 
+    // vue/script-indent handles the <script> blocks
+    {
+        files: ['**/*.vue'],
+        rules: {
+            "@stylistic/indent": "off",
+        },
+    },
+
+    // the config files at the root run in Node & keep the quotes their packages' docs use
+    {
+        files: ['*.{js,mjs,cjs}'],
+        languageOptions: {
+            globals: globals.node,
+        },
+        rules: {
+            "@stylistic/quotes": "off",
+        },
+    },
+
     // GraphQL files configuration
     {
         files: ['**/*.graphql'],
@@ -112,13 +158,9 @@ export default defineConfig([
                     VariableDefinition: "camelCase",
                     OperationDefinition: {
                         style: "PascalCase",
-                        // forbiddenPrefixes: [],
-                        // forbiddenSuffixes: [],
                     },
                     FragmentDefinition: {
                         style: "PascalCase",
-                        // forbiddenPrefixes: [],
-                        // forbiddenSuffixes: [],
                     },
                 },
             ],

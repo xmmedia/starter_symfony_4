@@ -21,7 +21,7 @@ export const stringifyQuery = function (query) {
     return qs.stringify(query);
 };
 
-/*global gtag*/
+/* global gtag */
 export const logPageView = function (to) {
     if (window.gtag) {
         gtag('event', 'page_view', {
@@ -80,7 +80,7 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
             return;
         }
 
-        const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+        const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
         const rootStore = useRootStore();
 
         if (requiresAuth) {
@@ -107,7 +107,7 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
             }
 
             // find the first matched route that has a role
-            const routeWithRole = to.matched.find(record => !!record.meta?.role);
+            const routeWithRole = to.matched.find((record) => !!record.meta?.role);
 
             // this route requires auth, therefore check if they have the right role
             if (!routeWithRole || !rootStore.hasRole(routeWithRole.meta.role)) {

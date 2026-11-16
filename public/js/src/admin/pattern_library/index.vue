@@ -331,7 +331,6 @@
                     <div class="field-help">Some help…</div>
                 </fieldset>
 
-
                 <FieldCheckboxes v-model="checkboxesValue" :values="checkboxesValues">
                     Multiple checkboxes
                 </FieldCheckboxes>
