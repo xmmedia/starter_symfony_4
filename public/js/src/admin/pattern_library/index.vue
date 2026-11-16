@@ -661,7 +661,7 @@
                         </td>
                         <td class="record_list-col">
                             <AdminIconCheck :active="false" />
-                            <span class="record_list-mobile_heading">[True]</span>
+                            <span class="record_list-mobile_heading">[False]</span>
                         </td>
                     </tr>
                 </tbody>
@@ -688,7 +688,7 @@
                     </div>
                     <div class="record_list-col">
                         <AdminIconCheck :active="false" />
-                        <span class="record_list-mobile_heading">[True]</span>
+                        <span class="record_list-mobile_heading">[False]</span>
                     </div>
                     <div class="record_list-col">
                         Nullam quis risus eget urna mollis ornare vel eu leo.
@@ -914,7 +914,7 @@
                     </div>
                     <div class="record_list-col">
                         <AdminIconCheck :active="false" />
-                        <span class="record_list-mobile_heading">[True]</span>
+                        <span class="record_list-mobile_heading">[False]</span>
                     </div>
                 </li>
             </ul>
