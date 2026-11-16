@@ -99,7 +99,7 @@ export const usePlaceAutocomplete = ({ includedPrimaryTypes, onSelect }) => {
 
         try {
             const place = suggestion.placePrediction.toPlace();
-            await place.fetchFields({ fields: [ 'addressComponents' ]});
+            await place.fetchFields({ fields: [ 'addressComponents' ] });
             // fetchFields ends the session: the next search starts a new one
             sessionToken = null;
 

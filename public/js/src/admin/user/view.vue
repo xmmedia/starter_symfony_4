@@ -41,7 +41,7 @@
                         <Copy :text="user.email" />
                     </div>
                     <div class="record_view-item_value">
-                        <a :href="'mailto:'+user.email">{{ user.email }}</a>
+                        <a :href="'mailto:' + user.email">{{ user.email }}</a>
                         <PostmarkSuppression :email="user.email" />
                     </div>
                 </div>
@@ -141,7 +141,7 @@ import { computed, ref } from 'vue';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
 import { useRootStore } from '@/admin/stores/root';
-import { viewWithDelete as stateMachineConfig } from "@/common/state_machines";
+import { viewWithDelete as stateMachineConfig } from '@/common/state_machines';
 import { formatPhone, logError } from '@/common/lib';
 import { useMutation, useQuery } from '@vue/apollo-composable';
 import { GetUserViewQuery } from '../queries/user.query.graphql';
@@ -181,7 +181,7 @@ useHead({
 });
 
 const { onResult, onError } = useQuery(GetUserViewQuery, { userId: props.userId });
-onResult(({ data: { User }}) => {
+onResult(({ data: { User } }) => {
     if (!User) {
         sendEvent({ type: 'NOT_FOUND' });
 

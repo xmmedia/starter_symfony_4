@@ -38,7 +38,7 @@
                 <button type="button"
                         class="flex items-center gap-x-1"
                         title="Change email"
-                        @click="sendEvent({ type: 'BACK'})">
+                        @click="sendEvent({ type: 'BACK' })">
                     <PublicIcon icon="arrow-section" width="12" height="12" class="rotate-90" />
                     Sign in with {{ email }}
                 </button>

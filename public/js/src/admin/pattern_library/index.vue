@@ -966,7 +966,7 @@ useHead({
     title: 'Admin Pattern Library',
 });
 
-const radios1Values = [{ value: 1, label: 'Option 1'}, { value: 2, label: 'Option 2'}, { value: 3, label: 'Option 3'}];
+const radios1Values = [{ value: 1, label: 'Option 1' }, { value: 2, label: 'Option 2' }, { value: 3, label: 'Option 3' }];
 const radios2Values = [
     { value: 1, label: 'Option 1' },
     { value: 2, label: 'Option 2' },
@@ -1001,7 +1001,7 @@ const dateRangeValue = ref(null);
 const dateRangeConfig = { dateFormat: 'Y-m-d', mode: 'range' };
 
 const checkboxesValue = ref([ 2 ]);
-const checkboxesValues = [{ value: 1, label: 'Item 1'}, { value: 2, label: 'Item 2'}, { value: 3, label: 'Item 3'}];
+const checkboxesValues = [{ value: 1, label: 'Item 1' }, { value: 2, label: 'Item 2' }, { value: 3, label: 'Item 3' }];
 
 const recordListItems = [
     {

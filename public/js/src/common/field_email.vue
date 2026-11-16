@@ -92,10 +92,10 @@ const checkEmail = (event) => {
     } else {
         suggestedEmail.value = null;
     }
-}
+};
 const useSuggested = () => {
     email.value = suggestedEmail.value;
     suggestedEmail.value = null;
     input.value.focus();
-}
+};
 </script>

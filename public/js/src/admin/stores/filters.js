@@ -33,5 +33,5 @@ export const useFiltersStore = defineStore('filtersStore', {
 });
 
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useFiltersStore, import.meta.hot))
+    import.meta.hot.accept(acceptHMRUpdate(useFiltersStore, import.meta.hot));
 }

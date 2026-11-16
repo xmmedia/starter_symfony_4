@@ -94,5 +94,5 @@ const submit = async () => {
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
-}
+};
 </script>

@@ -200,9 +200,10 @@ const { loading, onResult, onError, refetch: usersRefetch } = useQuery(
     { filters: gqlFilters },
     { debounce: 500 },
 );
-onResult(({ data: { Users }}) => {
+onResult(({ data: { Users } }) => {
     if (!Users) {
         sendEvent({ type: 'ERROR' });
+
         return;
     }
 

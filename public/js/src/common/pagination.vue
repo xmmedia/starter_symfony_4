@@ -27,13 +27,13 @@
         <template v-for="page in pagesInRange">
             <component :is="isRouterMode ? RouterLink : 'button'"
                        v-if="page !== current"
-                       :key="'if-'+page"
+                       :key="'if-' + page"
                        v-bind="isRouterMode ? { to: pageRoute(page - 1) } : { type: 'button' }"
                        :class="linkClasses"
                        class="hidden sm:inline-block"
                        @click="handleNav(page - 1)">{{ page }}</component>
             <span v-else
-                  :key="'else-'+page"
+                  :key="'else-' + page"
                   :class="spanClasses + ' ' + currentClasses"
                   class="hidden sm:inline-block border border-gray-400 text-gray-800">{{ page }}</span>
         </template>

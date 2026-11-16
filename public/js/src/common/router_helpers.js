@@ -115,7 +115,7 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
             }
         }
     };
-}
+};
 
 // a dynamic import fails when a deploy has removed the chunk, so reload if the JS has changed
 // (a failed request, such as when offline, leaves the page as is)

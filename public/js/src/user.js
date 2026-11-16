@@ -45,7 +45,7 @@ provideApolloClient(apolloClient);
 // run gql query to see if the user is logged in, set state to ready
 // and then initialize
 apolloClient.query({ query: MeQuery })
-    .then(async ({ data: { Me }}) =>  {
+    .then(async ({ data: { Me } }) => {
         // don't set a user if we didn't get anything
         if (Me) {
             rootStore.updateUser(Me);

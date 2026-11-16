@@ -114,7 +114,7 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(({ isIntersecting }) => {
         showButtonBar.value = !isIntersecting;
     });
-}, { rootMargin: "0px 0px 10px 0px" });
+}, { rootMargin: '0px 0px 10px 0px' });
 onMounted(() => {
     observer.observe(wrapper.value);
 });

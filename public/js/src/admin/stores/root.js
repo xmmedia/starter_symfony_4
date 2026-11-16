@@ -68,15 +68,16 @@ export const useRootStore = defineStore('rootStore', {
         setIntegrityHash ({ entrypoint, hash }) {
             if (this.entrypointIntegrityHashes[entrypoint]) {
                 // eslint-disable-next-line no-console
-                console.error('Integrity hash already set for '+entrypoint+' entry point. Won\'t update.');
+                console.error('Integrity hash already set for ' + entrypoint + ' entry point. Won\'t update.');
+
                 return;
             }
 
-            this.entrypointIntegrityHashes[entrypoint] = hash
+            this.entrypointIntegrityHashes[entrypoint] = hash;
         },
     },
 });
 
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useRootStore, import.meta.hot))
+    import.meta.hot.accept(acceptHMRUpdate(useRootStore, import.meta.hot));
 }

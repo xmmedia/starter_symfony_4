@@ -49,7 +49,7 @@ export const formatPhone = function (phone, format = 'NATIONAL') {
 
     let str = phone.phoneNumber;
     if (phone.extension) {
-        str += ' x'+phone.extension;
+        str += ' x' + phone.extension;
     }
 
     return libFormatPhone(str, 'CA', format);
@@ -66,7 +66,7 @@ export const date = function (_date, format = 'M j, Y') {
 
     return Flatpickr.formatDate(_date, format);
 };
-export const dateTime = function (_dateTime, format ='l F j, Y \\a\\t h:iK') {
+export const dateTime = function (_dateTime, format = 'l F j, Y \\a\\t h:iK') {
     if (null === _dateTime) {
         return null;
     }
@@ -89,7 +89,7 @@ export const money = function (value, decimals = 2) {
             maximumFractionDigits: decimals,
         });
     } catch {
-        return '$'+price.toFixed(decimals);
+        return '$' + price.toFixed(decimals);
     }
 };
 
@@ -103,7 +103,7 @@ export const upperFirstFilter = function (string) {
 
 export const hasVuelidateProp = function (v, key) {
     return has(v, key);
-}
+};
 
 export const vuelidateValue = function (v, key) {
     if (!hasVuelidateProp(v, key)) {

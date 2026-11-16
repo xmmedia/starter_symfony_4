@@ -54,10 +54,10 @@ const link = split(
     // split based if there's an upload
     operation => extractFiles(operation, isExtractableFile).files.size > 0,
     createUploadLink({
-        uri: window.location.origin+'/graphql',
+        uri: window.location.origin + '/graphql',
     }),
     new BatchHttpLink({
-        uri: window.location.origin+'/graphql/batch',
+        uri: window.location.origin + '/graphql/batch',
     }),
 );
 

@@ -9,13 +9,13 @@
         <div v-for="value in valuesCollection"
              :key="value.value"
              class="field-wrap-checkbox">
-            <input :id="id+'-'+value.value"
+            <input :id="id + '-' + value.value"
                    v-model="checked"
                    type="checkbox"
-                   :name="'checkboxes-'+id"
+                   :name="'checkboxes-' + id"
                    :value="value.value"
                    @input="inputChecked">
-            <label :for="id+'-'+value.value">{{ value.label }}</label>
+            <label :for="id + '-' + value.value">{{ value.label }}</label>
         </div>
 
         <div v-if="!!$slots.help" class="field-help"><slot name="help" /></div>
@@ -69,5 +69,5 @@ const inputChecked = (e) => {
     } else {
         checked.value = checked.value.filter((v) => v !== e.target.value);
     }
-}
+};
 </script>

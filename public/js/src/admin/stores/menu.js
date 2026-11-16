@@ -38,5 +38,5 @@ export const useMenuStore = defineStore('menuStore', {
 });
 
 if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useMenuStore, import.meta.hot))
+    import.meta.hot.accept(acceptHMRUpdate(useMenuStore, import.meta.hot));
 }

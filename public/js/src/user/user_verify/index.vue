@@ -23,7 +23,7 @@
                 </FieldError>
                 You can <RouterLink :to="{ name: 'login' }">sign in</RouterLink>
                 or get a new verification link by
-                <RouterLink :to="{ name: 'user-recover-initiate'}">
+                <RouterLink :to="{ name: 'user-recover-initiate' }">
                     requesting a link to reset your password
                 </RouterLink>.
             </template>

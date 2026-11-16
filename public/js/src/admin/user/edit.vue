@@ -83,7 +83,7 @@ const showForm = computed(() => state.value.matches('ready') && !state.value.don
 const allowSave = computed(() => showForm.value && state.value.matches('ready.ready'));
 
 const { onResult, onError } = useQuery(GetUserQuery, { userId: props.userId });
-onResult(({ data: { User }}) => {
+onResult(({ data: { User } }) => {
     if (!User) {
         sendEvent({ type: 'NOT_FOUND' });
 
@@ -150,5 +150,5 @@ const submit = async () => {
         sendEvent({ type: 'ERROR' });
         window.scrollTo(0, 0);
     }
-}
+};
 </script>

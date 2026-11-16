@@ -10,15 +10,15 @@
             <div v-for="value in valuesCollection"
                  :key="value.value"
                  :class="{ 'field-wrap-radio' : !pills, 'radio-pill' : pills, 'radio-pill-dark': darkPills }">
-                <input :id="id+'-'+value.value"
+                <input :id="id + '-' + value.value"
                        v-model="checked"
                        type="radio"
-                       :name="'radios-'+id"
+                       :name="'radios-' + id"
                        :checked="value.value === modelValue"
                        :value="value.value">
-                <label v-if="!htmlLabel" :for="id+'-'+value.value" :class="labelClasses">{{ value.label }}</label>
+                <label v-if="!htmlLabel" :for="id + '-' + value.value" :class="labelClasses">{{ value.label }}</label>
                 <!-- eslint-disable-next-line vue/no-v-html -->
-                <label v-else :for="id+'-'+value.value" :class="labelClasses" v-html="value.label" />
+                <label v-else :for="id + '-' + value.value" :class="labelClasses" v-html="value.label" />
             </div>
         </div>
 
