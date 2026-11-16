@@ -28,7 +28,7 @@
                 <input id="inputEmail"
                        type="email"
                        name="email"
-                       autocomplete="username email">
+                       autocomplete="username">
             </div>
 
             <FieldPassword v-model="password"

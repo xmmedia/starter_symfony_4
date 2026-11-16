@@ -24,7 +24,7 @@
             <FieldEmail v-model="email"
                         :v="v$.email"
                         autofocus
-                        autocomplete="username email"
+                        autocomplete="email"
                         @update:model-value="notFound = false">
                 Enter your email address to search for your account:
             </FieldEmail>

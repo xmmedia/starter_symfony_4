@@ -8,7 +8,7 @@
             <FieldEmail :model-value="user.email"
                         :v="v$.user.email"
                         autofocus
-                        autocomplete="username email"
+                        autocomplete="email"
                         @update:model-value="setEmailDebounce">
                 Email address
             </FieldEmail>

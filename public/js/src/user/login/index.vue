@@ -14,7 +14,7 @@
                        name="_username"
                        required
                        autofocus
-                       autocomplete="username email"
+                       autocomplete="username"
                        placeholder="julie@example.com">
             </div>
 

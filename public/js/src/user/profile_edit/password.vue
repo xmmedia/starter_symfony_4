@@ -21,7 +21,7 @@
                        :value="rootStore.user.email"
                        type="email"
                        name="email"
-                       autocomplete="username email">
+                       autocomplete="username">
             </div>
 
             <FieldPassword v-model="currentPassword"
