@@ -1,21 +1,13 @@
 /* stylelint-disable no-descending-specificity */
 
 /**
-Note: Using Tailwind for the transform properties results in the transitions not working.
-This is because Tailwind applies the transform properties using a single `transform` property,
-which means that when you apply a different transform property, it overrides the previous one,
-resulting in no transition between the two states.
-*/
-
-/**
 Great description of the dialog animation:
 https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
 */
 
 /* Open state of the dialog  */
 .modal:open {
-    @apply opacity-100;
-    transform: scale(1);
+    @apply opacity-100 scale-100;
 }
 /* the dialog scrolls, so it'd cut off a date picker's calendar that hangs below it; while one's open, it doesn't */
 .modal:has(.flatpickr-calendar.open) {
@@ -27,9 +19,8 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
     /* bg-transparent because white shows through around the rounded corners */
     /* otherwise the dialog shrinks to its content, so a short message or form is cramped.
        Only from sm: up, as a min-width beats the dialog's max-width on a narrow screen */
-    @apply opacity-0 inset-0 sm:min-w-md m-auto overflow-y-auto bg-transparent backdrop:bg-gray-900/90;
-    transform: scale(.75);
-    @apply shadow-lg/15;
+    @apply opacity-0 inset-0 sm:min-w-md m-auto overflow-y-auto;
+    @apply bg-transparent backdrop:bg-gray-900/90 scale-75 shadow-lg/15;
 
     /* reset inherited properties that leak in from wherever the dialog is mounted in the DOM */
     font-size: initial;
@@ -40,7 +31,7 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
 
     transition:
         opacity 0.3s ease-out,
-        transform 0.3s ease-out,
+        scale 0.3s ease-out,
         overlay 0.3s ease-out allow-discrete,
         display 0.3s ease-out allow-discrete;
 }
@@ -49,8 +40,7 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
    Needs to be after the previous dialog:open rule to take effect, as the specificity is the same */
 @starting-style {
     .modal:open {
-        @apply opacity-0;
-        transform: scale(.75);
+        @apply opacity-0 scale-75;
     }
 }
 
