@@ -78,6 +78,8 @@ export default defineConfig([
             }],
             // a blank line before } catch is allowed, but only some try blocks have one
             "@stylistic/padded-blocks": "off",
+            // allows a one line arrow function with a block body, eg () => { started = true; }
+            "@stylistic/max-statements-per-line": ["error", { "max": 2 }],
 
             "vue/multi-word-component-names": "off",
             "vue/object-curly-spacing": ["error", "always"],
