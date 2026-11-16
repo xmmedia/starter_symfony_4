@@ -6,6 +6,7 @@ namespace App\Tests\Model;
 
 use App\Model\Money;
 use App\Tests\BaseTestCase;
+use Xm\SymfonyBundle\Model\MoneyFactory;
 use Xm\SymfonyBundle\Tests\FakeVo;
 
 class MoneyTest extends BaseTestCase
@@ -33,7 +34,7 @@ class MoneyTest extends BaseTestCase
         $faker = $this->faker();
         $number = $faker->numberBetween(Money::MIN, Money::MAX);
 
-        $money = Money::fromMoney(\Money\Money::CAD($number));
+        $money = Money::fromMoney(MoneyFactory::fromInt($number));
 
         $this->assertSame((string) $number, $money->toString());
     }
@@ -81,11 +82,9 @@ class MoneyTest extends BaseTestCase
     public function testMoneyReturnsInternalMoneyObject(): void
     {
         $faker = $this->faker();
-        $money = Money::fromInt($faker->numberBetween(Money::MIN, Money::MAX));
+        $cents = $faker->numberBetween(Money::MIN, Money::MAX);
 
-        $internalMoney = $money->money();
-
-        $this->assertEquals($money, $internalMoney->getAmount());
+        $this->assertTrue(Money::fromInt($cents)->money()->equals(MoneyFactory::fromInt($cents)));
     }
 
     public function testSameValueAs(): void
