@@ -8,6 +8,7 @@ trap report_failure ERR
 
 # the steps use `ddev exec`, not `ddev composer`/`yarn`/`console`: those sync Mutagen on every call
 # (3–6s each). Sync once here instead, so the container has every change made on the host
+ensure_ddev_running
 step "Sync files" ddev mutagen sync
 
 # check if composer.json & lock match
