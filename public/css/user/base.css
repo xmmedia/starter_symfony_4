@@ -1,6 +1,6 @@
 @layer base {
     html {
-        @apply leading-normal font-light text-gray-800;
+        @apply body-base;
     }
 
     button {

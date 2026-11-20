@@ -2,3 +2,8 @@
     /* improves vertical alignment of text inside buttons (when they're all caps) */
     text-box: trim-both cap alphabetic;
 }
+
+@utility body-base {
+    /* text-base so changing the base text size applies to all default text */
+    @apply text-base leading-normal font-light text-gray-800;
+}
