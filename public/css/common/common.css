@@ -7,10 +7,19 @@
         @apply focus-visible:rounded-sm focus-visible:outline-hidden;
         @apply focus-visible:ring-2 focus-visible:ring-blue-500;
         @apply focus-visible:ring-offset-1 focus-visible:ring-offset-inherit;
-        @apply text-left no-underline text-blue-500;
-        @apply hover:underline hover:text-blue-700 active:underline active:text-blue-700;
-        @apply focus-visible:underline focus-visible:text-blue-700;
+        @apply text-left no-underline hover:underline active:underline focus-visible:underline;
         @apply transition-all;
+        /* the colours change on dark bgs (text_colors.css) */
+        color: var(--link-color, var(--color-blue-500));
+
+        @variant hover {
+            color: var(--link-hover-color, var(--color-blue-700));
+        }
+
+        &:active,
+        &:focus-visible {
+            color: var(--link-hover-color, var(--color-blue-700));
+        }
     }
 
     /* a link can't be disabled */

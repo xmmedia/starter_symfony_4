@@ -1,0 +1,20 @@
+/* text & link colours for a dark vs light bg: apply to the element with the bg.
+   Links read the variables (common.css), so anything inside picks them up */
+
+@utility text-on-dark-bg {
+    --body-color: var(--color-slate-300);
+    --link-color: var(--color-blue-300);
+    --link-hover-color: var(--color-blue-200);
+    --help-color: var(--color-slate-400);
+    @apply text-(--body-color);
+}
+
+/* when something with a light bg is inside a dark one, this resets the colours.
+   initial makes var(--link-color, …) etc use their fallbacks, the normal colours */
+@utility text-on-light-bg {
+    --body-color: var(--color-gray-800);
+    --link-color: initial;
+    --link-hover-color: initial;
+    --help-color: initial;
+    @apply text-(--body-color);
+}

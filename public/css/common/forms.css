@@ -190,7 +190,9 @@ select {
     /* the padding helps it align better with field above */
     padding-left: 0.1em;
 
-    @apply text-xs leading-tight italic text-gray-600;
+    @apply text-xs leading-tight italic;
+    /* lighter on dark bgs (text_colors.css) */
+    color: var(--help-color, var(--color-gray-600));
 }
 
 /* these show up after the form buttons, outside the form tag
