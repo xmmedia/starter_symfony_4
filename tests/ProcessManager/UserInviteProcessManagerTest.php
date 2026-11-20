@@ -58,4 +58,25 @@ class UserInviteProcessManagerTest extends BaseTestCase
 
         (new UserInviteProcessManager($commandBus))($event);
     }
+
+    public function testDontSendWhenInactive(): void
+    {
+        $faker = $this->faker();
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldNotReceive('dispatch');
+
+        $event = UserWasAddedByAdmin::now(
+            $faker->userId(),
+            $faker->emailVo(),
+            $faker->userRole(),
+            false,
+            Name::fromString($faker->firstName()),
+            Name::fromString($faker->lastName()),
+            true,
+            $faker->userData(),
+        );
+
+        (new UserInviteProcessManager($commandBus))($event);
+    }
 }

@@ -16,7 +16,8 @@ final readonly class UserInviteProcessManager
 
     public function __invoke(UserWasAddedByAdmin $event): void
     {
-        if (!$event->sendInvite()) {
+        // an inactive user can't activate their account, so the invite would fail
+        if (!$event->sendInvite() || !$event->active()) {
             return;
         }
 
