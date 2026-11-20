@@ -4,52 +4,97 @@ declare(strict_types=1);
 
 namespace App\Tests\Messenger;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Messenger\Bridge\Doctrine\Transport\Connection;
-use Symfony\Component\Yaml\Yaml;
+use App\Tests\UsesFaker;
+use Doctrine\DBAL\Connection;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransport;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Event\WorkerMessageFailedEvent;
+use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
+use Symfony\Component\Messenger\Stamp\SentToFailureTransportStamp;
 
 /**
- * The transports in config/packages/messenger.yaml, with MESSENGER_TRANSPORT_DSN from .env, as the Doctrine transport
- * reads them. A query string appended to a DSN that already has one doesn't add an option, so failed messages would go
- * back to the async queue.
+ * The transports as the app builds them, with MESSENGER_TRANSPORT_DSN from .env. A query string appended to a DSN
+ * that already has one doesn't add an option, & a queue_name in the DSN overrides the option, so either would send
+ * failed messages back to the async queue.
  */
-class MessengerTransportsTest extends TestCase
+class MessengerTransportsTest extends KernelTestCase
 {
-    private const string CONFIG = __DIR__.'/../../config/packages/messenger.yaml';
+    use UsesFaker;
 
-    public function testFailedMessagesHaveTheirOwnQueue(): void
+    private const int MAX_RETRIES = 3;
+
+    protected function setUp(): void
     {
-        $async = $this->transportConfiguration('async');
-        $failed = $this->transportConfiguration('failed');
+        self::bootKernel();
 
-        $this->assertSame('failed', $failed['queue_name']);
-        $this->assertNotSame($async['queue_name'], $failed['queue_name']);
-        $this->assertSame($async['auto_setup'], $failed['auto_setup']);
+        // auto_setup is off, so the table isn't created on the first send
+        $this->transport('async')->setup();
+        $this->clear();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->clear();
+
+        parent::tearDown();
+    }
+
+    public function testMessageFailingOnAsyncGoesToTheFailedQueue(): void
+    {
+        $this->failOnAsync($this->faker()->sentence());
+
+        $this->assertSame(0, $this->transport('async')->getMessageCount());
+
+        $failed = iterator_to_array($this->transport('failed')->all());
+        $this->assertCount(1, $failed);
+        $this->assertSame('async', $failed[0]->last(SentToFailureTransportStamp::class)?->getOriginalReceiverName());
+    }
+
+    public function testFailedMessagesAreListedByFailedShow(): void
+    {
+        $this->failOnAsync($this->faker()->sentence());
+
+        $tester = new CommandTester(new Application(self::$kernel)->find('messenger:failed:show'));
+        $tester->execute([]);
+
+        $tester->assertCommandIsSuccessful();
+        $this->assertStringContainsString('There is 1 message pending in the failure transport', $tester->getDisplay());
+        $this->assertStringContainsString(\stdClass::class, $tester->getDisplay());
     }
 
     /**
-     * The messenger:failed: commands use the default failure transport.
+     * Simulates the worker failing a message on its last retry.
      */
-    public function testFailedIsTheDefaultFailureTransport(): void
+    private function failOnAsync(string $text): void
     {
-        $this->assertSame('failed', $this->messengerConfig()['failure_transport'] ?? null);
-    }
+        $message = new \stdClass();
+        $message->text = $text;
 
-    private function transportConfiguration(string $name): array
-    {
-        $transport = $this->messengerConfig()['transports'][$name];
-        if (\is_string($transport)) {
-            $transport = ['dsn' => $transport];
-        }
+        $async = $this->transport('async');
+        $async->send(new Envelope($message, [new RedeliveryStamp(self::MAX_RETRIES)]));
 
-        return Connection::buildConfiguration(
-            str_replace('%env(MESSENGER_TRANSPORT_DSN)%', $_SERVER['MESSENGER_TRANSPORT_DSN'], $transport['dsn']),
-            $transport['options'] ?? [],
+        $envelope = iterator_to_array($async->get())[0];
+
+        self::getContainer()->get(EventDispatcherInterface::class)->dispatch(
+            new WorkerMessageFailedEvent($envelope, 'async', new \RuntimeException($text)),
         );
+        $async->reject($envelope);
     }
 
-    private function messengerConfig(): array
+    /**
+     * Deletes every row, including ones reserved by get(), which all() doesn't return.
+     */
+    private function clear(): void
     {
-        return Yaml::parseFile(self::CONFIG)['framework']['messenger'];
+        self::getContainer()->get(Connection::class)->executeStatement('DELETE FROM messenger_messages');
+    }
+
+    private function transport(string $name): DoctrineTransport
+    {
+        return self::getContainer()->get('messenger.transport.'.$name);
     }
 }

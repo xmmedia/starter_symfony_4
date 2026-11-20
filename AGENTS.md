@@ -286,6 +286,10 @@ Only enabled in `prod` & `staging` (backend `SentryBundle`, frontend `PROD` buil
 - Run the Messenger worker: `ddev messenger` — sends what's routed to `async` (e.g.
   notification emails); runs in the foreground, stop it with Ctrl-C. It restarts when anything
   in `config/`, `src/`, `templates/` or `vendor/` changes (`symfony run --watch`)
+  - Messages that fail after their retries go to the `failed` queue: list, retry or remove them
+    with `messenger:failed:show|retry|remove`. Workers name the transports they consume
+    (`messenger:consume async`); `--all` would also run the failed queue, so with `--all`,
+    add `--exclude-receivers=failed`
 - Xdebug: `ddev xdebug on` / `ddev xdebug off` (off by default)
 - Moving a project from Lando: `/xm:lando-to-ddev`. Run it after pulling a project's switch to DDEV too:
   it moves your local databases from Lando into DDEV
