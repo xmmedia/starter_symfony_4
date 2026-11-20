@@ -44,5 +44,5 @@ a.button {
     }
 }
 a.button-critical:focus {
-    @apply bg-white;
+    @apply bg-white text-red-600;
 }
