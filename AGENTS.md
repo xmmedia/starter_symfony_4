@@ -409,6 +409,12 @@ user's name in it, eg "Zoë" (see the bundle's AGENTS.md).
 - `menu/` - admin navigation menu
 - `messenger_queue/` - messenger queue viewer
 - `pattern_library/` - UI pattern reference
+  - Show an interaction state with `data-pl-state="hover"` (or `focus`, `focus-visible`, `active`,
+    `focus-within`; space-separate to combine, e.g. `focus focus-visible` for a keyboard focus) —
+    never a state class in the CSS. `common/pattern_library_states.js`, called on mount, copies every
+    rule using those pseudo-classes with the attribute in their place, inserted after the original so
+    it cascades the same. Put it on the element the pseudo-class is on (the `input` for
+    `input:focus ~ label`) & add `tabindex="-1"` so it's skipped when tabbing
 
 **User app sections** (`public/js/src/user/`):
 - `dashboard/` - user dashboard

@@ -72,27 +72,47 @@
         <!-- ############################# -->
         <!-- ######### Buttons ########### -->
         <!-- ############################# -->
-        <h2>Buttons</h2>
-        <div class="grid grid-cols-2 gap-4">
-            <button class="button">Button Button</button>
-            <button class="button button-critical">Critical Button</button>
-            <button class="button" disabled>Button Disabled</button>
-            <button class="button button-critical" disabled>Critical Button Disabled</button>
-            <a href="" class="button">Link Button</a>
-            <a href="" class="button button-critical">Critical Link Button</a>
-        </div>
-        <div class="flex my-4">
-            <button class="button-link">Button Link</button>
-            <a href="" class="ml-4">Link</a>
-        </div>
-        <div class="grid grid-cols-2 gap-4 mt-4 p-4 bg-gray-500">
-            <h2 class="col-span-2">Buttons on Dark Background</h2>
-            <button class="button">Button Button</button>
-            <button class="button button-critical">Critical Button</button>
-            <button class="button" disabled>Button Disabled</button>
-            <button class="button button-critical" disabled>Critical Button Disabled</button>
-            <a href="" class="button">Link Button</a>
-            <a href="" class="button button-critical">Critical Button</a>
+        <!-- data-pl-state shows the state without interacting (see common/pattern_library_states.js) -->
+        <div v-for="section in buttonSections"
+             :key="section.heading"
+             :class="section.class">
+            <h2>{{ section.heading }}</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full mt-4 border-collapse">
+                    <thead>
+                        <tr class="border-b-2 border-b-gray-200">
+                            <th class="p-2 text-left">Description</th>
+                            <th class="p-2 text-left">Classes</th>
+                            <th class="p-2 text-left">Element</th>
+                            <th v-for="state in buttonStates" :key="state.value" class="p-2 text-left">
+                                {{ state.label }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="row in buttonRows" :key="row.label + row.tag" class="border-b border-b-gray-200">
+                            <td class="p-2">{{ row.label }}</td>
+                            <td class="p-2"><code v-if="row.class">{{ row.class }}</code></td>
+                            <td class="p-2"><code>&lt;{{ row.tag }}&gt;</code></td>
+                            <td v-for="state in buttonStates" :key="state.value" class="p-2 whitespace-nowrap">
+                                <!-- a disabled button can't be focused or pressed -->
+                                <template v-if="!row.disabled || ['', 'hover'].includes(state.value)">
+                                    <a v-if="'a' === row.tag"
+                                       href=""
+                                       :class="row.class"
+                                       :tabindex="state.value ? -1 : undefined"
+                                       :data-pl-state="state.value || undefined">{{ row.label }}</a>
+                                    <button v-else
+                                            :class="row.class"
+                                            :disabled="row.disabled"
+                                            :tabindex="state.value ? -1 : undefined"
+                                            :data-pl-state="state.value || undefined">{{ row.label }}</button>
+                                </template>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- ############################# -->
@@ -170,6 +190,12 @@
                     <select id="pattern-library-select">
                         <option value="">Test 1</option>
                         <option value="">Test 2</option>
+                    </select>
+                </div>
+                <div class="field-wrap">
+                    <label for="pattern-library-select-focus">Focused select</label>
+                    <select id="pattern-library-select-focus" tabindex="-1" data-pl-state="focus focus-visible">
+                        <option value="">Test 1</option>
                     </select>
                 </div>
 
@@ -415,6 +441,38 @@
                                    value="no"
                                    type="radio">
                             <label for="radio-pill-2">No</label>
+                        </span>
+                    </div>
+                </fieldset>
+                <fieldset class="field-wrap-radios mb-5">
+                    <legend>Radio pill states</legend>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="radio-pill radio-pill-green">
+                            <input id="radio-pill-state-1"
+                                   name="radio-pill-state"
+                                   type="radio"
+                                   tabindex="-1"
+                                   data-pl-state="hover">
+                            <label for="radio-pill-state-1">Hover</label>
+                        </span>
+
+                        <span class="radio-pill radio-pill-green">
+                            <input id="radio-pill-state-2"
+                                   name="radio-pill-state"
+                                   type="radio"
+                                   tabindex="-1"
+                                   data-pl-state="focus focus-visible">
+                            <label for="radio-pill-state-2">Focus</label>
+                        </span>
+
+                        <span class="radio-pill radio-pill-green">
+                            <input id="radio-pill-state-3"
+                                   name="radio-pill-state"
+                                   type="radio"
+                                   checked
+                                   tabindex="-1"
+                                   data-pl-state="focus focus-visible">
+                            <label for="radio-pill-state-3">Checked &amp; Focus</label>
                         </span>
                     </div>
                 </fieldset>
@@ -948,7 +1006,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useHead } from '@unhead/vue';
 import VueMultiselect from 'vue-multiselect';
 import FlatPickr from 'vue-flatpickr-component';
@@ -960,10 +1018,41 @@ import FieldRadios from '@/common/field_radios.vue';
 import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldCheckboxes from '@/common/field_checkboxes.vue';
 import RecordList from '@/common/record_list.vue';
+import { initPatternLibraryStates } from '@/common/pattern_library_states';
 
 useHead({
     title: 'Admin Pattern Library',
 });
+
+onMounted(initPatternLibraryStates);
+
+const buttonSections = [
+    { heading: 'Buttons', class: null },
+    { heading: 'Buttons on Dark Background', class: 'mt-4 p-4 bg-gray-500' },
+];
+// focus matches :focus & :focus-visible, as a keyboard focus does
+const buttonStates = [
+    { value: '', label: 'Default' },
+    { value: 'hover', label: 'Hover' },
+    { value: 'focus focus-visible', label: 'Focus' },
+    { value: 'active', label: 'Active' },
+];
+/*
+the Button & Critical Button rows should look like a BUTTON (the <a> is a link that looks like a button),
+the Button Link rows like a LINK (the <button> is a button that looks like a link),
+and the Link row is just for comparison
+*/
+const buttonRows = [
+    { label: 'Button', class: 'button', tag: 'button' },
+    { label: 'Button', class: 'button', tag: 'a' },
+    { label: 'Button Disabled', class: 'button', tag: 'button', disabled: true },
+    { label: 'Critical Button', class: 'button button-critical', tag: 'button' },
+    { label: 'Critical Button', class: 'button button-critical', tag: 'a' },
+    { label: 'Critical Button Disabled', class: 'button button-critical', tag: 'button', disabled: true },
+    { label: 'Button Link', class: 'button-link', tag: 'button' },
+    { label: 'Button Link', class: 'button-link', tag: 'a' },
+    { label: 'Link', class: null, tag: 'a' },
+];
 
 const radios1Values = [{ value: 1, label: 'Option 1' }, { value: 2, label: 'Option 2' }, { value: 3, label: 'Option 3' }];
 const radios2Values = [
