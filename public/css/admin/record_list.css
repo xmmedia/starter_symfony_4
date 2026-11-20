@@ -22,7 +22,7 @@
     @apply flex flex-col flex-wrap md:table-row md:px-2 border-b border-gray-300;
     @apply transition-colors duration-150;
 
-    &:hover {
+    @variant hover {
         @apply bg-blue-100;
         a, .button-link, button, .button {
             @apply ring-offset-blue-100;
@@ -82,8 +82,11 @@
 .record_list-item-inactive > .record_list-col {
     @apply opacity-50;
 }
-.record_list-item-inactive:hover > .record_list-col {
-    @apply opacity-100;
+
+@media (hover: hover) {
+    .record_list-item-inactive:hover > .record_list-col {
+        @apply opacity-100;
+    }
 }
 
 .record_list-empty {
