@@ -61,15 +61,10 @@
     @apply my-0.5 mr-1 py-0 pr-6 pl-2 bg-blue-500 rounded-sm text-sm align-top;
 }
 .multiselect__tag-icon {
-    @apply w-5 rounded-sm leading-[inherit];
+    @apply w-5 hover:bg-blue-800 focus-visible:bg-blue-800 rounded-sm leading-[inherit];
 
     &::after {
         @apply text-blue-100;
-    }
-
-    &:focus-visible,
-    &:hover {
-        @apply bg-blue-800;
     }
 }
 

@@ -13,13 +13,8 @@
 }
 
 .sidebar_nav-link {
-    @apply block w-full fill-current outline-hidden ring-offset-gray-900 no-underline text-gray-300;
-    &:hover {
-        @apply bg-gray-800 text-white transition-none;
-    }
-    &:focus-visible {
-        @apply text-white;
-    }
+    @apply block w-full hover:bg-gray-800 fill-current outline-hidden ring-offset-gray-900;
+    @apply no-underline text-gray-300 hover:text-white focus-visible:text-white hover:transition-none;
 }
 
 .sidebar_nav-nav {
@@ -32,11 +27,5 @@
 }
 
 .sidebar_nav-bottom_links {
-    @apply ring-offset-gray-900 no-underline text-inherit;
-    &:hover {
-        @apply text-white;
-    }
-    &:focus-visible {
-        @apply text-white;
-    }
+    @apply ring-offset-gray-900 no-underline text-inherit hover:text-white focus-visible:text-white;
 }

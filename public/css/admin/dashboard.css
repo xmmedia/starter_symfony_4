@@ -1,10 +1,6 @@
 .dashboard-link {
-    @apply block size-40 p-2 border border-gray-300 leading-none text-center transition-colors duration-150;
-    &:hover,
-    &:active,
-    &:focus-visible {
-        @apply bg-gray-200 no-underline;
-    }
+    @apply block size-40 p-2 hover:bg-gray-200 active:bg-gray-200 focus-visible:bg-gray-200;
+    @apply border border-gray-300 leading-none text-center no-underline transition-colors duration-150;
 
     svg {
         @apply size-24 mx-auto mt-2 mb-2 fill-current text-black;
