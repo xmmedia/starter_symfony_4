@@ -67,7 +67,7 @@
         @apply text-blue-100;
     }
 
-    &:focus,
+    &:focus-visible,
     &:hover {
         @apply bg-blue-800;
     }

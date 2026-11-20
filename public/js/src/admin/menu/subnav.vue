@@ -14,7 +14,7 @@
                 <li v-for="(route, anchor) in items" :key="route" class="mb-1">
                     <RouterLink :to="{ name: route }"
                                 class="sidebar_nav-link block px-4 py-2 hover:bg-blue-800
-                                       ring-offset-gray-800 focus:no-underline"
+                                       ring-offset-gray-800 focus-visible:no-underline"
                                 @click="subnavItemClicked">
                         {{ anchor }}
                     </RouterLink>

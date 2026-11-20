@@ -5,7 +5,7 @@
     &:hover {
         @apply bg-blue-800 border-blue-800 no-underline text-white;
     }
-    &:focus {
+    &:focus-visible {
         @apply outline-hidden ring-2 ring-indigo-400 ring-offset-1 no-underline;
     }
     &:disabled {
@@ -20,7 +20,7 @@
     &:hover {
         @apply bg-red-600 border-red-600;
     }
-    &:focus {
+    &:focus-visible {
         @apply border-red-600 ring-red-400;
     }
     &:disabled {
@@ -32,17 +32,17 @@
 }
 .button-critical-solid {
     @apply bg-red-600 text-white;
-    &:focus {
+    &:focus-visible {
         @apply ring-offset-red-800;
     }
 }
 
 a.button {
     @apply inline-block;
-    &:focus {
+    &:focus-visible {
         @apply bg-blue-500 text-white;
     }
 }
-a.button-critical:focus {
+a.button-critical:focus-visible {
     @apply bg-white text-red-600;
 }

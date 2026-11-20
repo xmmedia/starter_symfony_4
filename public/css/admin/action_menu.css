@@ -35,7 +35,7 @@
         /* the items are highlighted instead of getting the links' focus ring, which the menu's edge would clip */
         @variant md {
             @apply block w-full px-4 py-2 rounded-none font-normal;
-            &:hover, &:focus {
+            &:hover, &:focus-visible {
                 @apply bg-blue-100 outline-hidden ring-0 no-underline text-blue-700;
             }
         }

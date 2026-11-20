@@ -4,11 +4,12 @@
     }
 
     a, .button-link {
-        @apply focus:rounded-sm focus:outline-hidden;
-        @apply focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-inherit;
+        @apply focus-visible:rounded-sm focus-visible:outline-hidden;
+        @apply focus-visible:ring-2 focus-visible:ring-blue-500;
+        @apply focus-visible:ring-offset-1 focus-visible:ring-offset-inherit;
         @apply text-left no-underline text-blue-500;
         @apply hover:underline hover:text-blue-700 active:underline active:text-blue-700;
-        @apply focus:underline focus:text-blue-700;
+        @apply focus-visible:underline focus-visible:text-blue-700;
         @apply transition-all;
     }
 

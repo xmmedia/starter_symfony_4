@@ -3,7 +3,7 @@
         <nav class="sidebar_nav-wrap" role="navigation" aria-label="Main">
             <RouterLink :to="logoLinkRoute"
                         class="flex items-center w-40 lg:w-64 h-15 py-2.5
-                                border-b border-gray-700 rounded-none focus:ring-offset-gray-900">
+                                border-b border-gray-700 rounded-none focus-visible:ring-offset-gray-900">
                 <!-- @todo-symfony alt -->
                 <img src="../../../images/logo.svg"
                      width="70"
@@ -49,7 +49,7 @@
 
         <header class="header-wrap-small">
             <MenuSmall v-if="loggedIn" />
-            <RouterLink :to="logoLinkRoute" class="ml-auto rounded-none focus:ring-offset-gray-900">
+            <RouterLink :to="logoLinkRoute" class="ml-auto rounded-none focus-visible:ring-offset-gray-900">
                 <!-- @todo-symfony alt -->
                 <img src="../../../images/logo.svg"
                      width="70"

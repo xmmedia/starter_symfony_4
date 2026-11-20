@@ -17,7 +17,7 @@
     &:hover {
         @apply bg-gray-800 no-underline text-white transition-none;
     }
-    &:focus {
+    &:focus-visible {
         @apply ring-offset-gray-900 outline-hidden no-underline text-white;
     }
 }
@@ -36,7 +36,7 @@
     &:hover {
         @apply no-underline text-white;
     }
-    &:focus {
+    &:focus-visible {
         @apply ring-offset-gray-900 no-underline text-white;
     }
 }

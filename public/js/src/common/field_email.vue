@@ -30,8 +30,7 @@
         <div v-if="suggestedEmail" class="p-2 bg-emerald-900/70 text-white">
             Did you mean
             <button type="button"
-                    class="button-link mx-2 focus:ring-offset-emerald-900/10 focus:ring-offset-2 underline text-white
-                           hover:text-gray-200 focus:text-white"
+                    class="button-link field-button-email_suggestion"
                     @click="useSuggested">{{ suggestedEmail }}</button>?
         </div>
 

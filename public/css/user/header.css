@@ -4,7 +4,7 @@
 .header_nav-nav a {
     @apply text-gray-300;
     @apply hover:text-gray-200;
-    @apply focus:ring-offset-2 focus:ring-offset-gray-900 focus:text-gray-200;
+    @apply focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 focus-visible:text-gray-200;
 }
 
 .header-nav_item {

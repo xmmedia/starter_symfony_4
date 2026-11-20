@@ -1,6 +1,5 @@
 <template>
-    <button class="button-link -mt-4 ml-4 focus:ring-offset-gray-900 text-white hover:text-white focus:text-white"
-            @click.stop="toggleMenu">Menu</button>
+    <button class="button-link header-menu_button" @click.stop="toggleMenu">Menu</button>
 </template>
 
 <script setup>

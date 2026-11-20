@@ -65,7 +65,7 @@ select {
 }
 [type="file"] {
     @apply w-full;
-    &:focus {
+    &:focus-visible {
         @apply outline-offset-1;
     }
     &::file-selector-button {
@@ -99,7 +99,7 @@ select {
 textarea,
 select {
     @apply rounded-sm outline-blue-300;
-    &:focus {
+    &:focus-visible {
         @apply outline-2;
     }
 }
@@ -173,7 +173,11 @@ select {
 }
 
 .field-button-password_view {
-    @apply absolute block top-0 right-0 size-6 mr-2 focus:ring-offset-gray-100 text-gray-600 hover:text-gray-800;
+    @apply absolute block top-0 right-0 size-6 mr-2 ring-offset-gray-100 text-gray-600 hover:text-gray-800;
+}
+
+.field-button-email_suggestion {
+    @apply mx-2 ring-offset-2 ring-offset-emerald-900/10 underline text-white hover:text-gray-200;
 }
 
 /* 100% width wraps help when within a flexbox (ex. for a checkbox). */
@@ -216,6 +220,6 @@ select {
 /* flatpickr's month dropdown & year/time inputs would pick up the field styles above,
    so send them back to flatpickr's own styles (the vendor layer) */
 .flatpickr-calendar :is(select, input),
-.flatpickr-calendar :is(select, input):focus {
+.flatpickr-calendar :is(select, input):focus-visible {
     all: revert-layer;
 }

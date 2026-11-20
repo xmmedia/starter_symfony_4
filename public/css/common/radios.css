@@ -37,7 +37,7 @@
         }
     }
 
-    input:focus ~ label, input:focus ~ label::after {
+    input:focus-visible ~ label, input:focus-visible ~ label::after {
         inset: -.20rem;
         @apply border-blue-600 cursor-pointer;
     }
@@ -57,8 +57,8 @@
 }
 
 .radio-pill-green {
-    :is(input:hover ~ label, label:hover, input:focus ~ label),
-    :is(input:hover ~ label, label:hover, input:focus ~ label)::after {
+    :is(input:hover ~ label, label:hover, input:focus-visible ~ label),
+    :is(input:hover ~ label, label:hover, input:focus-visible ~ label)::after {
         @apply border-green-700;
     }
 
@@ -72,8 +72,8 @@
     }
 }
 .radio-pill-red {
-    :is(input:hover ~ label, label:hover, input:focus ~ label),
-    :is(input:hover ~ label, label:hover, input:focus ~ label)::after {
+    :is(input:hover ~ label, label:hover, input:focus-visible ~ label),
+    :is(input:hover ~ label, label:hover, input:focus-visible ~ label)::after {
         @apply border-red-700;
     }
 
