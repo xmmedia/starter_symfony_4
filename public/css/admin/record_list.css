@@ -24,9 +24,8 @@
 
     @variant hover {
         @apply bg-blue-100;
-        a, .button-link, button, .button {
-            @apply ring-offset-blue-100;
-        }
+        /* the focus ring's offset gap matches the bg (text_colors.css) */
+        --ring-offset-color: var(--color-blue-100);
     }
 }
 

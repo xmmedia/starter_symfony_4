@@ -6,7 +6,7 @@
     a, .button-link {
         @apply focus-visible:rounded-sm focus-visible:outline-hidden;
         @apply focus-visible:ring-2 focus-visible:ring-blue-500;
-        @apply focus-visible:ring-offset-1 focus-visible:ring-offset-inherit;
+        @apply focus-visible:ring-offset-1 ring-offset-(--ring-offset-color,var(--color-white));
         @apply text-left no-underline hover:underline active:underline focus-visible:underline;
         @apply transition-all;
         /* the colours change on dark bgs (text_colors.css) */

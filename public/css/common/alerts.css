@@ -1,5 +1,7 @@
 .alert {
     @apply flex justify-between max-w-2xl mx-auto mt-0 mb-1 p-2 bg-gray-100 border-l-10 text-on-light-bg;
+    /* the focus ring's offset gap matches the bg (text_colors.css) */
+    --ring-offset-color: var(--color-gray-100);
 }
 
 /* alerts nested inside forms should go the full width */

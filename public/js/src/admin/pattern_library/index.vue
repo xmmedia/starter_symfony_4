@@ -1078,7 +1078,7 @@ const modalOpen = ref(false);
 
 const buttonSections = [
     { heading: 'Buttons', class: null },
-    { heading: 'Buttons on Dark Background', class: 'mt-4 p-4 bg-gray-500' },
+    { heading: 'Buttons on Dark Background', class: 'mt-4 p-4 bg-gray-800 text-on-dark-bg' },
 ];
 // focus matches :focus & :focus-visible, as a keyboard focus does
 const buttonStates = [

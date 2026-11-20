@@ -6,6 +6,9 @@
     --link-color: var(--color-blue-300);
     --link-hover-color: var(--color-blue-200);
     --help-color: var(--color-slate-400);
+    /* the focus ring's offset gap: it has to be the bg it sits on, else it reads as part of
+       the ring, so once there's more than one dark bg colour set it with each bg instead */
+    --ring-offset-color: var(--color-gray-800);
     @apply text-(--body-color);
 }
 
@@ -16,5 +19,6 @@
     --link-color: initial;
     --link-hover-color: initial;
     --help-color: initial;
+    --ring-offset-color: initial;
     @apply text-(--body-color);
 }
