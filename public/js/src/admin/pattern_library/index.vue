@@ -1007,6 +1007,48 @@
             <a href="" class="pl-4">×</a>
         </div>
 
+        <!-- ############################# -->
+        <!-- ########## Modal ############ -->
+        <!-- ############################# -->
+        <h2>Modal</h2>
+        <button type="button" class="button" @click="modalOpen = true">Open Modal</button>
+
+        <AdminModal v-if="modalOpen" @closed="modalOpen = false">
+            <template #default="{ close }">
+                <h2 class="mt-0">Modal Heading</h2>
+                <p>
+                    Paragraph text with <a href="">a link</a>
+                    and <button type="button" class="button-link">a button link</button>.
+                </p>
+                <div class="alert alert-info">
+                    <div>An alert in a modal, with <a href="">a link</a>.</div>
+                </div>
+                <div class="field-wrap">
+                    <label for="pattern-library-modal-text">Text field</label>
+                    <ul class="field-errors">
+                        <li>Error</li>
+                    </ul>
+                    <input id="pattern-library-modal-text" type="text" placeholder="Placeholder">
+                    <div class="field-help">Use at least 8 characters.</div>
+                </div>
+                <div class="field-wrap">
+                    <label for="pattern-library-modal-select">Select</label>
+                    <select id="pattern-library-modal-select">
+                        <option value="">Test 1</option>
+                        <option value="">Test 2</option>
+                    </select>
+                </div>
+                <div class="field-wrap field-wrap-checkbox">
+                    <input id="pattern-library-modal-checkbox" type="checkbox">
+                    <label for="pattern-library-modal-checkbox">Checkbox label</label>
+                </div>
+                <div class="mt-6">
+                    <button type="button" class="button" @click="close">Save</button>
+                    <button type="button" class="form-action button-link" @click="close">Cancel</button>
+                </div>
+            </template>
+        </AdminModal>
+
         <AdminDelete record-desc="test" />
     </div>
 </template>
@@ -1031,6 +1073,8 @@ useHead({
 });
 
 onMounted(initPatternLibraryStates);
+
+const modalOpen = ref(false);
 
 const buttonSections = [
     { heading: 'Buttons', class: null },
