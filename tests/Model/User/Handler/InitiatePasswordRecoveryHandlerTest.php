@@ -116,6 +116,7 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
 
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldNotReceive('send');
+
         $router = \Mockery::mock(RouterInterface::class);
         $passwordResetHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
         $passwordResetHelper->shouldNotReceive('generateResetToken');

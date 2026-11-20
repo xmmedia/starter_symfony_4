@@ -190,6 +190,7 @@ class SendVerificationHandlerTest extends BaseTestCase
 
         $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
         $emailGateway->shouldNotReceive('send');
+
         $router = \Mockery::mock(RouterInterface::class);
         $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
         $resetPasswordHelper->shouldNotReceive('generateResetToken');
