@@ -11,7 +11,9 @@ fragment AuthLogFields on AuthLog {
     }
     email
     ipAddress
-    userAgent
+    parsedUserAgent {
+        summary
+    }
     errorMessage
     occurredAt
 }
@@ -19,6 +21,7 @@ fragment AuthLogFields on AuthLog {
 query GetAuthLogQuery($authLogId: AuthLogId!) {
     AuthLog(authLogId: $authLogId) {
         ...AuthLogFields
+        userAgent
         route
     }
 }

@@ -63,7 +63,7 @@
                 <div class="record_view-item_label">User Agent</div>
                 <div class="record_view-item_value">
                     <template v-if="authLog.userAgent">
-                        {{ parsedUserAgent }}
+                        {{ authLog.parsedUserAgent?.summary ?? '–' }}
                         <div class="mt-1 text-sm text-gray-500 break-all">{{ authLog.userAgent }}</div>
                     </template>
                     <template v-else>–</template>
@@ -82,9 +82,8 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import EventTypeLabel from './component/event_type_label.vue';
-import { UAParser } from 'ua-parser-js';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
 import { useQuery } from '@vue/apollo-composable';
@@ -118,24 +117,5 @@ onResult(({ data }) => {
 onError((error) => {
     logError(error);
     sendEvent({ type: 'ERROR' });
-});
-
-const parsedUserAgent = computed(() => {
-    if (!authLog.value?.userAgent) {
-        return '–';
-    }
-
-    const { browser, os } = UAParser(authLog.value.userAgent);
-    const parts = [];
-
-    if (browser.name) {
-        parts.push(browser.version ? `${browser.name} ${browser.version}` : browser.name);
-    }
-
-    if (os.name) {
-        parts.push(os.version ? `${os.name} ${os.version}` : os.name);
-    }
-
-    return parts.length ? parts.join(' / ') : authLog.value.userAgent;
 });
 </script>

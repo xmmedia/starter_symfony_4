@@ -1,0 +1,11 @@
+ParsedUserAgent:
+    type: object
+    config:
+        description: 'The browser & platform parsed from a user agent string.'
+        fields:
+            browser:        String
+            browserVersion: String
+            platform:       String
+            summary:
+                type:        String!
+                description: 'eg "Chrome 142 / Macintosh"'

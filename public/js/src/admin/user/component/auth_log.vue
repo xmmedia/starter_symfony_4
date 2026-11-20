@@ -50,7 +50,7 @@
                         {{ item.ipAddress }}
                     </template>
                     <template #col4="{ item }">
-                        {{ formatUserAgent(item.userAgent) }}
+                        {{ item.parsedUserAgent?.summary ?? '–' }}
                     </template>
                     <template #col5="{ item }">
                         {{ item.errorMessage ?? '–' }}
@@ -67,7 +67,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import { UAParser } from 'ua-parser-js';
 import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/vue';
 import { view as stateMachineConfig } from '@/common/state_machines';
@@ -77,25 +76,6 @@ import { logError } from '@/common/lib';
 import EventTypeLabel from '@/admin/auth_log/component/event_type_label.vue';
 import RecordList from '@/common/record_list.vue';
 import Pagination from '@/common/pagination.vue';
-
-const formatUserAgent = (ua) => {
-    if (!ua) {
-        return '–';
-    }
-
-    const { browser, os } = UAParser(ua);
-    const parts = [];
-
-    if (browser.name) {
-        parts.push(browser.version ? `${browser.name} ${browser.version.split('.')[0]}` : browser.name);
-    }
-
-    if (os.name) {
-        parts.push(os.version ? `${os.name} ${os.version}` : os.name);
-    }
-
-    return parts.length ? parts.join(' / ') : ua;
-};
 
 const props = defineProps({
     userId: {

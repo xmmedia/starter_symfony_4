@@ -97,7 +97,11 @@ type AuthLog {
   impersonatedUser: User
   email: String
   ipAddress: String!
+
+  "The raw user agent string. Only fetch it where it's shown – use parsedUserAgent in lists."
   userAgent: String
+
+  parsedUserAgent: ParsedUserAgent
   route: String
   errorMessage: String
   occurredAt: DateTime!
@@ -112,6 +116,16 @@ enum AuthLogEventType {
   LOGIN_FAILED
   IMPERSONATION_STARTED
   IMPERSONATION_ENDED
+}
+
+"The browser & platform parsed from a user agent string."
+type ParsedUserAgent {
+  browser: String
+  browserVersion: String
+  platform: String
+
+  "eg \"Chrome 142 / Macintosh\""
+  summary: String!
 }
 
 "Additional data regarding user."

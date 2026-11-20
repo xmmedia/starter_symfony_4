@@ -8,7 +8,12 @@ AuthLog:
             impersonatedUser: User
             email:            String
             ipAddress:        String!
-            userAgent:        String
+            userAgent:
+                type:        String
+                description: 'The raw user agent string. Only fetch it where it''s shown – use parsedUserAgent in lists.'
+            parsedUserAgent:
+                type:    ParsedUserAgent
+                resolve: '@=query("App\\GraphQl\\Query\\AuthLog\\AuthLogParsedUserAgentQuery", value)'
             route:            String
             errorMessage:     String
             occurredAt:       DateTime!

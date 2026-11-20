@@ -354,7 +354,7 @@ Only enabled in `prod` & `staging` (backend `SentryBundle`, frontend `PROD` buil
   (zxcvbn-ts) can differ from the backend's (zxcvbn-php), so a password it accepts can still be rejected.
   The forms pass it to `useRejectedPasswords()` (`common/validation/user.js`) to show the error on the field
 
-**Domain types** (`config/graphql/types/domain/`): `address.yaml`, `auth_log.yaml`, `file.yaml`, `messenger_queue_message.yaml`, `phone_number.yaml`, `upload.yaml`, `user.yaml`
+**Domain types** (`config/graphql/types/domain/`): `address.yaml`, `auth_log.yaml`, `file.yaml`, `messenger_queue_message.yaml`, `parsed_user_agent.yaml`, `phone_number.yaml`, `upload.yaml`, `user.yaml`
 
 **Frontend GraphQL:**
 - Query/mutation files: `public/js/src/*/queries/*.graphql`
@@ -376,6 +376,17 @@ The exceptions aren't projection owned (their tables are in `db_create.sql`):
 - `DefaultRouteProvider` - determines the default post-login route
 - `UserPasswordStore` - reads/writes the password hash in `user_credential`
 - `CommandLogArchiver` - archives `command_log` rows to a gzipped SQL file & imports them back
+
+### Auth log user agents
+
+`AuthLog.parsedUserAgent` (browser, version, platform & a `summary` like "Chrome 142 / Macintosh") is
+parsed on the server when it's read, by `App\Infrastructure\UserAgent\UserAgentParser`
+(`donatj/phpuseragentparser`, MIT). Don't parse user agents in the browser: `ua-parser-js` 2.x is AGPL.
+
+- Lists fetch only `parsedUserAgent { summary }`. The raw `userAgent` is other users' data, so only the
+  single entry's view fetches it
+- Browsers freeze the OS version they send (macOS 10.15.7, Windows 10, Android 10, iOS 18.x), so no OS
+  version is shown
 
 ### Controllers (`src/Controller/`)
 
