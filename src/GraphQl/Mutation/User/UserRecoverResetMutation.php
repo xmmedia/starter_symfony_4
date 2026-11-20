@@ -60,6 +60,11 @@ final readonly class UserRecoverResetMutation implements MutationInterface
             throw new LinkExpiredError('The link has expired.', $e);
         }
 
+        // otherwise the password would be stored, then the change rejected
+        if (!$user->active()) {
+            throw new NotFoundError('The token is invalid.');
+        }
+
         // done here because we need the user entity
         try {
             Assert::passwordAllowed(

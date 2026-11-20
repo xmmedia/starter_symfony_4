@@ -6,6 +6,7 @@ namespace App\Model\User\Handler;
 
 use App\Infrastructure\Email\EmailTemplate;
 use App\Model\User\Command\InitiatePasswordRecovery;
+use App\Model\User\Exception\UserNotActive;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\UserList;
 use App\Projection\User\UserFinder;
@@ -37,6 +38,11 @@ final readonly class InitiatePasswordRecoveryHandler
         $user = $this->userFinder->find($command->userId());
         if (!$user) {
             throw UserNotFound::withUserId($command->userId());
+        }
+
+        // checked before the token's created, as an inactive user can't use it
+        if (!$userAr->active()) {
+            throw UserNotActive::triedToSendPasswordReset($command->userId());
         }
 
         $token = $this->resetPasswordHelper->generateResetToken($user);

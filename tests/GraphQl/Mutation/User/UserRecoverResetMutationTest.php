@@ -72,6 +72,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
         $user->shouldReceive('firstRole')
             ->once()
             ->andReturn($faker->userRole());
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user);
 
@@ -93,6 +96,52 @@ class UserRecoverResetMutationTest extends BaseTestCase
         ))($args);
 
         $this->assertEquals(['success' => true], $result);
+    }
+
+    public function testNotActive(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'token'       => $faker->password(),
+            'newPassword' => $faker->password(),
+        ];
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldNotReceive('dispatch');
+
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldNotReceive('store');
+
+        $user = \Mockery::mock(User::class);
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnFalse();
+
+        $resetPasswordHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
+        $resetPasswordHelper->shouldReceive('validateTokenAndFetchUser')
+            ->once()
+            ->with(\Mockery::type('string'))
+            ->andReturn($user);
+        $resetPasswordHelper->shouldNotReceive('removeResetRequest');
+
+        $security = $this->createSecurity(false);
+        $requestProvider = $this->getRequestInfoProvider(false);
+
+        $args = new Argument($data);
+
+        $this->expectException(NotFoundError::class);
+
+        (new UserRecoverResetMutation(
+            $commandBus,
+            $passwordHasher,
+            $passwordStore,
+            $resetPasswordHelper,
+            $security,
+            $requestProvider,
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
+        ))($args);
     }
 
     public function testLoggedIn(): void
@@ -168,6 +217,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
         $user->shouldReceive('lastName')
             ->once()
             ->andReturn(Name::fromString($faker->lastName()));
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user);
         $security = $this->createSecurity(false);
@@ -294,6 +346,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
         $security = $this->createSecurity(false);
@@ -331,6 +386,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
         $security = $this->createSecurity(false);
@@ -368,6 +426,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
         $security = $this->createSecurity(false);
@@ -406,6 +467,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
         $security = $this->createSecurity(false);
@@ -447,6 +511,9 @@ class UserRecoverResetMutationTest extends BaseTestCase
         $user = $this->getUserMock();
         $user->shouldReceive('userId')
             ->andReturn($faker->userId());
+        $user->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
 
         $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
         $security = $this->createSecurity(false);

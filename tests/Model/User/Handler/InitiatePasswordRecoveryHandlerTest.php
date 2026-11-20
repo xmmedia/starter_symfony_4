@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Model\User\Handler;
 
 use App\Model\User\Command\InitiatePasswordRecovery;
+use App\Model\User\Exception\UserNotActive;
 use App\Model\User\Exception\UserNotFound;
 use App\Model\User\Handler\InitiatePasswordRecoveryHandler;
 use App\Model\User\User;
@@ -26,6 +27,9 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
         $faker = $this->faker();
 
         $userAr = \Mockery::mock(User::class);
+        $userAr->shouldReceive('active')
+            ->once()
+            ->andReturnTrue();
         $userAr->shouldReceive('passwordRecoverySent')
             ->once();
 
@@ -69,6 +73,54 @@ class InitiatePasswordRecoveryHandlerTest extends BaseTestCase
         $passwordResetHelper->shouldReceive('generateResetToken')
             ->once()
             ->andReturn(new ResetPasswordToken('1234', CarbonImmutable::now(), CarbonImmutable::now()->getTimestamp()));
+
+        new InitiatePasswordRecoveryHandler(
+            $repo,
+            $userFinder,
+            $emailGateway,
+            $faker->email(),
+            $router,
+            $passwordResetHelper,
+        )(
+            $command
+        );
+    }
+
+    public function testNotActive(): void
+    {
+        $faker = $this->faker();
+
+        $command = InitiatePasswordRecovery::now(
+            $faker->userId(),
+            $faker->emailVo(),
+        );
+
+        $userAr = \Mockery::mock(User::class);
+        $userAr->shouldReceive('active')
+            ->once()
+            ->andReturnFalse();
+        $userAr->shouldNotReceive('passwordRecoverySent');
+
+        $repo = \Mockery::mock(UserList::class);
+        $repo->shouldReceive('get')
+            ->once()
+            ->with(\Mockery::type(UserId::class))
+            ->andReturn($userAr);
+        $repo->shouldNotReceive('save');
+
+        $userFinder = \Mockery::mock(UserFinder::class);
+        $userFinder->shouldReceive('find')
+            ->once()
+            ->with(\Mockery::type(UserId::class))
+            ->andReturn(\Mockery::mock(\App\Entity\User::class));
+
+        $emailGateway = \Mockery::mock(EmailGatewayInterface::class);
+        $emailGateway->shouldNotReceive('send');
+        $router = \Mockery::mock(RouterInterface::class);
+        $passwordResetHelper = \Mockery::mock(ResetPasswordHelperInterface::class);
+        $passwordResetHelper->shouldNotReceive('generateResetToken');
+
+        $this->expectException(UserNotActive::class);
 
         new InitiatePasswordRecoveryHandler(
             $repo,
