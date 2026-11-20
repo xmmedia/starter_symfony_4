@@ -1,4 +1,7 @@
 <template>
+    <Teleport to="#header-page-title"><span>Pattern Library</span></Teleport>
+    <Teleport to="#header-actions" />
+
     <div class="max-w-5xl">
         <!-- ############################# -->
         <!-- ####### Headings ######### -->
