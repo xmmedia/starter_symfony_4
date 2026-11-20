@@ -3,11 +3,11 @@
    button-critical, then button-critical-solid. Check the pattern library if that changes */
 
 @utility button {
-    @apply px-4 py-2 bg-blue-500 hover:bg-blue-800 disabled:bg-gray-400 aria-disabled:bg-gray-400;
+    @apply px-4 py-3.5 bg-blue-500 hover:bg-blue-800 disabled:bg-gray-400 aria-disabled:bg-gray-400;
     @apply border-2 border-blue-500 hover:border-blue-800 disabled:border-gray-400 aria-disabled:border-gray-400;
     @apply rounded outline-hidden focus-visible:ring-2 ring-indigo-400;
     @apply ring-offset-1 ring-offset-(--ring-offset-color,var(--color-white));
-    @apply font-extralight text-center no-underline text-white tracking-wider;
+    @apply font-extralight text-box text-center no-underline text-white tracking-wider;
     @apply cursor-pointer disabled:cursor-not-allowed aria-disabled:pointer-events-none transition-all;
 
     a& {

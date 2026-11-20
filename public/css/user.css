@@ -21,6 +21,7 @@
 /* common styles */
 @import "./common/common.css";
 @import "./common/text_colors.css";
+@import "./common/utilities.css";
 @import "./user/buttons.css";
 
 /* Base styles */
