@@ -50,7 +50,7 @@ select {
 
     /* forced colours replace the background colour but keep url() images, so the arrow could vanish
        against it; the native arrow is drawn in the forced colours */
-    @media (forced-colors: active) {
+    @variant forced-colors {
         appearance: auto;
         background-image: none;
     }

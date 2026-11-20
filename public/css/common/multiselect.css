@@ -46,7 +46,7 @@
         @apply hidden;
     }
 
-    @media (forced-colors: active) {
+    @variant forced-colors {
         background-image: none;
 
         &::before {
