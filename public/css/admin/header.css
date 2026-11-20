@@ -36,14 +36,14 @@
    this styling is similar to buttons */
 .header-action {
     @apply order-2 block ml-4 px-5 py-2 hover:bg-white border border-blue-600 rounded;
-    @apply text-xs hover:no-underline focus-visible:no-underline transition-colors duration-150;
+    @apply text-xs no-underline transition-colors duration-150;
 }
 
 /* for the main action(s) */
 .header-action-main {
     @apply order-3 my-2 min-[55rem]:my-0 bg-blue-500 hover:bg-blue-600 focus-visible:bg-blue-600;
-    @apply border-blue-500 hover:border-blue-600 focus-visible:rounded focus-visible:ring-offset-inherit;
-    @apply text-sm text-center text-white hover:text-white focus-visible:text-white;
+    @apply border-blue-500 hover:border-blue-600;
+    @apply text-sm text-center text-white;
 }
 
 .header-secondary_actions {
@@ -56,7 +56,7 @@
         @apply focus-visible:py-2;
     }
     a, button {
-        @apply inline-block focus-visible:ring-offset-gray-100 focus-visible:no-underline;
+        @apply inline-block ring-offset-gray-100 focus-visible:no-underline;
     }
 }
 

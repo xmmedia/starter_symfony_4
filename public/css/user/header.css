@@ -2,9 +2,7 @@
     @apply flex justify-center pl-0 list-none divide-x divide-gray-500;
 }
 .header_nav-nav a {
-    @apply text-gray-300;
-    @apply hover:text-gray-200;
-    @apply focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 focus-visible:text-gray-200;
+    @apply ring-offset-2 ring-offset-gray-900 text-gray-300 hover:text-gray-200 focus-visible:text-gray-200;
 }
 
 .header-nav_item {

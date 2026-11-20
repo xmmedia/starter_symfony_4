@@ -13,8 +13,7 @@
             <ul class="h-full pt-2 pl-0 overflow-y-scroll list-none">
                 <li v-for="(route, anchor) in items" :key="route" class="mb-1">
                     <RouterLink :to="{ name: route }"
-                                class="sidebar_nav-link block px-4 py-2 hover:bg-blue-800
-                                       ring-offset-gray-800 focus-visible:no-underline"
+                                class="sidebar_nav-link block px-4 py-2 hover:bg-blue-800 ring-offset-gray-800"
                                 @click="subnavItemClicked">
                         {{ anchor }}
                     </RouterLink>

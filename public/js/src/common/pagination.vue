@@ -137,9 +137,8 @@ const props = defineProps({
 
 const isRouterMode = computed(() => !!props.routeName);
 
-const linkClasses = 'w-12 p-1 hover:bg-blue-100 rounded text-center hover:no-underline focus-visible:no-underline '
-    + props.linkClasses;
-const spanClasses = 'w-12 p-1 rounded focus-visible:no-underline text-gray-400 ' + props.disabledClasses;
+const linkClasses = 'w-12 p-1 hover:bg-blue-100 rounded text-center no-underline ' + props.linkClasses;
+const spanClasses = 'w-12 p-1 rounded text-gray-400 ' + props.disabledClasses;
 
 const current = computed(() => {
     if (props.offset === 0) {

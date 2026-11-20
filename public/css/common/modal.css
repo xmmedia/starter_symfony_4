@@ -69,8 +69,8 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
     @apply absolute top-4 right-5 text-2xl leading-[0.5];
 }
 .modal-close-button {
-    @apply pb-1 ring-offset-gray-800 focus-visible:ring-offset-2 no-underline text-slate-600 hover:text-slate-300;
-    @apply focus-visible:text-slate-300;
+    @apply pb-1 ring-offset-2 ring-offset-gray-800;
+    @apply no-underline text-slate-600 hover:text-slate-300 focus-visible:text-slate-300;
 }
 
 /* applied to the content inside the modal */
@@ -89,8 +89,7 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
 
     /* secondary actions, eg cancel: the default link colour is too dark on the background */
     .form-action {
-        @apply ring-offset-gray-800 focus-visible:ring-offset-4;
-        @apply text-slate-300 hover:text-slate-400 focus-visible:text-slate-300;
+        @apply ring-offset-4 ring-offset-gray-800 text-slate-300 hover:text-slate-400;
     }
 
     /* alerts keep their light background, so they need the dark text back */
@@ -103,8 +102,7 @@ https://blog.logrocket.com/animating-dialog-popover-elements-css-starting-style/
         }
 
         .form-action {
-            @apply ring-offset-gray-100 focus-visible:ring-offset-1;
-            @apply text-blue-500 hover:text-blue-700 focus-visible:text-blue-500;
+            @apply ring-offset-1 ring-offset-gray-100 text-blue-500 hover:text-blue-700;
         }
     }
 }
