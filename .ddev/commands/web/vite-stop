@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#ddev-silent-no-warn
+## Description: Stop the Vite dev server
+## Usage: vite-stop
+## Example: ddev vite-stop
+
+if pkill -f '[v]ite/bin/vite.js'; then
+    echo "Stopped the Vite dev server."
+else
+    echo "No Vite dev server was running."
+fi

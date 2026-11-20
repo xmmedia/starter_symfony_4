@@ -25,7 +25,7 @@ export default defineConfig(({ command, mode, isPreview }) => {
 
     // Vitest loads this config as `serve` too, & doesn't need DDEV
     if ('serve' === command && !isPreview && !process.env.VITEST && !process.env.DDEV_PRIMARY_URL) {
-        throw new Error('The dev server only runs in DDEV, behind its Apache proxy: use `ddev yarn dev`');
+        throw new Error('The dev server only runs in DDEV, behind its Apache proxy: use `ddev vite`');
     }
 
     return {

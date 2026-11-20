@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#ddev-silent-no-warn
+## Description: Install packages & run the Vite dev server, stopping one that's already running
+## Usage: vite
+## Example: ddev vite
+
+set -euo pipefail
+
+# the brackets stop the pattern matching pkill/pgrep's own command line
+pattern='[v]ite/bin/vite.js'
+
+if pkill -f "$pattern"; then
+    # wait for it to free the port (strictPort)
+    for _ in {1..50}; do
+        pgrep -f "$pattern" > /dev/null || break
+        sleep 0.1
+    done
+    if pgrep -f "$pattern" > /dev/null; then
+        echo "The Vite dev server that was already running didn't stop. Try ddev vite-stop." >&2
+        exit 1
+    fi
+    echo "Stopped the Vite dev server that was already running."
+fi
+
+cd /var/www/html
+yarn install
+exec yarn dev

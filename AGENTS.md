@@ -87,9 +87,16 @@ Node & Yarn run in the DDEV web container (Node from `.nvmrc`, `nodejs_version: 
 `.yarnrc.yml` widens `supportedArchitectures` to cover both; without it the container dies on a
 missing `@rolldown/binding-linux-*`. CI narrows it back to the runner's platform.
 
-- Dev server with HMR: `ddev yarn dev` (run `ddev yarn install` first if packages changed); stop
-  it with Ctrl-C. Assets are served through Apache at `/vite-dev/`, not the Vite port (see below)
-  - If one's left running (`ddev yarn dev` fails on the port): `ddev exec pkill -f '[v]ite/bin/vite.js'`
+- Dev server with HMR: `ddev vite` installs packages, then runs `yarn dev`; stop it with Ctrl-C or
+  `ddev vite-stop` (`.ddev/commands/web/`). Assets are served through Apache at `/vite-dev/`, not the
+  Vite port (see below)
+  - Only one can run (`strictPort`), so `ddev vite` stops one that's already running & takes over —
+    usually it's a forgotten one in another tab. `ddev yarn dev` fails on the port instead
+  - **Agents**: don't take over a developer's dev server. Check first
+    (`ddev exec pgrep -f '[v]ite/bin/vite.js'`) & use the one that's running — it serves the same
+    files. Start one only when none is, say so, & stop it (`ddev vite-stop`) when done, so it isn't
+    left in the developer's way. If it stops while you're using it, the developer stopped it: start
+    it again only if you still need it
 - Compile check: `ddev yarn build:check` — use this to verify JS/CSS compiles. Builds to
   `node_modules/.build-check` (gitignored, and ignored by the dev server's watcher), so
   it's safe to run while the dev server is running. A green build only proves it bundles —
@@ -108,7 +115,7 @@ same-origin with the site because browsers won't load an SVG `<use>` (the icon s
 origin, even with CORS. The dev `base` in `vite.config.mjs` must match the path — `vite-plugin-symfony`
 writes it into `entrypoints.json`, so the bundle needs no separate config. The Vite port isn't exposed.
 
-- **A `503` on a `/vite-dev/…` URL means the dev server isn't running** — start `ddev yarn dev`
+- **A `503` on a `/vite-dev/…` URL means the dev server isn't running** — start it with `ddev vite`
 - `server.origin`, `allowedHosts` & `server.hmr` are built from DDEV's `DDEV_PRIMARY_URL` (which
   includes the router's port when it isn't 443). `ProxyPreserveHost On` passes the site's host
   through, so it must be in `allowedHosts` — Vite rejects unknown hosts with a bare `400`

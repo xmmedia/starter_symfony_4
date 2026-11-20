@@ -23,7 +23,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Run/Start the DDEV site: `ddev start`
 1. Composer install & update: `ddev composer install && ddev composer update` (or without DDEV or without memory limit: `php -d memory_limit=-1 /usr/local/bin/composer update`)
 1. Run `ddev yarn install && ddev yarn up -R "**"`.
-1. Run `ddev yarn dev` (dev) or `ddev yarn build` (production) to compile JS & CSS files.
+1. Run `ddev vite` (dev server) or `ddev yarn build` (production) to compile JS & CSS files.
 1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
 1. Create database with event streams & projections tables from `db_create.sql` using `ddev import-db --file=db_create.sql`. 
     - DDEV sets the database collation to `utf8mb4_0900_bin` on start (`.ddev/mysql/collation.cnf` & the `post-start` hook in `.ddev/config.yaml`)
@@ -48,7 +48,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Run/Start the DDEV site: `ddev start`
 1. Composer install: `ddev composer install` or `composer install` to run without DDEV.
 1. Run `ddev yarn install`.
-1. Run `ddev yarn dev` (dev) or `ddev yarn build` (production) to compile JS & CSS files.
+1. Run `ddev vite` (dev server) or `ddev yarn build` (production) to compile JS & CSS files.
 1. Give executable perms to bin dir: `chmod u+x bin/*` (helpful, but optional)
 1. Create database with event streams & projections tables from `db_create.sql` using `ddev import-db --file=db_create.sql`. 
     - DDEV sets the database collation to `utf8mb4_0900_bin` on start (`.ddev/mysql/collation.cnf` & the `post-start` hook in `.ddev/config.yaml`)
@@ -158,10 +158,9 @@ but the Node version is then up to you.
     - Note: this generates the GQL schema first, because within the checks we validate the graphql operations files
   - Check all code: `bin/check`
   - Generate GQL schema: `bin/generate_schema`
-  - Dev JS/CSS server with HMR: `ddev yarn dev` (stop with Ctrl-C)
-    - Stop one left running in the container: `ddev exec pkill -f '[v]ite/bin/vite.js'`
+  - Dev JS/CSS server with HMR: `ddev vite` (stop with Ctrl-C or `ddev vite-stop`; it stops one that's already running)
     - Assets are proxied through Apache at `https://[domain]/vite-dev/`, same-origin with the site (needed for the SVG icon sprites) — the Vite port isn't exposed. See `.ddev/web-build/apache-vite.conf`
-    - A `503` on a `/vite-dev/…` asset means the dev server isn't running
+    - A `503` on a `/vite-dev/…` asset means the dev server isn't running — start it with `ddev vite`
   - Compile check: `ddev yarn build:check`
     - Builds to `node_modules/.build-check`, so it's safe to run while the dev server is running
   - Production JS/CSS build: `ddev yarn build`
