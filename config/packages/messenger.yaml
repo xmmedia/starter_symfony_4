@@ -17,8 +17,8 @@ framework:
                     - App\Messenger\RunProjectionMiddleware
                     - Xm\SymfonyBundle\Messenger\FailureCatcherMiddleware
 
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
-        # failure_transport: failed
+        # failed messages are kept here for messenger:failed:show/retry/remove
+        failure_transport: failed
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
@@ -28,7 +28,11 @@ framework:
                 retry_strategy:
                     delay:      30000 # 30 seconds
                     multiplier: 2 # double the delay each time
-            failed: '%env(MESSENGER_TRANSPORT_DSN)%?queue_name=failed'
+            failed:
+                dsn:     '%env(MESSENGER_TRANSPORT_DSN)%'
+                # an option: appending ?queue_name=failed to a DSN that already has a query string doesn't set it, so
+                # failed messages would go back to the async queue
+                options: { queue_name: failed }
             # sync: 'sync://'
 
         routing:
