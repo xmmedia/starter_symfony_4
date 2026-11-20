@@ -68,53 +68,56 @@
             <li>List item 3</li>
             <li>List item 4</li>
         </ol>
+    </div>
 
-        <!-- ############################# -->
-        <!-- ######### Buttons ########### -->
-        <!-- ############################# -->
-        <!-- data-pl-state shows the state without interacting (see common/pattern_library_states.js) -->
-        <div v-for="section in buttonSections"
-             :key="section.heading"
-             :class="section.class">
-            <h2>{{ section.heading }}</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full mt-4 border-collapse">
-                    <thead>
-                        <tr class="border-b-2 border-b-gray-200">
-                            <th class="p-2 text-left">Description</th>
-                            <th class="p-2 text-left">Classes</th>
-                            <th class="p-2 text-left">Element</th>
-                            <th v-for="state in buttonStates" :key="state.value" class="p-2 text-left">
-                                {{ state.label }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="row in buttonRows" :key="row.label + row.tag" class="border-b border-b-gray-200">
-                            <td class="p-2">{{ row.label }}</td>
-                            <td class="p-2"><code v-if="row.class">{{ row.class }}</code></td>
-                            <td class="p-2"><code>&lt;{{ row.tag }}&gt;</code></td>
-                            <td v-for="state in buttonStates" :key="state.value" class="p-2 whitespace-nowrap">
-                                <!-- a disabled button can't be focused or pressed -->
-                                <template v-if="!row.disabled || ['', 'hover'].includes(state.value)">
-                                    <a v-if="'a' === row.tag"
-                                       href=""
-                                       :class="row.class"
-                                       :tabindex="state.value ? -1 : undefined"
-                                       :data-pl-state="state.value || undefined">{{ row.label }}</a>
-                                    <button v-else
-                                            :class="row.class"
-                                            :disabled="row.disabled"
-                                            :tabindex="state.value ? -1 : undefined"
-                                            :data-pl-state="state.value || undefined">{{ row.label }}</button>
-                                </template>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <!-- ############################# -->
+    <!-- ######### Buttons ########### -->
+    <!-- ############################# -->
+    <!-- outside max-w-5xl so the state columns have room -->
+    <!-- data-pl-state shows the state without interacting (see common/pattern_library_states.js) -->
+    <div v-for="section in buttonSections"
+         :key="section.heading"
+         :class="section.class">
+        <h2>{{ section.heading }}</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full mt-4 border-collapse">
+                <thead>
+                    <tr class="border-b-2 border-b-gray-200">
+                        <th class="p-2 text-left">Description</th>
+                        <th class="p-2 text-left">Classes</th>
+                        <th class="p-2 text-left">Element</th>
+                        <th v-for="state in buttonStates" :key="state.value" class="p-2 text-left">
+                            {{ state.label }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="row in buttonRows" :key="row.label + row.tag" class="border-b border-b-gray-200">
+                        <td class="p-2">{{ row.label }}</td>
+                        <td class="p-2"><code v-if="row.class">{{ row.class }}</code></td>
+                        <td class="p-2"><code>&lt;{{ row.tag }}&gt;</code></td>
+                        <td v-for="state in buttonStates" :key="state.value" class="p-2 whitespace-nowrap">
+                            <!-- a disabled button can't be focused or pressed -->
+                            <template v-if="!row.disabled || ['', 'hover'].includes(state.value)">
+                                <a v-if="'a' === row.tag"
+                                   href=""
+                                   :class="row.class"
+                                   :tabindex="state.value ? -1 : undefined"
+                                   :data-pl-state="state.value || undefined">{{ row.label }}</a>
+                                <button v-else
+                                        :class="row.class"
+                                        :disabled="row.disabled"
+                                        :tabindex="state.value ? -1 : undefined"
+                                        :data-pl-state="state.value || undefined">{{ row.label }}</button>
+                            </template>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
 
+    <div class="max-w-5xl">
         <!-- ############################# -->
         <!-- ########## Forms ############ -->
         <!-- ############################# -->
@@ -756,7 +759,7 @@
         </div>
     </div>
 
-    <!-- the rest of the pattern library is limited to max-w-5xl, so this is outside it to show a list at full width -->
+    <!-- outside max-w-5xl to show a list at full width -->
     <div class="my-12">
         <h4 class="mb-2">RecordList at full width</h4>
         <RecordList :headings="[ 'Name', 'Expiry Date', 'Outstanding', 'Client', 'Price', 'Active', '' ]"
