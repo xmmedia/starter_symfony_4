@@ -11,7 +11,7 @@
         @apply hover:underline hover:text-blue-700 active:underline active:text-blue-700;
         @apply focus:underline focus:text-blue-700;
         @apply disabled:hover:no-underline;
-        @apply transition-default disabled:hover:cursor-not-allowed;
+        @apply transition-all disabled:hover:cursor-not-allowed;
     }
 
     a[href^="tel"], a[href^="mailto"] {

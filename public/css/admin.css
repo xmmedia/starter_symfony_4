@@ -8,6 +8,9 @@
 
 @theme {
     --breakpoint-xs: 25rem;
+
+    --default-transition-duration: 300ms;
+    --default-transition-timing-function: ease-in-out;
 }
 
 /* Safelist specific classes & pattern-based utilities */

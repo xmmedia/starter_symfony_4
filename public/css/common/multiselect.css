@@ -5,7 +5,7 @@
 }
 
 .multiselect__tags {
-    @apply min-h-[2.14rem] py-1 pr-8 pl-2 bg-gray-100 border border-gray-300 rounded-sm text-base transition-default;
+    @apply min-h-[2.14rem] py-1 pr-8 pl-2 bg-gray-100 border border-gray-300 rounded-sm text-base transition-all;
 }
 
 .multiselect:focus-within .multiselect__tags {

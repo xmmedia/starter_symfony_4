@@ -4,7 +4,7 @@
 
 /* one line tall, so rows with a menu aren't taller than rows with only links */
 .action_menu-button {
-    @apply flex items-center justify-center w-8 h-lh rounded text-blue-500 transition-default;
+    @apply flex items-center justify-center w-8 h-lh rounded text-blue-500 transition-all;
     &:hover, &:active {
         @apply text-blue-700;
     }

@@ -16,7 +16,7 @@
 [type="url"],
 [type="color"],
 textarea {
-    @apply w-full px-2 py-1 bg-gray-100 border border-gray-300 text-gray-800 transition-default;
+    @apply w-full px-2 py-1 bg-gray-100 border border-gray-300 text-gray-800 transition-all;
 }
 textarea {
     /* fixes space below textareas, making it consistent across browsers */
@@ -32,7 +32,7 @@ textarea {
 select {
     @apply w-full h-[2.14rem] appearance-none py-1 pr-8 pl-2;
     @apply bg-gray-100 bg-no-repeat bg-size-[1.25rem] bg-position-[right_0.5rem_center] border border-gray-300;
-    @apply text-black transition-default;
+    @apply text-black transition-all;
     background-image: var(--select-arrow);
     /* browsers skip background images when printing, which would drop the arrow */
     print-color-adjust: exact;
@@ -206,7 +206,7 @@ select {
 /* vue fade transition */
 .form-button_bar-enter-active,
 .form-button_bar-leave-active {
-    @apply transition-opacity duration-500 ease-in-out;
+    @apply transition-opacity duration-500;
 }
 .form-button_bar-enter-from,
 .form-button_bar-leave-to {

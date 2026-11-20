@@ -1,5 +1,5 @@
 .dashboard-link {
-    @apply block size-40 p-2 border border-gray-300 leading-none text-center transition-colors duration-150 ease-in-out;
+    @apply block size-40 p-2 border border-gray-300 leading-none text-center transition-colors duration-150;
     &:hover,
     &:active,
     &:focus {

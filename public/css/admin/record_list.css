@@ -20,7 +20,7 @@
 
 .record_list-item {
     @apply flex flex-col flex-wrap md:table-row md:px-2 border-b border-gray-300;
-    @apply transition-colors duration-150 ease-in-out;
+    @apply transition-colors duration-150;
 
     &:hover {
         @apply bg-blue-100;
@@ -39,7 +39,7 @@
 }
 
 .record_list-col {
-    @apply px-2 py-2 transition-default align-middle;
+    @apply px-2 py-2 transition-all align-middle;
 }
 
 /* this is used in both the lists and view */
