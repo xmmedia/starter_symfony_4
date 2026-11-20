@@ -20,6 +20,7 @@
 
 /* common styles */
 @import "./common/common.css";
+@import "./user/buttons.css";
 
 /* Base styles */
 @import "./user/base.css";
@@ -38,7 +39,6 @@
     @import "./common/password.css";
 
     /* public only styles */
-    @import "./user/buttons.css";
     @import "./user/headings.css";
     @import "./user/header.css";
     @import "./user/footer.css";

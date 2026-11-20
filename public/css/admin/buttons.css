@@ -1,48 +1,25 @@
-.button {
-    @apply px-4 py-2 bg-blue-500 border-2 border-blue-500 rounded outline-hidden;
-    @apply font-extralight text-center text-white tracking-wider;
-    @apply cursor-pointer transition-all;
-    &:hover {
-        @apply bg-blue-800 border-blue-800 no-underline text-white;
-    }
-    &:focus-visible {
-        @apply outline-hidden ring-2 ring-indigo-400 ring-offset-1 no-underline;
-    }
-    &:disabled {
-        @apply bg-gray-400 border-gray-400 cursor-not-allowed;
-        &:hover {
-            @apply bg-gray-400 border-gray-400 cursor-not-allowed;
-        }
-    }
-}
-.button-critical {
-    @apply bg-white border-red-600 text-red-600;
-    &:hover {
-        @apply bg-red-600 border-red-600;
-    }
-    &:focus-visible {
-        @apply border-red-600 ring-red-400;
-    }
-    &:disabled {
-        @apply bg-white border-gray-400 text-gray-400;
-        &:hover {
-            @apply bg-white text-gray-400;
-        }
-    }
-}
-.button-critical-solid {
-    @apply bg-red-600 text-white;
-    &:focus-visible {
-        @apply ring-offset-red-800;
+/* utilities, so utility classes in the markup (eg bg-*, w-full) override them.
+   Tailwind orders utilities by the properties they set, which puts button first, then
+   button-critical, then button-critical-solid. Check the pattern library if that changes */
+
+@utility button {
+    @apply px-4 py-2 bg-blue-500 hover:bg-blue-800 disabled:bg-gray-400 aria-disabled:bg-gray-400;
+    @apply border-2 border-blue-500 hover:border-blue-800 disabled:border-gray-400 aria-disabled:border-gray-400;
+    @apply rounded outline-hidden focus-visible:ring-2 ring-indigo-400 ring-offset-1;
+    @apply font-extralight text-center no-underline text-white tracking-wider;
+    @apply cursor-pointer disabled:cursor-not-allowed aria-disabled:pointer-events-none transition-all;
+
+    a& {
+        @apply inline-block;
     }
 }
 
-a.button {
-    @apply inline-block;
-    &:focus-visible {
-        @apply bg-blue-500 text-white;
-    }
+@utility button-critical {
+    @apply bg-white hover:bg-red-600 disabled:bg-white aria-disabled:bg-white;
+    @apply border-red-600 hover:border-red-600 disabled:border-gray-400 aria-disabled:border-gray-400 ring-red-400;
+    @apply text-red-600 hover:text-white disabled:text-gray-400 aria-disabled:text-gray-400;
 }
-a.button-critical:focus-visible {
-    @apply bg-white text-red-600;
+
+@utility button-critical-solid {
+    @apply bg-red-600 ring-offset-red-800 text-white;
 }

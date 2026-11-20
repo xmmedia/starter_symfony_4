@@ -24,6 +24,7 @@
 
 /* Common styles */
 @import "./common/common.css";
+@import "./admin/buttons.css";
 
 /* Base styles */
 @import "./admin/base.css";
@@ -43,7 +44,6 @@
     /* Admin-only modules */
     @import "./admin/content.css";
     @import "./admin/headings.css";
-    @import "./admin/buttons.css";
     @import "./admin/header.css";
     @import "./admin/forms.css";
     @import "./admin/record_list.css";
