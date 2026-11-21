@@ -1,6 +1,10 @@
 @layer base {
+    /* a <button> can be :disabled; a link can't, so it uses aria-disabled, which only changes how it
+       looks: the link still works from the keyboard, so remove its href or stop the click too */
     .button-link {
-        @apply font-light;
+        @apply disabled:opacity-75 aria-disabled:opacity-75 font-light;
+        @apply disabled:hover:no-underline disabled:hover:text-(--link-color,var(--color-blue-500));
+        @apply disabled:cursor-not-allowed aria-disabled:pointer-events-none;
     }
 
     a, .button-link {
@@ -8,27 +12,11 @@
         @apply focus-visible:ring-2 focus-visible:ring-blue-500;
         @apply focus-visible:ring-offset-1 ring-offset-(--ring-offset-color,var(--color-white));
         @apply text-left no-underline hover:underline active:underline focus-visible:underline;
-        @apply transition-all;
         /* the colours change on dark bgs (text_colors.css) */
-        color: var(--link-color, var(--color-blue-500));
-
-        @variant hover {
-            color: var(--link-hover-color, var(--color-blue-700));
-        }
-
-        &:active,
-        &:focus-visible {
-            color: var(--link-hover-color, var(--color-blue-700));
-        }
-    }
-
-    /* a link can't be disabled */
-    .button-link:disabled {
-        @apply opacity-75;
-
-        @variant hover {
-            @apply no-underline cursor-not-allowed;
-        }
+        @apply text-(--link-color,var(--color-blue-500)) hover:text-(--link-hover-color,var(--color-blue-700));
+        @apply focus-visible:text-(--link-hover-color,var(--color-blue-700));
+        @apply active:text-(--link-hover-color,var(--color-blue-700));
+        @apply transition-all;
     }
 
     a[href^="tel"], a[href^="mailto"] {
