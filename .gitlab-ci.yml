@@ -126,10 +126,8 @@ before_script:
     fi
   # switch to new version
   - remote "ln -sfn $RELEASE $REMOTE_BASE/current"
-  # stop/restart the doctrine message works/consumers & ensure the transports exist
-  - |
-    console $REMOTE_BASE/current messenger:stop-workers
-    console $REMOTE_BASE/current messenger:setup-transports
+  # stop/restart the doctrine message works/consumers
+  - console $REMOTE_BASE/current messenger:stop-workers
   # run migrations, unless the job is run with SKIP_MIGRATIONS=1 (they're then run on the server)
   - |
     if [ "$SKIP_MIGRATIONS" = "1" ]; then
@@ -139,6 +137,9 @@ before_script:
     else
       console $REMOTE_BASE/current doctrine:migrations:migrate --no-interaction --no-debug --allow-no-migration
     fi
+  # ensure the transports exist; after the migrations, so a table it creates gets the database's
+  # current defaults (eg a migration that changes the default collation)
+  - console $REMOTE_BASE/current messenger:setup-transports
   # turn off maintenance mode, if the deploy turned it on (even if it was already on).
   # Left on if the migrations were skipped, as they've still to run
   - |
