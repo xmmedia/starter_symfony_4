@@ -6,7 +6,7 @@ namespace App\Tests\Model\User;
 
 use App\Model\User\UserData;
 use App\Tests\BaseTestCase;
-use Xm\SymfonyBundle\Tests\FakeVo;
+use Xm\SymfonyBundle\Test\FakeVo;
 
 class UserDataTest extends BaseTestCase
 {

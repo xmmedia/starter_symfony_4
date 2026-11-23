@@ -6,6 +6,8 @@
     "symfony.enabled": true,
     "symfony.xml_path": "%project_root%/cache/dev/App_KernelDevDebugContainer.xml",
     "indexer.exclude_patterns": [
+        "/vendor/**/Tests/**/*",
+        "/vendor/**/tests/**/*",
         "/vendor/composer/**/*",
         "/cache/**/*",
         "/var/cache/**/*"

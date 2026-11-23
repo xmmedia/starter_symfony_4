@@ -6,7 +6,7 @@ namespace App\Tests\Model\User;
 
 use App\Model\User\Name;
 use App\Tests\BaseTestCase;
-use Xm\SymfonyBundle\Tests\FakeVo;
+use Xm\SymfonyBundle\Test\FakeVo;
 use Xm\SymfonyBundle\Util\Json;
 
 class NameTest extends BaseTestCase

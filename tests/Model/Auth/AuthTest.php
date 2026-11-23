@@ -8,7 +8,7 @@ use App\Model\Auth\Auth;
 use App\Model\Auth\Event\UserFailedToLogin;
 use App\Model\Auth\Event\UserLoggedIn;
 use App\Tests\BaseTestCase;
-use Xm\SymfonyBundle\Tests\FakeAr;
+use Xm\SymfonyBundle\Test\FakeAr;
 
 class AuthTest extends BaseTestCase
 {

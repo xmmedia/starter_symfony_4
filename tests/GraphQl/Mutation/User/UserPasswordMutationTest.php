@@ -22,7 +22,7 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
-use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
+use Xm\SymfonyBundle\Test\PasswordStrengthFake;
 
 class UserPasswordMutationTest extends BaseTestCase
 {

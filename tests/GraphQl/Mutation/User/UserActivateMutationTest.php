@@ -27,7 +27,7 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\LinkExpiredError;
 use Xm\SymfonyBundle\Infrastructure\GraphQl\Error\NotFoundError;
 use Xm\SymfonyBundle\Infrastructure\Service\RequestInfoProvider;
-use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
+use Xm\SymfonyBundle\Test\PasswordStrengthFake;
 
 class UserActivateMutationTest extends BaseTestCase
 {

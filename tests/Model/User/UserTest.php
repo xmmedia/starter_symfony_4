@@ -7,7 +7,7 @@ namespace App\Tests\Model\User;
 use App\Model\User\Name;
 use App\Model\User\User;
 use App\Tests\BaseTestCase;
-use Xm\SymfonyBundle\Tests\FakeAr;
+use Xm\SymfonyBundle\Test\FakeAr;
 
 class UserTest extends BaseTestCase
 {

@@ -14,7 +14,7 @@ use App\Tests\BaseTestCase;
 use Carbon\CarbonImmutable;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xm\SymfonyBundle\Tests\EventCreatedAtSetter;
+use Xm\SymfonyBundle\Test\EventCreatedAtSetter;
 
 class ChangedPasswordProcessManagerTest extends BaseTestCase
 {

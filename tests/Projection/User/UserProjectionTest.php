@@ -12,8 +12,8 @@ use App\Tests\BaseTestCase;
 use Doctrine\DBAL\Connection;
 use Prooph\EventStore\Projection\ReadModelProjector;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
-use Xm\SymfonyBundle\Tests\ProjectionReadModel;
-use Xm\SymfonyBundle\Tests\ProjectionWhenArgs;
+use Xm\SymfonyBundle\Test\ProjectionReadModel;
+use Xm\SymfonyBundle\Test\ProjectionWhenArgs;
 
 class UserProjectionTest extends BaseTestCase
 {

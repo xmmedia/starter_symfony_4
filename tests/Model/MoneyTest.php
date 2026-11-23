@@ -7,7 +7,7 @@ namespace App\Tests\Model;
 use App\Model\Money;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Model\MoneyFactory;
-use Xm\SymfonyBundle\Tests\FakeVo;
+use Xm\SymfonyBundle\Test\FakeVo;
 
 class MoneyTest extends BaseTestCase
 {

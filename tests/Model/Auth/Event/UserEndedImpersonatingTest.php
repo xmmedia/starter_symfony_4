@@ -6,7 +6,7 @@ namespace App\Tests\Model\Auth\Event;
 
 use App\Model\Auth\Event\UserEndedImpersonating;
 use App\Tests\BaseTestCase;
-use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
+use Xm\SymfonyBundle\Test\CanCreateEventFromArray;
 
 class UserEndedImpersonatingTest extends BaseTestCase
 {

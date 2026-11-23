@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Messenger\Envelope;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
 use Xm\SymfonyBundle\Infrastructure\Service\ProjectionRunner;
-use Xm\SymfonyBundle\Tests\MessengerMiddlewareTestTrait;
+use Xm\SymfonyBundle\Test\MessengerMiddlewareTestTrait;
 
 class RunProjectionMiddlewareTest extends BaseTestCase
 {

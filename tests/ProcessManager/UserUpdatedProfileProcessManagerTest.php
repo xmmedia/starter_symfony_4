@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Xm\SymfonyBundle\EventSourcing\AggregateChanged;
-use Xm\SymfonyBundle\Tests\EventCreatedAtSetter;
+use Xm\SymfonyBundle\Test\EventCreatedAtSetter;
 
 class UserUpdatedProfileProcessManagerTest extends BaseTestCase
 {

@@ -7,7 +7,7 @@ namespace App\Tests\Model\User\Event;
 use App\Model\User\Event\InviteSent;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
-use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
+use Xm\SymfonyBundle\Test\CanCreateEventFromArray;
 
 class InviteSentTest extends BaseTestCase
 {

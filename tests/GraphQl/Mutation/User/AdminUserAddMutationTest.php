@@ -17,7 +17,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Xm\SymfonyBundle\Tests\PasswordStrengthFake;
+use Xm\SymfonyBundle\Test\PasswordStrengthFake;
 
 class AdminUserAddMutationTest extends BaseTestCase
 {

@@ -8,7 +8,7 @@ use App\Model\User\Event\VerificationSent;
 use App\Tests\BaseTestCase;
 use Xm\SymfonyBundle\Model\EmailGatewayMessageId;
 use Xm\SymfonyBundle\Model\NotificationGatewayId;
-use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
+use Xm\SymfonyBundle\Test\CanCreateEventFromArray;
 
 class VerificationSentTest extends BaseTestCase
 {

@@ -6,7 +6,7 @@ namespace App\Tests\Model\User\Event;
 
 use App\Model\User\Event\ChangedPassword;
 use App\Tests\BaseTestCase;
-use Xm\SymfonyBundle\Tests\CanCreateEventFromArray;
+use Xm\SymfonyBundle\Test\CanCreateEventFromArray;
 
 class ChangedPasswordTest extends BaseTestCase
 {

@@ -12138,16 +12138,16 @@
         },
         {
             "name": "xm/symfony-bundle",
-            "version": "v2.0.152",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xmmedia/XMSymfonyBundle.git",
-                "reference": "1871d0b3282e6521b7dabc2d23ab207cc56f47ba"
+                "reference": "a2146c1ebb41e3b3312a6c4f90f032f0115de3ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/1871d0b3282e6521b7dabc2d23ab207cc56f47ba",
-                "reference": "1871d0b3282e6521b7dabc2d23ab207cc56f47ba",
+                "url": "https://api.github.com/repos/xmmedia/XMSymfonyBundle/zipball/a2146c1ebb41e3b3312a6c4f90f032f0115de3ea",
+                "reference": "a2146c1ebb41e3b3312a6c4f90f032f0115de3ea",
                 "shasum": ""
             },
             "require": {
@@ -12214,6 +12214,7 @@
                     "Xm\\SymfonyBundle\\": ""
                 },
                 "exclude-from-classmap": [
+                    "/Test/",
                     "/Tests/"
                 ]
             },
@@ -12231,10 +12232,10 @@
             "homepage": "https://github.com/xmmedia/XMSymfonyBundle",
             "support": {
                 "issues": "https://github.com/xmmedia/XMSymfonyBundle/issues",
-                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.0.152"
+                "source": "https://github.com/xmmedia/XMSymfonyBundle/tree/v2.1.0"
             },
-            "time": "2026-11-14T04:09:01+00:00",
-            "published-time": "2026-11-14T04:10:52+00:00"
+            "time": "2026-11-23T21:40:21+00:00",
+            "published-time": "2026-11-23T21:45:12+00:00"
         }
     ],
     "packages-dev": [
