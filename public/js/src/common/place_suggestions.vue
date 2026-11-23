@@ -14,11 +14,15 @@
             <span>{{ suggestion.placePrediction.mainText?.toString() }}</span>
             <span class="ml-1 text-gray-600">{{ suggestion.placePrediction.secondaryText?.toString() }}</span>
         </li>
-        <li class="px-3 py-1 border-t border-gray-200">
-            <img src="https://maps.gstatic.com/mapfiles/api-3/images/powered-by-google-on-white3.png"
-                 width="144"
-                 height="18"
-                 alt="Powered by Google">
+        <!-- attribution required by the Places policies -->
+        <!-- @link https://developers.google.com/maps/documentation/places/web-service/policies -->
+        <!-- the logo can't be modified & needs clear space: 10px left, right & top, 5px bottom -->
+        <li class="px-2.5 pt-2.5 pb-1.25 border-t border-gray-200">
+            <img src="/images/google-maps-logo-gray.svg"
+                 class="block h-4 w-auto ml-auto"
+                 width="87"
+                 height="16"
+                 alt="Google Maps">
         </li>
     </ul>
 </template>
