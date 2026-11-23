@@ -1,3 +1,4 @@
+#ddev-silent-no-warn
 [mysqld]
 # match the starter's collation, so tables created without one (eg messenger_messages,
 # doctrine_migration_versions) get it, instead of DDEV's utf8mb4_unicode_520_ci
