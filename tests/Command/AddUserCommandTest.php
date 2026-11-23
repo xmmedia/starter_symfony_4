@@ -15,6 +15,7 @@ use App\Tests\BaseTestCase;
 use Carbon\CarbonImmutable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -25,6 +26,13 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
 class AddUserCommandTest extends BaseTestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        // read the answers as lines, as without a terminal: in one, a choice is read a key at a time to autocomplete it,
+        // which can put the answers after a rejected one out of step
+        QuestionHelper::disableStty();
+    }
+
     public function testPasswordAndDefaultFormat(): void
     {
         $faker = $this->faker();
@@ -369,5 +377,35 @@ class AddUserCommandTest extends BaseTestCase
         $this->expectExceptionMessageIsOrContains('The format "xml" is not supported');
 
         $commandTester->execute(['--format' => 'xml']);
+    }
+
+    /**
+     * ROLE_ALLOWED_TO_SWITCH is only for the switch_user firewall, so it can't be given to a user.
+     */
+    public function testAllowedToSwitchRoleIsNotOffered(): void
+    {
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldNotReceive('dispatch');
+
+        $commandTester = new CommandTester(new AddUserCommand(
+            $commandBus,
+            \Mockery::mock(PasswordHasher::class),
+            \Mockery::mock(UserPasswordStore::class),
+            \Mockery::mock(UserFinder::class),
+            \Mockery::mock(ResetPasswordHelperInterface::class),
+            \Mockery::mock(RouterInterface::class),
+        ));
+        $commandTester->setInputs([
+            $this->faker()->email(),
+            $this->faker()->password(),
+            Role::ROLE_ALLOWED_TO_SWITCH->value,
+        ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageIsOrContains(
+            \sprintf('Value "%s" is invalid', Role::ROLE_ALLOWED_TO_SWITCH->value),
+        );
+
+        $commandTester->execute([]);
     }
 }
