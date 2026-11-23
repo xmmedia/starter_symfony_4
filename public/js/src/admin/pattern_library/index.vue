@@ -101,7 +101,7 @@
                         <td class="p-2"><code>&lt;{{ row.tag }}&gt;</code></td>
                         <td v-for="state in buttonStates" :key="state.value" class="p-2 whitespace-nowrap">
                             <!-- a disabled button can't be focused or pressed -->
-                            <template v-if="!row.disabled || ['', 'hover'].includes(state.value)">
+                            <template v-if="!row.disabled || [ '', 'hover' ].includes(state.value)">
                                 <a v-if="'a' === row.tag"
                                    href=""
                                    :class="row.class"
@@ -1104,7 +1104,7 @@ const buttonRows = [
     { label: 'Link', class: null, tag: 'a' },
 ];
 
-const radios1Values = [{ value: 1, label: 'Option 1' }, { value: 2, label: 'Option 2' }, { value: 3, label: 'Option 3' }];
+const radios1Values = [ { value: 1, label: 'Option 1' }, { value: 2, label: 'Option 2' }, { value: 3, label: 'Option 3' } ];
 const radios2Values = [
     { value: 1, label: 'Option 1' },
     { value: 2, label: 'Option 2' },
@@ -1126,9 +1126,9 @@ const notRemovableFileValue = ref({ file: '#', originalFilename: 'existing-file.
 const checkboxValue = ref(false);
 const checkboxPillValue = ref(false);
 
-const multiselectOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
+const multiselectOptions = [ 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5' ];
 const multiselectSingleValue = ref(null);
-const multiselectMultipleValue = ref(['Option 2', 'Option 3']);
+const multiselectMultipleValue = ref([ 'Option 2', 'Option 3' ]);
 const multiselectDisabledValue = ref('Option 1');
 
 const dateValue = ref(null);
@@ -1139,7 +1139,7 @@ const dateRangeValue = ref(null);
 const dateRangeConfig = { dateFormat: 'Y-m-d', mode: 'range' };
 
 const checkboxesValue = ref([ 2 ]);
-const checkboxesValues = [{ value: 1, label: 'Item 1' }, { value: 2, label: 'Item 2' }, { value: 3, label: 'Item 3' }];
+const checkboxesValues = [ { value: 1, label: 'Item 1' }, { value: 2, label: 'Item 2' }, { value: 3, label: 'Item 3' } ];
 
 const recordListItems = [
     {

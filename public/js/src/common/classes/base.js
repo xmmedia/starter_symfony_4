@@ -22,7 +22,7 @@ export default class BaseClass {
     throwIfMissingKeys (requiredKeys, object = this) {
         if (!this.hasKeys(requiredKeys, object)) {
             const missingKeys = requiredKeys.filter((key) => {
-                return !this.hasKeys([key], object);
+                return !this.hasKeys([ key ], object);
             });
 
             throw new ReferenceError(

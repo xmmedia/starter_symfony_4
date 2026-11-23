@@ -40,7 +40,7 @@ import FieldInput from '@/common/field_input.vue';
 import FieldRadios from '@/common/field_radios.vue';
 import FieldSelect from '@/common/field_select.vue';
 
-defineEmits(['reset']);
+defineEmits([ 'reset' ]);
 
 const filters = defineModel({ type: Object, required: true });
 
@@ -80,7 +80,7 @@ const initFlatpickr = () => {
     flatpickrInstance = Flatpickr(dateRangeInputRef.value, {
         mode: 'range',
         dateFormat: 'Y-m-d',
-        defaultDate: [filters.value.customDateFrom, filters.value.customDateTo].filter(Boolean),
+        defaultDate: [ filters.value.customDateFrom, filters.value.customDateTo ].filter(Boolean),
         onChange: handleDateRangeChange,
     });
 };

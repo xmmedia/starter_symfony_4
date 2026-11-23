@@ -20,7 +20,7 @@ import { AdminUserVerifyMutation } from '@/admin/queries/user.mutation.graphql';
 import { logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 
-const emit = defineEmits(['activated', 'verified']);
+const emit = defineEmits([ 'activated', 'verified' ]);
 
 const props = defineProps({
     userId: {

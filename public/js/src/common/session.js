@@ -36,7 +36,7 @@ const heldRequests = new Set();
 
 // GraphQlErrorSubscriber sets UNAUTHENTICATED when access is denied because they're not signed in
 // (FORBIDDEN if they are). Denied nullable fields (most queries) come back as warnings, not errors.
-const isUnauthenticated = (result) => [...(result.errors ?? []), ...(result.extensions?.warnings ?? [])]
+const isUnauthenticated = (result) => [ ...(result.errors ?? []), ...(result.extensions?.warnings ?? []) ]
     .some((error) => GraphQlErrorCodes.UNAUTHENTICATED === error.extensions?.code);
 
 /**
@@ -125,7 +125,7 @@ export const resumeSession = () => {
     sessionExpired.value = false;
     sessionModalOpen.value = false;
 
-    const requests = [...heldRequests];
+    const requests = [ ...heldRequests ];
     heldRequests.clear();
     requests.forEach((send) => send());
 };

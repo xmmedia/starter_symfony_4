@@ -40,7 +40,7 @@ const anchorName = `--${menuId}`;
 const menu = useTemplateRef('menu');
 const openedByPointer = ref(false);
 
-const focusableItems = () => [...menu.value.querySelectorAll('a[href], button:not(:disabled)')];
+const focusableItems = () => [ ...menu.value.querySelectorAll('a[href], button:not(:disabled)') ];
 
 const toggled = (e) => {
     if ('open' !== e.newState) {

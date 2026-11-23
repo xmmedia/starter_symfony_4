@@ -38,7 +38,7 @@ export default defineConfig([
     ...pluginVue.configs['flat/recommended'],
 
     {
-        files: ['**/*.{js,mjs,cjs,vue}'],
+        files: [ '**/*.{js,mjs,cjs,vue}' ],
         plugins: stylisticConfig.plugins,
         rules: {
             ...stylisticConfig.rules,
@@ -46,63 +46,64 @@ export default defineConfig([
             "no-console": "error",
             "no-debugger": "error",
 
-            "@stylistic/max-len": ["error", {
+            "@stylistic/max-len": [ "error", {
                 "code": 120,
                 "ignoreComments": true,
                 "ignoreUrls": true,
                 "ignoreStrings": true,
-            }],
+            } ],
 
-            "@stylistic/comma-dangle": ["error", {
+            "@stylistic/comma-dangle": [ "error", {
                 "arrays": "always-multiline",
                 "objects": "always-multiline",
                 "imports": "always-multiline",
                 "exports": "never",
                 "functions": "only-multiline",
-            }],
+            } ],
 
-            "@stylistic/space-before-function-paren": ["error", "always"],
+            "@stylistic/space-before-function-paren": [ "error", "always" ],
             // either way reads fine: a map of labels quotes them all, attrs quote only the aria-* ones
             "@stylistic/quote-props": "off",
 
-            // the code has both [a] & [ a ]
-            "@stylistic/array-bracket-spacing": "off",
+            // spaces inside arrays, as in objects: [ a ] & { a }
+            "@stylistic/array-bracket-spacing": [ "error", "always" ],
             // minimum allows values aligned with extra spaces
-            "@stylistic/key-spacing": ["error", { "mode": "minimum" }],
-            "@stylistic/no-multi-spaces": ["error", {
+            "@stylistic/key-spacing": [ "error", { "mode": "minimum" } ],
+            "@stylistic/no-multi-spaces": [ "error", {
                 "exceptions": {
                     "Property": true,
                     "VariableDeclarator": true,
                     "ImportDeclaration": true,
                 },
-            }],
+            } ],
             // a blank line before } catch is allowed, but only some try blocks have one
             "@stylistic/padded-blocks": "off",
             // allows a one line arrow function with a block body, eg () => { started = true; }
-            "@stylistic/max-statements-per-line": ["error", { "max": 2 }],
+            "@stylistic/max-statements-per-line": [ "error", { "max": 2 } ],
 
             "vue/multi-word-component-names": "off",
-            "vue/object-curly-spacing": ["error", "always"],
+            "vue/object-curly-spacing": [ "error", "always" ],
+            "vue/array-bracket-spacing": [ "error", "always" ],
             "vue/space-infix-ops": "error",
             "vue/comma-spacing": "error",
 
-            "vue/max-attributes-per-line": ["error", {
+            "vue/max-attributes-per-line": [ "error", {
                 "singleline": 5,
                 "multiline": 1,
-            }],
+            } ],
 
-            "vue/first-attribute-linebreak": ["error", {
+            "vue/first-attribute-linebreak": [ "error", {
                 "singleline": "beside",
                 "multiline": "beside",
-            }],
+            } ],
 
-            "vue/html-indent": ["error", 4],
+            "vue/html-indent": [ "error", 4 ],
 
-            "vue/script-indent": ["error", 4, {
+            "vue/script-indent": [ "error", 4, {
                 "switchCase": 1,
-            }],
+            } ],
 
-            "vue/html-self-closing": ["error", {
+            "vue/html-self-closing": [ "error", {
                 "html": {
                     "void": "any",
                     "normal": "any",
@@ -111,12 +112,12 @@ export default defineConfig([
 
                 "svg": "any",
                 "math": "always",
-            }],
+            } ],
 
-            "vue/html-closing-bracket-newline": ["error", {
+            "vue/html-closing-bracket-newline": [ "error", {
                 "singleline": "never",
                 "multiline": "never",
-            }],
+            } ],
 
             "vue/multiline-html-element-content-newline": "off",
             "vue/singleline-html-element-content-newline": "off",
@@ -125,7 +126,7 @@ export default defineConfig([
 
     // vue/script-indent handles the <script> blocks
     {
-        files: ['**/*.vue'],
+        files: [ '**/*.vue' ],
         rules: {
             "@stylistic/indent": "off",
         },
@@ -133,7 +134,7 @@ export default defineConfig([
 
     // the config files at the root run in Node & keep the quotes their packages' docs use
     {
-        files: ['*.{js,mjs,cjs}'],
+        files: [ '*.{js,mjs,cjs}' ],
         languageOptions: {
             globals: globals.node,
         },
@@ -144,7 +145,7 @@ export default defineConfig([
 
     // GraphQL files configuration
     {
-        files: ['**/*.graphql'],
+        files: [ '**/*.graphql' ],
         languageOptions: {
             parser: graphqlPlugin.parser,
         },

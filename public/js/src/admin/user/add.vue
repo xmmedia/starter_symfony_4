@@ -68,7 +68,7 @@ const submit = async () => {
         const { mutate: sendUserAdd } = useMutation(AdminUserAddMutation);
         await sendUserAdd({
             user: {
-                ...pick(user.value, ['email', 'setPassword', 'password', 'role', 'active', 'firstName', 'lastName']),
+                ...pick(user.value, [ 'email', 'setPassword', 'password', 'role', 'active', 'firstName', 'lastName' ]),
                 userId,
                 sendInvite: user.value.setPassword || !user.value.active ? false : user.value.sendInvite,
                 userData: {

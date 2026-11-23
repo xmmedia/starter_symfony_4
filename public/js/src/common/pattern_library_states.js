@@ -10,7 +10,7 @@
 
 import { logError } from './lib';
 
-const STATES = ['hover', 'focus-visible', 'focus-within', 'focus', 'active'];
+const STATES = [ 'hover', 'focus-visible', 'focus-within', 'focus', 'active' ];
 
 // the lookbehind skips Tailwind variant class names, e.g. .hover\:underline
 const PSEUDO_CLASS = new RegExp(`(?<!\\\\):(${STATES.join('|')})(?![\\w-])`, 'g');
@@ -46,11 +46,11 @@ const processRules = (container) => {
         const rule = container.cssRules[i];
 
         if (rule instanceof CSSMediaRule && HOVER_MEDIA.test(rule.conditionText)) {
-            [...rule.cssRules]
-                .map((child) => [child.cssText, replaceStates(child.cssText)])
-                .filter(([original, copy]) => copy !== original)
+            [ ...rule.cssRules ]
+                .map((child) => [ child.cssText, replaceStates(child.cssText) ])
+                .filter(([ original, copy ]) => copy !== original)
                 .reverse()
-                .forEach(([, copy]) => insertAfter(container, i, copy));
+                .forEach(([ , copy ]) => insertAfter(container, i, copy));
 
             continue;
         }

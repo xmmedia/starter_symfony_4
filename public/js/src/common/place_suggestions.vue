@@ -6,7 +6,7 @@
         <li v-for="(suggestion, index) in suggestions"
             :id="`${listId}-${index}`"
             :key="suggestion.placePrediction.placeId"
-            :class="['px-3 py-2 text-sm cursor-pointer', { 'bg-gray-100': index === activeIndex }]"
+            :class="[ 'px-3 py-2 text-sm cursor-pointer', { 'bg-gray-100': index === activeIndex } ]"
             role="option"
             :aria-selected="index === activeIndex"
             @mousedown.prevent="$emit('select', suggestion)"

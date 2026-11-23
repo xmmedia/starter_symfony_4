@@ -14,7 +14,7 @@ import { computed } from 'vue';
 
 const props = defineProps({
     datetime: {
-        type: [String, Date],
+        type: [ String, Date ],
         required: true,
     },
 });

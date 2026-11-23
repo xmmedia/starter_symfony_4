@@ -68,7 +68,7 @@ import range from 'lodash/range';
 import { GlobalEvents } from 'vue-global-events';
 
 const router = useRouter();
-const emit = defineEmits(['update:offset']);
+const emit = defineEmits([ 'update:offset' ]);
 
 const props = defineProps({
     routeName: {

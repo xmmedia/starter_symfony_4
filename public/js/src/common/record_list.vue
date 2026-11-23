@@ -70,5 +70,5 @@ const props = defineProps({
     },
 });
 
-const cellClassFunction = (item, j) => [props.cellClasses[j] ?? null, props.cellClassesFunction(item, j)];
+const cellClassFunction = (item, j) => [ props.cellClasses[j] ?? null, props.cellClassesFunction(item, j) ];
 </script>

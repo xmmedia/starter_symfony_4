@@ -125,7 +125,7 @@ const submit = async () => {
         const { mutate: sendUserUpdate } = useMutation(AdminUserUpdateMutation);
         await sendUserUpdate({
             user: {
-                ...pick(user.value, ['email', 'setPassword', 'password', 'role', 'firstName', 'lastName']),
+                ...pick(user.value, [ 'email', 'setPassword', 'password', 'role', 'firstName', 'lastName' ]),
                 userId: props.userId,
                 userData: {
                     phoneNumber: user.value.phoneNumber,

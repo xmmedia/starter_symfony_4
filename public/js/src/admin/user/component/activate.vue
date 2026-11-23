@@ -27,7 +27,7 @@ import { AdminUserActivateMutation } from '@/admin/queries/user.mutation.graphql
 import { logError } from '@/common/lib';
 import { useMutation } from '@vue/apollo-composable';
 
-const emit = defineEmits(['activated', 'deactivated']);
+const emit = defineEmits([ 'activated', 'deactivated' ]);
 
 const props = defineProps({
     userId: {

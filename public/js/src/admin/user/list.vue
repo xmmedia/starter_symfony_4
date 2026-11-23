@@ -36,7 +36,7 @@
 
                 <RecordList :headings="[ 'Username', 'Name', 'Account Status', 'Last Login (Count)', 'Role', '' ]"
                             :items="users"
-                            :cell-classes="[null, null, null, null, null, 'record_list-col-actions']">
+                            :cell-classes="[ null, null, null, null, null, 'record_list-col-actions' ]">
                     <template #col1="{ item }">
                         {{ item.email }}
                     </template>
@@ -184,10 +184,10 @@ const gqlFilters = computed(() => {
             filters.roles = null;
             break;
         case 'ADMIN':
-            filters.roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
+            filters.roles = [ 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN' ];
             break;
         case 'USER':
-            filters.roles = ['ROLE_USER'];
+            filters.roles = [ 'ROLE_USER' ];
             break;
     }
     delete filters.role;

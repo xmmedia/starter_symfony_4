@@ -32,7 +32,7 @@
                 </div>
                 <RecordList :headings="headings"
                             :items="messages"
-                            :cell-classes="[null, null, null, null, null, null, 'record_list-col-actions']">
+                            :cell-classes="[ null, null, null, null, null, null, 'record_list-col-actions' ]">
                     <template #col1="{ item }">
                         {{ item.id }}
                     </template>
@@ -129,7 +129,7 @@ const filters = ref({
 });
 const offset = ref(+route.query.offset || 0);
 const messages = ref([]);
-const headings = ['ID', 'Queue', 'Message Class', 'Created At', 'Available At', 'Delivered At', ''];
+const headings = [ 'ID', 'Queue', 'Message Class', 'Created At', 'Available At', 'Delivered At', '' ];
 
 const appliedFilters = computed(() => {
     const setFilters = {

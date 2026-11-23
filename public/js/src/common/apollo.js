@@ -64,7 +64,7 @@ const link = split(
 // Create the apollo client
 export const apolloClient = new ApolloClient({
     // strips __typename from variables (must be before the split so both branches get it)
-    link: ApolloLink.from([removeTypenameFromVariables(), maintenanceLink, sessionLink, csrfLink, errorLink, link]),
+    link: ApolloLink.from([ removeTypenameFromVariables(), maintenanceLink, sessionLink, csrfLink, errorLink, link ]),
     // Cache implementation
     cache: new InMemoryCache(),
     defaultOptions: {

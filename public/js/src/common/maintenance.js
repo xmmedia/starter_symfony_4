@@ -97,7 +97,7 @@ export const endMaintenance = () => {
     maintenance.value = null;
     maintenanceModalOpen.value = false;
 
-    const requests = [...heldRequests];
+    const requests = [ ...heldRequests ];
     heldRequests.clear();
     requests.forEach((send) => send());
 };

@@ -36,7 +36,7 @@ const props = defineProps({
      * The first is used by the component. The second and third are converted to the first.
      */
     values: {
-        type: [Array, Object],
+        type: [ Array, Object ],
         required: true,
     },
     autofocus: {

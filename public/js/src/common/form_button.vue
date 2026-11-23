@@ -78,11 +78,11 @@ const props = defineProps({
         default: false,
     },
     cancelTo: {
-        type: [Object, String],
+        type: [ Object, String ],
         default: null,
     },
     buttonClasses: {
-        type: [String, Array],
+        type: [ String, Array ],
         default: null,
     },
     showButton: {
@@ -94,7 +94,7 @@ const props = defineProps({
         default: false,
     },
     wrapperClasses: {
-        type: [String, Array],
+        type: [ String, Array ],
         default: null,
     },
     /**
@@ -102,7 +102,7 @@ const props = defineProps({
      * Doesn't apply to the button bar.
      */
     buttonWrapperClasses: {
-        type: [String, Array],
+        type: [ String, Array ],
         default: null,
     },
 });

@@ -9,7 +9,7 @@ import { formatPhone } from '@/common/lib';
 
 defineProps({
     phoneNumber: {
-        type: [Object, String],
+        type: [ Object, String ],
         required: true,
     },
 });

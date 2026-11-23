@@ -20,7 +20,7 @@
 import FieldInput from '@/common/field_input.vue';
 import FieldRadios from '@/common/field_radios.vue';
 
-defineEmits(['reset']);
+defineEmits([ 'reset' ]);
 
 const filters = defineModel({ type: Object, required: true });
 

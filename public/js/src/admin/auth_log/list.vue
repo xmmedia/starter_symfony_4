@@ -34,7 +34,7 @@
                 </div>
                 <RecordList :headings="headings"
                             :items="authLogs"
-                            :cell-classes="[null, null, null, null, null, null, 'record_list-col-actions']">
+                            :cell-classes="[ null, null, null, null, null, null, 'record_list-col-actions' ]">
                     <template #col1="{ item }">
                         <LocalTime :datetime="item.occurredAt" />
                     </template>
@@ -154,7 +154,7 @@ const filters = ref({
 });
 const offset = ref(+route.query.offset || 0);
 const authLogs = ref([]);
-const headings = ['Date/Time', 'Event', 'User', 'IP Address', 'User Agent', 'Error', ''];
+const headings = [ 'Date/Time', 'Event', 'User', 'IP Address', 'User Agent', 'Error', '' ];
 
 const appliedFilters = computed(() => {
     const setFilters = {
@@ -194,13 +194,13 @@ const gqlFilters = computed(() => {
 
     switch (filters.value.eventType) {
         case 'login':
-            eventTypes = ['LOGIN'];
+            eventTypes = [ 'LOGIN' ];
             break;
         case 'login_failed':
-            eventTypes = ['LOGIN_FAILED'];
+            eventTypes = [ 'LOGIN_FAILED' ];
             break;
         case 'impersonation':
-            eventTypes = ['IMPERSONATION_STARTED', 'IMPERSONATION_ENDED'];
+            eventTypes = [ 'IMPERSONATION_STARTED', 'IMPERSONATION_ENDED' ];
             break;
     }
 

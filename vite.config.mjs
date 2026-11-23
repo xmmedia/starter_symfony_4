@@ -53,7 +53,7 @@ export default defineConfig(({ command, mode, isPreview }) => {
                 // eslint-disable-next-line no-console
                 errorHandler: (err) => console.warn(err),
                 // the maps are only for Sentry: don't deploy them
-                sourcemaps: { filesToDeleteAfterUpload: ['public/build/**/*.map'] },
+                sourcemaps: { filesToDeleteAfterUpload: [ 'public/build/**/*.map' ] },
             }),
             tailwindcss(),
         ],
@@ -88,7 +88,7 @@ export default defineConfig(({ command, mode, isPreview }) => {
             strictPort: true,
             origin: siteUrl.origin,
             // the proxy passes the site's Host through; Vite 400s unknown hosts
-            allowedHosts: [siteUrl.hostname],
+            allowedHosts: [ siteUrl.hostname ],
             // the HMR socket rides the proxied path, not the Vite port
             hmr: {
                 protocol: 'wss',

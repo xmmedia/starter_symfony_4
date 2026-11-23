@@ -90,7 +90,7 @@ const { snapshot: state, send: sendEvent } = useMachine(stateMachine);
 const authLogs = ref([]);
 const authLogsCount = ref(0);
 const offset = ref(0);
-const headings = ['Date/Time', 'Event', 'IP Address', 'User Agent', 'Error'];
+const headings = [ 'Date/Time', 'Event', 'IP Address', 'User Agent', 'Error' ];
 
 const { onResult, onError } = useQuery(
     GetUserAuthLogsQuery,

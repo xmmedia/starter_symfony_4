@@ -15,7 +15,7 @@ const fileLoadFailure = new RegExp([
 const groupFileLoadFailures = function (event) {
     const message = event.exception?.values?.at(-1)?.value;
     if (message && fileLoadFailure.test(message)) {
-        event.fingerprint = ['file-load-failure'];
+        event.fingerprint = [ 'file-load-failure' ];
         event.level = 'warning';
     }
 
@@ -43,7 +43,11 @@ export const initSentry = function (app, pinia, useRootStore) {
             // a fetch() couldn't reach the server (offline, waking from sleep, blocked): Chrome,
             // Firefox & Safari's messages. Anchored, so failing to load a JS file (eg Chrome's "Failed
             // to fetch dynamically imported module"), which can mean a broken deploy, is still sent
-            ignoreErrors: [/^Failed to fetch$/, /^NetworkError when attempting to fetch resource\.$/, /^Load failed$/],
+            ignoreErrors: [
+                /^Failed to fetch$/,
+                /^NetworkError when attempting to fetch resource\.$/,
+                /^Load failed$/,
+            ],
             beforeSend: groupFileLoadFailures,
         });
 
