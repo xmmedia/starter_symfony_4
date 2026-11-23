@@ -3,7 +3,9 @@
             class="modal"
             @close="closed"
             @cancel="cancel"
-            @click.self="backdropClicked">
+            @click.self="backdropClicked"
+            @submit.stop>
+        <!-- rendered where it's used, so it can be in the page's form: a form in it mustn't submit the page's too -->
         <div :class="contentClass">
             <div v-if="props.showClose" :class="closeButtonWrapClass">
                 <button :class="closeButtonClass" type="button" @click="close">×</button>
