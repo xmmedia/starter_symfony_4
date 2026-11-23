@@ -501,6 +501,19 @@
                     </div>
                 </fieldset>
 
+                <!-- fixed suggestions, so it shows without a Google key -->
+                <div class="field-wrap relative mb-44">
+                    <label for="pattern-library-place-suggestions">Address suggestions</label>
+                    <input id="pattern-library-place-suggestions"
+                           type="text"
+                           value="10 Main"
+                           autocomplete="off">
+                    <PlaceSuggestions list-id="pattern-library-place-suggestions-list"
+                                      :suggestions="placeSuggestions"
+                                      :active-index="placeSuggestionsActiveIndex"
+                                      @activate="placeSuggestionsActiveIndex = $event" />
+                </div>
+
                 <div class="mt-6 mb-4 p-4 pt-3 border border-gray-300">
                     <div class="flex">
                         <h4 class="mt-0 mb-3">Heading</h4>
@@ -1065,6 +1078,7 @@ import FieldFile from '@/common/field_file.vue';
 import FieldRadios from '@/common/field_radios.vue';
 import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldCheckboxes from '@/common/field_checkboxes.vue';
+import PlaceSuggestions from '@/common/place_suggestions.vue';
 import RecordList from '@/common/record_list.vue';
 import { initPatternLibraryStates } from '@/common/pattern_library_states';
 
@@ -1140,6 +1154,16 @@ const dateRangeConfig = { dateFormat: 'Y-m-d', mode: 'range' };
 
 const checkboxesValue = ref([ 2 ]);
 const checkboxesValues = [ { value: 1, label: 'Item 1' }, { value: 2, label: 'Item 2' }, { value: 3, label: 'Item 3' } ];
+
+const placeSuggestion = (placeId, mainText, secondaryText) => ({
+    placePrediction: { placeId, mainText, secondaryText },
+});
+const placeSuggestions = [
+    placeSuggestion('1', '10 Main Street', 'Cityville, AB, Canada'),
+    placeSuggestion('2', '10 Main Street South', 'Townsville, AB, Canada'),
+    placeSuggestion('3', '10 Main Avenue', 'Villageton, SK, Canada'),
+];
+const placeSuggestionsActiveIndex = ref(0);
 
 const recordListItems = [
     {
