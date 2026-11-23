@@ -37,6 +37,7 @@
     @import "./common/radios.css";
     @import "./common/embed.css";
     @import "./common/loading.css";
+    @import "./common/navigation_progress.css";
     @import "./common/modal.css";
     @import "./common/password.css";
 

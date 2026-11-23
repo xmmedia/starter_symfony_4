@@ -1,0 +1,16 @@
+/* creeps towards 90% while loading, then fills & fades out once it's done */
+.navigation_progress {
+    @apply fixed top-0 inset-x-0 z-50 h-0.75 bg-blue-500 opacity-0 scale-x-0 origin-left pointer-events-none;
+}
+.navigation_progress--loading {
+    @apply opacity-100 scale-x-90;
+    @apply transition-transform duration-10000 ease-[cubic-bezier(0.1,0.6,0.3,1)] motion-reduce:transition-none;
+}
+.navigation_progress--done {
+    @apply opacity-0 scale-x-100;
+
+    /* fills, then fades: per property timing that utilities can't set */
+    @variant motion-safe {
+        transition: scale 150ms ease-out, opacity 200ms ease-in-out 150ms;
+    }
+}

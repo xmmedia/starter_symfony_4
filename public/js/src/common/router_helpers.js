@@ -66,7 +66,7 @@ export const trackNavigation = function (router) {
         // delayed so quick navigations don't flicker
         timer = setTimeout(() => {
             navigating.value = true;
-        }, 100);
+        }, 500);
     });
     router.afterEach(done);
     router.onError(done);

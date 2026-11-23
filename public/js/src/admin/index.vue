@@ -73,9 +73,7 @@
                               :email="rootStore.user.email"
                               :user-id="rootStore.user.userId" />
 
-            <main class="p-4 transition-opacity"
-                  :class="{ 'opacity-60 cursor-progress': navigating }"
-                  :aria-busy="navigating">
+            <main class="p-4" :aria-busy="navigating">
                 <!-- *** where the router component is placed *** -->
                 <RouterView :key="$route.path" />
             </main>
@@ -85,6 +83,8 @@
     </div>
 
     <LoadingSpinner v-else class="mt-8">Loading…</LoadingSpinner>
+
+    <NavigationProgress />
 
     <!-- outside the ready check: maintenance can start before the app's loaded -->
     <Maintenance />
@@ -100,6 +100,7 @@ import MenuSmall from './menu/small.vue';
 import MenuLink from './menu/link.vue';
 import ImpersonationBar from '@/common/impersonation_bar.vue';
 import Maintenance from '@/common/maintenance.vue';
+import NavigationProgress from '@/common/navigation_progress.vue';
 import SessionExpired from '@/common/session_expired.vue';
 import { navigating } from '@/common/router_helpers';
 

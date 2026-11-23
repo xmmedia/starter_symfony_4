@@ -41,6 +41,7 @@
     @import "./common/modal.css";
     @import "./common/button_pair.css";
     @import "./common/loading.css";
+    @import "./common/navigation_progress.css";
     @import "./common/password.css";
 
     /* Admin-only modules */
