@@ -43,7 +43,14 @@ export default {
             true,
             {
                 "ignoreAtRules": [
-                    "config", "plugin", "source", "theme", "custom-variant", "variant", "utility", "layer",
+                    "config",
+                    "plugin",
+                    "source",
+                    "theme",
+                    "custom-variant",
+                    "variant",
+                    "utility",
+                    "layer",
                 ],
             },
         ],

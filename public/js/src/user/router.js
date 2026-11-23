@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import {
-    scrollBehaviour as scrollBehavior, parseQuery, stringifyQuery, logPageView, beforeEach, trackNavigation,
+    scrollBehaviour as scrollBehavior,
+    parseQuery,
+    stringifyQuery,
+    logPageView,
+    beforeEach,
+    trackNavigation,
 } from '@/common/router_helpers';
 import { useRootStore } from '@/user/stores/root';
 
