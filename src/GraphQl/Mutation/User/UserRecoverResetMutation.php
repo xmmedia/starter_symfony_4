@@ -80,17 +80,18 @@ final readonly class UserRecoverResetMutation implements MutationInterface
             throw new PasswordNotAllowedError($e->getMessage(), $e);
         }
 
+        // the hash is deliberately not part of the command
+        // stored before verifying, so a failure can't verify the user without the new password
+        $this->passwordStore->store(
+            $user->userId(),
+            ($this->passwordHasher)($user->firstRole(), $newPassword),
+        );
+
         if (!$user->verified()) {
             $this->commandBus->dispatch(
                 VerifyUser::now($user->userId()),
             );
         }
-
-        // the hash is deliberately not part of the command
-        $this->passwordStore->store(
-            $user->userId(),
-            ($this->passwordHasher)($user->firstRole(), $newPassword),
-        );
 
         $this->commandBus->dispatch(
             ChangePassword::now($user->userId()),

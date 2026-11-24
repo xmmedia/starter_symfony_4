@@ -79,16 +79,15 @@ final readonly class UserActivateMutation implements MutationInterface
             throw new NotFoundError('Your account has already been activated.');
         }
 
-        $this->commandBus->dispatch(
-            ActivateUser::now($user->userId()),
-        );
-
         // the hash is deliberately not part of the command
+        // stored before activating, so a failure can't leave an activated user without a password
         $this->passwordStore->store(
             $user->userId(),
             ($this->passwordHasher)($user->firstRole(), $password),
         );
-
+        $this->commandBus->dispatch(
+            ActivateUser::now($user->userId()),
+        );
         $this->commandBus->dispatch(
             ChangePassword::now($user->userId()),
         );

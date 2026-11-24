@@ -92,6 +92,58 @@ class UserActivateMutationTest extends BaseTestCase
         $this->assertEquals(['success' => true], $result);
     }
 
+    public function testPasswordStoredBeforeActivating(): void
+    {
+        $faker = $this->faker();
+        $data = [
+            'password' => $faker->password(),
+        ];
+
+        $commandBus = \Mockery::mock(MessageBusInterface::class);
+        $commandBus->shouldNotReceive('dispatch');
+
+        $passwordHasher = \Mockery::mock(PasswordHasher::class);
+        $passwordHasher->shouldReceive('__invoke')
+            ->once()
+            ->andReturn('string');
+
+        $passwordStore = \Mockery::mock(UserPasswordStore::class);
+        $passwordStore->shouldReceive('store')
+            ->once()
+            ->andThrow(new \RuntimeException());
+
+        $user = $this->getUserMock();
+        $user->shouldReceive('userId')
+            ->andReturn($faker->userId());
+        $user->shouldReceive('verified')
+            ->once()
+            ->andReturnFalse();
+        $user->shouldReceive('firstRole')
+            ->once()
+            ->andReturn($faker->userRole());
+
+        $resetPasswordHelper = $this->getResetPasswordHelper($user, false);
+        $security = $this->createSecurity(false);
+        $requestProvider = $this->getRequestInfoProvider(false);
+
+        $args = new Argument($data);
+
+        $this->expectException(\RuntimeException::class);
+
+        (new UserActivateMutation(
+            $commandBus,
+            $passwordHasher,
+            $passwordStore,
+            $resetPasswordHelper,
+            $security,
+            $requestProvider,
+            new PasswordStrengthFake(),
+            $this->getPwnedHttpClient(),
+        ))(
+            $args,
+        );
+    }
+
     public function testLoggedIn(): void
     {
         $faker = $this->faker();
