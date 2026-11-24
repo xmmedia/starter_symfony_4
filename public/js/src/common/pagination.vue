@@ -4,7 +4,7 @@
                       @keydown.left="goToPrevious"
                       @keydown.right="goToNext" />
 
-        <component :is="isRouterMode ? RouterLink : 'button'"
+        <component :is="isRouterMode ? PageLink : 'button'"
                    v-if="current !== 1"
                    v-bind="isRouterMode ? { to: pageRoute(0) } : { type: 'button' }"
                    :class="linkClasses"
@@ -12,7 +12,7 @@
                    @click="handleNav(0)"><slot name="first-page">&lt;&lt;</slot></component>
         <span v-else :class="spanClasses" class="inline-block"><slot name="first-page">&lt;&lt;</slot></span>
 
-        <component :is="isRouterMode ? RouterLink : 'button'"
+        <component :is="isRouterMode ? PageLink : 'button'"
                    v-if="previous !== null"
                    v-bind="isRouterMode ? { to: previousRoute } : { type: 'button' }"
                    :class="linkClasses"
@@ -25,7 +25,7 @@
               class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
 
         <template v-for="page in pagesInRange">
-            <component :is="isRouterMode ? RouterLink : 'button'"
+            <component :is="isRouterMode ? PageLink : 'button'"
                        v-if="page !== current"
                        :key="'if-' + page"
                        v-bind="isRouterMode ? { to: pageRoute(page - 1) } : { type: 'button' }"
@@ -34,6 +34,7 @@
                        @click="handleNav(page - 1)">{{ page }}</component>
             <span v-else
                   :key="'else-' + page"
+                  aria-current="page"
                   :class="spanClasses + ' ' + currentClasses"
                   class="hidden sm:inline-block border border-gray-400 text-gray-800">{{ page }}</span>
         </template>
@@ -43,12 +44,12 @@
               class="hidden md:inline-block w-5 p-1 text-gray-400">…</span>
 
         <template v-if="next !== null">
-            <component :is="isRouterMode ? RouterLink : 'button'"
+            <component :is="isRouterMode ? PageLink : 'button'"
                        v-bind="isRouterMode ? { to: nextRoute } : { type: 'button' }"
                        :class="linkClasses"
                        class="inline-block"
                        @click="handleNav(next - 1)"><slot name="next-page">&gt;</slot></component>
-            <component :is="isRouterMode ? RouterLink : 'button'"
+            <component :is="isRouterMode ? PageLink : 'button'"
                        v-bind="isRouterMode ? { to: lastRoute } : { type: 'button' }"
                        :class="linkClasses"
                        class="inline-block"
@@ -62,12 +63,28 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
-import { RouterLink, useRouter } from 'vue-router';
+import { computed, defineComponent, h } from 'vue';
+import { useLink, useRouter } from 'vue-router';
 import range from 'lodash/range';
 import { GlobalEvents } from 'vue-global-events';
 
 const router = useRouter();
+
+// a RouterLink without aria-current & the active classes: every page link goes to the same route, & vue-router
+// ignores the query, so it would mark them all as the current page (which is a <span>, not a link)
+const PageLink = defineComponent({
+    props: {
+        to: {
+            type: Object,
+            required: true,
+        },
+    },
+    setup (props, { slots }) {
+        const { href, navigate } = useLink(props);
+
+        return () => h('a', { href: href.value, onClick: navigate }, slots.default?.());
+    },
+});
 const emit = defineEmits([ 'update:offset' ]);
 
 const props = defineProps({
@@ -145,8 +162,8 @@ const current = computed(() => {
         return 1;
     }
 
-    if (props.offset > props.count) {
-        return last.value / props.itemsPerPage;
+    if (props.offset >= props.count) {
+        return Math.max(pageCount.value, 1);
     }
 
     return Math.ceil(props.offset / props.itemsPerPage) + 1;
