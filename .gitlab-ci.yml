@@ -68,34 +68,13 @@ before_script:
 .deploy-setup-script: &deploy-setup-script
   - *versions-script
   # helpers for the rest of the job (its lines all run in one shell):
-  # retry a command when its ssh connection fails (255), as a busy server's sshd can drop
-  # new connections (MaxStartups); any other failure fails the job straight away
-  - |
-    ssh_retry () {
-      attempt=1
-      while :; do
-        status=0; "$@" || status=$?
-        if [ "$status" -ne 255 ] || [ "$attempt" -ge 4 ]; then return "$status"; fi
-        echo "ssh connection failed, retrying in $((attempt * 10))s ($attempt/4)…"
-        sleep $((attempt * 10))
-        attempt=$((attempt + 1))
-      done
-    }
   # run a command on the server; run a console command in a release dir
-  - remote () { ssh_retry ssh -p "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_SERVER" "$@"; }
+  - remote () { ssh -p "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_SERVER" "$@"; }
   - console () { dir=$1; shift; remote "cd $dir && $SERVER_PHP_PATH bin/console $*"; }
   # setup vars for paths
   - TIMESTAMP=$(date +%s); RELEASE="$RELEASES/$TIMESTAMP"
   - echo "Paths:"; echo $REMOTE_BASE; echo $RELEASE; echo $SHARED
   - echo "Remote:"; echo $REMOTE_USER@$REMOTE_SERVER:$REMOTE_PORT
-  # setup SSH & private key
-  - eval $(ssh-agent -s)
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-  - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-  - chmod 644 ~/.ssh/known_hosts
-  # keep SSH alive through long silent commands (eg a slow migration), so an idle connection isn't dropped
-  # by a firewall/NAT & left hanging; if it's lost anyway, ssh gives up after 5 minutes instead of waiting forever
-  - printf 'Host *\n  ServerAliveInterval 30\n  ServerAliveCountMax 10\n' >> ~/.ssh/config
   # add .revision file
   - git rev-parse --verify --short HEAD > .revision
   # create partial .env file
@@ -104,10 +83,13 @@ before_script:
 .deploy-script: &deploy-script
   # remove temp .env file just in case
   - rm .env.local
+  # set up SSH & open the connection the rest of the job shares, retrying only that (see the script).
+  # Done after the installs & build, so the packages they run never have the key on disk
+  - bin/ci_ssh_connect "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_SERVER"
   # ensure based paths exist
   - remote "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/var/log/archive $SHARED/public/uploads"
   # sync files to release directory. var/ isn't sent: it's replaced by a link to the shared one below
-  - ssh_retry rsync --archive --stats --human-readable --no-perms --exclude ".git/" --exclude ".idea/" --exclude "node_modules/" --exclude ".yarn/cache/" --exclude "/var/" -e "ssh -p $REMOTE_PORT" . $REMOTE_USER@$REMOTE_SERVER:$RELEASE
+  - rsync --archive --stats --human-readable --no-perms --exclude ".git/" --exclude ".idea/" --exclude "node_modules/" --exclude ".yarn/cache/" --exclude "/var/" -e "ssh -p $REMOTE_PORT" . $REMOTE_USER@$REMOTE_SERVER:$RELEASE
   # make console file executable
   - remote "chmod u+x $RELEASE/bin/console"
   # ensure platform has all requirements

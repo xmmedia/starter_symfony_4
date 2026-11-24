@@ -1,0 +1,51 @@
+#!/usr/bin/env sh
+# Used by the deploy jobs in .gitlab-ci.yml: bin/ci_ssh_connect <port> <user@host>
+# Reads the SSH_PRIVATE_KEY & SSH_KNOWN_HOSTS CI/CD variables.
+#
+# Sets up SSH & opens one connection to the server that every later ssh & rsync in the job shares,
+# so the job doesn't open dozens & a busy server's sshd doesn't drop them (MaxStartups).
+# Only opening it is retried: ssh exits 255 for a PHP fatal error or a connection lost part way
+# through too, so a command that fails must never be run again.
+set -eu
+
+port=$1
+host=$2
+
+for name in SSH_PRIVATE_KEY SSH_KNOWN_HOSTS; do
+    if [ -z "$(printenv "$name")" ]; then
+        echo "The $name CI/CD variable isn't set"
+        exit 1
+    fi
+done
+
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+# the key's only on disk in the job's container, which is removed when the job ends
+(umask 077 && printf '%s\n' "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/deploy_key)
+printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+# keep SSH alive through long silent commands (eg a slow migration), so an idle connection isn't
+# dropped by a firewall/NAT & left hanging; if it's lost anyway, ssh gives up after 5 minutes
+# instead of waiting forever. The connection closes when the job's container is removed
+cat >> ~/.ssh/config <<'EOF'
+Host *
+  IdentityFile ~/.ssh/deploy_key
+  IdentitiesOnly yes
+  StrictHostKeyChecking yes
+  ServerAliveInterval 30
+  ServerAliveCountMax 10
+  ControlMaster auto
+  ControlPath ~/.ssh/cm-%C
+  ControlPersist 1h
+EOF
+
+attempt=1
+until ssh -p "$port" "$host" true; do
+    if [ "$attempt" -ge 4 ]; then
+        echo "Couldn't connect to $host after $attempt attempts"
+        exit 1
+    fi
+    echo "SSH connection failed, retrying in $((attempt * 10))s ($attempt/4)…"
+    sleep $((attempt * 10))
+    attempt=$((attempt + 1))
+done

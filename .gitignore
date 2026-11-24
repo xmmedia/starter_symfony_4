@@ -40,6 +40,7 @@ public/service-worker.js
 !/bin/_output.sh
 !/bin/check
 !/bin/check_full
+!/bin/ci_ssh_connect
 !/bin/generate_schema
 !/bin/provision_site
 !/bin/setup_node.sh
