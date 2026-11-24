@@ -20,7 +20,13 @@ const HOVER_MEDIA = /^\(hover:\s*hover\)$/;
 
 const processedSheets = new WeakSet();
 
-const replaceStates = (cssText) => cssText.replace(PSEUDO_CLASS, '[data-pl-state~="$1"]');
+// an attribute can't follow a pseudo-element (::file-selector-button:hover is valid,
+// ::file-selector-button[data-pl-state~="hover"] isn't), so the states go before it, on the element
+const PSEUDO_ELEMENT_STATES = /(::[\w-]+(?:\([^)]*\))?)((?:\[data-pl-state~="[\w-]+"\])+)/g;
+
+const replaceStates = (cssText) => cssText
+    .replace(PSEUDO_CLASS, '[data-pl-state~="$1"]')
+    .replace(PSEUDO_ELEMENT_STATES, '$2$1');
 
 // copied with any nested rules; nested states also get copies of their own via processRules()
 const copyStyleRule = (rule) => {
