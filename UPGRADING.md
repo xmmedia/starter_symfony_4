@@ -8,6 +8,13 @@ Add an entry when a project has to do something the starter's diff & the package
 obvious, or you find a trap while upgrading a site that the next one will hit too. One line each: the trap & its fix.
 Rules that always apply go in `/xm:frontend-guidelines` & `/xm:backend-guidelines`, not here.
 
+## Deploy SSH connection (`c263cd8b3`, Nov 2026)
+
+- `bin/ci_ssh_connect` replaces `ssh_retry` & `ssh-agent`: the key is now a file, so anything that relied on the agent
+  (forwarding, another job using SSH) breaks. Any other job that connects calls the script itself
+- Call it after every step that runs package code, the project's own install & build steps included, so they never
+  have the key on disk
+
 ## Modal forms (`e83de8b1f`, Nov 2026)
 
 - `common/modal.vue` now stops a submit at the `<dialog>`, so a form in a modal doesn't also submit the page's form
