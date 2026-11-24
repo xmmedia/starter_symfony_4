@@ -1,6 +1,6 @@
 # Symfony Starter
 
-Used to create new projects using [Symfony 7](https://symfony.com/) at [XM Media](https://www.xmmedia.com/).
+Used to create new projects using [Symfony 8](https://symfony.com/) at [XM Media](https://www.xmmedia.com/).
 
 Local/Dev: https://symfonystarter.ddev.site @todo-symfony  
 Staging: @todo-symfony  
