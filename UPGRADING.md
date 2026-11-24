@@ -161,8 +161,7 @@ The official migration guides cover the API changes. These pass lint & the build
 - No `$each`: validate each item of a list in its own component, which the parent's `v$` collects
 - A child's rules roll up into the parent's `v$`: a modal with its own form needs `{ $stopPropagation: true }`, not
   `$scope: false`, which also stops it collecting its own children
-- Reading a rule that isn't there (`v.required.$invalid` with no `required`) throws, eg in a shared field component
-  used by forms with different rules: guard with `?.`
+- Reading a rule a field doesn't have throws: see `/xm:frontend-guidelines` (Vuelidate)
 
 ## Packages some projects use
 
