@@ -59,6 +59,7 @@
                 <Pagination class="my-4"
                             :count="authLogsCount"
                             :offset="offset"
+                            :arrow-events="false"
                             @update:offset="offset = $event" />
             </template>
         </template>

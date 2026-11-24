@@ -66,6 +66,7 @@
                             :count="messageCount"
                             :offset="+offset"
                             :route-query-additions="{ filters }"
+                            :arrow-events="false"
                             class="my-4" />
             </template>
         </template>
