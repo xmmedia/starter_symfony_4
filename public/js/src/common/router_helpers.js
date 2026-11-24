@@ -3,6 +3,15 @@ import { ref } from 'vue';
 import { apolloClient } from '@/common/apollo';
 import { RouteQuery, EntrypointIntegrityQuery } from '@/common/queries/route.query.graphql';
 
+// a bare % (eg /user/50%) isn't valid encoding & would throw, so it's kept as it is, as vue-router does
+const decodePathSegment = (segment) => {
+    try {
+        return decodeURIComponent(segment);
+    } catch {
+        return segment;
+    }
+};
+
 export const scrollBehaviour = function (to, from, savedPosition) {
     if (savedPosition) {
         return savedPosition;
@@ -115,7 +124,7 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
                 return {
                     name: '403',
                     // to.path is encoded & the router encodes params again
-                    params: { pathMatch: to.path.substring(1).split('/').map(decodeURIComponent) },
+                    params: { pathMatch: to.path.substring(1).split('/').map(decodePathSegment) },
                     query: to.query,
                     hash: to.hash,
                 };
