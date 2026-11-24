@@ -718,6 +718,15 @@ strings, config values) where LSP doesn't help.
 After writing or editing code, check LSP diagnostics before
 moving on. Fix any type errors or missing imports immediately.
 
+## Working in the starter
+
+Projects built from the starter catch up with it through `/xm:sync-starter`, one starter commit at a time, so keep
+unrelated changes in separate commits & note "new projects only" in the message where a change shouldn't go into
+existing projects. When existing projects need more than the diff to take a change (a manual step, data or config to
+move, a change that only works applied whole, a package major with traps), add an entry to `UPGRADING.md` in the same
+commit: what a project has to do & what catches people out. Add one too for a trap found while upgrading a site.
+`/xm:sync-starter` reads the entries after a project's baseline; `/xm:new-project` deletes the file & this section.
+
 ## Maintenance
 
 ### Updating Recipes

@@ -31,7 +31,7 @@ _Note:_ Make sure your git configuration is set to use the correct line endings:
 1. Run all projections once: `bin/console app:projection:run user -o && bin/console app:projection:run auth -o && bin/console app:projection:run auth_log -o` (or if using DDEV: `ddev console app:projection:run user -o && ddev console app:projection:run auth -o && ddev console app:projection:run auth_log -o`).
 1. Create a user `bin/console app:user:add` (select role `ROLE_SUPER_ADMIN`) (or if using DDEV: `ddev console app:user:add`).
 1. Find and make changes near `@todo-symfony` comments throughout the site.
-1. Delete starter files: `README.md` (or update) and `TEMPLATES.md`.
+1. Delete starter files: `README.md` (or update), `TEMPLATES.md` and `UPGRADING.md`.
 1. *Optional:* Run `composer test` – will install PHPUnit & run PHP tests
 1. Create new favicons: [realfavicongenerator.net](https://realfavicongenerator.net)
 1. Copy (use "Push to another server") or recreate the templates in Postmark. The templates are referenced by the aliases.
