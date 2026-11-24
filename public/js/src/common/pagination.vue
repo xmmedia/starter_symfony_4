@@ -158,7 +158,7 @@ const linkClasses = 'w-12 p-1 hover:bg-blue-100 rounded text-center no-underline
 const spanClasses = 'w-12 p-1 rounded text-gray-400 ' + props.disabledClasses;
 
 const current = computed(() => {
-    if (props.offset === 0) {
+    if (props.offset <= 0) {
         return 1;
     }
 
@@ -166,7 +166,8 @@ const current = computed(() => {
         return Math.max(pageCount.value, 1);
     }
 
-    return Math.ceil(props.offset / props.itemsPerPage) + 1;
+    // an offset part way through a page (eg 45 with 30 per page) is on the page it starts in
+    return Math.floor(props.offset / props.itemsPerPage) + 1;
 });
 const pageCount = computed(() => Math.ceil(props.count / props.itemsPerPage));
 
