@@ -43,6 +43,13 @@ Rules that always apply go in `/xm:frontend-guidelines` & `/xm:backend-guideline
   `messenger:failed:show` was always empty. Take the starter's `failed` transport & `failure_transport` in
   `messenger.yaml`, keeping the project's routing
 
+## ESLint's @stylistic preset (`60bcb13c3`, Nov 2026)
+
+- Run `yarn lint:js:fix` over the project's own JS & Vue after taking it: the formatting rules changed (spaces inside
+  array brackets, aligned values, quotes), so expect most files to change
+- "Circular fixes detected" in a `.vue` file is `@stylistic/indent-binary-ops` fighting `vue/script-indent` over a string
+  continued with `+` inside a call's arguments: take `2795da210`, which turns it off in `.vue` files
+
 ## 1Password on form fields (`900d3a494`, Nov 2026)
 
 - 1Password skips a field with `data-1p-ignore` whatever its value, & Vue renders `false` as `"false"`, so it filled
@@ -54,10 +61,28 @@ Rules that always apply go in `/xm:frontend-guidelines` & `/xm:backend-guideline
   Remove it unless another site's browser JS calls the app; if it does, follow `AGENTS.md` (CORS)
 - A failed CSRF check is now a 401, not a 403: check the project's own code for anything that reads the status
 
+## MySQL 8 collations (`11a86c30b`, Nov 2026)
+
+- The starter only changed its own read models. Convert the whole database in one migration: its default, every
+  table's & every text column (`utf8mb4_bin` & `utf8_bin` → `utf8mb4_0900_bin`, `utf8mb4_unicode_520_ci` →
+  `utf8mb4_0900_ai_ci`), & the project's read models & `db_create.sql` to match. Converting only some tables breaks
+  joins & comparisons across them ("Illegal mix of collations")
+- Build each `MODIFY` from the column's `SHOW CREATE TABLE` line: the event streams' `aggregate_id` &
+  `aggregate_type` are generated columns, & the read models' columns have comments & defaults to keep. Turn off
+  `FOREIGN_KEY_CHECKS` while it runs (the OAuth tables' foreign keys), & make it non-transactional & irreversible
+- It rebuilds every table, so deploy it with `MAINTENANCE=1`. `doctrine:migrations:migrate --write-sql` runs the
+  migration as well as writing the file: snapshot the database first (`ddev snapshot`)
+
 ## DDEV (`16c41d157`, Nov 2026)
 
 - Apply as one change with `/xm:lando-to-ddev`, before or after a sync, never piecemeal: a project half on each
   breaks. Keep the Lando versions of the files until then, including in later starter changes to them
+
+## Invokable console commands (`c72843c3f`, Nov 2026)
+
+- Convert all the project's commands at once: while any still extends `Command`, PHPStan's Symfony extension (2.1.1)
+  crashes analysing it ("Call to undefined method …Command::setName()"), as it calls `LazyCommand::getCommand()`,
+  which returns the raw invokable object
 
 ## Symfony 8.1 (`5e2174d95`, Oct 2026)
 
