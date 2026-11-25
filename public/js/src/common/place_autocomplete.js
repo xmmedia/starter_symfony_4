@@ -4,6 +4,8 @@ import { importLibrary, setOptions } from '@googlemaps/js-api-loader';
 import { logError } from '@/common/lib';
 
 // options: https://developers.google.com/maps/documentation/javascript/load-maps-js-api#js-api-loader
+// without a key every search fails & is sent to Sentry (logError() below), on purpose: so a build missing
+// VITE_GOOGLE_BROWSER_API_KEY shows up
 setOptions({
     key: import.meta.env.VITE_GOOGLE_BROWSER_API_KEY,
     region: 'CA',
