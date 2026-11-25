@@ -572,6 +572,11 @@
             <div class="header-actions">
                 <a href="" class="header-action header-action-main">Action Main</a>
                 <a href="" class="header-action">Secondary Action</a>
+                <ActionMenu class="action_menu-header">
+                    <a href="">Other Action</a>
+                    <button type="button">Another Action</button>
+                    <button type="button" data-keep-open>Keeps the Menu Open</button>
+                </ActionMenu>
                 <div class="button_pair-wrap header-button_pair">
                     <a href="" class="button_pair-button">&lt;</a>
                     <a href="" class="button_pair-button">&gt;</a>

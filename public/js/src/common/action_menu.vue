@@ -55,8 +55,10 @@ const toggled = (e) => {
     }
 };
 
+// an item with data-keep-open leaves the menu open, so it can show its progress (eg "Sending…")
 const close = (e) => {
-    if (e.target.closest('a, button')) {
+    const item = e.target.closest('a, button');
+    if (item && !item.hasAttribute('data-keep-open')) {
         menu.value.hidePopover();
     }
 };

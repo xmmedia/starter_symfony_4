@@ -1,14 +1,14 @@
+/* top, not middle: it's one line tall (the button below), so it lines up with the links beside it,
+   where middle drops it a couple of pixels */
 .action_menu {
-    @apply inline-block align-middle;
+    @apply inline-block align-top;
 }
 
 /* one line tall, so rows with a menu aren't taller than rows with only links */
 .action_menu-button {
     @apply flex items-center justify-center w-8 h-lh rounded;
+    @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 ring-offset-1;
     @apply text-blue-500 hover:text-blue-700 active:text-blue-700 transition-all;
-    &:focus-visible {
-        @apply outline-hidden ring-2 ring-blue-500 ring-offset-1;
-    }
 }
 
 .action_menu-icon {
@@ -24,28 +24,44 @@
         position-area: bottom span-left;
         position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
         inset: auto;
-        @apply m-0 mt-1;
+        /* right against the button, so in a list it doesn't look like it's in the next row */
+        @apply m-0;
     }
 
     > :is(a, button) {
         @apply text-left text-blue-500 whitespace-nowrap;
+    }
 
-        /* the items are highlighted instead of getting the links' focus ring, which the menu's edge would clip */
-        @variant md {
-            @apply block w-full px-4 py-2 hover:bg-blue-100 focus-visible:bg-blue-100;
-            @apply rounded-none outline-hidden ring-0 font-normal no-underline;
-            @apply hover:text-blue-700 focus-visible:text-blue-700;
-        }
+    /* only while it's open as a menu, not when the items are shown inline on mobile (below)
+       the items are highlighted instead of getting the links' focus ring, which the menu's edge would clip */
+    &:popover-open > :is(a, button) {
+        @apply block w-full px-4 py-2;
+        @apply hover:bg-blue-100 focus-visible:bg-blue-100 disabled:bg-transparent;
+        @apply rounded-none outline-hidden ring-0 font-normal no-underline;
+        @apply hover:text-blue-700 focus-visible:text-blue-700 disabled:text-gray-500;
     }
 }
 
 /* on mobile there's room, so the actions show inline with the others instead of in the menu
    display: contents overrides the closed popover's display: none */
 @variant max-md {
-    .action_menu, .action_menu-menu {
-        @apply contents;
+    .action_menu:not(.action_menu-header) {
+        &, .action_menu-menu {
+            @apply contents;
+        }
+        .action_menu-button {
+            @apply hidden;
+        }
     }
+}
+
+/* in the page header (<ActionMenu class="action_menu-header">), it's a menu at every width,
+   before the header's other actions (header.css) */
+.action_menu-header {
+    @apply order-first ml-4;
+
+    /* the header buttons' size, without their border */
     .action_menu-button {
-        @apply hidden;
+        @apply w-auto h-auto px-3 py-2 hover:bg-white active:bg-white ring-offset-gray-100;
     }
 }
