@@ -59,7 +59,7 @@ import { createMachine } from 'xstate';
 import { useVuelidate } from '@vuelidate/core';
 import { useRouter } from 'vue-router';
 import { useMutation } from '@vue/apollo-composable';
-import { required } from '@vuelidate/validators';
+import { required, sameAs } from '@vuelidate/validators';
 import { GraphQlErrorCodes, getGraphQlErrorCode, logError } from '@/common/lib';
 import FieldPassword from '@/common/field_password_with_errors.vue';
 import PublicFormWrap from '@/common/public_form_wrap.vue';
@@ -104,6 +104,7 @@ const v$ = useVuelidate({
     },
     repeatPassword: {
         required,
+        sameAs: sameAs(newPassword),
     },
 }, { newPassword, repeatPassword });
 
