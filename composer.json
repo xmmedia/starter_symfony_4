@@ -163,8 +163,14 @@
         "phpcs": "@cs",
         "rector": "bin/rector --dry-run --xdebug",
         "rector:fix": "bin/rector --xdebug",
-        "static": "php bin/phpstan analyse --memory-limit 2G",
-        "static-strict": "php bin/phpstan analyse --configuration phpstan.strict.dist.neon --memory-limit 2G",
+        "static": [
+            "@php bin/console cache:warmup --env=test",
+            "php bin/phpstan analyse --memory-limit 2G"
+        ],
+        "static-strict": [
+            "@php bin/console cache:warmup --env=test",
+            "php bin/phpstan analyse --configuration phpstan.strict.dist.neon --memory-limit 2G"
+        ],
         "test": "bin/phpunit",
         "test:coverage": [
             "@putenv XDEBUG_MODE=coverage",

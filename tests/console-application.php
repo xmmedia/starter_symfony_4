@@ -7,4 +7,4 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 require __DIR__.'/bootstrap.php';
 
-return new Application(new Kernel('test', false));
+return new Application(new Kernel('test', true));

@@ -80,9 +80,10 @@ Rules that always apply go in `/xm:frontend-guidelines` & `/xm:backend-guideline
 
 ## Invokable console commands (`c72843c3f`, Nov 2026)
 
-- Convert all the project's commands at once: while any still extends `Command`, PHPStan's Symfony extension (2.1.1)
-  crashes analysing it ("Call to undefined method …Command::setName()"), as it calls `LazyCommand::getCommand()`,
-  which returns the raw invokable object
+- PHPStan crashes afterwards ("Call to undefined method …Command::setName()"): its loaders booted the non-debug test
+  container, which is never checked for changes, so it still has the old commands. Take the starter's loaders
+  (`tests/console-application.php` & `tests/object-manager.php` boot the debug test kernel) & `composer static`/
+  `static-strict` (`cache:warmup --env=test` first), then delete the stale `cache/test/App_KernelTestContainer*` files
 
 ## Symfony 8.1 (`5e2174d95`, Oct 2026)
 
