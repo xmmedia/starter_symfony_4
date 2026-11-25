@@ -19,3 +19,6 @@ services:
     Prooph\EventStore\Pdo\WriteLockStrategy\MysqlMetadataLockStrategy:
         arguments:
             $connection: '@app.pdo_connection'
+            # seconds to wait for the lock (it's held for milliseconds), so a lock that's never released fails the
+            # save ("Failed to acquire lock for writing to stream") instead of every later one hanging
+            $timeout:    10
