@@ -129,6 +129,8 @@ export default defineConfig([
         files: [ '**/*.vue' ],
         rules: {
             "@stylistic/indent": "off",
+            // it fights vue/script-indent over a string continued with + inside a call's arguments (circular fixes)
+            "@stylistic/indent-binary-ops": "off",
         },
     },
 
