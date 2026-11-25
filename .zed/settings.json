@@ -1,0 +1,14 @@
+{
+  "code_lens": "on",
+  "file_types": {
+    "env": [".env.*"]
+  },
+  "lsp": {
+    "symfony-language-tools": {
+      "initialization_options": {
+        "workspaceTrust": true,
+        "trace": "off"
+      }
+    }
+  }
+}

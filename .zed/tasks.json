@@ -1,0 +1,34 @@
+[
+  {
+    "label": "phpunit: current file",
+    "command": "ddev exec bin/phpunit $ZED_RELATIVE_FILE"
+  },
+  {
+    "label": "phpunit: all",
+    "command": "ddev composer test"
+  },
+  {
+    "label": "php-cs-fixer: fix",
+    "command": "ddev composer cs:fix"
+  },
+  {
+    "label": "phpstan",
+    "command": "ddev composer static"
+  },
+  {
+    "label": "eslint: fix",
+    "command": "ddev yarn lint:js:fix"
+  },
+  {
+    "label": "stylelint: fix",
+    "command": "ddev yarn lint:css:fix"
+  },
+  {
+    "label": "check full",
+    "command": "bin/check_full"
+  },
+  {
+    "label": "symfony lsp:check",
+    "command": "symfony lsp:check"
+  }
+]

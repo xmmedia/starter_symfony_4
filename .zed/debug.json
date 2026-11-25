@@ -1,0 +1,11 @@
+[
+  {
+    "label": "DDEV: listen to Xdebug",
+    "adapter": "Xdebug",
+    "request": "launch",
+    "port": 9003,
+    "pathMappings": {
+      "/var/www/html": "$ZED_WORKTREE_ROOT"
+    }
+  }
+]
