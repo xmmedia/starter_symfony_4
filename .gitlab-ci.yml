@@ -88,8 +88,10 @@ before_script:
   - bin/ci_ssh_connect "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_SERVER"
   # ensure based paths exist
   - remote "mkdir -p $RELEASES $SHARED $SHARED/var $SHARED/var/log/archive $SHARED/public/uploads"
-  # sync files to release directory. var/ isn't sent: it's replaced by a link to the shared one below
-  - rsync --archive --stats --human-readable --no-perms --exclude ".git/" --exclude ".idea/" --exclude "node_modules/" --exclude ".yarn/cache/" --exclude "/var/" -e "ssh -p $REMOTE_PORT" . $REMOTE_USER@$REMOTE_SERVER:$RELEASE
+  # sync files to release directory. var/ isn't sent: it's replaced by a link to the shared one below.
+  # cache/ isn't either: it's per release (Kernel::getCacheDir) & built on the server by cache:clear
+  # (post-update-cmd), so the job's copy is never used
+  - rsync --archive --stats --human-readable --no-perms --exclude ".git/" --exclude ".idea/" --exclude "node_modules/" --exclude ".yarn/cache/" --exclude "/var/" --exclude "/cache/" -e "ssh -p $REMOTE_PORT" . $REMOTE_USER@$REMOTE_SERVER:$RELEASE
   # make console file executable
   - remote "chmod u+x $RELEASE/bin/console"
   # ensure platform has all requirements
