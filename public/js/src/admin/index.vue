@@ -30,16 +30,26 @@
             </ul>
 
             <div class="shrink-0 w-40 lg:w-64 mt-auto pt-2 font-extralight text-gray-300">
-                <div class="flex items-end justify-between px-4">
-                    <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm break-words">
+                <!-- a name too long to fit beside sign out puts it on its own line, on the right -->
+                <div class="flex flex-wrap items-end px-4">
+                    <div v-if="loggedIn" class="grow max-w-full mb-2 text-sm wrap-break-word">
                         <!-- @todo-symfony if admin only system -->
                         <!--<RouterLink :to="{ name: 'user-profile-edit' }" class="sidebar_nav-bottom_links">
                             {{ profileLinkText }}
                         </RouterLink>-->
                         <a href="/profile/edit" class="sidebar_nav-bottom_links">{{ profileLinkText }}</a>
                     </div>
-                    <div v-if="loggedIn" class="pb-2 pl-4 text-xs">
-                        <a href="/logout" class="sidebar_nav-bottom_links whitespace-nowrap">Sign Out</a>
+                    <!-- an icon, so the name has the room: the menu's narrow on small screens -->
+                    <div v-if="loggedIn" class="ml-auto pb-2 pl-3">
+                        <!-- h-5: the name's line height, so the icon's centred on it -->
+                        <a href="/logout" class="sidebar_nav-bottom_links flex items-center h-5" title="Sign Out">
+                            <AdminIcon icon="sign-out"
+                                       class="size-4"
+                                       width="16"
+                                       height="16"
+                                       aria-hidden="true" />
+                            <span class="sr-only">Sign Out</span>
+                        </a>
                     </div>
                 </div>
                 <div class="py-2 pl-4 border-t border-gray-600 text-xs text-gray-400">
