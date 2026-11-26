@@ -112,8 +112,13 @@ const confirmed = (close) => {
 const confirmClosed = () => {
     confirming.value = false;
     if (!saving.value) {
-        button.value?.focus({ focusVisible: fromKeyboard });
+        refocus();
     }
+};
+
+// shows the ring after the keyboard, & otherwise leaves it to the browser: false would hide it after Escape, say
+const refocus = () => {
+    button.value?.focus(fromKeyboard ? { focusVisible: true } : {});
 };
 
 const toggle = async () => {
@@ -136,6 +141,6 @@ const toggle = async () => {
     }
 
     await nextTick();
-    button.value?.focus({ focusVisible: fromKeyboard });
+    refocus();
 };
 </script>
