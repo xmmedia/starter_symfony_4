@@ -1,0 +1,13 @@
+/* a small label, eg a status in a list or a count after a heading's title.
+   It has no colour: add the background, ring & text colours where it's used
+   (eg bg-blue-100 ring-blue-300 text-blue-700). The ring keeps its edge on a background the same colour */
+.badge {
+    @apply inline-block px-2 py-0.5 rounded-full ring-1 ring-inset ring-transparent;
+    @apply text-xs font-bold uppercase tracking-wide whitespace-nowrap;
+}
+
+/* after a heading's title: nudged up, as the middle of the line sits a little below
+   the middle of a heading's capitals */
+:is(h1, h2, h3, h4, h5, h6) > .badge {
+    @apply relative -top-0.5 ml-1 align-middle;
+}

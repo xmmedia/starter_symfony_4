@@ -1050,6 +1050,18 @@
         </div>
 
         <!-- ############################# -->
+        <!-- ######### Badges ############ -->
+        <!-- ############################# -->
+        <h2>Badges <span class="badge bg-gray-200 text-gray-700">12</span></h2>
+        <p class="flex flex-wrap gap-2">
+            <span class="badge bg-gray-200 ring-gray-300 text-gray-700">Draft</span>
+            <span class="badge bg-blue-100 ring-blue-300 text-blue-700">Info</span>
+            <span class="badge bg-red-100 ring-red-300 text-red-700">Danger</span>
+            <span class="badge bg-green-100 ring-green-300 text-green-700">Success</span>
+            <span class="badge bg-gray-100 ring-gray-300 text-gray-500">Inactive</span>
+        </p>
+
+        <!-- ############################# -->
         <!-- ####### Check Toggle ######## -->
         <!-- ############################# -->
         <h2>Check Toggle</h2>

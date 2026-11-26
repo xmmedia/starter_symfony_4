@@ -30,6 +30,7 @@
 @layer components {
     /* Common modules */
     @import "./common/alerts.css";
+    @import "./common/badges.css";
     @import "./common/content_alignment.css";
     @import "./common/content.css";
     @import "./common/headings.css";
