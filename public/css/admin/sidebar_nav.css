@@ -1,6 +1,7 @@
 .sidebar_nav-wrap {
     /* shift the menu to the left so it's hidden when the content (.content-wrap) jumps up & down on scroll */
-    @apply fixed z-10 -left-40 lg:left-0 w-40 lg:w-64 h-full bg-gray-900 fill-current text-sm lg:text-base text-white;
+    @apply fixed z-10 flex flex-col -left-40 lg:left-0 w-40 lg:w-64 h-full;
+    @apply bg-gray-900 fill-current text-sm lg:text-base text-white;
 }
 
 .sidebar_nav-visible .sidebar_nav-wrap {
@@ -13,12 +14,13 @@
 }
 
 .sidebar_nav-link {
-    @apply block w-full hover:bg-gray-800 fill-current outline-hidden ring-offset-gray-900;
+    @apply block w-full hover:bg-gray-800 outline-hidden ring-offset-gray-900;
     @apply no-underline text-gray-300 hover:text-white focus-visible:text-white hover:transition-none;
 }
 
 .sidebar_nav-nav {
-    @apply w-40 lg:w-64 pt-3 pl-0 list-none;
+    /* shrinks & scrolls when the window is too short, so it never covers the profile below */
+    @apply shrink w-40 lg:w-64 min-h-0 mb-6 pt-3 pl-0 overflow-y-auto list-none;
 }
 
 .sidebar_nav-nav li {

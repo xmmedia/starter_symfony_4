@@ -1,8 +1,10 @@
 <template>
-    <div v-if="ready">
+    <!-- clip: the content's slid right when the mobile menu's open, & a touch browser would otherwise zoom out
+         to fit it, making the menu taller than the screen -->
+    <div v-if="ready" class="overflow-x-clip">
         <nav class="sidebar_nav-wrap" role="navigation" aria-label="Main">
             <RouterLink :to="logoLinkRoute"
-                        class="flex items-center w-40 lg:w-64 h-15 py-2.5
+                        class="flex shrink-0 items-center w-40 lg:w-64 h-15 py-2.5
                                 border-b border-gray-700 rounded-none ring-offset-gray-900">
                 <!-- @todo-symfony alt -->
                 <img src="../../../images/logo.svg"
@@ -27,7 +29,7 @@
                 </template>
             </ul>
 
-            <div class="absolute bottom-0 w-40 lg:w-64 pt-2 font-extralight text-gray-300">
+            <div class="shrink-0 w-40 lg:w-64 mt-auto pt-2 font-extralight text-gray-300">
                 <div class="flex items-end justify-between px-4">
                     <div v-if="loggedIn" class="w-3/5 lg:w-2/3 mb-2 text-sm break-words">
                         <!-- @todo-symfony if admin only system -->
