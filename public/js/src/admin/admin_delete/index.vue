@@ -10,36 +10,26 @@
                 @click="open"><slot name="button-text">Delete</slot></button>
     </slot>
 
-    <AdminModal v-if="show" @opened="opened" @closed="closed">
-        <template #default="{ close }">
-            <div v-if="!deleting" class="text-center">
-                <div class="my-4">
-                    <slot>
-                        Are you sure you want to delete this {{ recordDesc }}?
-                        <br>This cannot be undone.
-                    </slot>
-                </div>
-                <slot name="additional" />
-                <div class="mt-8">
-                    <button class="button button-critical button-critical-solid"
-                            type="button"
-                            @click="deleteRecord"><slot name="button-text">Delete</slot></button>
-                    <button ref="cancel"
-                            class="form-action button-link"
-                            type="button"
-                            @click="close"><slot name="cancel-text">Cancel</slot></button>
-                </div>
-            </div>
+    <ConfirmModal v-if="show"
+                  critical
+                  :working="deleting"
+                  @confirm="deleteRecord"
+                  @closed="closed">
+        <slot>
+            Are you sure you want to delete this {{ recordDesc }}?
+            <br>This cannot be undone.
+        </slot>
 
-            <LoadingSpinner v-else class="p-12 text-center">
-                Deleting {{ recordDesc }}…
-            </LoadingSpinner>
-        </template>
-    </AdminModal>
+        <template #additional><slot name="additional" /></template>
+        <template #confirm-text><slot name="button-text">Delete</slot></template>
+        <template #cancel-text><slot name="cancel-text">Cancel</slot></template>
+        <template #working>Deleting {{ recordDesc }}…</template>
+    </ConfirmModal>
 </template>
 
 <script setup>
 import { onBeforeUnmount, ref, watch } from 'vue';
+import ConfirmModal from '@/common/confirm_modal.vue';
 
 const emit = defineEmits([ 'delete' ]);
 
@@ -65,17 +55,10 @@ defineProps({
 const show = ref(false);
 const deleting = ref(false);
 
-const cancel = ref(null);
 const link = ref(null);
 
 const open = () => {
     show.value = true;
-};
-
-const opened = () => {
-    if (!deleting.value) {
-        cancel.value.focus();
-    }
 };
 
 onBeforeUnmount(() => {
@@ -101,7 +84,6 @@ const closed = () => {
     show.value = false;
     // reset everything else
     deleting.value = false;
-    cancel.value = null;
     if (link.value) {
         link.value.focus();
     }

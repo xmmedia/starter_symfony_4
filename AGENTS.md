@@ -410,6 +410,12 @@ user's name in it, eg "Zoë" (see the bundle's AGENTS.md).
 - State stores (Pinia): `public/js/src/admin/stores/`, `public/js/src/user/stores/`
 - Validators (Vuelidate): Files ending in `.validation.js`
 - State machines (XState): `public/js/src/common/state_machines.js`
+- A check that saves when it's clicked is `common/check_toggle.vue` (`v-model:checked`, a `save` function, optional
+  `confirm` modal text, per direction). Wrap it once per use (eg a record's activate/deactivate, with its mutation &
+  confirmation) so the list & view share it
+- To ask before an action, use `common/confirm_modal.vue` (`AdminDelete` & `CheckToggle` do). Set `critical` for a
+  scary one (a delete, revoke…): a red button & Cancel focused, so Enter cancels. Focus moved by code needs
+  `focus({ focusVisible: true })`, or the ring doesn't show after a click
 
 **Admin app sections** (`public/js/src/admin/`):
 - `user/` - list, add, edit, view (requires `ROLE_ADMIN`)

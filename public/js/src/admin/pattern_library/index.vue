@@ -1050,6 +1050,57 @@
         </div>
 
         <!-- ############################# -->
+        <!-- ####### Check Toggle ######## -->
+        <!-- ############################# -->
+        <h2>Check Toggle</h2>
+        <p>
+            A check that saves when it's clicked (<code>common/check_toggle.vue</code>), with an optional confirmation.
+        </p>
+        <div class="flex flex-wrap gap-x-12 gap-y-4">
+            <CheckToggle v-model:checked="checkToggleValue"
+                         label="Toggle the example"
+                         :save="patternLibrarySave" />
+            <CheckToggle v-model:checked="checkToggleLabelValue"
+                         label="Toggle the example"
+                         :save="patternLibrarySave"
+                         checked-text="Active"
+                         unchecked-text="Inactive" />
+            <CheckToggle v-model:checked="checkToggleConfirmValue"
+                         label="Toggle the example"
+                         :save="patternLibrarySave"
+                         checked-text="Confirms when unchecked"
+                         unchecked-text="Confirms when unchecked"
+                         :confirm="(checked) => (checked ? null : 'Uncheck the example? It\'s only an example.')"
+                         confirm-button-text="Uncheck" />
+        </div>
+
+        <!-- ############################# -->
+        <!-- ####### Confirm Modal ####### -->
+        <!-- ############################# -->
+        <h2>Confirm Modal</h2>
+        <p>
+            Asks before an action (<code>common/confirm_modal.vue</code>). The confirm button is focused, or Cancel
+            for a critical (scary) one, so Enter cancels it.
+        </p>
+        <div class="flex flex-wrap gap-x-4">
+            <button type="button" class="button" @click="confirmModalOpen = 'normal'">Confirm</button>
+            <button type="button" class="button button-critical" @click="confirmModalOpen = 'critical'">
+                Critical
+            </button>
+        </div>
+
+        <ConfirmModal v-if="confirmModalOpen"
+                      :critical="'critical' === confirmModalOpen"
+                      :confirm-text="'critical' === confirmModalOpen ? 'Remove' : 'Send'"
+                      @confirm="(close) => close()"
+                      @closed="confirmModalOpen = null">
+            <template v-if="'critical' === confirmModalOpen">
+                Remove the example? It can't be put back.
+            </template>
+            <template v-else>Send the example now?</template>
+        </ConfirmModal>
+
+        <!-- ############################# -->
         <!-- ########## Modal ############ -->
         <!-- ############################# -->
         <h2>Modal</h2>
@@ -1109,6 +1160,8 @@ import FieldCheckbox from '@/common/field_checkbox.vue';
 import FieldCheckboxes from '@/common/field_checkboxes.vue';
 import PlaceSuggestions from '@/common/place_suggestions.vue';
 import RecordList from '@/common/record_list.vue';
+import CheckToggle from '@/common/check_toggle.vue';
+import ConfirmModal from '@/common/confirm_modal.vue';
 import { initPatternLibraryStates } from '@/common/pattern_library_states';
 
 useHead({
@@ -1118,6 +1171,13 @@ useHead({
 onMounted(initPatternLibraryStates);
 
 const modalOpen = ref(false);
+
+const confirmModalOpen = ref(null);
+
+const checkToggleValue = ref(true);
+const checkToggleLabelValue = ref(false);
+const checkToggleConfirmValue = ref(true);
+const patternLibrarySave = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 const buttonSections = [
     { heading: 'Buttons', class: null },
