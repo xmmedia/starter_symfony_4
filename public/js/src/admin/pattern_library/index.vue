@@ -708,6 +708,30 @@
                 </template>
             </RecordList>
 
+            <h4 class="mt-8 mb-2">RecordList with selectable rows</h4>
+            <RecordList v-model:selected="selectedRecordIds"
+                        :headings="[ 'Name', 'Client', 'Price' ]"
+                        :items="recordListActionItems"
+                        selectable
+                        item-key="id"
+                        :select-label="(item) => `Select ${item.name}`">
+                <template #selectionActions="{ selectedItems }">
+                    <button type="button" class="button-link" :disabled="0 === selectedItems.length">Renew</button>
+                    <button type="button" class="button-link" :disabled="0 === selectedItems.length">
+                        Deactivate
+                    </button>
+                </template>
+                <template #col1="{ item }">
+                    <a href="">{{ item.name }}</a>
+                </template>
+                <template #col2="{ item }">
+                    {{ item.client }}
+                </template>
+                <template #col3="{ item }">
+                    {{ item.price }}
+                </template>
+            </RecordList>
+
             <h4 class="mt-8 mb-2">Custom table (hidden below md)</h4>
             <table class="record_list-wrap hidden md:table">
                 <thead class="record_list-headers">
@@ -1199,6 +1223,7 @@ const recordListItems = [
 
 const recordListActionItems = [
     {
+        id: 1,
         name: 'Form Builder',
         expiryDate: '2026-10-26',
         renewed: false,
@@ -1208,6 +1233,7 @@ const recordListActionItems = [
         active: true,
     },
     {
+        id: 2,
         name: 'SEO Toolkit',
         expiryDate: '2026-12-05',
         renewed: false,
@@ -1217,6 +1243,7 @@ const recordListActionItems = [
         active: true,
     },
     {
+        id: 3,
         name: 'Shipping Rates Plugin',
         expiryDate: '2027-11-03',
         renewed: true,
@@ -1226,6 +1253,7 @@ const recordListActionItems = [
         active: true,
     },
     {
+        id: 4,
         name: 'Shipping Rates Plugin',
         expiryDate: '2028-02-11',
         renewed: true,
@@ -1235,4 +1263,5 @@ const recordListActionItems = [
         active: false,
     },
 ];
+const selectedRecordIds = ref([ 2 ]);
 </script>

@@ -29,6 +29,22 @@
     }
 }
 
+/* ticked (selectable lists): the bar keeps it distinct from the hover, which still shows under the mouse.
+   On desktop the bar's on the first cell, as Safari doesn't draw a table row's box-shadow */
+.record_list-item-selected {
+    @apply bg-blue-50;
+    --ring-offset-color: var(--color-blue-50);
+    box-shadow: inset 4px 0 0 var(--color-blue-500);
+
+    @variant md {
+        box-shadow: none;
+
+        > :first-child {
+            box-shadow: inset 4px 0 0 var(--color-blue-500);
+        }
+    }
+}
+
 .record_list-headers {
     @apply items-center bg-gray-300 border-none font-bold text-left;
 }
