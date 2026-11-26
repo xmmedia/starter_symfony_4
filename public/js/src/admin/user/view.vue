@@ -110,9 +110,9 @@
                         :active="user.active"
                         :verified="user.verified"
                         @verified="user.verified = true" />
-                <SendActivation v-if="user.active && !user.verified" :user-id="userId" />
-                <SendLoginLink v-if="user.active && user.verified" :user-id="userId" />
-                <SendReset v-if="user.active" :user-id="userId" />
+                <SendActivation v-if="canEdit && user.active && !user.verified" :user-id="userId" />
+                <SendLoginLink v-if="canEdit && user.active && user.verified" :user-id="userId" />
+                <SendReset v-if="canEdit && user.active" :user-id="userId" />
                 <Impersonate v-if="user.active && user.verified
                                  && !isImpersonating
                                  && rootStore.hasRole('ROLE_SUPER_ADMIN')

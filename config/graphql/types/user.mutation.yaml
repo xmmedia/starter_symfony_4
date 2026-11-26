@@ -92,7 +92,7 @@ UserMutation:
             AdminUserSendReset:
                 type:        AdminUserMutationPayload!
                 description: 'Send User a password reset link.'
-                access:      '@=hasRole("ROLE_ADMIN")'
+                access:      '@=service("App\\GraphQl\\Access\\AdminUserAccess").allowed(args["userId"])'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserSendResetToUserMutation", args["userId"])'
                 args:
                     userId: UserId!
@@ -100,7 +100,7 @@ UserMutation:
             AdminUserSendActivation:
                 type:        AdminUserMutationPayload!
                 description: 'Send User a their activation link.'
-                access:      '@=hasRole("ROLE_ADMIN")'
+                access:      '@=service("App\\GraphQl\\Access\\AdminUserAccess").allowed(args["userId"])'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserSendActivationToUserMutation", args["userId"])'
                 args:
                     userId: UserId!
@@ -108,7 +108,7 @@ UserMutation:
             AdminUserSendLoginLink:
                 type:        AdminUserLoginLinkMutationPayload!
                 description: 'Send a magic login link to a user.'
-                access:      '@=hasRole("ROLE_ADMIN")'
+                access:      '@=service("App\\GraphQl\\Access\\AdminUserAccess").allowed(args["userId"])'
                 resolve:     '@=mutation("App\\GraphQl\\Mutation\\User\\AdminUserSendLoginLinkMutation", args["userId"])'
                 args:
                     userId: UserId!
