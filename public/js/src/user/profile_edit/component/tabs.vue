@@ -26,6 +26,6 @@ const linkActiveClass = (linkRoute) => ({
     // other link
     'bg-blue-100 hover:bg-blue-200': route.name !== linkRoute,
     // current link
-    'bg-blue-600 text-white hover:text-white cursor-default': route.name === linkRoute,
+    'bg-blue-600 text-white cursor-default': route.name === linkRoute,
 });
 </script>
