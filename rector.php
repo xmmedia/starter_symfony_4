@@ -12,8 +12,6 @@ return RectorConfig::configure()
         codeQuality: true,
         codingStyle: true,
         typeDeclarations: true,
-        if: true,
-        earlyReturn: true,
         carbon: true,
         phpunitMockToStub: true,
         doctrineCodeQuality: true,
@@ -48,7 +46,6 @@ return RectorConfig::configure()
         // we may not want the property to have a default value
         Rector\Php74\Rector\Property\RestoreDefaultNullToNullableTypePropertyRector::class,
         // from set "codingStyle"
-        Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector::class,
         Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector::class,
         Rector\CodingStyle\Rector\Assign\SplitDoubleAssignRector::class,
         Rector\CodingStyle\Rector\String_\SimplifyQuoteEscapeRector::class,
