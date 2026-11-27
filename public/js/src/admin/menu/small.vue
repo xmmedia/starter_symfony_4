@@ -1,5 +1,5 @@
 <template>
-    <button class="button-link header-menu_button" @click.stop="toggleMenu">Menu</button>
+    <button type="button" class="button-link header-menu_button" @click.stop="toggleMenu">Menu</button>
 </template>
 
 <script setup>
