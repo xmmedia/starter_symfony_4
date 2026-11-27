@@ -115,12 +115,12 @@ export const beforeEach = function (loginUrl, useRootStore, integrityHashKey) {
                 return false;
             }
 
-            // find the first matched route that has a role
-            const routeWithRole = to.matched.find((record) => !!record.meta?.role);
+            // every matched route's role, so a section's page can need more than the section (eg its edit page)
+            const roles = to.matched.map((record) => record.meta?.role).filter(Boolean);
 
             // this route requires auth, therefore check if they have the right role
             // keeps the URL they went to, rather than showing the 403 page at /
-            if (!routeWithRole || !rootStore.hasRole(routeWithRole.meta.role)) {
+            if (!roles.length || !roles.every((role) => rootStore.hasRole(role))) {
                 return {
                     name: '403',
                     // to.path is encoded & the router encodes params again
