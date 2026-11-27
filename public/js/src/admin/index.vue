@@ -4,13 +4,12 @@
     <div v-if="ready" class="overflow-x-clip">
         <nav class="sidebar_nav-wrap" role="navigation" aria-label="Main">
             <RouterLink :to="logoLinkRoute"
-                        class="flex shrink-0 items-center w-40 lg:w-64 h-15 py-2.5
+                        class="flex shrink-0 items-center w-40 lg:w-64 h-15 px-4 py-2.5
                                 border-b border-gray-700 rounded-none ring-offset-gray-900">
                 <!-- @todo-symfony alt -->
                 <img src="../../../images/logo.svg"
-                     width="70"
-                     height="70"
-                     class="h-10"
+                     width="39"
+                     height="40"
                      fetchpriority="high"
                      alt="Logo">
             </RouterLink>
@@ -64,9 +63,9 @@
             <RouterLink :to="logoLinkRoute" class="ml-auto rounded-none ring-offset-gray-900">
                 <!-- @todo-symfony alt -->
                 <img src="../../../images/logo.svg"
-                     width="70"
-                     height="70"
-                     class="h-10 -mt-4 mr-4"
+                     width="39"
+                     height="40"
+                     class="-mt-4 mr-4"
                      fetchpriority="high"
                      alt="Logo">
             </RouterLink>

@@ -10,7 +10,7 @@
             <!-- @todo-symfony -->
             <img src="../../../images/logo.svg"
                  width="200"
-                 height="84"
+                 height="206"
                  loading="lazy"
                  decoding="async"
                  alt="Logo">
