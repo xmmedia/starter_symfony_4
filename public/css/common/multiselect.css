@@ -115,8 +115,13 @@
 }
 
 .multiselect--disabled {
-    @apply opacity-50 bg-transparent;
+    /* the library turns pointer events off, so there's no cursor: it ignores clicks while it's disabled anyway */
+    @apply pointer-events-auto opacity-70 bg-transparent cursor-not-allowed;
 }
 .multiselect--disabled .multiselect__select {
     @apply bg-transparent;
+}
+/* its arrow & tags set their own pointer */
+.multiselect--disabled * {
+    @apply cursor-not-allowed;
 }
