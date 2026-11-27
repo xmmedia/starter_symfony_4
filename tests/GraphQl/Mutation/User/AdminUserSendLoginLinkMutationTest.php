@@ -48,10 +48,10 @@ class AdminUserSendLoginLinkMutationTest extends BaseTestCase
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $result = (new AdminUserSendLoginLinkMutation(
+        $result = new AdminUserSendLoginLinkMutation(
             $commandBus,
             $userFinder,
-        ))($userId);
+        )($userId);
 
         $this->assertEquals(['success' => true, 'user' => $user], $result);
     }
@@ -71,10 +71,10 @@ class AdminUserSendLoginLinkMutationTest extends BaseTestCase
 
         $this->expectException(UserError::class);
 
-        (new AdminUserSendLoginLinkMutation(
+        new AdminUserSendLoginLinkMutation(
             $commandBus,
             $userFinder,
-        ))($userId);
+        )($userId);
     }
 
     public function testUserNotActive(): void
@@ -97,10 +97,10 @@ class AdminUserSendLoginLinkMutationTest extends BaseTestCase
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $result = (new AdminUserSendLoginLinkMutation(
+        $result = new AdminUserSendLoginLinkMutation(
             $commandBus,
             $userFinder,
-        ))($userId);
+        )($userId);
 
         $this->assertEquals(['success' => false, 'user' => null], $result);
     }

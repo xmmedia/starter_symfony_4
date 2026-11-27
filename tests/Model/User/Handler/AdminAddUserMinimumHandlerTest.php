@@ -43,6 +43,6 @@ class AdminAddUserMinimumHandlerTest extends BaseTestCase
         $checksUniqueUsersEmail->shouldReceive('__invoke')
             ->andReturnNull();
 
-        (new AdminAddUserMinimumHandler($repo, $checksUniqueUsersEmail))($command);
+        new AdminAddUserMinimumHandler($repo, $checksUniqueUsersEmail)($command);
     }
 }

@@ -34,7 +34,7 @@ class ChangePasswordHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(User::class));
 
-        (new ChangePasswordHandler($repo))($command);
+        new ChangePasswordHandler($repo)($command);
     }
 
     public function testNonUnique(): void
@@ -52,6 +52,6 @@ class ChangePasswordHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new ChangePasswordHandler($repo))($command);
+        new ChangePasswordHandler($repo)($command);
     }
 }

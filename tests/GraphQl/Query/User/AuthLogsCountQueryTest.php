@@ -23,7 +23,7 @@ class AuthLogsCountQueryTest extends BaseTestCase
             ->with($user)
             ->andReturn($count);
 
-        $result = (new AuthLogsCountQuery($authLogFinder))($user);
+        $result = new AuthLogsCountQuery($authLogFinder)($user);
 
         $this->assertSame($count, $result);
     }

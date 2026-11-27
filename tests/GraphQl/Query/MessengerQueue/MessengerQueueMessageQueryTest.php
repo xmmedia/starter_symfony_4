@@ -23,7 +23,7 @@ class MessengerQueueMessageQueryTest extends BaseTestCase
             ->with($id)
             ->andReturn($row);
 
-        $result = (new MessengerQueueMessageQuery($finder))($id);
+        $result = new MessengerQueueMessageQuery($finder)($id);
 
         $this->assertEquals($row, $result);
     }
@@ -40,7 +40,7 @@ class MessengerQueueMessageQueryTest extends BaseTestCase
             ->with($id)
             ->andReturnNull();
 
-        $result = (new MessengerQueueMessageQuery($finder))($id);
+        $result = new MessengerQueueMessageQuery($finder)($id);
 
         $this->assertNull($result);
     }

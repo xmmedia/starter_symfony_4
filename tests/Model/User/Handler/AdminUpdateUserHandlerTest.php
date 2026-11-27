@@ -52,7 +52,7 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
         $checksUniqueUsersEmail->shouldReceive('__invoke')
             ->andReturnNull();
 
-        (new AdminUpdateUserHandler($repo, $checksUniqueUsersEmail))($command);
+        new AdminUpdateUserHandler($repo, $checksUniqueUsersEmail)($command);
     }
 
     public function testNotFound(): void
@@ -86,6 +86,6 @@ class AdminUpdateUserHandlerTest extends BaseTestCase
         $checksUniqueUsersEmail->shouldReceive('__invoke')
             ->andReturnNull();
 
-        (new AdminUpdateUserHandler($repo, $checksUniqueUsersEmail))($command);
+        new AdminUpdateUserHandler($repo, $checksUniqueUsersEmail)($command);
     }
 }

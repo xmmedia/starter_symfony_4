@@ -34,7 +34,7 @@ class AdminChangePasswordHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(User::class));
 
-        (new AdminChangePasswordHandler($repo))($command);
+        new AdminChangePasswordHandler($repo)($command);
     }
 
     public function testNonUnique(): void
@@ -52,6 +52,6 @@ class AdminChangePasswordHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new AdminChangePasswordHandler($repo))($command);
+        new AdminChangePasswordHandler($repo)($command);
     }
 }

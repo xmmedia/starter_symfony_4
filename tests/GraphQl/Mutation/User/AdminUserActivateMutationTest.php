@@ -34,9 +34,9 @@ class AdminUserActivateMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $result = (new AdminUserActivateMutation(
+        $result = new AdminUserActivateMutation(
             $commandBus,
-        ))($args);
+        )($args);
 
         $expected = [
             'userId' => $data['userId'],
@@ -64,9 +64,9 @@ class AdminUserActivateMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $result = (new AdminUserActivateMutation(
+        $result = new AdminUserActivateMutation(
             $commandBus,
-        ))($args);
+        )($args);
 
         $expected = [
             'userId' => $data['userId'],
@@ -92,8 +92,8 @@ class AdminUserActivateMutationTest extends BaseTestCase
 
         $this->expectException(UserError::class);
 
-        (new AdminUserActivateMutation(
+        new AdminUserActivateMutation(
             $commandBus,
-        ))($args);
+        )($args);
     }
 }

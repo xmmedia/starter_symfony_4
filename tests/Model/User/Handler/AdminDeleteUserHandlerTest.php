@@ -32,7 +32,7 @@ class AdminDeleteUserHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(User::class));
 
-        (new AdminDeleteUserHandler($repo))($command);
+        new AdminDeleteUserHandler($repo)($command);
     }
 
     public function testUserNotFound(): void
@@ -48,6 +48,6 @@ class AdminDeleteUserHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new AdminDeleteUserHandler($repo))($command);
+        new AdminDeleteUserHandler($repo)($command);
     }
 }

@@ -30,6 +30,6 @@ class UserRoleQueryTest extends BaseTestCase
             ->once()
             ->andReturn($userRoles);
 
-        (new UserRoleQuery($roleHierarchy))($user);
+        new UserRoleQuery($roleHierarchy)($user);
     }
 }

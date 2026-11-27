@@ -32,7 +32,7 @@ class VerifyUserByAdminHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(User::class));
 
-        (new VerifyUserByAdminHandler($repo))($command);
+        new VerifyUserByAdminHandler($repo)($command);
     }
 
     public function testUserNotFound(): void
@@ -48,6 +48,6 @@ class VerifyUserByAdminHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new VerifyUserByAdminHandler($repo))($command);
+        new VerifyUserByAdminHandler($repo)($command);
     }
 }

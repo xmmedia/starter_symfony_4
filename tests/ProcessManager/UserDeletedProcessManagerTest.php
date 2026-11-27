@@ -22,6 +22,6 @@ class UserDeletedProcessManagerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::on(static fn ($id): bool => $id->sameValueAs($userId)));
 
-        (new UserDeletedProcessManager($passwordStore))(UserWasDeletedByAdmin::now($userId));
+        new UserDeletedProcessManager($passwordStore)(UserWasDeletedByAdmin::now($userId));
     }
 }

@@ -26,7 +26,7 @@ class PasswordHasherTest extends BaseTestCase
             })
             ->andReturn('hashed-password');
 
-        (new PasswordHasher($passwordHasher))($role, $faker->password());
+        new PasswordHasher($passwordHasher)($role, $faker->password());
     }
 
     public static function roleProvider(): \Generator

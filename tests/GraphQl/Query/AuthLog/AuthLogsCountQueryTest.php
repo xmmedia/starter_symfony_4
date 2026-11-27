@@ -19,7 +19,7 @@ class AuthLogsCountQueryTest extends BaseTestCase
             ->once()
             ->andReturn($count);
 
-        $result = (new AuthLogsCountQuery($authLogFinder))([]);
+        $result = new AuthLogsCountQuery($authLogFinder)([]);
 
         $this->assertSame($count, $result);
     }

@@ -30,10 +30,10 @@ class UserPasswordValidQueryTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserPasswordValidQuery(
+        $result = new UserPasswordValidQuery(
             $userPasswordHasher,
             $security,
-        ))(
+        )(
             $password
         );
 
@@ -58,10 +58,10 @@ class UserPasswordValidQueryTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserPasswordValidQuery(
+        $result = new UserPasswordValidQuery(
             $userPasswordHasher,
             $security,
-        ))(
+        )(
             $password
         );
 
@@ -81,10 +81,10 @@ class UserPasswordValidQueryTest extends BaseTestCase
 
         $this->expectException(\RuntimeException::class);
 
-        (new UserPasswordValidQuery(
+        new UserPasswordValidQuery(
             $userPasswordHasher,
             $security,
-        ))(
+        )(
             $faker->password()
         );
     }

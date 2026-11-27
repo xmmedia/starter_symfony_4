@@ -45,6 +45,6 @@ class AdminAddUserHandlerTest extends BaseTestCase
         $checksUniqueUsersEmail->shouldReceive('__invoke')
             ->andReturnNull();
 
-        (new AdminAddUserHandler($repo, $checksUniqueUsersEmail))($command);
+        new AdminAddUserHandler($repo, $checksUniqueUsersEmail)($command);
     }
 }

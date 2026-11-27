@@ -81,7 +81,7 @@ class UserPasswordMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $result = (new UserPasswordMutation(
+        $result = new UserPasswordMutation(
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
@@ -89,7 +89,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -121,7 +121,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        (new UserPasswordMutation(
+        new UserPasswordMutation(
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
@@ -129,7 +129,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testInvalidCurrentPassword(): void
@@ -160,7 +160,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        (new UserPasswordMutation(
+        new UserPasswordMutation(
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
@@ -168,7 +168,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     #[DataProvider('emptyProvider')]
@@ -200,7 +200,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserPasswordMutation(
+        new UserPasswordMutation(
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
@@ -208,7 +208,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testInvalidNewTooShort(): void
@@ -239,13 +239,13 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserPasswordMutation(
+        new UserPasswordMutation(
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
             $passwordStore,
             $security,
-        ))($args);
+        )($args);
     }
 
     public function testInvalidNewTooLong(): void
@@ -276,7 +276,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserPasswordMutation(
+        new UserPasswordMutation(
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
@@ -284,7 +284,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testInvalidNotComplex(): void
@@ -315,7 +315,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserPasswordMutation(
+        new UserPasswordMutation(
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
@@ -323,7 +323,7 @@ class UserPasswordMutationTest extends BaseTestCase
             $security,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testInvalidCompromised(): void
@@ -359,7 +359,7 @@ class UserPasswordMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserPasswordMutation(
+        new UserPasswordMutation(
             $commandBus,
             $userPasswordHasher,
             $passwordHasher,
@@ -367,6 +367,6 @@ class UserPasswordMutationTest extends BaseTestCase
             $security,
             new PasswordStrengthFake(),
             $pwnedHttpClient,
-        ))($args);
+        )($args);
     }
 }

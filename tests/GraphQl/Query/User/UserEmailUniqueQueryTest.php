@@ -39,7 +39,7 @@ class UserEmailUniqueQueryTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserEmailUniqueQuery($userFinder, $security, true))(
+        $result = new UserEmailUniqueQuery($userFinder, $security, true)(
             $faker->email()
         );
 
@@ -71,7 +71,7 @@ class UserEmailUniqueQueryTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserEmailUniqueQuery($userFinder, $security, true))(
+        $result = new UserEmailUniqueQuery($userFinder, $security, true)(
             $faker->email()
         );
 
@@ -95,7 +95,7 @@ class UserEmailUniqueQueryTest extends BaseTestCase
             ->once()
             ->andReturn($currentUser);
 
-        $result = (new UserEmailUniqueQuery($userFinder, $security, true))(
+        $result = new UserEmailUniqueQuery($userFinder, $security, true)(
             $faker->email()
         );
 
@@ -117,7 +117,7 @@ class UserEmailUniqueQueryTest extends BaseTestCase
             ->once()
             ->andReturnNull();
 
-        $result = (new UserEmailUniqueQuery($userFinder, $security, true))($faker->email());
+        $result = new UserEmailUniqueQuery($userFinder, $security, true)($faker->email());
 
         $this->assertEquals(['unique' => true], $result);
     }
@@ -137,7 +137,7 @@ class UserEmailUniqueQueryTest extends BaseTestCase
             ->once()
             ->andReturnNull();
 
-        $result = (new UserEmailUniqueQuery($userFinder, $security, true))($faker->email());
+        $result = new UserEmailUniqueQuery($userFinder, $security, true)($faker->email());
 
         $this->assertEquals(['unique' => false], $result);
     }

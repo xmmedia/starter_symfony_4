@@ -35,7 +35,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
             $faker->userData(),
         );
 
-        (new UserInviteProcessManager($commandBus))($event);
+        new UserInviteProcessManager($commandBus)($event);
     }
 
     public function testDontSend(): void
@@ -56,7 +56,7 @@ class UserInviteProcessManagerTest extends BaseTestCase
             $faker->userData(),
         );
 
-        (new UserInviteProcessManager($commandBus))($event);
+        new UserInviteProcessManager($commandBus)($event);
     }
 
     public function testDontSendWhenInactive(): void
@@ -77,6 +77,6 @@ class UserInviteProcessManagerTest extends BaseTestCase
             $faker->userData(),
         );
 
-        (new UserInviteProcessManager($commandBus))($event);
+        new UserInviteProcessManager($commandBus)($event);
     }
 }

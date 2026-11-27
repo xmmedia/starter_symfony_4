@@ -23,7 +23,7 @@ class AdminUserVerifyMutationTest extends BaseTestCase
             ->with(\Mockery::type(VerifyUserByAdmin::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $result = (new AdminUserVerifyMutation($commandBus))($userId);
+        $result = new AdminUserVerifyMutation($commandBus)($userId);
 
         $expected = [
             'userId' => $userId,

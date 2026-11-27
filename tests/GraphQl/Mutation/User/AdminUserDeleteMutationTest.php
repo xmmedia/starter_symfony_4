@@ -23,7 +23,7 @@ class AdminUserDeleteMutationTest extends BaseTestCase
             ->with(\Mockery::type(AdminDeleteUser::class))
             ->andReturn(new Envelope(new \stdClass()));
 
-        $result = (new AdminUserDeleteMutation($commandBus))($userId);
+        $result = new AdminUserDeleteMutation($commandBus)($userId);
 
         $this->assertEquals(['success' => true], $result);
     }

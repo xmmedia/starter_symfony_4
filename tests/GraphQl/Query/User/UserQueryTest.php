@@ -25,7 +25,7 @@ class UserQueryTest extends BaseTestCase
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $result = (new UserQuery($userFinder))($userId);
+        $result = new UserQuery($userFinder)($userId);
 
         $this->assertEquals($user, $result);
     }
@@ -42,7 +42,7 @@ class UserQueryTest extends BaseTestCase
             ->with(\Mockery::type(UserId::class))
             ->andReturnNull();
 
-        $result = (new UserQuery($userFinder))($userId);
+        $result = new UserQuery($userFinder)($userId);
 
         $this->assertNull($result);
     }

@@ -50,14 +50,14 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $result = (new AdminUserUpdateMutation(
+        $result = new AdminUserUpdateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
             $this->roleAssignment(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
 
         $expected = [
             'userId' => $data['userId'],
@@ -104,14 +104,14 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $result = (new AdminUserUpdateMutation(
+        $result = new AdminUserUpdateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
             $this->roleAssignment(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args
         );
 
@@ -142,14 +142,14 @@ class AdminUserUpdateMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new AdminUserUpdateMutation(
+        new AdminUserUpdateMutation(
             \Mockery::mock(MessageBusInterface::class),
             \Mockery::mock(PasswordHasher::class),
             \Mockery::mock(UserPasswordStore::class),
             $this->roleAssignment(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args
         );
     }
@@ -180,14 +180,14 @@ class AdminUserUpdateMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $result = (new AdminUserUpdateMutation(
+        $result = new AdminUserUpdateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
             $this->roleAssignment(),
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
 
         $expected = [
             'userId' => $data['userId'],
@@ -218,14 +218,14 @@ class AdminUserUpdateMutationTest extends BaseTestCase
 
         $this->expectException(UserError::class);
 
-        (new AdminUserUpdateMutation(
+        new AdminUserUpdateMutation(
             \Mockery::mock(MessageBusInterface::class),
             \Mockery::mock(PasswordHasher::class),
             \Mockery::mock(UserPasswordStore::class),
             $roleAssignment,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     private function roleAssignment(): RoleAssignment

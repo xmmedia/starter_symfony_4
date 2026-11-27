@@ -34,7 +34,7 @@ class UpgradePasswordHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(User::class));
 
-        (new UpgradePasswordHandler($repo))($command);
+        new UpgradePasswordHandler($repo)($command);
     }
 
     public function testNotFound(): void
@@ -52,6 +52,6 @@ class UpgradePasswordHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new UpgradePasswordHandler($repo))($command);
+        new UpgradePasswordHandler($repo)($command);
     }
 }

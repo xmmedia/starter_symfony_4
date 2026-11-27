@@ -49,10 +49,10 @@ class AdminUserSendActivationToUserMutationTest extends BaseTestCase
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $result = (new AdminUserSendActivationToUserMutation(
+        $result = new AdminUserSendActivationToUserMutation(
             $commandBus,
             $userFinder,
-        ))($userId);
+        )($userId);
 
         $this->assertEquals(['userId' => $userId], $result);
     }
@@ -72,9 +72,9 @@ class AdminUserSendActivationToUserMutationTest extends BaseTestCase
 
         $this->expectException(UserError::class);
 
-        (new AdminUserSendActivationToUserMutation(
+        new AdminUserSendActivationToUserMutation(
             $commandBus,
             $userFinder,
-        ))($userId);
+        )($userId);
     }
 }

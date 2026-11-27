@@ -19,7 +19,7 @@ class MessengerQueueMessagesQueryTest extends BaseTestCase
             ->once()
             ->andReturn([$row]);
 
-        $result = (new MessengerQueueMessagesQuery($finder))([]);
+        $result = new MessengerQueueMessagesQuery($finder)([]);
 
         $this->assertEquals([$row], $result);
     }
@@ -31,7 +31,7 @@ class MessengerQueueMessagesQueryTest extends BaseTestCase
             ->once()
             ->andReturn([]);
 
-        $result = (new MessengerQueueMessagesQuery($finder))([]);
+        $result = new MessengerQueueMessagesQuery($finder)([]);
 
         $this->assertEquals([], $result);
     }

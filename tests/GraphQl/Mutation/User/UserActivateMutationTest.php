@@ -76,7 +76,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $result = (new UserActivateMutation(
+        $result = new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -85,7 +85,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args,
         );
 
@@ -130,7 +130,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(\RuntimeException::class);
 
-        (new UserActivateMutation(
+        new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -139,7 +139,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args,
         );
     }
@@ -162,7 +162,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(UserError::class);
 
-        $result = (new UserActivateMutation(
+        $result = new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -171,7 +171,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args,
         );
 
@@ -203,7 +203,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(UserError::class);
 
-        $result = (new UserActivateMutation(
+        $result = new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -212,7 +212,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args,
         );
 
@@ -249,7 +249,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(LinkExpiredError::class);
 
-        $result = (new UserActivateMutation(
+        $result = new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -258,7 +258,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args,
         );
 
@@ -295,7 +295,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(NotFoundError::class);
 
-        $result = (new UserActivateMutation(
+        $result = new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -304,7 +304,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args,
         );
 
@@ -337,7 +337,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserActivateMutation(
+        new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -346,7 +346,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args,
         );
     }
@@ -376,7 +376,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserActivateMutation(
+        new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -385,7 +385,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args,
         );
     }
@@ -415,7 +415,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserActivateMutation(
+        new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -423,7 +423,7 @@ class UserActivateMutationTest extends BaseTestCase
             $security,
             $requestProvider,
             new PasswordStrengthFake(),
-        ))(
+        )(
             $args,
         );
     }
@@ -458,7 +458,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserActivateMutation(
+        new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -467,7 +467,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $pwnedHttpClient,
-        ))(
+        )(
             $args,
         );
     }
@@ -497,7 +497,7 @@ class UserActivateMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserActivateMutation(
+        new UserActivateMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -506,7 +506,7 @@ class UserActivateMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))(
+        )(
             $args,
         );
     }

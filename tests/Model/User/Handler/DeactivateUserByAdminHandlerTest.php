@@ -32,7 +32,7 @@ class DeactivateUserByAdminHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(User::class));
 
-        (new DeactivateUserByAdminHandler($repo))($command);
+        new DeactivateUserByAdminHandler($repo)($command);
     }
 
     public function testUserNotFound(): void
@@ -48,6 +48,6 @@ class DeactivateUserByAdminHandlerTest extends BaseTestCase
 
         $this->expectException(UserNotFound::class);
 
-        (new DeactivateUserByAdminHandler($repo))($command);
+        new DeactivateUserByAdminHandler($repo)($command);
     }
 }

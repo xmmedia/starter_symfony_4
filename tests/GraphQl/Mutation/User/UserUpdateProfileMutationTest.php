@@ -45,7 +45,7 @@ class UserUpdateProfileMutationTest extends BaseTestCase
             'user' => $data,
         ]);
 
-        $result = (new UserUpdateProfileMutation($commandBus, $security))($args);
+        $result = new UserUpdateProfileMutation($commandBus, $security)($args);
 
         $this->assertEquals(['success' => true], $result);
     }

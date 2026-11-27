@@ -40,7 +40,7 @@ class UserStartedImpersonatingHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(Auth::class));
 
-        (new UserStartedImpersonatingHandler($repo))($command);
+        new UserStartedImpersonatingHandler($repo)($command);
     }
 
     public function testNullUserAgent(): void
@@ -69,6 +69,6 @@ class UserStartedImpersonatingHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(Auth::class));
 
-        (new UserStartedImpersonatingHandler($repo))($command);
+        new UserStartedImpersonatingHandler($repo)($command);
     }
 }

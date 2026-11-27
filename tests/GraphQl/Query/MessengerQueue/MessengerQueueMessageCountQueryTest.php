@@ -19,7 +19,7 @@ class MessengerQueueMessageCountQueryTest extends BaseTestCase
             ->once()
             ->andReturn($count);
 
-        $result = (new MessengerQueueMessageCountQuery($finder))([]);
+        $result = new MessengerQueueMessageCountQuery($finder)([]);
 
         $this->assertSame($count, $result);
     }

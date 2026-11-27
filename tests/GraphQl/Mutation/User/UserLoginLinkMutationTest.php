@@ -54,12 +54,12 @@ class UserLoginLinkMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $result = (new UserLoginLinkMutation(
+        $result = new UserLoginLinkMutation(
             $commandBus,
             $userFinder,
             $security,
             true,
-        ))(
+        )(
             $args,
         );
 
@@ -81,12 +81,12 @@ class UserLoginLinkMutationTest extends BaseTestCase
 
         $this->expectException(UserError::class);
 
-        $result = (new UserLoginLinkMutation(
+        $result = new UserLoginLinkMutation(
             $commandBus,
             $userFinder,
             $security,
             true,
-        ))(
+        )(
             $args,
         );
 
@@ -118,12 +118,12 @@ class UserLoginLinkMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $result = (new UserLoginLinkMutation(
+        $result = new UserLoginLinkMutation(
             $commandBus,
             $userFinder,
             $security,
             true,
-        ))(
+        )(
             $args,
         );
 

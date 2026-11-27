@@ -19,7 +19,7 @@ class UserCountQueryTest extends BaseTestCase
             ->once()
             ->andReturn($count);
 
-        $result = (new UserCountQuery($userFinder))([]);
+        $result = new UserCountQuery($userFinder)([]);
 
         $this->assertSame($count, $result);
     }

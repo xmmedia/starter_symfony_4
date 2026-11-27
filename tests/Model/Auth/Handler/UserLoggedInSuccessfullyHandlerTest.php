@@ -37,7 +37,7 @@ class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(Auth::class));
 
-        (new UserLoggedInSuccessfullyHandler($repo))($command);
+        new UserLoggedInSuccessfullyHandler($repo)($command);
     }
 
     public function testNulls(): void
@@ -64,6 +64,6 @@ class UserLoggedInSuccessfullyHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(Auth::class));
 
-        (new UserLoggedInSuccessfullyHandler($repo))($command);
+        new UserLoggedInSuccessfullyHandler($repo)($command);
     }
 }

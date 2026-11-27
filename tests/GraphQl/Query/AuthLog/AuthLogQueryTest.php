@@ -23,7 +23,7 @@ class AuthLogQueryTest extends BaseTestCase
             ->with(\Mockery::type(AuthLogId::class))
             ->andReturn($authLog);
 
-        $result = (new AuthLogQuery($authLogFinder))($authLogId);
+        $result = new AuthLogQuery($authLogFinder)($authLogId);
 
         $this->assertEquals($authLog, $result);
     }
@@ -38,7 +38,7 @@ class AuthLogQueryTest extends BaseTestCase
             ->with(\Mockery::type(AuthLogId::class))
             ->andReturnNull();
 
-        $result = (new AuthLogQuery($authLogFinder))($authLogId);
+        $result = new AuthLogQuery($authLogFinder)($authLogId);
 
         $this->assertNull($result);
     }

@@ -36,7 +36,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $this->expectException(NotFoundError::class);
 
-        (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
+        new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true)($args);
     }
 
     public function testValid(): void
@@ -73,7 +73,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
+        $result = new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true)($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -114,7 +114,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $this->expectException(TooManyRequestsError::class);
 
-        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
+        $result = new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true)($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -159,7 +159,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $result = (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
+        $result = new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true)($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -190,7 +190,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $this->expectException(NotFoundError::class);
 
-        (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
+        new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true)($args);
     }
 
     public function testUserNotFound(): void
@@ -214,7 +214,7 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $this->expectException(NotFoundError::class);
 
-        (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
+        new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true)($args);
     }
 
     public function testInvalidEmail(): void
@@ -234,6 +234,6 @@ class UserRecoverInitiateMutationTest extends BaseTestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        (new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true))($args);
+        new UserRecoverInitiateMutation($commandBus, $userFinder, $security, true)($args);
     }
 }

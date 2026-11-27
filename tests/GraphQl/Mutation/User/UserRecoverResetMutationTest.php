@@ -84,7 +84,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $result = (new UserRecoverResetMutation(
+        $result = new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -93,7 +93,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -141,7 +141,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(\RuntimeException::class);
 
-        (new UserRecoverResetMutation(
+        new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -150,7 +150,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testNotActive(): void
@@ -187,7 +187,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(NotFoundError::class);
 
-        (new UserRecoverResetMutation(
+        new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -196,7 +196,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testLoggedIn(): void
@@ -219,7 +219,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(NotFoundError::class);
 
-        (new UserRecoverResetMutation(
+        new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -228,7 +228,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testAlreadyVerified(): void
@@ -282,7 +282,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $args = new Argument($data);
 
-        $result = (new UserRecoverResetMutation(
+        $result = new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -291,7 +291,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -326,7 +326,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(LinkExpiredError::class);
 
-        $result = (new UserRecoverResetMutation(
+        $result = new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -335,7 +335,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -370,7 +370,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(NotFoundError::class);
 
-        $result = (new UserRecoverResetMutation(
+        $result = new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -379,7 +379,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
 
         $this->assertEquals(['success' => true], $result);
     }
@@ -413,7 +413,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserRecoverResetMutation(
+        new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -422,7 +422,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testInvalidNewTooShort(): void
@@ -453,7 +453,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserRecoverResetMutation(
+        new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -462,7 +462,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testInvalidNewTooLong(): void
@@ -493,7 +493,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserRecoverResetMutation(
+        new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -502,7 +502,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 
     public function testInvalidCompromised(): void
@@ -538,7 +538,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserRecoverResetMutation(
+        new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -547,7 +547,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $pwnedHttpClient,
-        ))($args);
+        )($args);
     }
 
     public function testInvalidNotComplex(): void
@@ -578,7 +578,7 @@ class UserRecoverResetMutationTest extends BaseTestCase
 
         $this->expectException(PasswordNotAllowedError::class);
 
-        (new UserRecoverResetMutation(
+        new UserRecoverResetMutation(
             $commandBus,
             $passwordHasher,
             $passwordStore,
@@ -587,6 +587,6 @@ class UserRecoverResetMutationTest extends BaseTestCase
             $requestProvider,
             new PasswordStrengthFake(),
             $this->getPwnedHttpClient(),
-        ))($args);
+        )($args);
     }
 }

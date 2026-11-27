@@ -44,10 +44,10 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
             ->with(\Mockery::type(UserId::class))
             ->andReturn($user);
 
-        $result = (new AdminUserSendResetToUserMutation(
+        $result = new AdminUserSendResetToUserMutation(
             $commandBus,
             $userFinder,
-        ))($userId);
+        )($userId);
 
         $this->assertEquals(['userId' => $userId], $result);
     }
@@ -79,10 +79,10 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
 
         $this->expectException(TooManyRequestsError::class);
 
-        $result = (new AdminUserSendResetToUserMutation(
+        $result = new AdminUserSendResetToUserMutation(
             $commandBus,
             $userFinder,
-        ))($userId);
+        )($userId);
 
         $this->assertEquals(['userId' => $userId], $result);
     }
@@ -102,9 +102,9 @@ class AdminUserSendResetToUserMutationTest extends BaseTestCase
 
         $this->expectException(UserError::class);
 
-        (new AdminUserSendResetToUserMutation(
+        new AdminUserSendResetToUserMutation(
             $commandBus,
             $userFinder,
-        ))($userId);
+        )($userId);
     }
 }

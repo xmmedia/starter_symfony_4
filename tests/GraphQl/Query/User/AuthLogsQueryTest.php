@@ -29,7 +29,7 @@ class AuthLogsQueryTest extends BaseTestCase
             ->with($userId, 30, 0)
             ->andReturn([$authLog]);
 
-        $result = (new AuthLogsQuery($authLogFinder))($user);
+        $result = new AuthLogsQuery($authLogFinder)($user);
 
         $this->assertEquals([$authLog], $result);
     }
@@ -52,7 +52,7 @@ class AuthLogsQueryTest extends BaseTestCase
             ->with($userId, $limit, $offset)
             ->andReturn([]);
 
-        $result = (new AuthLogsQuery($authLogFinder))($user, $offset, $limit);
+        $result = new AuthLogsQuery($authLogFinder)($user, $offset, $limit);
 
         $this->assertEquals([], $result);
     }

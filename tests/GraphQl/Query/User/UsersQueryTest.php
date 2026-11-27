@@ -20,7 +20,7 @@ class UsersQueryTest extends BaseTestCase
             ->once()
             ->andReturn([$user]);
 
-        $result = (new UsersQuery($userFinder))([]);
+        $result = new UsersQuery($userFinder)([]);
 
         $this->assertEquals([$user], $result);
     }
@@ -32,7 +32,7 @@ class UsersQueryTest extends BaseTestCase
             ->once()
             ->andReturn([]);
 
-        $result = (new UsersQuery($userFinder))([]);
+        $result = new UsersQuery($userFinder)([]);
 
         $this->assertEquals([], $result);
     }

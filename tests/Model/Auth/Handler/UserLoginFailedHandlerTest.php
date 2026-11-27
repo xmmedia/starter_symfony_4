@@ -39,7 +39,7 @@ class UserLoginFailedHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(Auth::class));
 
-        (new UserLoginFailedHandler($repo))($command);
+        new UserLoginFailedHandler($repo)($command);
     }
 
     public function testNulls(): void
@@ -65,6 +65,6 @@ class UserLoginFailedHandlerTest extends BaseTestCase
             ->once()
             ->with(\Mockery::type(Auth::class));
 
-        (new UserLoginFailedHandler($repo))($command);
+        new UserLoginFailedHandler($repo)($command);
     }
 }
